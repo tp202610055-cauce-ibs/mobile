@@ -43,3 +43,35 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+!.vscode/settings.json
+
+# Build outputs
+build/
+*.iml
+*.ipr
+*.iws
+
+# Codegen (opcional, se puede versionar según preferencia del equipo)
+# *.g.dart
+# *.freezed.dart
+
+# Secretos y credenciales
+*.pem
+*.p12
+*.jks
+*.keystore
+google-services.json
+GoogleService-Info.plist
+
+# OS
+.DS_Store
+Thumbs.db
