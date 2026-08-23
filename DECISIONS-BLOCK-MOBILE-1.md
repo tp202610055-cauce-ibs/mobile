@@ -59,4 +59,37 @@ Contexto. La app se despliega en el piloto Kaelín, EsSalud Lima Sur. Los pacien
 Decisión. flutter_localizations con archivos .arb en lib/l10n/. Locale default es_PE, fallback es. Cero strings hardcodeados en widgets. Todos los strings visibles al usuario van a arb.
 Justificación. arb es el formato estándar de Flutter para l10n. Soporta plurales, género, y variables interpoladas. La generación de código produce clases tipadas que evitan errores de keys inexistentes. Preparar la arquitectura para multi-locale desde el arranque cuesta poco y evita refactor doloroso post-piloto.
 Consecuencias. Cada string nuevo requiere agregarlo al arb correspondiente y regenerar con flutter gen-l10n. Los code reviews rechazan strings hardcodeados salvo strings puramente técnicos que nunca se muestran.
-Alternativas consideradas. i18next-flutter descartado por ser una capa adicional sin valor claro sobre arb. Solo español sin l10n descartado por generar deuda inmediata para expansión.
+Alternativas consideradas. i18next-flutter descartado por ser una capa adicional sin valor claro sobre arb. Solo español sin l10n descartado por generar deuda inmediata para expansión
+
+---
+
+Acta M9: Anulación del acta M5 (PKCE directo contra Keycloak)
+
+Estado: Aprobada Fecha: 22 de agosto de 2026 Aprobado por: Flavio Eduardo Trigueros Chumacero Aplicabilidad: Arquitectura de autenticación del cliente móvil Cauce.
+
+Contexto
+
+El acta M5 (10 de julio de 2026) estableció que el móvil autenticaría vía Authorization Code + PKCE directo contra Keycloak, usando flutter_appauth. Esa decisión se tomó antes de verificar el diseño completo del backend.
+
+La verificación posterior de contrato (documentada en docs/traceability/MATRIZ-IDENTIDAD.md y backend/docs/api/CONTRACT-IDENTITY-v1.md, ambos del 13 de julio de 2026) reveló una incompatibilidad crítica: el AuditingMiddleware del backend registra el evento de login en audit_logs únicamente cuando la petición pasa por la ruta POST /api/v1/auth/login (backend/src/Cauce.Api/Middleware/AuditingMiddleware.cs:46), y LoginCommandHandler es el único punto que actualiza users.last_login_at. Con PKCE directo contra Keycloak, el evento de acceso no llegaría al backend y audit_logs quedaría vacía en la operación de identidad más crítica.
+
+Esto contradice el registro de accesos exigido por la Ley N° 29733 de Protección de Datos Personales y por la RM 688-2020/MINSA para el manejo de historia clínica electrónica en el piloto del Complejo Hospitalario Guillermo Kaelín de la Fuente.
+
+Decisión
+
+Se anula el acta M5. El móvil autenticará contra POST /api/v1/auth/login del backend Cauce (patrón "backend passthrough"). El backend delega la validación de credenciales a Keycloak internamente vía IKeycloakTokenClient.LoginAsync (grant_type=password), pero es el backend el que expone el endpoint público, escribe la fila en audit_logs y actualiza users.last_login_at.
+
+Consecuencias
+El paquete flutter_appauth deja de ser necesario para el flujo de login. Se retira de pubspec.yaml durante el bloque Mobile-1b, salvo que se identifique otro uso.
+La capa de red del móvil (dio + interceptores) asume la responsabilidad completa de gestionar tokens: guardado en flutter_secure_storage, refresh explícito vía POST /api/v1/auth/refresh, y logout vía POST /api/v1/auth/logout.
+Los tokens siguen siendo JWT emitidos por Keycloak. Toda la validación de firma, audiencia (cauce-backend) y expiración en el backend se mantiene sin cambios.
+El móvil no llamará directamente a /protocol/openid-connect/token ni a ningún endpoint de Keycloak.
+Se solicitará el scope offline_access en el login del móvil para que el refresh token quede desacoplado del ssoSessionIdleTimeout de 30 minutos y viva 30 días. La implementación es responsabilidad del backend (endpoint POST /api/v1/auth/login y POST /api/v1/auth/refresh), no del móvil.
+Referencias
+Acta M5 (anulada): mobile/DECISIONS-BLOCK-MOBILE-1.md, sección "Acta M5".
+docs/traceability/MATRIZ-IDENTIDAD.md, sección "Decisión de arquitectura vigente".
+backend/docs/api/CONTRACT-IDENTITY-v1.md.
+backend/src/Cauce.Api/Middleware/AuditingMiddleware.cs:46.
+backend/src/Cauce.Application/Identity/UseCases/Login/LoginCommandHandler.cs:45.
+Ley N° 29733 de Protección de Datos Personales.
+RM 688-2020/MINSA sobre historia clínica electrónica.
