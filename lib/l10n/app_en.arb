@@ -1,0 +1,130 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Cauce",
+
+  "commonContinue": "Continue",
+  "commonCancel": "Cancel",
+  "commonBack": "Back",
+  "commonRetry": "Retry",
+  "commonAccept": "Accept",
+  "commonLoading": "Loading",
+
+  "splashLoading": "Preparing your session",
+
+  "loginTitle": "Sign in",
+  "loginSubtitle": "Sign in to continue with your follow-up",
+  "loginEmailLabel": "Email",
+  "loginEmailHint": "you@example.com",
+  "loginPasswordLabel": "Password",
+  "loginPasswordHint": "Your password",
+  "loginSubmit": "Sign in",
+  "loginForgotPassword": "I forgot my password",
+  "loginCreateAccount": "Create account",
+  "loginNoAccountPrompt": "Don't have an account?",
+  "loginShowPassword": "Show password",
+  "loginHidePassword": "Hide password",
+
+  "registerTitle": "Create your account",
+  "registerSubtitle": "Sign up to join the nutritional follow-up",
+  "registerFullNameLabel": "Full name",
+  "registerFullNameHint": "First and last name",
+  "registerEmailLabel": "Email",
+  "registerEmailHint": "you@example.com",
+  "registerPasswordLabel": "Password",
+  "registerPasswordHint": "At least 8 characters",
+  "registerPasswordConfirmLabel": "Confirm your password",
+  "registerInvitationCodeLabel": "Invitation code",
+  "registerInvitationCodeHint": "Optional",
+  "registerConsentSectionTitle": "Informed consent",
+  "registerConsentCheckbox": "I have read and accept the informed consent",
+  "registerConsentLoading": "Loading the current consent",
+  "registerConsentUpdated": "The consent was updated. Review the changes before continuing.",
+  "registerSubmit": "Create account",
+  "registerHasAccountPrompt": "Already have an account?",
+
+  "passwordRecoveryTitle": "Recover your password",
+  "passwordRecoverySubtitle": "We will send you a link to reset it",
+  "passwordRecoveryEmailLabel": "Email",
+  "passwordRecoverySubmit": "Send link",
+
+  "passwordRecoverySentTitle": "Check your email",
+  "passwordRecoverySentBody": "If the email exists in our system, you will receive a recovery link valid for 30 minutes.",
+  "passwordRecoverySentBackToLogin": "Back to sign in",
+
+  "passwordResetTitle": "New password",
+  "passwordResetSubtitle": "Choose a password you have not used before",
+  "passwordResetNewPasswordLabel": "New password",
+  "passwordResetConfirmLabel": "Confirm the new password",
+  "passwordResetSubmit": "Reset password",
+  "passwordResetSuccessTitle": "Password updated",
+  "passwordResetSuccessBody": "You can now sign in with your new password.",
+  "passwordResetRequestNewLink": "Request a new link",
+
+  "verifyEmailPendingTitle": "Verify your email",
+  "verifyEmailPendingBody": "We registered your account. We sent a verification email to {email}. Follow the link to activate it.",
+  "@verifyEmailPendingBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "verifyEmailPendingNoEmailHint": "If you did not receive the email, contact support.",
+  "verifyEmailPendingLogout": "Sign out",
+
+  "homeGreeting": "Hello, {fullName}",
+  "@homeGreeting": {
+    "placeholders": {
+      "fullName": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogout": "Sign out",
+
+  "validationRequired": "This field is required",
+  "validationEmailInvalid": "Enter a valid email address",
+  "validationEmailTooLong": "The email cannot exceed 150 characters",
+  "validationFullNameLength": "The name must be between 2 and 150 characters",
+  "validationPasswordTooShort": "The password must be at least 8 characters",
+  "validationPasswordWeak": "Must include an uppercase letter, a lowercase letter and a digit",
+  "validationPasswordMismatch": "The passwords do not match",
+  "validationInvitationCodeFormat": "The code must be 8 to 20 characters, letters and numbers only",
+  "validationConsentRequired": "You must accept the informed consent to continue",
+
+  "errorValidation": "Check the information you entered",
+  "errorConsentTextMismatch": "The informed consent changed. Read it again and accept it.",
+  "errorInvalidInvitationCode": "The invitation code does not exist",
+  "errorExpiredInvitationCode": "The invitation code expired",
+  "errorInvitationCodeAlreadyUsed": "The invitation code was already used",
+  "errorDuplicateEmail": "An account with this email already exists",
+  "errorKeycloakIntegration": "We could not create your account. Try again in a few minutes.",
+  "errorInvalidCredentials": "Incorrect credentials",
+  "errorAccountLocked": "Account locked after failed attempts. Try again in {minutes} minutes.",
+  "@errorAccountLocked": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "errorAccountLockedSoon": "Account locked after failed attempts. Try again in less than a minute.",
+  "errorInvalidRefreshToken": "Your session expired. Sign in again.",
+  "errorInvalidPasswordResetToken": "The recovery link is not valid",
+  "errorExpiredPasswordResetToken": "The recovery link expired or was already used",
+  "errorUserLocalMissing": "There is a problem with your account. Contact support.",
+  "errorInternalServer": "A server error occurred. Try again.",
+  "errorConsentRecordNotFound": "We could not find your registered consent",
+  "errorForbidden": "You do not have permission to perform this action",
+  "errorRateLimited": "Too many attempts. Wait {seconds} seconds.",
+  "@errorRateLimited": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "errorNetwork": "No connection. Check your internet and try again.",
+  "errorUnknown": "An unexpected error occurred. Try again."
+}
