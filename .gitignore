@@ -72,6 +72,9 @@ build/
 google-services.json
 GoogleService-Info.plist
 
+# Consideraciones de documentos
+# Ignorar documentos relacionados a herramientas como Claude, ChatGPT y Microsoft365
+
 # OS
 .DS_Store
 Thumbs.db

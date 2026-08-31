@@ -26,17 +26,23 @@ dependencies:
   dio: ^5.7.0
 
   # Auth
-  flutter_appauth: ^8.0.1
+  # flutter_appauth eliminado por acta M9: la autenticacion va por backend
+  # passthrough (POST /api/v1/auth/login), no por PKCE directo a Keycloak.
   flutter_secure_storage: ^9.2.2
 
   # Persistencia local
   drift: ^2.20.0
-  sqlite3_flutter_libs: ^0.5.24
+  # Pin exacto por acta M22: el paquete esta EOL y 0.6.0+eol es un shim vacio.
+  # Migracion a package:sqlite3 3.x diferida a Mobile-1.5 por acta M14.
+  sqlite3_flutter_libs: 0.5.42
   path_provider: ^2.1.4
   path: ^1.9.0
 
   # Routing
   go_router: ^14.2.7
+
+  # Iconografia del design system
+  flutter_tabler_icons: ^1.43.0
 
   # Utilidades
   uuid: ^4.5.0
@@ -58,6 +64,8 @@ dev_dependencies:
 
   # Testing
   mocktail: ^1.0.4
+  integration_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true
