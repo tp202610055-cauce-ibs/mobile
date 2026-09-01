@@ -70,3 +70,39 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  # flutter_dotenv lee los archivos por rootBundle, asi que tienen que estar
+  # declarados como assets aunque vivan en la raiz del proyecto.
+  #
+  # Los tres .env estan en .gitignore (R7), asi que en un clone limpio no
+  # existen y el build falla por asset ausente. El workflow de CI los
+  # materializa desde .env.example antes de analyze y test.
+  assets:
+    - .env.example
+    - .env.dev
+    - .env.staging
+    - .env.prod
+
+  # Fuentes empaquetadas, no descargadas en runtime. El diseno offline-first
+  # exige que la app renderice identico sin red, y ademas hace deterministas
+  # los golden tests (acta M18).
+  #
+  # El design system usa dos pesos principales, 400 y 500. Se declaran 600 y
+  # 700 de Inter porque el theme los usa en titulos y etiquetas de boton.
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/inter/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/inter/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/Inter-Bold.ttf
+          weight: 700
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/jetbrainsmono/JetBrainsMono-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/jetbrainsmono/JetBrainsMono-Medium.ttf
+          weight: 500
