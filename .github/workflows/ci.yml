@@ -2,7 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [develop, main]
+    # Las ramas de feature entran al trigger por acta M23: un bloque de nueve
+    # fases no puede correr a ciegas hasta el PR de cierre.
+    branches: [develop, main, 'feature/**']
   pull_request:
     branches: [develop, main]
 
@@ -21,6 +23,15 @@ jobs:
           flutter-version: '3.44.2'
           channel: 'stable'
           cache: true
+
+      - name: Materialize env files
+        # Los .env estan en .gitignore (R7) pero pubspec.yaml los declara como
+        # assets, asi que sin ellos el build falla. Para analyze y test basta
+        # con los placeholders de .env.example.
+        run: |
+          for f in .env.dev .env.staging .env.prod; do
+            cp .env.example "$f"
+          done
 
       - name: Install dependencies
         run: flutter pub get
