@@ -1,0 +1,21 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # Los DTOs anidados se serializan explicitamente. Sin esto, un
+          # objeto anidado se emite como instancia y no como Map, y
+          # jsonEncode falla en runtime en vez de en compilacion.
+          explicit_to_json: true
+          # El backend responde camelCase y el cliente escribe camelCase.
+          field_rename: none
+          # Un campo desconocido en la respuesta no debe romper la app: el
+          # backend puede agregar campos sin que el movil se entere.
+          create_to_json: true
+
+      # El cliente OpenAPI vive en su propio package (acta M20), asi que el
+      # codegen de la app no debe intentar procesarlo.
+      freezed:
+        generate_for:
+          exclude:
+            - packages/**
