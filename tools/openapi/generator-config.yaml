@@ -1,0 +1,25 @@
+# Configuracion de generacion del cliente Dart tipado.
+#
+# El cliente vive en su propio package (acta M20) y no en lib/, porque el
+# generador dart-dio emite un package Dart completo con su propio pubspec.yaml.
+# Anidarlo bajo lib/ rompe la resolucion de dependencias y el analyzer.
+
+inputSpec: ../../openapi/openapi-v1.0.0.json
+generatorName: dart-dio
+outputDir: ../../packages/cauce_api_client
+
+additionalProperties:
+  pubName: cauce_api_client
+  pubDescription: Cliente Dart tipado del backend Cauce, generado desde el snapshot OpenAPI. No editar a mano.
+  pubAuthor: Equipo Cauce
+  pubVersion: 1.1.0
+  # built_value es el serializador por defecto del template dart-dio. Se deja
+  # explicito para que un cambio de default del generador no pase inadvertido.
+  serializationLibrary: built_value
+
+# El snapshot declara los siete endpoints de identidad mas el resto de la API.
+# Mobile-1b solo consume Auth y Consent, pero se genera todo: recortar por tag
+# obligaria a regenerar en cada bloque siguiente y a mantener esta lista
+# sincronizada con el backlog.
+globalProperties:
+  skipFormModel: "false"

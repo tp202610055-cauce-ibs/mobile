@@ -61,6 +61,12 @@ build/
 *.ipr
 *.iws
 
+# Toolchain de generacion OpenAPI (acta M16). El jar del generador lo descarga
+# el wrapper npm bajo demanda; su version esta pinneada en openapitools.json.
+# package-lock.json SI se commitea: pinea las transitivas del wrapper y es
+# parte de la reproducibilidad que exige el acta.
+tools/openapi/node_modules/
+
 # Codegen (opcional, se puede versionar según preferencia del equipo)
 # *.g.dart
 # *.freezed.dart
