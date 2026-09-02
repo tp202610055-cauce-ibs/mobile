@@ -1,0 +1,14 @@
+# Archivos que el generador NO debe emitir.
+#
+# Referencia: https://github.com/openapitools/openapi-generator
+
+# Documentacion markdown por modelo y por endpoint: 129 archivos que replican
+# lo que ya dice el contrato en backend/docs/api/CONTRACT-IDENTITY-v1.md y el
+# propio snapshot OpenAPI. Solo agregan ruido al diff de cada regeneracion.
+doc/**
+README.md
+
+# Tests stub. El generador emite un archivo por modelo y por API con el cuerpo
+# entero comentado, que no verifica nada. Los tests reales del cliente viven
+# en mobile/test/, escritos a mano.
+test/**

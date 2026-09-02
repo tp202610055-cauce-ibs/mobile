@@ -25,6 +25,12 @@ dependencies:
   # HTTP + OpenAPI
   dio: ^5.7.0
 
+  # Cliente tipado generado desde openapi/openapi-v1.0.0.json.
+  # Vive en su propio package por acta M20. Se regenera con:
+  #   cd tools/openapi && npm run generate
+  cauce_api_client:
+    path: packages/cauce_api_client
+
   # Auth
   # flutter_appauth eliminado por acta M9: la autenticacion va por backend
   # passthrough (POST /api/v1/auth/login), no por PKCE directo a Keycloak.
