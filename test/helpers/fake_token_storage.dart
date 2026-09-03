@@ -24,8 +24,9 @@ class FakeTokenStorage implements TokenStorage {
   /// produccion es el tiempo que tarda el Keystore y aca seria instantaneo.
   final Duration readDelay;
 
-  Future<void> _delay() =>
-      readDelay > Duration.zero ? Future<void>.delayed(readDelay) : Future.value();
+  Future<void> _delay() => readDelay > Duration.zero
+      ? Future<void>.delayed(readDelay)
+      : Future.value();
 
   int saveSessionCalls = 0;
   int saveTokensCalls = 0;
