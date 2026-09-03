@@ -1,6 +1,7 @@
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
+import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/core/router/app_router.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
 import 'package:cauce_mobile/core/theme/design_tokens.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/fake_auth_repository.dart';
 import 'helpers/fake_token_storage.dart';
 
 const AuthenticatedUserSnapshot _verified = AuthenticatedUserSnapshot(
@@ -33,6 +35,7 @@ Future<ProviderContainer> _pumpApp(
   final container = ProviderContainer(
     overrides: <Override>[
       tokenStorageProvider.overrideWithValue(storage ?? FakeTokenStorage()),
+      authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
     ],
   );
   addTearDown(container.dispose);
@@ -80,6 +83,7 @@ void main() {
           tokenStorageProvider.overrideWithValue(
             FakeTokenStorage(readDelay: const Duration(milliseconds: 50)),
           ),
+          authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
         ],
       );
       addTearDown(container.dispose);
@@ -202,6 +206,7 @@ void main() {
       final container = ProviderContainer(
         overrides: <Override>[
           tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+          authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
         ],
       );
       addTearDown(container.dispose);
