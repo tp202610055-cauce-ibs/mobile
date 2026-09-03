@@ -53,7 +53,7 @@ void main() {
   });
 
   group('resolveRedirect · sesion valida', () {
-    final session = SessionState.authenticated(_verified);
+    const session = SessionState.authenticated(_verified);
 
     test('deja pasar la home', () {
       expect(
@@ -112,7 +112,7 @@ void main() {
   });
 
   group('resolveRedirect · correo sin verificar', () {
-    final session = SessionState.pendingEmailVerification(_unverified);
+    const session = SessionState.pendingEmailVerification(_unverified);
 
     test('deja pasar solo la pantalla de aviso', () {
       expect(
@@ -150,8 +150,8 @@ void main() {
       final sessions = <String, SessionState>{
         'unknown': const SessionState.unknown(),
         'unauthenticated': const SessionState.unauthenticated(),
-        'authenticated': SessionState.authenticated(_verified),
-        'pendingEmailVerification': SessionState.pendingEmailVerification(
+        'authenticated': const SessionState.authenticated(_verified),
+        'pendingEmailVerification': const SessionState.pendingEmailVerification(
           _unverified,
         ),
       };
