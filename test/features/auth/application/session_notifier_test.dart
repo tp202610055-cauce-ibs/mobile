@@ -17,8 +17,14 @@ const AuthenticatedUserSnapshot _verified = AuthenticatedUserSnapshot(
   isInActivePilot: true,
 );
 
-final AuthenticatedUserSnapshot _unverified = _verified.copyWith(
+const AuthenticatedUserSnapshot _unverified = AuthenticatedUserSnapshot(
+  userId: '79974080-cfbb-4ce8-b003-4e80e7e9e84f',
+  keycloakId: 'b8ebd09c-3bb3-4e7b-90dd-a55124bae0fd',
+  email: 'paciente.demo@cauce.local',
+  role: 'patient',
+  fullName: 'Paciente Demo',
   emailVerified: false,
+  isInActivePilot: true,
 );
 
 /// Contenedor con el almacenamiento sustituido por el doble en memoria.
@@ -74,7 +80,7 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        SessionState.authenticated(_verified),
+        const SessionState.authenticated(_verified),
       );
     });
 
@@ -89,7 +95,7 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        SessionState.pendingEmailVerification(_unverified),
+        const SessionState.pendingEmailVerification(_unverified),
       );
     });
 
@@ -103,7 +109,7 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        SessionState.authenticated(_verified),
+        const SessionState.authenticated(_verified),
       );
     });
 
@@ -138,9 +144,7 @@ void main() {
     test('persiste las tres piezas y autentica', () async {
       final h = _harness();
 
-      await h.container
-          .read(sessionNotifierProvider.notifier)
-          .loginSucceeded(
+      await h.container.read(sessionNotifierProvider.notifier).loginSucceeded(
             accessToken: 'access-1',
             refreshToken: 'refresh-1',
             user: _verified,
@@ -152,16 +156,14 @@ void main() {
       expect(h.storage.userSnapshot, _verified);
       expect(
         h.container.read(sessionNotifierProvider),
-        SessionState.authenticated(_verified),
+        const SessionState.authenticated(_verified),
       );
     });
 
     test('un login con correo sin verificar no llega a la home', () async {
       final h = _harness();
 
-      await h.container
-          .read(sessionNotifierProvider.notifier)
-          .loginSucceeded(
+      await h.container.read(sessionNotifierProvider.notifier).loginSucceeded(
             accessToken: 'access-1',
             refreshToken: 'refresh-1',
             user: _unverified,
@@ -169,7 +171,7 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        SessionState.pendingEmailVerification(_unverified),
+        const SessionState.pendingEmailVerification(_unverified),
       );
     });
   });
@@ -185,7 +187,7 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        SessionState.pendingEmailVerification(_unverified),
+        const SessionState.pendingEmailVerification(_unverified),
       );
       expect(h.storage.saveSessionCalls, 0);
     });
@@ -232,9 +234,9 @@ void main() {
 
   group('SessionState · acceso al usuario', () {
     test('solo los estados con sesion exponen usuario', () {
-      expect(SessionState.authenticated(_verified).user, _verified);
+      expect(const SessionState.authenticated(_verified).user, _verified);
       expect(
-        SessionState.pendingEmailVerification(_unverified).user,
+        const SessionState.pendingEmailVerification(_unverified).user,
         _unverified,
       );
       expect(const SessionState.unknown().user, isNull);
