@@ -3,7 +3,7 @@ import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/core/router/app_router.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
-import 'package:cauce_mobile/core/widgets/cauce_error_banner.dart';
+import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/auth/presentation/auth_screens.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ void main() {
     testWidgets('el boton nace deshabilitado', (tester) async {
       await _openRegister(tester);
 
-      final button = tester.widget<ElevatedButton>(
+      final button = tester.widget<CauceButton>(
         find.byKey(const Key('register_submit')),
       );
       expect(button.onPressed, isNull);
@@ -142,7 +142,7 @@ void main() {
       await _fillValidForm(tester);
       await _acceptConsent(tester);
 
-      final button = tester.widget<ElevatedButton>(
+      final button = tester.widget<CauceButton>(
         find.byKey(const Key('register_submit')),
       );
       expect(button.onPressed, isNotNull);
@@ -305,7 +305,7 @@ void main() {
         );
         expect(checkbox.value, isFalse);
 
-        final button = tester.widget<ElevatedButton>(
+        final button = tester.widget<CauceButton>(
           find.byKey(const Key('register_submit')),
         );
         expect(button.onPressed, isNull);

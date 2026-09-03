@@ -1,6 +1,7 @@
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
-import 'package:cauce_mobile/core/widgets/cauce_error_banner.dart';
+import 'package:cauce_mobile/core/widgets/widgets.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/auth/presentation/login_screen.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
@@ -126,10 +127,12 @@ void main() {
       await tester.tap(find.byKey(const Key('login_submit')));
       await tester.pump();
 
-      final button = tester.widget<ElevatedButton>(
+      // Se asserta sobre CauceButton y no sobre el ElevatedButton interno:
+      // el widget del design system es la superficie publica.
+      final button = tester.widget<CauceButton>(
         find.byKey(const Key('login_submit')),
       );
-      expect(button.onPressed, isNull);
+      expect(button.loading, isTrue);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
       await tester.pumpAndSettle();
@@ -253,11 +256,14 @@ void main() {
           tester.widget<TextField>(find.byType(TextField).last);
 
       expect(field().obscureText, isTrue);
+      // El ojo abierto significa "mostrar": la contrasena esta oculta.
+      expect(find.byIcon(TablerIcons.eye), findsOneWidget);
 
-      await tester.tap(find.byKey(const Key('login_toggle_password')));
+      await tester.tap(find.byIcon(TablerIcons.eye));
       await tester.pumpAndSettle();
 
       expect(field().obscureText, isFalse);
+      expect(find.byIcon(TablerIcons.eye_off), findsOneWidget);
     });
   });
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/session_notifier.dart';
 
@@ -42,36 +43,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final textTheme = Theme.of(context).textTheme;
     final user = ref.watch(sessionNotifierProvider).user;
 
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.appTitle)),
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(CauceSpacing.space6),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  l10n.homeGreeting(user?.fullName ?? ''),
-                  style: textTheme.headlineMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: CauceSpacing.space6),
-                OutlinedButton(
-                  key: const Key('home_logout'),
-                  onPressed: _loggingOut ? null : _logout,
-                  child: _loggingOut
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Text(l10n.homeLogout),
-                ),
-              ],
-            ),
+    return CauceScaffold(
+      appBar: CauceAppBar(title: l10n.appTitle),
+      centerVertically: true,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            l10n.homeGreeting(user?.fullName ?? ''),
+            style: textTheme.headlineMedium,
+            textAlign: TextAlign.center,
           ),
-        ),
+          const SizedBox(height: CauceSpacing.space6),
+          CauceButton.secondary(
+            key: const Key('home_logout'),
+            label: l10n.homeLogout,
+            loading: _loggingOut,
+            onPressed: _logout,
+          ),
+        ],
       ),
     );
   }

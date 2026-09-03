@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../application/session_notifier.dart';
 
@@ -23,59 +24,50 @@ class VerifyEmailPendingScreen extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final email = ref.watch(sessionNotifierProvider).email ?? '';
 
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(CauceSpacing.space6),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 440),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(CauceSpacing.space4),
-                    decoration: const BoxDecoration(
-                      color: CauceColors.infoBg,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      TablerIcons.mail,
-                      size: 32,
-                      color: CauceColors.infoText,
-                    ),
-                  ),
-                  const SizedBox(height: CauceSpacing.space6),
-                  Text(
-                    l10n.verifyEmailPendingTitle,
-                    style: textTheme.headlineLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: CauceSpacing.space3),
-                  Text(
-                    l10n.verifyEmailPendingBody(email),
-                    key: const Key('verify_email_body'),
-                    style: textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: CauceSpacing.space4),
-                  Text(
-                    l10n.verifyEmailPendingNoEmailHint,
-                    style: textTheme.labelSmall,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: CauceSpacing.space8),
-                  OutlinedButton(
-                    key: const Key('verify_email_logout'),
-                    onPressed: () =>
-                        ref.read(sessionNotifierProvider.notifier).logout(),
-                    child: Text(l10n.verifyEmailPendingLogout),
-                  ),
-                ],
-              ),
+    return CauceScaffold(
+      scrollable: true,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(CauceSpacing.space4),
+            decoration: const BoxDecoration(
+              color: CauceColors.infoBg,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              TablerIcons.mail,
+              size: 32,
+              color: CauceColors.infoText,
             ),
           ),
-        ),
+          const SizedBox(height: CauceSpacing.space6),
+          Text(
+            l10n.verifyEmailPendingTitle,
+            style: textTheme.headlineLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: CauceSpacing.space3),
+          Text(
+            l10n.verifyEmailPendingBody(email),
+            key: const Key('verify_email_body'),
+            style: textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: CauceSpacing.space4),
+          Text(
+            l10n.verifyEmailPendingNoEmailHint,
+            style: textTheme.labelSmall,
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: CauceSpacing.space8),
+          CauceButton.secondary(
+            key: const Key('verify_email_logout'),
+            label: l10n.verifyEmailPendingLogout,
+            onPressed: () =>
+                ref.read(sessionNotifierProvider.notifier).logout(),
+          ),
+        ],
       ),
     );
   }
