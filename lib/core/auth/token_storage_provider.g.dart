@@ -6,16 +6,16 @@ part of 'token_storage_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tokenStorageHash() => r'5ca88e5887315ffd57da573d48b16fca530e7df0';
+String _$tokenStorageHash() => r'5dd28fa41aa81d4f4f8bfa5784f96a852ab66074';
 
 /// Almacenamiento seguro de la sesion.
 ///
-/// La implementacion concreta `SecureTokenStorage` llega en la Fase 4, junto
-/// con `flutter_secure_storage` y las tres keys del acta M11. Hasta entonces
-/// el provider falla de forma explicita en vez de devolver un doble vacio, que
-/// simularia una sesion inexistente y haria pasar tests que no deberian pasar.
+/// `keepAlive` porque la sesion es estado de aplicacion, no de pantalla:
+/// descartarla al desmontarse el ultimo consumidor obligaria a releer del
+/// Keystore en cada navegacion.
 ///
-/// Los tests sobrescriben este provider con un `TokenStorage` de prueba.
+/// Los tests lo sobrescriben con un `TokenStorage` en memoria; el plugin real
+/// habla por canal de plataforma y no existe en la VM del host.
 ///
 /// Copied from [tokenStorage].
 @ProviderFor(tokenStorage)
