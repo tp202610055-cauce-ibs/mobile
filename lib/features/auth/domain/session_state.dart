@@ -37,10 +37,10 @@ sealed class SessionState with _$SessionState {
 
   /// Usuario asociado, si el estado lo tiene.
   AuthenticatedUserSnapshot? get user => switch (this) {
-    SessionAuthenticated(:final user) => user,
-    SessionPendingEmailVerification(:final user) => user,
-    SessionUnknown() || SessionUnauthenticated() => null,
-  };
+        SessionAuthenticated(:final user) => user,
+        SessionPendingEmailVerification(:final user) => user,
+        SessionUnknown() || SessionUnauthenticated() => null,
+      };
 
   /// `true` mientras el bootstrap no haya resuelto.
   bool get isResolving => this is SessionUnknown;
