@@ -3,6 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/auth/authenticated_user_snapshot.dart';
 import '../../../core/auth/token_storage.dart';
 import '../../../core/auth/token_storage_provider.dart';
+import '../../../core/errors/cauce_api_error.dart';
+import '../data/auth_repository.dart';
 import '../domain/session_state.dart';
 
 part 'session_notifier.g.dart';
@@ -45,7 +47,7 @@ class SessionNotifier extends _$SessionNotifier {
 
     state = user.canAccessApp
         ? SessionState.authenticated(user)
-        : SessionState.pendingEmailVerification(user);
+        : SessionState.pendingEmailVerification(email: user.email, user: user);
   }
 
   /// Persiste la sesion recien emitida y publica el estado correspondiente.
@@ -61,24 +63,42 @@ class SessionNotifier extends _$SessionNotifier {
     );
     state = user.canAccessApp
         ? SessionState.authenticated(user)
-        : SessionState.pendingEmailVerification(user);
+        : SessionState.pendingEmailVerification(email: user.email, user: user);
   }
 
   /// Publica el estado posterior a un registro exitoso.
   ///
   /// El registro no emite tokens: el backend responde 201 con el `userId` y
-  /// exige verificar el correo antes del primer login. Por eso no se persiste
-  /// nada y el snapshot se arma con lo que el paciente acaba de escribir.
-  void registrationSucceeded(AuthenticatedUserSnapshot user) {
-    state = SessionState.pendingEmailVerification(user);
+  /// exige verificar el correo antes del primer login. No se persiste nada, y
+  /// el estado va sin snapshot porque ese 201 no trae `keycloakId` ni el resto
+  /// de los campos: construir uno obligaria a inventarlos.
+  void registrationSucceeded({required String email}) {
+    state = SessionState.pendingEmailVerification(email: email);
   }
 
-  /// Cierra la sesion local.
+  /// Cierra la sesion (US08 CA01).
   ///
-  /// Es incondicional a proposito. El aviso al backend lo hace la pantalla
-  /// antes de llamar aca, y si esa llamada falla igual se cierra localmente:
-  /// dejar al paciente adentro porque el servidor no contesto seria peor.
+  /// Avisa primero al backend para que revoque el refresh token del lado
+  /// servidor, y despues limpia el almacenamiento local. La limpieza local es
+  /// incondicional: si el aviso falla por red o por un 500, igual se cierra.
+  /// Dejar al paciente dentro de la app porque el servidor no contesto seria
+  /// peor que un refresh token que caduca solo a los 30 dias.
+  ///
+  /// El unico costo de que el aviso falle es que ese refresh sigue vivo en
+  /// Keycloak hasta vencer, y ya no esta en ningun dispositivo.
   Future<void> logout() async {
+    final refreshToken = await _storage.readRefreshToken();
+
+    if (refreshToken != null && refreshToken.isNotEmpty) {
+      try {
+        await ref
+            .read(authRepositoryProvider)
+            .logout(refreshToken: refreshToken);
+      } on CauceApiError {
+        // Se ignora a proposito. Ver el parrafo de arriba.
+      }
+    }
+
     await _storage.clearSession();
     state = const SessionState.unauthenticated();
   }

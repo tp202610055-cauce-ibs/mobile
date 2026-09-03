@@ -1,10 +1,13 @@
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
+import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/domain/session_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
 
 const AuthenticatedUserSnapshot _verified = AuthenticatedUserSnapshot(
@@ -27,22 +30,31 @@ const AuthenticatedUserSnapshot _unverified = AuthenticatedUserSnapshot(
   isInActivePilot: true,
 );
 
-/// Contenedor con el almacenamiento sustituido por el doble en memoria.
-({ProviderContainer container, FakeTokenStorage storage}) _harness({
+/// Contenedor con el almacenamiento y el repositorio sustituidos.
+({
+  ProviderContainer container,
+  FakeTokenStorage storage,
+  FakeAuthRepository repository,
+}) _harness({
   String? accessToken,
   String? refreshToken,
   AuthenticatedUserSnapshot? user,
+  CauceApiError? logoutError,
 }) {
   final storage = FakeTokenStorage(
     accessToken: accessToken,
     refreshToken: refreshToken,
     userSnapshot: user,
   );
+  final repository = FakeAuthRepository(error: logoutError);
   final container = ProviderContainer(
-    overrides: <Override>[tokenStorageProvider.overrideWithValue(storage)],
+    overrides: <Override>[
+      tokenStorageProvider.overrideWithValue(storage),
+      authRepositoryProvider.overrideWithValue(repository),
+    ],
   );
   addTearDown(container.dispose);
-  return (container: container, storage: storage);
+  return (container: container, storage: storage, repository: repository);
 }
 
 void main() {
@@ -95,7 +107,10 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        const SessionState.pendingEmailVerification(_unverified),
+        const SessionState.pendingEmailVerification(
+          email: 'paciente.demo@cauce.local',
+          user: _unverified,
+        ),
       );
     });
 
@@ -171,7 +186,10 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        const SessionState.pendingEmailVerification(_unverified),
+        const SessionState.pendingEmailVerification(
+          email: 'paciente.demo@cauce.local',
+          user: _unverified,
+        ),
       );
     });
   });
@@ -183,13 +201,29 @@ void main() {
 
       h.container
           .read(sessionNotifierProvider.notifier)
-          .registrationSucceeded(_unverified);
+          .registrationSucceeded(email: 'nuevo@cauce.local');
 
       expect(
         h.container.read(sessionNotifierProvider),
-        const SessionState.pendingEmailVerification(_unverified),
+        const SessionState.pendingEmailVerification(
+          email: 'nuevo@cauce.local',
+        ),
       );
       expect(h.storage.saveSessionCalls, 0);
+    });
+
+    test('el estado del registro no lleva snapshot', () {
+      // El 201 no trae keycloakId ni isInActivePilot: construir un snapshot
+      // obligaria a inventarlos.
+      final h = _harness();
+
+      h.container
+          .read(sessionNotifierProvider.notifier)
+          .registrationSucceeded(email: 'nuevo@cauce.local');
+
+      final state = h.container.read(sessionNotifierProvider);
+      expect(state.user, isNull);
+      expect(state.email, 'nuevo@cauce.local');
     });
   });
 
@@ -236,7 +270,10 @@ void main() {
     test('solo los estados con sesion exponen usuario', () {
       expect(const SessionState.authenticated(_verified).user, _verified);
       expect(
-        const SessionState.pendingEmailVerification(_unverified).user,
+        const SessionState.pendingEmailVerification(
+          email: 'paciente.demo@cauce.local',
+          user: _unverified,
+        ).user,
         _unverified,
       );
       expect(const SessionState.unknown().user, isNull);

@@ -112,7 +112,10 @@ void main() {
   });
 
   group('resolveRedirect · correo sin verificar', () {
-    const session = SessionState.pendingEmailVerification(_unverified);
+    const session = SessionState.pendingEmailVerification(
+      email: 'nuevo@cauce.local',
+      user: _unverified,
+    );
 
     test('deja pasar solo la pantalla de aviso', () {
       expect(
@@ -152,7 +155,8 @@ void main() {
         'unauthenticated': const SessionState.unauthenticated(),
         'authenticated': const SessionState.authenticated(_verified),
         'pendingEmailVerification': const SessionState.pendingEmailVerification(
-          _unverified,
+          email: 'nuevo@cauce.local',
+          user: _unverified,
         ),
       };
 

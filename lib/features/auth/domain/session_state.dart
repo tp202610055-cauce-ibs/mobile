@@ -24,14 +24,22 @@ sealed class SessionState with _$SessionState {
   /// No hay sesion, o la que habia expiro.
   const factory SessionState.unauthenticated() = SessionUnauthenticated;
 
-  /// Hay sesion pero el correo sigue sin verificar.
+  /// El correo sigue sin verificar y el paciente no puede operar.
   ///
-  /// El backend registra la cuenta y emite tokens, pero el paciente no puede
-  /// operar hasta seguir el enlace del correo. Se conserva el snapshot porque
-  /// la pantalla de aviso muestra a que direccion se envio.
-  const factory SessionState.pendingEmailVerification(
-    AuthenticatedUserSnapshot user,
-  ) = SessionPendingEmailVerification;
+  /// Se alcanza por dos caminos que aportan informacion distinta:
+  ///
+  /// - Tras un **login**: el backend devolvio el objeto `user` completo, de
+  ///   modo que [user] viene lleno.
+  /// - Tras un **registro**: el backend responde 201 con `userId` y poco mas,
+  ///   sin tokens ni `keycloakId`. No hay snapshot que construir sin inventar
+  ///   campos, asi que [user] queda nulo.
+  ///
+  /// [email] esta siempre presente, porque es lo unico que la pantalla de
+  /// aviso necesita mostrar.
+  const factory SessionState.pendingEmailVerification({
+    required String email,
+    AuthenticatedUserSnapshot? user,
+  }) = SessionPendingEmailVerification;
 
   const SessionState._();
 
@@ -39,6 +47,13 @@ sealed class SessionState with _$SessionState {
   AuthenticatedUserSnapshot? get user => switch (this) {
         SessionAuthenticated(:final user) => user,
         SessionPendingEmailVerification(:final user) => user,
+        SessionUnknown() || SessionUnauthenticated() => null,
+      };
+
+  /// Correo del paciente, cuando el estado lo conoce.
+  String? get email => switch (this) {
+        SessionAuthenticated(:final user) => user.email,
+        SessionPendingEmailVerification(:final email) => email,
         SessionUnknown() || SessionUnauthenticated() => null,
       };
 
