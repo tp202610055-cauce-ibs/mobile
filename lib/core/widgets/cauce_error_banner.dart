@@ -18,9 +18,19 @@ import '../theme/design_tokens.dart';
 /// El icono acompana al color y no lo sustituye: el design system exige que el
 /// error nunca se comunique solo por color.
 class CauceErrorBanner extends StatefulWidget {
-  const CauceErrorBanner({required this.error, super.key});
+  const CauceErrorBanner({required this.error, this.clock, super.key});
 
   final CauceApiError error;
+
+  /// Fuente de la hora actual.
+  ///
+  /// Por defecto el reloj de pared, que es lo correcto en produccion: si la
+  /// app pasa a segundo plano los temporizadores se detienen, y un contador
+  /// que solo decrementa por ticks quedaria adelantado al volver.
+  ///
+  /// Los tests lo sustituyen porque `tester.pump` avanza el reloj falso de
+  /// asincronia, no el del sistema.
+  final DateTime Function()? clock;
 
   @override
   State<CauceErrorBanner> createState() => _CauceErrorBannerState();
@@ -34,7 +44,9 @@ class _CauceErrorBannerState extends State<CauceErrorBanner> {
   /// El 429 trae `retryAfterSeconds` como numero fijo, no como instante. Sin
   /// anclar el arranque, el contador mostraria siempre el mismo valor y el
   /// paciente veria "espera 60 segundos" indefinidamente.
-  DateTime _shownAt = DateTime.now();
+  late DateTime _shownAt = _now();
+
+  DateTime _now() => (widget.clock ?? DateTime.now)();
 
   @override
   void initState() {
@@ -46,7 +58,7 @@ class _CauceErrorBannerState extends State<CauceErrorBanner> {
   void didUpdateWidget(CauceErrorBanner oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.error != widget.error) {
-      _shownAt = DateTime.now();
+      _shownAt = _now();
       _syncTicker();
     }
   }
@@ -79,7 +91,7 @@ class _CauceErrorBannerState extends State<CauceErrorBanner> {
   String _message(AppLocalizations l10n) {
     final retryAfter = widget.error.retryAfterSeconds;
     if (retryAfter != null) {
-      final elapsed = DateTime.now().difference(_shownAt).inSeconds;
+      final elapsed = _now().difference(_shownAt).inSeconds;
       final remaining = retryAfter - elapsed;
       if (remaining <= 0) {
         // Se cumplio la espera. El paciente ya puede reintentar, y seguir
@@ -90,7 +102,7 @@ class _CauceErrorBannerState extends State<CauceErrorBanner> {
     }
     // El bloqueo de cuenta si trae un instante absoluto, asi que basta con
     // pasarle el reloj actual.
-    return widget.error.localizedMessage(l10n, now: DateTime.now().toUtc());
+    return widget.error.localizedMessage(l10n, now: _now().toUtc());
   }
 
   @override
