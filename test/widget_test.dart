@@ -187,7 +187,12 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(PasswordResetScreen), findsOneWidget);
-      expect(find.text('abc123'), findsOneWidget);
+      expect(
+        tester
+            .widget<PasswordResetScreen>(find.byType(PasswordResetScreen))
+            .token,
+        'abc123',
+      );
     });
 
     testWidgets('llega incluso con la sesion sin resolver', (tester) async {
@@ -211,7 +216,12 @@ void main() {
       await tester.pump();
 
       expect(find.byType(PasswordResetScreen), findsOneWidget);
-      expect(find.text('xyz789'), findsOneWidget);
+      expect(
+        tester
+            .widget<PasswordResetScreen>(find.byType(PasswordResetScreen))
+            .token,
+        'xyz789',
+      );
     });
 
     testWidgets('sin token no revienta, entra con cadena vacia', (
