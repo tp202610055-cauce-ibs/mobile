@@ -85,14 +85,31 @@ abstract final class Env {
   /// (`10.0.2.2`). El simulador de iOS alcanza el host por `localhost`, asi
   /// que se reescribe en runtime segun la plataforma.
   static String get apiBaseUrl {
-    final raw = _require('API_BASE_URL');
-    if (flavor != Flavor.dev || kIsWeb) {
+    return resolveBaseUrl(
+      raw: _require('API_BASE_URL'),
+      flavor: flavor,
+      isApplePlatform: !kIsWeb && (Platform.isIOS || Platform.isMacOS),
+    );
+  }
+
+  /// Resuelve la base URL segun flavor y plataforma.
+  ///
+  /// Se expone como funcion pura, con la plataforma inyectada, porque
+  /// `Platform.isIOS` no se puede sustituir en un test: leerlo dentro del
+  /// getter dejaria la rama de iOS sin forma de verificarse, y es justo la que
+  /// rompe en silencio cuando alguien prueba solo en Android.
+  @visibleForTesting
+  static String resolveBaseUrl({
+    required String raw,
+    required Flavor flavor,
+    required bool isApplePlatform,
+  }) {
+    // La reescritura es un atajo del entorno local. Staging y prod apuntan a
+    // hosts reales y no deben tocarse nunca.
+    if (flavor != Flavor.dev || !isApplePlatform) {
       return raw;
     }
-    if (Platform.isIOS || Platform.isMacOS) {
-      return raw.replaceFirst('10.0.2.2', 'localhost');
-    }
-    return raw;
+    return raw.replaceFirst('10.0.2.2', 'localhost');
   }
 
   /// Identificador del cliente que el backend exige en el body de login,
