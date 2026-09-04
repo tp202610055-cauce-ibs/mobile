@@ -266,6 +266,31 @@ void main() {
     });
   });
 
+  group('SessionState · correo del paciente', () {
+    test('cada estado expone el correo que conoce', () {
+      // Autenticado lo saca del snapshot; pendiente lo lleva propio, porque
+      // tras un registro no hay snapshot del que sacarlo.
+      expect(
+        const SessionState.authenticated(_verified).email,
+        'paciente.demo@cauce.local',
+      );
+      expect(
+        const SessionState.pendingEmailVerification(
+          email: 'nuevo@cauce.local',
+        ).email,
+        'nuevo@cauce.local',
+      );
+      expect(const SessionState.unknown().email, isNull);
+      expect(const SessionState.unauthenticated().email, isNull);
+    });
+
+    test('isResolving solo es cierto antes del bootstrap', () {
+      expect(const SessionState.unknown().isResolving, isTrue);
+      expect(const SessionState.unauthenticated().isResolving, isFalse);
+      expect(const SessionState.authenticated(_verified).isResolving, isFalse);
+    });
+  });
+
   group('SessionState · acceso al usuario', () {
     test('solo los estados con sesion exponen usuario', () {
       expect(const SessionState.authenticated(_verified).user, _verified);
