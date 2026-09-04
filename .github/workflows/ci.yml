@@ -56,4 +56,9 @@ jobs:
       - name: Run tests
         # Umbrales del acta M12: pass rate 100% y cobertura superior al 80% en
         # dominio y aplicacion. El reporte queda en coverage/lcov.info.
-        run: flutter test --coverage
+        #
+        # Los goldens quedan fuera por acta M28: el rasterizador Skia produce
+        # diferencias de antialiasing entre el Windows donde se generan y el
+        # Linux de CI. Siguen corriendo en local, que es donde cumplen su
+        # funcion de detectar regresiones del theme.
+        run: flutter test --coverage --exclude-tags golden
