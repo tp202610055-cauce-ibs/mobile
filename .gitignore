@@ -82,6 +82,17 @@ GoogleService-Info.plist
 # Consideraciones de documentos
 # Ignorar documentos relacionados a herramientas como Claude, ChatGPT y Microsoft365
 
+# Documento operativo de Claude Code. Decision firme de Trigo, reforzada por el
+# acta M17: se mantiene local y nunca se commitea.
+CLAUDE.md
+PROMPT-*.md
+HANDOFF-*.md
+
+# Temporales de Microsoft 365
+~$*.docx
+~$*.xlsx
+~$*.pptx
+
 # OS
 .DS_Store
 Thumbs.db
