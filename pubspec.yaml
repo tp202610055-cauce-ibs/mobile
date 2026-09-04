@@ -1,7 +1,9 @@
 name: cauce_mobile
 description: "Cauce Mobile - Cliente Flutter para pacientes con SII"
 publish_to: 'none'
-version: 0.1.0+1
+# Cierre del bloque Mobile-1b (capa de identidad). Alinea con el tag
+# v0.2.0-identity sobre develop, segun el acta M23.
+version: 0.2.0+2
 
 environment:
   sdk: ^3.5.0
