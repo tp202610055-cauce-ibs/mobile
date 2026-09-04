@@ -15,10 +15,18 @@ import '../../../helpers/fake_token_storage.dart';
 /// modo que un golden aporta valor real: detecta regresiones del theme sin la
 /// fragilidad que tendria sobre un formulario.
 ///
-/// El renderizado es determinista porque Inter va empaquetada como asset
-/// (Fase 2) y no depende de las fuentes del sistema.
+/// Va etiquetado como `golden` y CI lo excluye con `--exclude-tags golden`
+/// (acta M28). El rasterizador Skia produce diferencias de antialiasing entre
+/// Windows, donde se genero la imagen de referencia, y el Linux de CI, aun con
+/// Inter empaquetada como asset. Corre en local, que es donde cumple su
+/// funcion: avisar cuando alguien toca el theme.
+///
+/// Para regenerar la referencia tras un cambio deliberado del theme:
+///   flutter test test/features/splash --update-goldens
 void main() {
-  testWidgets('SplashScreen coincide con su golden', (tester) async {
+  testWidgets('SplashScreen coincide con su golden', tags: <String>[
+    'golden',
+  ], (tester) async {
     tester.view.physicalSize = const Size(1080, 1920);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
