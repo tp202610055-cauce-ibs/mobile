@@ -1,7 +1,9 @@
 name: cauce_mobile
 description: "Cauce Mobile - Cliente Flutter para pacientes con SII"
 publish_to: 'none'
-version: 0.1.0+1
+# Cierre del bloque Mobile-1b (capa de identidad). Alinea con el tag
+# v0.2.0-identity sobre develop, segun el acta M23.
+version: 0.2.0+2
 
 environment:
   sdk: ^3.5.0
@@ -24,6 +26,12 @@ dependencies:
 
   # HTTP + OpenAPI
   dio: ^5.7.0
+
+  # Cliente tipado generado desde openapi/openapi-v1.0.0.json.
+  # Vive en su propio package por acta M20. Se regenera con:
+  #   cd tools/openapi && npm run generate
+  cauce_api_client:
+    path: packages/cauce_api_client
 
   # Auth
   # flutter_appauth eliminado por acta M9: la autenticacion va por backend
@@ -70,3 +78,39 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  # flutter_dotenv lee los archivos por rootBundle, asi que tienen que estar
+  # declarados como assets aunque vivan en la raiz del proyecto.
+  #
+  # Los tres .env estan en .gitignore (R7), asi que en un clone limpio no
+  # existen y el build falla por asset ausente. El workflow de CI los
+  # materializa desde .env.example antes de analyze y test.
+  assets:
+    - .env.example
+    - .env.dev
+    - .env.staging
+    - .env.prod
+
+  # Fuentes empaquetadas, no descargadas en runtime. El diseno offline-first
+  # exige que la app renderice identico sin red, y ademas hace deterministas
+  # los golden tests (acta M18).
+  #
+  # El design system usa dos pesos principales, 400 y 500. Se declaran 600 y
+  # 700 de Inter porque el theme los usa en titulos y etiquetas de boton.
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/inter/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/inter/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/Inter-Bold.ttf
+          weight: 700
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/jetbrainsmono/JetBrainsMono-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/jetbrainsmono/JetBrainsMono-Medium.ttf
+          weight: 500

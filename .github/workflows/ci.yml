@@ -2,7 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [develop, main]
+    # Las ramas de feature entran al trigger por acta M23: un bloque de nueve
+    # fases no puede correr a ciegas hasta el PR de cierre.
+    branches: [develop, main, 'feature/**']
   pull_request:
     branches: [develop, main]
 
@@ -22,14 +24,41 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Materialize env files
+        # Los .env estan en .gitignore (R7) pero pubspec.yaml los declara como
+        # assets, asi que sin ellos el build falla. Para analyze y test basta
+        # con los placeholders de .env.example.
+        run: |
+          for f in .env.dev .env.staging .env.prod; do
+            cp .env.example "$f"
+          done
+
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Generate code
+        # Regenera freezed, riverpod, json_serializable y drift. Los archivos
+        # generados se commitean, asi que este paso no los produce por primera
+        # vez: verifica que sigan sincronizados con sus fuentes. Un .g.dart
+        # desactualizado que el autor olvido regenerar falla aca y no en un
+        # error de compilacion desconcertante mas adelante.
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
+        # Acotado a codigo escrito a mano. El cliente OpenAPI de packages/ se
+        # deja tal como lo emite el generador (acta M20): reformatearlo crea
+        # ruido en el diff de cada regeneracion.
+        run: dart format --output=none --set-exit-if-changed lib test
 
       - name: Analyze
         run: flutter analyze
 
       - name: Run tests
-        run: flutter test
+        # Umbrales del acta M12: pass rate 100% y cobertura superior al 80% en
+        # dominio y aplicacion. El reporte queda en coverage/lcov.info.
+        #
+        # Los goldens quedan fuera por acta M28: el rasterizador Skia produce
+        # diferencias de antialiasing entre el Windows donde se generan y el
+        # Linux de CI. Siguen corriendo en local, que es donde cumplen su
+        # funcion de detectar regresiones del theme.
+        run: flutter test --coverage --exclude-tags golden

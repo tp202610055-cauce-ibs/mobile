@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "//": "Version del jar de openapi-generator, distinta del wrapper npm. Ambas se pinnean por acta M16: la misma entrada debe producir la misma salida en cualquier maquina y en CI.",
+    "version": "7.14.0"
+  }
+}

@@ -45,9 +45,10 @@ app.*.map.json
 /android/app/release
 
 # Env
-.env
-.env.local
-.env.*.local
+# Cubre .env, .env.dev, .env.staging, .env.prod y cualquier variante local.
+# Solo .env.example se commitea, con placeholders (R7).
+.env*
+!.env.example
 
 # IDE
 .idea/
@@ -59,6 +60,12 @@ build/
 *.iml
 *.ipr
 *.iws
+
+# Toolchain de generacion OpenAPI (acta M16). El jar del generador lo descarga
+# el wrapper npm bajo demanda; su version esta pinneada en openapitools.json.
+# package-lock.json SI se commitea: pinea las transitivas del wrapper y es
+# parte de la reproducibilidad que exige el acta.
+tools/openapi/node_modules/
 
 # Codegen (opcional, se puede versionar según preferencia del equipo)
 # *.g.dart
@@ -74,6 +81,17 @@ GoogleService-Info.plist
 
 # Consideraciones de documentos
 # Ignorar documentos relacionados a herramientas como Claude, ChatGPT y Microsoft365
+
+# Documento operativo de Claude Code. Decision firme de Trigo, reforzada por el
+# acta M17: se mantiene local y nunca se commitea.
+CLAUDE.md
+PROMPT-*.md
+HANDOFF-*.md
+
+# Temporales de Microsoft 365
+~$*.docx
+~$*.xlsx
+~$*.pptx
 
 # OS
 .DS_Store

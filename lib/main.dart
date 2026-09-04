@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  runApp(const CauceApp());
-}
+import 'app.dart';
+import 'core/config/env.dart';
 
-class CauceApp extends StatelessWidget {
-  const CauceApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Cauce Mobile',
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Cauce Mobile')),
-        body: const Center(child: Text('Cauce Mobile v0.1.0-foundations')),
-      ),
-    );
-  }
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Env.load();
+  runApp(const ProviderScope(child: CauceApp()));
 }

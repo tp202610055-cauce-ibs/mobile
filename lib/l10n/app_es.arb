@@ -1,0 +1,204 @@
+{
+  "@@locale": "es",
+
+  "appTitle": "Cauce",
+  "@appTitle": {
+    "description": "Nombre de la aplicacion, visible en la barra de tareas y el AppBar"
+  },
+
+  "commonContinue": "Continuar",
+  "commonCancel": "Cancelar",
+  "commonBack": "Volver",
+  "commonRetry": "Reintentar",
+  "commonAccept": "Aceptar",
+  "commonLoading": "Cargando",
+  "@commonLoading": {
+    "description": "Texto accesible del indicador de carga, leido por lectores de pantalla"
+  },
+
+  "splashLoading": "Preparando tu sesion",
+  "@splashLoading": {
+    "description": "Mensaje bajo el logo mientras el SplashScreen resuelve el bootstrap de sesion"
+  },
+
+  "loginTitle": "Inicia sesion",
+  "loginSubtitle": "Ingresa a tu cuenta para continuar con tu seguimiento",
+  "loginEmailLabel": "Correo electronico",
+  "loginEmailHint": "tucorreo@ejemplo.com",
+  "loginPasswordLabel": "Contrasena",
+  "loginPasswordHint": "Tu contrasena",
+  "loginSubmit": "Iniciar sesion",
+  "loginForgotPassword": "Olvide mi contrasena",
+  "loginCreateAccount": "Crear cuenta",
+  "loginNoAccountPrompt": "No tienes cuenta?",
+  "loginShowPassword": "Mostrar contrasena",
+  "loginHidePassword": "Ocultar contrasena",
+
+  "registerTitle": "Crea tu cuenta",
+  "registerSubtitle": "Registrate para participar en el seguimiento nutricional",
+  "registerFullNameLabel": "Nombre completo",
+  "registerFullNameHint": "Nombre y apellidos",
+  "registerEmailLabel": "Correo electronico",
+  "registerEmailHint": "tucorreo@ejemplo.com",
+  "registerPasswordLabel": "Contrasena",
+  "registerPasswordHint": "Minimo 8 caracteres",
+  "registerPasswordConfirmLabel": "Confirma tu contrasena",
+  "registerInvitationCodeLabel": "Codigo de invitacion",
+  "registerInvitationCodeHint": "Opcional",
+  "registerConsentSectionTitle": "Consentimiento informado",
+  "registerConsentCheckbox": "He leido y acepto el consentimiento informado",
+  "registerConsentLoading": "Cargando el consentimiento vigente",
+  "registerConsentUpdated": "El consentimiento fue actualizado. Revisa los cambios antes de continuar.",
+  "@registerConsentUpdated": {
+    "description": "Alerta cuando el backend responde 400 consent_text_mismatch y hay que recargar el consentimiento"
+  },
+  "registerSubmit": "Crear cuenta",
+  "registerHasAccountPrompt": "Ya tienes cuenta?",
+
+  "passwordRecoveryTitle": "Recupera tu contrasena",
+  "passwordRecoverySubtitle": "Te enviaremos un enlace para restablecerla",
+  "passwordRecoveryEmailLabel": "Correo electronico",
+  "passwordRecoverySubmit": "Enviar enlace",
+
+  "passwordRecoverySentTitle": "Revisa tu correo",
+  "passwordRecoverySentBody": "Si el correo existe en nuestro sistema, recibiras un enlace de recuperacion valido por 30 minutos.",
+  "passwordRecoverySentBackToLogin": "Volver a iniciar sesion",
+
+  "passwordResetTitle": "Nueva contrasena",
+  "passwordResetSubtitle": "Elige una contrasena que no hayas usado antes",
+  "passwordResetNewPasswordLabel": "Nueva contrasena",
+  "passwordResetConfirmLabel": "Confirma la nueva contrasena",
+  "passwordResetSubmit": "Restablecer contrasena",
+  "passwordResetSuccessTitle": "Contrasena actualizada",
+  "passwordResetSuccessBody": "Ya puedes iniciar sesion con tu nueva contrasena.",
+  "passwordResetRequestNewLink": "Solicitar un enlace nuevo",
+
+  "verifyEmailPendingTitle": "Verifica tu correo",
+  "verifyEmailPendingBody": "Registramos tu cuenta. Te enviamos un correo de verificacion a {email}. Sigue el enlace para activarla.",
+  "@verifyEmailPendingBody": {
+    "description": "Aviso post registro con el correo al que se envio la verificacion",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "paciente.demo@cauce.local"
+      }
+    }
+  },
+  "verifyEmailPendingNoEmailHint": "Si no recibiste el correo, comunicate con soporte.",
+  "verifyEmailPendingLogout": "Cerrar sesion",
+
+  "homeGreeting": "Hola, {fullName}",
+  "@homeGreeting": {
+    "description": "Saludo de bienvenida en HomeScreen",
+    "placeholders": {
+      "fullName": {
+        "type": "String",
+        "example": "Maria Rojas"
+      }
+    }
+  },
+  "homeLogout": "Cerrar sesion",
+
+  "validationRequired": "Este campo es obligatorio",
+  "validationEmailInvalid": "Ingresa un correo electronico valido",
+  "validationEmailTooLong": "El correo no puede superar los 150 caracteres",
+  "validationFullNameLength": "El nombre debe tener entre 2 y 150 caracteres",
+  "validationPasswordTooShort": "La contrasena debe tener al menos 8 caracteres",
+  "validationPasswordWeak": "Debe incluir una mayuscula, una minuscula y un digito",
+  "validationPasswordMismatch": "Las contrasenas no coinciden",
+  "validationInvitationCodeFormat": "El codigo debe tener entre 8 y 20 caracteres, solo letras y numeros",
+  "validationConsentRequired": "Debes aceptar el consentimiento informado para continuar",
+
+  "errorValidation": "Revisa los datos ingresados",
+  "@errorValidation": {
+    "description": "errorCode validation_error (400). Los detalles por campo van en cada CauceTextField"
+  },
+  "errorConsentTextMismatch": "El consentimiento informado cambio. Vuelve a leerlo y aceptalo.",
+  "@errorConsentTextMismatch": {
+    "description": "errorCode consent_text_mismatch (400)"
+  },
+  "errorInvalidInvitationCode": "El codigo de invitacion no existe",
+  "@errorInvalidInvitationCode": {
+    "description": "errorCode invalid_invitation_code (400)"
+  },
+  "errorExpiredInvitationCode": "El codigo de invitacion vencio",
+  "@errorExpiredInvitationCode": {
+    "description": "errorCode expired_invitation_code (400)"
+  },
+  "errorInvitationCodeAlreadyUsed": "El codigo de invitacion ya fue usado",
+  "@errorInvitationCodeAlreadyUsed": {
+    "description": "errorCode invitation_code_already_used (400)"
+  },
+  "errorDuplicateEmail": "Ya existe una cuenta con este correo",
+  "@errorDuplicateEmail": {
+    "description": "errorCode duplicate_email (409)"
+  },
+  "errorKeycloakIntegration": "No pudimos crear tu cuenta. Intenta de nuevo en unos minutos.",
+  "@errorKeycloakIntegration": {
+    "description": "errorCode keycloak_integration_error (502)"
+  },
+  "errorInvalidCredentials": "Credenciales incorrectas",
+  "@errorInvalidCredentials": {
+    "description": "errorCode invalid_credentials (401). Mensaje deliberadamente generico: tambien cubre el caso de correo no verificado, y distinguirlos filtraria si la cuenta existe"
+  },
+  "errorAccountLocked": "Cuenta bloqueada por intentos fallidos. Vuelve a intentar en {minutes} minutos.",
+  "@errorAccountLocked": {
+    "description": "errorCode account_locked (423). Los minutos salen del countdown contra la extension lockedUntil",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "errorAccountLockedSoon": "Cuenta bloqueada por intentos fallidos. Vuelve a intentar en menos de un minuto.",
+  "@errorAccountLockedSoon": {
+    "description": "errorCode account_locked (423) cuando el countdown baja de un minuto"
+  },
+  "errorInvalidRefreshToken": "Tu sesion expiro. Inicia sesion de nuevo.",
+  "@errorInvalidRefreshToken": {
+    "description": "errorCode invalid_refresh_token (401)"
+  },
+  "errorInvalidPasswordResetToken": "El enlace de recuperacion no es valido",
+  "@errorInvalidPasswordResetToken": {
+    "description": "errorCode invalid_password_reset_token (400)"
+  },
+  "errorExpiredPasswordResetToken": "El enlace de recuperacion vencio o ya fue usado",
+  "@errorExpiredPasswordResetToken": {
+    "description": "errorCode expired_password_reset_token (400)"
+  },
+  "errorUserLocalMissing": "Hay un problema con tu cuenta. Comunicate con soporte.",
+  "@errorUserLocalMissing": {
+    "description": "errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend"
+  },
+  "errorInternalServer": "Ocurrio un error en el servidor. Intenta de nuevo.",
+  "@errorInternalServer": {
+    "description": "errorCode internal_server_error (500)"
+  },
+  "errorConsentRecordNotFound": "No encontramos tu consentimiento registrado",
+  "@errorConsentRecordNotFound": {
+    "description": "errorCode consent_record_not_found (404). Solo aplica a US01 CA04, fuera del alcance de Mobile-1b"
+  },
+  "errorForbidden": "No tienes permiso para realizar esta accion",
+  "@errorForbidden": {
+    "description": "errorCode forbidden (403)"
+  },
+  "errorRateLimited": "Demasiados intentos. Espera {seconds} segundos.",
+  "@errorRateLimited": {
+    "description": "HTTP 429, que no trae errorCode. Los segundos salen de la extension retryAfterSeconds o del header Retry-After",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "60"
+      }
+    }
+  },
+  "errorNetwork": "Sin conexion. Verifica tu internet e intenta de nuevo.",
+  "@errorNetwork": {
+    "description": "Timeout o ausencia de red, sin respuesta del servidor"
+  },
+  "errorUnknown": "Ocurrio un error inesperado. Intenta de nuevo.",
+  "@errorUnknown": {
+    "description": "Fallback para cualquier status no contemplado"
+  }
+}

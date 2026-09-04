@@ -24,6 +24,21 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!--
+                Deep link del enlace de recuperacion de contrasena (US07 CA02).
+                El correo trae cauce://auth/password-reset?token=xxx y go_router
+                lo enruta solo.
+
+                autoVerify queda en false a proposito: es un scheme propio, no
+                un App Link https, asi que no hay dominio que verificar contra
+                assetlinks.json.
+            -->
+            <intent-filter android:autoVerify="false">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="cauce" android:host="auth"/>
+            </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
