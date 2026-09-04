@@ -36,6 +36,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Generate code
+        # Regenera freezed, riverpod, json_serializable y drift. Los archivos
+        # generados se commitean, asi que este paso no los produce por primera
+        # vez: verifica que sigan sincronizados con sus fuentes. Un .g.dart
+        # desactualizado que el autor olvido regenerar falla aca y no en un
+        # error de compilacion desconcertante mas adelante.
+        run: dart run build_runner build --delete-conflicting-outputs
+
       - name: Verify formatting
         # Acotado a codigo escrito a mano. El cliente OpenAPI de packages/ se
         # deja tal como lo emite el generador (acta M20): reformatearlo crea
@@ -46,4 +54,6 @@ jobs:
         run: flutter analyze
 
       - name: Run tests
-        run: flutter test
+        # Umbrales del acta M12: pass rate 100% y cobertura superior al 80% en
+        # dominio y aplicacion. El reporte queda en coverage/lcov.info.
+        run: flutter test --coverage
