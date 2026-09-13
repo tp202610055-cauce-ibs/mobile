@@ -188,6 +188,32 @@ class AuthRepository {
     });
   }
 
+  /// US19. `POST /api/v1/auth/verification-email/resend`.
+  ///
+  /// Para quien perdio el correo original o cuyo enlace vencio. Ruta anonima:
+  /// el paciente todavia no puede iniciar sesion.
+  ///
+  /// El cuerpo lleva solo `email`, sin `clientId`, a diferencia del resto de
+  /// los endpoints de identidad. Asi lo declara el contrato.
+  ///
+  /// **El backend responde 200 en los tres desenlaces**: la cuenta no existe,
+  /// existe y ya esta verificada, o existe sin verificar y se pidio el
+  /// reenvio. Es deliberado, para no convertir el endpoint en un oraculo de
+  /// cuentas. La UI tampoco debe distinguirlos: quien llame a esto solo puede
+  /// mostrar un acuse generico.
+  ///
+  /// El rate limit es de 3 por hora **por correo**, no por IP, de modo que un
+  /// 429 aca habla del correo tipeado y no del dispositivo.
+  Future<void> resendVerificationEmail({required String email}) {
+    return _guard(() async {
+      await _api.apiV1AuthVerificationEmailResendPost(
+        resendVerificationEmailRequest: ResendVerificationEmailRequest(
+          (b) => b..email = email,
+        ),
+      );
+    });
+  }
+
   /// US07 CA02. `POST /api/v1/auth/password-reset/confirm`.
   Future<void> confirmPasswordReset({
     required String token,
