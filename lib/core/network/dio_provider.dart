@@ -88,3 +88,8 @@ AuthApi authApi(Ref ref) => ref.watch(apiClientProvider).getAuthApi();
 /// Endpoint del consentimiento informado vigente.
 @Riverpod(keepAlive: true)
 ConsentApi consentApi(Ref ref) => ref.watch(apiClientProvider).getConsentApi();
+
+/// Endpoints del paciente autenticado. Todos exigen la politica `Patient`.
+@Riverpod(keepAlive: true)
+PatientsApi patientsApi(Ref ref) =>
+    ref.watch(apiClientProvider).getPatientsApi();

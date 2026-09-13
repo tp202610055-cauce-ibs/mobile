@@ -29,6 +29,8 @@ abstract final class ErrorMapper {
   static const String _userLocalMissing = 'user_local_missing';
   static const String _consentRecordNotFound = 'consent_record_not_found';
   static const String _forbidden = 'forbidden';
+  static const String _nutritionistNotAvailable = 'nutritionist_not_available';
+  static const String _patientAlreadyAssigned = 'patient_already_assigned';
 
   /// Punto de entrada. Convierte cualquier [DioException] en un error tipado.
   static CauceApiError map(DioException exception) {
@@ -92,6 +94,10 @@ abstract final class ErrorMapper {
       _userLocalMissing => const CauceApiError.userLocalMissing(),
       _consentRecordNotFound => const CauceApiError.consentRecordNotFound(),
       _forbidden => const CauceApiError.forbidden(),
+      _nutritionistNotAvailable => CauceApiError.nutritionistNotAvailable(
+          reason: _nutritionistReason(body['reason']),
+        ),
+      _patientAlreadyAssigned => const CauceApiError.patientAlreadyAssigned(),
       // Sin errorCode reconocido. Un 400 todavia puede traer `errors`: es el
       // camino del binding automatico de [ApiController], que el contrato
       // documenta como 400 sin errorCode.
@@ -168,6 +174,22 @@ abstract final class ErrorMapper {
       return fromHeader;
     }
     return 60;
+  }
+
+  /// Lee la extension `reason` del 409 `nutritionist_not_available`.
+  ///
+  /// Un valor ausente o desconocido degrada a [
+  /// NutritionistNotAvailableReason.inactive] y no a `pendingActivation`,
+  /// porque el mensaje de `inactive` pide un codigo nuevo, que es util en
+  /// cualquiera de los tres estados. El de `pendingActivation` invita a
+  /// reintentar mas tarde, y si el motivo real fuera otro dejaria al paciente
+  /// reintentando un codigo que nunca va a funcionar.
+  static NutritionistNotAvailableReason _nutritionistReason(Object? value) {
+    return switch (_string(value)) {
+      'pending_activation' => NutritionistNotAvailableReason.pendingActivation,
+      'suspended' => NutritionistNotAvailableReason.suspended,
+      _ => NutritionistNotAvailableReason.inactive,
+    };
   }
 
   /// El switch se deja exhaustivo a proposito, sin comodin: si dio agrega un
