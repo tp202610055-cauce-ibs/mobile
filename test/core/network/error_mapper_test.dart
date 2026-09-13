@@ -113,6 +113,7 @@ void main() {
         'user_local_missing': isA<UserLocalMissingError>(),
         'consent_record_not_found': isA<ConsentRecordNotFoundError>(),
         'forbidden': isA<ForbiddenError>(),
+        'patient_already_assigned': isA<PatientAlreadyAssignedError>(),
       };
 
       for (final entry in expectations.entries) {
@@ -122,6 +123,45 @@ void main() {
           reason: entry.key,
         );
       }
+    });
+  });
+
+  group('ErrorMapper · nutritionist_not_available y su extension reason', () {
+    NutritionistNotAvailableReason reasonOf(String? raw) {
+      final error = ErrorMapper.map(
+        _problem(
+          status: 409,
+          errorCode: 'nutritionist_not_available',
+          extra: raw == null
+              ? const <String, dynamic>{}
+              : <String, dynamic>{'reason': raw},
+        ),
+      );
+      expect(error, isA<NutritionistNotAvailableError>());
+      return (error as NutritionistNotAvailableError).reason;
+    }
+
+    test('mapea los tres valores que declara el contrato', () {
+      expect(
+        reasonOf('pending_activation'),
+        NutritionistNotAvailableReason.pendingActivation,
+      );
+      expect(reasonOf('inactive'), NutritionistNotAvailableReason.inactive);
+      expect(reasonOf('suspended'), NutritionistNotAvailableReason.suspended);
+    });
+
+    test('un reason ausente degrada a inactive', () {
+      // Se elige inactive y no pendingActivation porque su mensaje pide un
+      // codigo nuevo, accion util en los tres estados. El de pendingActivation
+      // invitaria a reintentar un codigo que quiza nunca funcione.
+      expect(reasonOf(null), NutritionistNotAvailableReason.inactive);
+    });
+
+    test('un reason desconocido degrada a inactive', () {
+      // Si el backend agrega un estado nuevo, el paciente ve un mensaje util
+      // en vez del error generico.
+      expect(reasonOf('deceased'), NutritionistNotAvailableReason.inactive);
+      expect(reasonOf(''), NutritionistNotAvailableReason.inactive);
     });
   });
 

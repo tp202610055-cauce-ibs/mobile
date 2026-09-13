@@ -530,6 +530,24 @@ abstract class AppLocalizations {
   /// **'El codigo de invitacion ya fue usado'**
   String get errorInvitationCodeAlreadyUsed;
 
+  /// errorCode nutritionist_not_available (409) con la extension reason en pending_activation. El codigo no se consume, asi que reintentar con el mismo es valido
+  ///
+  /// In es, this message translates to:
+  /// **'Este nutricionista todavia no activo su cuenta. Intenta de nuevo mas tarde o comunicate directamente con el.'**
+  String get errorNutritionistPendingActivation;
+
+  /// errorCode nutritionist_not_available (409) con la extension reason en inactive o suspended. Tambien cubre el reason ausente o desconocido, que ErrorMapper degrada a inactive
+  ///
+  /// In es, this message translates to:
+  /// **'Este codigo ya no esta disponible. Comunicate con tu nutricionista para obtener uno nuevo.'**
+  String get errorNutritionistUnavailable;
+
+  /// errorCode patient_already_assigned (409). El backend no sobrescribe la asignacion vigente
+  ///
+  /// In es, this message translates to:
+  /// **'Ya tienes un nutricionista asignado'**
+  String get errorPatientAlreadyAssigned;
+
   /// errorCode duplicate_email (409)
   ///
   /// In es, this message translates to:
