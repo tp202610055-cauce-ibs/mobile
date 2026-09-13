@@ -183,8 +183,7 @@ void main() {
   group('PatientsRepository · conflictos 409', () {
     test('nutritionist_not_available trae los tres reason', () async {
       const cases = <String, NutritionistNotAvailableReason>{
-        'pending_activation':
-            NutritionistNotAvailableReason.pendingActivation,
+        'pending_activation': NutritionistNotAvailableReason.pendingActivation,
         'inactive': NutritionistNotAvailableReason.inactive,
         'suspended': NutritionistNotAvailableReason.suspended,
       };
