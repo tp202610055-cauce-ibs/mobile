@@ -21,6 +21,16 @@ extension CauceApiErrorMessage on CauceApiError {
           InvitationCodeReason.alreadyUsed =>
             l10n.errorInvitationCodeAlreadyUsed,
         },
+      NutritionistNotAvailableError(:final reason) => switch (reason) {
+          NutritionistNotAvailableReason.pendingActivation =>
+            l10n.errorNutritionistPendingActivation,
+          // Los dos estados terminales comparten mensaje: para el paciente la
+          // accion util es la misma, pedir un codigo nuevo.
+          NutritionistNotAvailableReason.inactive ||
+          NutritionistNotAvailableReason.suspended =>
+            l10n.errorNutritionistUnavailable,
+        },
+      PatientAlreadyAssignedError() => l10n.errorPatientAlreadyAssigned,
       DuplicateEmailError() => l10n.errorDuplicateEmail,
       KeycloakIntegrationError() => l10n.errorKeycloakIntegration,
       InvalidCredentialsError() => l10n.errorInvalidCredentials,

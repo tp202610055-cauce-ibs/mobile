@@ -8,6 +8,14 @@ enum InvitationCodeReason { invalid, expired, alreadyUsed }
 /// Motivo por el que un token de recuperacion de contrasena fue rechazado.
 enum PasswordResetTokenReason { invalid, expired }
 
+/// Estado de la cuenta del nutricionista que impide que atienda.
+///
+/// Llega en la extension `reason` del 409 `nutritionist_not_available`. El
+/// contrato usa un solo `errorCode` para el escenario y manda el estado exacto
+/// aparte, de modo que el cliente puede afinar el mensaje o mostrar uno
+/// generico.
+enum NutritionistNotAvailableReason { pendingActivation, inactive, suspended }
+
 /// Dominio de errores del cliente frente al backend Cauce.
 ///
 /// Es la traduccion del envelope RFC 7807 a tipos sobre los que la capa de
@@ -55,6 +63,22 @@ sealed class CauceApiError with _$CauceApiError {
   const factory CauceApiError.passwordResetToken({
     required PasswordResetTokenReason reason,
   }) = PasswordResetTokenError;
+
+  /// 409 `nutritionist_not_available`. El nutricionista dueno del codigo no
+  /// esta en condiciones de atender, con el estado exacto en [reason].
+  ///
+  /// Lo emiten tanto el registro con codigo (contrato v1.3) como el canje
+  /// posterior (v1.2). En los dos casos el codigo **no** se consume, asi que
+  /// el paciente puede reintentar con el mismo.
+  const factory CauceApiError.nutritionistNotAvailable({
+    required NutritionistNotAvailableReason reason,
+  }) = NutritionistNotAvailableError;
+
+  /// 409 `patient_already_assigned`. El paciente ya tiene un nutricionista
+  /// activo y el backend no lo sobrescribe: cambiar de nutricionista es una
+  /// decision clinica, no el efecto de pegar otro codigo.
+  const factory CauceApiError.patientAlreadyAssigned() =
+      PatientAlreadyAssignedError;
 
   /// 401 `invalid_refresh_token`. El refresh expiro, fue revocado o ya se
   /// consumio. Obliga a limpiar la sesion local y volver al login.

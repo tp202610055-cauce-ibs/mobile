@@ -405,6 +405,103 @@ void main() {
     });
   });
 
+  group('AuthRepository · reenvio de verificacion (US19)', () {
+    test('pega en la ruta del contrato con el correo tipeado', () async {
+      final h = _harness(const CannedResponse(statusCode: 200));
+
+      await h.repository.resendVerificationEmail(
+        email: 'paciente.demo@cauce.local',
+      );
+
+      expect(
+        h.adapter.lastRequest.path,
+        '/api/v1/auth/verification-email/resend',
+      );
+      expect(h.adapter.lastRequest.method, 'POST');
+      expect(
+        h.adapter.lastRequest.body['email'],
+        'paciente.demo@cauce.local',
+      );
+    });
+
+    test('no envia clientId, a diferencia del resto de identidad', () async {
+      // El contrato declara un cuerpo de un solo campo. Mandar clientId de mas
+      // no rompe hoy, pero esconderia una desalineacion con el contrato.
+      final h = _harness(const CannedResponse(statusCode: 200));
+
+      await h.repository.resendVerificationEmail(email: 'a@b.co');
+
+      expect(h.adapter.lastRequest.body.containsKey('clientId'), isFalse);
+      expect(h.adapter.lastRequest.body.keys, <String>['email']);
+    });
+
+    test('el 200 es uniforme y no revela el estado de la cuenta', () async {
+      // El backend responde igual en los tres desenlaces: cuenta inexistente,
+      // cuenta ya verificada, y cuenta sin verificar con reenvio pedido. El
+      // repositorio no puede distinguirlos y no debe intentarlo: hacerlo
+      // convertiria el endpoint en un oraculo de cuentas.
+      for (final scenario in <String>[
+        'cuenta inexistente',
+        'cuenta ya verificada',
+        'reenvio efectivo',
+      ]) {
+        final h = _harness(const CannedResponse(statusCode: 200));
+
+        await expectLater(
+          h.repository.resendVerificationEmail(email: 'a@b.co'),
+          completes,
+          reason: scenario,
+        );
+      }
+    });
+
+    test('un correo mal formado cae en el 400 del backend', () async {
+      final h = _harness(
+        CannedResponse.problem(
+          statusCode: 400,
+          errorCode: 'validation_error',
+          extra: const <String, dynamic>{
+            'errors': <String, dynamic>{
+              'email': <String>[
+                "'Email' no es una direccion de correo electronico valida.",
+              ],
+            },
+          },
+        ),
+      );
+
+      try {
+        await h.repository.resendVerificationEmail(email: 'no-es-un-correo');
+        fail('Se esperaba un ValidationError.');
+      } on CauceApiError catch (error) {
+        expect(error, isA<ValidationError>());
+        expect(
+          (error as ValidationError).fieldErrors['email'],
+          hasLength(1),
+        );
+      }
+    });
+
+    test('el 429 de este endpoint habla del correo, no de la IP', () async {
+      // El rate limit es de 3 por hora por correo normalizado. Se verifica que
+      // la espera llegue al dominio, que es lo que la UI necesita mostrar.
+      final h = _harness(
+        CannedResponse.problem(
+          statusCode: 429,
+          extra: const <String, dynamic>{'retryAfterSeconds': 1200},
+        ),
+      );
+
+      try {
+        await h.repository.resendVerificationEmail(email: 'a@b.co');
+        fail('Se esperaba un RateLimitedError.');
+      } on CauceApiError catch (error) {
+        expect(error, isA<RateLimitedError>());
+        expect((error as RateLimitedError).retryAfterSeconds, 1200);
+      }
+    });
+  });
+
   group('AuthRepository · logout', () {
     test('envia el refresh token y el clientId', () async {
       final h = _harness(const CannedResponse.noContent());

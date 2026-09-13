@@ -1,3 +1,4 @@
+import 'package:cauce_api_client/cauce_api_client.dart' show CauceApiClient;
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
@@ -6,10 +7,12 @@ import 'package:cauce_mobile/core/router/app_routes.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/auth/presentation/auth_screens.dart';
+import 'package:dio/dio.dart' show BaseOptions, Dio, Interceptor;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/canned_http_adapter.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
 
@@ -329,5 +332,75 @@ void main() {
         findsOneWidget,
       );
     });
+
+    testWidgets(
+      'un 409 nutritionist_not_available pasa por ErrorMapper y muestra el '
+      'mensaje especifico',
+      (tester) async {
+        // Los demas tests del grupo lanzan el CauceApiError ya tipado desde el
+        // doble, sin tocar ErrorMapper. Este monta el AuthRepository real sobre
+        // el cliente generado, con solo el transporte sustituido: confirma que
+        // el 409 crudo del registro (contrato v1.3) se traduce igual que en el
+        // canje posterior, porque los dos flujos comparten el mapeo.
+        final adapter = CannedHttpAdapter(
+          CannedResponse.ok(<String, dynamic>{
+            'version': '1.0',
+            'text': 'Texto del consentimiento informado del piloto Kaelin.',
+            'hash': '0' * 64,
+          }),
+        );
+        final dio = Dio(BaseOptions(baseUrl: 'http://localhost:5074'))
+          ..httpClientAdapter = adapter;
+        final client = CauceApiClient(
+          dio: dio,
+          interceptors: const <Interceptor>[],
+        );
+        final container = ProviderContainer(
+          overrides: <Override>[
+            authRepositoryProvider.overrideWithValue(
+              AuthRepository(client.getAuthApi(), client.getConsentApi()),
+            ),
+            tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+          ],
+        );
+        addTearDown(container.dispose);
+
+        await tester.pumpWidget(
+          UncontrolledProviderScope(
+            container: container,
+            child: const CauceApp(),
+          ),
+        );
+        await tester.pumpAndSettle();
+        container.read(appRouterProvider).push(AppRoutes.register);
+        await tester.pumpAndSettle();
+
+        await _fillValidForm(tester);
+        await tester.enterText(
+          find.byKey(const Key('register_invitation_code')),
+          'ABCD1234',
+        );
+        await _acceptConsent(tester);
+
+        // El consentimiento ya cargo; desde aca el backend rechaza el registro
+        // porque el nutricionista dueno del codigo no activo su cuenta.
+        adapter.response = CannedResponse.problem(
+          statusCode: 409,
+          errorCode: 'nutritionist_not_available',
+          extra: const <String, dynamic>{'reason': 'pending_activation'},
+        );
+        await _tapSubmit(tester);
+
+        final register = adapter.requests.singleWhere(
+          (request) => request.path == '/api/v1/auth/register',
+        );
+        expect(register.body['invitationCode'], 'ABCD1234');
+        expect(
+          find.textContaining('todavia no activo su cuenta'),
+          findsOneWidget,
+        );
+        expect(find.byType(VerifyEmailPendingScreen), findsNothing);
+      },
+    );
   });
 }

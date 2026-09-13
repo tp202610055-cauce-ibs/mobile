@@ -28,6 +28,9 @@ mixin _$CauceApiError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -49,6 +52,9 @@ mixin _$CauceApiError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -70,6 +76,9 @@ mixin _$CauceApiError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -91,6 +100,10 @@ mixin _$CauceApiError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -113,6 +126,10 @@ mixin _$CauceApiError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -132,6 +149,9 @@ mixin _$CauceApiError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -264,6 +284,9 @@ class _$ValidationErrorImpl implements ValidationError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -288,6 +311,9 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -312,6 +338,9 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -339,6 +368,10 @@ class _$ValidationErrorImpl implements ValidationError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -364,6 +397,10 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -386,6 +423,9 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -472,6 +512,9 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -496,6 +539,9 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -520,6 +566,9 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -547,6 +596,10 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -572,6 +625,10 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -594,6 +651,9 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -695,6 +755,9 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -719,6 +782,9 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -743,6 +809,9 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -770,6 +839,10 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -795,6 +868,10 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -817,6 +894,9 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -899,6 +979,9 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -923,6 +1006,9 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -947,6 +1033,9 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -974,6 +1063,10 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -999,6 +1092,10 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1021,6 +1118,9 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1094,6 +1194,9 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1118,6 +1221,9 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1142,6 +1248,9 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1169,6 +1278,10 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1194,6 +1307,10 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1216,6 +1333,9 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1316,6 +1436,9 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1340,6 +1463,9 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1364,6 +1490,9 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1391,6 +1520,10 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1416,6 +1549,10 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1438,6 +1575,9 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1549,6 +1689,9 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1573,6 +1716,9 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1597,6 +1743,9 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1624,6 +1773,10 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1649,6 +1802,10 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1671,6 +1828,9 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1700,6 +1860,482 @@ abstract class PasswordResetTokenError implements CauceApiError {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PasswordResetTokenErrorImplCopyWith<_$PasswordResetTokenErrorImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NutritionistNotAvailableErrorImplCopyWith<$Res> {
+  factory _$$NutritionistNotAvailableErrorImplCopyWith(
+          _$NutritionistNotAvailableErrorImpl value,
+          $Res Function(_$NutritionistNotAvailableErrorImpl) then) =
+      __$$NutritionistNotAvailableErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({NutritionistNotAvailableReason reason});
+}
+
+/// @nodoc
+class __$$NutritionistNotAvailableErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res,
+        _$NutritionistNotAvailableErrorImpl>
+    implements _$$NutritionistNotAvailableErrorImplCopyWith<$Res> {
+  __$$NutritionistNotAvailableErrorImplCopyWithImpl(
+      _$NutritionistNotAvailableErrorImpl _value,
+      $Res Function(_$NutritionistNotAvailableErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reason = null,
+  }) {
+    return _then(_$NutritionistNotAvailableErrorImpl(
+      reason: null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as NutritionistNotAvailableReason,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NutritionistNotAvailableErrorImpl
+    implements NutritionistNotAvailableError {
+  const _$NutritionistNotAvailableErrorImpl({required this.reason});
+
+  @override
+  final NutritionistNotAvailableReason reason;
+
+  @override
+  String toString() {
+    return 'CauceApiError.nutritionistNotAvailable(reason: $reason)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NutritionistNotAvailableErrorImpl &&
+            (identical(other.reason, reason) || other.reason == reason));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reason);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NutritionistNotAvailableErrorImplCopyWith<
+          _$NutritionistNotAvailableErrorImpl>
+      get copyWith => __$$NutritionistNotAvailableErrorImplCopyWithImpl<
+          _$NutritionistNotAvailableErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return nutritionistNotAvailable(reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return nutritionistNotAvailable?.call(reason);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (nutritionistNotAvailable != null) {
+      return nutritionistNotAvailable(reason);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return nutritionistNotAvailable(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return nutritionistNotAvailable?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (nutritionistNotAvailable != null) {
+      return nutritionistNotAvailable(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NutritionistNotAvailableError implements CauceApiError {
+  const factory NutritionistNotAvailableError(
+          {required final NutritionistNotAvailableReason reason}) =
+      _$NutritionistNotAvailableErrorImpl;
+
+  NutritionistNotAvailableReason get reason;
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NutritionistNotAvailableErrorImplCopyWith<
+          _$NutritionistNotAvailableErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PatientAlreadyAssignedErrorImplCopyWith<$Res> {
+  factory _$$PatientAlreadyAssignedErrorImplCopyWith(
+          _$PatientAlreadyAssignedErrorImpl value,
+          $Res Function(_$PatientAlreadyAssignedErrorImpl) then) =
+      __$$PatientAlreadyAssignedErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PatientAlreadyAssignedErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$PatientAlreadyAssignedErrorImpl>
+    implements _$$PatientAlreadyAssignedErrorImplCopyWith<$Res> {
+  __$$PatientAlreadyAssignedErrorImplCopyWithImpl(
+      _$PatientAlreadyAssignedErrorImpl _value,
+      $Res Function(_$PatientAlreadyAssignedErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
+  const _$PatientAlreadyAssignedErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.patientAlreadyAssigned()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PatientAlreadyAssignedErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return patientAlreadyAssigned();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return patientAlreadyAssigned?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (patientAlreadyAssigned != null) {
+      return patientAlreadyAssigned();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return patientAlreadyAssigned(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return patientAlreadyAssigned?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (patientAlreadyAssigned != null) {
+      return patientAlreadyAssigned(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PatientAlreadyAssignedError implements CauceApiError {
+  const factory PatientAlreadyAssignedError() =
+      _$PatientAlreadyAssignedErrorImpl;
 }
 
 /// @nodoc
@@ -1756,6 +2392,9 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1780,6 +2419,9 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1804,6 +2446,9 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1831,6 +2476,10 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1856,6 +2505,10 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1878,6 +2531,9 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1979,6 +2635,9 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2003,6 +2662,9 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2027,6 +2689,9 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2054,6 +2719,10 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2079,6 +2748,10 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2101,6 +2774,9 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2185,6 +2861,9 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2209,6 +2888,9 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2233,6 +2915,9 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2260,6 +2945,10 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2285,6 +2974,10 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2307,6 +3000,9 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2381,6 +3077,9 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2405,6 +3104,9 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2429,6 +3131,9 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2456,6 +3161,10 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2481,6 +3190,10 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2503,6 +3216,9 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2578,6 +3294,9 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2602,6 +3321,9 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2626,6 +3348,9 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2653,6 +3378,10 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2678,6 +3407,10 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2700,6 +3433,9 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2772,6 +3508,9 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2796,6 +3535,9 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2820,6 +3562,9 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2847,6 +3592,10 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2872,6 +3621,10 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2894,6 +3647,9 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2966,6 +3722,9 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2990,6 +3749,9 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3014,6 +3776,9 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3041,6 +3806,10 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3066,6 +3835,10 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3088,6 +3861,9 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3206,6 +3982,9 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function(InvitationCodeReason reason) invitationCode,
     required TResult Function(PasswordResetTokenReason reason)
         passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -3230,6 +4009,9 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function()? duplicateEmail,
     TResult? Function(InvitationCodeReason reason)? invitationCode,
     TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3254,6 +4036,9 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function()? duplicateEmail,
     TResult Function(InvitationCodeReason reason)? invitationCode,
     TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3281,6 +4066,10 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function(DuplicateEmailError value) duplicateEmail,
     required TResult Function(InvitationCodeError value) invitationCode,
     required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3306,6 +4095,10 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function(DuplicateEmailError value)? duplicateEmail,
     TResult? Function(InvitationCodeError value)? invitationCode,
     TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3328,6 +4121,9 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(DuplicateEmailError value)? duplicateEmail,
     TResult Function(InvitationCodeError value)? invitationCode,
     TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,

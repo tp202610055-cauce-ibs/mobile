@@ -93,5 +93,23 @@ final consentApiProvider = Provider<ConsentApi>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ConsentApiRef = ProviderRef<ConsentApi>;
+String _$patientsApiHash() => r'71e40f889276b1df18de1f63993408e2326098b5';
+
+/// Endpoints del paciente autenticado. Todos exigen la politica `Patient`.
+///
+/// Copied from [patientsApi].
+@ProviderFor(patientsApi)
+final patientsApiProvider = Provider<PatientsApi>.internal(
+  patientsApi,
+  name: r'patientsApiProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$patientsApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PatientsApiRef = ProviderRef<PatientsApi>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -246,6 +246,18 @@ class AppLocalizationsEs extends AppLocalizations {
       'El codigo de invitacion ya fue usado';
 
   @override
+  String get errorNutritionistPendingActivation =>
+      'Este nutricionista todavia no activo su cuenta. Intenta de nuevo mas tarde o comunicate directamente con el.';
+
+  @override
+  String get errorNutritionistUnavailable =>
+      'Este codigo ya no esta disponible. Comunicate con tu nutricionista para obtener uno nuevo.';
+
+  @override
+  String get errorPatientAlreadyAssigned =>
+      'Ya tienes un nutricionista asignado';
+
+  @override
   String get errorDuplicateEmail => 'Ya existe una cuenta con este correo';
 
   @override

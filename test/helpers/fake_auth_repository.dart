@@ -60,6 +60,7 @@ class FakeAuthRepository implements AuthRepository {
   int currentConsentCalls = 0;
   int registerCalls = 0;
   int logoutCalls = 0;
+  int resendVerificationEmailCalls = 0;
 
   String? lastEmail;
   String? lastPassword;
@@ -146,6 +147,13 @@ class FakeAuthRepository implements AuthRepository {
       email: email,
       emailVerificationRequired: true,
     );
+  }
+
+  @override
+  Future<void> resendVerificationEmail({required String email}) async {
+    resendVerificationEmailCalls++;
+    lastEmail = email;
+    await _run();
   }
 
   @override
