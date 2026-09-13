@@ -22,6 +22,8 @@ import 'package:cauce_api_client/src/model/approve_recommendation_request.dart';
 import 'package:cauce_api_client/src/model/archive_reason.dart';
 import 'package:cauce_api_client/src/model/archive_recommendation_request.dart';
 import 'package:cauce_api_client/src/model/assessment_type.dart';
+import 'package:cauce_api_client/src/model/assign_nutritionist_request.dart';
+import 'package:cauce_api_client/src/model/assign_nutritionist_result.dart';
 import 'package:cauce_api_client/src/model/assigned_patient_summary.dart';
 import 'package:cauce_api_client/src/model/authenticated_user.dart';
 import 'package:cauce_api_client/src/model/biological_sex.dart';
@@ -63,6 +65,7 @@ import 'package:cauce_api_client/src/model/generate_invitation_code_result.dart'
 import 'package:cauce_api_client/src/model/generate_my_clinical_report_result.dart';
 import 'package:cauce_api_client/src/model/generate_recommendation_result.dart';
 import 'package:cauce_api_client/src/model/get_assigned_patient_detail_result.dart';
+import 'package:cauce_api_client/src/model/get_nutritionist_result.dart';
 import 'package:cauce_api_client/src/model/get_patient_profile_result.dart';
 import 'package:cauce_api_client/src/model/glossary_category.dart';
 import 'package:cauce_api_client/src/model/glossary_result.dart';
@@ -103,6 +106,7 @@ import 'package:cauce_api_client/src/model/register_patient_request.dart';
 import 'package:cauce_api_client/src/model/register_patient_result.dart';
 import 'package:cauce_api_client/src/model/reject_recommendation_request.dart';
 import 'package:cauce_api_client/src/model/request_password_reset_request.dart';
+import 'package:cauce_api_client/src/model/resend_verification_email_request.dart';
 import 'package:cauce_api_client/src/model/severity_category.dart';
 import 'package:cauce_api_client/src/model/submit_feedback_request.dart';
 import 'package:cauce_api_client/src/model/symptom_batch_item.dart';
@@ -133,6 +137,8 @@ part 'serializers.g.dart';
   ArchiveReason,
   ArchiveRecommendationRequest,
   AssessmentType,
+  AssignNutritionistRequest,
+  AssignNutritionistResult,
   AssignedPatientSummary,
   AuthenticatedUser,
   BiologicalSex,
@@ -174,6 +180,7 @@ part 'serializers.g.dart';
   GenerateMyClinicalReportResult,
   GenerateRecommendationResult,
   GetAssignedPatientDetailResult,
+  GetNutritionistResult,
   GetPatientProfileResult,
   GlossaryCategory,
   GlossaryResult,
@@ -214,6 +221,7 @@ part 'serializers.g.dart';
   RegisterPatientResult,
   RejectRecommendationRequest,
   RequestPasswordResetRequest,
+  ResendVerificationEmailRequest,
   SeverityCategory,
   SubmitFeedbackRequest,
   SymptomBatchItem,

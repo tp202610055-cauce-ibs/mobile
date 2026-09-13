@@ -39,6 +39,8 @@ lib/src/model/approve_recommendation_request.dart
 lib/src/model/archive_reason.dart
 lib/src/model/archive_recommendation_request.dart
 lib/src/model/assessment_type.dart
+lib/src/model/assign_nutritionist_request.dart
+lib/src/model/assign_nutritionist_result.dart
 lib/src/model/assigned_patient_summary.dart
 lib/src/model/authenticated_user.dart
 lib/src/model/biological_sex.dart
@@ -81,6 +83,7 @@ lib/src/model/generate_invitation_code_result.dart
 lib/src/model/generate_my_clinical_report_result.dart
 lib/src/model/generate_recommendation_result.dart
 lib/src/model/get_assigned_patient_detail_result.dart
+lib/src/model/get_nutritionist_result.dart
 lib/src/model/get_patient_profile_result.dart
 lib/src/model/glossary_category.dart
 lib/src/model/glossary_result.dart
@@ -121,6 +124,7 @@ lib/src/model/register_patient_request.dart
 lib/src/model/register_patient_result.dart
 lib/src/model/reject_recommendation_request.dart
 lib/src/model/request_password_reset_request.dart
+lib/src/model/resend_verification_email_request.dart
 lib/src/model/severity_category.dart
 lib/src/model/submit_feedback_request.dart
 lib/src/model/symptom_batch_item.dart

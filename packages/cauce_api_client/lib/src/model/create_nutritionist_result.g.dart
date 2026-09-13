@@ -12,14 +12,16 @@ class _$CreateNutritionistResult extends CreateNutritionistResult {
   @override
   final String? email;
   @override
-  final bool? temporaryCredentialsEmailSent;
+  final UserStatus? status;
+  @override
+  final bool? activationEmailSent;
 
   factory _$CreateNutritionistResult(
           [void Function(CreateNutritionistResultBuilder)? updates]) =>
       (CreateNutritionistResultBuilder()..update(updates))._build();
 
   _$CreateNutritionistResult._(
-      {this.userId, this.email, this.temporaryCredentialsEmailSent})
+      {this.userId, this.email, this.status, this.activationEmailSent})
       : super._();
   @override
   CreateNutritionistResult rebuild(
@@ -36,7 +38,8 @@ class _$CreateNutritionistResult extends CreateNutritionistResult {
     return other is CreateNutritionistResult &&
         userId == other.userId &&
         email == other.email &&
-        temporaryCredentialsEmailSent == other.temporaryCredentialsEmailSent;
+        status == other.status &&
+        activationEmailSent == other.activationEmailSent;
   }
 
   @override
@@ -44,7 +47,8 @@ class _$CreateNutritionistResult extends CreateNutritionistResult {
     var _$hash = 0;
     _$hash = $jc(_$hash, userId.hashCode);
     _$hash = $jc(_$hash, email.hashCode);
-    _$hash = $jc(_$hash, temporaryCredentialsEmailSent.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, activationEmailSent.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,7 +58,8 @@ class _$CreateNutritionistResult extends CreateNutritionistResult {
     return (newBuiltValueToStringHelper(r'CreateNutritionistResult')
           ..add('userId', userId)
           ..add('email', email)
-          ..add('temporaryCredentialsEmailSent', temporaryCredentialsEmailSent))
+          ..add('status', status)
+          ..add('activationEmailSent', activationEmailSent))
         .toString();
   }
 }
@@ -72,11 +77,14 @@ class CreateNutritionistResultBuilder
   String? get email => _$this._email;
   set email(String? email) => _$this._email = email;
 
-  bool? _temporaryCredentialsEmailSent;
-  bool? get temporaryCredentialsEmailSent =>
-      _$this._temporaryCredentialsEmailSent;
-  set temporaryCredentialsEmailSent(bool? temporaryCredentialsEmailSent) =>
-      _$this._temporaryCredentialsEmailSent = temporaryCredentialsEmailSent;
+  UserStatus? _status;
+  UserStatus? get status => _$this._status;
+  set status(UserStatus? status) => _$this._status = status;
+
+  bool? _activationEmailSent;
+  bool? get activationEmailSent => _$this._activationEmailSent;
+  set activationEmailSent(bool? activationEmailSent) =>
+      _$this._activationEmailSent = activationEmailSent;
 
   CreateNutritionistResultBuilder() {
     CreateNutritionistResult._defaults(this);
@@ -87,7 +95,8 @@ class CreateNutritionistResultBuilder
     if ($v != null) {
       _userId = $v.userId;
       _email = $v.email;
-      _temporaryCredentialsEmailSent = $v.temporaryCredentialsEmailSent;
+      _status = $v.status;
+      _activationEmailSent = $v.activationEmailSent;
       _$v = null;
     }
     return this;
@@ -111,7 +120,8 @@ class CreateNutritionistResultBuilder
         _$CreateNutritionistResult._(
           userId: userId,
           email: email,
-          temporaryCredentialsEmailSent: temporaryCredentialsEmailSent,
+          status: status,
+          activationEmailSent: activationEmailSent,
         );
     replace(_$result);
     return _$result;

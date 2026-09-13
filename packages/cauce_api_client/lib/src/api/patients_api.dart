@@ -11,6 +11,8 @@ import 'package:dio/dio.dart';
 import 'dart:typed_data';
 import 'package:built_collection/built_collection.dart';
 import 'package:cauce_api_client/src/api_util.dart';
+import 'package:cauce_api_client/src/model/assign_nutritionist_request.dart';
+import 'package:cauce_api_client/src/model/assign_nutritionist_result.dart';
 import 'package:cauce_api_client/src/model/create_patient_profile_request.dart';
 import 'package:cauce_api_client/src/model/create_patient_profile_result.dart';
 import 'package:cauce_api_client/src/model/declare_allergy_request.dart';
@@ -468,6 +470,107 @@ class PatientsApi {
     }
 
     return Response<ExportMyDataResult>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// Canjea un código de invitación para vincular al paciente autenticado con un nutricionista  (US20 CA02, acta A41). Está pensado para quienes se registraron sin código y no tenían forma de  vincularse después.
+  /// El 409 &#x60;nutritionist_not_available&#x60; incluye la extensión &#x60;reason&#x60; con el estado exacto  de la cuenta del nutricionista: &#x60;pending_activation&#x60;, &#x60;inactive&#x60; o &#x60;suspended&#x60;.  En ese caso el código &lt;b&gt;no&lt;/b&gt; se consume.
+  ///
+  /// Parameters:
+  /// * [assignNutritionistRequest] - Código de invitación a canjear.
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [AssignNutritionistResult] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<AssignNutritionistResult>> apiV1PatientsMeNutritionistAssignmentPost({ 
+    AssignNutritionistRequest? assignNutritionistRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/patients/me/nutritionist-assignment';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'Bearer',
+          },
+        ],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(AssignNutritionistRequest);
+      _bodyData = assignNutritionistRequest == null ? null : _serializers.serialize(assignNutritionistRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    AssignNutritionistResult? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(AssignNutritionistResult),
+      ) as AssignNutritionistResult;
+
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<AssignNutritionistResult>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

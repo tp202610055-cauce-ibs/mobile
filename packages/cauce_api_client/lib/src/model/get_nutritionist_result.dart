@@ -7,51 +7,51 @@ import 'package:cauce_api_client/src/model/user_status.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'create_nutritionist_result.g.dart';
+part 'get_nutritionist_result.g.dart';
 
-/// CreateNutritionistResult
+/// GetNutritionistResult
 ///
 /// Properties:
 /// * [userId] 
 /// * [email] 
+/// * [fullName] 
 /// * [status] 
-/// * [activationEmailSent] 
 @BuiltValue()
-abstract class CreateNutritionistResult implements Built<CreateNutritionistResult, CreateNutritionistResultBuilder> {
+abstract class GetNutritionistResult implements Built<GetNutritionistResult, GetNutritionistResultBuilder> {
   @BuiltValueField(wireName: r'userId')
   String? get userId;
 
   @BuiltValueField(wireName: r'email')
   String? get email;
 
+  @BuiltValueField(wireName: r'fullName')
+  String? get fullName;
+
   @BuiltValueField(wireName: r'status')
   UserStatus? get status;
   // enum statusEnum {  PendingActivation,  Active,  Inactive,  Suspended,  };
 
-  @BuiltValueField(wireName: r'activationEmailSent')
-  bool? get activationEmailSent;
+  GetNutritionistResult._();
 
-  CreateNutritionistResult._();
-
-  factory CreateNutritionistResult([void updates(CreateNutritionistResultBuilder b)]) = _$CreateNutritionistResult;
+  factory GetNutritionistResult([void updates(GetNutritionistResultBuilder b)]) = _$GetNutritionistResult;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(CreateNutritionistResultBuilder b) => b;
+  static void _defaults(GetNutritionistResultBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CreateNutritionistResult> get serializer => _$CreateNutritionistResultSerializer();
+  static Serializer<GetNutritionistResult> get serializer => _$GetNutritionistResultSerializer();
 }
 
-class _$CreateNutritionistResultSerializer implements PrimitiveSerializer<CreateNutritionistResult> {
+class _$GetNutritionistResultSerializer implements PrimitiveSerializer<GetNutritionistResult> {
   @override
-  final Iterable<Type> types = const [CreateNutritionistResult, _$CreateNutritionistResult];
+  final Iterable<Type> types = const [GetNutritionistResult, _$GetNutritionistResult];
 
   @override
-  final String wireName = r'CreateNutritionistResult';
+  final String wireName = r'GetNutritionistResult';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    CreateNutritionistResult object, {
+    GetNutritionistResult object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.userId != null) {
@@ -68,6 +68,13 @@ class _$CreateNutritionistResultSerializer implements PrimitiveSerializer<Create
         specifiedType: const FullType.nullable(String),
       );
     }
+    if (object.fullName != null) {
+      yield r'fullName';
+      yield serializers.serialize(
+        object.fullName,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.status != null) {
       yield r'status';
       yield serializers.serialize(
@@ -75,19 +82,12 @@ class _$CreateNutritionistResultSerializer implements PrimitiveSerializer<Create
         specifiedType: const FullType(UserStatus),
       );
     }
-    if (object.activationEmailSent != null) {
-      yield r'activationEmailSent';
-      yield serializers.serialize(
-        object.activationEmailSent,
-        specifiedType: const FullType(bool),
-      );
-    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    CreateNutritionistResult object, {
+    GetNutritionistResult object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -98,7 +98,7 @@ class _$CreateNutritionistResultSerializer implements PrimitiveSerializer<Create
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required CreateNutritionistResultBuilder result,
+    required GetNutritionistResultBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -120,19 +120,20 @@ class _$CreateNutritionistResultSerializer implements PrimitiveSerializer<Create
           if (valueDes == null) continue;
           result.email = valueDes;
           break;
+        case r'fullName':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.fullName = valueDes;
+          break;
         case r'status':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(UserStatus),
           ) as UserStatus;
           result.status = valueDes;
-          break;
-        case r'activationEmailSent':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.activationEmailSent = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -143,12 +144,12 @@ class _$CreateNutritionistResultSerializer implements PrimitiveSerializer<Create
   }
 
   @override
-  CreateNutritionistResult deserialize(
+  GetNutritionistResult deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = CreateNutritionistResultBuilder();
+    final result = GetNutritionistResultBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(
