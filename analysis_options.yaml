@@ -17,6 +17,9 @@ analyzer:
     # codigo del proyecto, y no se corrigen a mano porque se pierden en la
     # siguiente regeneracion.
     - "packages/**"
+    - build/**
+    - android/**
+    - ios/**
 
 linter:
   rules:
