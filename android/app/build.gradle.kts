@@ -7,7 +7,13 @@ plugins {
 android {
     namespace = "pe.upc.cauce.cauce_mobile"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // ndkVersion = flutter.ndkVersion
+    // Comentado el 2026-09-15: ningun plugin del proyecto compila codigo
+    // nativo. No hay CMakeLists ni externalNativeBuild en el arbol, y
+    // sqlite3_flutter_libs embarca .so precompilados. AGP resuelve esta
+    // linea al configurar el proyecto, asi que exigia descargar 713 MB de
+    // NDK en cada maquina para nada. Restaurar si entra una dependencia
+    // con build nativo.
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
