@@ -1,7 +1,9 @@
 import '../../features/auth/domain/session_state.dart';
+import '../../features/onboarding/application/onboarding_notifier.dart';
 import 'app_routes.dart';
 
-/// Decide el destino de una navegacion segun el estado de sesion.
+/// Decide el destino de una navegacion segun el estado de sesion y de
+/// onboarding.
 ///
 /// Se expone como funcion pura, separada del `GoRouter`, porque es la pieza
 /// con toda la logica de decision y merece testearse sin construir un arbol
@@ -12,6 +14,7 @@ import 'app_routes.dart';
 String? resolveRedirect({
   required SessionState session,
   required String location,
+  OnboardingState onboarding = const OnboardingState.unavailable(),
 }) {
   // El restablecimiento de contrasena atraviesa el guard en cualquier estado.
   //
@@ -28,6 +31,7 @@ String? resolveRedirect({
 
   final isAuthBranch = location.startsWith(AppRoutes.authBranch);
   final isSplash = location == AppRoutes.splash;
+  final isOnboarding = location.startsWith(AppRoutes.onboardingBranch);
 
   return switch (session) {
     // Mientras se lee el Keystore, lo unico legitimo es el splash. Mandar al
@@ -36,8 +40,15 @@ String? resolveRedirect({
     SessionUnknown() => isSplash ? null : AppRoutes.splash,
 
     // Con sesion valida, el arbol de identidad y el splash dejan de tener
-    // sentido: quien ya entro no vuelve al login por navegar hacia atras.
-    SessionAuthenticated() => isAuthBranch || isSplash ? AppRoutes.home : null,
+    // sentido: quien ya entro no vuelve al login por navegar hacia atras. El
+    // onboarding pendiente se antepone a todo lo demas.
+    SessionAuthenticated() => _authenticatedDestination(
+        onboarding: onboarding,
+        location: location,
+        isAuthBranch: isAuthBranch,
+        isSplash: isSplash,
+        isOnboarding: isOnboarding,
+      ),
 
     // Sin sesion, solo el flujo publico. El splash queda excluido porque su
     // trabajo ya termino.
@@ -51,6 +62,44 @@ String? resolveRedirect({
           : AppRoutes.verifyEmailPending,
   };
 }
+
+/// Destino de un paciente con sesion valida.
+///
+/// Solo [OnboardingPending] desvia. Los otros tres estados dejan la app como
+/// estaba, con el wizard cerrado:
+///
+/// - [OnboardingDeferred]: el paciente eligio seguir despues (CA05). El
+///   recordatorio vive en el tablero, no en un redirect que lo devuelva al
+///   wizard que acaba de aplazar.
+/// - [OnboardingCompleted]: no hay nada que completar.
+/// - [OnboardingUnavailable]: la consulta no resolvio, tipicamente por falta
+///   de red. Redirigir sobre un dato que no se tiene dejaria al paciente
+///   atrapado en un wizard que tampoco podria enviar. El diseno offline-first
+///   pide lo contrario: que siga usando el resto.
+String? _authenticatedDestination({
+  required OnboardingState onboarding,
+  required String location,
+  required bool isAuthBranch,
+  required bool isSplash,
+  required bool isOnboarding,
+}) {
+  if (onboarding case OnboardingPending(:final step)) {
+    final target = routeForStep(step);
+    return location == target ? null : target;
+  }
+
+  // El wizard no es navegable cuando no hay paso pendiente.
+  if (isAuthBranch || isSplash || isOnboarding) {
+    return AppRoutes.home;
+  }
+  return null;
+}
+
+/// Ruta de cada paso del wizard.
+String routeForStep(OnboardingStep step) => switch (step) {
+      OnboardingStep.clinicalProfile => AppRoutes.onboardingProfile,
+      OnboardingStep.ibsSssBaseline => AppRoutes.onboardingBaseline,
+    };
 
 /// Rutas que el guard deja pasar sin mirar el estado de sesion.
 bool isSessionIndependent(String location) {
