@@ -500,6 +500,48 @@ abstract class AppLocalizations {
   /// **'Debes aceptar el consentimiento informado para continuar'**
   String get validationConsentRequired;
 
+  /// No description provided for @validationNumberInvalid.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa un número válido'**
+  String get validationNumberInvalid;
+
+  /// No description provided for @validationDateOfBirthFuture.
+  ///
+  /// In es, this message translates to:
+  /// **'La fecha de nacimiento no puede ser futura'**
+  String get validationDateOfBirthFuture;
+
+  /// Rango de edad que acepta PatientProfile del backend. El minimo de 18 es requisito del piloto clinico, no una preferencia de diseno
+  ///
+  /// In es, this message translates to:
+  /// **'El piloto admite participantes entre {min} y {max} años'**
+  String validationAgeOutOfRange(int min, int max);
+
+  /// No description provided for @validationDiagnosisDateFuture.
+  ///
+  /// In es, this message translates to:
+  /// **'La fecha de diagnóstico no puede ser futura'**
+  String get validationDiagnosisDateFuture;
+
+  /// No description provided for @validationWeightOutOfRange.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa un peso mayor que 0 y menor que 500 kg'**
+  String get validationWeightOutOfRange;
+
+  /// No description provided for @validationHeightOutOfRange.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresa una estatura mayor que 0 y menor que 250 cm'**
+  String get validationHeightOutOfRange;
+
+  /// Tope de longitud de campos opcionales de texto libre: medicacion (1000) y notas de alergia (500)
+  ///
+  /// In es, this message translates to:
+  /// **'No puede superar los {max} caracteres'**
+  String validationTextTooLong(int max);
+
   /// errorCode validation_error (400). Los detalles por campo van en cada CauceTextField
   ///
   /// In es, this message translates to:
@@ -547,6 +589,48 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ya tienes un nutricionista asignado'**
   String get errorPatientAlreadyAssigned;
+
+  /// errorCode patient_profile_not_found (404). En el onboarding no llega a mostrarse: PatientsRepository.fetchProfile lo traduce a null porque ahi significa paso 1 pendiente
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no registraste tu perfil clínico'**
+  String get errorPatientProfileNotFound;
+
+  /// errorCode duplicate_patient_profile (409). Tipicamente el envio anterior si entro aunque el dispositivo no vio la respuesta
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil clínico ya está registrado'**
+  String get errorDuplicateProfile;
+
+  /// errorCode invalid_biometric_value (400). Lo emite la entidad de dominio del backend, asi que no trae errors por campo y el mensaje no puede senalar cual fallo
+  ///
+  /// In es, this message translates to:
+  /// **'Alguno de los datos clínicos está fuera del rango permitido. Revísalos e inténtalo de nuevo.'**
+  String get errorInvalidBiometricValue;
+
+  /// errorCode allergy_not_found (404). La entrada fue desactivada mientras el paciente completaba el formulario
+  ///
+  /// In es, this message translates to:
+  /// **'Esta alergia ya no está disponible en el catálogo'**
+  String get errorAllergyNotFound;
+
+  /// errorCode duplicate_patient_allergy (409). En el reintento del paso 1 la capa de aplicacion lo trata como exito y este mensaje no llega a la pantalla
+  ///
+  /// In es, this message translates to:
+  /// **'Esta alergia ya figura en tu perfil'**
+  String get errorDuplicateAllergy;
+
+  /// errorCode invalid_ibs_sss_dimension (400). Inalcanzable desde la UI porque el control esta acotado; se traduce por completitud del switch
+  ///
+  /// In es, this message translates to:
+  /// **'Alguna respuesta quedó fuera del rango de 0 a 100'**
+  String get errorInvalidIbsSssDimension;
+
+  /// errorCode duplicate_baseline_assessment (409). El onboarding ya quedo cerrado: corresponde releer el estado, no reintentar
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuestionario de línea base ya está registrado'**
+  String get errorDuplicateBaselineAssessment;
 
   /// errorCode duplicate_email (409)
   ///
@@ -637,6 +721,468 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ocurrio un error inesperado. Intenta de nuevo.'**
   String get errorUnknown;
+
+  /// Indicador de progreso del wizard de onboarding clinico
+  ///
+  /// In es, this message translates to:
+  /// **'Paso {current} de {total}'**
+  String onboardingStepLabel(int current, int total);
+
+  /// US03 CA05 y US04 CA05. Aplaza el paso y deja usar el resto de la app
+  ///
+  /// In es, this message translates to:
+  /// **'Completar más tarde'**
+  String get onboardingDefer;
+
+  /// No description provided for @onboardingReminderTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Te falta completar tu perfil'**
+  String get onboardingReminderTitle;
+
+  /// No description provided for @onboardingReminderBodyProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu nutricionista necesita tus datos clínicos para darte recomendaciones.'**
+  String get onboardingReminderBodyProfile;
+
+  /// No description provided for @onboardingReminderBodyBaseline.
+  ///
+  /// In es, this message translates to:
+  /// **'Falta el cuestionario inicial. Es el punto de partida para medir tu evolución.'**
+  String get onboardingReminderBodyBaseline;
+
+  /// No description provided for @onboardingReminderAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar ahora'**
+  String get onboardingReminderAction;
+
+  /// No description provided for @clinicalProfileTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil clínico'**
+  String get clinicalProfileTitle;
+
+  /// No description provided for @clinicalProfileSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Estos datos le permiten a tu nutricionista ajustar tus recomendaciones.'**
+  String get clinicalProfileSubtitle;
+
+  /// No description provided for @clinicalProfileDateOfBirthLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha de nacimiento'**
+  String get clinicalProfileDateOfBirthLabel;
+
+  /// No description provided for @clinicalProfileDatePlaceholder.
+  ///
+  /// In es, this message translates to:
+  /// **'Selecciona una fecha'**
+  String get clinicalProfileDatePlaceholder;
+
+  /// No description provided for @clinicalProfileBiologicalSexLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Sexo biológico'**
+  String get clinicalProfileBiologicalSexLabel;
+
+  /// No description provided for @biologicalSexFemale.
+  ///
+  /// In es, this message translates to:
+  /// **'Femenino'**
+  String get biologicalSexFemale;
+
+  /// No description provided for @biologicalSexMale.
+  ///
+  /// In es, this message translates to:
+  /// **'Masculino'**
+  String get biologicalSexMale;
+
+  /// No description provided for @biologicalSexOther.
+  ///
+  /// In es, this message translates to:
+  /// **'Otro'**
+  String get biologicalSexOther;
+
+  /// No description provided for @clinicalProfileWeightLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso (kg)'**
+  String get clinicalProfileWeightLabel;
+
+  /// No description provided for @clinicalProfileWeightHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Por ejemplo, 62.5'**
+  String get clinicalProfileWeightHint;
+
+  /// No description provided for @clinicalProfileHeightLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Estatura (cm)'**
+  String get clinicalProfileHeightLabel;
+
+  /// No description provided for @clinicalProfileHeightHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Por ejemplo, 162'**
+  String get clinicalProfileHeightHint;
+
+  /// No description provided for @clinicalProfileIbsSubtypeLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Subtipo de síndrome de intestino irritable'**
+  String get clinicalProfileIbsSubtypeLabel;
+
+  /// No description provided for @ibsSubtypeD.
+  ///
+  /// In es, this message translates to:
+  /// **'SII-D'**
+  String get ibsSubtypeD;
+
+  /// No description provided for @ibsSubtypeDDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Con predominio de diarrea'**
+  String get ibsSubtypeDDescription;
+
+  /// No description provided for @ibsSubtypeC.
+  ///
+  /// In es, this message translates to:
+  /// **'SII-C'**
+  String get ibsSubtypeC;
+
+  /// No description provided for @ibsSubtypeCDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Con predominio de estreñimiento'**
+  String get ibsSubtypeCDescription;
+
+  /// No description provided for @ibsSubtypeM.
+  ///
+  /// In es, this message translates to:
+  /// **'SII-M'**
+  String get ibsSubtypeM;
+
+  /// No description provided for @ibsSubtypeMDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'Mixto: alterna diarrea y estreñimiento'**
+  String get ibsSubtypeMDescription;
+
+  /// No description provided for @ibsSubtypeU.
+  ///
+  /// In es, this message translates to:
+  /// **'SII-NC'**
+  String get ibsSubtypeU;
+
+  /// No description provided for @ibsSubtypeUDescription.
+  ///
+  /// In es, this message translates to:
+  /// **'No clasificado'**
+  String get ibsSubtypeUDescription;
+
+  /// No description provided for @clinicalProfileDiagnosisDateLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha de diagnóstico (opcional)'**
+  String get clinicalProfileDiagnosisDateLabel;
+
+  /// No description provided for @clinicalProfileMedicationsLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Medicación actual (opcional)'**
+  String get clinicalProfileMedicationsLabel;
+
+  /// No description provided for @clinicalProfileMedicationsHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre y dosis, si tomas algo por el SII'**
+  String get clinicalProfileMedicationsHint;
+
+  /// No description provided for @clinicalProfileSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar'**
+  String get clinicalProfileSubmit;
+
+  /// No description provided for @bmiTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Índice de masa corporal'**
+  String get bmiTitle;
+
+  /// IMC calculado en vivo mientras el paciente completa peso y estatura (US03 CA04)
+  ///
+  /// In es, this message translates to:
+  /// **'{value} kg/m²'**
+  String bmiValue(String value);
+
+  /// No description provided for @bmiCategoryUnderweight.
+  ///
+  /// In es, this message translates to:
+  /// **'Bajo peso'**
+  String get bmiCategoryUnderweight;
+
+  /// No description provided for @bmiCategoryNormal.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso normal'**
+  String get bmiCategoryNormal;
+
+  /// No description provided for @bmiCategoryOverweight.
+  ///
+  /// In es, this message translates to:
+  /// **'Sobrepeso'**
+  String get bmiCategoryOverweight;
+
+  /// No description provided for @bmiCategoryObese.
+  ///
+  /// In es, this message translates to:
+  /// **'Obesidad'**
+  String get bmiCategoryObese;
+
+  /// Encuadre neutro del IMC. Es un dato informativo, no un diagnostico ni un veredicto
+  ///
+  /// In es, this message translates to:
+  /// **'Referencia de la OMS. Tu nutricionista lo interpreta junto al resto de tu historia clínica.'**
+  String get bmiNote;
+
+  /// No description provided for @bmiPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Completa peso y estatura para verlo.'**
+  String get bmiPending;
+
+  /// No description provided for @allergiesTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Alergias e intolerancias'**
+  String get allergiesTitle;
+
+  /// No description provided for @allergiesSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Marca las que tengas. Puedes dejarlo vacío si no aplica.'**
+  String get allergiesSubtitle;
+
+  /// No description provided for @allergiesLoading.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando el catálogo'**
+  String get allergiesLoading;
+
+  /// No description provided for @allergiesEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay alergias en el catálogo.'**
+  String get allergiesEmpty;
+
+  /// No description provided for @allergySeverityLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Severidad'**
+  String get allergySeverityLabel;
+
+  /// No description provided for @allergySeverityMild.
+  ///
+  /// In es, this message translates to:
+  /// **'Leve'**
+  String get allergySeverityMild;
+
+  /// No description provided for @allergySeverityModerate.
+  ///
+  /// In es, this message translates to:
+  /// **'Moderada'**
+  String get allergySeverityModerate;
+
+  /// No description provided for @allergySeveritySevere.
+  ///
+  /// In es, this message translates to:
+  /// **'Severa'**
+  String get allergySeveritySevere;
+
+  /// No description provided for @allergyNotesLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Nota (opcional)'**
+  String get allergyNotesLabel;
+
+  /// No description provided for @allergyTypeAllergy.
+  ///
+  /// In es, this message translates to:
+  /// **'Alergia'**
+  String get allergyTypeAllergy;
+
+  /// No description provided for @allergyTypeIntolerance.
+  ///
+  /// In es, this message translates to:
+  /// **'Intolerancia'**
+  String get allergyTypeIntolerance;
+
+  /// No description provided for @allergyTypeSensitivity.
+  ///
+  /// In es, this message translates to:
+  /// **'Sensibilidad'**
+  String get allergyTypeSensitivity;
+
+  /// No description provided for @ibsSssTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuestionario inicial'**
+  String get ibsSssTitle;
+
+  /// No description provided for @ibsSssSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Responde las cinco preguntas pensando en los últimos diez días.'**
+  String get ibsSssSubtitle;
+
+  /// No description provided for @ibsSssQuestionPainSeverity.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Qué tan intenso fue tu dolor abdominal?'**
+  String get ibsSssQuestionPainSeverity;
+
+  /// No description provided for @ibsSssPainSeverityMin.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin dolor'**
+  String get ibsSssPainSeverityMin;
+
+  /// No description provided for @ibsSssPainSeverityMax.
+  ///
+  /// In es, this message translates to:
+  /// **'Muy intenso'**
+  String get ibsSssPainSeverityMax;
+
+  /// No description provided for @ibsSssQuestionPainFrequency.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Con qué frecuencia tuviste dolor abdominal?'**
+  String get ibsSssQuestionPainFrequency;
+
+  /// No description provided for @ibsSssPainFrequencyMin.
+  ///
+  /// In es, this message translates to:
+  /// **'Ningún día'**
+  String get ibsSssPainFrequencyMin;
+
+  /// No description provided for @ibsSssPainFrequencyMax.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos los días'**
+  String get ibsSssPainFrequencyMax;
+
+  /// No description provided for @ibsSssQuestionBloatingSeverity.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Qué tan intensa fue la distensión o hinchazón?'**
+  String get ibsSssQuestionBloatingSeverity;
+
+  /// No description provided for @ibsSssBloatingSeverityMin.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin distensión'**
+  String get ibsSssBloatingSeverityMin;
+
+  /// No description provided for @ibsSssBloatingSeverityMax.
+  ///
+  /// In es, this message translates to:
+  /// **'Muy intensa'**
+  String get ibsSssBloatingSeverityMax;
+
+  /// No description provided for @ibsSssQuestionBowelHabits.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Qué tan insatisfecho estuviste con tu hábito intestinal?'**
+  String get ibsSssQuestionBowelHabits;
+
+  /// No description provided for @ibsSssBowelHabitsMin.
+  ///
+  /// In es, this message translates to:
+  /// **'Muy satisfecho'**
+  String get ibsSssBowelHabitsMin;
+
+  /// No description provided for @ibsSssBowelHabitsMax.
+  ///
+  /// In es, this message translates to:
+  /// **'Muy insatisfecho'**
+  String get ibsSssBowelHabitsMax;
+
+  /// No description provided for @ibsSssQuestionLifeInterference.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cuánto interfirieron los síntomas en tu vida diaria?'**
+  String get ibsSssQuestionLifeInterference;
+
+  /// No description provided for @ibsSssLifeInterferenceMin.
+  ///
+  /// In es, this message translates to:
+  /// **'Nada'**
+  String get ibsSssLifeInterferenceMin;
+
+  /// No description provided for @ibsSssLifeInterferenceMax.
+  ///
+  /// In es, this message translates to:
+  /// **'Muchísimo'**
+  String get ibsSssLifeInterferenceMax;
+
+  /// US04 CA02. El envio queda bloqueado hasta que las cinco esten respondidas
+  ///
+  /// In es, this message translates to:
+  /// **'Faltan {count} preguntas por responder.'**
+  String ibsSssPending(int count);
+
+  /// No description provided for @ibsSssSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar cuestionario'**
+  String get ibsSssSubmit;
+
+  /// No description provided for @ibsSssResultTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Registramos tu cuestionario'**
+  String get ibsSssResultTitle;
+
+  /// Puntaje IBS-SSS calculado por el servidor. El cliente no lo computa
+  ///
+  /// In es, this message translates to:
+  /// **'Puntaje: {score} de 500'**
+  String ibsSssResultScore(int score);
+
+  /// No description provided for @ibsSssSeverityMild.
+  ///
+  /// In es, this message translates to:
+  /// **'Severidad leve'**
+  String get ibsSssSeverityMild;
+
+  /// No description provided for @ibsSssSeverityModerate.
+  ///
+  /// In es, this message translates to:
+  /// **'Severidad moderada'**
+  String get ibsSssSeverityModerate;
+
+  /// No description provided for @ibsSssSeveritySevere.
+  ///
+  /// In es, this message translates to:
+  /// **'Severidad severa'**
+  String get ibsSssSeveritySevere;
+
+  /// Encuadre neutro del resultado. Registro informativo, sin adjetivos de alarma
+  ///
+  /// In es, this message translates to:
+  /// **'Es tu punto de partida para medir la evolución. Tu nutricionista lo revisa contigo en consulta.'**
+  String get ibsSssResultNote;
+
+  /// No description provided for @ibsSssResultContinue.
+  ///
+  /// In es, this message translates to:
+  /// **'Ir al inicio'**
+  String get ibsSssResultContinue;
 }
 
 class _AppLocalizationsDelegate

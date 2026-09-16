@@ -229,6 +229,35 @@ class AppLocalizationsEs extends AppLocalizations {
       'Debes aceptar el consentimiento informado para continuar';
 
   @override
+  String get validationNumberInvalid => 'Ingresa un número válido';
+
+  @override
+  String get validationDateOfBirthFuture =>
+      'La fecha de nacimiento no puede ser futura';
+
+  @override
+  String validationAgeOutOfRange(int min, int max) {
+    return 'El piloto admite participantes entre $min y $max años';
+  }
+
+  @override
+  String get validationDiagnosisDateFuture =>
+      'La fecha de diagnóstico no puede ser futura';
+
+  @override
+  String get validationWeightOutOfRange =>
+      'Ingresa un peso mayor que 0 y menor que 500 kg';
+
+  @override
+  String get validationHeightOutOfRange =>
+      'Ingresa una estatura mayor que 0 y menor que 250 cm';
+
+  @override
+  String validationTextTooLong(int max) {
+    return 'No puede superar los $max caracteres';
+  }
+
+  @override
   String get errorValidation => 'Revisa los datos ingresados';
 
   @override
@@ -256,6 +285,32 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get errorPatientAlreadyAssigned =>
       'Ya tienes un nutricionista asignado';
+
+  @override
+  String get errorPatientProfileNotFound =>
+      'Todavía no registraste tu perfil clínico';
+
+  @override
+  String get errorDuplicateProfile => 'Tu perfil clínico ya está registrado';
+
+  @override
+  String get errorInvalidBiometricValue =>
+      'Alguno de los datos clínicos está fuera del rango permitido. Revísalos e inténtalo de nuevo.';
+
+  @override
+  String get errorAllergyNotFound =>
+      'Esta alergia ya no está disponible en el catálogo';
+
+  @override
+  String get errorDuplicateAllergy => 'Esta alergia ya figura en tu perfil';
+
+  @override
+  String get errorInvalidIbsSssDimension =>
+      'Alguna respuesta quedó fuera del rango de 0 a 100';
+
+  @override
+  String get errorDuplicateBaselineAssessment =>
+      'Tu cuestionario de línea base ya está registrado';
 
   @override
   String get errorDuplicateEmail => 'Ya existe una cuenta con este correo';
@@ -314,4 +369,258 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorUnknown => 'Ocurrio un error inesperado. Intenta de nuevo.';
+
+  @override
+  String onboardingStepLabel(int current, int total) {
+    return 'Paso $current de $total';
+  }
+
+  @override
+  String get onboardingDefer => 'Completar más tarde';
+
+  @override
+  String get onboardingReminderTitle => 'Te falta completar tu perfil';
+
+  @override
+  String get onboardingReminderBodyProfile =>
+      'Tu nutricionista necesita tus datos clínicos para darte recomendaciones.';
+
+  @override
+  String get onboardingReminderBodyBaseline =>
+      'Falta el cuestionario inicial. Es el punto de partida para medir tu evolución.';
+
+  @override
+  String get onboardingReminderAction => 'Continuar ahora';
+
+  @override
+  String get clinicalProfileTitle => 'Tu perfil clínico';
+
+  @override
+  String get clinicalProfileSubtitle =>
+      'Estos datos le permiten a tu nutricionista ajustar tus recomendaciones.';
+
+  @override
+  String get clinicalProfileDateOfBirthLabel => 'Fecha de nacimiento';
+
+  @override
+  String get clinicalProfileDatePlaceholder => 'Selecciona una fecha';
+
+  @override
+  String get clinicalProfileBiologicalSexLabel => 'Sexo biológico';
+
+  @override
+  String get biologicalSexFemale => 'Femenino';
+
+  @override
+  String get biologicalSexMale => 'Masculino';
+
+  @override
+  String get biologicalSexOther => 'Otro';
+
+  @override
+  String get clinicalProfileWeightLabel => 'Peso (kg)';
+
+  @override
+  String get clinicalProfileWeightHint => 'Por ejemplo, 62.5';
+
+  @override
+  String get clinicalProfileHeightLabel => 'Estatura (cm)';
+
+  @override
+  String get clinicalProfileHeightHint => 'Por ejemplo, 162';
+
+  @override
+  String get clinicalProfileIbsSubtypeLabel =>
+      'Subtipo de síndrome de intestino irritable';
+
+  @override
+  String get ibsSubtypeD => 'SII-D';
+
+  @override
+  String get ibsSubtypeDDescription => 'Con predominio de diarrea';
+
+  @override
+  String get ibsSubtypeC => 'SII-C';
+
+  @override
+  String get ibsSubtypeCDescription => 'Con predominio de estreñimiento';
+
+  @override
+  String get ibsSubtypeM => 'SII-M';
+
+  @override
+  String get ibsSubtypeMDescription => 'Mixto: alterna diarrea y estreñimiento';
+
+  @override
+  String get ibsSubtypeU => 'SII-NC';
+
+  @override
+  String get ibsSubtypeUDescription => 'No clasificado';
+
+  @override
+  String get clinicalProfileDiagnosisDateLabel =>
+      'Fecha de diagnóstico (opcional)';
+
+  @override
+  String get clinicalProfileMedicationsLabel => 'Medicación actual (opcional)';
+
+  @override
+  String get clinicalProfileMedicationsHint =>
+      'Nombre y dosis, si tomas algo por el SII';
+
+  @override
+  String get clinicalProfileSubmit => 'Continuar';
+
+  @override
+  String get bmiTitle => 'Índice de masa corporal';
+
+  @override
+  String bmiValue(String value) {
+    return '$value kg/m²';
+  }
+
+  @override
+  String get bmiCategoryUnderweight => 'Bajo peso';
+
+  @override
+  String get bmiCategoryNormal => 'Peso normal';
+
+  @override
+  String get bmiCategoryOverweight => 'Sobrepeso';
+
+  @override
+  String get bmiCategoryObese => 'Obesidad';
+
+  @override
+  String get bmiNote =>
+      'Referencia de la OMS. Tu nutricionista lo interpreta junto al resto de tu historia clínica.';
+
+  @override
+  String get bmiPending => 'Completa peso y estatura para verlo.';
+
+  @override
+  String get allergiesTitle => 'Alergias e intolerancias';
+
+  @override
+  String get allergiesSubtitle =>
+      'Marca las que tengas. Puedes dejarlo vacío si no aplica.';
+
+  @override
+  String get allergiesLoading => 'Cargando el catálogo';
+
+  @override
+  String get allergiesEmpty => 'No hay alergias en el catálogo.';
+
+  @override
+  String get allergySeverityLabel => 'Severidad';
+
+  @override
+  String get allergySeverityMild => 'Leve';
+
+  @override
+  String get allergySeverityModerate => 'Moderada';
+
+  @override
+  String get allergySeveritySevere => 'Severa';
+
+  @override
+  String get allergyNotesLabel => 'Nota (opcional)';
+
+  @override
+  String get allergyTypeAllergy => 'Alergia';
+
+  @override
+  String get allergyTypeIntolerance => 'Intolerancia';
+
+  @override
+  String get allergyTypeSensitivity => 'Sensibilidad';
+
+  @override
+  String get ibsSssTitle => 'Cuestionario inicial';
+
+  @override
+  String get ibsSssSubtitle =>
+      'Responde las cinco preguntas pensando en los últimos diez días.';
+
+  @override
+  String get ibsSssQuestionPainSeverity =>
+      '¿Qué tan intenso fue tu dolor abdominal?';
+
+  @override
+  String get ibsSssPainSeverityMin => 'Sin dolor';
+
+  @override
+  String get ibsSssPainSeverityMax => 'Muy intenso';
+
+  @override
+  String get ibsSssQuestionPainFrequency =>
+      '¿Con qué frecuencia tuviste dolor abdominal?';
+
+  @override
+  String get ibsSssPainFrequencyMin => 'Ningún día';
+
+  @override
+  String get ibsSssPainFrequencyMax => 'Todos los días';
+
+  @override
+  String get ibsSssQuestionBloatingSeverity =>
+      '¿Qué tan intensa fue la distensión o hinchazón?';
+
+  @override
+  String get ibsSssBloatingSeverityMin => 'Sin distensión';
+
+  @override
+  String get ibsSssBloatingSeverityMax => 'Muy intensa';
+
+  @override
+  String get ibsSssQuestionBowelHabits =>
+      '¿Qué tan insatisfecho estuviste con tu hábito intestinal?';
+
+  @override
+  String get ibsSssBowelHabitsMin => 'Muy satisfecho';
+
+  @override
+  String get ibsSssBowelHabitsMax => 'Muy insatisfecho';
+
+  @override
+  String get ibsSssQuestionLifeInterference =>
+      '¿Cuánto interfirieron los síntomas en tu vida diaria?';
+
+  @override
+  String get ibsSssLifeInterferenceMin => 'Nada';
+
+  @override
+  String get ibsSssLifeInterferenceMax => 'Muchísimo';
+
+  @override
+  String ibsSssPending(int count) {
+    return 'Faltan $count preguntas por responder.';
+  }
+
+  @override
+  String get ibsSssSubmit => 'Enviar cuestionario';
+
+  @override
+  String get ibsSssResultTitle => 'Registramos tu cuestionario';
+
+  @override
+  String ibsSssResultScore(int score) {
+    return 'Puntaje: $score de 500';
+  }
+
+  @override
+  String get ibsSssSeverityMild => 'Severidad leve';
+
+  @override
+  String get ibsSssSeverityModerate => 'Severidad moderada';
+
+  @override
+  String get ibsSssSeveritySevere => 'Severidad severa';
+
+  @override
+  String get ibsSssResultNote =>
+      'Es tu punto de partida para medir la evolución. Tu nutricionista lo revisa contigo en consulta.';
+
+  @override
+  String get ibsSssResultContinue => 'Ir al inicio';
 }
