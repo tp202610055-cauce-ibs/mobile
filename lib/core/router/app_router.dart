@@ -6,6 +6,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../features/auth/application/session_notifier.dart';
 import '../../features/auth/presentation/auth_screens.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/onboarding/application/onboarding_notifier.dart';
+import '../../features/onboarding/presentation/clinical_profile_screen.dart';
+import '../../features/onboarding/presentation/ibs_sss_baseline_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import 'app_routes.dart';
 import 'session_guard.dart';
@@ -14,12 +17,14 @@ part 'app_router.g.dart';
 
 /// Router de la aplicacion, con el guard de sesion montado.
 ///
-/// `watch` sobre [sessionNotifierProvider] y no `read`: cada transicion de
-/// sesion tiene que reconstruir el router para que `GoRouter` reevalue el
-/// redirect. Con `read`, cerrar sesion dejaria al paciente mirando la home.
+/// `watch` y no `read` sobre los dos providers: cada transicion de sesion o de
+/// onboarding tiene que reconstruir el router para que `GoRouter` reevalue el
+/// redirect. Con `read`, cerrar sesion dejaria al paciente mirando la home, y
+/// completar el perfil lo dejaria mirando el paso 1.
 @Riverpod(keepAlive: true)
 GoRouter appRouter(Ref ref) {
   final session = ref.watch(sessionNotifierProvider);
+  final onboarding = ref.watch(resolvedOnboardingProvider);
 
   return GoRouter(
     initialLocation: AppRoutes.splash,
@@ -28,6 +33,7 @@ GoRouter appRouter(Ref ref) {
     redirect: (context, state) => resolveRedirect(
       session: session,
       location: state.matchedLocation,
+      onboarding: onboarding,
     ),
     routes: <RouteBase>[
       GoRoute(
@@ -37,6 +43,26 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: AppRoutes.home,
         builder: (_, __) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.onboardingBranch,
+        // `/onboarding` a secas no es una pantalla. El guard ya resuelve el
+        // paso que corresponde, asi que aca alcanza con no dejar la rama
+        // colgando sin builder.
+        redirect: (BuildContext context, GoRouterState state) =>
+            state.uri.path == AppRoutes.onboardingBranch
+                ? AppRoutes.onboardingProfile
+                : null,
+        routes: <RouteBase>[
+          GoRoute(
+            path: 'clinical-profile',
+            builder: (_, __) => const ClinicalProfileScreen(),
+          ),
+          GoRoute(
+            path: 'ibs-sss',
+            builder: (_, __) => const IbsSssBaselineScreen(),
+          ),
+        ],
       ),
       GoRoute(
         path: AppRoutes.authBranch,

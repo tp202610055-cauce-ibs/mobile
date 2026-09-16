@@ -334,4 +334,218 @@ void main() {
       expect(box.size.width, lessThanOrEqualTo(320));
     });
   });
+
+  group('CauceSlider · distingue sin responder de responder cero', () {
+    testWidgets('sin valor no muestra numero', (tester) async {
+      await _pump(
+        tester,
+        CauceSlider(value: null, onChanged: (_) {}),
+      );
+
+      // Un slider de Material siempre tiene posicion. Mostrar el numero de esa
+      // posicion leeria como una respuesta que el paciente no dio.
+      expect(
+        tester.widget<Text>(find.byKey(const Key('cauce_slider_value'))).data,
+        isEmpty,
+      );
+    });
+
+    testWidgets('un cero explicito si muestra el numero', (tester) async {
+      // Cero es una respuesta clinica valida: el paciente no tuvo el sintoma.
+      await _pump(
+        tester,
+        CauceSlider(value: 0, onChanged: (_) {}),
+      );
+
+      expect(
+        tester.widget<Text>(find.byKey(const Key('cauce_slider_value'))).data,
+        '0',
+      );
+    });
+
+    testWidgets('muestra el valor elegido', (tester) async {
+      await _pump(
+        tester,
+        CauceSlider(value: 73, onChanged: (_) {}),
+      );
+
+      expect(
+        tester.widget<Text>(find.byKey(const Key('cauce_slider_value'))).data,
+        '73',
+      );
+    });
+  });
+
+  group('CauceSlider · escala del instrumento', () {
+    testWidgets('va de 0 a 100 con una division por unidad', (tester) async {
+      await _pump(
+        tester,
+        CauceSlider(value: 50, onChanged: (_) {}),
+      );
+
+      final slider = tester.widget<Slider>(find.byType(Slider));
+      expect(slider.min, 0);
+      expect(slider.max, 100);
+      // Sin divisiones discretas saldrian decimales, que el backend rechaza.
+      expect(slider.divisions, 100);
+    });
+
+    testWidgets('entrega enteros, nunca decimales', (tester) async {
+      int? received;
+      await _pump(
+        tester,
+        CauceSlider(value: 50, onChanged: (value) => received = value),
+      );
+
+      await tester.drag(find.byType(Slider), const Offset(60, 0));
+      await tester.pump();
+
+      expect(received, isNotNull);
+      expect(received, isA<int>());
+      expect(received, inInclusiveRange(0, 100));
+    });
+
+    testWidgets('deshabilitado no emite cambios', (tester) async {
+      int? received;
+      await _pump(
+        tester,
+        CauceSlider(
+          value: 50,
+          enabled: false,
+          onChanged: (value) => received = value,
+        ),
+      );
+
+      await tester.drag(find.byType(Slider), const Offset(60, 0));
+      await tester.pump();
+
+      expect(received, isNull);
+    });
+
+    testWidgets('respeta el area tactil minima de 48px', (tester) async {
+      await _pump(
+        tester,
+        CauceSlider(value: 50, onChanged: (_) {}),
+      );
+
+      final box = tester.renderObject<RenderBox>(find.byType(Slider));
+      expect(box.size.height, greaterThanOrEqualTo(CauceSizes.touchTargetMin));
+    });
+
+    testWidgets('muestra las etiquetas de los extremos', (tester) async {
+      await _pump(
+        tester,
+        CauceSlider(
+          value: 20,
+          minLabel: 'Sin dolor',
+          maxLabel: 'Muy intenso',
+          onChanged: (_) {},
+        ),
+      );
+
+      expect(find.text('Sin dolor'), findsOneWidget);
+      expect(find.text('Muy intenso'), findsOneWidget);
+    });
+  });
+
+  group('CauceChoiceField · seleccion unica', () {
+    List<CauceChoice<String>> choices() => const <CauceChoice<String>>[
+          CauceChoice<String>(value: 'a', label: 'Femenino'),
+          CauceChoice<String>(value: 'b', label: 'Masculino'),
+          CauceChoice<String>(value: 'c', label: 'Otro'),
+        ];
+
+    testWidgets('pinta todas las opciones a la vez', (tester) async {
+      // Con tres o cuatro alternativas, un desplegable esconderia el conjunto
+      // tras un toque extra.
+      await _pump(
+        tester,
+        CauceChoiceField<String>(
+          label: 'Sexo biologico',
+          choices: choices(),
+          value: null,
+          onChanged: (_) {},
+        ),
+      );
+
+      expect(find.text('Femenino'), findsOneWidget);
+      expect(find.text('Masculino'), findsOneWidget);
+      expect(find.text('Otro'), findsOneWidget);
+      expect(find.text('Sexo biologico'), findsOneWidget);
+    });
+
+    testWidgets('un toque emite el valor de dominio, no la etiqueta',
+        (tester) async {
+      String? received;
+      await _pump(
+        tester,
+        CauceChoiceField<String>(
+          label: 'Sexo biologico',
+          choices: choices(),
+          value: null,
+          onChanged: (value) => received = value,
+        ),
+      );
+
+      await tester.tap(find.text('Masculino'));
+      await tester.pump();
+
+      expect(received, 'b');
+    });
+
+    testWidgets('deshabilitado ignora los toques', (tester) async {
+      String? received;
+      await _pump(
+        tester,
+        CauceChoiceField<String>(
+          label: 'Sexo biologico',
+          choices: choices(),
+          value: null,
+          enabled: false,
+          onChanged: (value) => received = value,
+        ),
+      );
+
+      await tester.tap(find.text('Otro'));
+      await tester.pump();
+
+      expect(received, isNull);
+    });
+
+    testWidgets('muestra el error bajo el grupo', (tester) async {
+      await _pump(
+        tester,
+        CauceChoiceField<String>(
+          label: 'Sexo biologico',
+          choices: choices(),
+          value: null,
+          errorText: 'Este campo es obligatorio',
+          onChanged: (_) {},
+        ),
+      );
+
+      expect(find.text('Este campo es obligatorio'), findsOneWidget);
+    });
+
+    testWidgets('la glosa opcional se pinta bajo la etiqueta', (tester) async {
+      // "IBS-D" no le dice nada a un paciente sin la aclaracion.
+      await _pump(
+        tester,
+        CauceChoiceField<String>(
+          label: 'Subtipo',
+          choices: const <CauceChoice<String>>[
+            CauceChoice<String>(
+              value: 'd',
+              label: 'SII-D',
+              description: 'Con predominio de diarrea',
+            ),
+          ],
+          value: null,
+          onChanged: (_) {},
+        ),
+      );
+
+      expect(find.text('Con predominio de diarrea'), findsOneWidget);
+    });
+  });
 }

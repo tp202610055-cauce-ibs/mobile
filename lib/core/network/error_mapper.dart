@@ -31,6 +31,14 @@ abstract final class ErrorMapper {
   static const String _forbidden = 'forbidden';
   static const String _nutritionistNotAvailable = 'nutritionist_not_available';
   static const String _patientAlreadyAssigned = 'patient_already_assigned';
+  static const String _patientProfileNotFound = 'patient_profile_not_found';
+  static const String _duplicatePatientProfile = 'duplicate_patient_profile';
+  static const String _invalidBiometricValue = 'invalid_biometric_value';
+  static const String _allergyNotFound = 'allergy_not_found';
+  static const String _duplicatePatientAllergy = 'duplicate_patient_allergy';
+  static const String _invalidIbsSssDimension = 'invalid_ibs_sss_dimension';
+  static const String _duplicateBaselineAssessment =
+      'duplicate_baseline_assessment';
 
   /// Punto de entrada. Convierte cualquier [DioException] en un error tipado.
   static CauceApiError map(DioException exception) {
@@ -98,6 +106,14 @@ abstract final class ErrorMapper {
           reason: _nutritionistReason(body['reason']),
         ),
       _patientAlreadyAssigned => const CauceApiError.patientAlreadyAssigned(),
+      _patientProfileNotFound => const CauceApiError.patientProfileNotFound(),
+      _duplicatePatientProfile => const CauceApiError.duplicateProfile(),
+      _invalidBiometricValue => const CauceApiError.invalidBiometricValue(),
+      _allergyNotFound => const CauceApiError.allergyNotFound(),
+      _duplicatePatientAllergy => const CauceApiError.duplicateAllergy(),
+      _invalidIbsSssDimension => const CauceApiError.invalidIbsSssDimension(),
+      _duplicateBaselineAssessment =>
+        const CauceApiError.duplicateBaselineAssessment(),
       // Sin errorCode reconocido. Un 400 todavia puede traer `errors`: es el
       // camino del binding automatico de [ApiController], que el contrato
       // documenta como 400 sin errorCode.

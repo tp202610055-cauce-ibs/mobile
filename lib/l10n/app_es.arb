@@ -1,11 +1,9 @@
 {
   "@@locale": "es",
-
   "appTitle": "Cauce",
   "@appTitle": {
     "description": "Nombre de la aplicacion, visible en la barra de tareas y el AppBar"
   },
-
   "commonContinue": "Continuar",
   "commonCancel": "Cancelar",
   "commonBack": "Volver",
@@ -15,12 +13,10 @@
   "@commonLoading": {
     "description": "Texto accesible del indicador de carga, leido por lectores de pantalla"
   },
-
   "splashLoading": "Preparando tu sesion",
   "@splashLoading": {
     "description": "Mensaje bajo el logo mientras el SplashScreen resuelve el bootstrap de sesion"
   },
-
   "loginTitle": "Inicia sesion",
   "loginSubtitle": "Ingresa a tu cuenta para continuar con tu seguimiento",
   "loginEmailLabel": "Correo electronico",
@@ -33,7 +29,6 @@
   "loginNoAccountPrompt": "No tienes cuenta?",
   "loginShowPassword": "Mostrar contrasena",
   "loginHidePassword": "Ocultar contrasena",
-
   "registerTitle": "Crea tu cuenta",
   "registerSubtitle": "Registrate para participar en el seguimiento nutricional",
   "registerFullNameLabel": "Nombre completo",
@@ -54,16 +49,13 @@
   },
   "registerSubmit": "Crear cuenta",
   "registerHasAccountPrompt": "Ya tienes cuenta?",
-
   "passwordRecoveryTitle": "Recupera tu contrasena",
   "passwordRecoverySubtitle": "Te enviaremos un enlace para restablecerla",
   "passwordRecoveryEmailLabel": "Correo electronico",
   "passwordRecoverySubmit": "Enviar enlace",
-
   "passwordRecoverySentTitle": "Revisa tu correo",
   "passwordRecoverySentBody": "Si el correo existe en nuestro sistema, recibiras un enlace de recuperacion valido por 30 minutos.",
   "passwordRecoverySentBackToLogin": "Volver a iniciar sesion",
-
   "passwordResetTitle": "Nueva contrasena",
   "passwordResetSubtitle": "Elige una contrasena que no hayas usado antes",
   "passwordResetNewPasswordLabel": "Nueva contrasena",
@@ -72,7 +64,6 @@
   "passwordResetSuccessTitle": "Contrasena actualizada",
   "passwordResetSuccessBody": "Ya puedes iniciar sesion con tu nueva contrasena.",
   "passwordResetRequestNewLink": "Solicitar un enlace nuevo",
-
   "verifyEmailPendingTitle": "Verifica tu correo",
   "verifyEmailPendingBody": "Registramos tu cuenta. Te enviamos un correo de verificacion a {email}. Sigue el enlace para activarla.",
   "@verifyEmailPendingBody": {
@@ -86,7 +77,6 @@
   },
   "verifyEmailPendingNoEmailHint": "Si no recibiste el correo, comunicate con soporte.",
   "verifyEmailPendingLogout": "Cerrar sesion",
-
   "homeGreeting": "Hola, {fullName}",
   "@homeGreeting": {
     "description": "Saludo de bienvenida en HomeScreen",
@@ -98,7 +88,6 @@
     }
   },
   "homeLogout": "Cerrar sesion",
-
   "validationRequired": "Este campo es obligatorio",
   "validationEmailInvalid": "Ingresa un correo electronico valido",
   "validationEmailTooLong": "El correo no puede superar los 150 caracteres",
@@ -108,7 +97,35 @@
   "validationPasswordMismatch": "Las contrasenas no coinciden",
   "validationInvitationCodeFormat": "El codigo debe tener entre 8 y 20 caracteres, solo letras y numeros",
   "validationConsentRequired": "Debes aceptar el consentimiento informado para continuar",
-
+  "validationNumberInvalid": "Ingresa un número válido",
+  "validationDateOfBirthFuture": "La fecha de nacimiento no puede ser futura",
+  "validationAgeOutOfRange": "El piloto admite participantes entre {min} y {max} años",
+  "@validationAgeOutOfRange": {
+    "description": "Rango de edad que acepta PatientProfile del backend. El minimo de 18 es requisito del piloto clinico, no una preferencia de diseno",
+    "placeholders": {
+      "min": {
+        "type": "int",
+        "example": "18"
+      },
+      "max": {
+        "type": "int",
+        "example": "120"
+      }
+    }
+  },
+  "validationDiagnosisDateFuture": "La fecha de diagnóstico no puede ser futura",
+  "validationWeightOutOfRange": "Ingresa un peso mayor que 0 y menor que 500 kg",
+  "validationHeightOutOfRange": "Ingresa una estatura mayor que 0 y menor que 250 cm",
+  "validationTextTooLong": "No puede superar los {max} caracteres",
+  "@validationTextTooLong": {
+    "description": "Tope de longitud de campos opcionales de texto libre: medicacion (1000) y notas de alergia (500)",
+    "placeholders": {
+      "max": {
+        "type": "int",
+        "example": "1000"
+      }
+    }
+  },
   "errorValidation": "Revisa los datos ingresados",
   "@errorValidation": {
     "description": "errorCode validation_error (400). Los detalles por campo van en cada CauceTextField"
@@ -140,6 +157,34 @@
   "errorPatientAlreadyAssigned": "Ya tienes un nutricionista asignado",
   "@errorPatientAlreadyAssigned": {
     "description": "errorCode patient_already_assigned (409). El backend no sobrescribe la asignacion vigente"
+  },
+  "errorPatientProfileNotFound": "Todavía no registraste tu perfil clínico",
+  "@errorPatientProfileNotFound": {
+    "description": "errorCode patient_profile_not_found (404). En el onboarding no llega a mostrarse: PatientsRepository.fetchProfile lo traduce a null porque ahi significa paso 1 pendiente"
+  },
+  "errorDuplicateProfile": "Tu perfil clínico ya está registrado",
+  "@errorDuplicateProfile": {
+    "description": "errorCode duplicate_patient_profile (409). Tipicamente el envio anterior si entro aunque el dispositivo no vio la respuesta"
+  },
+  "errorInvalidBiometricValue": "Alguno de los datos clínicos está fuera del rango permitido. Revísalos e inténtalo de nuevo.",
+  "@errorInvalidBiometricValue": {
+    "description": "errorCode invalid_biometric_value (400). Lo emite la entidad de dominio del backend, asi que no trae errors por campo y el mensaje no puede senalar cual fallo"
+  },
+  "errorAllergyNotFound": "Esta alergia ya no está disponible en el catálogo",
+  "@errorAllergyNotFound": {
+    "description": "errorCode allergy_not_found (404). La entrada fue desactivada mientras el paciente completaba el formulario"
+  },
+  "errorDuplicateAllergy": "Esta alergia ya figura en tu perfil",
+  "@errorDuplicateAllergy": {
+    "description": "errorCode duplicate_patient_allergy (409). En el reintento del paso 1 la capa de aplicacion lo trata como exito y este mensaje no llega a la pantalla"
+  },
+  "errorInvalidIbsSssDimension": "Alguna respuesta quedó fuera del rango de 0 a 100",
+  "@errorInvalidIbsSssDimension": {
+    "description": "errorCode invalid_ibs_sss_dimension (400). Inalcanzable desde la UI porque el control esta acotado; se traduce por completitud del switch"
+  },
+  "errorDuplicateBaselineAssessment": "Tu cuestionario de línea base ya está registrado",
+  "@errorDuplicateBaselineAssessment": {
+    "description": "errorCode duplicate_baseline_assessment (409). El onboarding ya quedo cerrado: corresponde releer el estado, no reintentar"
   },
   "errorDuplicateEmail": "Ya existe una cuenta con este correo",
   "@errorDuplicateEmail": {
@@ -212,5 +257,131 @@
   "errorUnknown": "Ocurrio un error inesperado. Intenta de nuevo.",
   "@errorUnknown": {
     "description": "Fallback para cualquier status no contemplado"
-  }
+  },
+  "onboardingStepLabel": "Paso {current} de {total}",
+  "@onboardingStepLabel": {
+    "description": "Indicador de progreso del wizard de onboarding clinico",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "onboardingDefer": "Completar más tarde",
+  "@onboardingDefer": {
+    "description": "US03 CA05 y US04 CA05. Aplaza el paso y deja usar el resto de la app"
+  },
+  "onboardingReminderTitle": "Te falta completar tu perfil",
+  "onboardingReminderBodyProfile": "Tu nutricionista necesita tus datos clínicos para darte recomendaciones.",
+  "onboardingReminderBodyBaseline": "Falta el cuestionario inicial. Es el punto de partida para medir tu evolución.",
+  "onboardingReminderAction": "Continuar ahora",
+  "clinicalProfileTitle": "Tu perfil clínico",
+  "clinicalProfileSubtitle": "Estos datos le permiten a tu nutricionista ajustar tus recomendaciones.",
+  "clinicalProfileDateOfBirthLabel": "Fecha de nacimiento",
+  "clinicalProfileDatePlaceholder": "Selecciona una fecha",
+  "clinicalProfileBiologicalSexLabel": "Sexo biológico",
+  "biologicalSexFemale": "Femenino",
+  "biologicalSexMale": "Masculino",
+  "biologicalSexOther": "Otro",
+  "clinicalProfileWeightLabel": "Peso (kg)",
+  "clinicalProfileWeightHint": "Por ejemplo, 62.5",
+  "clinicalProfileHeightLabel": "Estatura (cm)",
+  "clinicalProfileHeightHint": "Por ejemplo, 162",
+  "clinicalProfileIbsSubtypeLabel": "Subtipo de síndrome de intestino irritable",
+  "ibsSubtypeD": "SII-D",
+  "ibsSubtypeDDescription": "Con predominio de diarrea",
+  "ibsSubtypeC": "SII-C",
+  "ibsSubtypeCDescription": "Con predominio de estreñimiento",
+  "ibsSubtypeM": "SII-M",
+  "ibsSubtypeMDescription": "Mixto: alterna diarrea y estreñimiento",
+  "ibsSubtypeU": "SII-NC",
+  "ibsSubtypeUDescription": "No clasificado",
+  "clinicalProfileDiagnosisDateLabel": "Fecha de diagnóstico (opcional)",
+  "clinicalProfileMedicationsLabel": "Medicación actual (opcional)",
+  "clinicalProfileMedicationsHint": "Nombre y dosis, si tomas algo por el SII",
+  "clinicalProfileSubmit": "Continuar",
+  "bmiTitle": "Índice de masa corporal",
+  "bmiValue": "{value} kg/m²",
+  "@bmiValue": {
+    "description": "IMC calculado en vivo mientras el paciente completa peso y estatura (US03 CA04)",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "23.81"
+      }
+    }
+  },
+  "bmiCategoryUnderweight": "Bajo peso",
+  "bmiCategoryNormal": "Peso normal",
+  "bmiCategoryOverweight": "Sobrepeso",
+  "bmiCategoryObese": "Obesidad",
+  "bmiNote": "Referencia de la OMS. Tu nutricionista lo interpreta junto al resto de tu historia clínica.",
+  "@bmiNote": {
+    "description": "Encuadre neutro del IMC. Es un dato informativo, no un diagnostico ni un veredicto"
+  },
+  "bmiPending": "Completa peso y estatura para verlo.",
+  "allergiesTitle": "Alergias e intolerancias",
+  "allergiesSubtitle": "Marca las que tengas. Puedes dejarlo vacío si no aplica.",
+  "allergiesLoading": "Cargando el catálogo",
+  "allergiesEmpty": "No hay alergias en el catálogo.",
+  "allergySeverityLabel": "Severidad",
+  "allergySeverityMild": "Leve",
+  "allergySeverityModerate": "Moderada",
+  "allergySeveritySevere": "Severa",
+  "allergyNotesLabel": "Nota (opcional)",
+  "allergyTypeAllergy": "Alergia",
+  "allergyTypeIntolerance": "Intolerancia",
+  "allergyTypeSensitivity": "Sensibilidad",
+  "ibsSssTitle": "Cuestionario inicial",
+  "ibsSssSubtitle": "Responde las cinco preguntas pensando en los últimos diez días.",
+  "ibsSssQuestionPainSeverity": "¿Qué tan intenso fue tu dolor abdominal?",
+  "ibsSssPainSeverityMin": "Sin dolor",
+  "ibsSssPainSeverityMax": "Muy intenso",
+  "ibsSssQuestionPainFrequency": "¿Con qué frecuencia tuviste dolor abdominal?",
+  "ibsSssPainFrequencyMin": "Ningún día",
+  "ibsSssPainFrequencyMax": "Todos los días",
+  "ibsSssQuestionBloatingSeverity": "¿Qué tan intensa fue la distensión o hinchazón?",
+  "ibsSssBloatingSeverityMin": "Sin distensión",
+  "ibsSssBloatingSeverityMax": "Muy intensa",
+  "ibsSssQuestionBowelHabits": "¿Qué tan insatisfecho estuviste con tu hábito intestinal?",
+  "ibsSssBowelHabitsMin": "Muy satisfecho",
+  "ibsSssBowelHabitsMax": "Muy insatisfecho",
+  "ibsSssQuestionLifeInterference": "¿Cuánto interfirieron los síntomas en tu vida diaria?",
+  "ibsSssLifeInterferenceMin": "Nada",
+  "ibsSssLifeInterferenceMax": "Muchísimo",
+  "ibsSssPending": "Faltan {count} preguntas por responder.",
+  "@ibsSssPending": {
+    "description": "US04 CA02. El envio queda bloqueado hasta que las cinco esten respondidas",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "ibsSssSubmit": "Enviar cuestionario",
+  "ibsSssResultTitle": "Registramos tu cuestionario",
+  "ibsSssResultScore": "Puntaje: {score} de 500",
+  "@ibsSssResultScore": {
+    "description": "Puntaje IBS-SSS calculado por el servidor. El cliente no lo computa",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "220"
+      }
+    }
+  },
+  "ibsSssSeverityMild": "Severidad leve",
+  "ibsSssSeverityModerate": "Severidad moderada",
+  "ibsSssSeveritySevere": "Severidad severa",
+  "ibsSssResultNote": "Es tu punto de partida para medir la evolución. Tu nutricionista lo revisa contigo en consulta.",
+  "@ibsSssResultNote": {
+    "description": "Encuadre neutro del resultado. Registro informativo, sin adjetivos de alarma"
+  },
+  "ibsSssResultContinue": "Ir al inicio"
 }

@@ -46,6 +46,7 @@ abstract final class AppTheme {
       outlinedButtonTheme: _outlinedButtonTheme,
       textButtonTheme: _textButtonTheme,
       checkboxTheme: _checkboxTheme,
+      sliderTheme: _sliderTheme,
       dividerTheme: _dividerTheme,
       iconTheme: _iconTheme,
       progressIndicatorTheme: _progressIndicatorTheme,
@@ -227,6 +228,30 @@ abstract final class AppTheme {
       width: CauceBorders.strong,
     ),
     shape: const RoundedRectangleBorder(borderRadius: CauceRadii.borderSm),
+  );
+
+  /// Slider de la escala IBS-SSS.
+  ///
+  /// Derivado de los tokens, no transcrito del design system: el documento no
+  /// esta en el checkout y no define este componente. La pista activa y el
+  /// pulgar van en marca; la inactiva en el gris de divisores, que es el mismo
+  /// contraste que usan los bordes de input en reposo.
+  static const SliderThemeData _sliderTheme = SliderThemeData(
+    activeTrackColor: CauceColors.brandBase,
+    inactiveTrackColor: CauceColors.bgDivider,
+    thumbColor: CauceColors.brandBase,
+    // El overlay del pulgar reusa el mismo halo que el anillo de foco de los
+    // campos de texto, para que el gesto se lea igual en todo el formulario.
+    overlayColor: CauceColors.brandSoft,
+    valueIndicatorColor: CauceColors.brandStrong,
+    valueIndicatorTextStyle: TextStyle(
+      fontFamily: CauceTypography.fontFamilySans,
+      fontSize: 14,
+      fontWeight: CauceTypography.medium,
+      color: CauceColors.textOnBrand,
+    ),
+    trackHeight: 4,
+    showValueIndicator: ShowValueIndicator.onlyForDiscrete,
   );
 
   static const DividerThemeData _dividerTheme = DividerThemeData(

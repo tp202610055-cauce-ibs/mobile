@@ -25,6 +25,15 @@ abstract final class AppRoutes {
 
   static const String verifyEmailPending = '/auth/verify-email-pending';
 
+  /// Prefijo del wizard de onboarding clinico (US03 y US04).
+  static const String onboardingBranch = '/onboarding';
+
+  /// Paso 1: perfil clinico y alergias.
+  static const String onboardingProfile = '/onboarding/clinical-profile';
+
+  /// Paso 2: cuestionario IBS-SSS de linea base.
+  static const String onboardingBaseline = '/onboarding/ibs-sss';
+
   /// Nombre del parametro de consulta que trae el token de recuperacion.
   static const String tokenQueryParam = 'token';
 }

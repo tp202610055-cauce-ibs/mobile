@@ -80,6 +80,60 @@ sealed class CauceApiError with _$CauceApiError {
   const factory CauceApiError.patientAlreadyAssigned() =
       PatientAlreadyAssignedError;
 
+  /// 404 `patient_profile_not_found`. El paciente todavia no creo su perfil
+  /// clinico.
+  ///
+  /// En el onboarding **no es un error**: es el estado "paso 1 pendiente", y
+  /// `PatientsRepository.fetchProfile()` lo traduce a `null` antes de que
+  /// llegue a la capa de aplicacion. Se mapea igual porque otros consumidores
+  /// del perfil si necesitan distinguirlo.
+  const factory CauceApiError.patientProfileNotFound() =
+      PatientProfileNotFoundError;
+
+  /// 409 `duplicate_patient_profile`. Ya existe un perfil para este paciente.
+  ///
+  /// Se alcanza cuando el envio del paso 1 prospero en el servidor pero la
+  /// respuesta no llego al dispositivo, y el paciente reintenta. El perfil
+  /// esta creado: lo correcto es releerlo y avanzar, no reintentar.
+  const factory CauceApiError.duplicateProfile() = DuplicateProfileError;
+
+  /// 400 `invalid_biometric_value`. Peso, estatura, edad, fecha de diagnostico
+  /// o longitud de medicacion fuera de rango.
+  ///
+  /// El contrato lo emite desde la entidad de dominio y no desde
+  /// FluentValidation, de modo que **no trae `errors` por campo**: el detalle
+  /// va en prosa dentro de `detail`. Los validadores locales de [Validators]
+  /// existen justamente para que este error casi nunca llegue.
+  const factory CauceApiError.invalidBiometricValue() =
+      InvalidBiometricValueError;
+
+  /// 404 `allergy_not_found`. La alergia del catalogo no existe o fue
+  /// desactivada mientras el paciente completaba el formulario.
+  const factory CauceApiError.allergyNotFound() = AllergyNotFoundError;
+
+  /// 409 `duplicate_patient_allergy`. El paciente ya declaro esa alergia.
+  ///
+  /// El paso 1 declara las alergias de a una, sin idempotencia. Si el envio
+  /// falla a mitad de camino, el reintento reencuentra las que si entraron, y
+  /// la capa de aplicacion trata este error como exito.
+  const factory CauceApiError.duplicateAllergy() = DuplicateAllergyError;
+
+  /// 400 `invalid_ibs_sss_dimension`. Alguna de las cinco dimensiones cayo
+  /// fuera de 0 a 100.
+  ///
+  /// Inalcanzable desde la UI, porque el control esta acotado a ese rango. Se
+  /// mapea para que un cambio de contrato no degrade a error desconocido.
+  const factory CauceApiError.invalidIbsSssDimension() =
+      InvalidIbsSssDimensionError;
+
+  /// 409 `duplicate_baseline_assessment`. Ya existe una linea base.
+  ///
+  /// Significa que el envio anterior si entro, aunque el dispositivo no haya
+  /// visto la respuesta. El onboarding esta cerrado: corresponde releer el
+  /// estado y seguir, no reintentar.
+  const factory CauceApiError.duplicateBaselineAssessment() =
+      DuplicateBaselineAssessmentError;
+
   /// 401 `invalid_refresh_token`. El refresh expiro, fue revocado o ya se
   /// consumio. Obliga a limpiar la sesion local y volver al login.
   const factory CauceApiError.invalidRefreshToken() = InvalidRefreshTokenError;

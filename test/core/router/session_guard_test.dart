@@ -2,6 +2,7 @@ import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
 import 'package:cauce_mobile/core/router/session_guard.dart';
 import 'package:cauce_mobile/features/auth/domain/session_state.dart';
+import 'package:cauce_mobile/features/onboarding/application/onboarding_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 const AuthenticatedUserSnapshot _verified = AuthenticatedUserSnapshot(
@@ -183,6 +184,167 @@ void main() {
       expect(isSessionIndependent(AppRoutes.passwordReset), isTrue);
       expect(isSessionIndependent(AppRoutes.passwordRecovery), isFalse);
       expect(isSessionIndependent(AppRoutes.login), isFalse);
+    });
+  });
+
+  group('resolveRedirect · onboarding pendiente (US03 y US04)', () {
+    const session = SessionState.authenticated(_verified);
+
+    String? redirect(OnboardingState onboarding, String location) =>
+        resolveRedirect(
+          session: session,
+          location: location,
+          onboarding: onboarding,
+        );
+
+    test('sin perfil, cualquier ubicacion lleva al paso 1', () {
+      const pending = OnboardingState.pending(OnboardingStep.clinicalProfile);
+
+      expect(redirect(pending, AppRoutes.home), AppRoutes.onboardingProfile);
+      expect(redirect(pending, AppRoutes.splash), AppRoutes.onboardingProfile);
+      expect(redirect(pending, AppRoutes.login), AppRoutes.onboardingProfile);
+    });
+
+    test('el paso pendiente se deja pasar', () {
+      const pending = OnboardingState.pending(OnboardingStep.clinicalProfile);
+
+      expect(redirect(pending, AppRoutes.onboardingProfile), isNull);
+    });
+
+    test('con el perfil creado, el paso pendiente es el cuestionario', () {
+      const pending = OnboardingState.pending(OnboardingStep.ibsSssBaseline);
+
+      expect(redirect(pending, AppRoutes.onboardingBaseline), isNull);
+      // El orden es obligatorio: el backend exige perfil antes de la linea
+      // base, y volver al paso 1 con el perfil ya creado daria 409.
+      expect(
+        redirect(pending, AppRoutes.onboardingProfile),
+        AppRoutes.onboardingBaseline,
+      );
+    });
+
+    test('no se puede saltar del paso 1 al 2', () {
+      const pending = OnboardingState.pending(OnboardingStep.clinicalProfile);
+
+      expect(
+        redirect(pending, AppRoutes.onboardingBaseline),
+        AppRoutes.onboardingProfile,
+      );
+    });
+  });
+
+  group('resolveRedirect · onboarding sin paso pendiente', () {
+    const session = SessionState.authenticated(_verified);
+
+    String? redirect(OnboardingState onboarding, String location) =>
+        resolveRedirect(
+          session: session,
+          location: location,
+          onboarding: onboarding,
+        );
+
+    test('aplazado deja usar la app y no devuelve al wizard (CA05)', () {
+      const deferred = OnboardingState.deferred(OnboardingStep.clinicalProfile);
+
+      expect(redirect(deferred, AppRoutes.home), isNull);
+      // Devolverlo al wizard que acaba de aplazar haria inutil el aplazamiento.
+      expect(
+        redirect(deferred, AppRoutes.onboardingProfile),
+        AppRoutes.home,
+      );
+    });
+
+    test('completado cierra el wizard', () {
+      const completed = OnboardingState.completed();
+
+      expect(redirect(completed, AppRoutes.home), isNull);
+      expect(redirect(completed, AppRoutes.onboardingProfile), AppRoutes.home);
+      expect(redirect(completed, AppRoutes.onboardingBaseline), AppRoutes.home);
+    });
+
+    test('sin resolver no redirige: la app sigue usable sin red', () {
+      // Es el estado mientras la consulta esta en vuelo y tambien cuando
+      // fallo. Redirigir sobre un dato que no se tiene dejaria al paciente
+      // atrapado en un wizard que tampoco podria enviar.
+      const unavailable = OnboardingState.unavailable();
+
+      expect(redirect(unavailable, AppRoutes.home), isNull);
+    });
+
+    test('el valor por defecto del parametro no altera el guard previo', () {
+      // Los tests de identidad llaman a resolveRedirect sin onboarding. El
+      // default tiene que dejar el comportamiento de Mobile-1b intacto.
+      expect(
+        resolveRedirect(session: session, location: AppRoutes.home),
+        isNull,
+      );
+      expect(
+        resolveRedirect(session: session, location: AppRoutes.login),
+        AppRoutes.home,
+      );
+    });
+  });
+
+  group('resolveRedirect · el onboarding no pisa a la sesion', () {
+    const pending = OnboardingState.pending(OnboardingStep.clinicalProfile);
+
+    test('sin sesion manda al login, no al wizard', () {
+      expect(
+        resolveRedirect(
+          session: const SessionState.unauthenticated(),
+          location: AppRoutes.onboardingProfile,
+          onboarding: pending,
+        ),
+        AppRoutes.login,
+      );
+    });
+
+    test('con el correo sin verificar manda al aviso', () {
+      expect(
+        resolveRedirect(
+          session: const SessionState.pendingEmailVerification(
+            email: 'paciente.demo@cauce.local',
+          ),
+          location: AppRoutes.onboardingProfile,
+          onboarding: pending,
+        ),
+        AppRoutes.verifyEmailPending,
+      );
+    });
+
+    test('durante el bootstrap manda al splash', () {
+      expect(
+        resolveRedirect(
+          session: const SessionState.unknown(),
+          location: AppRoutes.onboardingProfile,
+          onboarding: pending,
+        ),
+        AppRoutes.splash,
+      );
+    });
+
+    test('el deep link de restablecimiento sigue atravesando todo', () {
+      expect(
+        resolveRedirect(
+          session: const SessionState.unknown(),
+          location: '${AppRoutes.passwordReset}?token=abc',
+          onboarding: pending,
+        ),
+        isNull,
+      );
+    });
+  });
+
+  group('routeForStep', () {
+    test('mapea cada paso a su ruta', () {
+      expect(
+        routeForStep(OnboardingStep.clinicalProfile),
+        AppRoutes.onboardingProfile,
+      );
+      expect(
+        routeForStep(OnboardingStep.ibsSssBaseline),
+        AppRoutes.onboardingBaseline,
+      );
     });
   });
 }

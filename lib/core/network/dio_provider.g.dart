@@ -111,5 +111,45 @@ final patientsApiProvider = Provider<PatientsApi>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PatientsApiRef = ProviderRef<PatientsApi>;
+String _$allergiesApiHash() => r'e8c668b5af8f1fc73808f8bec359aab1b8c1924e';
+
+/// Catalogo cerrado de alergias e intolerancias.
+///
+/// Vive en su propio tag del contrato (`GET /api/v1/allergies`) y no bajo
+/// `/patients`, porque el backend lo expone a cualquier autenticado y no solo
+/// a la politica `Patient`: el nutricionista tambien lo consulta.
+///
+/// Copied from [allergiesApi].
+@ProviderFor(allergiesApi)
+final allergiesApiProvider = Provider<AllergiesApi>.internal(
+  allergiesApi,
+  name: r'allergiesApiProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$allergiesApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AllergiesApiRef = ProviderRef<AllergiesApi>;
+String _$ibsSssApiHash() => r'112a54c5d67678e218d84b23544a9a88fa2a6ebc';
+
+/// Evaluaciones IBS-SSS. Politica `Patient` y rate limit `default-auth`.
+///
+/// Copied from [ibsSssApi].
+@ProviderFor(ibsSssApi)
+final ibsSssApiProvider = Provider<IbsSssApi>.internal(
+  ibsSssApi,
+  name: r'ibsSssApiProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$ibsSssApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IbsSssApiRef = ProviderRef<IbsSssApi>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

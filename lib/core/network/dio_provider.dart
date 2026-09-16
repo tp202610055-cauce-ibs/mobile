@@ -93,3 +93,16 @@ ConsentApi consentApi(Ref ref) => ref.watch(apiClientProvider).getConsentApi();
 @Riverpod(keepAlive: true)
 PatientsApi patientsApi(Ref ref) =>
     ref.watch(apiClientProvider).getPatientsApi();
+
+/// Catalogo cerrado de alergias e intolerancias.
+///
+/// Vive en su propio tag del contrato (`GET /api/v1/allergies`) y no bajo
+/// `/patients`, porque el backend lo expone a cualquier autenticado y no solo
+/// a la politica `Patient`: el nutricionista tambien lo consulta.
+@Riverpod(keepAlive: true)
+AllergiesApi allergiesApi(Ref ref) =>
+    ref.watch(apiClientProvider).getAllergiesApi();
+
+/// Evaluaciones IBS-SSS. Politica `Patient` y rate limit `default-auth`.
+@Riverpod(keepAlive: true)
+IbsSssApi ibsSssApi(Ref ref) => ref.watch(apiClientProvider).getIbsSssApi();

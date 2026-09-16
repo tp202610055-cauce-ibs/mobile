@@ -6,13 +6,14 @@ part of 'app_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appRouterHash() => r'091699cead515ceedd05c85bab22ace97631e2e5';
+String _$appRouterHash() => r'393fedfb61e586e3423f82af304f5b38ed1a7b87';
 
 /// Router de la aplicacion, con el guard de sesion montado.
 ///
-/// `watch` sobre [sessionNotifierProvider] y no `read`: cada transicion de
-/// sesion tiene que reconstruir el router para que `GoRouter` reevalue el
-/// redirect. Con `read`, cerrar sesion dejaria al paciente mirando la home.
+/// `watch` y no `read` sobre los dos providers: cada transicion de sesion o de
+/// onboarding tiene que reconstruir el router para que `GoRouter` reevalue el
+/// redirect. Con `read`, cerrar sesion dejaria al paciente mirando la home, y
+/// completar el perfil lo dejaria mirando el paso 1.
 ///
 /// Copied from [appRouter].
 @ProviderFor(appRouter)

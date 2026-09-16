@@ -6,8 +6,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/auth/authenticated_user_snapshot.dart';
 import '../../../core/config/env.dart';
 import '../../../core/errors/cauce_api_error.dart';
+import '../../../core/network/api_guard.dart';
 import '../../../core/network/dio_provider.dart';
-import '../../../core/network/error_mapper.dart';
 
 part 'auth_repository.g.dart';
 
@@ -232,19 +232,7 @@ class AuthRepository {
 
   /// Ejecuta la llamada traduciendo cualquier falla al dominio.
   ///
-  /// La [FormatException] se atrapa aparte: la lanza el mapeo del usuario
-  /// cuando el backend responde 200 con un cuerpo incompleto. Es una respuesta
-  /// exitosa que no sirve, y sin esto escaparia como excepcion cruda hasta la
-  /// UI.
-  Future<T> _guard<T>(Future<T> Function() call) async {
-    try {
-      return await call();
-    } on DioException catch (error) {
-      throw ErrorMapper.map(error);
-    } on FormatException catch (error) {
-      throw CauceApiError.unknown(statusCode: 200, detail: error.message);
-    }
-  }
+  Future<T> _guard<T>(Future<T> Function() call) => guardApiCall(call);
 
   LoginSession _toSession(LoginResult? result) {
     final accessToken = result?.accessToken;
