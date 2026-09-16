@@ -33,11 +33,16 @@ class CauceAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final canPop = onBack != null || GoRouter.of(context).canPop();
+    // `showBackButton` se evalua primero a proposito. Consultar el router sin
+    // necesitarlo ataba [CauceAppBar] a tener un `GoRouter` en el arbol aunque
+    // no fuera a mostrar el boton, y hacia imposible montarla suelta en un
+    // widget test.
+    final canPop =
+        showBackButton && (onBack != null || GoRouter.of(context).canPop());
 
     return AppBar(
       title: title == null ? null : Text(title!),
-      leading: showBackButton && canPop
+      leading: canPop
           ? IconButton(
               key: const Key('cauce_app_bar_back'),
               icon: const Icon(TablerIcons.arrow_left),
