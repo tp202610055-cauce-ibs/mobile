@@ -77,4 +77,71 @@ void main() {
       expect(error.retryAfterSeconds, isNull);
     });
   });
+
+  group('CauceApiErrorMessage · perfil clinico y evaluaciones (Mobile-2)', () {
+    // El switch de la extension es exhaustivo sobre el sealed, de modo que una
+    // variante sin mensaje falla en compilacion. Lo que estos tests agregan es
+    // que el mensaje sea el correcto y este traducido en los dos idiomas.
+    final cases = <String, (CauceApiError, String)>{
+      'patient_profile_not_found': (
+        const CauceApiError.patientProfileNotFound(),
+        es.errorPatientProfileNotFound,
+      ),
+      'duplicate_patient_profile': (
+        const CauceApiError.duplicateProfile(),
+        es.errorDuplicateProfile,
+      ),
+      'invalid_biometric_value': (
+        const CauceApiError.invalidBiometricValue(),
+        es.errorInvalidBiometricValue,
+      ),
+      'allergy_not_found': (
+        const CauceApiError.allergyNotFound(),
+        es.errorAllergyNotFound,
+      ),
+      'duplicate_patient_allergy': (
+        const CauceApiError.duplicateAllergy(),
+        es.errorDuplicateAllergy,
+      ),
+      'invalid_ibs_sss_dimension': (
+        const CauceApiError.invalidIbsSssDimension(),
+        es.errorInvalidIbsSssDimension,
+      ),
+      'duplicate_baseline_assessment': (
+        const CauceApiError.duplicateBaselineAssessment(),
+        es.errorDuplicateBaselineAssessment,
+      ),
+    };
+
+    for (final entry in cases.entries) {
+      test('${entry.key} tiene mensaje propio en es y en en', () {
+        final (error, expected) = entry.value;
+
+        expect(error.localizedMessage(es), expected);
+        expect(error.localizedMessage(es), isNotEmpty);
+        expect(error.localizedMessage(en), isNotEmpty);
+        // Ninguno cae al fallback generico.
+        expect(error.localizedMessage(es), isNot(es.errorUnknown));
+      });
+    }
+
+    test('los siete mensajes son distintos entre si', () {
+      // Comparten modulo y varios comparten status. Si dos colapsaran en el
+      // mismo texto, el paciente no podria saber cual de los dos ocurrio.
+      final messages =
+          cases.values.map((value) => value.$1.localizedMessage(es)).toSet();
+
+      expect(messages, hasLength(cases.length));
+    });
+
+    test('ninguno usa registro alarmista', () {
+      // Son datos clinicos informativos, no un veredicto.
+      for (final value in cases.values) {
+        final message = value.$1.localizedMessage(es);
+        expect(message, isNot(contains('!')));
+        expect(message.toLowerCase(), isNot(contains('riesgo')));
+        expect(message.toLowerCase(), isNot(contains('grave')));
+      }
+    });
+  });
 }

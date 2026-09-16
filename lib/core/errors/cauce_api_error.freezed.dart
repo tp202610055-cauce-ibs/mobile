@@ -31,6 +31,13 @@ mixin _$CauceApiError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -55,6 +62,13 @@ mixin _$CauceApiError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -79,6 +93,13 @@ mixin _$CauceApiError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -104,6 +125,17 @@ mixin _$CauceApiError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -130,6 +162,16 @@ mixin _$CauceApiError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -152,6 +194,14 @@ mixin _$CauceApiError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -287,6 +337,13 @@ class _$ValidationErrorImpl implements ValidationError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -314,6 +371,13 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -341,6 +405,13 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -372,6 +443,17 @@ class _$ValidationErrorImpl implements ValidationError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -401,6 +483,16 @@ class _$ValidationErrorImpl implements ValidationError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -426,6 +518,14 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -515,6 +615,13 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -542,6 +649,13 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -569,6 +683,13 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -600,6 +721,17 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -629,6 +761,16 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -654,6 +796,14 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -758,6 +908,13 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -785,6 +942,13 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -812,6 +976,13 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -843,6 +1014,17 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -872,6 +1054,16 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -897,6 +1089,14 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -982,6 +1182,13 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1009,6 +1216,13 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1036,6 +1250,13 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1067,6 +1288,17 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1096,6 +1328,16 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1121,6 +1363,14 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1197,6 +1447,13 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1224,6 +1481,13 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1251,6 +1515,13 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1282,6 +1553,17 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1311,6 +1593,16 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1336,6 +1628,14 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1439,6 +1739,13 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1466,6 +1773,13 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1493,6 +1807,13 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1524,6 +1845,17 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1553,6 +1885,16 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1578,6 +1920,14 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1692,6 +2042,13 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1719,6 +2076,13 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1746,6 +2110,13 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1777,6 +2148,17 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1806,6 +2188,16 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1831,6 +2223,14 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1949,6 +2349,13 @@ class _$NutritionistNotAvailableErrorImpl
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1976,6 +2383,13 @@ class _$NutritionistNotAvailableErrorImpl
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2003,6 +2417,13 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2034,6 +2455,17 @@ class _$NutritionistNotAvailableErrorImpl
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2063,6 +2495,16 @@ class _$NutritionistNotAvailableErrorImpl
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2088,6 +2530,14 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2177,6 +2627,13 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2204,6 +2661,13 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2231,6 +2695,13 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2262,6 +2733,17 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2291,6 +2773,16 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2316,6 +2808,14 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2336,6 +2836,1876 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
 abstract class PatientAlreadyAssignedError implements CauceApiError {
   const factory PatientAlreadyAssignedError() =
       _$PatientAlreadyAssignedErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$PatientProfileNotFoundErrorImplCopyWith<$Res> {
+  factory _$$PatientProfileNotFoundErrorImplCopyWith(
+          _$PatientProfileNotFoundErrorImpl value,
+          $Res Function(_$PatientProfileNotFoundErrorImpl) then) =
+      __$$PatientProfileNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PatientProfileNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$PatientProfileNotFoundErrorImpl>
+    implements _$$PatientProfileNotFoundErrorImplCopyWith<$Res> {
+  __$$PatientProfileNotFoundErrorImplCopyWithImpl(
+      _$PatientProfileNotFoundErrorImpl _value,
+      $Res Function(_$PatientProfileNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
+  const _$PatientProfileNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.patientProfileNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PatientProfileNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return patientProfileNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return patientProfileNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (patientProfileNotFound != null) {
+      return patientProfileNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return patientProfileNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return patientProfileNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (patientProfileNotFound != null) {
+      return patientProfileNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PatientProfileNotFoundError implements CauceApiError {
+  const factory PatientProfileNotFoundError() =
+      _$PatientProfileNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$DuplicateProfileErrorImplCopyWith<$Res> {
+  factory _$$DuplicateProfileErrorImplCopyWith(
+          _$DuplicateProfileErrorImpl value,
+          $Res Function(_$DuplicateProfileErrorImpl) then) =
+      __$$DuplicateProfileErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DuplicateProfileErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$DuplicateProfileErrorImpl>
+    implements _$$DuplicateProfileErrorImplCopyWith<$Res> {
+  __$$DuplicateProfileErrorImplCopyWithImpl(_$DuplicateProfileErrorImpl _value,
+      $Res Function(_$DuplicateProfileErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
+  const _$DuplicateProfileErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.duplicateProfile()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DuplicateProfileErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return duplicateProfile();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return duplicateProfile?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateProfile != null) {
+      return duplicateProfile();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return duplicateProfile(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return duplicateProfile?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateProfile != null) {
+      return duplicateProfile(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DuplicateProfileError implements CauceApiError {
+  const factory DuplicateProfileError() = _$DuplicateProfileErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$InvalidBiometricValueErrorImplCopyWith<$Res> {
+  factory _$$InvalidBiometricValueErrorImplCopyWith(
+          _$InvalidBiometricValueErrorImpl value,
+          $Res Function(_$InvalidBiometricValueErrorImpl) then) =
+      __$$InvalidBiometricValueErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidBiometricValueErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$InvalidBiometricValueErrorImpl>
+    implements _$$InvalidBiometricValueErrorImplCopyWith<$Res> {
+  __$$InvalidBiometricValueErrorImplCopyWithImpl(
+      _$InvalidBiometricValueErrorImpl _value,
+      $Res Function(_$InvalidBiometricValueErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
+  const _$InvalidBiometricValueErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.invalidBiometricValue()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvalidBiometricValueErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return invalidBiometricValue();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return invalidBiometricValue?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidBiometricValue != null) {
+      return invalidBiometricValue();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return invalidBiometricValue(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return invalidBiometricValue?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidBiometricValue != null) {
+      return invalidBiometricValue(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidBiometricValueError implements CauceApiError {
+  const factory InvalidBiometricValueError() = _$InvalidBiometricValueErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$AllergyNotFoundErrorImplCopyWith<$Res> {
+  factory _$$AllergyNotFoundErrorImplCopyWith(_$AllergyNotFoundErrorImpl value,
+          $Res Function(_$AllergyNotFoundErrorImpl) then) =
+      __$$AllergyNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AllergyNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$AllergyNotFoundErrorImpl>
+    implements _$$AllergyNotFoundErrorImplCopyWith<$Res> {
+  __$$AllergyNotFoundErrorImplCopyWithImpl(_$AllergyNotFoundErrorImpl _value,
+      $Res Function(_$AllergyNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
+  const _$AllergyNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.allergyNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AllergyNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return allergyNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return allergyNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (allergyNotFound != null) {
+      return allergyNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return allergyNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return allergyNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (allergyNotFound != null) {
+      return allergyNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AllergyNotFoundError implements CauceApiError {
+  const factory AllergyNotFoundError() = _$AllergyNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$DuplicateAllergyErrorImplCopyWith<$Res> {
+  factory _$$DuplicateAllergyErrorImplCopyWith(
+          _$DuplicateAllergyErrorImpl value,
+          $Res Function(_$DuplicateAllergyErrorImpl) then) =
+      __$$DuplicateAllergyErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DuplicateAllergyErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$DuplicateAllergyErrorImpl>
+    implements _$$DuplicateAllergyErrorImplCopyWith<$Res> {
+  __$$DuplicateAllergyErrorImplCopyWithImpl(_$DuplicateAllergyErrorImpl _value,
+      $Res Function(_$DuplicateAllergyErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
+  const _$DuplicateAllergyErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.duplicateAllergy()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DuplicateAllergyErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return duplicateAllergy();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return duplicateAllergy?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateAllergy != null) {
+      return duplicateAllergy();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return duplicateAllergy(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return duplicateAllergy?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateAllergy != null) {
+      return duplicateAllergy(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DuplicateAllergyError implements CauceApiError {
+  const factory DuplicateAllergyError() = _$DuplicateAllergyErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$InvalidIbsSssDimensionErrorImplCopyWith<$Res> {
+  factory _$$InvalidIbsSssDimensionErrorImplCopyWith(
+          _$InvalidIbsSssDimensionErrorImpl value,
+          $Res Function(_$InvalidIbsSssDimensionErrorImpl) then) =
+      __$$InvalidIbsSssDimensionErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidIbsSssDimensionErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$InvalidIbsSssDimensionErrorImpl>
+    implements _$$InvalidIbsSssDimensionErrorImplCopyWith<$Res> {
+  __$$InvalidIbsSssDimensionErrorImplCopyWithImpl(
+      _$InvalidIbsSssDimensionErrorImpl _value,
+      $Res Function(_$InvalidIbsSssDimensionErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
+  const _$InvalidIbsSssDimensionErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.invalidIbsSssDimension()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvalidIbsSssDimensionErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return invalidIbsSssDimension();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return invalidIbsSssDimension?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidIbsSssDimension != null) {
+      return invalidIbsSssDimension();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return invalidIbsSssDimension(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return invalidIbsSssDimension?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidIbsSssDimension != null) {
+      return invalidIbsSssDimension(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidIbsSssDimensionError implements CauceApiError {
+  const factory InvalidIbsSssDimensionError() =
+      _$InvalidIbsSssDimensionErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$DuplicateBaselineAssessmentErrorImplCopyWith<$Res> {
+  factory _$$DuplicateBaselineAssessmentErrorImplCopyWith(
+          _$DuplicateBaselineAssessmentErrorImpl value,
+          $Res Function(_$DuplicateBaselineAssessmentErrorImpl) then) =
+      __$$DuplicateBaselineAssessmentErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DuplicateBaselineAssessmentErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res,
+        _$DuplicateBaselineAssessmentErrorImpl>
+    implements _$$DuplicateBaselineAssessmentErrorImplCopyWith<$Res> {
+  __$$DuplicateBaselineAssessmentErrorImplCopyWithImpl(
+      _$DuplicateBaselineAssessmentErrorImpl _value,
+      $Res Function(_$DuplicateBaselineAssessmentErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DuplicateBaselineAssessmentErrorImpl
+    implements DuplicateBaselineAssessmentError {
+  const _$DuplicateBaselineAssessmentErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.duplicateBaselineAssessment()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DuplicateBaselineAssessmentErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return duplicateBaselineAssessment();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return duplicateBaselineAssessment?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateBaselineAssessment != null) {
+      return duplicateBaselineAssessment();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return duplicateBaselineAssessment(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return duplicateBaselineAssessment?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateBaselineAssessment != null) {
+      return duplicateBaselineAssessment(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DuplicateBaselineAssessmentError implements CauceApiError {
+  const factory DuplicateBaselineAssessmentError() =
+      _$DuplicateBaselineAssessmentErrorImpl;
 }
 
 /// @nodoc
@@ -2395,6 +4765,13 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2422,6 +4799,13 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2449,6 +4833,13 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2480,6 +4871,17 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2509,6 +4911,16 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2534,6 +4946,14 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2638,6 +5058,13 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2665,6 +5092,13 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2692,6 +5126,13 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2723,6 +5164,17 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2752,6 +5204,16 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2777,6 +5239,14 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2864,6 +5334,13 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2891,6 +5368,13 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2918,6 +5402,13 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2949,6 +5440,17 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2978,6 +5480,16 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3003,6 +5515,14 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3080,6 +5600,13 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -3107,6 +5634,13 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3134,6 +5668,13 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3165,6 +5706,17 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3194,6 +5746,16 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3219,6 +5781,14 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3297,6 +5867,13 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -3324,6 +5901,13 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3351,6 +5935,13 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3382,6 +5973,17 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3411,6 +6013,16 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3436,6 +6048,14 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3511,6 +6131,13 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -3538,6 +6165,13 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3565,6 +6199,13 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3596,6 +6237,17 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3625,6 +6277,16 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3650,6 +6312,14 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3725,6 +6395,13 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -3752,6 +6429,13 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3779,6 +6463,13 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3810,6 +6501,17 @@ class _$NetworkErrorImpl implements NetworkError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3839,6 +6541,16 @@ class _$NetworkErrorImpl implements NetworkError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3864,6 +6576,14 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3985,6 +6705,13 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function(NutritionistNotAvailableReason reason)
         nutritionistNotAvailable,
     required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -4012,6 +6739,13 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -4039,6 +6773,13 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(NutritionistNotAvailableReason reason)?
         nutritionistNotAvailable,
     TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -4070,6 +6811,17 @@ class _$UnknownErrorImpl implements UnknownError {
         nutritionistNotAvailable,
     required TResult Function(PatientAlreadyAssignedError value)
         patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -4099,6 +6851,16 @@ class _$UnknownErrorImpl implements UnknownError {
         nutritionistNotAvailable,
     TResult? Function(PatientAlreadyAssignedError value)?
         patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -4124,6 +6886,14 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(NutritionistNotAvailableError value)?
         nutritionistNotAvailable,
     TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,

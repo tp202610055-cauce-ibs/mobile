@@ -310,4 +310,85 @@ void main() {
       );
     });
   });
+
+  group('ErrorMapper · perfil clinico y evaluaciones (Mobile-2)', () {
+    test('patient_profile_not_found se tipa y no cae en unknown', () {
+      // El repositorio lo traduce a null porque en el onboarding significa
+      // "todavia no creo el perfil". Para eso necesita distinguirlo, que es
+      // justo lo que este mapeo habilita.
+      final error = ErrorMapper.map(
+        _problem(status: 404, errorCode: 'patient_profile_not_found'),
+      );
+
+      expect(error, isA<PatientProfileNotFoundError>());
+    });
+
+    test('duplicate_patient_profile se tipa', () {
+      final error = ErrorMapper.map(
+        _problem(status: 409, errorCode: 'duplicate_patient_profile'),
+      );
+
+      expect(error, isA<DuplicateProfileError>());
+    });
+
+    test('invalid_biometric_value se tipa aunque no traiga errors', () {
+      // Lo emite la entidad de dominio del backend, no FluentValidation, asi
+      // que no hay diccionario por campo: solo prosa en detail. El tipo propio
+      // es lo unico que permite dar un mensaje util.
+      final error = ErrorMapper.map(
+        _problem(status: 400, errorCode: 'invalid_biometric_value'),
+      );
+
+      // No es un ValidationError: no hay campo al que colgar el mensaje.
+      expect(error, isA<InvalidBiometricValueError>());
+      expect(error, isNot(isA<ValidationError>()));
+    });
+
+    test('allergy_not_found se tipa', () {
+      final error = ErrorMapper.map(
+        _problem(status: 404, errorCode: 'allergy_not_found'),
+      );
+
+      expect(error, isA<AllergyNotFoundError>());
+    });
+
+    test('duplicate_patient_allergy se tipa', () {
+      final error = ErrorMapper.map(
+        _problem(status: 409, errorCode: 'duplicate_patient_allergy'),
+      );
+
+      expect(error, isA<DuplicateAllergyError>());
+    });
+
+    test('invalid_ibs_sss_dimension se tipa', () {
+      final error = ErrorMapper.map(
+        _problem(status: 400, errorCode: 'invalid_ibs_sss_dimension'),
+      );
+
+      expect(error, isA<InvalidIbsSssDimensionError>());
+    });
+
+    test('duplicate_baseline_assessment se tipa', () {
+      final error = ErrorMapper.map(
+        _problem(status: 409, errorCode: 'duplicate_baseline_assessment'),
+      );
+
+      expect(error, isA<DuplicateBaselineAssessmentError>());
+    });
+
+    test('los dos 404 del modulo no se confunden entre si', () {
+      // Comparten status y solo los separa el errorCode. Confundirlos mandaria
+      // al paciente a rehacer el perfil por una alergia desactivada.
+      final profile = ErrorMapper.map(
+        _problem(status: 404, errorCode: 'patient_profile_not_found'),
+      );
+      final allergy = ErrorMapper.map(
+        _problem(status: 404, errorCode: 'allergy_not_found'),
+      );
+
+      expect(profile, isA<PatientProfileNotFoundError>());
+      expect(allergy, isA<AllergyNotFoundError>());
+      expect(profile, isNot(equals(allergy)));
+    });
+  });
 }
