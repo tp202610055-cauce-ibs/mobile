@@ -4,13 +4,16 @@ import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
 import 'package:cauce_mobile/features/onboarding/application/onboarding_notifier.dart';
+import 'package:cauce_mobile/core/router/app_routes.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
+import 'package:cauce_mobile/features/patients/presentation/profile_screen.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
@@ -58,6 +61,56 @@ Future<ProviderContainer> _pump(
   );
   await tester.pumpAndSettle();
   return container;
+}
+
+/// Monta home dentro de un router minimo con la ruta del perfil colgando de
+/// ella, para observar como queda la pila de navegacion.
+Future<void> _pumpWithRouter(
+  WidgetTester tester, {
+  required FakePatientsRepository repository,
+}) async {
+  final container = ProviderContainer(
+    overrides: <Override>[
+      patientsRepositoryProvider.overrideWithValue(repository),
+      authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
+      tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+    ],
+  );
+  addTearDown(container.dispose);
+
+  await container.read(sessionNotifierProvider.notifier).loginSucceeded(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: demoUser,
+      );
+  await container.read(onboardingNotifierProvider.future);
+
+  await tester.pumpWidget(
+    UncontrolledProviderScope(
+      container: container,
+      child: MaterialApp.router(
+        theme: AppTheme.light(),
+        localizationsDelegates: const <LocalizationsDelegate<Object>>[
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: const Locale('es'),
+        routerConfig: GoRouter(
+          routes: <RouteBase>[
+            GoRoute(path: '/', builder: (_, __) => const HomeScreen()),
+            GoRoute(
+              path: AppRoutes.profile,
+              builder: (_, __) => const ProfileScreen(),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+  await tester.pumpAndSettle();
 }
 
 void main() {
@@ -144,6 +197,41 @@ void main() {
       );
 
       expect(find.text(l10n.homeGreeting('Paciente Demo')), findsOneWidget);
+      expect(find.byKey(const Key('home_logout')), findsOneWidget);
+    });
+  });
+
+  group('HomeScreen · entrada al perfil', () {
+    testWidgets('abrir el perfil deja a la vista como volver', (tester) async {
+      // Con `go` la pila se reemplazaba y el perfil quedaba sin flecha de
+      // retroceso: el paciente solo podia salir con el gesto del sistema.
+      await _pumpWithRouter(
+        tester,
+        repository: FakePatientsRepository(
+          profile: demoProfile.copyWith(onboardingCompleted: true),
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('home_open_profile')));
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.profileTitle), findsOneWidget);
+      expect(find.byKey(const Key('cauce_app_bar_back')), findsOneWidget);
+    });
+
+    testWidgets('volver desde el perfil regresa a home', (tester) async {
+      await _pumpWithRouter(
+        tester,
+        repository: FakePatientsRepository(
+          profile: demoProfile.copyWith(onboardingCompleted: true),
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('home_open_profile')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('cauce_app_bar_back')));
+      await tester.pumpAndSettle();
+
       expect(find.byKey(const Key('home_logout')), findsOneWidget);
     });
   });

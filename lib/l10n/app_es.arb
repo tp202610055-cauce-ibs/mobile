@@ -383,5 +383,71 @@
   "@ibsSssResultNote": {
     "description": "Encuadre neutro del resultado. Registro informativo, sin adjetivos de alarma"
   },
-  "ibsSssResultContinue": "Ir al inicio"
+  "ibsSssResultContinue": "Ir al inicio",
+  "profileTitle": "Tu perfil",
+  "profileOpen": "Abrir tu perfil",
+  "@profileOpen": {
+    "description": "Tooltip del acceso al perfil desde la barra superior"
+  },
+  "profileClinicalSection": "Datos clínicos",
+  "profileAge": "{age} años",
+  "@profileAge": {
+    "description": "Edad que calcula el backend a partir de la fecha de nacimiento",
+    "placeholders": {
+      "age": {
+        "type": "int",
+        "example": "36"
+      }
+    }
+  },
+  "profileAllergiesNone": "Sin alergias declaradas",
+  "profileAllergiesCount": "{count, plural, =1{1 alergia declarada} other{{count} alergias declaradas}}",
+  "@profileAllergiesCount": {
+    "description": "Cantidad de alergias que el paciente declaro en su perfil",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "profilePrivacySection": "Privacidad y datos",
+  "profilePrivacyEntry": "Tu consentimiento informado",
+  "profilePrivacyEntryHint": "Consulta y descarga el documento que aceptaste",
+  "profileLoadError": "No pudimos cargar tu perfil",
+  "privacyTitle": "Privacidad y datos",
+  "privacySubtitle": "Tus derechos sobre la información que Cauce guarda de ti, según la Ley N.° 29733.",
+  "privacyConsentTitle": "Consentimiento informado",
+  "privacyConsentBody": "Aceptaste participar en el piloto clínico al crear tu cuenta. Ese registro quedó guardado de forma permanente y no puede modificarse ni eliminarse.",
+  "privacyConsentDownload": "Descargar en PDF",
+  "privacyConsentDownloadHint": "Se abrirá el menú para compartir, desde donde puedes guardarlo.",
+  "privacyConsentDownloaded": "Listo. El documento corresponde a la versión que aceptaste.",
+  "@privacyConsentDownloaded": {
+    "description": "Confirmacion tras descargar el comprobante. HU0001 escenario 4, CP004 paso 7"
+  },
+  "privacyConsentVersion": "Versión {version}",
+  "@privacyConsentVersion": {
+    "description": "Version del documento que acepto el paciente, no la vigente hoy",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0"
+      }
+    }
+  },
+  "privacyConsentAcceptedOn": "Aceptado el {date}",
+  "@privacyConsentAcceptedOn": {
+    "description": "Fecha de aceptacion del consentimiento, en dd/MM/yyyy",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "16/09/2026"
+      }
+    }
+  },
+  "privacyConsentLoading": "Cargando tu consentimiento",
+  "privacyConsentTextUnavailable": "No conservamos el texto de esta versión, así que no podemos generar el PDF. Tu aceptación sigue registrada y es válida. Si necesitas una copia, comunícate con tu nutricionista.",
+  "@privacyConsentTextUnavailable": {
+    "description": "Aceptaciones anteriores a que el backend guardara el texto por version. El endpoint del PDF responde 404 para estas"
+  }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../core/router/app_routes.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -46,7 +49,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final onboarding = ref.watch(resolvedOnboardingProvider);
 
     return CauceScaffold(
-      appBar: CauceAppBar(title: l10n.appTitle),
+      appBar: CauceAppBar(
+        title: l10n.appTitle,
+        actions: <Widget>[
+          IconButton(
+            key: const Key('home_open_profile'),
+            icon: const Icon(TablerIcons.user_circle),
+            tooltip: l10n.profileOpen,
+            // push y no go: el perfil se abre encima de home, de modo que la
+            // barra conserva su flecha de retroceso. Con go la pila se
+            // reemplaza y `GoRouter.canPop()` devuelve false, que es lo que
+            // dejaba la pantalla sin salida visible.
+            onPressed: () => context.push(AppRoutes.profile),
+          ),
+        ],
+      ),
       scrollable: true,
       body: Column(
         mainAxisSize: MainAxisSize.min,

@@ -1183,6 +1183,132 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ir al inicio'**
   String get ibsSssResultContinue;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu perfil'**
+  String get profileTitle;
+
+  /// Tooltip del acceso al perfil desde la barra superior
+  ///
+  /// In es, this message translates to:
+  /// **'Abrir tu perfil'**
+  String get profileOpen;
+
+  /// No description provided for @profileClinicalSection.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos clínicos'**
+  String get profileClinicalSection;
+
+  /// Edad que calcula el backend a partir de la fecha de nacimiento
+  ///
+  /// In es, this message translates to:
+  /// **'{age} años'**
+  String profileAge(int age);
+
+  /// No description provided for @profileAllergiesNone.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin alergias declaradas'**
+  String get profileAllergiesNone;
+
+  /// Cantidad de alergias que el paciente declaro en su perfil
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{1 alergia declarada} other{{count} alergias declaradas}}'**
+  String profileAllergiesCount(int count);
+
+  /// No description provided for @profilePrivacySection.
+  ///
+  /// In es, this message translates to:
+  /// **'Privacidad y datos'**
+  String get profilePrivacySection;
+
+  /// No description provided for @profilePrivacyEntry.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu consentimiento informado'**
+  String get profilePrivacyEntry;
+
+  /// No description provided for @profilePrivacyEntryHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta y descarga el documento que aceptaste'**
+  String get profilePrivacyEntryHint;
+
+  /// No description provided for @profileLoadError.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tu perfil'**
+  String get profileLoadError;
+
+  /// No description provided for @privacyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Privacidad y datos'**
+  String get privacyTitle;
+
+  /// No description provided for @privacySubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus derechos sobre la información que Cauce guarda de ti, según la Ley N.° 29733.'**
+  String get privacySubtitle;
+
+  /// No description provided for @privacyConsentTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Consentimiento informado'**
+  String get privacyConsentTitle;
+
+  /// No description provided for @privacyConsentBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Aceptaste participar en el piloto clínico al crear tu cuenta. Ese registro quedó guardado de forma permanente y no puede modificarse ni eliminarse.'**
+  String get privacyConsentBody;
+
+  /// No description provided for @privacyConsentDownload.
+  ///
+  /// In es, this message translates to:
+  /// **'Descargar en PDF'**
+  String get privacyConsentDownload;
+
+  /// No description provided for @privacyConsentDownloadHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Se abrirá el menú para compartir, desde donde puedes guardarlo.'**
+  String get privacyConsentDownloadHint;
+
+  /// Confirmacion tras descargar el comprobante. HU0001 escenario 4, CP004 paso 7
+  ///
+  /// In es, this message translates to:
+  /// **'Listo. El documento corresponde a la versión que aceptaste.'**
+  String get privacyConsentDownloaded;
+
+  /// Version del documento que acepto el paciente, no la vigente hoy
+  ///
+  /// In es, this message translates to:
+  /// **'Versión {version}'**
+  String privacyConsentVersion(String version);
+
+  /// Fecha de aceptacion del consentimiento, en dd/MM/yyyy
+  ///
+  /// In es, this message translates to:
+  /// **'Aceptado el {date}'**
+  String privacyConsentAcceptedOn(String date);
+
+  /// No description provided for @privacyConsentLoading.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando tu consentimiento'**
+  String get privacyConsentLoading;
+
+  /// Aceptaciones anteriores a que el backend guardara el texto por version. El endpoint del PDF responde 404 para estas
+  ///
+  /// In es, this message translates to:
+  /// **'No conservamos el texto de esta versión, así que no podemos generar el PDF. Tu aceptación sigue registrada y es válida. Si necesitas una copia, comunícate con tu nutricionista.'**
+  String get privacyConsentTextUnavailable;
 }
 
 class _AppLocalizationsDelegate

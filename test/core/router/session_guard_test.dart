@@ -347,4 +347,75 @@ void main() {
       );
     });
   });
+
+  group('resolveRedirect · rama de perfil (HU0001 escenario 4)', () {
+    const session = SessionState.authenticated(_verified);
+
+    String? redirect(OnboardingState onboarding, String location) =>
+        resolveRedirect(
+          session: session,
+          location: location,
+          onboarding: onboarding,
+        );
+
+    test('con el onboarding cerrado, el perfil es navegable', () {
+      // El guard no necesito ninguna rama nueva para esto: /profile no es
+      // parte del arbol de identidad ni del wizard, asi que cae en el paso
+      // libre. El test existe para que un cambio futuro del guard no lo
+      // rompa sin que nadie se entere.
+      const completed = OnboardingState.completed();
+
+      expect(redirect(completed, AppRoutes.profile), isNull);
+      expect(redirect(completed, AppRoutes.profilePrivacy), isNull);
+    });
+
+    test('aplazado tambien deja entrar al perfil', () {
+      // Aplazar habilita el resto de la app, y la privacidad es justamente
+      // parte de ese resto: el paciente puede ejercer sus derechos sin haber
+      // terminado el onboarding.
+      const deferred = OnboardingState.deferred(OnboardingStep.clinicalProfile);
+
+      expect(redirect(deferred, AppRoutes.profilePrivacy), isNull);
+    });
+
+    test('con un paso pendiente, el wizard se antepone al perfil', () {
+      const pending = OnboardingState.pending(OnboardingStep.clinicalProfile);
+
+      expect(
+        redirect(pending, AppRoutes.profilePrivacy),
+        AppRoutes.onboardingProfile,
+      );
+    });
+
+    test('sin sesion, el perfil manda al login', () {
+      expect(
+        resolveRedirect(
+          session: const SessionState.unauthenticated(),
+          location: AppRoutes.profilePrivacy,
+        ),
+        AppRoutes.login,
+      );
+    });
+
+    test('con el correo sin verificar, el perfil manda al aviso', () {
+      expect(
+        resolveRedirect(
+          session: const SessionState.pendingEmailVerification(
+            email: 'paciente.demo@cauce.local',
+          ),
+          location: AppRoutes.profilePrivacy,
+        ),
+        AppRoutes.verifyEmailPending,
+      );
+    });
+
+    test('sin resolver el onboarding, el perfil sigue accesible', () {
+      // Sin red no se sabe si falta onboarding. Bloquear el perfil ahi le
+      // negaria al paciente el acceso a su consentimiento por un fallo de
+      // conectividad.
+      const unavailable = OnboardingState.unavailable();
+
+      expect(redirect(unavailable, AppRoutes.profilePrivacy), isNull);
+    });
+  });
 }
