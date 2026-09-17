@@ -572,4 +572,71 @@ void main() {
       );
     });
   });
+
+  group('PatientsRepository · comprobante del consentimiento (CP004)', () {
+    test('traduce el PDF y lee el nombre de Content-Disposition', () async {
+      final h = _harness(
+        const CannedResponse(
+          statusCode: 200,
+          body: <String, dynamic>{},
+          headers: <String, List<String>>{
+            'content-disposition': <String>[
+              'attachment; filename="consentimiento-1.0.pdf"',
+            ],
+          },
+        ),
+      );
+
+      final pdf = await h.repository.consentPdf();
+
+      // El nombre lleva la version aceptada, que es lo que permite al paciente
+      // distinguir cual documento firmo si alguna vez hay mas de uno.
+      expect(pdf.fileName, 'consentimiento-1.0.pdf');
+      expect(h.adapter.lastRequest.method, 'GET');
+      expect(
+        h.adapter.lastRequest.path,
+        endsWith('/api/v1/patients/me/consent/pdf'),
+      );
+    });
+
+    test('sin Content-Disposition cae a un nombre generico', () async {
+      // El PDF ya esta descargado: negarselo al paciente por un header
+      // ausente seria peor que darle un nombre menos preciso.
+      final h = _harness(
+        const CannedResponse(statusCode: 200, body: <String, dynamic>{}),
+      );
+
+      final pdf = await h.repository.consentPdf();
+
+      expect(pdf.fileName, 'consentimiento.pdf');
+    });
+
+    test('un 404 se tipa como consentimiento no encontrado', () async {
+      final h = _harness(
+        CannedResponse.problem(
+          statusCode: 404,
+          errorCode: 'consent_record_not_found',
+        ),
+      );
+
+      await expectLater(
+        h.repository.consentPdf(),
+        throwsA(isA<ConsentRecordNotFoundError>()),
+      );
+    });
+
+    test('un 401 se propaga sin confundirse con el 404', () async {
+      final h = _harness(
+        CannedResponse.problem(
+          statusCode: 401,
+          errorCode: 'invalid_credentials',
+        ),
+      );
+
+      await expectLater(
+        h.repository.consentPdf(),
+        throwsA(isA<InvalidCredentialsError>()),
+      );
+    });
+  });
 }

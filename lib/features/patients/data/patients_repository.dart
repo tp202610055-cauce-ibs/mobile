@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cauce_api_client/cauce_api_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -32,6 +34,44 @@ class CreatedPatientProfile {
   /// `true` si al crear el perfil el backend vinculo tambien al nutricionista
   /// del codigo de invitacion usado en el registro.
   final bool nutritionistAssigned;
+}
+
+/// Datos del consentimiento que acepto el paciente (HU0001 escenario 4).
+class AcceptedConsent {
+  const AcceptedConsent({
+    required this.documentVersion,
+    required this.acceptedAt,
+    required this.textHash,
+    required this.textAvailable,
+  });
+
+  final String documentVersion;
+
+  /// Momento de aceptacion, siempre en UTC.
+  final DateTime acceptedAt;
+
+  /// Hash SHA-256 del texto aceptado.
+  final String textHash;
+
+  /// `false` cuando el texto de esa version no quedo guardado en el backend.
+  ///
+  /// Pasa con las aceptaciones anteriores a que existiera `consent_documents`.
+  /// Para esas, el comprobante en PDF **no se puede emitir**: el servidor
+  /// responde 404 en vez de imprimir un texto que no es el que se firmo.
+  final bool textAvailable;
+}
+
+/// Comprobante en PDF del consentimiento aceptado (HU0001 escenario 4).
+class ConsentPdf {
+  const ConsentPdf({required this.bytes, required this.fileName});
+
+  final Uint8List bytes;
+
+  /// Nombre sugerido por el backend, con la forma
+  /// `consentimiento-<version>.pdf`. Lleva la version a proposito: el
+  /// paciente puede descargar el mismo documento mas de una vez y necesita
+  /// distinguir cual acepto.
+  final String fileName;
 }
 
 /// Vinculo establecido entre el paciente y su nutricionista (US20 CA02).
@@ -333,6 +373,80 @@ class PatientsRepository {
     return (trimmed == null || trimmed.isEmpty) ? null : trimmed;
   }
 
+  /// HU0001 escenario 4, CP004 paso 2. `GET /api/v1/patients/me/consent`.
+  ///
+  /// Version y fecha de aceptacion, para mostrarlas sin obligar al paciente a
+  /// descargar el PDF solo para verlas.
+  Future<AcceptedConsent> acceptedConsent() {
+    return _guard(() async {
+      final response = await _api.apiV1PatientsMeConsentGet();
+      final result = response.data;
+      final version = result?.documentVersion;
+      final acceptedAt = result?.acceptedAt;
+
+      if (version == null || acceptedAt == null) {
+        throw const FormatException(
+          'El consentimiento respondio sin documentVersion o sin acceptedAt.',
+        );
+      }
+
+      return AcceptedConsent(
+        documentVersion: version,
+        acceptedAt: acceptedAt.toUtc(),
+        textHash: result?.consentTextHash ?? '',
+        // Ante la duda se asume que no hay texto: ofrecer una descarga que va
+        // a fallar con 404 es peor que avisar de antemano.
+        textAvailable: result?.textAvailable ?? false,
+      );
+    });
+  }
+
+  /// HU0001 escenario 4, CP004. `GET /api/v1/patients/me/consent/pdf`.
+  ///
+  /// Devuelve el comprobante del consentimiento **que el paciente acepto**,
+  /// no el del texto vigente. La distincion la resuelve el backend; desde
+  /// aca solo se transporta.
+  ///
+  /// El 404 `consent_record_not_found` se propaga tipado. Ya estaba en
+  /// [CauceApiError] desde Mobile-1b, declarado a la espera de este caso de
+  /// uso, y hasta ahora no lo consumia nadie.
+  ///
+  /// El nombre del archivo sale de `Content-Disposition`. Si el header no
+  /// viniera, se cae a un nombre generico en vez de fallar: el PDF ya esta
+  /// descargado y negarselo al paciente por un header ausente seria peor.
+  Future<ConsentPdf> consentPdf() {
+    return _guard(() async {
+      final response = await _api.apiV1PatientsMeConsentPdfGet();
+      final bytes = response.data;
+
+      if (bytes == null || bytes.isEmpty) {
+        throw const FormatException(
+          'El comprobante del consentimiento llego vacio.',
+        );
+      }
+
+      return ConsentPdf(
+        bytes: bytes,
+        fileName:
+            _fileNameFrom(response.headers.value('content-disposition')) ??
+                'consentimiento.pdf',
+      );
+    });
+  }
+
+  /// Lee `filename` de la cabecera `Content-Disposition`.
+  ///
+  /// Recibe el valor y no el objeto `Headers` para no volver a importar dio
+  /// aca: la promocion de `_guard()` a `core/` dejo este archivo sin esa
+  /// dependencia y no vale la pena reintroducirla por una anotacion.
+  String? _fileNameFrom(String? disposition) {
+    if (disposition == null) {
+      return null;
+    }
+    final match = RegExp('filename="?([^";]+)"?').firstMatch(disposition);
+    return match?.group(1);
+  }
+
   /// Ejecuta la llamada traduciendo cualquier falla al dominio.
   ///
   /// Delega en [guardApiCall], promovido a `core/` en Mobile-2 por lo que
@@ -347,6 +461,25 @@ PatientsRepository patientsRepository(Ref ref) {
     ref.watch(patientsApiProvider),
     ref.watch(allergiesApiProvider),
   );
+}
+
+/// Perfil clinico del paciente, para la pantalla de perfil.
+///
+/// Devuelve `null` si todavia no lo creo, que es como el repositorio traduce
+/// el 404. La pantalla lo trata como "sin datos clinicos que mostrar" y sigue
+/// ofreciendo la seccion de privacidad, que no depende del perfil.
+///
+/// Sin `keepAlive`: el perfil puede cambiar desde la consulta con el
+/// nutricionista, y recargarlo al entrar cuesta una peticion.
+@riverpod
+Future<PatientProfile?> patientProfile(Ref ref) {
+  return ref.watch(patientsRepositoryProvider).fetchProfile();
+}
+
+/// Consentimiento aceptado por el paciente, para la seccion de privacidad.
+@riverpod
+Future<AcceptedConsent> acceptedConsent(Ref ref) {
+  return ref.watch(patientsRepositoryProvider).acceptedConsent();
 }
 
 /// Catalogo de alergias, cacheado mientras el formulario de perfil viva.

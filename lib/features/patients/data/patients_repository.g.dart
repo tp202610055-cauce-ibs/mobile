@@ -24,6 +24,53 @@ final patientsRepositoryProvider = Provider<PatientsRepository>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PatientsRepositoryRef = ProviderRef<PatientsRepository>;
+String _$patientProfileHash() => r'0fcadbdb46634f50b40ffc5b44bbba7915765d1a';
+
+/// Perfil clinico del paciente, para la pantalla de perfil.
+///
+/// Devuelve `null` si todavia no lo creo, que es como el repositorio traduce
+/// el 404. La pantalla lo trata como "sin datos clinicos que mostrar" y sigue
+/// ofreciendo la seccion de privacidad, que no depende del perfil.
+///
+/// Sin `keepAlive`: el perfil puede cambiar desde la consulta con el
+/// nutricionista, y recargarlo al entrar cuesta una peticion.
+///
+/// Copied from [patientProfile].
+@ProviderFor(patientProfile)
+final patientProfileProvider =
+    AutoDisposeFutureProvider<PatientProfile?>.internal(
+  patientProfile,
+  name: r'patientProfileProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$patientProfileHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PatientProfileRef = AutoDisposeFutureProviderRef<PatientProfile?>;
+String _$acceptedConsentHash() => r'7369864d07a2b8fcd6569e8abc5eabcfb3f72555';
+
+/// Consentimiento aceptado por el paciente, para la seccion de privacidad.
+///
+/// Copied from [acceptedConsent].
+@ProviderFor(acceptedConsent)
+final acceptedConsentProvider =
+    AutoDisposeFutureProvider<AcceptedConsent>.internal(
+  acceptedConsent,
+  name: r'acceptedConsentProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$acceptedConsentHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef AcceptedConsentRef = AutoDisposeFutureProviderRef<AcceptedConsent>;
 String _$allergyCatalogHash() => r'ca47c3e005d1140e2367509ffb3ad13957ea3b58';
 
 /// Catalogo de alergias, cacheado mientras el formulario de perfil viva.

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/patients/domain/allergy.dart';
@@ -48,6 +50,14 @@ const List<AllergyCatalogEntry> demoCatalog = <AllergyCatalogEntry>[
   ),
 ];
 
+/// Consentimiento aceptado de referencia: la unica version publicada hoy.
+final AcceptedConsent demoAcceptedConsent = AcceptedConsent(
+  documentVersion: '1.0',
+  acceptedAt: DateTime.utc(2026, 9, 12, 14, 5),
+  textHash: '92169a2d08cb58170f4b6b0b0c7f5d3e9a1c2b4d6e8f0a1b2c3d4e5f60718293',
+  textAvailable: true,
+);
+
 /// [PatientsRepository] controlable para tests de los notifiers.
 ///
 /// Los errores se inyectan por metodo y no de forma global, porque el paso 1
@@ -72,6 +82,11 @@ class FakePatientsRepository implements PatientsRepository {
   CauceApiError? fetchProfileError;
   CauceApiError? createProfileError;
   CauceApiError? catalogError;
+  CauceApiError? consentPdfError;
+
+  /// Lo que devuelve [acceptedConsent].
+  AcceptedConsent acceptedConsentValue = demoAcceptedConsent;
+  CauceApiError? acceptedConsentError;
 
   /// Error por `allergyId`, para simular que solo una declaracion falla.
   final Map<String, CauceApiError> declareAllergyErrors =
@@ -135,6 +150,31 @@ class FakePatientsRepository implements PatientsRepository {
     }
     declaredAllergies.add(draft);
     return 'bbbbbbbb-0000-4000-8000-${declaredAllergies.length.toString().padLeft(12, '0')}';
+  }
+
+  @override
+  Future<AcceptedConsent> acceptedConsent() async {
+    await _wait();
+    final error = acceptedConsentError;
+    if (error != null) {
+      throw error;
+    }
+    return acceptedConsentValue;
+  }
+
+  @override
+  Future<ConsentPdf> consentPdf() async {
+    await _wait();
+    final error = consentPdfError;
+    if (error != null) {
+      throw error;
+    }
+    // Cabecera minima de un PDF real: basta para verificar que los bytes
+    // llegan y no estan vacios, sin acarrear un archivo de prueba.
+    return ConsentPdf(
+      bytes: Uint8List.fromList('%PDF-1.7'.codeUnits),
+      fileName: 'consentimiento-1.0.pdf',
+    );
   }
 
   @override
