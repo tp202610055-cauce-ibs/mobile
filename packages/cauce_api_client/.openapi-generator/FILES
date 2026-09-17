@@ -104,6 +104,7 @@ lib/src/model/meal_time.dart
 lib/src/model/measurement_unit.dart
 lib/src/model/modify_recommendation_item_input.dart
 lib/src/model/modify_recommendation_request.dart
+lib/src/model/my_consent_result.dart
 lib/src/model/my_profile_clinical_info.dart
 lib/src/model/my_profile_patient_info.dart
 lib/src/model/my_profile_summary_result.dart
