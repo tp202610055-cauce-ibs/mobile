@@ -619,4 +619,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ibsSssResultContinue => 'Go to home';
+
+  @override
+  String get profileTitle => 'Your profile';
+
+  @override
+  String get profileOpen => 'Open your profile';
+
+  @override
+  String get profileClinicalSection => 'Clinical data';
+
+  @override
+  String profileAge(int age) {
+    return '$age years old';
+  }
+
+  @override
+  String get profileAllergiesNone => 'No allergies declared';
+
+  @override
+  String profileAllergiesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count allergies declared',
+      one: '1 allergy declared',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get profilePrivacySection => 'Privacy and data';
+
+  @override
+  String get profilePrivacyEntry => 'Your informed consent';
+
+  @override
+  String get profilePrivacyEntryHint =>
+      'Review and download the document you accepted';
+
+  @override
+  String get profileLoadError => 'We could not load your profile';
+
+  @override
+  String get privacyTitle => 'Privacy and data';
+
+  @override
+  String get privacySubtitle =>
+      'Your rights over the information Cauce keeps about you, under Peruvian Law 29733.';
+
+  @override
+  String get privacyConsentTitle => 'Informed consent';
+
+  @override
+  String get privacyConsentBody =>
+      'You agreed to take part in the clinical pilot when you created your account. That record was stored permanently and cannot be modified or deleted.';
+
+  @override
+  String get privacyConsentDownload => 'Download as PDF';
+
+  @override
+  String get privacyConsentDownloadHint =>
+      'The share menu will open, where you can save it.';
+
+  @override
+  String get privacyConsentDownloaded =>
+      'Done. The document matches the version you accepted.';
+
+  @override
+  String privacyConsentVersion(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String privacyConsentAcceptedOn(String date) {
+    return 'Accepted on $date';
+  }
+
+  @override
+  String get privacyConsentLoading => 'Loading your consent';
+
+  @override
+  String get privacyConsentTextUnavailable =>
+      'We do not keep the text of this version, so we cannot generate the PDF. Your acceptance is still recorded and valid. If you need a copy, contact your nutritionist.';
 }

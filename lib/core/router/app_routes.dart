@@ -34,6 +34,13 @@ abstract final class AppRoutes {
   /// Paso 2: cuestionario IBS-SSS de linea base.
   static const String onboardingBaseline = '/onboarding/ibs-sss';
 
+  /// Perfil del paciente. Raiz de la rama de consulta y ajustes.
+  static const String profile = '/profile';
+
+  /// Privacidad y derechos del paciente bajo la Ley N° 29733. Desde aca se
+  /// descarga el consentimiento aceptado (HU0001 escenario 4, CP004).
+  static const String profilePrivacy = '/profile/privacy';
+
   /// Nombre del parametro de consulta que trae el token de recuperacion.
   static const String tokenQueryParam = 'token';
 }

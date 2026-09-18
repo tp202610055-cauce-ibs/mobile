@@ -86,6 +86,7 @@ import 'package:cauce_api_client/src/model/meal_time.dart';
 import 'package:cauce_api_client/src/model/measurement_unit.dart';
 import 'package:cauce_api_client/src/model/modify_recommendation_item_input.dart';
 import 'package:cauce_api_client/src/model/modify_recommendation_request.dart';
+import 'package:cauce_api_client/src/model/my_consent_result.dart';
 import 'package:cauce_api_client/src/model/my_profile_clinical_info.dart';
 import 'package:cauce_api_client/src/model/my_profile_patient_info.dart';
 import 'package:cauce_api_client/src/model/my_profile_summary_result.dart';
@@ -201,6 +202,7 @@ part 'serializers.g.dart';
   MeasurementUnit,
   ModifyRecommendationItemInput,
   ModifyRecommendationRequest,
+  MyConsentResult,
   MyProfileClinicalInfo,
   MyProfilePatientInfo,
   MyProfileSummaryResult,

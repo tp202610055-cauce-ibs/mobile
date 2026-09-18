@@ -9,6 +9,8 @@ import '../../features/home/presentation/home_screen.dart';
 import '../../features/onboarding/application/onboarding_notifier.dart';
 import '../../features/onboarding/presentation/clinical_profile_screen.dart';
 import '../../features/onboarding/presentation/ibs_sss_baseline_screen.dart';
+import '../../features/patients/presentation/privacy_screen.dart';
+import '../../features/patients/presentation/profile_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import 'app_routes.dart';
 import 'session_guard.dart';
@@ -43,6 +45,16 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: AppRoutes.home,
         builder: (_, __) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.profile,
+        builder: (_, __) => const ProfileScreen(),
+        routes: <RouteBase>[
+          GoRoute(
+            path: 'privacy',
+            builder: (_, __) => const PrivacyScreen(),
+          ),
+        ],
       ),
       GoRoute(
         path: AppRoutes.onboardingBranch,

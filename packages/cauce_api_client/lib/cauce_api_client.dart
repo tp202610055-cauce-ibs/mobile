@@ -105,6 +105,7 @@ export 'package:cauce_api_client/src/model/meal_time.dart';
 export 'package:cauce_api_client/src/model/measurement_unit.dart';
 export 'package:cauce_api_client/src/model/modify_recommendation_item_input.dart';
 export 'package:cauce_api_client/src/model/modify_recommendation_request.dart';
+export 'package:cauce_api_client/src/model/my_consent_result.dart';
 export 'package:cauce_api_client/src/model/my_profile_clinical_info.dart';
 export 'package:cauce_api_client/src/model/my_profile_patient_info.dart';
 export 'package:cauce_api_client/src/model/my_profile_summary_result.dart';

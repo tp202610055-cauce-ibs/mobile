@@ -20,6 +20,7 @@ import 'package:cauce_api_client/src/model/declare_patient_allergy_result.dart';
 import 'package:cauce_api_client/src/model/export_my_data_result.dart';
 import 'package:cauce_api_client/src/model/generate_my_clinical_report_result.dart';
 import 'package:cauce_api_client/src/model/get_patient_profile_result.dart';
+import 'package:cauce_api_client/src/model/my_consent_result.dart';
 import 'package:cauce_api_client/src/model/my_profile_summary_result.dart';
 import 'package:cauce_api_client/src/model/patient_allergy_summary.dart';
 import 'package:cauce_api_client/src/model/problem_details.dart';
@@ -256,6 +257,85 @@ class PatientsApi {
     }
 
     return Response<DeclarePatientAllergyResult>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// Devuelve los datos del consentimiento informado aceptado por el paciente autenticado  (HU0001 escenario 4): versión, momento de aceptación y hash del texto.
+  /// Complementa a &#x60;me/consent/pdf&#x60;. La sección de privacidad necesita mostrar versión y  fecha sin obligar al paciente a descargar el documento binario para verlas.
+  ///
+  /// Parameters:
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [MyConsentResult] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<MyConsentResult>> apiV1PatientsMeConsentGet({ 
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/patients/me/consent';
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'Bearer',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    MyConsentResult? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(MyConsentResult),
+      ) as MyConsentResult;
+
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<MyConsentResult>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

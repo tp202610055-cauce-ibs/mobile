@@ -55,6 +55,10 @@ dependencies:
   # Utilidades
   uuid: ^4.5.0
   intl: ^0.20.2
+  # Hoja de compartir del SO, para que el paciente guarde el PDF de su
+  # consentimiento donde pueda volver a encontrarlo (HU0001 escenario 4,
+  # CP004 pasos 6 y 7). Misma familia que connectivity_plus.
+  share_plus: ^12.0.2
   flutter_dotenv: ^5.2.1
   connectivity_plus: ^6.0.5
 

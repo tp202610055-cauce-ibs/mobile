@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 import '../errors/cauce_api_error.dart';
@@ -230,14 +232,51 @@ abstract final class ErrorMapper {
     };
   }
 
-  /// El cuerpo puede llegar como `Map` ya deserializado o como `String` si el
-  /// `Content-Type` fue `application/problem+json` y dio no lo reconocio.
+  /// El cuerpo puede llegar de tres formas.
+  ///
+  /// Como `Map` ya deserializado, que es lo habitual. Como `String` si el
+  /// `Content-Type` fue `application/problem+json` y dio no lo reconocio. Y
+  /// como **bytes**, que es el caso de los endpoints que devuelven archivos.
+  ///
+  /// El tercero importa mas de lo que parece. Los metodos generados para
+  /// descargas declaran `responseType: ResponseType.bytes`, y dio aplica ese
+  /// tipo tambien a las respuestas de error: el `problem+json` del 404 llega
+  /// como `Uint8List` y, sin decodificarlo, el `errorCode` se pierde y todo
+  /// degrada a [UnknownError]. Le pasa a `consent/pdf`, y le pasaria igual a
+  /// `export-data` y a los reportes.
   static Map<String, dynamic> _asMap(Object? data) {
     if (data is Map<String, dynamic>) {
       return data;
     }
     if (data is Map) {
       return data.map((key, value) => MapEntry(key.toString(), value));
+    }
+    if (data is String) {
+      return _decode(data);
+    }
+    if (data is List<int>) {
+      // Un cuerpo binario que no sea JSON no es un envelope de error: se
+      // descarta en silencio y el error cae al fallback por status.
+      return _decode(utf8.decode(data, allowMalformed: true));
+    }
+    return const <String, dynamic>{};
+  }
+
+  /// Parsea un cuerpo JSON, tolerando que no lo sea.
+  static Map<String, dynamic> _decode(String raw) {
+    if (raw.isEmpty) {
+      return const <String, dynamic>{};
+    }
+    try {
+      final decoded = jsonDecode(raw);
+      if (decoded is Map<String, dynamic>) {
+        return decoded;
+      }
+      if (decoded is Map) {
+        return decoded.map((key, value) => MapEntry(key.toString(), value));
+      }
+    } on FormatException {
+      // No era JSON. Es lo esperable en un PDF truncado o en un 502 del proxy.
     }
     return const <String, dynamic>{};
   }

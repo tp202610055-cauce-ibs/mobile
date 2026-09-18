@@ -1,0 +1,9 @@
+# Finales de linea del cliente OpenAPI generado.
+#
+# openapi-generator escribe todos sus archivos con LF. El repo trabaja con
+# core.autocrlf activo y sin reglas, asi que git los deja en CRLF al hacer
+# checkout y vuelve a marcarlos como modificados despues de cada regeneracion,
+# aunque el contenido sea identico. Fijar LF para este directorio alinea lo que
+# git escribe con lo que el generador produce, y deja el diff de una
+# regeneracion reducido a los archivos que de verdad cambiaron.
+packages/cauce_api_client/** text eol=lf
