@@ -304,3 +304,23 @@ Consecuencias. El CLAUDE.md del móvil pasa a v1.2.2: secciones 3 y 5.1 vuelven 
 De paso se aclaró el alcance de R3, que no estaba escrito: la regla protege los repositorios de Cauce, no el checkout del SDK de Flutter ni otras herramientas externas. Quinua puede ajustar el toolchain sin luz verde mientras no toque un repo del proyecto. También se documentó `git show HEAD:<ruta> > <ruta>` como vía para restaurar un archivo borrado sin usar comandos git de modificación y sin el riesgo de que GitHub Desktop se lleve por delante los untracked al descartar cambios, que es el accidente que ya costó una reconstrucción del CLAUDE.md en septiembre.
 
 Alternativas consideradas. Subir el stack de codegen completo, descartado por arrastrar la migración de Riverpod 2 a 3 dentro de un bloque cuyo alcance es el onboarding clínico. Buscar una versión intermedia de `analyzer`, investigada con límite de tiempo y descartada con evidencia: el arreglo está en 8.0.0 y todo el stack topa en `<8.0.0`. Instalar un segundo SDK en paralelo o adoptar FVM, descartado por duplicar disco en una laptop donde ya se bajó el NDK por espacio (commit `ad2e567`), y por agregar configuración por proyecto que nadie más del equipo tiene.
+
+---
+
+DECISIONS-BLOCK-CONSENT-PDF
+Actas del bloque de cierre de HU0001 escenario 4 (CP004: descarga del comprobante de consentimiento).
+Fecha del bloque: 2026-09-17.
+Autores: Trigo (decisión), Kiwicha (redacción del prompt de bloque), Quinua (redacción del acta).
+Estado global: aprobadas.
+
+Acta M32: Techo de versión en share_plus por conflicto con flutter_secure_storage
+
+Contexto. La descarga del comprobante de consentimiento necesita entregarle el PDF al paciente por la hoja de compartir del sistema operativo. La dependencia propuesta y aprobada en su momento fue `share_plus: ^13.3.0`. Al resolverla, `flutter pub get` falló: la 13.x arrastra `win32` 5.15.0 y `ffi` 2.2.0, y esa cadena es incompatible con `flutter_secure_storage ^9.2.2`, que es el paquete donde viven los tres keys de sesión del acta M11.
+
+Decisión. Se fija `share_plus: ^12.0.2` en vez de `^13.3.0`. `flutter_secure_storage` no se toca y permanece en la rama 9.x. Subirlo a la 11.x queda como cambio aparte, con su propia evaluación.
+
+Justificación. Un salto de dos majors sobre el componente más sensible del stack no se justifica por una versión más nueva de una librería que ya cumple el requisito en la anterior. `flutter_secure_storage` custodia el access token, el refresh token y el snapshot del usuario autenticado; el acta M26 ya fija su comportamiento en iOS y qué pasa ante un snapshot corrupto. Un cambio ahí se evalúa por sí solo, mirando qué cambia en el Keystore de Android y en el llavero de iOS, y no de refilón dentro de un bloque cuyo alcance es una pantalla de privacidad. La 12.x entrega exactamente lo que el caso pide: `SharePlus.instance.share` con `ShareParams`, archivos adjuntos y nombre de archivo propio.
+
+Consecuencias. `share_plus` queda con un techo explícito en el `pubspec.yaml` y en la tabla del stack del CLAUDE.md, con el motivo anotado, para que nadie lo suba por inercia al ver que hay una versión mayor disponible. El bloque que decida subir `flutter_secure_storage` destraba de paso este techo. R5 sigue gobernando: el salto de major sobre cualquiera de los dos necesita luz verde explícita.
+
+Alternativas consideradas. Subir `flutter_secure_storage` de 9.x a 11.x para habilitar `share_plus` 13.x, descartado por lo dicho arriba: mezcla un cambio de riesgo alto dentro de un bloque que no lo requiere. Escribir el PDF a disco y abrirlo con un intent propio sin librería, descartado por reimplementar a mano lo que `share_plus` resuelve en las dos plataformas, incluidos los permisos y el `FileProvider` de Android.
