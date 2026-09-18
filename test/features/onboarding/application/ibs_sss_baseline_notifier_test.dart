@@ -3,7 +3,7 @@ import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/ibs_sss/data/ibs_sss_repository.dart';
-import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_baseline.dart';
+import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_assessment.dart';
 import 'package:cauce_mobile/features/onboarding/application/ibs_sss_baseline_notifier.dart';
 import 'package:cauce_mobile/features/onboarding/application/onboarding_notifier.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';

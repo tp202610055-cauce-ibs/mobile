@@ -39,6 +39,24 @@ extension CauceApiErrorMessage on CauceApiError {
       InvalidIbsSssDimensionError() => l10n.errorInvalidIbsSssDimension,
       DuplicateBaselineAssessmentError() =>
         l10n.errorDuplicateBaselineAssessment,
+      FoodItemNotFoundError() => l10n.errorFoodItemNotFound,
+      CustomFoodNotFoundError() => l10n.errorCustomFoodNotFound,
+      DuplicateCustomFoodError() => l10n.errorDuplicateCustomFood,
+      CustomFoodInUseError() => l10n.errorCustomFoodInUse,
+      DuplicateIngredientError() => l10n.errorDuplicateIngredient,
+      IngredientNotFoundError() => l10n.errorIngredientNotFound,
+      // Es el paso intermedio del flujo de confirmacion, no un error terminal.
+      // El mensaje sirve de encabezado; el detalle por ingrediente lo pinta la
+      // pantalla a partir de `allergens`.
+      UnconfirmedAllergensError() => l10n.errorUnconfirmedAllergens,
+      InvalidMealRegistrationError() => l10n.errorInvalidMealRegistration,
+      MealNotFoundError() => l10n.errorMealNotFound,
+      SymptomNotFoundError() => l10n.errorSymptomNotFound,
+      ClinicalNoteNotFoundError() => l10n.errorClinicalNoteNotFound,
+      InvalidClinicalNoteAssociationError() =>
+        l10n.errorInvalidClinicalNoteAssociation,
+      IdempotencyMismatchError() => l10n.errorIdempotencyMismatch,
+      DomainRuleViolationError() => l10n.errorDomainRuleViolation,
       DuplicateEmailError() => l10n.errorDuplicateEmail,
       KeycloakIntegrationError() => l10n.errorKeycloakIntegration,
       InvalidCredentialsError() => l10n.errorInvalidCredentials,

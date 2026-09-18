@@ -144,4 +144,107 @@ void main() {
       }
     });
   });
+
+  group('CauceApiErrorMessage · registro clinico diario (Mobile-3)', () {
+    final cases = <String, (CauceApiError, String)>{
+      'food_item_not_found': (
+        const CauceApiError.foodItemNotFound(),
+        es.errorFoodItemNotFound,
+      ),
+      'custom_food_not_found': (
+        const CauceApiError.customFoodNotFound(),
+        es.errorCustomFoodNotFound,
+      ),
+      'duplicate_custom_food': (
+        const CauceApiError.duplicateCustomFood(),
+        es.errorDuplicateCustomFood,
+      ),
+      'custom_food_in_use': (
+        const CauceApiError.customFoodInUse(),
+        es.errorCustomFoodInUse,
+      ),
+      'duplicate_ingredient': (
+        const CauceApiError.duplicateIngredient(),
+        es.errorDuplicateIngredient,
+      ),
+      'ingredient_not_found': (
+        const CauceApiError.ingredientNotFound(),
+        es.errorIngredientNotFound,
+      ),
+      'unconfirmed_allergens': (
+        const CauceApiError.unconfirmedAllergens(
+          allergens: <DetectedAllergen>[],
+        ),
+        es.errorUnconfirmedAllergens,
+      ),
+      'invalid_meal_registration': (
+        const CauceApiError.invalidMealRegistration(),
+        es.errorInvalidMealRegistration,
+      ),
+      'meal_not_found': (
+        const CauceApiError.mealNotFound(),
+        es.errorMealNotFound,
+      ),
+      'symptom_not_found': (
+        const CauceApiError.symptomNotFound(),
+        es.errorSymptomNotFound,
+      ),
+      'clinical_note_not_found': (
+        const CauceApiError.clinicalNoteNotFound(),
+        es.errorClinicalNoteNotFound,
+      ),
+      'invalid_clinical_note_association': (
+        const CauceApiError.invalidClinicalNoteAssociation(),
+        es.errorInvalidClinicalNoteAssociation,
+      ),
+      'idempotency_mismatch': (
+        const CauceApiError.idempotencyMismatch(),
+        es.errorIdempotencyMismatch,
+      ),
+      'domain_rule_violation': (
+        const CauceApiError.domainRuleViolation(),
+        es.errorDomainRuleViolation,
+      ),
+    };
+
+    for (final entry in cases.entries) {
+      test('${entry.key} tiene mensaje propio en es y en en', () {
+        final (error, expected) = entry.value;
+
+        expect(error.localizedMessage(es), expected);
+        expect(error.localizedMessage(es), isNotEmpty);
+        expect(error.localizedMessage(en), isNotEmpty);
+        expect(error.localizedMessage(es), isNot(es.errorUnknown));
+      });
+    }
+
+    test('los catorce mensajes son distintos entre si', () {
+      final messages =
+          cases.values.map((value) => value.$1.localizedMessage(es)).toSet();
+
+      expect(messages, hasLength(cases.length));
+    });
+
+    test('ninguno usa registro alarmista', () {
+      // Incluye el de alergenos, que es el que mas tentaria a alarmar: es el
+      // encabezado de una confirmacion, no una advertencia de emergencia.
+      for (final value in cases.values) {
+        final message = value.$1.localizedMessage(es);
+        expect(message, isNot(contains('!')));
+        expect(message.toLowerCase(), isNot(contains('peligro')));
+        expect(message.toLowerCase(), isNot(contains('grave')));
+      }
+    });
+
+    test('el detail de domain_rule_violation no se filtra al paciente', () {
+      // Llega en espanol y sin garantia de estabilidad: sirve para diagnostico,
+      // no para mostrarlo tal cual.
+      const error = CauceApiError.domainRuleViolation(
+        detail: 'La ventana de asociacion expiro para el paciente 79974080.',
+      );
+
+      expect(error.localizedMessage(es), es.errorDomainRuleViolation);
+      expect(error.localizedMessage(es), isNot(contains('79974080')));
+    });
+  });
 }

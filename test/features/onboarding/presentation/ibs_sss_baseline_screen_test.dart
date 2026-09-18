@@ -4,7 +4,7 @@ import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/ibs_sss/data/ibs_sss_repository.dart';
-import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_baseline.dart';
+import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_assessment.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/ibs_sss_baseline_screen.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';

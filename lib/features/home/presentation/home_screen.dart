@@ -8,6 +8,7 @@ import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/session_notifier.dart';
+import '../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
 
 /// Raiz autenticada, provisional (US08 CA01).
@@ -72,6 +73,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             _OnboardingReminder(step: onboarding.step!),
             const SizedBox(height: CauceSpacing.space6),
           ],
+          // US12 CA01: el acceso al cuestionario periodico. Sin mecanismo de
+          // notificacion en este bloque, este aviso es la via que el propio CA
+          // contempla con "o desde el menu principal".
+          const _IbsSssReminder(),
           Text(
             l10n.homeGreeting(user?.fullName ?? ''),
             style: textTheme.headlineMedium,
@@ -85,6 +90,68 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             onPressed: _logout,
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Aviso del cuestionario IBS-SSS periodico vencido (US12 CA01).
+///
+/// Aparece cuando el ciclo de catorce dias que agenda el backend ya vencio,
+/// segun el `nextAssessmentDate` de la evaluacion mas reciente.
+///
+/// **Sin mecanismo de notificacion en este bloque**, por decision explicita: el
+/// servidor ya tiene armado el camino de push (`IbsSssReminderWorker` agenda
+/// una `Notification` a las 48 horas del vencimiento), pero el movil no puede
+/// recibirlo sin Firebase, que el acta M13 difirio a Mobile-4. Este aviso cubre
+/// mientras tanto el acceso que el CA pide.
+///
+/// Mientras el estado se resuelve, o si falla, **no muestra nada**: un aviso
+/// que aparece por las dudas mandaria al paciente a responder un cuestionario
+/// que quiza no le toca, y el ciclo es irrepetible dentro de su ventana.
+class _IbsSssReminder extends ConsumerWidget {
+  const _IbsSssReminder();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final latest = ref.watch(latestIbsSssAssessmentProvider);
+
+    final assessment = latest.valueOrNull;
+    if (assessment == null || !assessment.isDue()) {
+      return const SizedBox.shrink();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: CauceSpacing.space6),
+      child: Container(
+        key: const Key('home_ibs_sss_reminder'),
+        width: double.infinity,
+        padding: const EdgeInsets.all(CauceSpacing.space4),
+        decoration: const BoxDecoration(
+          color: CauceColors.infoBg,
+          borderRadius: CauceRadii.borderMd,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              l10n.ibsSssReminderTitle,
+              style: textTheme.titleMedium?.copyWith(
+                color: CauceColors.infoText,
+              ),
+            ),
+            const SizedBox(height: CauceSpacing.space1),
+            Text(l10n.ibsSssReminderBody, style: textTheme.bodyMedium),
+            const SizedBox(height: CauceSpacing.space3),
+            CauceButton.tertiary(
+              key: const Key('home_ibs_sss_resume'),
+              label: l10n.ibsSssReminderAction,
+              onPressed: () => context.push(AppRoutes.ibsSssPeriodic),
+            ),
+          ],
+        ),
       ),
     );
   }

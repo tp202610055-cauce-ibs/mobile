@@ -16,11 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$IbsSssBaselineState {
-  IbsSssBaselineAnswers get answers => throw _privateConstructorUsedError;
+  IbsSssAnswers get answers => throw _privateConstructorUsedError;
   bool get submitting => throw _privateConstructorUsedError;
 
   /// Resultado devuelto por el servidor, disponible recien tras el envio.
-  IbsSssBaselineResult? get result => throw _privateConstructorUsedError;
+  IbsSssResult? get result => throw _privateConstructorUsedError;
   CauceApiError? get error => throw _privateConstructorUsedError;
 
   /// Create a copy of IbsSssBaselineState
@@ -37,13 +37,13 @@ abstract class $IbsSssBaselineStateCopyWith<$Res> {
       _$IbsSssBaselineStateCopyWithImpl<$Res, IbsSssBaselineState>;
   @useResult
   $Res call(
-      {IbsSssBaselineAnswers answers,
+      {IbsSssAnswers answers,
       bool submitting,
-      IbsSssBaselineResult? result,
+      IbsSssResult? result,
       CauceApiError? error});
 
-  $IbsSssBaselineAnswersCopyWith<$Res> get answers;
-  $IbsSssBaselineResultCopyWith<$Res>? get result;
+  $IbsSssAnswersCopyWith<$Res> get answers;
+  $IbsSssResultCopyWith<$Res>? get result;
   $CauceApiErrorCopyWith<$Res>? get error;
 }
 
@@ -71,7 +71,7 @@ class _$IbsSssBaselineStateCopyWithImpl<$Res, $Val extends IbsSssBaselineState>
       answers: null == answers
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
-              as IbsSssBaselineAnswers,
+              as IbsSssAnswers,
       submitting: null == submitting
           ? _value.submitting
           : submitting // ignore: cast_nullable_to_non_nullable
@@ -79,7 +79,7 @@ class _$IbsSssBaselineStateCopyWithImpl<$Res, $Val extends IbsSssBaselineState>
       result: freezed == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
-              as IbsSssBaselineResult?,
+              as IbsSssResult?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -91,8 +91,8 @@ class _$IbsSssBaselineStateCopyWithImpl<$Res, $Val extends IbsSssBaselineState>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $IbsSssBaselineAnswersCopyWith<$Res> get answers {
-    return $IbsSssBaselineAnswersCopyWith<$Res>(_value.answers, (value) {
+  $IbsSssAnswersCopyWith<$Res> get answers {
+    return $IbsSssAnswersCopyWith<$Res>(_value.answers, (value) {
       return _then(_value.copyWith(answers: value) as $Val);
     });
   }
@@ -101,12 +101,12 @@ class _$IbsSssBaselineStateCopyWithImpl<$Res, $Val extends IbsSssBaselineState>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $IbsSssBaselineResultCopyWith<$Res>? get result {
+  $IbsSssResultCopyWith<$Res>? get result {
     if (_value.result == null) {
       return null;
     }
 
-    return $IbsSssBaselineResultCopyWith<$Res>(_value.result!, (value) {
+    return $IbsSssResultCopyWith<$Res>(_value.result!, (value) {
       return _then(_value.copyWith(result: value) as $Val);
     });
   }
@@ -135,15 +135,15 @@ abstract class _$$IbsSssBaselineStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {IbsSssBaselineAnswers answers,
+      {IbsSssAnswers answers,
       bool submitting,
-      IbsSssBaselineResult? result,
+      IbsSssResult? result,
       CauceApiError? error});
 
   @override
-  $IbsSssBaselineAnswersCopyWith<$Res> get answers;
+  $IbsSssAnswersCopyWith<$Res> get answers;
   @override
-  $IbsSssBaselineResultCopyWith<$Res>? get result;
+  $IbsSssResultCopyWith<$Res>? get result;
   @override
   $CauceApiErrorCopyWith<$Res>? get error;
 }
@@ -170,7 +170,7 @@ class __$$IbsSssBaselineStateImplCopyWithImpl<$Res>
       answers: null == answers
           ? _value.answers
           : answers // ignore: cast_nullable_to_non_nullable
-              as IbsSssBaselineAnswers,
+              as IbsSssAnswers,
       submitting: null == submitting
           ? _value.submitting
           : submitting // ignore: cast_nullable_to_non_nullable
@@ -178,7 +178,7 @@ class __$$IbsSssBaselineStateImplCopyWithImpl<$Res>
       result: freezed == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
-              as IbsSssBaselineResult?,
+              as IbsSssResult?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -191,7 +191,7 @@ class __$$IbsSssBaselineStateImplCopyWithImpl<$Res>
 
 class _$IbsSssBaselineStateImpl extends _IbsSssBaselineState {
   const _$IbsSssBaselineStateImpl(
-      {this.answers = const IbsSssBaselineAnswers(),
+      {this.answers = const IbsSssAnswers(),
       this.submitting = false,
       this.result,
       this.error})
@@ -199,14 +199,14 @@ class _$IbsSssBaselineStateImpl extends _IbsSssBaselineState {
 
   @override
   @JsonKey()
-  final IbsSssBaselineAnswers answers;
+  final IbsSssAnswers answers;
   @override
   @JsonKey()
   final bool submitting;
 
   /// Resultado devuelto por el servidor, disponible recien tras el envio.
   @override
-  final IbsSssBaselineResult? result;
+  final IbsSssResult? result;
   @override
   final CauceApiError? error;
 
@@ -243,20 +243,20 @@ class _$IbsSssBaselineStateImpl extends _IbsSssBaselineState {
 
 abstract class _IbsSssBaselineState extends IbsSssBaselineState {
   const factory _IbsSssBaselineState(
-      {final IbsSssBaselineAnswers answers,
+      {final IbsSssAnswers answers,
       final bool submitting,
-      final IbsSssBaselineResult? result,
+      final IbsSssResult? result,
       final CauceApiError? error}) = _$IbsSssBaselineStateImpl;
   const _IbsSssBaselineState._() : super._();
 
   @override
-  IbsSssBaselineAnswers get answers;
+  IbsSssAnswers get answers;
   @override
   bool get submitting;
 
   /// Resultado devuelto por el servidor, disponible recien tras el envio.
   @override
-  IbsSssBaselineResult? get result;
+  IbsSssResult? get result;
   @override
   CauceApiError? get error;
 

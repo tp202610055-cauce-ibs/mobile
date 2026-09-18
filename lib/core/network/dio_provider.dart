@@ -106,3 +106,46 @@ AllergiesApi allergiesApi(Ref ref) =>
 /// Evaluaciones IBS-SSS. Politica `Patient` y rate limit `default-auth`.
 @Riverpod(keepAlive: true)
 IbsSssApi ibsSssApi(Ref ref) => ref.watch(apiClientProvider).getIbsSssApi();
+
+// ---------------------------------------------------------------------------
+// Modulo ClinicalRegistry (EP0002). Agregados en Mobile-3.
+//
+// `GlossaryApi` e `HistoryApi` quedan deliberadamente fuera: el glosario no
+// entra en el alcance del bloque, y `GET /history` es inutilizable con el
+// cliente generado porque el contrato aplana su jerarquia polimorfica a
+// `{occurredAt}` y el resto del evento se descarta al deserializar. El
+// historial se compone desde `/meals`, `/symptoms` y `/clinical-notes`.
+// ---------------------------------------------------------------------------
+
+/// Catalogo de alimentos: listado, busqueda, detalle y sugerencias.
+///
+/// Los tres primeros los expone el backend a cualquier autenticado; solo
+/// `GET /foods/suggestions` exige la politica `Patient`.
+@Riverpod(keepAlive: true)
+FoodsApi foodsApi(Ref ref) => ref.watch(apiClientProvider).getFoodsApi();
+
+/// Platos personalizados del paciente (US10). CRUD completo.
+@Riverpod(keepAlive: true)
+CustomFoodsApi customFoodsApi(Ref ref) =>
+    ref.watch(apiClientProvider).getCustomFoodsApi();
+
+/// Registro e historial de comidas (US09).
+@Riverpod(keepAlive: true)
+MealsApi mealsApi(Ref ref) => ref.watch(apiClientProvider).getMealsApi();
+
+/// Registro e historial de sintomas (US11).
+@Riverpod(keepAlive: true)
+SymptomsApi symptomsApi(Ref ref) =>
+    ref.watch(apiClientProvider).getSymptomsApi();
+
+/// Notas de contexto sobre una comida o un sintoma (US13).
+@Riverpod(keepAlive: true)
+ClinicalNotesApi clinicalNotesApi(Ref ref) =>
+    ref.watch(apiClientProvider).getClinicalNotesApi();
+
+/// Sincronizacion por lote de lo registrado sin conexion (TS06).
+///
+/// Unico endpoint del cliente con rate limit `sync` (120/min por usuario) en
+/// vez de `default-auth`.
+@Riverpod(keepAlive: true)
+SyncApi syncApi(Ref ref) => ref.watch(apiClientProvider).getSyncApi();

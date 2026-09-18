@@ -41,6 +41,27 @@ abstract final class AppRoutes {
   /// descarga el consentimiento aceptado (HU0001 escenario 4, CP004).
   static const String profilePrivacy = '/profile/privacy';
 
+  /// Registro de una comida (US09).
+  static const String mealNew = '/meals/new';
+
+  /// Constructor de platos personalizados (US10).
+  static const String customFoodNew = '/custom-foods/new';
+
+  /// Registro de un sintoma (US11).
+  static const String symptomNew = '/symptoms/new';
+
+  /// Historial unificado de comidas y sintomas.
+  static const String history = '/history';
+
+  /// Nota de contexto sobre un registro del historial (US13).
+  ///
+  /// Recibe la `HistoryEntry` por `extra`: la nota se asocia al identificador
+  /// **del servidor**, que solo tiene una entrada ya sincronizada.
+  static const String clinicalNoteNew = '/history/note';
+
+  /// Cuestionario IBS-SSS periodico (US12).
+  static const String ibsSssPeriodic = '/ibs-sss/periodic';
+
   /// Nombre del parametro de consulta que trae el token de recuperacion.
   static const String tokenQueryParam = 'token';
 }

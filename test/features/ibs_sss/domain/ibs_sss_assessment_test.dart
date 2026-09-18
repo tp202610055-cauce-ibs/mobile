@@ -1,5 +1,5 @@
 import 'package:cauce_api_client/cauce_api_client.dart' as api;
-import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_baseline.dart';
+import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_assessment.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Cubre las respuestas del cuestionario IBS-SSS de linea base (US04).
@@ -9,17 +9,17 @@ import 'package:flutter_test/flutter_test.dart';
 /// envio incompleto no se puede deshacer: gastaria la unica que hay.
 void main() {
   /// Respuestas completas, para los casos que parten de ahi.
-  IbsSssBaselineAnswers complete() {
-    var answers = const IbsSssBaselineAnswers();
+  IbsSssAnswers complete() {
+    var answers = const IbsSssAnswers();
     for (final dimension in IbsSssDimension.values) {
       answers = answers.withAnswer(dimension, 40);
     }
     return answers;
   }
 
-  group('IbsSssBaselineAnswers · completitud (CA02)', () {
+  group('IbsSssAnswers · completitud (CA02)', () {
     test('nace vacio e incompleto', () {
-      const answers = IbsSssBaselineAnswers();
+      const answers = IbsSssAnswers();
 
       expect(answers.isComplete, isFalse);
       expect(answers.values, isEmpty);
@@ -27,7 +27,7 @@ void main() {
     });
 
     test('con cuatro de cinco sigue incompleto', () {
-      var answers = const IbsSssBaselineAnswers();
+      var answers = const IbsSssAnswers();
       for (final dimension in IbsSssDimension.values.take(4)) {
         answers = answers.withAnswer(dimension, 50);
       }
@@ -46,7 +46,7 @@ void main() {
     test('un cero cuenta como respuesta, no como ausencia', () {
       // Cero es un valor clinico valido: el paciente no tuvo ese sintoma.
       // Tratarlo como "sin responder" bloquearia un cuestionario legitimo.
-      var answers = const IbsSssBaselineAnswers();
+      var answers = const IbsSssAnswers();
       for (final dimension in IbsSssDimension.values) {
         answers = answers.withAnswer(dimension, 0);
       }
@@ -56,7 +56,7 @@ void main() {
     });
 
     test('missing respeta el orden de presentacion', () {
-      final answers = const IbsSssBaselineAnswers()
+      final answers = const IbsSssAnswers()
           .withAnswer(IbsSssDimension.bloatingSeverity, 30);
 
       expect(answers.missing, <IbsSssDimension>[
@@ -68,9 +68,9 @@ void main() {
     });
   });
 
-  group('IbsSssBaselineAnswers.withAnswer · rango', () {
+  group('IbsSssAnswers.withAnswer · rango', () {
     test('acepta los dos bordes del rango', () {
-      const answers = IbsSssBaselineAnswers();
+      const answers = IbsSssAnswers();
 
       expect(
         answers.withAnswer(IbsSssDimension.painSeverity, 0).valueFor(
@@ -88,15 +88,15 @@ void main() {
 
     test('rechaza un valor por debajo de cero', () {
       expect(
-        () => const IbsSssBaselineAnswers()
-            .withAnswer(IbsSssDimension.painSeverity, -1),
+        () =>
+            const IbsSssAnswers().withAnswer(IbsSssDimension.painSeverity, -1),
         throwsA(isA<ArgumentError>()),
       );
     });
 
     test('rechaza un valor por encima de cien', () {
       expect(
-        () => const IbsSssBaselineAnswers()
+        () => const IbsSssAnswers()
             .withAnswer(IbsSssDimension.lifeInterference, 101),
         throwsA(isA<ArgumentError>()),
       );
@@ -107,8 +107,7 @@ void main() {
       // puede venir de un error de programacion, porque el control de la UI
       // ya esta acotado, y conviene que se note.
       try {
-        const IbsSssBaselineAnswers()
-            .withAnswer(IbsSssDimension.painFrequency, 150);
+        const IbsSssAnswers().withAnswer(IbsSssDimension.painFrequency, 150);
         fail('deberia haber lanzado');
       } on ArgumentError catch (error) {
         expect(error.invalidValue, 150);
@@ -116,7 +115,7 @@ void main() {
     });
 
     test('responder dos veces la misma dimension reemplaza el valor', () {
-      final answers = const IbsSssBaselineAnswers()
+      final answers = const IbsSssAnswers()
           .withAnswer(IbsSssDimension.painSeverity, 20)
           .withAnswer(IbsSssDimension.painSeverity, 80);
 
@@ -125,7 +124,7 @@ void main() {
     });
 
     test('no muta la instancia original', () {
-      const original = IbsSssBaselineAnswers();
+      const original = IbsSssAnswers();
       final updated = original.withAnswer(IbsSssDimension.painSeverity, 60);
 
       expect(original.values, isEmpty);

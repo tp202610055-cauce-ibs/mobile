@@ -313,6 +313,483 @@ class AppLocalizationsEs extends AppLocalizations {
       'Tu cuestionario de línea base ya está registrado';
 
   @override
+  String get mealsTitle => 'Registrar comida';
+
+  @override
+  String get mealsAddFood => 'Agregar alimento';
+
+  @override
+  String get mealsSearchTitle => 'Buscar alimento';
+
+  @override
+  String get mealsSearchHint => 'Escribe el nombre del alimento';
+
+  @override
+  String get mealsSearchNoResults => 'No encontramos alimentos con ese nombre';
+
+  @override
+  String get mealsSuggestionsFrequent => 'Los que mas registras';
+
+  @override
+  String get mealsSuggestionsRecent => 'Registrados hoy';
+
+  @override
+  String get mealsSuggestionsCatalog => 'Del catalogo';
+
+  @override
+  String get mealsQuantityLabel => 'Cantidad';
+
+  @override
+  String get mealsUnitLabel => 'Unidad';
+
+  @override
+  String get mealsTimeLabel => 'Momento del dia';
+
+  @override
+  String get mealsItemsLabel => 'Alimentos de esta comida';
+
+  @override
+  String get mealsItemsEmpty => 'Todavia no agregaste ningun alimento';
+
+  @override
+  String get mealsRemoveItem => 'Quitar';
+
+  @override
+  String get mealsSubmit => 'Registrar comida';
+
+  @override
+  String get mealsRegistered => 'Comida registrada';
+
+  @override
+  String get mealsQueuedOffline =>
+      'Comida guardada. Se enviara cuando vuelva la conexion.';
+
+  @override
+  String get mealsRegisterAnother => 'Registrar otra';
+
+  @override
+  String get mealsIssueMissingMealTime => 'Elige el momento del dia';
+
+  @override
+  String get mealsIssueNoItems => 'Agrega al menos un alimento';
+
+  @override
+  String get mealsIssueTooManyItems => 'Una comida admite hasta 50 alimentos';
+
+  @override
+  String get mealsIssueInvalidQuantity => 'La cantidad debe ser mayor que cero';
+
+  @override
+  String get mealsIssueInvalidReference =>
+      'Cada alimento debe venir del catalogo o de tus platos';
+
+  @override
+  String get mealsIssueFutureConsumedAt =>
+      'La fecha de consumo no puede estar en el futuro';
+
+  @override
+  String get mealsFodmapLow => 'Carga FODMAP baja';
+
+  @override
+  String get mealsFodmapModerate => 'Carga FODMAP moderada';
+
+  @override
+  String get mealsFodmapHigh => 'Carga FODMAP alta';
+
+  @override
+  String get mealTimeBreakfast => 'Desayuno';
+
+  @override
+  String get mealTimeLunch => 'Almuerzo';
+
+  @override
+  String get mealTimeDinner => 'Cena';
+
+  @override
+  String get mealTimeSnack => 'Refrigerio';
+
+  @override
+  String get measurementUnitGrams => 'Gramos';
+
+  @override
+  String get measurementUnitCups => 'Tazas';
+
+  @override
+  String get measurementUnitUnits => 'Unidades';
+
+  @override
+  String get measurementUnitOunces => 'Onzas';
+
+  @override
+  String get measurementUnitTablespoons => 'Cucharadas';
+
+  @override
+  String get customFoodTitle => 'Crear plato personalizado';
+
+  @override
+  String get customFoodNameLabel => 'Nombre del plato';
+
+  @override
+  String get customFoodNameHint => 'Por ejemplo: Mi lomo saltado';
+
+  @override
+  String get customFoodPortionLabel => 'Tamano de porcion (g)';
+
+  @override
+  String get customFoodIngredientsLabel => 'Ingredientes';
+
+  @override
+  String get customFoodIngredientsEmpty => 'Todavia no agregaste ingredientes';
+
+  @override
+  String get customFoodAddIngredient => 'Agregar ingrediente';
+
+  @override
+  String get customFoodProportionLabel => 'Cantidad en el plato (g)';
+
+  @override
+  String get customFoodSubmit => 'Guardar plato';
+
+  @override
+  String get customFoodCreated => 'Plato guardado';
+
+  @override
+  String customFoodWeightDelta(String grams) {
+    return 'Los ingredientes suman $grams g mas que la porcion declarada';
+  }
+
+  @override
+  String customFoodWeightDeltaShort(String grams) {
+    return 'Los ingredientes suman $grams g menos que la porcion declarada';
+  }
+
+  @override
+  String get customFoodEstimateTitle => 'Perfil nutricional estimado';
+
+  @override
+  String get customFoodEstimateNote =>
+      'Es una estimacion por 100 g a partir de los ingredientes. No se guarda con el plato.';
+
+  @override
+  String get customFoodEstimatePartial =>
+      'Falta la composicion de algun ingrediente, asi que la estimacion es parcial.';
+
+  @override
+  String customFoodEstimateCalories(String value) {
+    return '$value kcal';
+  }
+
+  @override
+  String customFoodEstimateProtein(String value) {
+    return 'Proteina $value g';
+  }
+
+  @override
+  String customFoodEstimateCarbs(String value) {
+    return 'Carbohidratos $value g';
+  }
+
+  @override
+  String customFoodEstimateFat(String value) {
+    return 'Grasa $value g';
+  }
+
+  @override
+  String customFoodEstimateFiber(String value) {
+    return 'Fibra $value g';
+  }
+
+  @override
+  String get customFoodIssueInvalidName =>
+      'Ponle un nombre de hasta 150 caracteres';
+
+  @override
+  String get customFoodIssueDuplicateName =>
+      'Ya tienes un plato con ese nombre';
+
+  @override
+  String get customFoodIssueInvalidPortion =>
+      'La porcion debe ser mayor que cero';
+
+  @override
+  String get customFoodIssueNoIngredients => 'Agrega al menos un ingrediente';
+
+  @override
+  String get customFoodIssueInvalidProportion =>
+      'Cada ingrediente debe tener una cantidad mayor que cero';
+
+  @override
+  String get customFoodIssueDuplicateIngredient =>
+      'Un ingrediente aparece dos veces';
+
+  @override
+  String get customFoodAllergenTitle => 'Revisa estos ingredientes';
+
+  @override
+  String get customFoodAllergenBody =>
+      'Estos ingredientes coinciden con alergias que declaraste en tu perfil.';
+
+  @override
+  String customFoodAllergenEntry(String ingredient, String allergen) {
+    return '$ingredient coincide con $allergen';
+  }
+
+  @override
+  String get customFoodAllergenSeverityMild => 'Declarada como leve';
+
+  @override
+  String get customFoodAllergenSeverityModerate => 'Declarada como moderada';
+
+  @override
+  String get customFoodAllergenSeveritySevere => 'Declarada como severa';
+
+  @override
+  String get customFoodAllergenSeverityUnknown => 'Severidad no informada';
+
+  @override
+  String get customFoodAllergenConfirm => 'Entiendo, guardar igual';
+
+  @override
+  String get customFoodAllergenCancel => 'Volver y editar';
+
+  @override
+  String get symptomsTitle => 'Registrar sintoma';
+
+  @override
+  String get symptomsTypeLabel => 'Que sentiste';
+
+  @override
+  String get symptomsIntensityLabel => 'Intensidad';
+
+  @override
+  String get symptomsIntensityMin => 'Leve';
+
+  @override
+  String get symptomsIntensityMax => 'Muy intenso';
+
+  @override
+  String get symptomsSubmit => 'Registrar sintoma';
+
+  @override
+  String get symptomsRegistered => 'Sintoma registrado';
+
+  @override
+  String get symptomsQueuedOffline =>
+      'Sintoma guardado. Se enviara cuando vuelva la conexion.';
+
+  @override
+  String get symptomsRegisterAnother => 'Registrar otro';
+
+  @override
+  String get symptomsMealAssociated =>
+      'Lo asociamos con la comida que registraste antes.';
+
+  @override
+  String get symptomsMealNotAssociated =>
+      'No habia una comida registrada en las 4 horas previas.';
+
+  @override
+  String get symptomsMealPending =>
+      'La relacion con tus comidas se calcula al sincronizar.';
+
+  @override
+  String get symptomsIssueMissingType => 'Elige que sentiste';
+
+  @override
+  String get symptomsIssueMissingIntensity => 'Indica la intensidad';
+
+  @override
+  String get symptomsIssueIntensityOutOfRange => 'La intensidad va de 1 a 100';
+
+  @override
+  String get symptomsIssueFutureOccurredAt =>
+      'El momento no puede estar en el futuro';
+
+  @override
+  String get symptomTypeAbdominalPain => 'Dolor abdominal';
+
+  @override
+  String get symptomTypeBloating => 'Distension abdominal';
+
+  @override
+  String get symptomTypeFlatulence => 'Flatulencia';
+
+  @override
+  String get symptomTypeDiarrhea => 'Diarrea';
+
+  @override
+  String get symptomTypeConstipation => 'Estrenimiento';
+
+  @override
+  String get symptomTypeNausea => 'Nauseas';
+
+  @override
+  String get symptomTypeReflux => 'Reflujo o acidez';
+
+  @override
+  String get symptomTypeUrgency => 'Urgencia para evacuar';
+
+  @override
+  String get symptomTypeOther => 'Otro';
+
+  @override
+  String get historyTitle => 'Mi registro';
+
+  @override
+  String get historyEmpty => 'Todavia no registraste nada';
+
+  @override
+  String historyMealIntensity(int value) {
+    return 'Intensidad $value de 100';
+  }
+
+  @override
+  String get historyStatePending => 'Pendiente de enviar';
+
+  @override
+  String get historyStateFailed => 'No se pudo enviar';
+
+  @override
+  String get historyFailedExplanation =>
+      'Este registro no se pudo enviar y no va a reintentarse. Puedes descartarlo.';
+
+  @override
+  String get historyDiscard => 'Descartar';
+
+  @override
+  String get historyAddNote => 'Agregar nota';
+
+  @override
+  String get historyNoteUnavailable => 'Disponible cuando se sincronice';
+
+  @override
+  String get historyMealAssociated => 'Asociado a una comida';
+
+  @override
+  String get historyRefresh => 'Actualizar';
+
+  @override
+  String get clinicalNoteTitle => 'Agregar nota';
+
+  @override
+  String get clinicalNoteSubtitle =>
+      'Anota lo que quieras recordar sobre este registro. Tu nutricionista lo vera junto al dato.';
+
+  @override
+  String get clinicalNoteContentLabel => 'Nota';
+
+  @override
+  String get clinicalNoteContentHint =>
+      'Por ejemplo: comi apurado, en la calle';
+
+  @override
+  String clinicalNoteRemaining(int count) {
+    return 'Quedan $count caracteres';
+  }
+
+  @override
+  String get clinicalNoteTooLong =>
+      'La nota no puede superar los 500 caracteres';
+
+  @override
+  String get clinicalNoteSubmit => 'Guardar nota';
+
+  @override
+  String get clinicalNoteSaved => 'Nota guardada';
+
+  @override
+  String get ibsSssPeriodicTitle => 'Cuestionario de seguimiento';
+
+  @override
+  String get ibsSssPeriodicSubtitle =>
+      'Responde las cinco preguntas pensando en los ultimos diez dias.';
+
+  @override
+  String get ibsSssPeriodicSubmit => 'Enviar cuestionario';
+
+  @override
+  String get ibsSssEvolutionTitle => 'Tu evolucion';
+
+  @override
+  String get ibsSssEvolutionEmpty =>
+      'Con una sola evaluacion todavia no hay evolucion que mostrar.';
+
+  @override
+  String ibsSssEvolutionRange(int first, int last) {
+    return 'De $first a $last puntos';
+  }
+
+  @override
+  String ibsSssEvolutionDelta(int value) {
+    return '$value puntos respecto de tu linea base';
+  }
+
+  @override
+  String get ibsSssEvolutionImprovement =>
+      'Es una reduccion de 50 puntos o mas respecto de tu linea base. Tu nutricionista lo interpretara contigo.';
+
+  @override
+  String get ibsSssReminderTitle => 'Toca tu cuestionario de seguimiento';
+
+  @override
+  String get ibsSssReminderBody =>
+      'Pasaron los catorce dias desde tu ultima evaluacion.';
+
+  @override
+  String get ibsSssReminderAction => 'Responder ahora';
+
+  @override
+  String get errorFoodItemNotFound =>
+      'Ese alimento ya no está disponible en el catálogo';
+
+  @override
+  String get errorCustomFoodNotFound =>
+      'No encontramos ese plato personalizado';
+
+  @override
+  String get errorDuplicateCustomFood => 'Ya tienes un plato con ese nombre';
+
+  @override
+  String get errorCustomFoodInUse =>
+      'No puedes eliminar este plato porque ya lo usaste en una comida registrada';
+
+  @override
+  String get errorDuplicateIngredient => 'Ese ingrediente ya está en el plato';
+
+  @override
+  String get errorIngredientNotFound =>
+      'Ese ingrediente ya no está en el plato';
+
+  @override
+  String get errorUnconfirmedAllergens =>
+      'Este plato contiene ingredientes que coinciden con tus alergias declaradas';
+
+  @override
+  String get errorInvalidMealRegistration =>
+      'No pudimos registrar la comida. Revisa los datos e intenta de nuevo.';
+
+  @override
+  String get errorMealNotFound => 'No encontramos esa comida registrada';
+
+  @override
+  String get errorSymptomNotFound => 'No encontramos ese síntoma registrado';
+
+  @override
+  String get errorClinicalNoteNotFound => 'No encontramos esa nota';
+
+  @override
+  String get errorInvalidClinicalNoteAssociation =>
+      'Una nota se asocia a una comida o a un síntoma, no a los dos';
+
+  @override
+  String get errorIdempotencyMismatch =>
+      'Hubo un conflicto al guardar este registro. Intenta de nuevo.';
+
+  @override
+  String get errorDomainRuleViolation =>
+      'No pudimos completar la operación. Revisa los datos e intenta de nuevo.';
+
+  @override
   String get errorDuplicateEmail => 'Ya existe una cuenta con este correo';
 
   @override

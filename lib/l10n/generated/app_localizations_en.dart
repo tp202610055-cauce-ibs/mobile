@@ -311,6 +311,485 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your baseline questionnaire is already registered';
 
   @override
+  String get mealsTitle => 'Log a meal';
+
+  @override
+  String get mealsAddFood => 'Add food';
+
+  @override
+  String get mealsSearchTitle => 'Search food';
+
+  @override
+  String get mealsSearchHint => 'Type the food name';
+
+  @override
+  String get mealsSearchNoResults => 'We could not find foods with that name';
+
+  @override
+  String get mealsSuggestionsFrequent => 'The ones you log most';
+
+  @override
+  String get mealsSuggestionsRecent => 'Logged today';
+
+  @override
+  String get mealsSuggestionsCatalog => 'From the catalog';
+
+  @override
+  String get mealsQuantityLabel => 'Quantity';
+
+  @override
+  String get mealsUnitLabel => 'Unit';
+
+  @override
+  String get mealsTimeLabel => 'Time of day';
+
+  @override
+  String get mealsItemsLabel => 'Foods in this meal';
+
+  @override
+  String get mealsItemsEmpty => 'You have not added any food yet';
+
+  @override
+  String get mealsRemoveItem => 'Remove';
+
+  @override
+  String get mealsSubmit => 'Log meal';
+
+  @override
+  String get mealsRegistered => 'Meal logged';
+
+  @override
+  String get mealsQueuedOffline =>
+      'Meal saved. It will be sent when the connection is back.';
+
+  @override
+  String get mealsRegisterAnother => 'Log another';
+
+  @override
+  String get mealsIssueMissingMealTime => 'Choose the time of day';
+
+  @override
+  String get mealsIssueNoItems => 'Add at least one food';
+
+  @override
+  String get mealsIssueTooManyItems => 'A meal takes up to 50 foods';
+
+  @override
+  String get mealsIssueInvalidQuantity =>
+      'The quantity must be greater than zero';
+
+  @override
+  String get mealsIssueInvalidReference =>
+      'Each food must come from the catalog or from your dishes';
+
+  @override
+  String get mealsIssueFutureConsumedAt =>
+      'The consumption date cannot be in the future';
+
+  @override
+  String get mealsFodmapLow => 'Low FODMAP load';
+
+  @override
+  String get mealsFodmapModerate => 'Moderate FODMAP load';
+
+  @override
+  String get mealsFodmapHigh => 'High FODMAP load';
+
+  @override
+  String get mealTimeBreakfast => 'Breakfast';
+
+  @override
+  String get mealTimeLunch => 'Lunch';
+
+  @override
+  String get mealTimeDinner => 'Dinner';
+
+  @override
+  String get mealTimeSnack => 'Snack';
+
+  @override
+  String get measurementUnitGrams => 'Grams';
+
+  @override
+  String get measurementUnitCups => 'Cups';
+
+  @override
+  String get measurementUnitUnits => 'Units';
+
+  @override
+  String get measurementUnitOunces => 'Ounces';
+
+  @override
+  String get measurementUnitTablespoons => 'Tablespoons';
+
+  @override
+  String get customFoodTitle => 'Create custom dish';
+
+  @override
+  String get customFoodNameLabel => 'Dish name';
+
+  @override
+  String get customFoodNameHint => 'For example: My lomo saltado';
+
+  @override
+  String get customFoodPortionLabel => 'Portion size (g)';
+
+  @override
+  String get customFoodIngredientsLabel => 'Ingredients';
+
+  @override
+  String get customFoodIngredientsEmpty => 'You have not added ingredients yet';
+
+  @override
+  String get customFoodAddIngredient => 'Add ingredient';
+
+  @override
+  String get customFoodProportionLabel => 'Amount in the dish (g)';
+
+  @override
+  String get customFoodSubmit => 'Save dish';
+
+  @override
+  String get customFoodCreated => 'Dish saved';
+
+  @override
+  String customFoodWeightDelta(String grams) {
+    return 'The ingredients add up to $grams g more than the declared portion';
+  }
+
+  @override
+  String customFoodWeightDeltaShort(String grams) {
+    return 'The ingredients add up to $grams g less than the declared portion';
+  }
+
+  @override
+  String get customFoodEstimateTitle => 'Estimated nutritional profile';
+
+  @override
+  String get customFoodEstimateNote =>
+      'This is an estimate per 100 g from the ingredients. It is not saved with the dish.';
+
+  @override
+  String get customFoodEstimatePartial =>
+      'Some ingredient is missing its composition, so the estimate is partial.';
+
+  @override
+  String customFoodEstimateCalories(String value) {
+    return '$value kcal';
+  }
+
+  @override
+  String customFoodEstimateProtein(String value) {
+    return 'Protein $value g';
+  }
+
+  @override
+  String customFoodEstimateCarbs(String value) {
+    return 'Carbs $value g';
+  }
+
+  @override
+  String customFoodEstimateFat(String value) {
+    return 'Fat $value g';
+  }
+
+  @override
+  String customFoodEstimateFiber(String value) {
+    return 'Fiber $value g';
+  }
+
+  @override
+  String get customFoodIssueInvalidName =>
+      'Give it a name of up to 150 characters';
+
+  @override
+  String get customFoodIssueDuplicateName =>
+      'You already have a dish with that name';
+
+  @override
+  String get customFoodIssueInvalidPortion =>
+      'The portion must be greater than zero';
+
+  @override
+  String get customFoodIssueNoIngredients => 'Add at least one ingredient';
+
+  @override
+  String get customFoodIssueInvalidProportion =>
+      'Each ingredient must have an amount greater than zero';
+
+  @override
+  String get customFoodIssueDuplicateIngredient =>
+      'An ingredient appears twice';
+
+  @override
+  String get customFoodAllergenTitle => 'Check these ingredients';
+
+  @override
+  String get customFoodAllergenBody =>
+      'These ingredients match allergies you declared in your profile.';
+
+  @override
+  String customFoodAllergenEntry(String ingredient, String allergen) {
+    return '$ingredient matches $allergen';
+  }
+
+  @override
+  String get customFoodAllergenSeverityMild => 'Declared as mild';
+
+  @override
+  String get customFoodAllergenSeverityModerate => 'Declared as moderate';
+
+  @override
+  String get customFoodAllergenSeveritySevere => 'Declared as severe';
+
+  @override
+  String get customFoodAllergenSeverityUnknown => 'Severity not reported';
+
+  @override
+  String get customFoodAllergenConfirm => 'I understand, save anyway';
+
+  @override
+  String get customFoodAllergenCancel => 'Go back and edit';
+
+  @override
+  String get symptomsTitle => 'Log a symptom';
+
+  @override
+  String get symptomsTypeLabel => 'What did you feel';
+
+  @override
+  String get symptomsIntensityLabel => 'Intensity';
+
+  @override
+  String get symptomsIntensityMin => 'Mild';
+
+  @override
+  String get symptomsIntensityMax => 'Very intense';
+
+  @override
+  String get symptomsSubmit => 'Log symptom';
+
+  @override
+  String get symptomsRegistered => 'Symptom logged';
+
+  @override
+  String get symptomsQueuedOffline =>
+      'Symptom saved. It will be sent when the connection is back.';
+
+  @override
+  String get symptomsRegisterAnother => 'Log another';
+
+  @override
+  String get symptomsMealAssociated =>
+      'We linked it to the meal you logged earlier.';
+
+  @override
+  String get symptomsMealNotAssociated =>
+      'There was no meal logged in the previous 4 hours.';
+
+  @override
+  String get symptomsMealPending =>
+      'The link with your meals is computed when it syncs.';
+
+  @override
+  String get symptomsIssueMissingType => 'Choose what you felt';
+
+  @override
+  String get symptomsIssueMissingIntensity => 'Set the intensity';
+
+  @override
+  String get symptomsIssueIntensityOutOfRange => 'Intensity goes from 1 to 100';
+
+  @override
+  String get symptomsIssueFutureOccurredAt =>
+      'The moment cannot be in the future';
+
+  @override
+  String get symptomTypeAbdominalPain => 'Abdominal pain';
+
+  @override
+  String get symptomTypeBloating => 'Bloating';
+
+  @override
+  String get symptomTypeFlatulence => 'Flatulence';
+
+  @override
+  String get symptomTypeDiarrhea => 'Diarrhea';
+
+  @override
+  String get symptomTypeConstipation => 'Constipation';
+
+  @override
+  String get symptomTypeNausea => 'Nausea';
+
+  @override
+  String get symptomTypeReflux => 'Reflux or heartburn';
+
+  @override
+  String get symptomTypeUrgency => 'Urgency to defecate';
+
+  @override
+  String get symptomTypeOther => 'Other';
+
+  @override
+  String get historyTitle => 'My log';
+
+  @override
+  String get historyEmpty => 'You have not logged anything yet';
+
+  @override
+  String historyMealIntensity(int value) {
+    return 'Intensity $value of 100';
+  }
+
+  @override
+  String get historyStatePending => 'Pending to send';
+
+  @override
+  String get historyStateFailed => 'Could not be sent';
+
+  @override
+  String get historyFailedExplanation =>
+      'This record could not be sent and will not be retried. You can discard it.';
+
+  @override
+  String get historyDiscard => 'Discard';
+
+  @override
+  String get historyAddNote => 'Add note';
+
+  @override
+  String get historyNoteUnavailable => 'Available once it syncs';
+
+  @override
+  String get historyMealAssociated => 'Linked to a meal';
+
+  @override
+  String get historyRefresh => 'Refresh';
+
+  @override
+  String get clinicalNoteTitle => 'Add note';
+
+  @override
+  String get clinicalNoteSubtitle =>
+      'Write down anything you want to remember about this record. Your nutritionist will see it next to the data.';
+
+  @override
+  String get clinicalNoteContentLabel => 'Note';
+
+  @override
+  String get clinicalNoteContentHint =>
+      'For example: I ate in a hurry, on the street';
+
+  @override
+  String clinicalNoteRemaining(int count) {
+    return '$count characters left';
+  }
+
+  @override
+  String get clinicalNoteTooLong => 'The note cannot exceed 500 characters';
+
+  @override
+  String get clinicalNoteSubmit => 'Save note';
+
+  @override
+  String get clinicalNoteSaved => 'Note saved';
+
+  @override
+  String get ibsSssPeriodicTitle => 'Follow-up questionnaire';
+
+  @override
+  String get ibsSssPeriodicSubtitle =>
+      'Answer the five questions thinking about the last ten days.';
+
+  @override
+  String get ibsSssPeriodicSubmit => 'Submit questionnaire';
+
+  @override
+  String get ibsSssEvolutionTitle => 'Your evolution';
+
+  @override
+  String get ibsSssEvolutionEmpty =>
+      'With a single assessment there is no evolution to show yet.';
+
+  @override
+  String ibsSssEvolutionRange(int first, int last) {
+    return 'From $first to $last points';
+  }
+
+  @override
+  String ibsSssEvolutionDelta(int value) {
+    return '$value points compared to your baseline';
+  }
+
+  @override
+  String get ibsSssEvolutionImprovement =>
+      'That is a reduction of 50 points or more compared to your baseline. Your nutritionist will interpret it with you.';
+
+  @override
+  String get ibsSssReminderTitle => 'Your follow-up questionnaire is due';
+
+  @override
+  String get ibsSssReminderBody =>
+      'Fourteen days have passed since your last assessment.';
+
+  @override
+  String get ibsSssReminderAction => 'Answer now';
+
+  @override
+  String get errorFoodItemNotFound =>
+      'That food is no longer available in the catalog';
+
+  @override
+  String get errorCustomFoodNotFound => 'We could not find that custom dish';
+
+  @override
+  String get errorDuplicateCustomFood =>
+      'You already have a dish with that name';
+
+  @override
+  String get errorCustomFoodInUse =>
+      'You cannot delete this dish because you already used it in a registered meal';
+
+  @override
+  String get errorDuplicateIngredient =>
+      'That ingredient is already in the dish';
+
+  @override
+  String get errorIngredientNotFound =>
+      'That ingredient is no longer in the dish';
+
+  @override
+  String get errorUnconfirmedAllergens =>
+      'This dish contains ingredients that match your declared allergies';
+
+  @override
+  String get errorInvalidMealRegistration =>
+      'We could not register the meal. Check the details and try again.';
+
+  @override
+  String get errorMealNotFound => 'We could not find that registered meal';
+
+  @override
+  String get errorSymptomNotFound =>
+      'We could not find that registered symptom';
+
+  @override
+  String get errorClinicalNoteNotFound => 'We could not find that note';
+
+  @override
+  String get errorInvalidClinicalNoteAssociation =>
+      'A note is linked to either a meal or a symptom, not both';
+
+  @override
+  String get errorIdempotencyMismatch =>
+      'There was a conflict saving this record. Try again.';
+
+  @override
+  String get errorDomainRuleViolation =>
+      'We could not complete the operation. Check the details and try again.';
+
+  @override
   String get errorDuplicateEmail => 'An account with this email already exists';
 
   @override

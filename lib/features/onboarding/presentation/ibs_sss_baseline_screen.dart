@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../../ibs_sss/domain/ibs_sss_baseline.dart';
+import '../../ibs_sss/domain/ibs_sss_assessment.dart';
+import '../../ibs_sss/presentation/widgets/ibs_sss_questionnaire.dart';
 import '../application/ibs_sss_baseline_notifier.dart';
 import '../application/onboarding_notifier.dart';
 import 'widgets/onboarding_labels.dart';
@@ -46,15 +47,14 @@ class IbsSssBaselineScreen extends ConsumerWidget {
           CauceErrorBanner(error: state.error!),
           const SizedBox(height: CauceSpacing.space4),
         ],
-        for (final dimension in IbsSssDimension.values) ...<Widget>[
-          _Question(
-            dimension: dimension,
-            value: state.answers.valueFor(dimension),
-            enabled: !state.submitting,
-            onChanged: (value) => notifier.answer(dimension, value),
-          ),
-          const SizedBox(height: CauceSpacing.space6),
-        ],
+        // El cuestionario en si vive en `features/ibs_sss/presentation/`: lo
+        // comparte con las evaluaciones periodicas de US12, que son el mismo
+        // instrumento con otro envoltorio.
+        IbsSssQuestionnaire(
+          answers: state.answers,
+          enabled: !state.submitting,
+          onAnswer: notifier.answer,
+        ),
         // El contador aparece solo mientras falte algo. Con las cinco
         // respondidas seria ruido bajo un boton ya habilitado.
         if (missing > 0) ...<Widget>[
@@ -79,44 +79,6 @@ class IbsSssBaselineScreen extends ConsumerWidget {
   }
 }
 
-/// Una pregunta con su escala.
-class _Question extends StatelessWidget {
-  const _Question({
-    required this.dimension,
-    required this.value,
-    required this.enabled,
-    required this.onChanged,
-  });
-
-  final IbsSssDimension dimension;
-  final int? value;
-  final bool enabled;
-  final ValueChanged<int> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final question = OnboardingLabels.ibsSssQuestion(l10n, dimension);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text(question, style: Theme.of(context).textTheme.titleMedium),
-        const SizedBox(height: CauceSpacing.space2),
-        CauceSlider(
-          key: Key('ibs_sss_${dimension.name}'),
-          value: value,
-          enabled: enabled,
-          onChanged: onChanged,
-          minLabel: OnboardingLabels.ibsSssMinLabel(l10n, dimension),
-          maxLabel: OnboardingLabels.ibsSssMaxLabel(l10n, dimension),
-          semanticLabel: question,
-        ),
-      ],
-    );
-  }
-}
-
 /// Resumen del cuestionario ya registrado.
 ///
 /// **Registro clinico neutro.** Se muestra el puntaje con su escala completa y
@@ -126,7 +88,7 @@ class _Question extends StatelessWidget {
 class _ResultView extends StatelessWidget {
   const _ResultView({required this.result, required this.onContinue});
 
-  final IbsSssBaselineResult result;
+  final IbsSssResult result;
   final VoidCallback onContinue;
 
   @override

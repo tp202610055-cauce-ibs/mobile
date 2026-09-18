@@ -1,7 +1,7 @@
 import 'package:cauce_api_client/cauce_api_client.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/ibs_sss/data/ibs_sss_repository.dart';
-import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_baseline.dart';
+import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_assessment.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -25,8 +25,8 @@ import '../../../helpers/canned_http_adapter.dart';
 
 /// Cinco respuestas con valores distintos, para verificar que cada dimension
 /// viaja en su propio campo y no se cruzan entre si.
-IbsSssBaselineAnswers _answers() {
-  return const IbsSssBaselineAnswers()
+IbsSssAnswers _answers() {
+  return const IbsSssAnswers()
       .withAnswer(IbsSssDimension.painSeverity, 60)
       .withAnswer(IbsSssDimension.painFrequency, 40)
       .withAnswer(IbsSssDimension.bloatingSeverity, 55)
@@ -125,8 +125,8 @@ void main() {
   group('IbsSssRepository · guarda de completitud (CA02)', () {
     test('no envia nada si falta una dimension', () async {
       final h = _harness(const CannedResponse.created(_resultJson));
-      final incomplete = const IbsSssBaselineAnswers()
-          .withAnswer(IbsSssDimension.painSeverity, 60);
+      final incomplete =
+          const IbsSssAnswers().withAnswer(IbsSssDimension.painSeverity, 60);
 
       await expectLater(
         h.repository.submitBaseline(incomplete),
@@ -141,7 +141,7 @@ void main() {
       final h = _harness(const CannedResponse.created(_resultJson));
 
       await expectLater(
-        h.repository.submitBaseline(const IbsSssBaselineAnswers()),
+        h.repository.submitBaseline(const IbsSssAnswers()),
         throwsA(isA<StateError>()),
       );
       expect(h.adapter.requests, isEmpty);
