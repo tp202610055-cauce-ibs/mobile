@@ -28,6 +28,7 @@ class CauceTextField extends StatefulWidget {
     this.autofillHints,
     this.enabled = true,
     this.obscure = false,
+    this.maxLines = 1,
     super.key,
   });
 
@@ -43,7 +44,8 @@ class CauceTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.next,
     this.enabled = true,
     super.key,
-  })  : keyboardType = TextInputType.emailAddress,
+  })  : maxLines = 1,
+        keyboardType = TextInputType.emailAddress,
         textCapitalization = TextCapitalization.none,
         autofillHints = const <String>[AutofillHints.email],
         obscure = false;
@@ -61,7 +63,8 @@ class CauceTextField extends StatefulWidget {
     this.autofillHints,
     this.enabled = true,
     super.key,
-  })  : keyboardType = null,
+  })  : maxLines = 1,
+        keyboardType = null,
         textCapitalization = TextCapitalization.none,
         obscure = true;
 
@@ -84,6 +87,13 @@ class CauceTextField extends StatefulWidget {
 
   /// Si el contenido nace oculto. Habilita el alternador.
   final bool obscure;
+
+  /// Lineas visibles del campo. El default de 1 es el de siempre.
+  ///
+  /// Parametro aditivo de Mobile-3: la nota de contexto de US13 admite hasta
+  /// 500 caracteres y en una sola linea obligaria al paciente a escribir a
+  /// ciegas. Ningun llamador existente cambia de comportamiento.
+  final int maxLines;
 
   @override
   State<CauceTextField> createState() => _CauceTextFieldState();
@@ -154,6 +164,9 @@ class _CauceTextFieldState extends State<CauceTextField> {
               : null,
         ),
         obscureText: _obscured,
+        // Un campo oculto no puede tener varias lineas en Material: la
+        // contrasena manda sobre el alto.
+        maxLines: _obscured ? 1 : widget.maxLines,
         keyboardType: widget.keyboardType,
         textInputAction: widget.textInputAction,
         textCapitalization: widget.textCapitalization,
