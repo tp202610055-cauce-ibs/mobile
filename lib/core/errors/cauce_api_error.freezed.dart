@@ -15,6 +15,198 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
+mixin _$DetectedAllergen {
+  /// Nombre del alimento del catalogo que dispara la coincidencia.
+  String get ingredientName => throw _privateConstructorUsedError;
+
+  /// Nombre de la alergia declarada con la que coincide.
+  String get allergenName => throw _privateConstructorUsedError;
+
+  /// Severidad declarada, o `null` si el valor no se reconocio.
+  DetectedAllergenSeverity? get severity => throw _privateConstructorUsedError;
+
+  /// Create a copy of DetectedAllergen
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DetectedAllergenCopyWith<DetectedAllergen> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DetectedAllergenCopyWith<$Res> {
+  factory $DetectedAllergenCopyWith(
+          DetectedAllergen value, $Res Function(DetectedAllergen) then) =
+      _$DetectedAllergenCopyWithImpl<$Res, DetectedAllergen>;
+  @useResult
+  $Res call(
+      {String ingredientName,
+      String allergenName,
+      DetectedAllergenSeverity? severity});
+}
+
+/// @nodoc
+class _$DetectedAllergenCopyWithImpl<$Res, $Val extends DetectedAllergen>
+    implements $DetectedAllergenCopyWith<$Res> {
+  _$DetectedAllergenCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DetectedAllergen
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? ingredientName = null,
+    Object? allergenName = null,
+    Object? severity = freezed,
+  }) {
+    return _then(_value.copyWith(
+      ingredientName: null == ingredientName
+          ? _value.ingredientName
+          : ingredientName // ignore: cast_nullable_to_non_nullable
+              as String,
+      allergenName: null == allergenName
+          ? _value.allergenName
+          : allergenName // ignore: cast_nullable_to_non_nullable
+              as String,
+      severity: freezed == severity
+          ? _value.severity
+          : severity // ignore: cast_nullable_to_non_nullable
+              as DetectedAllergenSeverity?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DetectedAllergenImplCopyWith<$Res>
+    implements $DetectedAllergenCopyWith<$Res> {
+  factory _$$DetectedAllergenImplCopyWith(_$DetectedAllergenImpl value,
+          $Res Function(_$DetectedAllergenImpl) then) =
+      __$$DetectedAllergenImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String ingredientName,
+      String allergenName,
+      DetectedAllergenSeverity? severity});
+}
+
+/// @nodoc
+class __$$DetectedAllergenImplCopyWithImpl<$Res>
+    extends _$DetectedAllergenCopyWithImpl<$Res, _$DetectedAllergenImpl>
+    implements _$$DetectedAllergenImplCopyWith<$Res> {
+  __$$DetectedAllergenImplCopyWithImpl(_$DetectedAllergenImpl _value,
+      $Res Function(_$DetectedAllergenImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DetectedAllergen
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? ingredientName = null,
+    Object? allergenName = null,
+    Object? severity = freezed,
+  }) {
+    return _then(_$DetectedAllergenImpl(
+      ingredientName: null == ingredientName
+          ? _value.ingredientName
+          : ingredientName // ignore: cast_nullable_to_non_nullable
+              as String,
+      allergenName: null == allergenName
+          ? _value.allergenName
+          : allergenName // ignore: cast_nullable_to_non_nullable
+              as String,
+      severity: freezed == severity
+          ? _value.severity
+          : severity // ignore: cast_nullable_to_non_nullable
+              as DetectedAllergenSeverity?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DetectedAllergenImpl extends _DetectedAllergen {
+  const _$DetectedAllergenImpl(
+      {required this.ingredientName, required this.allergenName, this.severity})
+      : super._();
+
+  /// Nombre del alimento del catalogo que dispara la coincidencia.
+  @override
+  final String ingredientName;
+
+  /// Nombre de la alergia declarada con la que coincide.
+  @override
+  final String allergenName;
+
+  /// Severidad declarada, o `null` si el valor no se reconocio.
+  @override
+  final DetectedAllergenSeverity? severity;
+
+  @override
+  String toString() {
+    return 'DetectedAllergen(ingredientName: $ingredientName, allergenName: $allergenName, severity: $severity)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DetectedAllergenImpl &&
+            (identical(other.ingredientName, ingredientName) ||
+                other.ingredientName == ingredientName) &&
+            (identical(other.allergenName, allergenName) ||
+                other.allergenName == allergenName) &&
+            (identical(other.severity, severity) ||
+                other.severity == severity));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, ingredientName, allergenName, severity);
+
+  /// Create a copy of DetectedAllergen
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DetectedAllergenImplCopyWith<_$DetectedAllergenImpl> get copyWith =>
+      __$$DetectedAllergenImplCopyWithImpl<_$DetectedAllergenImpl>(
+          this, _$identity);
+}
+
+abstract class _DetectedAllergen extends DetectedAllergen {
+  const factory _DetectedAllergen(
+      {required final String ingredientName,
+      required final String allergenName,
+      final DetectedAllergenSeverity? severity}) = _$DetectedAllergenImpl;
+  const _DetectedAllergen._() : super._();
+
+  /// Nombre del alimento del catalogo que dispara la coincidencia.
+  @override
+  String get ingredientName;
+
+  /// Nombre de la alergia declarada con la que coincide.
+  @override
+  String get allergenName;
+
+  /// Severidad declarada, o `null` si el valor no se reconocio.
+  @override
+  DetectedAllergenSeverity? get severity;
+
+  /// Create a copy of DetectedAllergen
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DetectedAllergenImplCopyWith<_$DetectedAllergenImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CauceApiError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -38,6 +230,21 @@ mixin _$CauceApiError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -69,6 +276,20 @@ mixin _$CauceApiError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -100,6 +321,20 @@ mixin _$CauceApiError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -136,6 +371,28 @@ mixin _$CauceApiError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -172,6 +429,22 @@ mixin _$CauceApiError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -202,6 +475,22 @@ mixin _$CauceApiError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -344,6 +633,21 @@ class _$ValidationErrorImpl implements ValidationError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -378,6 +682,20 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -412,6 +730,20 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -454,6 +786,28 @@ class _$ValidationErrorImpl implements ValidationError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -493,6 +847,22 @@ class _$ValidationErrorImpl implements ValidationError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -526,6 +896,22 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -622,6 +1008,21 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -656,6 +1057,20 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -690,6 +1105,20 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -732,6 +1161,28 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -771,6 +1222,22 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -804,6 +1271,22 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -915,6 +1398,21 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -949,6 +1447,20 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -983,6 +1495,20 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1025,6 +1551,28 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1064,6 +1612,22 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1097,6 +1661,22 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1189,6 +1769,21 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1223,6 +1818,20 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1257,6 +1866,20 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1299,6 +1922,28 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1338,6 +1983,22 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1371,6 +2032,22 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1454,6 +2131,21 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1488,6 +2180,20 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1522,6 +2228,20 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1564,6 +2284,28 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1603,6 +2345,22 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1636,6 +2394,22 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1746,6 +2520,21 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -1780,6 +2569,20 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -1814,6 +2617,20 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -1856,6 +2673,28 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -1895,6 +2734,22 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -1928,6 +2783,22 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2049,6 +2920,21 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2083,6 +2969,20 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2117,6 +3017,20 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2159,6 +3073,28 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2198,6 +3134,22 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2231,6 +3183,22 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2356,6 +3324,21 @@ class _$NutritionistNotAvailableErrorImpl
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2390,6 +3373,20 @@ class _$NutritionistNotAvailableErrorImpl
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2424,6 +3421,20 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2466,6 +3477,28 @@ class _$NutritionistNotAvailableErrorImpl
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2505,6 +3538,22 @@ class _$NutritionistNotAvailableErrorImpl
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2538,6 +3587,22 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2634,6 +3699,21 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2668,6 +3748,20 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2702,6 +3796,20 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -2744,6 +3852,28 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -2783,6 +3913,22 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2816,6 +3962,22 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -2902,6 +4064,21 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -2936,6 +4113,20 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -2970,6 +4161,20 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3012,6 +4217,28 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3051,6 +4278,22 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3084,6 +4327,22 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3169,6 +4428,21 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -3203,6 +4477,20 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3237,6 +4525,20 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3279,6 +4581,28 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3318,6 +4642,22 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3351,6 +4691,22 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3436,6 +4792,21 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -3470,6 +4841,20 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3504,6 +4889,20 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3546,6 +4945,28 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3585,6 +5006,22 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3618,6 +5055,22 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3701,6 +5154,21 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -3735,6 +5203,20 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -3769,6 +5251,20 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -3811,6 +5307,28 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -3850,6 +5368,22 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3883,6 +5417,22 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -3967,6 +5517,21 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -4001,6 +5566,20 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -4035,6 +5614,20 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -4077,6 +5670,28 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -4116,6 +5731,22 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -4149,6 +5780,22 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -4234,6 +5881,21 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -4268,6 +5930,20 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -4302,6 +5978,20 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -4344,6 +6034,28 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -4383,6 +6095,22 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -4416,6 +6144,22 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -4504,6 +6248,21 @@ class _$DuplicateBaselineAssessmentErrorImpl
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -4538,6 +6297,20 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -4572,6 +6345,20 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -4614,6 +6401,28 @@ class _$DuplicateBaselineAssessmentErrorImpl
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -4653,6 +6462,22 @@ class _$DuplicateBaselineAssessmentErrorImpl
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -4686,6 +6511,22 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -4706,6 +6547,5182 @@ class _$DuplicateBaselineAssessmentErrorImpl
 abstract class DuplicateBaselineAssessmentError implements CauceApiError {
   const factory DuplicateBaselineAssessmentError() =
       _$DuplicateBaselineAssessmentErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$FoodItemNotFoundErrorImplCopyWith<$Res> {
+  factory _$$FoodItemNotFoundErrorImplCopyWith(
+          _$FoodItemNotFoundErrorImpl value,
+          $Res Function(_$FoodItemNotFoundErrorImpl) then) =
+      __$$FoodItemNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$FoodItemNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$FoodItemNotFoundErrorImpl>
+    implements _$$FoodItemNotFoundErrorImplCopyWith<$Res> {
+  __$$FoodItemNotFoundErrorImplCopyWithImpl(_$FoodItemNotFoundErrorImpl _value,
+      $Res Function(_$FoodItemNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
+  const _$FoodItemNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.foodItemNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FoodItemNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return foodItemNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return foodItemNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (foodItemNotFound != null) {
+      return foodItemNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return foodItemNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return foodItemNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (foodItemNotFound != null) {
+      return foodItemNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FoodItemNotFoundError implements CauceApiError {
+  const factory FoodItemNotFoundError() = _$FoodItemNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$CustomFoodNotFoundErrorImplCopyWith<$Res> {
+  factory _$$CustomFoodNotFoundErrorImplCopyWith(
+          _$CustomFoodNotFoundErrorImpl value,
+          $Res Function(_$CustomFoodNotFoundErrorImpl) then) =
+      __$$CustomFoodNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CustomFoodNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$CustomFoodNotFoundErrorImpl>
+    implements _$$CustomFoodNotFoundErrorImplCopyWith<$Res> {
+  __$$CustomFoodNotFoundErrorImplCopyWithImpl(
+      _$CustomFoodNotFoundErrorImpl _value,
+      $Res Function(_$CustomFoodNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
+  const _$CustomFoodNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.customFoodNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CustomFoodNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return customFoodNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return customFoodNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (customFoodNotFound != null) {
+      return customFoodNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return customFoodNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return customFoodNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (customFoodNotFound != null) {
+      return customFoodNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CustomFoodNotFoundError implements CauceApiError {
+  const factory CustomFoodNotFoundError() = _$CustomFoodNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$DuplicateCustomFoodErrorImplCopyWith<$Res> {
+  factory _$$DuplicateCustomFoodErrorImplCopyWith(
+          _$DuplicateCustomFoodErrorImpl value,
+          $Res Function(_$DuplicateCustomFoodErrorImpl) then) =
+      __$$DuplicateCustomFoodErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DuplicateCustomFoodErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$DuplicateCustomFoodErrorImpl>
+    implements _$$DuplicateCustomFoodErrorImplCopyWith<$Res> {
+  __$$DuplicateCustomFoodErrorImplCopyWithImpl(
+      _$DuplicateCustomFoodErrorImpl _value,
+      $Res Function(_$DuplicateCustomFoodErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
+  const _$DuplicateCustomFoodErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.duplicateCustomFood()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DuplicateCustomFoodErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return duplicateCustomFood();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return duplicateCustomFood?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateCustomFood != null) {
+      return duplicateCustomFood();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return duplicateCustomFood(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return duplicateCustomFood?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateCustomFood != null) {
+      return duplicateCustomFood(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DuplicateCustomFoodError implements CauceApiError {
+  const factory DuplicateCustomFoodError() = _$DuplicateCustomFoodErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$CustomFoodInUseErrorImplCopyWith<$Res> {
+  factory _$$CustomFoodInUseErrorImplCopyWith(_$CustomFoodInUseErrorImpl value,
+          $Res Function(_$CustomFoodInUseErrorImpl) then) =
+      __$$CustomFoodInUseErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CustomFoodInUseErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$CustomFoodInUseErrorImpl>
+    implements _$$CustomFoodInUseErrorImplCopyWith<$Res> {
+  __$$CustomFoodInUseErrorImplCopyWithImpl(_$CustomFoodInUseErrorImpl _value,
+      $Res Function(_$CustomFoodInUseErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
+  const _$CustomFoodInUseErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.customFoodInUse()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CustomFoodInUseErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return customFoodInUse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return customFoodInUse?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (customFoodInUse != null) {
+      return customFoodInUse();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return customFoodInUse(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return customFoodInUse?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (customFoodInUse != null) {
+      return customFoodInUse(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CustomFoodInUseError implements CauceApiError {
+  const factory CustomFoodInUseError() = _$CustomFoodInUseErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$DuplicateIngredientErrorImplCopyWith<$Res> {
+  factory _$$DuplicateIngredientErrorImplCopyWith(
+          _$DuplicateIngredientErrorImpl value,
+          $Res Function(_$DuplicateIngredientErrorImpl) then) =
+      __$$DuplicateIngredientErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DuplicateIngredientErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$DuplicateIngredientErrorImpl>
+    implements _$$DuplicateIngredientErrorImplCopyWith<$Res> {
+  __$$DuplicateIngredientErrorImplCopyWithImpl(
+      _$DuplicateIngredientErrorImpl _value,
+      $Res Function(_$DuplicateIngredientErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
+  const _$DuplicateIngredientErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.duplicateIngredient()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DuplicateIngredientErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return duplicateIngredient();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return duplicateIngredient?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateIngredient != null) {
+      return duplicateIngredient();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return duplicateIngredient(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return duplicateIngredient?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (duplicateIngredient != null) {
+      return duplicateIngredient(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DuplicateIngredientError implements CauceApiError {
+  const factory DuplicateIngredientError() = _$DuplicateIngredientErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$IngredientNotFoundErrorImplCopyWith<$Res> {
+  factory _$$IngredientNotFoundErrorImplCopyWith(
+          _$IngredientNotFoundErrorImpl value,
+          $Res Function(_$IngredientNotFoundErrorImpl) then) =
+      __$$IngredientNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$IngredientNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$IngredientNotFoundErrorImpl>
+    implements _$$IngredientNotFoundErrorImplCopyWith<$Res> {
+  __$$IngredientNotFoundErrorImplCopyWithImpl(
+      _$IngredientNotFoundErrorImpl _value,
+      $Res Function(_$IngredientNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
+  const _$IngredientNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.ingredientNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IngredientNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return ingredientNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return ingredientNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (ingredientNotFound != null) {
+      return ingredientNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return ingredientNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return ingredientNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (ingredientNotFound != null) {
+      return ingredientNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class IngredientNotFoundError implements CauceApiError {
+  const factory IngredientNotFoundError() = _$IngredientNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$UnconfirmedAllergensErrorImplCopyWith<$Res> {
+  factory _$$UnconfirmedAllergensErrorImplCopyWith(
+          _$UnconfirmedAllergensErrorImpl value,
+          $Res Function(_$UnconfirmedAllergensErrorImpl) then) =
+      __$$UnconfirmedAllergensErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<DetectedAllergen> allergens});
+}
+
+/// @nodoc
+class __$$UnconfirmedAllergensErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$UnconfirmedAllergensErrorImpl>
+    implements _$$UnconfirmedAllergensErrorImplCopyWith<$Res> {
+  __$$UnconfirmedAllergensErrorImplCopyWithImpl(
+      _$UnconfirmedAllergensErrorImpl _value,
+      $Res Function(_$UnconfirmedAllergensErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? allergens = null,
+  }) {
+    return _then(_$UnconfirmedAllergensErrorImpl(
+      allergens: null == allergens
+          ? _value._allergens
+          : allergens // ignore: cast_nullable_to_non_nullable
+              as List<DetectedAllergen>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
+  const _$UnconfirmedAllergensErrorImpl(
+      {required final List<DetectedAllergen> allergens})
+      : _allergens = allergens;
+
+  final List<DetectedAllergen> _allergens;
+  @override
+  List<DetectedAllergen> get allergens {
+    if (_allergens is EqualUnmodifiableListView) return _allergens;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_allergens);
+  }
+
+  @override
+  String toString() {
+    return 'CauceApiError.unconfirmedAllergens(allergens: $allergens)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnconfirmedAllergensErrorImpl &&
+            const DeepCollectionEquality()
+                .equals(other._allergens, _allergens));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_allergens));
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnconfirmedAllergensErrorImplCopyWith<_$UnconfirmedAllergensErrorImpl>
+      get copyWith => __$$UnconfirmedAllergensErrorImplCopyWithImpl<
+          _$UnconfirmedAllergensErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return unconfirmedAllergens(allergens);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return unconfirmedAllergens?.call(allergens);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (unconfirmedAllergens != null) {
+      return unconfirmedAllergens(allergens);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return unconfirmedAllergens(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return unconfirmedAllergens?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (unconfirmedAllergens != null) {
+      return unconfirmedAllergens(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnconfirmedAllergensError implements CauceApiError {
+  const factory UnconfirmedAllergensError(
+          {required final List<DetectedAllergen> allergens}) =
+      _$UnconfirmedAllergensErrorImpl;
+
+  List<DetectedAllergen> get allergens;
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UnconfirmedAllergensErrorImplCopyWith<_$UnconfirmedAllergensErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InvalidMealRegistrationErrorImplCopyWith<$Res> {
+  factory _$$InvalidMealRegistrationErrorImplCopyWith(
+          _$InvalidMealRegistrationErrorImpl value,
+          $Res Function(_$InvalidMealRegistrationErrorImpl) then) =
+      __$$InvalidMealRegistrationErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidMealRegistrationErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res,
+        _$InvalidMealRegistrationErrorImpl>
+    implements _$$InvalidMealRegistrationErrorImplCopyWith<$Res> {
+  __$$InvalidMealRegistrationErrorImplCopyWithImpl(
+      _$InvalidMealRegistrationErrorImpl _value,
+      $Res Function(_$InvalidMealRegistrationErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InvalidMealRegistrationErrorImpl
+    implements InvalidMealRegistrationError {
+  const _$InvalidMealRegistrationErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.invalidMealRegistration()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvalidMealRegistrationErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return invalidMealRegistration();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return invalidMealRegistration?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidMealRegistration != null) {
+      return invalidMealRegistration();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return invalidMealRegistration(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return invalidMealRegistration?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidMealRegistration != null) {
+      return invalidMealRegistration(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidMealRegistrationError implements CauceApiError {
+  const factory InvalidMealRegistrationError() =
+      _$InvalidMealRegistrationErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$MealNotFoundErrorImplCopyWith<$Res> {
+  factory _$$MealNotFoundErrorImplCopyWith(_$MealNotFoundErrorImpl value,
+          $Res Function(_$MealNotFoundErrorImpl) then) =
+      __$$MealNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MealNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$MealNotFoundErrorImpl>
+    implements _$$MealNotFoundErrorImplCopyWith<$Res> {
+  __$$MealNotFoundErrorImplCopyWithImpl(_$MealNotFoundErrorImpl _value,
+      $Res Function(_$MealNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$MealNotFoundErrorImpl implements MealNotFoundError {
+  const _$MealNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.mealNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$MealNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return mealNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return mealNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (mealNotFound != null) {
+      return mealNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return mealNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return mealNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (mealNotFound != null) {
+      return mealNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MealNotFoundError implements CauceApiError {
+  const factory MealNotFoundError() = _$MealNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$SymptomNotFoundErrorImplCopyWith<$Res> {
+  factory _$$SymptomNotFoundErrorImplCopyWith(_$SymptomNotFoundErrorImpl value,
+          $Res Function(_$SymptomNotFoundErrorImpl) then) =
+      __$$SymptomNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SymptomNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$SymptomNotFoundErrorImpl>
+    implements _$$SymptomNotFoundErrorImplCopyWith<$Res> {
+  __$$SymptomNotFoundErrorImplCopyWithImpl(_$SymptomNotFoundErrorImpl _value,
+      $Res Function(_$SymptomNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
+  const _$SymptomNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.symptomNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SymptomNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return symptomNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return symptomNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (symptomNotFound != null) {
+      return symptomNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return symptomNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return symptomNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (symptomNotFound != null) {
+      return symptomNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SymptomNotFoundError implements CauceApiError {
+  const factory SymptomNotFoundError() = _$SymptomNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$ClinicalNoteNotFoundErrorImplCopyWith<$Res> {
+  factory _$$ClinicalNoteNotFoundErrorImplCopyWith(
+          _$ClinicalNoteNotFoundErrorImpl value,
+          $Res Function(_$ClinicalNoteNotFoundErrorImpl) then) =
+      __$$ClinicalNoteNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ClinicalNoteNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$ClinicalNoteNotFoundErrorImpl>
+    implements _$$ClinicalNoteNotFoundErrorImplCopyWith<$Res> {
+  __$$ClinicalNoteNotFoundErrorImplCopyWithImpl(
+      _$ClinicalNoteNotFoundErrorImpl _value,
+      $Res Function(_$ClinicalNoteNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
+  const _$ClinicalNoteNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.clinicalNoteNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClinicalNoteNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return clinicalNoteNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return clinicalNoteNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (clinicalNoteNotFound != null) {
+      return clinicalNoteNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return clinicalNoteNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return clinicalNoteNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (clinicalNoteNotFound != null) {
+      return clinicalNoteNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ClinicalNoteNotFoundError implements CauceApiError {
+  const factory ClinicalNoteNotFoundError() = _$ClinicalNoteNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$InvalidClinicalNoteAssociationErrorImplCopyWith<$Res> {
+  factory _$$InvalidClinicalNoteAssociationErrorImplCopyWith(
+          _$InvalidClinicalNoteAssociationErrorImpl value,
+          $Res Function(_$InvalidClinicalNoteAssociationErrorImpl) then) =
+      __$$InvalidClinicalNoteAssociationErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidClinicalNoteAssociationErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res,
+        _$InvalidClinicalNoteAssociationErrorImpl>
+    implements _$$InvalidClinicalNoteAssociationErrorImplCopyWith<$Res> {
+  __$$InvalidClinicalNoteAssociationErrorImplCopyWithImpl(
+      _$InvalidClinicalNoteAssociationErrorImpl _value,
+      $Res Function(_$InvalidClinicalNoteAssociationErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InvalidClinicalNoteAssociationErrorImpl
+    implements InvalidClinicalNoteAssociationError {
+  const _$InvalidClinicalNoteAssociationErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.invalidClinicalNoteAssociation()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InvalidClinicalNoteAssociationErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return invalidClinicalNoteAssociation();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return invalidClinicalNoteAssociation?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidClinicalNoteAssociation != null) {
+      return invalidClinicalNoteAssociation();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return invalidClinicalNoteAssociation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return invalidClinicalNoteAssociation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (invalidClinicalNoteAssociation != null) {
+      return invalidClinicalNoteAssociation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidClinicalNoteAssociationError implements CauceApiError {
+  const factory InvalidClinicalNoteAssociationError() =
+      _$InvalidClinicalNoteAssociationErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$IdempotencyMismatchErrorImplCopyWith<$Res> {
+  factory _$$IdempotencyMismatchErrorImplCopyWith(
+          _$IdempotencyMismatchErrorImpl value,
+          $Res Function(_$IdempotencyMismatchErrorImpl) then) =
+      __$$IdempotencyMismatchErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$IdempotencyMismatchErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$IdempotencyMismatchErrorImpl>
+    implements _$$IdempotencyMismatchErrorImplCopyWith<$Res> {
+  __$$IdempotencyMismatchErrorImplCopyWithImpl(
+      _$IdempotencyMismatchErrorImpl _value,
+      $Res Function(_$IdempotencyMismatchErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
+  const _$IdempotencyMismatchErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.idempotencyMismatch()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IdempotencyMismatchErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return idempotencyMismatch();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return idempotencyMismatch?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (idempotencyMismatch != null) {
+      return idempotencyMismatch();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return idempotencyMismatch(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return idempotencyMismatch?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (idempotencyMismatch != null) {
+      return idempotencyMismatch(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class IdempotencyMismatchError implements CauceApiError {
+  const factory IdempotencyMismatchError() = _$IdempotencyMismatchErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$DomainRuleViolationErrorImplCopyWith<$Res> {
+  factory _$$DomainRuleViolationErrorImplCopyWith(
+          _$DomainRuleViolationErrorImpl value,
+          $Res Function(_$DomainRuleViolationErrorImpl) then) =
+      __$$DomainRuleViolationErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? detail});
+}
+
+/// @nodoc
+class __$$DomainRuleViolationErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$DomainRuleViolationErrorImpl>
+    implements _$$DomainRuleViolationErrorImplCopyWith<$Res> {
+  __$$DomainRuleViolationErrorImplCopyWithImpl(
+      _$DomainRuleViolationErrorImpl _value,
+      $Res Function(_$DomainRuleViolationErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? detail = freezed,
+  }) {
+    return _then(_$DomainRuleViolationErrorImpl(
+      detail: freezed == detail
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
+  const _$DomainRuleViolationErrorImpl({this.detail});
+
+  @override
+  final String? detail;
+
+  @override
+  String toString() {
+    return 'CauceApiError.domainRuleViolation(detail: $detail)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DomainRuleViolationErrorImpl &&
+            (identical(other.detail, detail) || other.detail == detail));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, detail);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DomainRuleViolationErrorImplCopyWith<_$DomainRuleViolationErrorImpl>
+      get copyWith => __$$DomainRuleViolationErrorImplCopyWithImpl<
+          _$DomainRuleViolationErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return domainRuleViolation(detail);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return domainRuleViolation?.call(detail);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (domainRuleViolation != null) {
+      return domainRuleViolation(detail);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return domainRuleViolation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return domainRuleViolation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (domainRuleViolation != null) {
+      return domainRuleViolation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DomainRuleViolationError implements CauceApiError {
+  const factory DomainRuleViolationError({final String? detail}) =
+      _$DomainRuleViolationErrorImpl;
+
+  String? get detail;
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DomainRuleViolationErrorImplCopyWith<_$DomainRuleViolationErrorImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4772,6 +11789,21 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -4806,6 +11838,20 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -4840,6 +11886,20 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -4882,6 +11942,28 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -4921,6 +12003,22 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -4954,6 +12052,22 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -5065,6 +12179,21 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -5099,6 +12228,20 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -5133,6 +12276,20 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -5175,6 +12332,28 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -5214,6 +12393,22 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -5247,6 +12442,22 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -5341,6 +12552,21 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -5375,6 +12601,20 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -5409,6 +12649,20 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -5451,6 +12705,28 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -5490,6 +12766,22 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -5523,6 +12815,22 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -5607,6 +12915,21 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -5641,6 +12964,20 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -5675,6 +13012,20 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -5717,6 +13068,28 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -5756,6 +13129,22 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -5789,6 +13178,22 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -5874,6 +13279,21 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -5908,6 +13328,20 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -5942,6 +13376,20 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -5984,6 +13432,28 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -6023,6 +13493,22 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -6056,6 +13542,22 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -6138,6 +13640,21 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -6172,6 +13689,20 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -6206,6 +13737,20 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -6248,6 +13793,28 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -6287,6 +13854,22 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -6320,6 +13903,22 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -6402,6 +14001,21 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -6436,6 +14050,20 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -6470,6 +14098,20 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -6512,6 +14154,28 @@ class _$NetworkErrorImpl implements NetworkError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -6551,6 +14215,22 @@ class _$NetworkErrorImpl implements NetworkError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -6584,6 +14264,22 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -6712,6 +14408,21 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function() duplicateAllergy,
     required TResult Function() invalidIbsSssDimension,
     required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
     required TResult Function() invalidRefreshToken,
     required TResult Function(int retryAfterSeconds) rateLimited,
     required TResult Function() keycloakIntegration,
@@ -6746,6 +14457,20 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function()? duplicateAllergy,
     TResult? Function()? invalidIbsSssDimension,
     TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
     TResult? Function()? invalidRefreshToken,
     TResult? Function(int retryAfterSeconds)? rateLimited,
     TResult? Function()? keycloakIntegration,
@@ -6780,6 +14505,20 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function()? duplicateAllergy,
     TResult Function()? invalidIbsSssDimension,
     TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
     TResult Function()? invalidRefreshToken,
     TResult Function(int retryAfterSeconds)? rateLimited,
     TResult Function()? keycloakIntegration,
@@ -6822,6 +14561,28 @@ class _$UnknownErrorImpl implements UnknownError {
         invalidIbsSssDimension,
     required TResult Function(DuplicateBaselineAssessmentError value)
         duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
     required TResult Function(InvalidRefreshTokenError value)
         invalidRefreshToken,
     required TResult Function(RateLimitedError value) rateLimited,
@@ -6861,6 +14622,22 @@ class _$UnknownErrorImpl implements UnknownError {
         invalidIbsSssDimension,
     TResult? Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult? Function(RateLimitedError value)? rateLimited,
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
@@ -6894,6 +14671,22 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
     TResult Function(DuplicateBaselineAssessmentError value)?
         duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
     TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
     TResult Function(RateLimitedError value)? rateLimited,
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,

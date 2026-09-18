@@ -151,5 +151,121 @@ final ibsSssApiProvider = Provider<IbsSssApi>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IbsSssApiRef = ProviderRef<IbsSssApi>;
+String _$foodsApiHash() => r'df093a2dd734819110f9186fdc1cf5d21f00506c';
+
+/// Catalogo de alimentos: listado, busqueda, detalle y sugerencias.
+///
+/// Los tres primeros los expone el backend a cualquier autenticado; solo
+/// `GET /foods/suggestions` exige la politica `Patient`.
+///
+/// Copied from [foodsApi].
+@ProviderFor(foodsApi)
+final foodsApiProvider = Provider<FoodsApi>.internal(
+  foodsApi,
+  name: r'foodsApiProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$foodsApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef FoodsApiRef = ProviderRef<FoodsApi>;
+String _$customFoodsApiHash() => r'9353159bbb7425810d61d2705804aacf4efc6f03';
+
+/// Platos personalizados del paciente (US10). CRUD completo.
+///
+/// Copied from [customFoodsApi].
+@ProviderFor(customFoodsApi)
+final customFoodsApiProvider = Provider<CustomFoodsApi>.internal(
+  customFoodsApi,
+  name: r'customFoodsApiProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$customFoodsApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef CustomFoodsApiRef = ProviderRef<CustomFoodsApi>;
+String _$mealsApiHash() => r'99369a48de1ca4895a31bd904457538776580929';
+
+/// Registro e historial de comidas (US09).
+///
+/// Copied from [mealsApi].
+@ProviderFor(mealsApi)
+final mealsApiProvider = Provider<MealsApi>.internal(
+  mealsApi,
+  name: r'mealsApiProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$mealsApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef MealsApiRef = ProviderRef<MealsApi>;
+String _$symptomsApiHash() => r'9a86c0790b88bfdcf6354514e06b36a22a6ff952';
+
+/// Registro e historial de sintomas (US11).
+///
+/// Copied from [symptomsApi].
+@ProviderFor(symptomsApi)
+final symptomsApiProvider = Provider<SymptomsApi>.internal(
+  symptomsApi,
+  name: r'symptomsApiProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$symptomsApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SymptomsApiRef = ProviderRef<SymptomsApi>;
+String _$clinicalNotesApiHash() => r'31c1ee051af4febb6ae492ceac89a2323e2b7eb2';
+
+/// Notas de contexto sobre una comida o un sintoma (US13).
+///
+/// Copied from [clinicalNotesApi].
+@ProviderFor(clinicalNotesApi)
+final clinicalNotesApiProvider = Provider<ClinicalNotesApi>.internal(
+  clinicalNotesApi,
+  name: r'clinicalNotesApiProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$clinicalNotesApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ClinicalNotesApiRef = ProviderRef<ClinicalNotesApi>;
+String _$syncApiHash() => r'a5f29986aedb8007204dbe480dc98f5b3f53cf34';
+
+/// Sincronizacion por lote de lo registrado sin conexion (TS06).
+///
+/// Unico endpoint del cliente con rate limit `sync` (120/min por usuario) en
+/// vez de `default-auth`.
+///
+/// Copied from [syncApi].
+@ProviderFor(syncApi)
+final syncApiProvider = Provider<SyncApi>.internal(
+  syncApi,
+  name: r'syncApiProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$syncApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SyncApiRef = ProviderRef<SyncApi>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

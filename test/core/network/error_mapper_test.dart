@@ -391,4 +391,210 @@ void main() {
       expect(profile, isNot(equals(allergy)));
     });
   });
+
+  group('ErrorMapper · registro clinico diario (Mobile-3)', () {
+    test('mapea los trece codigos sin extension', () {
+      final cases = <String, ({int status, Matcher matcher})>{
+        'food_item_not_found': (
+          status: 404,
+          matcher: isA<FoodItemNotFoundError>()
+        ),
+        'custom_food_not_found': (
+          status: 404,
+          matcher: isA<CustomFoodNotFoundError>()
+        ),
+        'duplicate_custom_food': (
+          status: 409,
+          matcher: isA<DuplicateCustomFoodError>()
+        ),
+        'custom_food_in_use': (
+          status: 409,
+          matcher: isA<CustomFoodInUseError>()
+        ),
+        'duplicate_ingredient': (
+          status: 409,
+          matcher: isA<DuplicateIngredientError>()
+        ),
+        'ingredient_not_found': (
+          status: 404,
+          matcher: isA<IngredientNotFoundError>()
+        ),
+        'invalid_meal_registration': (
+          status: 400,
+          matcher: isA<InvalidMealRegistrationError>()
+        ),
+        'meal_not_found': (status: 404, matcher: isA<MealNotFoundError>()),
+        'symptom_not_found': (
+          status: 404,
+          matcher: isA<SymptomNotFoundError>()
+        ),
+        'clinical_note_not_found': (
+          status: 404,
+          matcher: isA<ClinicalNoteNotFoundError>()
+        ),
+        'invalid_clinical_note_association': (
+          status: 400,
+          matcher: isA<InvalidClinicalNoteAssociationError>()
+        ),
+        'idempotency_mismatch': (
+          status: 409,
+          matcher: isA<IdempotencyMismatchError>()
+        ),
+        'domain_rule_violation': (
+          status: 400,
+          matcher: isA<DomainRuleViolationError>()
+        ),
+      };
+
+      for (final entry in cases.entries) {
+        final error = ErrorMapper.map(
+          _problem(status: entry.value.status, errorCode: entry.key),
+        );
+
+        expect(error, entry.value.matcher, reason: entry.key);
+      }
+    });
+
+    test('los cinco 404 del modulo no se confunden entre si', () {
+      // Comparten status y solo los separa el errorCode. Confundir el del
+      // alimento con el de la comida mandaria al paciente a rehacer un
+      // registro que si existe.
+      final errors = <String>[
+        'food_item_not_found',
+        'custom_food_not_found',
+        'ingredient_not_found',
+        'meal_not_found',
+        'symptom_not_found',
+      ].map((code) => ErrorMapper.map(_problem(status: 404, errorCode: code)));
+
+      expect(errors.toSet(), hasLength(5));
+    });
+
+    test('domain_rule_violation conserva el detail del servidor', () {
+      final error = ErrorMapper.map(
+        _problem(status: 400, errorCode: 'domain_rule_violation'),
+      );
+
+      expect(error, isA<DomainRuleViolationError>());
+      expect(
+        (error as DomainRuleViolationError).detail,
+        'Detalle de la excepcion',
+      );
+    });
+
+    test('unconfirmed_allergens parsea la extension allergens', () {
+      final error = ErrorMapper.map(
+        _problem(
+          status: 409,
+          errorCode: 'unconfirmed_allergens',
+          extra: <String, dynamic>{
+            'detected': true,
+            'allergens': <dynamic>[
+              <String, dynamic>{
+                'ingredientName': 'Leche entera de vaca',
+                'allergenName': 'Lactosa',
+                'severity': 'Severe',
+              },
+              <String, dynamic>{
+                'ingredientName': 'Pan de trigo blanco',
+                'allergenName': 'Gluten',
+                'severity': 'Moderate',
+              },
+              <String, dynamic>{
+                'ingredientName': 'Queso fresco',
+                'allergenName': 'Lactosa',
+                'severity': 'Mild',
+              },
+            ],
+          },
+        ),
+      );
+
+      expect(error, isA<UnconfirmedAllergensError>());
+      final allergens = (error as UnconfirmedAllergensError).allergens;
+      expect(allergens, hasLength(3));
+      expect(allergens.first.ingredientName, 'Leche entera de vaca');
+      expect(allergens.first.allergenName, 'Lactosa');
+      expect(allergens.first.severity, DetectedAllergenSeverity.severe);
+      expect(allergens[1].severity, DetectedAllergenSeverity.moderate);
+      expect(allergens[2].severity, DetectedAllergenSeverity.mild);
+    });
+
+    test('una severidad desconocida deja null y conserva la entrada', () {
+      // El paciente tiene que enterarse de la coincidencia igual. Degradarla a
+      // un valor concreto le atribuiria al servidor una severidad que no dijo,
+      // y descartar la entrada escondria un alergeno detectado.
+      final error = ErrorMapper.map(
+        _problem(
+          status: 409,
+          errorCode: 'unconfirmed_allergens',
+          extra: <String, dynamic>{
+            'allergens': <dynamic>[
+              <String, dynamic>{
+                'ingredientName': 'Lentejas cocidas',
+                'allergenName': 'Legumbres',
+                'severity': 'Critical',
+              },
+              <String, dynamic>{
+                'ingredientName': 'Cebolla cocida',
+                'allergenName': 'Fructanos',
+              },
+            ],
+          },
+        ),
+      );
+
+      final allergens = (error as UnconfirmedAllergensError).allergens;
+      expect(allergens, hasLength(2));
+      expect(allergens.every((a) => a.severity == null), isTrue);
+      expect(allergens.first.allergenName, 'Legumbres');
+    });
+
+    test('descarta las entradas sin ingrediente o sin alergeno', () {
+      // Sin los dos nombres no hay advertencia que mostrar.
+      final error = ErrorMapper.map(
+        _problem(
+          status: 409,
+          errorCode: 'unconfirmed_allergens',
+          extra: <String, dynamic>{
+            'allergens': <dynamic>[
+              <String, dynamic>{'allergenName': 'Lactosa', 'severity': 'Mild'},
+              <String, dynamic>{'ingredientName': 'Queso fresco'},
+              'no soy un objeto',
+              <String, dynamic>{
+                'ingredientName': 'Leche entera de vaca',
+                'allergenName': 'Lactosa',
+                'severity': 'Severe',
+              },
+            ],
+          },
+        ),
+      );
+
+      final allergens = (error as UnconfirmedAllergensError).allergens;
+      expect(allergens, hasLength(1));
+      expect(allergens.single.ingredientName, 'Leche entera de vaca');
+    });
+
+    test('sin la extension allergens el error se tipa igual, con lista vacia',
+        () {
+      // El 409 ya dice por si solo que hay coincidencias: degradarlo a
+      // UnknownError dejaria al paciente sin el flujo de confirmacion.
+      final ausente = ErrorMapper.map(
+        _problem(status: 409, errorCode: 'unconfirmed_allergens'),
+      );
+      final malformada = ErrorMapper.map(
+        _problem(
+          status: 409,
+          errorCode: 'unconfirmed_allergens',
+          extra: <String, dynamic>{'allergens': 'no soy una lista'},
+        ),
+      );
+
+      expect(ausente, isA<UnconfirmedAllergensError>());
+      expect((ausente as UnconfirmedAllergensError).allergens, isEmpty);
+      expect(malformada, isA<UnconfirmedAllergensError>());
+      expect((malformada as UnconfirmedAllergensError).allergens, isEmpty);
+    });
+  });
 }

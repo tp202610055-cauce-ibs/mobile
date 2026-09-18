@@ -16,6 +16,54 @@ enum PasswordResetTokenReason { invalid, expired }
 /// generico.
 enum NutritionistNotAvailableReason { pendingActivation, inactive, suspended }
 
+/// Severidad que el paciente declaro para la alergia que se detecto.
+///
+/// Espeja `AllergySeverity` del contrato, que llega en PascalCase dentro de la
+/// extension `allergens`. No se reutiliza `AllergySeverityLevel` de
+/// `features/patients/domain/allergy.dart` a proposito: importar una feature
+/// desde `core/` invertiria la direccion de la dependencia.
+enum DetectedAllergenSeverity {
+  mild,
+  moderate,
+  severe;
+
+  /// Traduce el valor del contrato, o `null` si no lo reconoce.
+  ///
+  /// Nullable y no degradado a un valor concreto, con el mismo criterio que
+  /// `AllergyTypeOption.fromApi` e `IbsSssSeverity.fromApi`: la UI de
+  /// confirmacion trata el caso ausente de forma explicita en vez de que el
+  /// cliente invente una severidad que el servidor no dijo.
+  static DetectedAllergenSeverity? fromWire(Object? value) {
+    return switch (value) {
+      'Mild' => DetectedAllergenSeverity.mild,
+      'Moderate' => DetectedAllergenSeverity.moderate,
+      'Severe' => DetectedAllergenSeverity.severe,
+      _ => null,
+    };
+  }
+}
+
+/// Coincidencia entre un ingrediente del plato y una alergia ya declarada.
+///
+/// Llega en la extension `allergens` del 409 `unconfirmed_allergens` (US10
+/// CA03). El cruce lo hace el servidor contra las alergias del perfil: el
+/// cliente no lo recalcula, solo lo muestra y pide confirmacion.
+@freezed
+abstract class DetectedAllergen with _$DetectedAllergen {
+  const factory DetectedAllergen({
+    /// Nombre del alimento del catalogo que dispara la coincidencia.
+    required String ingredientName,
+
+    /// Nombre de la alergia declarada con la que coincide.
+    required String allergenName,
+
+    /// Severidad declarada, o `null` si el valor no se reconocio.
+    DetectedAllergenSeverity? severity,
+  }) = _DetectedAllergen;
+
+  const DetectedAllergen._();
+}
+
 /// Dominio de errores del cliente frente al backend Cauce.
 ///
 /// Es la traduccion del envelope RFC 7807 a tipos sobre los que la capa de
@@ -133,6 +181,100 @@ sealed class CauceApiError with _$CauceApiError {
   /// estado y seguir, no reintentar.
   const factory CauceApiError.duplicateBaselineAssessment() =
       DuplicateBaselineAssessmentError;
+
+  // ---------------------------------------------------------------------
+  // Modulo ClinicalRegistry (EP0002). Agregados en Mobile-3.
+  // ---------------------------------------------------------------------
+
+  /// 404 `food_item_not_found`. El alimento del catalogo no existe o fue
+  /// desactivado.
+  ///
+  /// Alcanzable con la caja local de la busqueda: el catalogo se cachea en
+  /// `food_catalog_cache` y una fila puede sobrevivir a la desactivacion del
+  /// alimento en el servidor. Tambien llega por lote, dentro de `errors[]` de
+  /// `POST /sync/batch`, donde se clasifica como falla permanente.
+  const factory CauceApiError.foodItemNotFound() = FoodItemNotFoundError;
+
+  /// 404 `custom_food_not_found`. El plato personalizado no existe o pertenece
+  /// a otro paciente.
+  const factory CauceApiError.customFoodNotFound() = CustomFoodNotFoundError;
+
+  /// 409 `duplicate_custom_food`. El paciente ya tiene un plato con ese nombre.
+  ///
+  /// El constructor valida contra la lista ya cargada antes de enviar, asi que
+  /// esto llega cuando la lista local quedo vieja.
+  const factory CauceApiError.duplicateCustomFood() = DuplicateCustomFoodError;
+
+  /// 409 `custom_food_in_use`. No se puede borrar un plato que alguna comida
+  /// ya registrada referencia.
+  const factory CauceApiError.customFoodInUse() = CustomFoodInUseError;
+
+  /// 409 `duplicate_ingredient`. El mismo alimento aparece dos veces en el
+  /// plato.
+  ///
+  /// La UI del constructor lo impide sumando proporciones en vez de repetir la
+  /// fila. Se mapea para que un cambio de contrato no degrade a desconocido.
+  const factory CauceApiError.duplicateIngredient() = DuplicateIngredientError;
+
+  /// 404 `ingredient_not_found`. Se intento quitar un ingrediente que el plato
+  /// no tiene.
+  const factory CauceApiError.ingredientNotFound() = IngredientNotFoundError;
+
+  /// 409 `unconfirmed_allergens` (US10 CA03). Hay coincidencias entre los
+  /// ingredientes y las alergias declaradas, y el paciente todavia no las
+  /// reconocio.
+  ///
+  /// **No es un error terminal**: es el paso intermedio del flujo. El cliente
+  /// muestra [allergens], pide confirmacion explicita y reenvia con
+  /// `confirmedAllergens: true`. El cruce lo hace el servidor contra el perfil;
+  /// el cliente no lo recalcula.
+  const factory CauceApiError.unconfirmedAllergens({
+    required List<DetectedAllergen> allergens,
+  }) = UnconfirmedAllergensError;
+
+  /// 400 `invalid_meal_registration`. Alguna invariante de `Meal` del backend.
+  ///
+  /// Lo lanza la entidad de dominio y no FluentValidation, de modo que **no
+  /// trae `errors` por campo**. Son siete invariantes: `client_guid` vacio,
+  /// paciente vacio, fecha de consumo futura, fecha de creacion futura, ítems
+  /// fuera de 1 a 50, ítem que no referencia exactamente un alimento del
+  /// catalogo o uno personalizado, y cantidad menor o igual a cero.
+  ///
+  /// Las dos de fecha toleran 5 minutos de desfase de reloj del dispositivo,
+  /// asi que un reloj levemente adelantado no las dispara.
+  const factory CauceApiError.invalidMealRegistration() =
+      InvalidMealRegistrationError;
+
+  /// 404 `meal_not_found`. La comida no existe o pertenece a otro paciente.
+  const factory CauceApiError.mealNotFound() = MealNotFoundError;
+
+  /// 404 `symptom_not_found`. El sintoma no existe o pertenece a otro paciente.
+  const factory CauceApiError.symptomNotFound() = SymptomNotFoundError;
+
+  /// 404 `clinical_note_not_found`. La nota no existe o pertenece a otro
+  /// paciente.
+  const factory CauceApiError.clinicalNoteNotFound() =
+      ClinicalNoteNotFoundError;
+
+  /// 400 `invalid_clinical_note_association`. Una nota se asocia a exactamente
+  /// una comida **o** un sintoma, nunca a las dos ni a ninguna.
+  const factory CauceApiError.invalidClinicalNoteAssociation() =
+      InvalidClinicalNoteAssociationError;
+
+  /// 409 `idempotency_mismatch`. Se reuso un `client_guid` con una carga
+  /// distinta de la del envio original.
+  ///
+  /// Señala un bug del cliente, no una accion del paciente: cada registro
+  /// genera su UUID v4 una sola vez y el reintento debe repetirlo intacto.
+  const factory CauceApiError.idempotencyMismatch() = IdempotencyMismatchError;
+
+  /// 400 `domain_rule_violation`. Caso general de `DomainException` en el
+  /// backend, para las reglas que no tienen un `errorCode` propio.
+  ///
+  /// [detail] trae el mensaje del servidor, en español y sin garantia de
+  /// estabilidad: sirve para diagnostico, no para hacer `switch`.
+  const factory CauceApiError.domainRuleViolation({String? detail}) =
+      DomainRuleViolationError;
 
   /// 401 `invalid_refresh_token`. El refresh expiro, fue revocado o ya se
   /// consumio. Obliga a limpiar la sesion local y volver al login.

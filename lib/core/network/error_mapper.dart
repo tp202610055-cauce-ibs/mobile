@@ -42,6 +42,23 @@ abstract final class ErrorMapper {
   static const String _duplicateBaselineAssessment =
       'duplicate_baseline_assessment';
 
+  // Modulo ClinicalRegistry (EP0002), agregados en Mobile-3.
+  static const String _foodItemNotFound = 'food_item_not_found';
+  static const String _customFoodNotFound = 'custom_food_not_found';
+  static const String _duplicateCustomFood = 'duplicate_custom_food';
+  static const String _customFoodInUse = 'custom_food_in_use';
+  static const String _duplicateIngredient = 'duplicate_ingredient';
+  static const String _ingredientNotFound = 'ingredient_not_found';
+  static const String _unconfirmedAllergens = 'unconfirmed_allergens';
+  static const String _invalidMealRegistration = 'invalid_meal_registration';
+  static const String _mealNotFound = 'meal_not_found';
+  static const String _symptomNotFound = 'symptom_not_found';
+  static const String _clinicalNoteNotFound = 'clinical_note_not_found';
+  static const String _invalidClinicalNoteAssociation =
+      'invalid_clinical_note_association';
+  static const String _idempotencyMismatch = 'idempotency_mismatch';
+  static const String _domainRuleViolation = 'domain_rule_violation';
+
   /// Punto de entrada. Convierte cualquier [DioException] en un error tipado.
   static CauceApiError map(DioException exception) {
     if (_isTransportFailure(exception.type)) {
@@ -116,6 +133,25 @@ abstract final class ErrorMapper {
       _invalidIbsSssDimension => const CauceApiError.invalidIbsSssDimension(),
       _duplicateBaselineAssessment =>
         const CauceApiError.duplicateBaselineAssessment(),
+      _foodItemNotFound => const CauceApiError.foodItemNotFound(),
+      _customFoodNotFound => const CauceApiError.customFoodNotFound(),
+      _duplicateCustomFood => const CauceApiError.duplicateCustomFood(),
+      _customFoodInUse => const CauceApiError.customFoodInUse(),
+      _duplicateIngredient => const CauceApiError.duplicateIngredient(),
+      _ingredientNotFound => const CauceApiError.ingredientNotFound(),
+      _unconfirmedAllergens => CauceApiError.unconfirmedAllergens(
+          allergens: _detectedAllergens(body['allergens']),
+        ),
+      _invalidMealRegistration => const CauceApiError.invalidMealRegistration(),
+      _mealNotFound => const CauceApiError.mealNotFound(),
+      _symptomNotFound => const CauceApiError.symptomNotFound(),
+      _clinicalNoteNotFound => const CauceApiError.clinicalNoteNotFound(),
+      _invalidClinicalNoteAssociation =>
+        const CauceApiError.invalidClinicalNoteAssociation(),
+      _idempotencyMismatch => const CauceApiError.idempotencyMismatch(),
+      _domainRuleViolation => CauceApiError.domainRuleViolation(
+          detail: _string(body['detail']),
+        ),
       // Sin errorCode reconocido. Un 400 todavia puede traer `errors`: es el
       // camino del binding automatico de [ApiController], que el contrato
       // documenta como 400 sin errorCode.
@@ -208,6 +244,42 @@ abstract final class ErrorMapper {
       'suspended' => NutritionistNotAvailableReason.suspended,
       _ => NutritionistNotAvailableReason.inactive,
     };
+  }
+
+  /// Lee la extension `allergens` del 409 `unconfirmed_allergens` (US10 CA03).
+  ///
+  /// Cada entrada es `{ingredientName, allergenName, severity}`. Una entrada
+  /// sin los dos nombres se descarta: no se puede mostrar una advertencia que
+  /// no diga que ingrediente la disparo. Una `severity` desconocida **no**
+  /// descarta la entrada, solo queda en `null`: el paciente igual tiene que
+  /// enterarse de la coincidencia.
+  ///
+  /// Un `allergens` ausente o con forma inesperada devuelve la lista vacia. El
+  /// flujo de confirmacion trata ese caso como advertencia generica, porque el
+  /// 409 ya dice por si solo que hay coincidencias.
+  static List<DetectedAllergen> _detectedAllergens(Object? raw) {
+    if (raw is! List) {
+      return const <DetectedAllergen>[];
+    }
+    final result = <DetectedAllergen>[];
+    for (final entry in raw) {
+      if (entry is! Map) {
+        continue;
+      }
+      final ingredientName = _string(entry['ingredientName']);
+      final allergenName = _string(entry['allergenName']);
+      if (ingredientName == null || allergenName == null) {
+        continue;
+      }
+      result.add(
+        DetectedAllergen(
+          ingredientName: ingredientName,
+          allergenName: allergenName,
+          severity: DetectedAllergenSeverity.fromWire(entry['severity']),
+        ),
+      );
+    }
+    return result;
   }
 
   /// El switch se deja exhaustivo a proposito, sin comodin: si dio agrega un

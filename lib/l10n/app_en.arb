@@ -103,6 +103,236 @@
   "errorDuplicateAllergy": "This allergy is already listed in your profile",
   "errorInvalidIbsSssDimension": "One of the answers fell outside the 0 to 100 range",
   "errorDuplicateBaselineAssessment": "Your baseline questionnaire is already registered",
+  "mealsTitle": "Log a meal",
+  "mealsAddFood": "Add food",
+  "mealsSearchTitle": "Search food",
+  "mealsSearchHint": "Type the food name",
+  "mealsSearchNoResults": "We could not find foods with that name",
+  "mealsSuggestionsFrequent": "The ones you log most",
+  "mealsSuggestionsRecent": "Logged today",
+  "mealsSuggestionsCatalog": "From the catalog",
+  "mealsQuantityLabel": "Quantity",
+  "mealsUnitLabel": "Unit",
+  "mealsTimeLabel": "Time of day",
+  "mealsItemsLabel": "Foods in this meal",
+  "mealsItemsEmpty": "You have not added any food yet",
+  "mealsRemoveItem": "Remove",
+  "mealsSubmit": "Log meal",
+  "mealsRegistered": "Meal logged",
+  "mealsQueuedOffline": "Meal saved. It will be sent when the connection is back.",
+  "mealsRegisterAnother": "Log another",
+  "mealsIssueMissingMealTime": "Choose the time of day",
+  "mealsIssueNoItems": "Add at least one food",
+  "mealsIssueTooManyItems": "A meal takes up to 50 foods",
+  "mealsIssueInvalidQuantity": "The quantity must be greater than zero",
+  "mealsIssueInvalidReference": "Each food must come from the catalog or from your dishes",
+  "mealsIssueFutureConsumedAt": "The consumption date cannot be in the future",
+  "mealsFodmapLow": "Low FODMAP load",
+  "mealsFodmapModerate": "Moderate FODMAP load",
+  "mealsFodmapHigh": "High FODMAP load",
+  "mealTimeBreakfast": "Breakfast",
+  "mealTimeLunch": "Lunch",
+  "mealTimeDinner": "Dinner",
+  "mealTimeSnack": "Snack",
+  "measurementUnitGrams": "Grams",
+  "measurementUnitCups": "Cups",
+  "measurementUnitUnits": "Units",
+  "measurementUnitOunces": "Ounces",
+  "measurementUnitTablespoons": "Tablespoons",
+  "customFoodTitle": "Create custom dish",
+  "customFoodNameLabel": "Dish name",
+  "customFoodNameHint": "For example: My lomo saltado",
+  "customFoodPortionLabel": "Portion size (g)",
+  "customFoodIngredientsLabel": "Ingredients",
+  "customFoodIngredientsEmpty": "You have not added ingredients yet",
+  "customFoodAddIngredient": "Add ingredient",
+  "customFoodProportionLabel": "Amount in the dish (g)",
+  "customFoodSubmit": "Save dish",
+  "customFoodCreated": "Dish saved",
+  "customFoodWeightDelta": "The ingredients add up to {grams} g more than the declared portion",
+  "@customFoodWeightDelta": {
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodWeightDeltaShort": "The ingredients add up to {grams} g less than the declared portion",
+  "@customFoodWeightDeltaShort": {
+    "placeholders": {
+      "grams": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodEstimateTitle": "Estimated nutritional profile",
+  "customFoodEstimateNote": "This is an estimate per 100 g from the ingredients. It is not saved with the dish.",
+  "customFoodEstimatePartial": "Some ingredient is missing its composition, so the estimate is partial.",
+  "customFoodEstimateCalories": "{value} kcal",
+  "@customFoodEstimateCalories": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodEstimateProtein": "Protein {value} g",
+  "@customFoodEstimateProtein": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodEstimateCarbs": "Carbs {value} g",
+  "@customFoodEstimateCarbs": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodEstimateFat": "Fat {value} g",
+  "@customFoodEstimateFat": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodEstimateFiber": "Fiber {value} g",
+  "@customFoodEstimateFiber": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodIssueInvalidName": "Give it a name of up to 150 characters",
+  "customFoodIssueDuplicateName": "You already have a dish with that name",
+  "customFoodIssueInvalidPortion": "The portion must be greater than zero",
+  "customFoodIssueNoIngredients": "Add at least one ingredient",
+  "customFoodIssueInvalidProportion": "Each ingredient must have an amount greater than zero",
+  "customFoodIssueDuplicateIngredient": "An ingredient appears twice",
+  "customFoodAllergenTitle": "Check these ingredients",
+  "customFoodAllergenBody": "These ingredients match allergies you declared in your profile.",
+  "customFoodAllergenEntry": "{ingredient} matches {allergen}",
+  "@customFoodAllergenEntry": {
+    "placeholders": {
+      "ingredient": {
+        "type": "String"
+      },
+      "allergen": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodAllergenSeverityMild": "Declared as mild",
+  "customFoodAllergenSeverityModerate": "Declared as moderate",
+  "customFoodAllergenSeveritySevere": "Declared as severe",
+  "customFoodAllergenSeverityUnknown": "Severity not reported",
+  "customFoodAllergenConfirm": "I understand, save anyway",
+  "customFoodAllergenCancel": "Go back and edit",
+  "symptomsTitle": "Log a symptom",
+  "symptomsTypeLabel": "What did you feel",
+  "symptomsIntensityLabel": "Intensity",
+  "symptomsIntensityMin": "Mild",
+  "symptomsIntensityMax": "Very intense",
+  "symptomsSubmit": "Log symptom",
+  "symptomsRegistered": "Symptom logged",
+  "symptomsQueuedOffline": "Symptom saved. It will be sent when the connection is back.",
+  "symptomsRegisterAnother": "Log another",
+  "symptomsMealAssociated": "We linked it to the meal you logged earlier.",
+  "symptomsMealNotAssociated": "There was no meal logged in the previous 4 hours.",
+  "symptomsMealPending": "The link with your meals is computed when it syncs.",
+  "symptomsIssueMissingType": "Choose what you felt",
+  "symptomsIssueMissingIntensity": "Set the intensity",
+  "symptomsIssueIntensityOutOfRange": "Intensity goes from 1 to 100",
+  "symptomsIssueFutureOccurredAt": "The moment cannot be in the future",
+  "symptomTypeAbdominalPain": "Abdominal pain",
+  "symptomTypeBloating": "Bloating",
+  "symptomTypeFlatulence": "Flatulence",
+  "symptomTypeDiarrhea": "Diarrhea",
+  "symptomTypeConstipation": "Constipation",
+  "symptomTypeNausea": "Nausea",
+  "symptomTypeReflux": "Reflux or heartburn",
+  "symptomTypeUrgency": "Urgency to defecate",
+  "symptomTypeOther": "Other",
+  "historyTitle": "My log",
+  "historyEmpty": "You have not logged anything yet",
+  "historyMealIntensity": "Intensity {value} of 100",
+  "@historyMealIntensity": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "historyStatePending": "Pending to send",
+  "historyStateFailed": "Could not be sent",
+  "historyFailedExplanation": "This record could not be sent and will not be retried. You can discard it.",
+  "historyDiscard": "Discard",
+  "historyAddNote": "Add note",
+  "historyNoteUnavailable": "Available once it syncs",
+  "historyMealAssociated": "Linked to a meal",
+  "historyRefresh": "Refresh",
+  "clinicalNoteTitle": "Add note",
+  "clinicalNoteSubtitle": "Write down anything you want to remember about this record. Your nutritionist will see it next to the data.",
+  "clinicalNoteContentLabel": "Note",
+  "clinicalNoteContentHint": "For example: I ate in a hurry, on the street",
+  "clinicalNoteRemaining": "{count} characters left",
+  "@clinicalNoteRemaining": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "clinicalNoteTooLong": "The note cannot exceed 500 characters",
+  "clinicalNoteSubmit": "Save note",
+  "clinicalNoteSaved": "Note saved",
+  "ibsSssPeriodicTitle": "Follow-up questionnaire",
+  "ibsSssPeriodicSubtitle": "Answer the five questions thinking about the last ten days.",
+  "ibsSssPeriodicSubmit": "Submit questionnaire",
+  "ibsSssEvolutionTitle": "Your evolution",
+  "ibsSssEvolutionEmpty": "With a single assessment there is no evolution to show yet.",
+  "ibsSssEvolutionRange": "From {first} to {last} points",
+  "@ibsSssEvolutionRange": {
+    "placeholders": {
+      "first": {
+        "type": "int"
+      },
+      "last": {
+        "type": "int"
+      }
+    }
+  },
+  "ibsSssEvolutionDelta": "{value} points compared to your baseline",
+  "@ibsSssEvolutionDelta": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "ibsSssEvolutionImprovement": "That is a reduction of 50 points or more compared to your baseline. Your nutritionist will interpret it with you.",
+  "ibsSssReminderTitle": "Your follow-up questionnaire is due",
+  "ibsSssReminderBody": "Fourteen days have passed since your last assessment.",
+  "ibsSssReminderAction": "Answer now",
+  "errorFoodItemNotFound": "That food is no longer available in the catalog",
+  "errorCustomFoodNotFound": "We could not find that custom dish",
+  "errorDuplicateCustomFood": "You already have a dish with that name",
+  "errorCustomFoodInUse": "You cannot delete this dish because you already used it in a registered meal",
+  "errorDuplicateIngredient": "That ingredient is already in the dish",
+  "errorIngredientNotFound": "That ingredient is no longer in the dish",
+  "errorUnconfirmedAllergens": "This dish contains ingredients that match your declared allergies",
+  "errorInvalidMealRegistration": "We could not register the meal. Check the details and try again.",
+  "errorMealNotFound": "We could not find that registered meal",
+  "errorSymptomNotFound": "We could not find that registered symptom",
+  "errorClinicalNoteNotFound": "We could not find that note",
+  "errorInvalidClinicalNoteAssociation": "A note is linked to either a meal or a symptom, not both",
+  "errorIdempotencyMismatch": "There was a conflict saving this record. Try again.",
+  "errorDomainRuleViolation": "We could not complete the operation. Check the details and try again.",
   "errorDuplicateEmail": "An account with this email already exists",
   "errorKeycloakIntegration": "We could not create your account. Try again in a few minutes.",
   "errorInvalidCredentials": "Incorrect credentials",

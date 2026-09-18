@@ -186,6 +186,646 @@
   "@errorDuplicateBaselineAssessment": {
     "description": "errorCode duplicate_baseline_assessment (409). El onboarding ya quedo cerrado: corresponde releer el estado, no reintentar"
   },
+  "mealsTitle": "Registrar comida",
+  "@mealsTitle": {
+    "description": "Titulo de la pantalla de registro de comida (US09)"
+  },
+  "mealsAddFood": "Agregar alimento",
+  "@mealsAddFood": {
+    "description": "Accion que abre el buscador del catalogo"
+  },
+  "mealsSearchTitle": "Buscar alimento",
+  "@mealsSearchTitle": {
+    "description": "Titulo del modal de busqueda"
+  },
+  "mealsSearchHint": "Escribe el nombre del alimento",
+  "@mealsSearchHint": {
+    "description": "Placeholder del campo de busqueda"
+  },
+  "mealsSearchNoResults": "No encontramos alimentos con ese nombre",
+  "@mealsSearchNoResults": {
+    "description": "Busqueda local sin coincidencias"
+  },
+  "mealsSuggestionsFrequent": "Los que mas registras",
+  "@mealsSuggestionsFrequent": {
+    "description": "Seccion frequentLast30Days de GET /foods/suggestions"
+  },
+  "mealsSuggestionsRecent": "Registrados hoy",
+  "@mealsSuggestionsRecent": {
+    "description": "Seccion recentLast24Hours de GET /foods/suggestions"
+  },
+  "mealsSuggestionsCatalog": "Del catalogo",
+  "@mealsSuggestionsCatalog": {
+    "description": "Seccion catalogSuggestions de GET /foods/suggestions"
+  },
+  "mealsQuantityLabel": "Cantidad",
+  "@mealsQuantityLabel": {
+    "description": "Etiqueta del campo de cantidad"
+  },
+  "mealsUnitLabel": "Unidad",
+  "@mealsUnitLabel": {
+    "description": "Etiqueta del selector de unidad"
+  },
+  "mealsTimeLabel": "Momento del dia",
+  "@mealsTimeLabel": {
+    "description": "Etiqueta del selector de MealTime"
+  },
+  "mealsItemsLabel": "Alimentos de esta comida",
+  "@mealsItemsLabel": {
+    "description": "Encabezado de la lista de items"
+  },
+  "mealsItemsEmpty": "Todavia no agregaste ningun alimento",
+  "@mealsItemsEmpty": {
+    "description": "Lista de items vacia"
+  },
+  "mealsRemoveItem": "Quitar",
+  "@mealsRemoveItem": {
+    "description": "Accion que saca un alimento de la comida"
+  },
+  "mealsSubmit": "Registrar comida",
+  "@mealsSubmit": {
+    "description": "Boton de envio del formulario"
+  },
+  "mealsRegistered": "Comida registrada",
+  "@mealsRegistered": {
+    "description": "Confirmacion cuando el servidor la acepto"
+  },
+  "mealsQueuedOffline": "Comida guardada. Se enviara cuando vuelva la conexion.",
+  "@mealsQueuedOffline": {
+    "description": "Confirmacion de CA02: el registro quedo en la cola local (CP023)"
+  },
+  "mealsRegisterAnother": "Registrar otra",
+  "@mealsRegisterAnother": {
+    "description": "Accion para vaciar el formulario y anotar otra comida"
+  },
+  "mealsIssueMissingMealTime": "Elige el momento del dia",
+  "@mealsIssueMissingMealTime": {
+    "description": "CA04: falta MealTime"
+  },
+  "mealsIssueNoItems": "Agrega al menos un alimento",
+  "@mealsIssueNoItems": {
+    "description": "CA04: la comida no tiene items"
+  },
+  "mealsIssueTooManyItems": "Una comida admite hasta 50 alimentos",
+  "@mealsIssueTooManyItems": {
+    "description": "Tope de Meal.Register"
+  },
+  "mealsIssueInvalidQuantity": "La cantidad debe ser mayor que cero",
+  "@mealsIssueInvalidQuantity": {
+    "description": "CA04: cantidad invalida"
+  },
+  "mealsIssueInvalidReference": "Cada alimento debe venir del catalogo o de tus platos",
+  "@mealsIssueInvalidReference": {
+    "description": "Invariante XOR de Meal.Register"
+  },
+  "mealsIssueFutureConsumedAt": "La fecha de consumo no puede estar en el futuro",
+  "@mealsIssueFutureConsumedAt": {
+    "description": "Invariante de fecha de Meal.Register"
+  },
+  "mealsFodmapLow": "Carga FODMAP baja",
+  "@mealsFodmapLow": {
+    "description": "FodmapLevel Low de la comida agregada"
+  },
+  "mealsFodmapModerate": "Carga FODMAP moderada",
+  "@mealsFodmapModerate": {
+    "description": "FodmapLevel Moderate"
+  },
+  "mealsFodmapHigh": "Carga FODMAP alta",
+  "@mealsFodmapHigh": {
+    "description": "FodmapLevel High"
+  },
+  "mealTimeBreakfast": "Desayuno",
+  "@mealTimeBreakfast": {
+    "description": "MealTime Breakfast"
+  },
+  "mealTimeLunch": "Almuerzo",
+  "@mealTimeLunch": {
+    "description": "MealTime Lunch"
+  },
+  "mealTimeDinner": "Cena",
+  "@mealTimeDinner": {
+    "description": "MealTime Dinner"
+  },
+  "mealTimeSnack": "Refrigerio",
+  "@mealTimeSnack": {
+    "description": "MealTime Snack"
+  },
+  "measurementUnitGrams": "Gramos",
+  "@measurementUnitGrams": {
+    "description": "MeasurementUnit Grams"
+  },
+  "measurementUnitCups": "Tazas",
+  "@measurementUnitCups": {
+    "description": "MeasurementUnit Cups"
+  },
+  "measurementUnitUnits": "Unidades",
+  "@measurementUnitUnits": {
+    "description": "MeasurementUnit Units"
+  },
+  "measurementUnitOunces": "Onzas",
+  "@measurementUnitOunces": {
+    "description": "MeasurementUnit Ounces"
+  },
+  "measurementUnitTablespoons": "Cucharadas",
+  "@measurementUnitTablespoons": {
+    "description": "MeasurementUnit Tablespoons"
+  },
+  "customFoodTitle": "Crear plato personalizado",
+  "@customFoodTitle": {
+    "description": "Titulo de la pantalla del constructor de platos (US10)"
+  },
+  "customFoodNameLabel": "Nombre del plato",
+  "@customFoodNameLabel": {
+    "description": "Campo de nombre"
+  },
+  "customFoodNameHint": "Por ejemplo: Mi lomo saltado",
+  "@customFoodNameHint": {
+    "description": "Placeholder del nombre"
+  },
+  "customFoodPortionLabel": "Tamano de porcion (g)",
+  "@customFoodPortionLabel": {
+    "description": "Campo de portionSizeGrams"
+  },
+  "customFoodIngredientsLabel": "Ingredientes",
+  "@customFoodIngredientsLabel": {
+    "description": "Encabezado de la lista de ingredientes"
+  },
+  "customFoodIngredientsEmpty": "Todavia no agregaste ingredientes",
+  "@customFoodIngredientsEmpty": {
+    "description": "Lista de ingredientes vacia"
+  },
+  "customFoodAddIngredient": "Agregar ingrediente",
+  "@customFoodAddIngredient": {
+    "description": "Accion que abre el buscador del catalogo"
+  },
+  "customFoodProportionLabel": "Cantidad en el plato (g)",
+  "@customFoodProportionLabel": {
+    "description": "Campo de proportionGrams de un ingrediente"
+  },
+  "customFoodSubmit": "Guardar plato",
+  "@customFoodSubmit": {
+    "description": "Boton de envio"
+  },
+  "customFoodCreated": "Plato guardado",
+  "@customFoodCreated": {
+    "description": "Confirmacion de creacion"
+  },
+  "customFoodWeightDelta": "Los ingredientes suman {grams} g mas que la porcion declarada",
+  "@customFoodWeightDelta": {
+    "description": "Diferencia entre la suma de proporciones y portionSizeGrams. Informativa: el backend no la valida",
+    "placeholders": {
+      "grams": {
+        "type": "String",
+        "example": "25"
+      }
+    }
+  },
+  "customFoodWeightDeltaShort": "Los ingredientes suman {grams} g menos que la porcion declarada",
+  "@customFoodWeightDeltaShort": {
+    "description": "Misma diferencia, cuando los ingredientes pesan menos",
+    "placeholders": {
+      "grams": {
+        "type": "String",
+        "example": "25"
+      }
+    }
+  },
+  "customFoodEstimateTitle": "Perfil nutricional estimado",
+  "@customFoodEstimateTitle": {
+    "description": "Encabezado de la vista previa de CA01"
+  },
+  "customFoodEstimateNote": "Es una estimacion por 100 g a partir de los ingredientes. No se guarda con el plato.",
+  "@customFoodEstimateNote": {
+    "description": "Aclaracion de CA01: el calculo es del cliente y el contrato no lo persiste"
+  },
+  "customFoodEstimatePartial": "Falta la composicion de algun ingrediente, asi que la estimacion es parcial.",
+  "@customFoodEstimatePartial": {
+    "description": "Aviso cuando algun ingrediente no tiene FoodItemDetail"
+  },
+  "customFoodEstimateCalories": "{value} kcal",
+  "@customFoodEstimateCalories": {
+    "description": "Calorias por 100 g",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "165"
+      }
+    }
+  },
+  "customFoodEstimateProtein": "Proteina {value} g",
+  "@customFoodEstimateProtein": {
+    "description": "Proteina por 100 g",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "12.5"
+      }
+    }
+  },
+  "customFoodEstimateCarbs": "Carbohidratos {value} g",
+  "@customFoodEstimateCarbs": {
+    "description": "Carbohidratos por 100 g",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "14.0"
+      }
+    }
+  },
+  "customFoodEstimateFat": "Grasa {value} g",
+  "@customFoodEstimateFat": {
+    "description": "Grasa por 100 g",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "9.5"
+      }
+    }
+  },
+  "customFoodEstimateFiber": "Fibra {value} g",
+  "@customFoodEstimateFiber": {
+    "description": "Fibra por 100 g",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "1.8"
+      }
+    }
+  },
+  "customFoodIssueInvalidName": "Ponle un nombre de hasta 150 caracteres",
+  "@customFoodIssueInvalidName": {
+    "description": "Invariante de CustomFood.EnsureValidName"
+  },
+  "customFoodIssueDuplicateName": "Ya tienes un plato con ese nombre",
+  "@customFoodIssueDuplicateName": {
+    "description": "CA02: validacion instantanea contra la lista ya cargada"
+  },
+  "customFoodIssueInvalidPortion": "La porcion debe ser mayor que cero",
+  "@customFoodIssueInvalidPortion": {
+    "description": "Invariante de portionSizeGrams"
+  },
+  "customFoodIssueNoIngredients": "Agrega al menos un ingrediente",
+  "@customFoodIssueNoIngredients": {
+    "description": "Plato sin ingredientes"
+  },
+  "customFoodIssueInvalidProportion": "Cada ingrediente debe tener una cantidad mayor que cero",
+  "@customFoodIssueInvalidProportion": {
+    "description": "Invariante de CustomFoodIngredient"
+  },
+  "customFoodIssueDuplicateIngredient": "Un ingrediente aparece dos veces",
+  "@customFoodIssueDuplicateIngredient": {
+    "description": "Invariante de CustomFood.AddIngredient"
+  },
+  "customFoodAllergenTitle": "Revisa estos ingredientes",
+  "@customFoodAllergenTitle": {
+    "description": "Titulo de la advertencia de alergenos (CA03, CP027)"
+  },
+  "customFoodAllergenBody": "Estos ingredientes coinciden con alergias que declaraste en tu perfil.",
+  "@customFoodAllergenBody": {
+    "description": "Cuerpo de la advertencia de alergenos"
+  },
+  "customFoodAllergenEntry": "{ingredient} coincide con {allergen}",
+  "@customFoodAllergenEntry": {
+    "description": "Una coincidencia ingrediente-alergeno",
+    "placeholders": {
+      "ingredient": {
+        "type": "String",
+        "example": "Leche entera de vaca"
+      },
+      "allergen": {
+        "type": "String",
+        "example": "Lactosa"
+      }
+    }
+  },
+  "customFoodAllergenSeverityMild": "Declarada como leve",
+  "@customFoodAllergenSeverityMild": {
+    "description": "Severidad Mild de la alergia declarada"
+  },
+  "customFoodAllergenSeverityModerate": "Declarada como moderada",
+  "@customFoodAllergenSeverityModerate": {
+    "description": "Severidad Moderate"
+  },
+  "customFoodAllergenSeveritySevere": "Declarada como severa",
+  "@customFoodAllergenSeveritySevere": {
+    "description": "Severidad Severe"
+  },
+  "customFoodAllergenSeverityUnknown": "Severidad no informada",
+  "@customFoodAllergenSeverityUnknown": {
+    "description": "El servidor mando una severidad que el cliente no reconoce. No se inventa un valor"
+  },
+  "customFoodAllergenConfirm": "Entiendo, guardar igual",
+  "@customFoodAllergenConfirm": {
+    "description": "Confirmacion explicita que reenvia con confirmedAllergens en true"
+  },
+  "customFoodAllergenCancel": "Volver y editar",
+  "@customFoodAllergenCancel": {
+    "description": "Vuelve al formulario para sacar el ingrediente"
+  },
+  "symptomsTitle": "Registrar sintoma",
+  "@symptomsTitle": {
+    "description": "Titulo de la pantalla de registro de sintoma (US11)"
+  },
+  "symptomsTypeLabel": "Que sentiste",
+  "@symptomsTypeLabel": {
+    "description": "Etiqueta del selector de SymptomType"
+  },
+  "symptomsIntensityLabel": "Intensidad",
+  "@symptomsIntensityLabel": {
+    "description": "Etiqueta de la escala de intensidad"
+  },
+  "symptomsIntensityMin": "Leve",
+  "@symptomsIntensityMin": {
+    "description": "Extremo inferior de la escala, valor 1"
+  },
+  "symptomsIntensityMax": "Muy intenso",
+  "@symptomsIntensityMax": {
+    "description": "Extremo superior de la escala, valor 100"
+  },
+  "symptomsSubmit": "Registrar sintoma",
+  "@symptomsSubmit": {
+    "description": "Boton de envio"
+  },
+  "symptomsRegistered": "Sintoma registrado",
+  "@symptomsRegistered": {
+    "description": "Confirmacion cuando el servidor lo acepto"
+  },
+  "symptomsQueuedOffline": "Sintoma guardado. Se enviara cuando vuelva la conexion.",
+  "@symptomsQueuedOffline": {
+    "description": "Confirmacion cuando quedo en la cola local"
+  },
+  "symptomsRegisterAnother": "Registrar otro",
+  "@symptomsRegisterAnother": {
+    "description": "Accion para vaciar el formulario"
+  },
+  "symptomsMealAssociated": "Lo asociamos con la comida que registraste antes.",
+  "@symptomsMealAssociated": {
+    "description": "CA01: el servidor encontro una comida en la ventana de 4 horas"
+  },
+  "symptomsMealNotAssociated": "No habia una comida registrada en las 4 horas previas.",
+  "@symptomsMealNotAssociated": {
+    "description": "CA02: el servidor respondio hasMealAssociation en false. No es un error"
+  },
+  "symptomsMealPending": "La relacion con tus comidas se calcula al sincronizar.",
+  "@symptomsMealPending": {
+    "description": "Sin conexion: la ventana de 4 horas la resuelve el servidor, no el cliente"
+  },
+  "symptomsIssueMissingType": "Elige que sentiste",
+  "@symptomsIssueMissingType": {
+    "description": "Falta SymptomType"
+  },
+  "symptomsIssueMissingIntensity": "Indica la intensidad",
+  "@symptomsIssueMissingIntensity": {
+    "description": "Falta mover la escala"
+  },
+  "symptomsIssueIntensityOutOfRange": "La intensidad va de 1 a 100",
+  "@symptomsIssueIntensityOutOfRange": {
+    "description": "Invariante Symptom.MinIntensity del backend"
+  },
+  "symptomsIssueFutureOccurredAt": "El momento no puede estar en el futuro",
+  "@symptomsIssueFutureOccurredAt": {
+    "description": "Invariante de fecha de Symptom.Report"
+  },
+  "symptomTypeAbdominalPain": "Dolor abdominal",
+  "@symptomTypeAbdominalPain": {
+    "description": "SymptomType AbdominalPain"
+  },
+  "symptomTypeBloating": "Distension abdominal",
+  "@symptomTypeBloating": {
+    "description": "SymptomType Bloating"
+  },
+  "symptomTypeFlatulence": "Flatulencia",
+  "@symptomTypeFlatulence": {
+    "description": "SymptomType Flatulence"
+  },
+  "symptomTypeDiarrhea": "Diarrea",
+  "@symptomTypeDiarrhea": {
+    "description": "SymptomType Diarrhea"
+  },
+  "symptomTypeConstipation": "Estrenimiento",
+  "@symptomTypeConstipation": {
+    "description": "SymptomType Constipation"
+  },
+  "symptomTypeNausea": "Nauseas",
+  "@symptomTypeNausea": {
+    "description": "SymptomType Nausea"
+  },
+  "symptomTypeReflux": "Reflujo o acidez",
+  "@symptomTypeReflux": {
+    "description": "SymptomType Reflux"
+  },
+  "symptomTypeUrgency": "Urgencia para evacuar",
+  "@symptomTypeUrgency": {
+    "description": "SymptomType Urgency"
+  },
+  "symptomTypeOther": "Otro",
+  "@symptomTypeOther": {
+    "description": "SymptomType Other"
+  },
+  "historyTitle": "Mi registro",
+  "@historyTitle": {
+    "description": "Titulo de la pantalla de historial"
+  },
+  "historyEmpty": "Todavia no registraste nada",
+  "@historyEmpty": {
+    "description": "Historial vacio"
+  },
+  "historyMealIntensity": "Intensidad {value} de 100",
+  "@historyMealIntensity": {
+    "description": "Intensidad de un sintoma en el historial",
+    "placeholders": {
+      "value": {
+        "type": "int",
+        "example": "40"
+      }
+    }
+  },
+  "historyStatePending": "Pendiente de enviar",
+  "@historyStatePending": {
+    "description": "Fila local con sync_status pending"
+  },
+  "historyStateFailed": "No se pudo enviar",
+  "@historyStateFailed": {
+    "description": "Fila local con sync_status failed, estado terminal"
+  },
+  "historyFailedExplanation": "Este registro no se pudo enviar y no va a reintentarse. Puedes descartarlo.",
+  "@historyFailedExplanation": {
+    "description": "Explicacion del estado terminal, con su salida"
+  },
+  "historyDiscard": "Descartar",
+  "@historyDiscard": {
+    "description": "Accion que borra una fila local rechazada"
+  },
+  "historyAddNote": "Agregar nota",
+  "@historyAddNote": {
+    "description": "Accion que abre el formulario de nota de contexto (US13)"
+  },
+  "historyNoteUnavailable": "Disponible cuando se sincronice",
+  "@historyNoteUnavailable": {
+    "description": "Por que no se puede adjuntar una nota: CreateClinicalNoteRequest exige un id del servidor"
+  },
+  "historyMealAssociated": "Asociado a una comida",
+  "@historyMealAssociated": {
+    "description": "El servidor vinculo el sintoma con una comida en la ventana de 4 horas"
+  },
+  "historyRefresh": "Actualizar",
+  "@historyRefresh": {
+    "description": "Accion que relee el historial"
+  },
+  "clinicalNoteTitle": "Agregar nota",
+  "@clinicalNoteTitle": {
+    "description": "Titulo de la pantalla de nota de contexto (US13)"
+  },
+  "clinicalNoteSubtitle": "Anota lo que quieras recordar sobre este registro. Tu nutricionista lo vera junto al dato.",
+  "@clinicalNoteSubtitle": {
+    "description": "Bajada de la pantalla de nota"
+  },
+  "clinicalNoteContentLabel": "Nota",
+  "@clinicalNoteContentLabel": {
+    "description": "Campo de texto de la nota"
+  },
+  "clinicalNoteContentHint": "Por ejemplo: comi apurado, en la calle",
+  "@clinicalNoteContentHint": {
+    "description": "Placeholder del campo de nota"
+  },
+  "clinicalNoteRemaining": "Quedan {count} caracteres",
+  "@clinicalNoteRemaining": {
+    "description": "Contador visible de CA02. Se vuelve negativo si el paciente pasa el tope",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "420"
+      }
+    }
+  },
+  "clinicalNoteTooLong": "La nota no puede superar los 500 caracteres",
+  "@clinicalNoteTooLong": {
+    "description": "CA02: el texto supera el tope de ClinicalNote.Create"
+  },
+  "clinicalNoteSubmit": "Guardar nota",
+  "@clinicalNoteSubmit": {
+    "description": "Boton de envio"
+  },
+  "clinicalNoteSaved": "Nota guardada",
+  "@clinicalNoteSaved": {
+    "description": "Confirmacion de creacion"
+  },
+  "ibsSssPeriodicTitle": "Cuestionario de seguimiento",
+  "@ibsSssPeriodicTitle": {
+    "description": "Titulo de la evaluacion IBS-SSS periodica (US12)"
+  },
+  "ibsSssPeriodicSubtitle": "Responde las cinco preguntas pensando en los ultimos diez dias.",
+  "@ibsSssPeriodicSubtitle": {
+    "description": "Bajada del cuestionario periodico. Mismo instrumento que la linea base"
+  },
+  "ibsSssPeriodicSubmit": "Enviar cuestionario",
+  "@ibsSssPeriodicSubmit": {
+    "description": "Boton de envio del cuestionario periodico"
+  },
+  "ibsSssEvolutionTitle": "Tu evolucion",
+  "@ibsSssEvolutionTitle": {
+    "description": "Encabezado del grafico de evolucion (CA03)"
+  },
+  "ibsSssEvolutionEmpty": "Con una sola evaluacion todavia no hay evolucion que mostrar.",
+  "@ibsSssEvolutionEmpty": {
+    "description": "Menos de dos puntos: no hay linea que trazar"
+  },
+  "ibsSssEvolutionRange": "De {first} a {last} puntos",
+  "@ibsSssEvolutionRange": {
+    "description": "Extremos de la serie, en texto, porque el grafico no dibuja escala",
+    "placeholders": {
+      "first": {
+        "type": "int",
+        "example": "220"
+      },
+      "last": {
+        "type": "int",
+        "example": "160"
+      }
+    }
+  },
+  "ibsSssEvolutionDelta": "{value} puntos respecto de tu linea base",
+  "@ibsSssEvolutionDelta": {
+    "description": "Diferencia contra la linea base. Negativo es mejoria",
+    "placeholders": {
+      "value": {
+        "type": "int",
+        "example": "-60"
+      }
+    }
+  },
+  "ibsSssEvolutionImprovement": "Es una reduccion de 50 puntos o mas respecto de tu linea base. Tu nutricionista lo interpretara contigo.",
+  "@ibsSssEvolutionImprovement": {
+    "description": "MCID del IBS-SSS. Se enuncia como dato, no como felicitacion"
+  },
+  "ibsSssReminderTitle": "Toca tu cuestionario de seguimiento",
+  "@ibsSssReminderTitle": {
+    "description": "Titulo del aviso de la home cuando vencio el ciclo (CA01)"
+  },
+  "ibsSssReminderBody": "Pasaron los catorce dias desde tu ultima evaluacion.",
+  "@ibsSssReminderBody": {
+    "description": "Cuerpo del aviso de la home"
+  },
+  "ibsSssReminderAction": "Responder ahora",
+  "@ibsSssReminderAction": {
+    "description": "Accion del aviso que lleva al cuestionario"
+  },
+  "errorFoodItemNotFound": "Ese alimento ya no está disponible en el catálogo",
+  "@errorFoodItemNotFound": {
+    "description": "errorCode food_item_not_found (404). Alcanzable desde la caja local del catalogo, que puede sobrevivir a la desactivacion del alimento en el servidor"
+  },
+  "errorCustomFoodNotFound": "No encontramos ese plato personalizado",
+  "@errorCustomFoodNotFound": {
+    "description": "errorCode custom_food_not_found (404)"
+  },
+  "errorDuplicateCustomFood": "Ya tienes un plato con ese nombre",
+  "@errorDuplicateCustomFood": {
+    "description": "errorCode duplicate_custom_food (409). El constructor valida contra la lista ya cargada, asi que esto llega cuando la lista local quedo vieja"
+  },
+  "errorCustomFoodInUse": "No puedes eliminar este plato porque ya lo usaste en una comida registrada",
+  "@errorCustomFoodInUse": {
+    "description": "errorCode custom_food_in_use (409)"
+  },
+  "errorDuplicateIngredient": "Ese ingrediente ya está en el plato",
+  "@errorDuplicateIngredient": {
+    "description": "errorCode duplicate_ingredient (409). La UI lo impide sumando proporciones en vez de repetir la fila"
+  },
+  "errorIngredientNotFound": "Ese ingrediente ya no está en el plato",
+  "@errorIngredientNotFound": {
+    "description": "errorCode ingredient_not_found (404)"
+  },
+  "errorUnconfirmedAllergens": "Este plato contiene ingredientes que coinciden con tus alergias declaradas",
+  "@errorUnconfirmedAllergens": {
+    "description": "errorCode unconfirmed_allergens (409), US10 CA03. Encabezado del flujo de confirmacion, no un error terminal: el detalle por ingrediente lo pinta la pantalla desde la extension allergens"
+  },
+  "errorInvalidMealRegistration": "No pudimos registrar la comida. Revisa los datos e intenta de nuevo.",
+  "@errorInvalidMealRegistration": {
+    "description": "errorCode invalid_meal_registration (400). Lo lanza la entidad de dominio del backend y no FluentValidation, asi que no trae errores por campo"
+  },
+  "errorMealNotFound": "No encontramos esa comida registrada",
+  "@errorMealNotFound": {
+    "description": "errorCode meal_not_found (404)"
+  },
+  "errorSymptomNotFound": "No encontramos ese síntoma registrado",
+  "@errorSymptomNotFound": {
+    "description": "errorCode symptom_not_found (404)"
+  },
+  "errorClinicalNoteNotFound": "No encontramos esa nota",
+  "@errorClinicalNoteNotFound": {
+    "description": "errorCode clinical_note_not_found (404)"
+  },
+  "errorInvalidClinicalNoteAssociation": "Una nota se asocia a una comida o a un síntoma, no a los dos",
+  "@errorInvalidClinicalNoteAssociation": {
+    "description": "errorCode invalid_clinical_note_association (400)"
+  },
+  "errorIdempotencyMismatch": "Hubo un conflicto al guardar este registro. Intenta de nuevo.",
+  "@errorIdempotencyMismatch": {
+    "description": "errorCode idempotency_mismatch (409). Señala un bug del cliente, no una accion del paciente: el reintento debe repetir el mismo client_guid intacto"
+  },
+  "errorDomainRuleViolation": "No pudimos completar la operación. Revisa los datos e intenta de nuevo.",
+  "@errorDomainRuleViolation": {
+    "description": "errorCode domain_rule_violation (400). Caso general de DomainException para las reglas sin errorCode propio"
+  },
   "errorDuplicateEmail": "Ya existe una cuenta con este correo",
   "@errorDuplicateEmail": {
     "description": "errorCode duplicate_email (409)"
