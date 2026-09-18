@@ -1,5 +1,5 @@
 import '../../../../l10n/generated/app_localizations.dart';
-import '../../../ibs_sss/domain/ibs_sss_baseline.dart';
+import '../../../ibs_sss/domain/ibs_sss_assessment.dart';
 import '../../../patients/domain/allergy.dart';
 import '../../../patients/domain/patient_profile.dart';
 

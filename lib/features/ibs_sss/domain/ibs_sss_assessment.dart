@@ -1,7 +1,7 @@
 import 'package:cauce_api_client/cauce_api_client.dart' as api;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'ibs_sss_baseline.freezed.dart';
+part 'ibs_sss_assessment.freezed.dart';
 
 /// Las cinco dimensiones del cuestionario IBS-SSS.
 ///
@@ -65,12 +65,12 @@ abstract final class IbsSssScale {
 /// del dispositivo: el backend no acepta evaluaciones parciales y enviar una a
 /// medias consumiria la unica linea base que el paciente puede registrar.
 @freezed
-abstract class IbsSssBaselineAnswers with _$IbsSssBaselineAnswers {
-  const factory IbsSssBaselineAnswers({
+abstract class IbsSssAnswers with _$IbsSssAnswers {
+  const factory IbsSssAnswers({
     @Default(<IbsSssDimension, int>{}) Map<IbsSssDimension, int> values,
-  }) = _IbsSssBaselineAnswers;
+  }) = _IbsSssAnswers;
 
-  const IbsSssBaselineAnswers._();
+  const IbsSssAnswers._();
 
   /// Respuesta de una dimension, o `null` si todavia no se respondio.
   int? valueFor(IbsSssDimension dimension) => values[dimension];
@@ -89,7 +89,7 @@ abstract class IbsSssBaselineAnswers with _$IbsSssBaselineAnswers {
   /// silencio: un valor fuera de rango solo puede venir de un error de
   /// programacion, porque el control de la UI ya esta acotado, y enmascararlo
   /// guardaria un dato clinico que el paciente no eligio.
-  IbsSssBaselineAnswers withAnswer(IbsSssDimension dimension, int value) {
+  IbsSssAnswers withAnswer(IbsSssDimension dimension, int value) {
     if (!IbsSssScale.isValidDimension(value)) {
       throw ArgumentError.value(
         value,
@@ -106,8 +106,8 @@ abstract class IbsSssBaselineAnswers with _$IbsSssBaselineAnswers {
 
 /// Resultado que devuelve el backend al registrar la linea base.
 @freezed
-abstract class IbsSssBaselineResult with _$IbsSssBaselineResult {
-  const factory IbsSssBaselineResult({
+abstract class IbsSssResult with _$IbsSssResult {
+  const factory IbsSssResult({
     required String assessmentId,
 
     /// Suma de las cinco dimensiones, de 0 a 500. La calcula el servidor.
@@ -120,7 +120,99 @@ abstract class IbsSssBaselineResult with _$IbsSssBaselineResult {
     /// Fecha de la proxima evaluacion periodica, a catorce dias. La agenda el
     /// backend y la consume US12, fuera del alcance de este bloque.
     DateTime? nextAssessmentDate,
-  }) = _IbsSssBaselineResult;
+  }) = _IbsSssResult;
 
-  const IbsSssBaselineResult._();
+  const IbsSssResult._();
+}
+
+/// Tipo de evaluacion, tal como lo declara el contrato.
+///
+/// El mismo endpoint atiende las dos: la linea base del onboarding (US04) y las
+/// periodicas de cada catorce dias (US12).
+enum IbsSssAssessmentType {
+  baseline,
+  periodic;
+
+  api.AssessmentType toApi() => switch (this) {
+        IbsSssAssessmentType.baseline => api.AssessmentType.baseline,
+        IbsSssAssessmentType.periodic => api.AssessmentType.periodic,
+      };
+
+  static IbsSssAssessmentType? fromApi(api.AssessmentType? value) {
+    return switch (value) {
+      api.AssessmentType.baseline => IbsSssAssessmentType.baseline,
+      api.AssessmentType.periodic => IbsSssAssessmentType.periodic,
+      _ => null,
+    };
+  }
+}
+
+/// Una evaluacion ya registrada, tal como la devuelve el servidor.
+@freezed
+abstract class IbsSssAssessmentSummaryData with _$IbsSssAssessmentSummaryData {
+  const factory IbsSssAssessmentSummaryData({
+    required String assessmentId,
+    required int totalScore,
+    required IbsSssAssessmentType assessmentType,
+    @Default(0) int cycleNumber,
+    IbsSssSeverity? severity,
+    DateTime? completedAt,
+
+    /// Vencimiento del proximo ciclo, a catorce dias. Lo agenda el backend.
+    DateTime? nextAssessmentDate,
+  }) = _IbsSssAssessmentSummaryData;
+
+  const IbsSssAssessmentSummaryData._();
+
+  /// `true` si el ciclo ya vencio y corresponde responder de nuevo (CA01).
+  ///
+  /// Sin `nextAssessmentDate` no se puede afirmar que venza nada: el aviso no
+  /// aparece en vez de aparecer por las dudas.
+  bool isDue({DateTime? now}) {
+    final due = nextAssessmentDate;
+    if (due == null) {
+      return false;
+    }
+    return !(now ?? DateTime.now()).toUtc().isBefore(due.toUtc());
+  }
+}
+
+/// Un punto de la serie de evolucion (CA03).
+@freezed
+abstract class IbsSssEvolutionPoint with _$IbsSssEvolutionPoint {
+  const factory IbsSssEvolutionPoint({
+    required String assessmentId,
+    required int totalScore,
+    required IbsSssAssessmentType assessmentType,
+    @Default(0) int cycleNumber,
+    IbsSssSeverity? severity,
+    DateTime? completedAt,
+
+    /// Diferencia contra la linea base.
+    ///
+    /// **Negativo significa mejoria**: el backend lo calcula como
+    /// `TotalScore - baseline.TotalScore` (`IbsSssAssessment.CompareTotalScoreTo`,
+    /// con su test `CompareTotalScoreTo_Improvement_ReturnsNegative` asertando
+    /// `-50`). Llega `null` para la propia linea base y cuando no hay ninguna.
+    int? deltaFromBaseline,
+  }) = _IbsSssEvolutionPoint;
+
+  const IbsSssEvolutionPoint._();
+
+  /// Reduccion minima clinicamente significativa del IBS-SSS: 50 puntos.
+  ///
+  /// El backend tiene la regla en `IsClinicallySignificantImprovement`, pero el
+  /// contrato **no la expone**, asi que el umbral queda escrito tambien aca. Es
+  /// clinicamente estable, de modo que el riesgo es bajo; el dia que se exponga
+  /// corresponde borrar esta constante y usar la del servidor.
+  static const int minimalClinicallyImportantDifference = 50;
+
+  /// `true` si esta evaluacion mejora la linea base de forma significativa.
+  ///
+  /// Como el delta es negativo cuando baja el puntaje, la comparacion va con
+  /// `<= -50` y no con `>= 50`.
+  bool get isClinicallySignificantImprovement {
+    final delta = deltaFromBaseline;
+    return delta != null && delta <= -minimalClinicallyImportantDifference;
+  }
 }

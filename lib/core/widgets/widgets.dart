@@ -11,4 +11,5 @@ export 'cauce_error_banner.dart';
 export 'cauce_loading_indicator.dart';
 export 'cauce_scaffold.dart';
 export 'cauce_slider.dart';
+export 'cauce_sparkline.dart';
 export 'cauce_text_field.dart';

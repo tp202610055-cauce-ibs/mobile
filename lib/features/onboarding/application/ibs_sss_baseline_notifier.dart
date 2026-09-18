@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/errors/cauce_api_error.dart';
 import '../../ibs_sss/data/ibs_sss_repository.dart';
-import '../../ibs_sss/domain/ibs_sss_baseline.dart';
+import '../../ibs_sss/domain/ibs_sss_assessment.dart';
 import 'onboarding_notifier.dart';
 
 part 'ibs_sss_baseline_notifier.freezed.dart';
@@ -18,11 +18,11 @@ part 'ibs_sss_baseline_notifier.g.dart';
 @freezed
 sealed class IbsSssBaselineState with _$IbsSssBaselineState {
   const factory IbsSssBaselineState({
-    @Default(IbsSssBaselineAnswers()) IbsSssBaselineAnswers answers,
+    @Default(IbsSssAnswers()) IbsSssAnswers answers,
     @Default(false) bool submitting,
 
     /// Resultado devuelto por el servidor, disponible recien tras el envio.
-    IbsSssBaselineResult? result,
+    IbsSssResult? result,
     CauceApiError? error,
   }) = _IbsSssBaselineState;
 
