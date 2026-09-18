@@ -71,6 +71,7 @@ class CapturedRequest {
     required this.path,
     required this.body,
     required this.headers,
+    this.queryParameters = const <String, dynamic>{},
   });
 
   final String method;
@@ -81,6 +82,13 @@ class CapturedRequest {
   final Map<String, dynamic> body;
 
   final Map<String, dynamic> headers;
+
+  /// Parametros de consulta que el cliente generado puso en la URL.
+  ///
+  /// Importan mas de lo que parece en los historiales: `GET /meals` y
+  /// `GET /symptoms` declaran `from` y `to` como opcionales, pero el
+  /// controlador los recibe no nullable y omitirlos devuelve cero resultados.
+  final Map<String, dynamic> queryParameters;
 }
 
 /// Adapter de dio que responde con lo preparado y registra lo recibido.
@@ -156,6 +164,7 @@ class CannedHttpAdapter implements HttpClientAdapter {
         path: options.path,
         body: _decodeBody(options.data),
         headers: options.headers,
+        queryParameters: options.queryParameters,
       ),
     );
 

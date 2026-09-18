@@ -632,6 +632,846 @@ abstract class AppLocalizations {
   /// **'Tu cuestionario de línea base ya está registrado'**
   String get errorDuplicateBaselineAssessment;
 
+  /// Titulo de la pantalla de registro de comida (US09)
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar comida'**
+  String get mealsTitle;
+
+  /// Accion que abre el buscador del catalogo
+  ///
+  /// In es, this message translates to:
+  /// **'Agregar alimento'**
+  String get mealsAddFood;
+
+  /// Titulo del modal de busqueda
+  ///
+  /// In es, this message translates to:
+  /// **'Buscar alimento'**
+  String get mealsSearchTitle;
+
+  /// Placeholder del campo de busqueda
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe el nombre del alimento'**
+  String get mealsSearchHint;
+
+  /// Busqueda local sin coincidencias
+  ///
+  /// In es, this message translates to:
+  /// **'No encontramos alimentos con ese nombre'**
+  String get mealsSearchNoResults;
+
+  /// Seccion frequentLast30Days de GET /foods/suggestions
+  ///
+  /// In es, this message translates to:
+  /// **'Los que mas registras'**
+  String get mealsSuggestionsFrequent;
+
+  /// Seccion recentLast24Hours de GET /foods/suggestions
+  ///
+  /// In es, this message translates to:
+  /// **'Registrados hoy'**
+  String get mealsSuggestionsRecent;
+
+  /// Seccion catalogSuggestions de GET /foods/suggestions
+  ///
+  /// In es, this message translates to:
+  /// **'Del catalogo'**
+  String get mealsSuggestionsCatalog;
+
+  /// Etiqueta del campo de cantidad
+  ///
+  /// In es, this message translates to:
+  /// **'Cantidad'**
+  String get mealsQuantityLabel;
+
+  /// Etiqueta del selector de unidad
+  ///
+  /// In es, this message translates to:
+  /// **'Unidad'**
+  String get mealsUnitLabel;
+
+  /// Etiqueta del selector de MealTime
+  ///
+  /// In es, this message translates to:
+  /// **'Momento del dia'**
+  String get mealsTimeLabel;
+
+  /// Encabezado de la lista de items
+  ///
+  /// In es, this message translates to:
+  /// **'Alimentos de esta comida'**
+  String get mealsItemsLabel;
+
+  /// Lista de items vacia
+  ///
+  /// In es, this message translates to:
+  /// **'Todavia no agregaste ningun alimento'**
+  String get mealsItemsEmpty;
+
+  /// Accion que saca un alimento de la comida
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar'**
+  String get mealsRemoveItem;
+
+  /// Boton de envio del formulario
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar comida'**
+  String get mealsSubmit;
+
+  /// Confirmacion cuando el servidor la acepto
+  ///
+  /// In es, this message translates to:
+  /// **'Comida registrada'**
+  String get mealsRegistered;
+
+  /// Confirmacion de CA02: el registro quedo en la cola local (CP023)
+  ///
+  /// In es, this message translates to:
+  /// **'Comida guardada. Se enviara cuando vuelva la conexion.'**
+  String get mealsQueuedOffline;
+
+  /// Accion para vaciar el formulario y anotar otra comida
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar otra'**
+  String get mealsRegisterAnother;
+
+  /// CA04: falta MealTime
+  ///
+  /// In es, this message translates to:
+  /// **'Elige el momento del dia'**
+  String get mealsIssueMissingMealTime;
+
+  /// CA04: la comida no tiene items
+  ///
+  /// In es, this message translates to:
+  /// **'Agrega al menos un alimento'**
+  String get mealsIssueNoItems;
+
+  /// Tope de Meal.Register
+  ///
+  /// In es, this message translates to:
+  /// **'Una comida admite hasta 50 alimentos'**
+  String get mealsIssueTooManyItems;
+
+  /// CA04: cantidad invalida
+  ///
+  /// In es, this message translates to:
+  /// **'La cantidad debe ser mayor que cero'**
+  String get mealsIssueInvalidQuantity;
+
+  /// Invariante XOR de Meal.Register
+  ///
+  /// In es, this message translates to:
+  /// **'Cada alimento debe venir del catalogo o de tus platos'**
+  String get mealsIssueInvalidReference;
+
+  /// Invariante de fecha de Meal.Register
+  ///
+  /// In es, this message translates to:
+  /// **'La fecha de consumo no puede estar en el futuro'**
+  String get mealsIssueFutureConsumedAt;
+
+  /// FodmapLevel Low de la comida agregada
+  ///
+  /// In es, this message translates to:
+  /// **'Carga FODMAP baja'**
+  String get mealsFodmapLow;
+
+  /// FodmapLevel Moderate
+  ///
+  /// In es, this message translates to:
+  /// **'Carga FODMAP moderada'**
+  String get mealsFodmapModerate;
+
+  /// FodmapLevel High
+  ///
+  /// In es, this message translates to:
+  /// **'Carga FODMAP alta'**
+  String get mealsFodmapHigh;
+
+  /// MealTime Breakfast
+  ///
+  /// In es, this message translates to:
+  /// **'Desayuno'**
+  String get mealTimeBreakfast;
+
+  /// MealTime Lunch
+  ///
+  /// In es, this message translates to:
+  /// **'Almuerzo'**
+  String get mealTimeLunch;
+
+  /// MealTime Dinner
+  ///
+  /// In es, this message translates to:
+  /// **'Cena'**
+  String get mealTimeDinner;
+
+  /// MealTime Snack
+  ///
+  /// In es, this message translates to:
+  /// **'Refrigerio'**
+  String get mealTimeSnack;
+
+  /// MeasurementUnit Grams
+  ///
+  /// In es, this message translates to:
+  /// **'Gramos'**
+  String get measurementUnitGrams;
+
+  /// MeasurementUnit Cups
+  ///
+  /// In es, this message translates to:
+  /// **'Tazas'**
+  String get measurementUnitCups;
+
+  /// MeasurementUnit Units
+  ///
+  /// In es, this message translates to:
+  /// **'Unidades'**
+  String get measurementUnitUnits;
+
+  /// MeasurementUnit Ounces
+  ///
+  /// In es, this message translates to:
+  /// **'Onzas'**
+  String get measurementUnitOunces;
+
+  /// MeasurementUnit Tablespoons
+  ///
+  /// In es, this message translates to:
+  /// **'Cucharadas'**
+  String get measurementUnitTablespoons;
+
+  /// Titulo de la pantalla del constructor de platos (US10)
+  ///
+  /// In es, this message translates to:
+  /// **'Crear plato personalizado'**
+  String get customFoodTitle;
+
+  /// Campo de nombre
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre del plato'**
+  String get customFoodNameLabel;
+
+  /// Placeholder del nombre
+  ///
+  /// In es, this message translates to:
+  /// **'Por ejemplo: Mi lomo saltado'**
+  String get customFoodNameHint;
+
+  /// Campo de portionSizeGrams
+  ///
+  /// In es, this message translates to:
+  /// **'Tamano de porcion (g)'**
+  String get customFoodPortionLabel;
+
+  /// Encabezado de la lista de ingredientes
+  ///
+  /// In es, this message translates to:
+  /// **'Ingredientes'**
+  String get customFoodIngredientsLabel;
+
+  /// Lista de ingredientes vacia
+  ///
+  /// In es, this message translates to:
+  /// **'Todavia no agregaste ingredientes'**
+  String get customFoodIngredientsEmpty;
+
+  /// Accion que abre el buscador del catalogo
+  ///
+  /// In es, this message translates to:
+  /// **'Agregar ingrediente'**
+  String get customFoodAddIngredient;
+
+  /// Campo de proportionGrams de un ingrediente
+  ///
+  /// In es, this message translates to:
+  /// **'Cantidad en el plato (g)'**
+  String get customFoodProportionLabel;
+
+  /// Boton de envio
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar plato'**
+  String get customFoodSubmit;
+
+  /// Confirmacion de creacion
+  ///
+  /// In es, this message translates to:
+  /// **'Plato guardado'**
+  String get customFoodCreated;
+
+  /// Diferencia entre la suma de proporciones y portionSizeGrams. Informativa: el backend no la valida
+  ///
+  /// In es, this message translates to:
+  /// **'Los ingredientes suman {grams} g mas que la porcion declarada'**
+  String customFoodWeightDelta(String grams);
+
+  /// Misma diferencia, cuando los ingredientes pesan menos
+  ///
+  /// In es, this message translates to:
+  /// **'Los ingredientes suman {grams} g menos que la porcion declarada'**
+  String customFoodWeightDeltaShort(String grams);
+
+  /// Encabezado de la vista previa de CA01
+  ///
+  /// In es, this message translates to:
+  /// **'Perfil nutricional estimado'**
+  String get customFoodEstimateTitle;
+
+  /// Aclaracion de CA01: el calculo es del cliente y el contrato no lo persiste
+  ///
+  /// In es, this message translates to:
+  /// **'Es una estimacion por 100 g a partir de los ingredientes. No se guarda con el plato.'**
+  String get customFoodEstimateNote;
+
+  /// Aviso cuando algun ingrediente no tiene FoodItemDetail
+  ///
+  /// In es, this message translates to:
+  /// **'Falta la composicion de algun ingrediente, asi que la estimacion es parcial.'**
+  String get customFoodEstimatePartial;
+
+  /// Calorias por 100 g
+  ///
+  /// In es, this message translates to:
+  /// **'{value} kcal'**
+  String customFoodEstimateCalories(String value);
+
+  /// Proteina por 100 g
+  ///
+  /// In es, this message translates to:
+  /// **'Proteina {value} g'**
+  String customFoodEstimateProtein(String value);
+
+  /// Carbohidratos por 100 g
+  ///
+  /// In es, this message translates to:
+  /// **'Carbohidratos {value} g'**
+  String customFoodEstimateCarbs(String value);
+
+  /// Grasa por 100 g
+  ///
+  /// In es, this message translates to:
+  /// **'Grasa {value} g'**
+  String customFoodEstimateFat(String value);
+
+  /// Fibra por 100 g
+  ///
+  /// In es, this message translates to:
+  /// **'Fibra {value} g'**
+  String customFoodEstimateFiber(String value);
+
+  /// Invariante de CustomFood.EnsureValidName
+  ///
+  /// In es, this message translates to:
+  /// **'Ponle un nombre de hasta 150 caracteres'**
+  String get customFoodIssueInvalidName;
+
+  /// CA02: validacion instantanea contra la lista ya cargada
+  ///
+  /// In es, this message translates to:
+  /// **'Ya tienes un plato con ese nombre'**
+  String get customFoodIssueDuplicateName;
+
+  /// Invariante de portionSizeGrams
+  ///
+  /// In es, this message translates to:
+  /// **'La porcion debe ser mayor que cero'**
+  String get customFoodIssueInvalidPortion;
+
+  /// Plato sin ingredientes
+  ///
+  /// In es, this message translates to:
+  /// **'Agrega al menos un ingrediente'**
+  String get customFoodIssueNoIngredients;
+
+  /// Invariante de CustomFoodIngredient
+  ///
+  /// In es, this message translates to:
+  /// **'Cada ingrediente debe tener una cantidad mayor que cero'**
+  String get customFoodIssueInvalidProportion;
+
+  /// Invariante de CustomFood.AddIngredient
+  ///
+  /// In es, this message translates to:
+  /// **'Un ingrediente aparece dos veces'**
+  String get customFoodIssueDuplicateIngredient;
+
+  /// Titulo de la advertencia de alergenos (CA03, CP027)
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa estos ingredientes'**
+  String get customFoodAllergenTitle;
+
+  /// Cuerpo de la advertencia de alergenos
+  ///
+  /// In es, this message translates to:
+  /// **'Estos ingredientes coinciden con alergias que declaraste en tu perfil.'**
+  String get customFoodAllergenBody;
+
+  /// Una coincidencia ingrediente-alergeno
+  ///
+  /// In es, this message translates to:
+  /// **'{ingredient} coincide con {allergen}'**
+  String customFoodAllergenEntry(String ingredient, String allergen);
+
+  /// Severidad Mild de la alergia declarada
+  ///
+  /// In es, this message translates to:
+  /// **'Declarada como leve'**
+  String get customFoodAllergenSeverityMild;
+
+  /// Severidad Moderate
+  ///
+  /// In es, this message translates to:
+  /// **'Declarada como moderada'**
+  String get customFoodAllergenSeverityModerate;
+
+  /// Severidad Severe
+  ///
+  /// In es, this message translates to:
+  /// **'Declarada como severa'**
+  String get customFoodAllergenSeveritySevere;
+
+  /// El servidor mando una severidad que el cliente no reconoce. No se inventa un valor
+  ///
+  /// In es, this message translates to:
+  /// **'Severidad no informada'**
+  String get customFoodAllergenSeverityUnknown;
+
+  /// Confirmacion explicita que reenvia con confirmedAllergens en true
+  ///
+  /// In es, this message translates to:
+  /// **'Entiendo, guardar igual'**
+  String get customFoodAllergenConfirm;
+
+  /// Vuelve al formulario para sacar el ingrediente
+  ///
+  /// In es, this message translates to:
+  /// **'Volver y editar'**
+  String get customFoodAllergenCancel;
+
+  /// Titulo de la pantalla de registro de sintoma (US11)
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar sintoma'**
+  String get symptomsTitle;
+
+  /// Etiqueta del selector de SymptomType
+  ///
+  /// In es, this message translates to:
+  /// **'Que sentiste'**
+  String get symptomsTypeLabel;
+
+  /// Etiqueta de la escala de intensidad
+  ///
+  /// In es, this message translates to:
+  /// **'Intensidad'**
+  String get symptomsIntensityLabel;
+
+  /// Extremo inferior de la escala, valor 1
+  ///
+  /// In es, this message translates to:
+  /// **'Leve'**
+  String get symptomsIntensityMin;
+
+  /// Extremo superior de la escala, valor 100
+  ///
+  /// In es, this message translates to:
+  /// **'Muy intenso'**
+  String get symptomsIntensityMax;
+
+  /// Boton de envio
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar sintoma'**
+  String get symptomsSubmit;
+
+  /// Confirmacion cuando el servidor lo acepto
+  ///
+  /// In es, this message translates to:
+  /// **'Sintoma registrado'**
+  String get symptomsRegistered;
+
+  /// Confirmacion cuando quedo en la cola local
+  ///
+  /// In es, this message translates to:
+  /// **'Sintoma guardado. Se enviara cuando vuelva la conexion.'**
+  String get symptomsQueuedOffline;
+
+  /// Accion para vaciar el formulario
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar otro'**
+  String get symptomsRegisterAnother;
+
+  /// CA01: el servidor encontro una comida en la ventana de 4 horas
+  ///
+  /// In es, this message translates to:
+  /// **'Lo asociamos con la comida que registraste antes.'**
+  String get symptomsMealAssociated;
+
+  /// CA02: el servidor respondio hasMealAssociation en false. No es un error
+  ///
+  /// In es, this message translates to:
+  /// **'No habia una comida registrada en las 4 horas previas.'**
+  String get symptomsMealNotAssociated;
+
+  /// Sin conexion: la ventana de 4 horas la resuelve el servidor, no el cliente
+  ///
+  /// In es, this message translates to:
+  /// **'La relacion con tus comidas se calcula al sincronizar.'**
+  String get symptomsMealPending;
+
+  /// Falta SymptomType
+  ///
+  /// In es, this message translates to:
+  /// **'Elige que sentiste'**
+  String get symptomsIssueMissingType;
+
+  /// Falta mover la escala
+  ///
+  /// In es, this message translates to:
+  /// **'Indica la intensidad'**
+  String get symptomsIssueMissingIntensity;
+
+  /// Invariante Symptom.MinIntensity del backend
+  ///
+  /// In es, this message translates to:
+  /// **'La intensidad va de 1 a 100'**
+  String get symptomsIssueIntensityOutOfRange;
+
+  /// Invariante de fecha de Symptom.Report
+  ///
+  /// In es, this message translates to:
+  /// **'El momento no puede estar en el futuro'**
+  String get symptomsIssueFutureOccurredAt;
+
+  /// SymptomType AbdominalPain
+  ///
+  /// In es, this message translates to:
+  /// **'Dolor abdominal'**
+  String get symptomTypeAbdominalPain;
+
+  /// SymptomType Bloating
+  ///
+  /// In es, this message translates to:
+  /// **'Distension abdominal'**
+  String get symptomTypeBloating;
+
+  /// SymptomType Flatulence
+  ///
+  /// In es, this message translates to:
+  /// **'Flatulencia'**
+  String get symptomTypeFlatulence;
+
+  /// SymptomType Diarrhea
+  ///
+  /// In es, this message translates to:
+  /// **'Diarrea'**
+  String get symptomTypeDiarrhea;
+
+  /// SymptomType Constipation
+  ///
+  /// In es, this message translates to:
+  /// **'Estrenimiento'**
+  String get symptomTypeConstipation;
+
+  /// SymptomType Nausea
+  ///
+  /// In es, this message translates to:
+  /// **'Nauseas'**
+  String get symptomTypeNausea;
+
+  /// SymptomType Reflux
+  ///
+  /// In es, this message translates to:
+  /// **'Reflujo o acidez'**
+  String get symptomTypeReflux;
+
+  /// SymptomType Urgency
+  ///
+  /// In es, this message translates to:
+  /// **'Urgencia para evacuar'**
+  String get symptomTypeUrgency;
+
+  /// SymptomType Other
+  ///
+  /// In es, this message translates to:
+  /// **'Otro'**
+  String get symptomTypeOther;
+
+  /// Titulo de la pantalla de historial
+  ///
+  /// In es, this message translates to:
+  /// **'Mi registro'**
+  String get historyTitle;
+
+  /// Historial vacio
+  ///
+  /// In es, this message translates to:
+  /// **'Todavia no registraste nada'**
+  String get historyEmpty;
+
+  /// Intensidad de un sintoma en el historial
+  ///
+  /// In es, this message translates to:
+  /// **'Intensidad {value} de 100'**
+  String historyMealIntensity(int value);
+
+  /// Fila local con sync_status pending
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente de enviar'**
+  String get historyStatePending;
+
+  /// Fila local con sync_status failed, estado terminal
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo enviar'**
+  String get historyStateFailed;
+
+  /// Explicacion del estado terminal, con su salida
+  ///
+  /// In es, this message translates to:
+  /// **'Este registro no se pudo enviar y no va a reintentarse. Puedes descartarlo.'**
+  String get historyFailedExplanation;
+
+  /// Accion que borra una fila local rechazada
+  ///
+  /// In es, this message translates to:
+  /// **'Descartar'**
+  String get historyDiscard;
+
+  /// Accion que abre el formulario de nota de contexto (US13)
+  ///
+  /// In es, this message translates to:
+  /// **'Agregar nota'**
+  String get historyAddNote;
+
+  /// Por que no se puede adjuntar una nota: CreateClinicalNoteRequest exige un id del servidor
+  ///
+  /// In es, this message translates to:
+  /// **'Disponible cuando se sincronice'**
+  String get historyNoteUnavailable;
+
+  /// El servidor vinculo el sintoma con una comida en la ventana de 4 horas
+  ///
+  /// In es, this message translates to:
+  /// **'Asociado a una comida'**
+  String get historyMealAssociated;
+
+  /// Accion que relee el historial
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar'**
+  String get historyRefresh;
+
+  /// Titulo de la pantalla de nota de contexto (US13)
+  ///
+  /// In es, this message translates to:
+  /// **'Agregar nota'**
+  String get clinicalNoteTitle;
+
+  /// Bajada de la pantalla de nota
+  ///
+  /// In es, this message translates to:
+  /// **'Anota lo que quieras recordar sobre este registro. Tu nutricionista lo vera junto al dato.'**
+  String get clinicalNoteSubtitle;
+
+  /// Campo de texto de la nota
+  ///
+  /// In es, this message translates to:
+  /// **'Nota'**
+  String get clinicalNoteContentLabel;
+
+  /// Placeholder del campo de nota
+  ///
+  /// In es, this message translates to:
+  /// **'Por ejemplo: comi apurado, en la calle'**
+  String get clinicalNoteContentHint;
+
+  /// Contador visible de CA02. Se vuelve negativo si el paciente pasa el tope
+  ///
+  /// In es, this message translates to:
+  /// **'Quedan {count} caracteres'**
+  String clinicalNoteRemaining(int count);
+
+  /// CA02: el texto supera el tope de ClinicalNote.Create
+  ///
+  /// In es, this message translates to:
+  /// **'La nota no puede superar los 500 caracteres'**
+  String get clinicalNoteTooLong;
+
+  /// Boton de envio
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar nota'**
+  String get clinicalNoteSubmit;
+
+  /// Confirmacion de creacion
+  ///
+  /// In es, this message translates to:
+  /// **'Nota guardada'**
+  String get clinicalNoteSaved;
+
+  /// Titulo de la evaluacion IBS-SSS periodica (US12)
+  ///
+  /// In es, this message translates to:
+  /// **'Cuestionario de seguimiento'**
+  String get ibsSssPeriodicTitle;
+
+  /// Bajada del cuestionario periodico. Mismo instrumento que la linea base
+  ///
+  /// In es, this message translates to:
+  /// **'Responde las cinco preguntas pensando en los ultimos diez dias.'**
+  String get ibsSssPeriodicSubtitle;
+
+  /// Boton de envio del cuestionario periodico
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar cuestionario'**
+  String get ibsSssPeriodicSubmit;
+
+  /// Encabezado del grafico de evolucion (CA03)
+  ///
+  /// In es, this message translates to:
+  /// **'Tu evolucion'**
+  String get ibsSssEvolutionTitle;
+
+  /// Menos de dos puntos: no hay linea que trazar
+  ///
+  /// In es, this message translates to:
+  /// **'Con una sola evaluacion todavia no hay evolucion que mostrar.'**
+  String get ibsSssEvolutionEmpty;
+
+  /// Extremos de la serie, en texto, porque el grafico no dibuja escala
+  ///
+  /// In es, this message translates to:
+  /// **'De {first} a {last} puntos'**
+  String ibsSssEvolutionRange(int first, int last);
+
+  /// Diferencia contra la linea base. Negativo es mejoria
+  ///
+  /// In es, this message translates to:
+  /// **'{value} puntos respecto de tu linea base'**
+  String ibsSssEvolutionDelta(int value);
+
+  /// MCID del IBS-SSS. Se enuncia como dato, no como felicitacion
+  ///
+  /// In es, this message translates to:
+  /// **'Es una reduccion de 50 puntos o mas respecto de tu linea base. Tu nutricionista lo interpretara contigo.'**
+  String get ibsSssEvolutionImprovement;
+
+  /// Titulo del aviso de la home cuando vencio el ciclo (CA01)
+  ///
+  /// In es, this message translates to:
+  /// **'Toca tu cuestionario de seguimiento'**
+  String get ibsSssReminderTitle;
+
+  /// Cuerpo del aviso de la home
+  ///
+  /// In es, this message translates to:
+  /// **'Pasaron los catorce dias desde tu ultima evaluacion.'**
+  String get ibsSssReminderBody;
+
+  /// Accion del aviso que lleva al cuestionario
+  ///
+  /// In es, this message translates to:
+  /// **'Responder ahora'**
+  String get ibsSssReminderAction;
+
+  /// errorCode food_item_not_found (404). Alcanzable desde la caja local del catalogo, que puede sobrevivir a la desactivacion del alimento en el servidor
+  ///
+  /// In es, this message translates to:
+  /// **'Ese alimento ya no está disponible en el catálogo'**
+  String get errorFoodItemNotFound;
+
+  /// errorCode custom_food_not_found (404)
+  ///
+  /// In es, this message translates to:
+  /// **'No encontramos ese plato personalizado'**
+  String get errorCustomFoodNotFound;
+
+  /// errorCode duplicate_custom_food (409). El constructor valida contra la lista ya cargada, asi que esto llega cuando la lista local quedo vieja
+  ///
+  /// In es, this message translates to:
+  /// **'Ya tienes un plato con ese nombre'**
+  String get errorDuplicateCustomFood;
+
+  /// errorCode custom_food_in_use (409)
+  ///
+  /// In es, this message translates to:
+  /// **'No puedes eliminar este plato porque ya lo usaste en una comida registrada'**
+  String get errorCustomFoodInUse;
+
+  /// errorCode duplicate_ingredient (409). La UI lo impide sumando proporciones en vez de repetir la fila
+  ///
+  /// In es, this message translates to:
+  /// **'Ese ingrediente ya está en el plato'**
+  String get errorDuplicateIngredient;
+
+  /// errorCode ingredient_not_found (404)
+  ///
+  /// In es, this message translates to:
+  /// **'Ese ingrediente ya no está en el plato'**
+  String get errorIngredientNotFound;
+
+  /// errorCode unconfirmed_allergens (409), US10 CA03. Encabezado del flujo de confirmacion, no un error terminal: el detalle por ingrediente lo pinta la pantalla desde la extension allergens
+  ///
+  /// In es, this message translates to:
+  /// **'Este plato contiene ingredientes que coinciden con tus alergias declaradas'**
+  String get errorUnconfirmedAllergens;
+
+  /// errorCode invalid_meal_registration (400). Lo lanza la entidad de dominio del backend y no FluentValidation, asi que no trae errores por campo
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos registrar la comida. Revisa los datos e intenta de nuevo.'**
+  String get errorInvalidMealRegistration;
+
+  /// errorCode meal_not_found (404)
+  ///
+  /// In es, this message translates to:
+  /// **'No encontramos esa comida registrada'**
+  String get errorMealNotFound;
+
+  /// errorCode symptom_not_found (404)
+  ///
+  /// In es, this message translates to:
+  /// **'No encontramos ese síntoma registrado'**
+  String get errorSymptomNotFound;
+
+  /// errorCode clinical_note_not_found (404)
+  ///
+  /// In es, this message translates to:
+  /// **'No encontramos esa nota'**
+  String get errorClinicalNoteNotFound;
+
+  /// errorCode invalid_clinical_note_association (400)
+  ///
+  /// In es, this message translates to:
+  /// **'Una nota se asocia a una comida o a un síntoma, no a los dos'**
+  String get errorInvalidClinicalNoteAssociation;
+
+  /// errorCode idempotency_mismatch (409). Señala un bug del cliente, no una accion del paciente: el reintento debe repetir el mismo client_guid intacto
+  ///
+  /// In es, this message translates to:
+  /// **'Hubo un conflicto al guardar este registro. Intenta de nuevo.'**
+  String get errorIdempotencyMismatch;
+
+  /// errorCode domain_rule_violation (400). Caso general de DomainException para las reglas sin errorCode propio
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos completar la operación. Revisa los datos e intenta de nuevo.'**
+  String get errorDomainRuleViolation;
+
   /// errorCode duplicate_email (409)
   ///
   /// In es, this message translates to:

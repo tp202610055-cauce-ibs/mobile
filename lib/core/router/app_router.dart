@@ -5,13 +5,20 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/auth/application/session_notifier.dart';
 import '../../features/auth/presentation/auth_screens.dart';
+import '../../features/custom_foods/presentation/custom_food_form_screen.dart';
+import '../../features/clinical_notes/presentation/clinical_note_form_screen.dart';
+import '../../features/history/domain/history_entry.dart';
+import '../../features/ibs_sss/presentation/periodic_assessment_screen.dart';
+import '../../features/history/presentation/history_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/meals/presentation/meal_form_screen.dart';
 import '../../features/onboarding/application/onboarding_notifier.dart';
 import '../../features/onboarding/presentation/clinical_profile_screen.dart';
 import '../../features/onboarding/presentation/ibs_sss_baseline_screen.dart';
 import '../../features/patients/presentation/privacy_screen.dart';
 import '../../features/patients/presentation/profile_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
+import '../../features/symptoms/presentation/symptom_form_screen.dart';
 import 'app_routes.dart';
 import 'session_guard.dart';
 
@@ -45,6 +52,32 @@ GoRouter appRouter(Ref ref) {
       GoRoute(
         path: AppRoutes.home,
         builder: (_, __) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.mealNew,
+        builder: (_, __) => const MealFormScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.customFoodNew,
+        builder: (_, __) => const CustomFoodFormScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.symptomNew,
+        builder: (_, __) => const SymptomFormScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.history,
+        builder: (_, __) => const HistoryScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.clinicalNoteNew,
+        builder: (_, GoRouterState state) => ClinicalNoteFormScreen(
+          entry: state.extra! as HistoryEntry,
+        ),
+      ),
+      GoRoute(
+        path: AppRoutes.ibsSssPeriodic,
+        builder: (_, __) => const PeriodicAssessmentScreen(),
       ),
       GoRoute(
         path: AppRoutes.profile,
