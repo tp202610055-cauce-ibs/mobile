@@ -548,4 +548,96 @@ void main() {
       expect(find.text('Con predominio de diarrea'), findsOneWidget);
     });
   });
+
+  group('CauceSlider · escala parametrizada (Mobile-3)', () {
+    testWidgets('sin parametros mantiene la escala del instrumento IBS-SSS',
+        (tester) async {
+      // Los defaults son los de siempre: el cuestionario de US04 no cambia una
+      // linea al parametrizar los extremos.
+      await _pump(tester, CauceSlider(value: 50, onChanged: (_) {}));
+
+      final slider = tester.widget<Slider>(find.byType(Slider));
+      expect(slider.min, 0);
+      expect(slider.max, 100);
+      expect(slider.divisions, 100);
+    });
+
+    testWidgets('con min 1 la escala empieza en 1', (tester) async {
+      // La intensidad de un sintoma va de 1 a 100: el backend rechaza el cero
+      // (`Symptom.MinIntensity`, `InclusiveBetween(1, 100)`).
+      await _pump(tester, CauceSlider(value: 40, min: 1, onChanged: (_) {}));
+
+      final slider = tester.widget<Slider>(find.byType(Slider));
+      expect(slider.min, 1);
+      expect(slider.max, 100);
+      // Una division por unidad sobre 99 unidades de recorrido.
+      expect(slider.divisions, 99);
+    });
+
+    testWidgets('nunca entrega un valor por debajo del minimo', (tester) async {
+      int? received;
+      await _pump(
+        tester,
+        CauceSlider(value: 50, min: 1, onChanged: (value) => received = value),
+      );
+
+      // Arrastra al extremo izquierdo.
+      await tester.drag(find.byType(Slider), const Offset(-500, 0));
+      await tester.pump();
+
+      expect(received, isNotNull);
+      expect(received, greaterThanOrEqualTo(1));
+    });
+
+    testWidgets('sin responder, el pulgar arranca en el centro del rango real',
+        (tester) async {
+      await _pump(tester, CauceSlider(value: null, min: 1, onChanged: (_) {}));
+
+      final slider = tester.widget<Slider>(find.byType(Slider));
+      expect(slider.value, (1 + 100) ~/ 2);
+    });
+
+    testWidgets('la semantica anuncia el rango real de la instancia',
+        (tester) async {
+      // Sin esto el lector de pantalla diria 0 a 100 en una escala que empieza
+      // en 1, y mandaria a buscar un valor que no existe.
+      final handle = tester.ensureSemantics();
+      await _pump(
+        tester,
+        CauceSlider(
+          value: 40,
+          min: 1,
+          onChanged: (_) {},
+          semanticLabel: 'Intensidad',
+        ),
+      );
+
+      final semantics = tester.getSemantics(find.byType(Slider));
+      expect(semantics.label, 'Intensidad');
+      expect(semantics.value, '40 de 1 a 100');
+      handle.dispose();
+    });
+
+    testWidgets('en la escala del instrumento la semantica dice 0 a 100',
+        (tester) async {
+      final handle = tester.ensureSemantics();
+      await _pump(
+        tester,
+        CauceSlider(value: 50, onChanged: (_) {}, semanticLabel: 'Dolor'),
+      );
+
+      final semantics = tester.getSemantics(find.byType(Slider));
+      expect(semantics.label, 'Dolor');
+      expect(semantics.value, '50 de 0 a 100');
+      handle.dispose();
+    });
+
+    testWidgets('las etiquetas por defecto muestran los extremos reales',
+        (tester) async {
+      await _pump(tester, CauceSlider(value: 40, min: 1, onChanged: (_) {}));
+
+      expect(find.text('1'), findsOneWidget);
+      expect(find.text('100'), findsOneWidget);
+    });
+  });
 }

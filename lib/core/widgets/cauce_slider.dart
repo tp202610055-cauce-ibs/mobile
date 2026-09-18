@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../theme/design_tokens.dart';
 
-/// Control de escala 0 a 100 del design system.
+/// Control de escala numerica del design system.
 ///
-/// Es el control del cuestionario IBS-SSS (US04), donde las cinco dimensiones
-/// se puntuan sobre una escala analogica visual.
+/// Nacio como el control del cuestionario IBS-SSS (US04), donde las cinco
+/// dimensiones se puntuan de 0 a 100 sobre una escala analogica visual, y Mobile-3
+/// lo reusa para la intensidad de un sintoma (US11).
+///
+/// **Los extremos son parametros desde Mobile-3**, con los mismos valores por
+/// defecto de siempre, de modo que el cuestionario no cambia una linea. El
+/// motivo del cambio es clinico y no estetico: el backend acepta la intensidad
+/// de un sintoma entre **1 y 100** (`Symptom.MinIntensity`,
+/// `InclusiveBetween(1, 100)`), asi que dejar el cero disponible le ofreceria al
+/// paciente un valor que el servidor rechaza con un 400.
 ///
 /// **Derivado, no transcrito.** El HTML del design system no esta disponible
 /// en el checkout y no define este componente, asi que su estilo se compone
@@ -27,12 +35,14 @@ class CauceSlider extends StatelessWidget {
   const CauceSlider({
     required this.value,
     required this.onChanged,
+    this.min = 0,
+    this.max = 100,
     this.minLabel,
     this.maxLabel,
     this.semanticLabel,
     this.enabled = true,
     super.key,
-  });
+  }) : assert(min < max, 'El extremo inferior debe ser menor que el superior');
 
   /// Valor actual, o `null` si la pregunta sigue sin responder.
   final int? value;
@@ -51,9 +61,14 @@ class CauceSlider extends StatelessWidget {
 
   final bool enabled;
 
-  /// Extremos de la escala, fijados por el instrumento IBS-SSS.
-  static const int min = 0;
-  static const int max = 100;
+  /// Extremo inferior de la escala.
+  ///
+  /// El default de 0 es el del instrumento IBS-SSS. La intensidad de un sintoma
+  /// lo instancia con 1, porque el backend rechaza el cero.
+  final int min;
+
+  /// Extremo superior de la escala. 100 en los dos usos actuales.
+  final int max;
 
   bool get _answered => value != null;
 
@@ -72,7 +87,11 @@ class CauceSlider extends StatelessWidget {
           height: CauceSizes.touchTargetMin,
           child: Semantics(
             label: semanticLabel,
-            value: _answered ? '$value' : null,
+            // El lector anuncia el rango real de **esta** instancia y no un
+            // 0 a 100 fijo: en la intensidad de un sintoma la escala empieza en
+            // 1, y decir lo contrario mandaria a quien usa lector de pantalla a
+            // buscar un valor que no existe.
+            value: _answered ? '$value de $min a $max' : null,
             slider: true,
             child: SliderTheme(
               data: SliderTheme.of(context).copyWith(
