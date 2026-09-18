@@ -19,3 +19,18 @@ targets:
         generate_for:
           exclude:
             - packages/**
+
+      drift_dev:
+        options:
+          # Las fechas se guardan como texto ISO-8601 y no como segundos desde
+          # epoch, que es el default de drift. Con el default, drift devuelve
+          # DateTime en hora local y la marca de zona se pierde en el viaje:
+          # `consumedAt` y `clientCreatedAt` viajan a un backend que valida
+          # contra su propio reloj UTC, y la ventana de 4 horas que asocia un
+          # sintoma con una comida se calcula sobre esos mismos valores. Un
+          # desfase de zona ahi no es un detalle de formato, es un dato clinico
+          # equivocado.
+          #
+          # Se activa ahora sin costo porque el esquema v1 no tenia tablas: no
+          # hay fila existente que reinterpretar.
+          store_date_time_values_as_text: true
