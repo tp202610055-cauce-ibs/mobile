@@ -1089,5 +1089,128 @@
   "privacyConsentTextUnavailable": "No conservamos el texto de esta versión, así que no podemos generar el PDF. Tu aceptación sigue registrada y es válida. Si necesitas una copia, comunícate con tu nutricionista.",
   "@privacyConsentTextUnavailable": {
     "description": "Aceptaciones anteriores a que el backend guardara el texto por version. El endpoint del PDF responde 404 para estas"
-  }
+  },
+  "navHome": "Inicio",
+  "@navHome": {
+      "description": "Etiqueta del primer destino de la barra inferior (design system, seccion H)"
+  },
+  "navJournal": "Diario",
+  "navAdvice": "Consejos",
+  "navProfile": "Perfil",
+  "fabQuickAction": "Acción rápida",
+  "@fabQuickAction": {
+      "description": "Etiqueta accesible del boton flotante con el menu cerrado"
+  },
+  "fabCloseMenu": "Cerrar menú",
+  "@fabCloseMenu": {
+      "description": "Etiqueta accesible del boton flotante con el menu abierto"
+  },
+  "fabLogMeal": "Registrar comida",
+  "fabLogSymptom": "Registrar síntoma",
+  "fabIbsSss": "Cuestionario IBS-SSS",
+  "recommendationsTitle": "Consejos",
+  "recommendationsEmptyTitle": "Aún no hay consejos aprobados",
+  "@recommendationsEmptyTitle": {
+      "description": "Estado vacio de la pestana Consejos con el onboarding completo (EP0003 llega en Mobile-5)"
+  },
+  "recommendationsEmptyBody": "Cuando tu nutricionista apruebe una recomendación para ti, la vas a encontrar acá.",
+  "recommendationsLockedTitle": "Disponible al completar tu perfil",
+  "@recommendationsLockedTitle": {
+      "description": "Restriccion de la pestana Consejos con el onboarding pendiente (CP011 paso 6)"
+  },
+  "recommendationsLockedBody": "Tus consejos se arman a partir de tu perfil clínico y de tu primera evaluación. Completa esos dos pasos y los activamos.",
+  "recommendationsLockedAction": "Continuar donde quedé",
+  "profileSessionSection": "Tu sesión",
+  "profileLogout": "Cerrar sesión",
+  "profileLogoutHint": "Tus registros quedan guardados en este dispositivo",
+  "profileLogoutConfirmTitle": "¿Cerrar tu sesión?",
+  "@profileLogoutConfirmTitle": {
+      "description": "Cuadro de confirmacion antes de cerrar sesion (CP020 paso 3)"
+  },
+  "profileLogoutConfirmBody": "Vas a volver a la pantalla de inicio de sesión. Lo que ya registraste se conserva y se sincroniza cuando vuelvas a entrar.",
+  "historyToday": "Hoy",
+  "@historyToday": {
+      "description": "Encabezado del primer grupo del diario (CP022 paso 2)"
+  },
+  "historyEmptyTodayTitle": "Aún no tienes comidas registradas hoy",
+  "historyEmptyTodayBody": "Cuando registres una comida, aparecerá aquí en tu diario.",
+  "historyEmptyTodayAction": "Registrar primera comida",
+  "historyTodayNothingYet": "Todavía no registraste nada hoy.",
+  "historySyncPending": "Pendiente de sincronizar",
+  "historySyncDone": "Sincronizado",
+  "historySyncFailed": "No se pudo sincronizar",
+  "@historySyncFailed": {
+      "description": "Tercer estado local de sincronizacion (acta M34). No existe en el design system: se diseno coherente con la seccion F"
+  },
+  "historyIntensityBadge": "Intensidad {value}",
+  "@historyIntensityBadge": {
+      "placeholders": {
+          "value": {
+              "type": "int"
+          }
+      }
+  },
+  "historyMealAssociatedWith": "Asociado con {meal}, {delay} después",
+  "@historyMealAssociatedWith": {
+      "description": "Linea de asociacion de la tarjeta de sintoma (seccion G). La ventana de 4 horas la resuelve el servidor",
+      "placeholders": {
+          "meal": {
+              "type": "String"
+          },
+          "delay": {
+              "type": "String"
+          }
+      }
+  },
+  "historyDelayHoursMinutes": "{hours} h {minutes} min",
+  "@historyDelayHoursMinutes": {
+      "placeholders": {
+          "hours": {
+              "type": "int"
+          },
+          "minutes": {
+              "type": "int"
+          }
+      }
+  },
+  "historyDelayMinutes": "{minutes} min",
+  "@historyDelayMinutes": {
+      "placeholders": {
+          "minutes": {
+              "type": "int"
+          }
+      }
+  },
+  "historyFodmapLow": "Bajo en FODMAP",
+  "historyFodmapModerate": "Moderado FODMAP",
+  "historyFodmapHigh": "Alto en FODMAP",
+  "mealsMyDishes": "Mis platos",
+  "mealsOwnDishBadge": "Plato propio · no validado",
+  "@mealsOwnDishBadge": {
+      "description": "CP025 paso 9: el plato propio se muestra diferenciado del catalogo oficial TPCA-CENAN"
+  },
+  "mealsOwnDishesOffline": "Tus platos propios se cargan con conexión. Los del catálogo se pueden buscar igual.",
+  "mealsSearchNoResultsTitle": "No encontramos ese alimento",
+  "mealsSearchNoResultsBody": "Si es una preparación tuya, puedes crearla como plato personalizado y usarla en tus comidas.",
+  "mealsCreateCustomFood": "Crear alimento personalizado",
+  "@mealsCreateCustomFood": {
+      "description": "CP025 paso 3: salida cuando la busqueda no encuentra el alimento"
+  },
+  "fabHintCompleteProfile": "Completa tu perfil clínico para registrar",
+  "fabHintBaselinePending": "Primero responde tu evaluación inicial",
+  "fabHintNotDue": "Disponible el {date}",
+  "@fabHintNotDue": {
+      "description": "Tercer estado del item del cuestionario: visible, deshabilitado y con la fecha en que vence el ciclo",
+      "placeholders": {
+          "date": {
+              "type": "String"
+          }
+      }
+  },
+  "journalLockedTitle": "Disponible al completar tu perfil",
+  "@journalLockedTitle": {
+      "description": "Restriccion del Diario con el perfil clinico pendiente (HU0003 CA01)"
+  },
+  "journalLockedBody": "Tu diario se habilita cuando guardas tu perfil clínico. Es un paso corto y lo puedes retomar ahora.",
+  "journalLockedAction": "Continuar donde quedé"
 }

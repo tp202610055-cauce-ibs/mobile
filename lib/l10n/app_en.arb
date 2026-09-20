@@ -459,5 +459,93 @@
   "privacyConsentVersion": "Version {version}",
   "privacyConsentAcceptedOn": "Accepted on {date}",
   "privacyConsentLoading": "Loading your consent",
-  "privacyConsentTextUnavailable": "We do not keep the text of this version, so we cannot generate the PDF. Your acceptance is still recorded and valid. If you need a copy, contact your nutritionist."
+  "privacyConsentTextUnavailable": "We do not keep the text of this version, so we cannot generate the PDF. Your acceptance is still recorded and valid. If you need a copy, contact your nutritionist.",
+  "navHome": "Home",
+  "navJournal": "Journal",
+  "navAdvice": "Advice",
+  "navProfile": "Profile",
+  "fabQuickAction": "Quick action",
+  "fabCloseMenu": "Close menu",
+  "fabLogMeal": "Log a meal",
+  "fabLogSymptom": "Log a symptom",
+  "fabIbsSss": "IBS-SSS questionnaire",
+  "recommendationsTitle": "Advice",
+  "recommendationsEmptyTitle": "No approved advice yet",
+  "recommendationsEmptyBody": "Once your nutritionist approves a recommendation for you, it will show up here.",
+  "recommendationsLockedTitle": "Available once you complete your profile",
+  "recommendationsLockedBody": "Your advice is built from your clinical profile and your first assessment. Complete those two steps and we will turn it on.",
+  "recommendationsLockedAction": "Pick up where I left off",
+  "profileSessionSection": "Your session",
+  "profileLogout": "Sign out",
+  "profileLogoutHint": "Your entries stay saved on this device",
+  "profileLogoutConfirmTitle": "Sign out?",
+  "profileLogoutConfirmBody": "You will go back to the sign-in screen. Anything you already logged is kept and syncs when you sign back in.",
+  "historyToday": "Today",
+  "historyEmptyTodayTitle": "No meals logged today yet",
+  "historyEmptyTodayBody": "Once you log a meal, it will show up here in your journal.",
+  "historyEmptyTodayAction": "Log your first meal",
+  "historyTodayNothingYet": "Nothing logged today yet.",
+  "historySyncPending": "Pending sync",
+  "historySyncDone": "Synced",
+  "historySyncFailed": "Could not sync",
+  "historyIntensityBadge": "Intensity {value}",
+  "@historyIntensityBadge": {
+      "placeholders": {
+          "value": {
+              "type": "int"
+          }
+      }
+  },
+  "historyMealAssociatedWith": "Linked to {meal}, {delay} later",
+  "@historyMealAssociatedWith": {
+      "placeholders": {
+          "meal": {
+              "type": "String"
+          },
+          "delay": {
+              "type": "String"
+          }
+      }
+  },
+  "historyDelayHoursMinutes": "{hours} h {minutes} min",
+  "@historyDelayHoursMinutes": {
+      "placeholders": {
+          "hours": {
+              "type": "int"
+          },
+          "minutes": {
+              "type": "int"
+          }
+      }
+  },
+  "historyDelayMinutes": "{minutes} min",
+  "@historyDelayMinutes": {
+      "placeholders": {
+          "minutes": {
+              "type": "int"
+          }
+      }
+  },
+  "historyFodmapLow": "Low FODMAP",
+  "historyFodmapModerate": "Moderate FODMAP",
+  "historyFodmapHigh": "High FODMAP",
+  "mealsMyDishes": "My dishes",
+  "mealsOwnDishBadge": "Your dish · not validated",
+  "mealsOwnDishesOffline": "Your own dishes load when you are online. Catalog foods can still be searched.",
+  "mealsSearchNoResultsTitle": "We could not find that food",
+  "mealsSearchNoResultsBody": "If it is something you prepare, you can create it as a custom dish and use it in your meals.",
+  "mealsCreateCustomFood": "Create a custom food",
+  "fabHintCompleteProfile": "Complete your clinical profile to log entries",
+  "fabHintBaselinePending": "First answer your baseline assessment",
+  "fabHintNotDue": "Available on {date}",
+  "@fabHintNotDue": {
+      "placeholders": {
+          "date": {
+              "type": "String"
+          }
+      }
+  },
+  "journalLockedTitle": "Available once you complete your profile",
+  "journalLockedBody": "Your journal unlocks once you save your clinical profile. It is a short step and you can pick it up now.",
+  "journalLockedAction": "Pick up where I left off"
 }

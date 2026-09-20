@@ -1183,4 +1183,164 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get privacyConsentTextUnavailable =>
       'No conservamos el texto de esta versión, así que no podemos generar el PDF. Tu aceptación sigue registrada y es válida. Si necesitas una copia, comunícate con tu nutricionista.';
+
+  @override
+  String get navHome => 'Inicio';
+
+  @override
+  String get navJournal => 'Diario';
+
+  @override
+  String get navAdvice => 'Consejos';
+
+  @override
+  String get navProfile => 'Perfil';
+
+  @override
+  String get fabQuickAction => 'Acción rápida';
+
+  @override
+  String get fabCloseMenu => 'Cerrar menú';
+
+  @override
+  String get fabLogMeal => 'Registrar comida';
+
+  @override
+  String get fabLogSymptom => 'Registrar síntoma';
+
+  @override
+  String get fabIbsSss => 'Cuestionario IBS-SSS';
+
+  @override
+  String get recommendationsTitle => 'Consejos';
+
+  @override
+  String get recommendationsEmptyTitle => 'Aún no hay consejos aprobados';
+
+  @override
+  String get recommendationsEmptyBody =>
+      'Cuando tu nutricionista apruebe una recomendación para ti, la vas a encontrar acá.';
+
+  @override
+  String get recommendationsLockedTitle => 'Disponible al completar tu perfil';
+
+  @override
+  String get recommendationsLockedBody =>
+      'Tus consejos se arman a partir de tu perfil clínico y de tu primera evaluación. Completa esos dos pasos y los activamos.';
+
+  @override
+  String get recommendationsLockedAction => 'Continuar donde quedé';
+
+  @override
+  String get profileSessionSection => 'Tu sesión';
+
+  @override
+  String get profileLogout => 'Cerrar sesión';
+
+  @override
+  String get profileLogoutHint =>
+      'Tus registros quedan guardados en este dispositivo';
+
+  @override
+  String get profileLogoutConfirmTitle => '¿Cerrar tu sesión?';
+
+  @override
+  String get profileLogoutConfirmBody =>
+      'Vas a volver a la pantalla de inicio de sesión. Lo que ya registraste se conserva y se sincroniza cuando vuelvas a entrar.';
+
+  @override
+  String get historyToday => 'Hoy';
+
+  @override
+  String get historyEmptyTodayTitle => 'Aún no tienes comidas registradas hoy';
+
+  @override
+  String get historyEmptyTodayBody =>
+      'Cuando registres una comida, aparecerá aquí en tu diario.';
+
+  @override
+  String get historyEmptyTodayAction => 'Registrar primera comida';
+
+  @override
+  String get historyTodayNothingYet => 'Todavía no registraste nada hoy.';
+
+  @override
+  String get historySyncPending => 'Pendiente de sincronizar';
+
+  @override
+  String get historySyncDone => 'Sincronizado';
+
+  @override
+  String get historySyncFailed => 'No se pudo sincronizar';
+
+  @override
+  String historyIntensityBadge(int value) {
+    return 'Intensidad $value';
+  }
+
+  @override
+  String historyMealAssociatedWith(String meal, String delay) {
+    return 'Asociado con $meal, $delay después';
+  }
+
+  @override
+  String historyDelayHoursMinutes(int hours, int minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String historyDelayMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get historyFodmapLow => 'Bajo en FODMAP';
+
+  @override
+  String get historyFodmapModerate => 'Moderado FODMAP';
+
+  @override
+  String get historyFodmapHigh => 'Alto en FODMAP';
+
+  @override
+  String get mealsMyDishes => 'Mis platos';
+
+  @override
+  String get mealsOwnDishBadge => 'Plato propio · no validado';
+
+  @override
+  String get mealsOwnDishesOffline =>
+      'Tus platos propios se cargan con conexión. Los del catálogo se pueden buscar igual.';
+
+  @override
+  String get mealsSearchNoResultsTitle => 'No encontramos ese alimento';
+
+  @override
+  String get mealsSearchNoResultsBody =>
+      'Si es una preparación tuya, puedes crearla como plato personalizado y usarla en tus comidas.';
+
+  @override
+  String get mealsCreateCustomFood => 'Crear alimento personalizado';
+
+  @override
+  String get fabHintCompleteProfile =>
+      'Completa tu perfil clínico para registrar';
+
+  @override
+  String get fabHintBaselinePending => 'Primero responde tu evaluación inicial';
+
+  @override
+  String fabHintNotDue(String date) {
+    return 'Disponible el $date';
+  }
+
+  @override
+  String get journalLockedTitle => 'Disponible al completar tu perfil';
+
+  @override
+  String get journalLockedBody =>
+      'Tu diario se habilita cuando guardas tu perfil clínico. Es un paso corto y lo puedes retomar ahora.';
+
+  @override
+  String get journalLockedAction => 'Continuar donde quedé';
 }

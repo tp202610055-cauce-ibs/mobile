@@ -1181,4 +1181,164 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get privacyConsentTextUnavailable =>
       'We do not keep the text of this version, so we cannot generate the PDF. Your acceptance is still recorded and valid. If you need a copy, contact your nutritionist.';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navJournal => 'Journal';
+
+  @override
+  String get navAdvice => 'Advice';
+
+  @override
+  String get navProfile => 'Profile';
+
+  @override
+  String get fabQuickAction => 'Quick action';
+
+  @override
+  String get fabCloseMenu => 'Close menu';
+
+  @override
+  String get fabLogMeal => 'Log a meal';
+
+  @override
+  String get fabLogSymptom => 'Log a symptom';
+
+  @override
+  String get fabIbsSss => 'IBS-SSS questionnaire';
+
+  @override
+  String get recommendationsTitle => 'Advice';
+
+  @override
+  String get recommendationsEmptyTitle => 'No approved advice yet';
+
+  @override
+  String get recommendationsEmptyBody =>
+      'Once your nutritionist approves a recommendation for you, it will show up here.';
+
+  @override
+  String get recommendationsLockedTitle =>
+      'Available once you complete your profile';
+
+  @override
+  String get recommendationsLockedBody =>
+      'Your advice is built from your clinical profile and your first assessment. Complete those two steps and we will turn it on.';
+
+  @override
+  String get recommendationsLockedAction => 'Pick up where I left off';
+
+  @override
+  String get profileSessionSection => 'Your session';
+
+  @override
+  String get profileLogout => 'Sign out';
+
+  @override
+  String get profileLogoutHint => 'Your entries stay saved on this device';
+
+  @override
+  String get profileLogoutConfirmTitle => 'Sign out?';
+
+  @override
+  String get profileLogoutConfirmBody =>
+      'You will go back to the sign-in screen. Anything you already logged is kept and syncs when you sign back in.';
+
+  @override
+  String get historyToday => 'Today';
+
+  @override
+  String get historyEmptyTodayTitle => 'No meals logged today yet';
+
+  @override
+  String get historyEmptyTodayBody =>
+      'Once you log a meal, it will show up here in your journal.';
+
+  @override
+  String get historyEmptyTodayAction => 'Log your first meal';
+
+  @override
+  String get historyTodayNothingYet => 'Nothing logged today yet.';
+
+  @override
+  String get historySyncPending => 'Pending sync';
+
+  @override
+  String get historySyncDone => 'Synced';
+
+  @override
+  String get historySyncFailed => 'Could not sync';
+
+  @override
+  String historyIntensityBadge(int value) {
+    return 'Intensity $value';
+  }
+
+  @override
+  String historyMealAssociatedWith(String meal, String delay) {
+    return 'Linked to $meal, $delay later';
+  }
+
+  @override
+  String historyDelayHoursMinutes(int hours, int minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String historyDelayMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get historyFodmapLow => 'Low FODMAP';
+
+  @override
+  String get historyFodmapModerate => 'Moderate FODMAP';
+
+  @override
+  String get historyFodmapHigh => 'High FODMAP';
+
+  @override
+  String get mealsMyDishes => 'My dishes';
+
+  @override
+  String get mealsOwnDishBadge => 'Your dish · not validated';
+
+  @override
+  String get mealsOwnDishesOffline =>
+      'Your own dishes load when you are online. Catalog foods can still be searched.';
+
+  @override
+  String get mealsSearchNoResultsTitle => 'We could not find that food';
+
+  @override
+  String get mealsSearchNoResultsBody =>
+      'If it is something you prepare, you can create it as a custom dish and use it in your meals.';
+
+  @override
+  String get mealsCreateCustomFood => 'Create a custom food';
+
+  @override
+  String get fabHintCompleteProfile =>
+      'Complete your clinical profile to log entries';
+
+  @override
+  String get fabHintBaselinePending => 'First answer your baseline assessment';
+
+  @override
+  String fabHintNotDue(String date) {
+    return 'Available on $date';
+  }
+
+  @override
+  String get journalLockedTitle => 'Available once you complete your profile';
+
+  @override
+  String get journalLockedBody =>
+      'Your journal unlocks once you save your clinical profile. It is a short step and you can pick it up now.';
+
+  @override
+  String get journalLockedAction => 'Pick up where I left off';
 }

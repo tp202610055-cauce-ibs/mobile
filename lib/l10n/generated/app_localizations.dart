@@ -2149,6 +2149,288 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No conservamos el texto de esta versión, así que no podemos generar el PDF. Tu aceptación sigue registrada y es válida. Si necesitas una copia, comunícate con tu nutricionista.'**
   String get privacyConsentTextUnavailable;
+
+  /// Etiqueta del primer destino de la barra inferior (design system, seccion H)
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio'**
+  String get navHome;
+
+  /// No description provided for @navJournal.
+  ///
+  /// In es, this message translates to:
+  /// **'Diario'**
+  String get navJournal;
+
+  /// No description provided for @navAdvice.
+  ///
+  /// In es, this message translates to:
+  /// **'Consejos'**
+  String get navAdvice;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Perfil'**
+  String get navProfile;
+
+  /// Etiqueta accesible del boton flotante con el menu cerrado
+  ///
+  /// In es, this message translates to:
+  /// **'Acción rápida'**
+  String get fabQuickAction;
+
+  /// Etiqueta accesible del boton flotante con el menu abierto
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar menú'**
+  String get fabCloseMenu;
+
+  /// No description provided for @fabLogMeal.
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar comida'**
+  String get fabLogMeal;
+
+  /// No description provided for @fabLogSymptom.
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar síntoma'**
+  String get fabLogSymptom;
+
+  /// No description provided for @fabIbsSss.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuestionario IBS-SSS'**
+  String get fabIbsSss;
+
+  /// No description provided for @recommendationsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Consejos'**
+  String get recommendationsTitle;
+
+  /// Estado vacio de la pestana Consejos con el onboarding completo (EP0003 llega en Mobile-5)
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no hay consejos aprobados'**
+  String get recommendationsEmptyTitle;
+
+  /// No description provided for @recommendationsEmptyBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuando tu nutricionista apruebe una recomendación para ti, la vas a encontrar acá.'**
+  String get recommendationsEmptyBody;
+
+  /// Restriccion de la pestana Consejos con el onboarding pendiente (CP011 paso 6)
+  ///
+  /// In es, this message translates to:
+  /// **'Disponible al completar tu perfil'**
+  String get recommendationsLockedTitle;
+
+  /// No description provided for @recommendationsLockedBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus consejos se arman a partir de tu perfil clínico y de tu primera evaluación. Completa esos dos pasos y los activamos.'**
+  String get recommendationsLockedBody;
+
+  /// No description provided for @recommendationsLockedAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar donde quedé'**
+  String get recommendationsLockedAction;
+
+  /// No description provided for @profileSessionSection.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu sesión'**
+  String get profileSessionSection;
+
+  /// No description provided for @profileLogout.
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar sesión'**
+  String get profileLogout;
+
+  /// No description provided for @profileLogoutHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus registros quedan guardados en este dispositivo'**
+  String get profileLogoutHint;
+
+  /// Cuadro de confirmacion antes de cerrar sesion (CP020 paso 3)
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cerrar tu sesión?'**
+  String get profileLogoutConfirmTitle;
+
+  /// No description provided for @profileLogoutConfirmBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Vas a volver a la pantalla de inicio de sesión. Lo que ya registraste se conserva y se sincroniza cuando vuelvas a entrar.'**
+  String get profileLogoutConfirmBody;
+
+  /// Encabezado del primer grupo del diario (CP022 paso 2)
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy'**
+  String get historyToday;
+
+  /// No description provided for @historyEmptyTodayTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no tienes comidas registradas hoy'**
+  String get historyEmptyTodayTitle;
+
+  /// No description provided for @historyEmptyTodayBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuando registres una comida, aparecerá aquí en tu diario.'**
+  String get historyEmptyTodayBody;
+
+  /// No description provided for @historyEmptyTodayAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar primera comida'**
+  String get historyEmptyTodayAction;
+
+  /// No description provided for @historyTodayNothingYet.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no registraste nada hoy.'**
+  String get historyTodayNothingYet;
+
+  /// No description provided for @historySyncPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente de sincronizar'**
+  String get historySyncPending;
+
+  /// No description provided for @historySyncDone.
+  ///
+  /// In es, this message translates to:
+  /// **'Sincronizado'**
+  String get historySyncDone;
+
+  /// Tercer estado local de sincronizacion (acta M34). No existe en el design system: se diseno coherente con la seccion F
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo sincronizar'**
+  String get historySyncFailed;
+
+  /// No description provided for @historyIntensityBadge.
+  ///
+  /// In es, this message translates to:
+  /// **'Intensidad {value}'**
+  String historyIntensityBadge(int value);
+
+  /// Linea de asociacion de la tarjeta de sintoma (seccion G). La ventana de 4 horas la resuelve el servidor
+  ///
+  /// In es, this message translates to:
+  /// **'Asociado con {meal}, {delay} después'**
+  String historyMealAssociatedWith(String meal, String delay);
+
+  /// No description provided for @historyDelayHoursMinutes.
+  ///
+  /// In es, this message translates to:
+  /// **'{hours} h {minutes} min'**
+  String historyDelayHoursMinutes(int hours, int minutes);
+
+  /// No description provided for @historyDelayMinutes.
+  ///
+  /// In es, this message translates to:
+  /// **'{minutes} min'**
+  String historyDelayMinutes(int minutes);
+
+  /// No description provided for @historyFodmapLow.
+  ///
+  /// In es, this message translates to:
+  /// **'Bajo en FODMAP'**
+  String get historyFodmapLow;
+
+  /// No description provided for @historyFodmapModerate.
+  ///
+  /// In es, this message translates to:
+  /// **'Moderado FODMAP'**
+  String get historyFodmapModerate;
+
+  /// No description provided for @historyFodmapHigh.
+  ///
+  /// In es, this message translates to:
+  /// **'Alto en FODMAP'**
+  String get historyFodmapHigh;
+
+  /// No description provided for @mealsMyDishes.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis platos'**
+  String get mealsMyDishes;
+
+  /// CP025 paso 9: el plato propio se muestra diferenciado del catalogo oficial TPCA-CENAN
+  ///
+  /// In es, this message translates to:
+  /// **'Plato propio · no validado'**
+  String get mealsOwnDishBadge;
+
+  /// No description provided for @mealsOwnDishesOffline.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus platos propios se cargan con conexión. Los del catálogo se pueden buscar igual.'**
+  String get mealsOwnDishesOffline;
+
+  /// No description provided for @mealsSearchNoResultsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'No encontramos ese alimento'**
+  String get mealsSearchNoResultsTitle;
+
+  /// No description provided for @mealsSearchNoResultsBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Si es una preparación tuya, puedes crearla como plato personalizado y usarla en tus comidas.'**
+  String get mealsSearchNoResultsBody;
+
+  /// CP025 paso 3: salida cuando la busqueda no encuentra el alimento
+  ///
+  /// In es, this message translates to:
+  /// **'Crear alimento personalizado'**
+  String get mealsCreateCustomFood;
+
+  /// No description provided for @fabHintCompleteProfile.
+  ///
+  /// In es, this message translates to:
+  /// **'Completa tu perfil clínico para registrar'**
+  String get fabHintCompleteProfile;
+
+  /// No description provided for @fabHintBaselinePending.
+  ///
+  /// In es, this message translates to:
+  /// **'Primero responde tu evaluación inicial'**
+  String get fabHintBaselinePending;
+
+  /// Tercer estado del item del cuestionario: visible, deshabilitado y con la fecha en que vence el ciclo
+  ///
+  /// In es, this message translates to:
+  /// **'Disponible el {date}'**
+  String fabHintNotDue(String date);
+
+  /// Restriccion del Diario con el perfil clinico pendiente (HU0003 CA01)
+  ///
+  /// In es, this message translates to:
+  /// **'Disponible al completar tu perfil'**
+  String get journalLockedTitle;
+
+  /// No description provided for @journalLockedBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu diario se habilita cuando guardas tu perfil clínico. Es un paso corto y lo puedes retomar ahora.'**
+  String get journalLockedBody;
+
+  /// No description provided for @journalLockedAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar donde quedé'**
+  String get journalLockedAction;
 }
 
 class _AppLocalizationsDelegate
