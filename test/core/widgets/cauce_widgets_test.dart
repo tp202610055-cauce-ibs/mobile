@@ -5,6 +5,7 @@ import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Monta un widget suelto con theme y localizacion, sin router ni providers.
@@ -638,6 +639,289 @@ void main() {
 
       expect(find.text('1'), findsOneWidget);
       expect(find.text('100'), findsOneWidget);
+    });
+  });
+
+  group('CauceBadge · seccion F del design system', () {
+    testWidgets('lleva icono y texto juntos, nunca solo color',
+        (tester) async {
+      await _pump(
+        tester,
+        const CauceBadge(
+          label: 'Sincronizado',
+          icon: TablerIcons.cloud_check,
+          tone: CauceBadgeTone.success,
+        ),
+      );
+
+      expect(find.text('Sincronizado'), findsOneWidget);
+      expect(find.byIcon(TablerIcons.cloud_check), findsOneWidget);
+    });
+
+    testWidgets('cada tono toma su par de colores semanticos', (tester) async {
+      for (final (CauceBadgeTone tone, Color background)
+          in <(CauceBadgeTone, Color)>[
+        (CauceBadgeTone.neutral, CauceColors.bgSubtle),
+        (CauceBadgeTone.info, CauceColors.infoBg),
+        (CauceBadgeTone.success, CauceColors.successBg),
+        (CauceBadgeTone.warning, CauceColors.warningBg),
+        (CauceBadgeTone.danger, CauceColors.dangerBg),
+        (CauceBadgeTone.brand, CauceColors.brandSoft),
+      ]) {
+        await _pump(
+          tester,
+          CauceBadge(
+            label: 'Etiqueta',
+            icon: TablerIcons.leaf,
+            tone: tone,
+          ),
+        );
+
+        final container = tester.widget<Container>(
+          find
+              .ancestor(
+                of: find.text('Etiqueta'),
+                matching: find.byType(Container),
+              )
+              .first,
+        );
+        final decoration = container.decoration! as BoxDecoration;
+        expect(decoration.color, background, reason: tone.name);
+      }
+    });
+
+    testWidgets('compact aprieta el relleno sin tocar el texto',
+        (tester) async {
+      await _pump(
+        tester,
+        const CauceBadge(
+          label: 'Intensidad 60',
+          icon: TablerIcons.activity,
+          tone: CauceBadgeTone.warning,
+          compact: true,
+        ),
+      );
+      final compactWidth = tester.getSize(find.byType(CauceBadge)).width;
+
+      await _pump(
+        tester,
+        const CauceBadge(
+          label: 'Intensidad 60',
+          icon: TablerIcons.activity,
+          tone: CauceBadgeTone.warning,
+        ),
+      );
+      final normalWidth = tester.getSize(find.byType(CauceBadge)).width;
+
+      expect(compactWidth, lessThan(normalWidth));
+    });
+  });
+
+  group('CauceEmptyState · seccion I del design system', () {
+    testWidgets('muestra icono, titulo y cuerpo', (tester) async {
+      await _pump(
+        tester,
+        const CauceEmptyState(
+          icon: TablerIcons.bowl,
+          title: 'Aun no tienes comidas registradas hoy',
+          message: 'Cuando registres una comida, aparecera aqui en tu diario.',
+        ),
+      );
+
+      expect(find.byIcon(TablerIcons.bowl), findsOneWidget);
+      expect(
+        find.text('Aun no tienes comidas registradas hoy'),
+        findsOneWidget,
+      );
+      expect(
+        find.text('Cuando registres una comida, aparecera aqui en tu diario.'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('sin accion no dibuja boton', (tester) async {
+      await _pump(
+        tester,
+        const CauceEmptyState(
+          icon: TablerIcons.bulb,
+          title: 'Sin consejos por ahora',
+          message: 'Tu nutricionista todavia no aprobo ninguno.',
+        ),
+      );
+
+      expect(find.byType(CauceButton), findsNothing);
+    });
+
+    testWidgets('con accion ofrece la salida y la ejecuta', (tester) async {
+      var taps = 0;
+      await _pump(
+        tester,
+        CauceEmptyState(
+          icon: TablerIcons.bowl,
+          title: 'Aun no tienes comidas registradas hoy',
+          message: 'Cuando registres una comida, aparecera aqui.',
+          actionLabel: 'Registrar primera comida',
+          onAction: () => taps++,
+        ),
+      );
+
+      await tester.tap(find.text('Registrar primera comida'));
+      await tester.pump();
+
+      expect(taps, 1);
+    });
+  });
+
+  group('CauceToast · seccion I del design system', () {
+    testWidgets('el de exito lleva su icono y su color', (tester) async {
+      await _pump(
+        tester,
+        Builder(
+          builder: (BuildContext context) => TextButton(
+            onPressed: () => CauceToast.success(
+              context,
+              title: 'Comida guardada',
+              message: 'Se sincronizara cuando recuperes conexion.',
+            ),
+            child: const Text('mostrar'),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('mostrar'));
+      await tester.pump();
+
+      expect(find.text('Comida guardada'), findsOneWidget);
+      expect(find.byIcon(TablerIcons.circle_check), findsOneWidget);
+
+      final container = tester.widget<Container>(find.byKey(cauceToastKey));
+      final decoration = container.decoration! as BoxDecoration;
+      expect(decoration.color, CauceColors.successBg);
+    });
+
+    testWidgets('el de error con reintento ejecuta la accion y se cierra',
+        (tester) async {
+      var retries = 0;
+      await _pump(
+        tester,
+        Builder(
+          builder: (BuildContext context) => TextButton(
+            onPressed: () => CauceToast.error(
+              context,
+              title: 'No pudimos guardar tu registro',
+              actionLabel: 'Reintentar',
+              onAction: () => retries++,
+            ),
+            child: const Text('mostrar'),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('mostrar'));
+      // Se asienta la entrada del toast antes de tocarlo: mientras el
+      // SnackBar entra deslizandose, el boton todavia no esta donde el toque
+      // lo busca.
+      await tester.pumpAndSettle();
+      expect(find.byIcon(TablerIcons.alert_circle), findsOneWidget);
+
+      await tester.tap(find.text('Reintentar'));
+      await tester.pumpAndSettle();
+
+      expect(retries, 1);
+      expect(find.byKey(cauceToastKey), findsNothing);
+    });
+
+    testWidgets('un segundo aviso reemplaza al primero', (tester) async {
+      await _pump(
+        tester,
+        Builder(
+          builder: (BuildContext context) => Column(
+            children: <Widget>[
+              TextButton(
+                onPressed: () => CauceToast.success(context, title: 'Primero'),
+                child: const Text('uno'),
+              ),
+              TextButton(
+                onPressed: () => CauceToast.error(context, title: 'Segundo'),
+                child: const Text('dos'),
+              ),
+            ],
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('uno'));
+      await tester.pump();
+      await tester.tap(find.text('dos'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Primero'), findsNothing);
+      expect(find.text('Segundo'), findsOneWidget);
+    });
+  });
+
+  group('CauceConfirmDialog', () {
+    Future<void> openDialog(
+      WidgetTester tester,
+      void Function(bool) onOutcome,
+    ) async {
+      await _pump(
+        tester,
+        Builder(
+          builder: (BuildContext context) => TextButton(
+            onPressed: () async {
+              onOutcome(
+                await CauceConfirmDialog.show(
+                  context,
+                  title: 'Cerrar sesion',
+                  message: 'Vas a salir de tu cuenta.',
+                  confirmLabel: 'Si, cerrar sesion',
+                  cancelLabel: 'Cancelar',
+                ),
+              );
+            },
+            child: const Text('abrir'),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('abrir'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(cauceConfirmDialogKey), findsOneWidget);
+    }
+
+    testWidgets('confirmar devuelve true', (tester) async {
+      bool? outcome;
+      await openDialog(tester, (value) => outcome = value);
+
+      await tester.tap(find.byKey(cauceConfirmAcceptKey));
+      await tester.pumpAndSettle();
+
+      expect(outcome, isTrue);
+      expect(find.byKey(cauceConfirmDialogKey), findsNothing);
+    });
+
+    testWidgets('cancelar devuelve false', (tester) async {
+      bool? outcome;
+      await openDialog(tester, (value) => outcome = value);
+
+      await tester.tap(find.byKey(cauceConfirmCancelKey));
+      await tester.pumpAndSettle();
+
+      expect(outcome, isFalse);
+      expect(find.byKey(cauceConfirmDialogKey), findsNothing);
+    });
+
+    testWidgets('descartar tocando fuera equivale a cancelar', (tester) async {
+      bool? outcome;
+      await openDialog(tester, (value) => outcome = value);
+
+      // Sobre el velo modal, fuera de la caja del dialogo.
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+
+      expect(outcome, isFalse);
+      expect(find.byKey(cauceConfirmDialogKey), findsNothing);
     });
   });
 }
