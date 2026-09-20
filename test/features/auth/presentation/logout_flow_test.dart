@@ -2,6 +2,7 @@ import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/auth/presentation/auth_screens.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
@@ -48,16 +49,30 @@ Future<({FakeAuthRepository repository, FakeTokenStorage storage})> _pumpApp(
   return (repository: repository, storage: storage);
 }
 
+/// Recorre lo que hace el paciente desde Mobile-3.1: pestana Perfil, la fila
+/// de cerrar sesion, y el cuadro de confirmacion que exige CP020 paso 3.
+Future<void> _logoutFromProfile(WidgetTester tester) async {
+  await tester.tap(find.byKey(const Key('nav_profile')));
+  await tester.pumpAndSettle();
+
+  await tester.ensureVisible(find.byKey(const Key('profile_logout')));
+  await tester.pumpAndSettle();
+  await tester.tap(find.byKey(const Key('profile_logout')));
+  await tester.pumpAndSettle();
+
+  await tester.tap(find.byKey(cauceConfirmAcceptKey));
+  await tester.pumpAndSettle();
+}
+
 void main() {
-  group('US08 CA01 · cierre de sesion desde la home', () {
+  group('US08 CA01 y CP020 · cierre de sesion desde Perfil', () {
     testWidgets('avisa al backend con el refresh token vigente', (
       tester,
     ) async {
       final h = await _pumpApp(tester, user: _verified);
       expect(find.byType(HomeScreen), findsOneWidget);
 
-      await tester.tap(find.byKey(const Key('home_logout')));
-      await tester.pumpAndSettle();
+      await _logoutFromProfile(tester);
 
       expect(h.repository.logoutCalls, 1);
       expect(h.repository.lastRefreshToken, 'refresh-1');
@@ -66,8 +81,7 @@ void main() {
     testWidgets('limpia el almacenamiento y vuelve al login', (tester) async {
       final h = await _pumpApp(tester, user: _verified);
 
-      await tester.tap(find.byKey(const Key('home_logout')));
-      await tester.pumpAndSettle();
+      await _logoutFromProfile(tester);
 
       expect(h.storage.clearSessionCalls, 1);
       expect(h.storage.refreshToken, isNull);
@@ -86,8 +100,7 @@ void main() {
         logoutError: const CauceApiError.network(),
       );
 
-      await tester.tap(find.byKey(const Key('home_logout')));
-      await tester.pumpAndSettle();
+      await _logoutFromProfile(tester);
 
       expect(h.repository.logoutCalls, 1);
       expect(h.storage.clearSessionCalls, 1);
@@ -101,8 +114,7 @@ void main() {
         logoutError: const CauceApiError.unknown(statusCode: 500),
       );
 
-      await tester.tap(find.byKey(const Key('home_logout')));
-      await tester.pumpAndSettle();
+      await _logoutFromProfile(tester);
 
       expect(h.storage.clearSessionCalls, 1);
       expect(find.byType(LoginScreen), findsOneWidget);

@@ -6,7 +6,7 @@ part of 'history_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$historyNotifierHash() => r'193d447fe500ea058e5162cfe786d1d989ad5930';
+String _$historyNotifierHash() => r'e0bc6c6a61c254cd560a1a2e89c5ecbccd9268f9';
 
 /// Arma el historial unificado de comidas y sintomas.
 ///

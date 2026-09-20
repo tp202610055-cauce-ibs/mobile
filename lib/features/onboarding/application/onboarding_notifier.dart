@@ -62,6 +62,34 @@ sealed class OnboardingState with _$OnboardingState {
 
   /// `true` cuando el tablero debe mostrar el recordatorio.
   bool get showsReminder => this is OnboardingDeferred;
+
+  /// `true` si el paciente ya puede registrar comidas y sintomas.
+  ///
+  /// HU0003 CA01 dice que guardar el perfil clinico "habilita el acceso al
+  /// diario". **La compuerta es del cliente**: verificado contra el backend,
+  /// ni `CreateMealCommandHandler` ni `CreateSymptomCommandHandler` exigen un
+  /// perfil, de modo que el servidor aceptaria el registro igual (acta M38).
+  ///
+  /// [OnboardingUnavailable] **no** restringe. La consulta no resolvio,
+  /// tipicamente por falta de red, y cerrar el diario sobre un dato que no se
+  /// tiene contradice el diseno offline-first, con el mismo criterio que ya
+  /// usa el guard de sesion.
+  bool get allowsJournal => switch (this) {
+        OnboardingPending(:final step) ||
+        OnboardingDeferred(:final step) =>
+          step == OnboardingStep.ibsSssBaseline,
+        OnboardingCompleted() || OnboardingUnavailable() => true,
+      };
+
+  /// `true` si el paciente ya puede ver sus consejos.
+  ///
+  /// Exige el onboarding entero: las recomendaciones se arman sobre el perfil
+  /// clinico y la linea base. Es lo que CP011 paso 6 nombra como
+  /// funcionalidad restringida.
+  bool get allowsAdvice => switch (this) {
+        OnboardingPending() || OnboardingDeferred() => false,
+        OnboardingCompleted() || OnboardingUnavailable() => true,
+      };
 }
 
 /// Resuelve y gobierna el estado del onboarding clinico.

@@ -57,6 +57,17 @@ abstract class HistoryEntry with _$HistoryEntry {
     SymptomTypeOption? symptomType,
     int? intensity,
     bool? hasMealAssociation,
+
+    /// Momento de comida con la que el **servidor** asocio este sintoma.
+    ///
+    /// El cliente no calcula la ventana de cuatro horas: la resuelve el
+    /// backend (DEC-B3-06) y aca solo se muestra lo confirmado. Se resuelve
+    /// cruzando `associatedMealId` contra las comidas del mismo rango, que ya
+    /// vienen en la misma composicion del historial.
+    MealTimeOption? associatedMealTime,
+
+    /// Cuanto paso entre la comida asociada y el sintoma.
+    Duration? associatedMealDelay,
   }) = _HistoryEntry;
 
   const HistoryEntry._();

@@ -7,7 +7,7 @@ part of 'food_search_notifier.dart';
 // **************************************************************************
 
 String _$foodSearchNotifierHash() =>
-    r'b80f065962a02d89b2203d5e63d555886c9254ad';
+    r'e8fae0a9f9372566b337c3404f57996374be7cfe';
 
 /// Gobierna la busqueda de alimentos del modal de registro.
 ///

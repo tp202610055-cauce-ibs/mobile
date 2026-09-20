@@ -1,4 +1,5 @@
 import 'package:cauce_mobile/app.dart';
+import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
@@ -331,7 +332,15 @@ void main() {
       );
       expect(find.byType(HomeScreen), findsOneWidget);
 
-      await tester.tap(find.byKey(const Key('home_logout')));
+      // Desde Mobile-3.1 el cierre de sesion vive en la pestana Perfil y pasa
+      // por el cuadro de confirmacion de CP020 paso 3.
+      await tester.tap(find.byKey(const Key('nav_profile')));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.byKey(const Key('profile_logout')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile_logout')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(cauceConfirmAcceptKey));
       await tester.pumpAndSettle();
 
       expect(h.adapter.lastRequest.body['refreshToken'], 'refresh-1');

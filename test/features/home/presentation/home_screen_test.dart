@@ -4,16 +4,14 @@ import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
 import 'package:cauce_mobile/features/onboarding/application/onboarding_notifier.dart';
-import 'package:cauce_mobile/core/router/app_routes.dart';
+import 'package:cauce_mobile/core/router/app_router.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
-import 'package:cauce_mobile/features/patients/presentation/profile_screen.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
@@ -63,8 +61,7 @@ Future<ProviderContainer> _pump(
   return container;
 }
 
-/// Monta home dentro de un router minimo con la ruta del perfil colgando de
-/// ella, para observar como queda la pila de navegacion.
+/// Monta la aplicacion con su router real, para recorrer las pestanas.
 Future<void> _pumpWithRouter(
   WidgetTester tester, {
   required FakePatientsRepository repository,
@@ -98,15 +95,10 @@ Future<void> _pumpWithRouter(
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         locale: const Locale('es'),
-        routerConfig: GoRouter(
-          routes: <RouteBase>[
-            GoRoute(path: '/', builder: (_, __) => const HomeScreen()),
-            GoRoute(
-              path: AppRoutes.profile,
-              builder: (_, __) => const ProfileScreen(),
-            ),
-          ],
-        ),
+        // El router real y no uno minimo armado a mano: desde Mobile-3.1 la
+        // navegacion entre Inicio y Perfil pasa por el shell de pestanas, y
+        // un router de juguete no lo tendria.
+        routerConfig: container.read(appRouterProvider),
       ),
     ),
   );
@@ -188,7 +180,7 @@ void main() {
   });
 
   group('HomeScreen · lo que ya hacia (US08 CA01)', () {
-    testWidgets('saluda al paciente y ofrece cerrar sesion', (tester) async {
+    testWidgets('saluda al paciente', (tester) async {
       await _pump(
         tester,
         repository: FakePatientsRepository(
@@ -197,14 +189,29 @@ void main() {
       );
 
       expect(find.text(l10n.homeGreeting('Paciente Demo')), findsOneWidget);
-      expect(find.byKey(const Key('home_logout')), findsOneWidget);
+    });
+
+    testWidgets('ya no ofrece cerrar sesion: eso vive en Perfil',
+        (tester) async {
+      // Mobile-3.1 mudo el cierre de sesion a la pestana Perfil, con su
+      // cuadro de confirmacion (CP020 paso 3).
+      await _pump(
+        tester,
+        repository: FakePatientsRepository(
+          profile: demoProfile.copyWith(onboardingCompleted: true),
+        ),
+      );
+
+      expect(find.byKey(const Key('home_logout')), findsNothing);
     });
   });
 
-  group('HomeScreen · entrada al perfil', () {
-    testWidgets('abrir el perfil deja a la vista como volver', (tester) async {
-      // Con `go` la pila se reemplazaba y el perfil quedaba sin flecha de
-      // retroceso: el paciente solo podia salir con el gesto del sistema.
+  group('HomeScreen · entrada al perfil por la pestana', () {
+    testWidgets('la pestana Perfil abre el perfil, sin flecha de retroceso',
+        (tester) async {
+      // Antes de Mobile-3.1 el perfil se abria con un icono del app bar y
+      // quedaba apilado sobre home. Ahora es una rama del shell: es una raiz,
+      // y una raiz no lleva flecha.
       await _pumpWithRouter(
         tester,
         repository: FakePatientsRepository(
@@ -212,14 +219,14 @@ void main() {
         ),
       );
 
-      await tester.tap(find.byKey(const Key('home_open_profile')));
+      await tester.tap(find.byKey(const Key('nav_profile')));
       await tester.pumpAndSettle();
 
       expect(find.text(l10n.profileTitle), findsOneWidget);
-      expect(find.byKey(const Key('cauce_app_bar_back')), findsOneWidget);
+      expect(find.byKey(const Key('cauce_app_bar_back')), findsNothing);
     });
 
-    testWidgets('volver desde el perfil regresa a home', (tester) async {
+    testWidgets('la pestana Inicio devuelve a home', (tester) async {
       await _pumpWithRouter(
         tester,
         repository: FakePatientsRepository(
@@ -227,12 +234,12 @@ void main() {
         ),
       );
 
-      await tester.tap(find.byKey(const Key('home_open_profile')));
+      await tester.tap(find.byKey(const Key('nav_profile')));
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key('cauce_app_bar_back')));
+      await tester.tap(find.byKey(const Key('nav_home')));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('home_logout')), findsOneWidget);
+      expect(find.text(l10n.homeGreeting('Paciente Demo')), findsOneWidget);
     });
   });
 }

@@ -37,6 +37,17 @@ mixin _$HistoryEntry {
   int? get intensity => throw _privateConstructorUsedError;
   bool? get hasMealAssociation => throw _privateConstructorUsedError;
 
+  /// Momento de comida con la que el **servidor** asocio este sintoma.
+  ///
+  /// El cliente no calcula la ventana de cuatro horas: la resuelve el
+  /// backend (DEC-B3-06) y aca solo se muestra lo confirmado. Se resuelve
+  /// cruzando `associatedMealId` contra las comidas del mismo rango, que ya
+  /// vienen en la misma composicion del historial.
+  MealTimeOption? get associatedMealTime => throw _privateConstructorUsedError;
+
+  /// Cuanto paso entre la comida asociada y el sintoma.
+  Duration? get associatedMealDelay => throw _privateConstructorUsedError;
+
   /// Create a copy of HistoryEntry
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -62,7 +73,9 @@ abstract class $HistoryEntryCopyWith<$Res> {
       List<String> itemNames,
       SymptomTypeOption? symptomType,
       int? intensity,
-      bool? hasMealAssociation});
+      bool? hasMealAssociation,
+      MealTimeOption? associatedMealTime,
+      Duration? associatedMealDelay});
 }
 
 /// @nodoc
@@ -92,6 +105,8 @@ class _$HistoryEntryCopyWithImpl<$Res, $Val extends HistoryEntry>
     Object? symptomType = freezed,
     Object? intensity = freezed,
     Object? hasMealAssociation = freezed,
+    Object? associatedMealTime = freezed,
+    Object? associatedMealDelay = freezed,
   }) {
     return _then(_value.copyWith(
       kind: null == kind
@@ -142,6 +157,14 @@ class _$HistoryEntryCopyWithImpl<$Res, $Val extends HistoryEntry>
           ? _value.hasMealAssociation
           : hasMealAssociation // ignore: cast_nullable_to_non_nullable
               as bool?,
+      associatedMealTime: freezed == associatedMealTime
+          ? _value.associatedMealTime
+          : associatedMealTime // ignore: cast_nullable_to_non_nullable
+              as MealTimeOption?,
+      associatedMealDelay: freezed == associatedMealDelay
+          ? _value.associatedMealDelay
+          : associatedMealDelay // ignore: cast_nullable_to_non_nullable
+              as Duration?,
     ) as $Val);
   }
 }
@@ -166,7 +189,9 @@ abstract class _$$HistoryEntryImplCopyWith<$Res>
       List<String> itemNames,
       SymptomTypeOption? symptomType,
       int? intensity,
-      bool? hasMealAssociation});
+      bool? hasMealAssociation,
+      MealTimeOption? associatedMealTime,
+      Duration? associatedMealDelay});
 }
 
 /// @nodoc
@@ -194,6 +219,8 @@ class __$$HistoryEntryImplCopyWithImpl<$Res>
     Object? symptomType = freezed,
     Object? intensity = freezed,
     Object? hasMealAssociation = freezed,
+    Object? associatedMealTime = freezed,
+    Object? associatedMealDelay = freezed,
   }) {
     return _then(_$HistoryEntryImpl(
       kind: null == kind
@@ -244,6 +271,14 @@ class __$$HistoryEntryImplCopyWithImpl<$Res>
           ? _value.hasMealAssociation
           : hasMealAssociation // ignore: cast_nullable_to_non_nullable
               as bool?,
+      associatedMealTime: freezed == associatedMealTime
+          ? _value.associatedMealTime
+          : associatedMealTime // ignore: cast_nullable_to_non_nullable
+              as MealTimeOption?,
+      associatedMealDelay: freezed == associatedMealDelay
+          ? _value.associatedMealDelay
+          : associatedMealDelay // ignore: cast_nullable_to_non_nullable
+              as Duration?,
     ));
   }
 }
@@ -263,7 +298,9 @@ class _$HistoryEntryImpl extends _HistoryEntry {
       final List<String> itemNames = const <String>[],
       this.symptomType,
       this.intensity,
-      this.hasMealAssociation})
+      this.hasMealAssociation,
+      this.associatedMealTime,
+      this.associatedMealDelay})
       : _itemNames = itemNames,
         super._();
 
@@ -307,9 +344,22 @@ class _$HistoryEntryImpl extends _HistoryEntry {
   @override
   final bool? hasMealAssociation;
 
+  /// Momento de comida con la que el **servidor** asocio este sintoma.
+  ///
+  /// El cliente no calcula la ventana de cuatro horas: la resuelve el
+  /// backend (DEC-B3-06) y aca solo se muestra lo confirmado. Se resuelve
+  /// cruzando `associatedMealId` contra las comidas del mismo rango, que ya
+  /// vienen en la misma composicion del historial.
+  @override
+  final MealTimeOption? associatedMealTime;
+
+  /// Cuanto paso entre la comida asociada y el sintoma.
+  @override
+  final Duration? associatedMealDelay;
+
   @override
   String toString() {
-    return 'HistoryEntry(kind: $kind, occurredAt: $occurredAt, syncState: $syncState, serverId: $serverId, clientGuid: $clientGuid, lastErrorCode: $lastErrorCode, mealTime: $mealTime, aggregatedFodmap: $aggregatedFodmap, itemNames: $itemNames, symptomType: $symptomType, intensity: $intensity, hasMealAssociation: $hasMealAssociation)';
+    return 'HistoryEntry(kind: $kind, occurredAt: $occurredAt, syncState: $syncState, serverId: $serverId, clientGuid: $clientGuid, lastErrorCode: $lastErrorCode, mealTime: $mealTime, aggregatedFodmap: $aggregatedFodmap, itemNames: $itemNames, symptomType: $symptomType, intensity: $intensity, hasMealAssociation: $hasMealAssociation, associatedMealTime: $associatedMealTime, associatedMealDelay: $associatedMealDelay)';
   }
 
   @override
@@ -339,7 +389,11 @@ class _$HistoryEntryImpl extends _HistoryEntry {
             (identical(other.intensity, intensity) ||
                 other.intensity == intensity) &&
             (identical(other.hasMealAssociation, hasMealAssociation) ||
-                other.hasMealAssociation == hasMealAssociation));
+                other.hasMealAssociation == hasMealAssociation) &&
+            (identical(other.associatedMealTime, associatedMealTime) ||
+                other.associatedMealTime == associatedMealTime) &&
+            (identical(other.associatedMealDelay, associatedMealDelay) ||
+                other.associatedMealDelay == associatedMealDelay));
   }
 
   @override
@@ -356,7 +410,9 @@ class _$HistoryEntryImpl extends _HistoryEntry {
       const DeepCollectionEquality().hash(_itemNames),
       symptomType,
       intensity,
-      hasMealAssociation);
+      hasMealAssociation,
+      associatedMealTime,
+      associatedMealDelay);
 
   /// Create a copy of HistoryEntry
   /// with the given fields replaced by the non-null parameter values.
@@ -380,7 +436,9 @@ abstract class _HistoryEntry extends HistoryEntry {
       final List<String> itemNames,
       final SymptomTypeOption? symptomType,
       final int? intensity,
-      final bool? hasMealAssociation}) = _$HistoryEntryImpl;
+      final bool? hasMealAssociation,
+      final MealTimeOption? associatedMealTime,
+      final Duration? associatedMealDelay}) = _$HistoryEntryImpl;
   const _HistoryEntry._() : super._();
 
   @override
@@ -413,6 +471,19 @@ abstract class _HistoryEntry extends HistoryEntry {
   int? get intensity;
   @override
   bool? get hasMealAssociation;
+
+  /// Momento de comida con la que el **servidor** asocio este sintoma.
+  ///
+  /// El cliente no calcula la ventana de cuatro horas: la resuelve el
+  /// backend (DEC-B3-06) y aca solo se muestra lo confirmado. Se resuelve
+  /// cruzando `associatedMealId` contra las comidas del mismo rango, que ya
+  /// vienen en la misma composicion del historial.
+  @override
+  MealTimeOption? get associatedMealTime;
+
+  /// Cuanto paso entre la comida asociada y el sintoma.
+  @override
+  Duration? get associatedMealDelay;
 
   /// Create a copy of HistoryEntry
   /// with the given fields replaced by the non-null parameter values.

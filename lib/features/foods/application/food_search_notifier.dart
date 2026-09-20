@@ -1,7 +1,12 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/sync/connectivity_monitor.dart';
+import '../../../core/utils/text_normalizer.dart';
+import '../../custom_foods/application/custom_foods_cache.dart';
+import '../../custom_foods/domain/custom_food.dart';
 import '../data/food_catalog_store.dart';
 import '../data/foods_repository.dart';
 import '../domain/food_item.dart';
@@ -16,6 +21,10 @@ abstract class FoodSearchState with _$FoodSearchState {
     @Default('') String query,
     @Default(<FoodItem>[]) List<FoodItem> results,
 
+    /// Platos propios del paciente que coinciden con la busqueda (CP025
+    /// paso 10). Con la caja vacia son todos los que tenga.
+    @Default(<CustomFoodRecord>[]) List<CustomFoodRecord> customResults,
+
     /// Sugerencias del servidor, o `null` si no se pudieron traer.
     FoodSuggestions? suggestions,
     @Default(false) bool loadingSuggestions,
@@ -29,8 +38,14 @@ abstract class FoodSearchState with _$FoodSearchState {
   /// local sobre el catalogo completo.
   bool get isBrowsing => query.trim().isEmpty;
 
-  /// `true` si se busco y no hubo coincidencias.
-  bool get hasNoResults => !isBrowsing && results.isEmpty;
+  /// `true` si se busco y no hubo coincidencias **en ninguna de las dos
+  /// fuentes**.
+  ///
+  /// Cuenta los platos propios porque son elegibles igual que un alimento del
+  /// catalogo: ofrecer "crear un plato" cuando el paciente ya tiene uno que
+  /// coincide seria mandarlo a duplicarlo.
+  bool get hasNoResults =>
+      !isBrowsing && results.isEmpty && customResults.isEmpty;
 
   /// `true` si hay sugerencias que valga la pena mostrar.
   bool get hasSuggestions => suggestions != null && !suggestions!.isEmpty;
@@ -60,6 +75,10 @@ class FoodSearchNotifier extends _$FoodSearchNotifier {
     }
     state = state.copyWith(loadingSuggestions: true);
 
+    // Los platos propios se refrescan en la misma apertura de la hoja. Viven
+    // en un provider keepAlive, de modo que si esto falla queda lo anterior.
+    unawaited(ref.read(customFoodsCacheProvider.notifier).refresh());
+
     if (!await ref.read(connectivityMonitorProvider).isOnline()) {
       state = state.copyWith(loadingSuggestions: false, suggestions: null);
       return;
@@ -84,18 +103,43 @@ class FoodSearchNotifier extends _$FoodSearchNotifier {
     state = state.copyWith(query: query);
 
     if (query.trim().isEmpty) {
-      state = state.copyWith(results: const <FoodItem>[]);
+      state = state.copyWith(
+        results: const <FoodItem>[],
+        customResults: const <CustomFoodRecord>[],
+      );
       return;
     }
 
     final results = await ref.read(foodCatalogStoreProvider).search(query);
+    final custom = _matchingCustomFoods(query);
 
     // La consulta pudo cambiar mientras la base respondia. Publicar un
     // resultado viejo mostraria coincidencias de un texto que ya no esta.
     if (state.query != query) {
       return;
     }
-    state = state.copyWith(results: results);
+    state = state.copyWith(results: results, customResults: custom);
+  }
+
+  /// Filtra los platos propios con la misma normalizacion que el catalogo.
+  ///
+  /// Se busca en memoria y no contra el servidor: `GET /custom-foods` no tiene
+  /// busqueda, y ademas el acta M35 ya fijo que la coincidencia de texto la
+  /// resuelve el cliente con las tildes plegadas.
+  List<CustomFoodRecord> _matchingCustomFoods(String query) {
+    final needle = TextNormalizer.normalize(query);
+    if (needle.isEmpty) {
+      return const <CustomFoodRecord>[];
+    }
+
+    return ref
+        .read(customFoodsCacheProvider)
+        .items
+        .where(
+          (CustomFoodRecord record) =>
+              TextNormalizer.normalize(record.name).contains(needle),
+        )
+        .toList();
   }
 
   /// Completa la composicion nutricional de un alimento elegido.

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -7,19 +8,21 @@ import '../../../core/router/app_routes.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../../meals/presentation/widgets/meal_labels.dart';
-import '../../symptoms/presentation/widgets/symptom_labels.dart';
+import '../../onboarding/application/onboarding_notifier.dart';
 import '../application/history_notifier.dart';
 import '../domain/history_entry.dart';
+import 'widgets/history_cards.dart';
 
-/// Historial unificado de comidas y sintomas.
+/// Pestana de Diario: el registro unificado de comidas y sintomas.
 ///
-/// Sirve a dos cosas: que el paciente vea lo que registro, y que pueda llegar a
-/// un registro pasado para adjuntarle una nota de contexto (US13).
+/// Lista unica y no pestanas separadas por tipo: lo que el paciente quiere
+/// reconstruir es la secuencia de su dia, donde una comida y el sintoma que
+/// vino despues se leen juntos. Separarlos obligaria a cruzar dos listas a
+/// mano.
 ///
-/// Lista unica y no pestanas separadas: lo que el paciente quiere reconstruir
-/// es la secuencia de su dia, donde una comida y el sintoma que vino despues se
-/// leen juntos. Separarlos por tipo obligaria a cruzar dos listas a mano.
+/// Se agrupa por dia con **Hoy primero**, que es lo que CP022 paso 2 llama "el
+/// diario clinico del dia". Los dias anteriores quedan debajo, en orden
+/// descendente.
 class HistoryScreen extends ConsumerStatefulWidget {
   const HistoryScreen({super.key});
 
@@ -36,54 +39,179 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
     });
   }
 
+  void _openMealForm() => context.push(AppRoutes.mealNew);
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final state = ref.watch(historyNotifierProvider);
     final notifier = ref.read(historyNotifierProvider.notifier);
+    final onboarding = ref.watch(resolvedOnboardingProvider);
+
+    // HU0003 CA01: guardar el perfil clinico habilita el diario. La
+    // restriccion explica y ofrece el camino, nunca se queda en un cartel.
+    if (!onboarding.allowsJournal) {
+      return CauceScaffold(
+        appBar: CauceAppBar(title: l10n.historyTitle),
+        body: CauceEmptyState(
+          key: const Key('history_locked'),
+          icon: TablerIcons.lock,
+          title: l10n.journalLockedTitle,
+          message: l10n.journalLockedBody,
+          actionLabel: l10n.journalLockedAction,
+          onAction: () =>
+              ref.read(onboardingNotifierProvider.notifier).resume(),
+        ),
+      );
+    }
 
     return CauceScaffold(
       appBar: CauceAppBar(title: l10n.historyTitle),
-      scrollable: true,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          // Un fallo del servidor no vacia la lista: lo registrado en el
-          // dispositivo sigue ahi, que es lo que el paciente no puede consultar
-          // en ningun otro lado.
-          if (state.error != null) ...<Widget>[
-            CauceErrorBanner(error: state.error!),
+      padding: EdgeInsets.zero,
+      body: RefreshIndicator(
+        // Reemplaza al boton de "Actualizar" que tenia la pantalla: el gesto
+        // de tirar para refrescar es el que un paciente ya conoce, y libera
+        // el pie de la lista.
+        color: CauceColors.brandBase,
+        onRefresh: notifier.load,
+        child: _Body(
+          state: state,
+          onDiscard: notifier.discard,
+          onOpenMealForm: _openMealForm,
+        ),
+      ),
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({
+    required this.state,
+    required this.onDiscard,
+    required this.onOpenMealForm,
+  });
+
+  final HistoryState state;
+  final Future<void> Function(String clientGuid) onDiscard;
+  final VoidCallback onOpenMealForm;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    if (state.loading && state.entries.isEmpty) {
+      return const CauceLoadingIndicator.fullscreen();
+    }
+
+    final groups = _groupByDay(state.entries);
+    final today = _dayOf(DateTime.now().toLocal());
+    final hasToday = groups.isNotEmpty && groups.first.day == today;
+
+    return ListView(
+      // Siempre desplazable, incluso vacia: sin esto el gesto de refrescar no
+      // funciona justamente cuando el paciente mas lo necesita.
+      physics: const AlwaysScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(
+        horizontal: CauceSpacing.space4,
+        vertical: CauceSpacing.space4,
+      ),
+      children: <Widget>[
+        // Un fallo del servidor no vacia la lista: lo registrado en el
+        // dispositivo sigue ahi, que es lo que el paciente no puede consultar
+        // en ningun otro lado.
+        if (state.error != null) ...<Widget>[
+          CauceErrorBanner(error: state.error!),
+          const SizedBox(height: CauceSpacing.space4),
+        ],
+
+        // Sin un solo registro, el estado vacio completo de la seccion I.
+        if (state.entries.isEmpty)
+          CauceEmptyState(
+            key: const Key('history_empty'),
+            icon: TablerIcons.bowl,
+            title: l10n.historyEmptyTodayTitle,
+            message: l10n.historyEmptyTodayBody,
+            actionLabel: l10n.historyEmptyTodayAction,
+            onAction: onOpenMealForm,
+          )
+        else ...<Widget>[
+          // Hoy sin registros pero con dias anteriores: una invitacion corta
+          // con el mismo destino, sin el bloque entero, que empujaria el
+          // historial fuera de la pantalla.
+          if (!hasToday) ...<Widget>[
+            _DayHeading(label: l10n.historyToday),
+            _TodayInvitation(onTap: onOpenMealForm),
             const SizedBox(height: CauceSpacing.space4),
           ],
-          if (state.loading && state.entries.isEmpty)
-            const CauceLoadingIndicator.fullscreen()
-          else if (state.entries.isEmpty)
-            Text(
-              l10n.historyEmpty,
-              key: const Key('history_empty'),
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: CauceColors.textSecondary,
-                  ),
-            )
-          else
-            for (final (index, entry) in state.entries.indexed)
-              _EntryCard(
-                key: Key('history_entry_$index'),
+          for (final group in groups) ...<Widget>[
+            _DayHeading(
+              label: group.day == today
+                  ? l10n.historyToday
+                  : _formatDay(context, group.day),
+            ),
+            for (final (index, entry) in group.entries.indexed)
+              HistoryCard(
+                key: Key('history_entry_${group.day.toIso8601String()}_$index'),
                 entry: entry,
                 onDiscard: entry.clientGuid == null
                     ? null
-                    : () => notifier.discard(entry.clientGuid!),
+                    : () => onDiscard(entry.clientGuid!),
                 onAddNote: () => context.push(
                   AppRoutes.clinicalNoteNew,
                   extra: entry,
                 ),
               ),
-          const SizedBox(height: CauceSpacing.space6),
+            const SizedBox(height: CauceSpacing.space2),
+          ],
+        ],
+      ],
+    );
+  }
+}
+
+/// Encabezado de un grupo del diario.
+class _DayHeading extends StatelessWidget {
+  const _DayHeading({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: CauceSpacing.space3),
+      child: Text(label, style: Theme.of(context).textTheme.titleMedium),
+    );
+  }
+}
+
+/// Invitacion corta cuando hoy no tiene registros pero el historial si.
+class _TodayInvitation extends StatelessWidget {
+  const _TodayInvitation({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      key: const Key('history_today_invitation'),
+      margin: const EdgeInsets.only(bottom: CauceSpacing.space3),
+      padding: const EdgeInsets.all(CauceSpacing.space4),
+      decoration: const BoxDecoration(
+        color: CauceColors.bgSubtle,
+        borderRadius: CauceRadii.borderLg,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(l10n.historyTodayNothingYet, style: textTheme.bodyMedium),
+          const SizedBox(height: CauceSpacing.space2),
           CauceButton.tertiary(
-            key: const Key('history_refresh'),
-            label: l10n.historyRefresh,
-            onPressed: notifier.load,
+            key: const Key('history_today_log_meal'),
+            label: l10n.historyEmptyTodayAction,
+            onPressed: onTap,
           ),
         ],
       ),
@@ -91,146 +219,38 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
   }
 }
 
-class _EntryCard extends StatelessWidget {
-  const _EntryCard({
-    required this.entry,
-    required this.onDiscard,
-    required this.onAddNote,
-    super.key,
-  });
+/// Un dia del diario con sus entradas, ya ordenadas.
+typedef _DayGroup = ({DateTime day, List<HistoryEntry> entries});
 
-  final HistoryEntry entry;
-  final VoidCallback? onDiscard;
-  final VoidCallback onAddNote;
+DateTime _dayOf(DateTime value) =>
+    DateTime(value.year, value.month, value.day);
 
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final when = DateFormat.yMMMd().add_Hm().format(entry.occurredAt.toLocal());
+/// Agrupa por dia local, de mas reciente a mas antiguo.
+///
+/// El dia se calcula sobre la hora **local** y no sobre UTC: un registro de
+/// las 22:00 de Lima cae al dia siguiente en UTC, y el paciente lo buscaria
+/// bajo el dia en que lo vivio.
+List<_DayGroup> _groupByDay(List<HistoryEntry> entries) {
+  final byDay = <DateTime, List<HistoryEntry>>{};
+  for (final entry in entries) {
+    final day = _dayOf(entry.occurredAt.toLocal());
+    byDay.putIfAbsent(day, () => <HistoryEntry>[]).add(entry);
+  }
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: CauceSpacing.space3),
-      padding: const EdgeInsets.all(CauceSpacing.space4),
-      decoration: BoxDecoration(
-        color: CauceColors.bgCard,
-        borderRadius: CauceRadii.borderLg,
-        border: Border.all(color: CauceColors.bgDivider),
+  final days = byDay.keys.toList()..sort((a, b) => b.compareTo(a));
+  return <_DayGroup>[
+    for (final day in days)
+      (
+        day: day,
+        entries: byDay[day]!
+          ..sort((a, b) => b.occurredAt.compareTo(a.occurredAt)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(_title(l10n), style: textTheme.titleMedium),
-          const SizedBox(height: CauceSpacing.space1),
-          Text(
-            when,
-            style: textTheme.bodySmall?.copyWith(
-              color: CauceColors.textSecondary,
-            ),
-          ),
-          ..._details(context, l10n, textTheme),
-          if (entry.syncState != HistoryEntrySyncState.synced) ...<Widget>[
-            const SizedBox(height: CauceSpacing.space2),
-            Text(
-              entry.syncState == HistoryEntrySyncState.pending
-                  ? l10n.historyStatePending
-                  : l10n.historyStateFailed,
-              key: Key(
-                entry.syncState == HistoryEntrySyncState.pending
-                    ? 'history_state_pending'
-                    : 'history_state_failed',
-              ),
-              style: textTheme.labelMedium?.copyWith(
-                color: CauceColors.textSecondary,
-              ),
-            ),
-          ],
-          // Una fila terminal necesita una salida, no solo un cartel: sin el
-          // descarte el atasco se vuelve visible pero no se resuelve.
-          if (entry.isDiscardable) ...<Widget>[
-            const SizedBox(height: CauceSpacing.space1),
-            Text(l10n.historyFailedExplanation, style: textTheme.bodySmall),
-            const SizedBox(height: CauceSpacing.space2),
-            CauceButton.tertiary(
-              key: const Key('history_discard'),
-              label: l10n.historyDiscard,
-              onPressed: onDiscard,
-            ),
-          ],
-          const SizedBox(height: CauceSpacing.space2),
-          // US13 exige un mealId o symptomId **del servidor**. Sin sincronizar
-          // no existe, y dejar el boton activo llevaria a un 404 despues de
-          // escribir la nota.
-          if (entry.acceptsNote)
-            CauceButton.tertiary(
-              key: const Key('history_add_note'),
-              label: l10n.historyAddNote,
-              onPressed: onAddNote,
-            )
-          else
-            Text(
-              l10n.historyNoteUnavailable,
-              key: const Key('history_note_unavailable'),
-              style: textTheme.labelSmall?.copyWith(
-                color: CauceColors.textTertiary,
-              ),
-            ),
-        ],
-      ),
-    );
-  }
+  ];
+}
 
-  String _title(AppLocalizations l10n) {
-    return switch (entry.kind) {
-      HistoryEntryKind.meal => entry.mealTime == null
-          ? l10n.mealsTitle
-          : MealLabels.mealTime(l10n, entry.mealTime!),
-      HistoryEntryKind.symptom => entry.symptomType == null
-          ? l10n.symptomsTitle
-          : SymptomLabels.symptomType(l10n, entry.symptomType!),
-    };
-  }
-
-  List<Widget> _details(
-    BuildContext context,
-    AppLocalizations l10n,
-    TextTheme textTheme,
-  ) {
-    return switch (entry.kind) {
-      HistoryEntryKind.meal => <Widget>[
-          if (entry.itemNames.isNotEmpty) ...<Widget>[
-            const SizedBox(height: CauceSpacing.space2),
-            Text(entry.itemNames.join(', '), style: textTheme.bodyMedium),
-          ],
-          if (entry.aggregatedFodmap != null) ...<Widget>[
-            const SizedBox(height: CauceSpacing.space1),
-            Text(
-              MealLabels.fodmapLoad(l10n, entry.aggregatedFodmap!),
-              style: textTheme.bodySmall?.copyWith(
-                color: CauceColors.textSecondary,
-              ),
-            ),
-          ],
-        ],
-      HistoryEntryKind.symptom => <Widget>[
-          if (entry.intensity != null) ...<Widget>[
-            const SizedBox(height: CauceSpacing.space2),
-            Text(
-              l10n.historyMealIntensity(entry.intensity!),
-              style: textTheme.bodyMedium,
-            ),
-          ],
-          if (entry.hasMealAssociation ?? false) ...<Widget>[
-            const SizedBox(height: CauceSpacing.space1),
-            Text(
-              l10n.historyMealAssociated,
-              key: const Key('history_meal_associated'),
-              style: textTheme.bodySmall?.copyWith(
-                color: CauceColors.textSecondary,
-              ),
-            ),
-          ],
-        ],
-    };
-  }
+/// Fecha del encabezado, en el locale de la aplicacion.
+String _formatDay(BuildContext context, DateTime day) {
+  return DateFormat.yMMMMd(
+    Localizations.localeOf(context).toLanguageTag(),
+  ).format(day);
 }

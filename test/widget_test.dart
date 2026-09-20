@@ -1,4 +1,5 @@
 import 'package:cauce_mobile/app.dart';
+import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
@@ -152,7 +153,15 @@ void main() {
       );
       expect(find.byType(HomeScreen), findsOneWidget);
 
-      await tester.tap(find.byType(OutlinedButton));
+      // Desde Mobile-3.1: pestana Perfil, fila de cerrar sesion, y el cuadro
+      // de confirmacion de CP020 paso 3.
+      await tester.tap(find.byKey(const Key('nav_profile')));
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(find.byKey(const Key('profile_logout')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile_logout')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(cauceConfirmAcceptKey));
       await tester.pumpAndSettle();
 
       expect(find.byType(LoginScreen), findsOneWidget);
@@ -218,7 +227,9 @@ void main() {
         ),
       );
       container.read(appRouterProvider).go('/auth/password-reset?token=xyz789');
-      await tester.pump();
+      // Desde Mobile-3.1 el arbol arranca con el StatefulShellRoute montado y
+      // la primera navegacion necesita mas de un frame para asentarse.
+      await tester.pumpAndSettle();
 
       expect(find.byType(PasswordResetScreen), findsOneWidget);
       expect(

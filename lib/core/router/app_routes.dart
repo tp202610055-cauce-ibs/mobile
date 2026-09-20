@@ -62,6 +62,13 @@ abstract final class AppRoutes {
   /// Cuestionario IBS-SSS periodico (US12).
   static const String ibsSssPeriodic = '/ibs-sss/periodic';
 
+  /// Recomendaciones aprobadas por la nutricionista (EP0003).
+  ///
+  /// La pestana existe desde Mobile-3.1 y Mobile-5 la llena. La ruta se llama
+  /// como el modulo del backend (`RecommendationsApi`) y como las historias;
+  /// "Consejos" es solo la etiqueta que ve el paciente, en el arb.
+  static const String recommendations = '/recommendations';
+
   /// Nombre del parametro de consulta que trae el token de recuperacion.
   static const String tokenQueryParam = 'token';
 }
