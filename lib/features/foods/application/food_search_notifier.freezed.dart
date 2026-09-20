@@ -19,6 +19,11 @@ mixin _$FoodSearchState {
   String get query => throw _privateConstructorUsedError;
   List<FoodItem> get results => throw _privateConstructorUsedError;
 
+  /// Platos propios del paciente que coinciden con la busqueda (CP025
+  /// paso 10). Con la caja vacia son todos los que tenga.
+  List<CustomFoodRecord> get customResults =>
+      throw _privateConstructorUsedError;
+
   /// Sugerencias del servidor, o `null` si no se pudieron traer.
   FoodSuggestions? get suggestions => throw _privateConstructorUsedError;
   bool get loadingSuggestions => throw _privateConstructorUsedError;
@@ -39,6 +44,7 @@ abstract class $FoodSearchStateCopyWith<$Res> {
   $Res call(
       {String query,
       List<FoodItem> results,
+      List<CustomFoodRecord> customResults,
       FoodSuggestions? suggestions,
       bool loadingSuggestions});
 
@@ -62,6 +68,7 @@ class _$FoodSearchStateCopyWithImpl<$Res, $Val extends FoodSearchState>
   $Res call({
     Object? query = null,
     Object? results = null,
+    Object? customResults = null,
     Object? suggestions = freezed,
     Object? loadingSuggestions = null,
   }) {
@@ -74,6 +81,10 @@ class _$FoodSearchStateCopyWithImpl<$Res, $Val extends FoodSearchState>
           ? _value.results
           : results // ignore: cast_nullable_to_non_nullable
               as List<FoodItem>,
+      customResults: null == customResults
+          ? _value.customResults
+          : customResults // ignore: cast_nullable_to_non_nullable
+              as List<CustomFoodRecord>,
       suggestions: freezed == suggestions
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
@@ -111,6 +122,7 @@ abstract class _$$FoodSearchStateImplCopyWith<$Res>
   $Res call(
       {String query,
       List<FoodItem> results,
+      List<CustomFoodRecord> customResults,
       FoodSuggestions? suggestions,
       bool loadingSuggestions});
 
@@ -133,6 +145,7 @@ class __$$FoodSearchStateImplCopyWithImpl<$Res>
   $Res call({
     Object? query = null,
     Object? results = null,
+    Object? customResults = null,
     Object? suggestions = freezed,
     Object? loadingSuggestions = null,
   }) {
@@ -145,6 +158,10 @@ class __$$FoodSearchStateImplCopyWithImpl<$Res>
           ? _value._results
           : results // ignore: cast_nullable_to_non_nullable
               as List<FoodItem>,
+      customResults: null == customResults
+          ? _value._customResults
+          : customResults // ignore: cast_nullable_to_non_nullable
+              as List<CustomFoodRecord>,
       suggestions: freezed == suggestions
           ? _value.suggestions
           : suggestions // ignore: cast_nullable_to_non_nullable
@@ -163,9 +180,11 @@ class _$FoodSearchStateImpl extends _FoodSearchState {
   const _$FoodSearchStateImpl(
       {this.query = '',
       final List<FoodItem> results = const <FoodItem>[],
+      final List<CustomFoodRecord> customResults = const <CustomFoodRecord>[],
       this.suggestions,
       this.loadingSuggestions = false})
       : _results = results,
+        _customResults = customResults,
         super._();
 
   @override
@@ -180,6 +199,20 @@ class _$FoodSearchStateImpl extends _FoodSearchState {
     return EqualUnmodifiableListView(_results);
   }
 
+  /// Platos propios del paciente que coinciden con la busqueda (CP025
+  /// paso 10). Con la caja vacia son todos los que tenga.
+  final List<CustomFoodRecord> _customResults;
+
+  /// Platos propios del paciente que coinciden con la busqueda (CP025
+  /// paso 10). Con la caja vacia son todos los que tenga.
+  @override
+  @JsonKey()
+  List<CustomFoodRecord> get customResults {
+    if (_customResults is EqualUnmodifiableListView) return _customResults;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_customResults);
+  }
+
   /// Sugerencias del servidor, o `null` si no se pudieron traer.
   @override
   final FoodSuggestions? suggestions;
@@ -189,7 +222,7 @@ class _$FoodSearchStateImpl extends _FoodSearchState {
 
   @override
   String toString() {
-    return 'FoodSearchState(query: $query, results: $results, suggestions: $suggestions, loadingSuggestions: $loadingSuggestions)';
+    return 'FoodSearchState(query: $query, results: $results, customResults: $customResults, suggestions: $suggestions, loadingSuggestions: $loadingSuggestions)';
   }
 
   @override
@@ -199,6 +232,8 @@ class _$FoodSearchStateImpl extends _FoodSearchState {
             other is _$FoodSearchStateImpl &&
             (identical(other.query, query) || other.query == query) &&
             const DeepCollectionEquality().equals(other._results, _results) &&
+            const DeepCollectionEquality()
+                .equals(other._customResults, _customResults) &&
             (identical(other.suggestions, suggestions) ||
                 other.suggestions == suggestions) &&
             (identical(other.loadingSuggestions, loadingSuggestions) ||
@@ -210,6 +245,7 @@ class _$FoodSearchStateImpl extends _FoodSearchState {
       runtimeType,
       query,
       const DeepCollectionEquality().hash(_results),
+      const DeepCollectionEquality().hash(_customResults),
       suggestions,
       loadingSuggestions);
 
@@ -227,6 +263,7 @@ abstract class _FoodSearchState extends FoodSearchState {
   const factory _FoodSearchState(
       {final String query,
       final List<FoodItem> results,
+      final List<CustomFoodRecord> customResults,
       final FoodSuggestions? suggestions,
       final bool loadingSuggestions}) = _$FoodSearchStateImpl;
   const _FoodSearchState._() : super._();
@@ -235,6 +272,11 @@ abstract class _FoodSearchState extends FoodSearchState {
   String get query;
   @override
   List<FoodItem> get results;
+
+  /// Platos propios del paciente que coinciden con la busqueda (CP025
+  /// paso 10). Con la caja vacia son todos los que tenga.
+  @override
+  List<CustomFoodRecord> get customResults;
 
   /// Sugerencias del servidor, o `null` si no se pudieron traer.
   @override

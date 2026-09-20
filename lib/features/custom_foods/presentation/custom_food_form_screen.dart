@@ -41,7 +41,14 @@ class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
   }
 
   Future<void> _addIngredient() async {
-    final food = await showFoodPickerSheet(context);
+    final selection =
+        await showFoodPickerSheet(context, allowCustomDishes: false);
+    // El modo solo catalogo nunca devuelve un plato propio; el `switch` lo
+    // deja escrito para que el dia que cambie no pase en silencio.
+    final food = switch (selection) {
+      CatalogSelection(:final item) => item,
+      CustomDishSelection() || null => null,
+    };
     if (food == null || !mounted) {
       return;
     }
@@ -75,8 +82,20 @@ class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
       );
     }
 
-    if (state.createdId != null) {
-      return _CustomFoodCreated(onBack: () => Navigator.of(context).pop());
+    final createdId = state.createdId;
+    if (createdId != null) {
+      // Vuelve **con el plato**, no con las manos vacias. Quien abrio esta
+      // pantalla desde una busqueda sin resultados (CP025 paso 3) lo recibe ya
+      // elegido, y el paso 10 se cumple sin una segunda busqueda.
+      return _CustomFoodCreated(
+        onBack: () => Navigator.of(context).pop(
+          CustomFoodRecord(
+            customFoodId: createdId,
+            name: state.draft.name,
+            portionSizeGrams: state.draft.portionSizeGrams,
+          ),
+        ),
+      );
     }
 
     final estimate = state.estimate;

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../../foods/domain/food_item.dart';
 import '../application/meal_form_notifier.dart';
 import '../domain/meal_draft.dart';
 import 'widgets/food_picker_sheet.dart';
@@ -113,8 +112,8 @@ class MealFormScreen extends ConsumerWidget {
     WidgetRef ref,
     AppLocalizations l10n,
   ) async {
-    final food = await showFoodPickerSheet(context);
-    if (food == null || !context.mounted) {
+    final selection = await showFoodPickerSheet(context);
+    if (selection == null || !context.mounted) {
       return;
     }
 
@@ -122,7 +121,7 @@ class MealFormScreen extends ConsumerWidget {
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
-      builder: (_) => _QuantitySheet(food: food),
+      builder: (_) => _QuantitySheet(selection: selection),
     );
 
     if (item != null) {
@@ -133,9 +132,11 @@ class MealFormScreen extends ConsumerWidget {
 
 /// Cantidad y unidad del alimento recien elegido.
 class _QuantitySheet extends StatefulWidget {
-  const _QuantitySheet({required this.food});
+  const _QuantitySheet({required this.selection});
 
-  final FoodItem food;
+  /// Lo elegido en la hoja de busqueda: un alimento del catalogo o un plato
+  /// propio. La cantidad y la unidad se preguntan igual para los dos.
+  final FoodPickerSelection selection;
 
   @override
   State<_QuantitySheet> createState() => _QuantitySheetState();
@@ -149,6 +150,26 @@ class _QuantitySheetState extends State<_QuantitySheet> {
   void dispose() {
     _quantity.dispose();
     super.dispose();
+  }
+
+  /// Arma el item con la referencia que corresponde a la fuente elegida.
+  ///
+  /// `MealItemDraft` exige **exactamente una** de las dos (`referencesExactlyOne`),
+  /// que es la misma invariante XOR que valida `Meal.Register` en el backend.
+  MealItemDraft _draft() {
+    return switch (widget.selection) {
+      CatalogSelection(:final item) => MealItemDraft(
+          quantity: _parsed!,
+          unit: _unit,
+          food: item,
+        ),
+      CustomDishSelection(:final record) => MealItemDraft(
+          quantity: _parsed!,
+          unit: _unit,
+          customFoodId: record.customFoodId,
+          customFoodName: record.name,
+        ),
+    };
   }
 
   /// Cantidad valida, o `null` si lo escrito no sirve.
@@ -179,7 +200,7 @@ class _QuantitySheetState extends State<_QuantitySheet> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                widget.food.name,
+                widget.selection.displayName,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: CauceSpacing.space4),
@@ -213,13 +234,7 @@ class _QuantitySheetState extends State<_QuantitySheet> {
                 label: l10n.commonAccept,
                 onPressed: _parsed == null
                     ? null
-                    : () => Navigator.of(context).pop(
-                          MealItemDraft(
-                            quantity: _parsed!,
-                            unit: _unit,
-                            food: widget.food,
-                          ),
-                        ),
+                    : () => Navigator.of(context).pop(_draft()),
               ),
             ],
           ),
