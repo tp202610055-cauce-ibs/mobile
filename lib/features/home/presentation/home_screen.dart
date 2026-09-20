@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/router/app_routes.dart';
@@ -11,60 +10,31 @@ import '../../auth/application/session_notifier.dart';
 import '../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
 
-/// Raiz autenticada, provisional (US08 CA01).
+/// Pestana de Inicio.
 ///
-/// Mobile-3 la reemplaza por el tablero real del paciente. Por ahora demuestra
-/// que la sesion llego, ofrece el cierre, y recuerda el onboarding aplazado.
-class HomeScreen extends ConsumerStatefulWidget {
+/// Desde Mobile-3.1 es la raiz de la primera rama del shell, y por eso pierde
+/// dos cosas que tenia cuando era la unica pantalla autenticada: el boton de
+/// cerrar sesion, que se mudo a Perfil con su confirmacion (CP020 paso 3), y
+/// el icono que abria el perfil, que ahora es una pestana de la barra.
+///
+/// El tablero completo del mockup `06-home-dashboard` (dia de seguimiento,
+/// tarjeta hero con el puntaje IBS-SSS y el delta contra la linea base) llega
+/// en Mobile-4 junto con HU0023, y la seccion "Para hoy" en Mobile-5 con
+/// EP0003. Lo que queda aca son los dos avisos, que son accionables hoy.
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  bool _loggingOut = false;
-
-  Future<void> _logout() async {
-    if (_loggingOut) {
-      return;
-    }
-    setState(() => _loggingOut = true);
-
-    // El notifier avisa al backend y limpia el almacenamiento. No falla nunca:
-    // si el aviso no prospera, la sesion local se cierra igual.
-    await ref.read(sessionNotifierProvider.notifier).logout();
-
-    // El guard del router se encarga de llevar al login en cuanto el estado
-    // pasa a no autenticado. Esta pantalla no navega por su cuenta.
-    if (mounted) {
-      setState(() => _loggingOut = false);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
     final user = ref.watch(sessionNotifierProvider).user;
     final onboarding = ref.watch(resolvedOnboardingProvider);
 
     return CauceScaffold(
-      appBar: CauceAppBar(
-        title: l10n.appTitle,
-        actions: <Widget>[
-          IconButton(
-            key: const Key('home_open_profile'),
-            icon: const Icon(TablerIcons.user_circle),
-            tooltip: l10n.profileOpen,
-            // push y no go: el perfil se abre encima de home, de modo que la
-            // barra conserva su flecha de retroceso. Con go la pila se
-            // reemplaza y `GoRouter.canPop()` devuelve false, que es lo que
-            // dejaba la pantalla sin salida visible.
-            onPressed: () => context.push(AppRoutes.profile),
-          ),
-        ],
-      ),
+      // Sin flecha de retroceso: es una raiz de pestana, no hay a donde
+      // volver.
+      appBar: CauceAppBar(title: l10n.navHome),
       scrollable: true,
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -82,13 +52,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             style: textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: CauceSpacing.space6),
-          CauceButton.secondary(
-            key: const Key('home_logout'),
-            label: l10n.homeLogout,
-            loading: _loggingOut,
-            onPressed: _logout,
-          ),
         ],
       ),
     );
@@ -103,8 +66,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 /// **Sin mecanismo de notificacion en este bloque**, por decision explicita: el
 /// servidor ya tiene armado el camino de push (`IbsSssReminderWorker` agenda
 /// una `Notification` a las 48 horas del vencimiento), pero el movil no puede
-/// recibirlo sin Firebase, que el acta M13 difirio a Mobile-4. Este aviso cubre
-/// mientras tanto el acceso que el CA pide.
+/// recibirlo sin Firebase, que el acta M13 difirio. Este aviso cubre mientras
+/// tanto el acceso que el CA pide, y desde Mobile-3.1 lo acompana el item del
+/// menu del FAB, alcanzable desde cualquier pestana.
 ///
 /// Mientras el estado se resuelve, o si falla, **no muestra nada**: un aviso
 /// que aparece por las dudas mandaria al paciente a responder un cuestionario
