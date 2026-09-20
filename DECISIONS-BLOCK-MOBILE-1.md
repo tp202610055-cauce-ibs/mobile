@@ -324,3 +324,109 @@ Justificación. Un salto de dos majors sobre el componente más sensible del sta
 Consecuencias. `share_plus` queda con un techo explícito en el `pubspec.yaml` y en la tabla del stack del CLAUDE.md, con el motivo anotado, para que nadie lo suba por inercia al ver que hay una versión mayor disponible. El bloque que decida subir `flutter_secure_storage` destraba de paso este techo. R5 sigue gobernando: el salto de major sobre cualquiera de los dos necesita luz verde explícita.
 
 Alternativas consideradas. Subir `flutter_secure_storage` de 9.x a 11.x para habilitar `share_plus` 13.x, descartado por lo dicho arriba: mezcla un cambio de riesgo alto dentro de un bloque que no lo requiere. Escribir el PDF a disco y abrirlo con un intent propio sin librería, descartado por reimplementar a mano lo que `share_plus` resuelve en las dos plataformas, incluidos los permisos y el `FileProvider` de Android.
+
+DECISIONS-BLOCK-MOBILE-3
+Actas M33 a M37. Decisiones vinculantes del bloque Mobile-3 (registro clínico diario, EP0002).
+Fecha del bloque: 2026-09-18.
+Autores: Trigo (decisión), Kiwicha (redacción del prompt de bloque), Quinua (redacción del acta).
+Estado global: aprobadas.
+Nota de procedencia: estas cinco actas se redactaron en Mobile-3.1 (2026-09-19), a partir del índice del CLAUDE.md v1.3.0 y del código ya mergeado en el PR #6. El texto original vivía en la descripción de ese PR, que no es alcanzable desde la terminal de trabajo. Conviene contrastarlas contra esa descripción antes de darlas por definitivas.
+
+Acta M33: CauceSlider parametriza sus extremos
+
+Contexto. `CauceSlider` nació en Mobile-2 para el cuestionario IBS-SSS, cuyas cinco dimensiones van de 0 a 100, y tenía esos extremos fijos. HU0011 necesita el mismo control para la intensidad de un síntoma, que el backend valida entre 1 y 100: `CreateSymptomCommandValidator` rechaza el cero con un 400.
+
+Decisión. `CauceSlider` recibe `min` y `max` como parámetros, con 0 y 100 por defecto. El formulario de síntoma lo monta con `min: 1`. Las etiquetas de los extremos muestran los valores reales y no los fijos anteriores.
+
+Justificación. Un slider que ofrece el cero cuando el servidor lo rechaza produce un rechazo que el paciente no puede anticipar: mueve el control al extremo, envía, y recibe un error por algo que la propia interfaz le ofreció. Parametrizar los extremos es la forma mínima de que el átomo sirva a los dos instrumentos sin duplicarlo ni ramificarlo por dominio, y los defaults preservan a todos los llamadores anteriores sin tocarlos.
+
+Consecuencias. El átomo queda con dos parámetros más y con sus etiquetas derivadas de ellos. Los tests del cuestionario de línea base siguen valiendo sin cambios, porque el default es el comportamiento anterior. Ampliar un átomo compartido de `core/widgets/` es un cambio de alcance y se reportó antes de hacerlo.
+
+Alternativas consideradas. Un segundo átomo para la intensidad, descartado por duplicar la accesibilidad, el semantic value y el tratamiento del estado sin responder por una diferencia de un punto en un extremo. Dejar el cero y traducir el 400 del servidor, descartado porque convierte una regla conocida de antemano en un error de red.
+
+Acta M34: Tercer estado local de sincronización, failed, que nunca viaja al servidor
+
+Contexto. El esquema drift v2 guarda comidas y síntomas creados sin conexión, con su `sync_status`. El enum del contrato tiene dos valores, `Pending` y `Synced`. Un registro que el servidor rechaza de forma permanente, por ejemplo con `food_item_not_found` porque el alimento se retiró del catálogo, no es ninguno de los dos: reintentarlo para siempre lo deja atascado y marcarlo como sincronizado sería mentir.
+
+Decisión. La tabla local suma un tercer valor, `failed`, que **no existe en el contrato y nunca viaja al servidor**. `SyncFailurePolicy` decide: los `errorCode` permanentes mandan la fila a terminal, y el resto la deja pendiente para el próximo intento. Una fila terminal se le muestra al paciente con su explicación y con la acción de descartarla.
+
+Justificación. La distinción entre un fallo que se resuelve solo al reintentar y uno que no se va a resolver nunca es una propiedad del dispositivo, no del servidor: el servidor ya dijo lo suyo con su `errorCode`. Mantener el valor fuera del enum del contrato evita que un día se serialice por accidente en un lote de `POST /sync/batch`. Y una fila terminal sin salida convierte la cola en un atasco visible y sin remedio, de modo que el descarte es parte de la decisión y no un extra.
+
+Consecuencias. `LocalSyncStatus` tiene tres valores y el mapeo hacia el contrato cubre solo dos, con la conversión explícita. El historial muestra el estado y ofrece el descarte cuando corresponde. El design system no define este estado, de modo que su badge se diseñó en Mobile-3.1 siguiendo la sección F, con icono y texto y nunca solo color.
+
+Alternativas consideradas. Reintentar indefinidamente, descartado porque gasta batería y cupo de rate limit sobre algo que no va a prosperar. Borrar la fila al primer rechazo permanente, descartado porque el paciente registró algo real y perderlo sin avisar es peor que mostrarlo trabado.
+
+Acta M35: La búsqueda del catálogo de alimentos es siempre local
+
+Contexto. `GET /foods/search` existe y funciona. CP023 exige registrar una comida en modo avión, de punta a punta, y el buscador es parte de ese recorrido. Por separado, se verificó que el endpoint del servidor usa `ILike` sin `unaccent`, aunque la extensión está instalada y el glosario sí la usa: escribir "platano" no encontraría "Plátano de la isla maduro".
+
+Decisión. La búsqueda por texto del catálogo corre **siempre** contra la caché local `food_catalog_cache`, nunca contra `GET /foods/search`, y normaliza las tildes en el cliente con `TextNormalizer`. El catálogo completo se refresca al abrir sesión. Las sugerencias sí son del servidor y solo están con conexión: sin red la sección se oculta, sin error, y la búsqueda por texto sigue disponible.
+
+Justificación. Una búsqueda que depende de la red rompe el caso de prueba en el primer paso, y el diseño offline-first del producto no admite que la pieza más usada del registro sea la que primero falla sin señal. Normalizar en el cliente resuelve de paso el gap de `unaccent` del servidor sin esperar a que lo arreglen. El costo es tener el catálogo en el dispositivo, que ya hacía falta para el registro sin conexión.
+
+Consecuencias. `food_catalog_cache` pasa a ser una dependencia dura del registro de comidas y no un acelerador opcional. El gap de `unaccent` en `GET /foods/search` queda reportado al backend y sin resolver, esquivado por esta decisión. Mobile-3.1 extendió la misma normalización a los platos personalizados del paciente.
+
+Alternativas consideradas. Buscar en el servidor con la caché como respaldo, descartado porque duplica la lógica de coincidencia en dos lugares con reglas distintas de tildes, y el paciente vería resultados diferentes según la señal. Esperar a que el backend agregue `unaccent`, descartado porque no destraba el modo avión.
+
+Acta M36: El historial se compone desde /meals y /symptoms, no desde GET /history
+
+Contexto. El contrato publica `GET /api/v1/history`, pensado justamente para el historial unificado. Al generar el cliente Dart se verificó que su esquema `HistoryEvent` declara **una sola propiedad**, `occurredAt`, con `additionalProperties: false`: la jerarquía polimórfica del servidor quedó aplanada en el OpenAPI. El cliente generado descarta `eventType`, `meal`, `symptom` y `note` en silencio y devuelve una lista de fechas vacías. El servidor sí manda los datos; el problema es del contrato.
+
+Decisión. El historial se compone en el cliente a partir de `GET /meals` y `GET /symptoms`, que sí devuelven tipos completos, más lo que todavía no salió del dispositivo. `GET /history` no se consume.
+
+Justificación. Un endpoint que devuelve fechas vacías no es utilizable, y arreglar el contrato es trabajo del backend con su propio ciclo de publicación. Las dos consultas que sí funcionan traen todo lo necesario, incluida la carga FODMAP agregada y la asociación con la comida ya resuelta por el servidor. Componer en el cliente cuesta una consulta más y una unión por `clientGuid`, que ya existía para no duplicar las filas locales con las remotas.
+
+Consecuencias. El historial hace dos peticiones en vez de una. `HistoryApi` queda generado y sin usar. El gap quedó reportado al backend y sin resolver. Los dos endpoints exigen un rango de fechas explícito, por el defecto que se documenta aparte.
+
+Alternativas consideradas. Leer el `Map` crudo de la respuesta de `GET /history` sin pasar por el tipo generado, descartado por construir a mano un deserializador polimórfico que el contrato debería declarar, y que quedaría desalineado el día que el backend lo corrija.
+
+Acta M37: Sin mecanismo de notificación para el cuestionario periódico
+
+Contexto. HU0012 CA01 pide que el paciente llegue al cuestionario periódico cuando su ciclo de catorce días vence. El servidor ya tiene armado el camino de push: `IbsSssReminderWorker` agenda una `Notification` a las 48 horas del vencimiento. El móvil no puede recibirla sin Firebase Cloud Messaging, que el acta M13 difirió.
+
+Decisión. Mobile-3 no integra Firebase. El acceso al cuestionario es un aviso en la home, que aparece cuando `nextAssessmentDate` ya venció, más la entrada del menú principal. Es lo que el propio CA01 contempla con "o desde el menú principal".
+
+Justificación. Integrar FCM arrastra el plugin de Firebase, la configuración por plataforma, los certificados de APNs y el registro del token, que es un bloque propio y no una tarea dentro de EP0002. El aviso en la home cumple el criterio de aceptación tal como está redactado, y el servidor conserva la notificación agendada para cuando el canal exista.
+
+Consecuencias. El paciente que no abre la aplicación no se entera de que le toca responder. El acta M13 sigue vigente y su destino se movió a Mobile-5, donde EP0003 necesita el canal para HU0014 CA01. Mientras el estado no resuelve, o si falla, el aviso **no** aparece: uno que apareciera por las dudas mandaría a responder un cuestionario que quizá no toca, y el ciclo es irrepetible dentro de su ventana. Mobile-3.1 sumó el ítem del menú del FAB, alcanzable desde cualquier pestaña, con sus tres estados.
+
+Alternativas consideradas. Notificaciones locales programadas en el dispositivo, descartadas porque el vencimiento lo calcula el servidor y una copia local se desincroniza en cuanto el paciente responde desde otro lado o el ciclo se reagenda.
+
+DECISIONS-BLOCK-MOBILE-3.1
+Acta M38. Decisión vinculante del bloque Mobile-3.1 (navegación persistente y cierre real de EP0002).
+Fecha del bloque: 2026-09-19.
+Autores: Trigo (decisión), Kiwicha (redacción del prompt de bloque), Quinua (redacción del acta).
+Estado global: aprobada.
+
+Acta M38: Shell de navegación persistente con StatefulShellRoute, formularios sobre el navigator raíz, y dos compuertas que son del cliente
+
+Contexto. La Fase 0 de Mobile-4 encontró que cuatro pantallas de Mobile-3 estaban registradas en el router y no eran alcanzables: nada en `lib/` navegaba a `/meals/new`, `/custom-foods/new`, `/symptoms/new` ni `/history`. El inventario completo de `context.push` y `context.go` del árbol eran nueve llamadas, ninguna a esas cuatro. Un paciente con la aplicación instalada no podía registrar una comida. La home seguía siendo la provisional de Mobile-1b, cuyo propio docstring anunciaba un reemplazo que no ocurrió. En paralelo, siete Casos de Prueba nombran literalmente un "menú inferior" con secciones, y la sección H del design system lo especifica desde la v1.0: bottom nav de cinco ítems con FAB central elevado.
+
+Se encontró además un segundo callejón sin salida del mismo tipo: `CustomFoodsRepository.list()` se consumía en un solo lugar, la detección de nombres duplicados al crear, y no había **ninguna** vía para agregar un plato personalizado a una comida. HU0010 entera terminaba sin salida.
+
+Decisión.
+
+1. La navegación de las cuatro secciones se monta con `StatefulShellRoute.indexedStack` de go_router: Inicio, Diario, Consejos y Perfil, con el FAB recortado en la columna del medio. Cada rama conserva su pila y su estado al cambiar de pestaña.
+2. `CauceScaffold` **no se toca**. El shell aporta su propio `Scaffold` con la barra y el botón; cada pestaña sigue montando el suyo. La alternativa de sumarle un `bottomNavigationBar` al átomo se evaluó y se descartó.
+3. Los formularios de registro (comida, plato personalizado, síntoma, nota de contexto, cuestionario periódico) se apilan sobre el **navigator raíz**, a pantalla completa y sin barra inferior. Privacidad, en cambio, se queda dentro de la rama de Perfil.
+4. La feature de la cuarta pestaña se llama `recommendations` y su ruta es `/recommendations`, igual que el módulo del backend y que las historias. "Consejos" es solo la etiqueta que ve el paciente, en el arb.
+5. El retroceso de Android resuelve en tres escalones: primero lo apilado dentro de la rama, después vuelve a Inicio desde cualquier otra pestaña, y solo en la raíz de Inicio sale de la aplicación.
+6. El buscador de alimentos encuentra también los platos del paciente, con su badge de "Plato propio · no validado", y ofrece crear uno cuando no hay coincidencias, devolviéndolo ya seleccionado. El buscador de **ingredientes** del constructor de platos no los ofrece.
+7. **Dos compuertas que el servidor no impone.** Se verificó contra el backend que ni `CreateMealCommandHandler` ni `CreateSymptomCommandHandler` exigen un perfil clínico, y que un IBS-SSS periódico enviado antes de `nextAssessmentDate` **se acepta**, incrementa el ciclo y reagenda: no existe ninguna excepción de ventana en el dominio. Las dos restricciones se implementan igual, en el cliente, y quedan declaradas como decisiones de producto.
+
+Justificación. El menú inferior no era una corrección cosmética para que calzara el enunciado de un Caso de Prueba: era la capa que faltaba para que EP0002 fuera usable, y el bloque que la construyera tenía que construirla igual. `StatefulShellRoute.indexedStack` es la forma idiomática en go_router 14 y la única que preserva el estado por rama, que es lo que evita que el Diario se recargue entero cada vez que el paciente pasa por Perfil. No tocar `CauceScaffold` mantiene intacto un átomo transversal que ya usan todas las pantallas, y evita duplicar la barra en cada raíz.
+
+Los formularios van sobre el navigator raíz porque es lo que muestra el app bar del design system, con flecha de retroceso y título, y porque dejar las pestañas a la vista invitaría a cambiar de sección a mitad de un registro sin enviar. Privacidad no es un formulario sino una subpantalla de ajustes, y conservar la barra ahí deja al paciente saltar a otra pestaña y volver donde estaba.
+
+Sobre el punto 7: la compuerta del diario tiene fundamento en HU0003 CA01, que dice que guardar el perfil clínico "habilita el acceso al diario", y CP011 paso 6 nombra las recomendaciones como funcionalidad restringida. La del cuestionario tiene fundamento clínico: el IBS-SSS mide sobre catorce días y responderlo antes ensucia la serie, que es la medida primaria del estudio. Las dos se declaran de forma explícita porque el servidor aceptaría igual lo que el móvil frena, y una restricción que solo vive en el cliente es exactamente el tipo de regla que se pierde en la próxima refactorización si no está escrita.
+
+Consecuencias.
+
+- `resolveRedirect` **no cambió**. Es una función pura sobre el string de la ruta, y un shell no cambia los paths: `session_guard_test.dart` siguió en verde sin editar una línea, lo que sirve de evidencia.
+- Ninguna restricción queda muda. Una pestaña restringida explica por qué y ofrece el botón para completar el onboarding; una acción del FAB que no aplica conserva su lugar con su explicación, y cuando la salida es completar el onboarding, tocarla lleva ahí. El único caso realmente deshabilitado es el cuestionario sin vencer, que muestra la fecha en que estará disponible.
+- El FAB central sobresale sobre el cuerpo de la pestaña y **tapaba** la fila de cerrar sesión de Perfil, que quedaba intocable. El shell reserva ese espacio para que ninguna pantalla futura lo repita.
+- Queda **pedido al backend**, fuera del alcance de este bloque, que rechace un IBS-SSS periódico enviado antes de tiempo con la tolerancia que defina el protocolo del piloto. El IBS-SSS es la medida primaria del estudio y el servidor debería proteger la serie.
+- Queda anotada como deuda una tabla local para los platos personalizados. Hoy se sostienen en memoria durante la sesión con un provider `keepAlive`, y sin conexión la sección avisa en vez de desaparecer. Con el esquema v2 recién estrenado no correspondía sumar una migración por esto.
+- Dos reglas nuevas y permanentes entran al CLAUDE.md como R10 y R11: toda ruta nueva tiene un punto de entrada cubierto por un test que llega a ella tocando desde la raíz, y toda pantalla se construye contra la sección del design system que le corresponde y su mockup si existe.
+
+Alternativas consideradas. Sumarle un `bottomNavigationBar` opcional a `CauceScaffold` y que cada raíz lo pase, descartado porque pierde la preservación de estado por rama, duplica la barra en cuatro pantallas y amplía un átomo compartido de `core/widgets/` sin necesidad. Dejar la navegación inferior para Mobile-4 junto con EP0005 y EP0006, descartado porque habría dejado EP0002 cerrado sobre el papel y sin usar durante otro bloque entero. Deshabilitar las pestañas restringidas en la barra, descartado por la regla de que nada se deshabilita sin explicar: un botón apagado en la barra no tiene dónde decir por qué.
