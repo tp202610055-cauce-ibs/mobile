@@ -9,6 +9,7 @@ import '../../foods/domain/food_item.dart';
 import '../../meals/data/meals_local_store.dart';
 import '../../meals/data/meals_repository.dart';
 import '../../meals/domain/meal_draft.dart';
+import '../../meals/domain/meal_record.dart';
 import '../../symptoms/data/symptoms_local_store.dart';
 import '../../symptoms/data/symptoms_repository.dart';
 import '../../symptoms/domain/symptom_draft.dart';
@@ -163,7 +164,20 @@ class HistoryNotifier extends _$HistoryNotifier {
       );
     }
 
+    // La comida asociada se busca entre las del mismo rango, que ya estan a
+    // mano. El servidor resolvio la ventana de cuatro horas y devolvio el
+    // `associatedMealId`; aca solo se le pone nombre y distancia para poder
+    // decir "asociado con el almuerzo, 1 h 30 min despues" en vez de un
+    // generico "asociado a una comida" (seccion G del design system).
+    final mealsById = <String, MealRecord>{
+      for (final meal in meals.items) meal.mealId: meal,
+    };
+
     for (final symptom in symptoms.items) {
+      final associated = symptom.associatedMealId == null
+          ? null
+          : mealsById[symptom.associatedMealId!];
+
       entries.add(
         HistoryEntry(
           kind: HistoryEntryKind.symptom,
@@ -174,6 +188,10 @@ class HistoryNotifier extends _$HistoryNotifier {
           symptomType: symptom.symptomType,
           intensity: symptom.intensity,
           hasMealAssociation: symptom.hasMealAssociation,
+          associatedMealTime: associated?.mealTime,
+          associatedMealDelay: associated == null
+              ? null
+              : symptom.occurredAt.difference(associated.consumedAt),
         ),
       );
     }
