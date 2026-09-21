@@ -51,36 +51,42 @@ class CauceBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: CauceColors.bgCard,
-        border: Border(
-          top: BorderSide(
-            color: CauceColors.bgDivider,
-            width: CauceBorders.subtle,
+    // `Material` y no `Container` con color: la onda del `InkWell` se pinta
+    // sobre el Material mas cercano, y cualquier widget opaco dibujado encima
+    // la tapa. Con el Container, tocar una pestana no producia ningun efecto
+    // visible, que es lo que se noto en el celular.
+    return Material(
+      color: CauceColors.bgCard,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: CauceColors.bgDivider,
+              width: CauceBorders.subtle,
+            ),
           ),
         ),
-      ),
-      child: SafeArea(
-        top: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-            CauceSpacing.space2,
-            CauceSpacing.space3,
-            CauceSpacing.space2,
-            CauceSpacing.space4,
-          ),
-          child: Row(
-            children: <Widget>[
-              _slot(0),
-              _slot(1),
-              // Hueco del FAB. Ocupa una columna completa para que los cuatro
-              // destinos queden repartidos como en el design system y no
-              // apretados contra el centro.
-              const Expanded(child: SizedBox.shrink()),
-              _slot(2),
-              _slot(3),
-            ],
+        child: SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(
+              CauceSpacing.space2,
+              CauceSpacing.space3,
+              CauceSpacing.space2,
+              CauceSpacing.space4,
+            ),
+            child: Row(
+              children: <Widget>[
+                _slot(0),
+                _slot(1),
+                // Hueco del FAB. Ocupa una columna completa para que los
+                // cuatro destinos queden repartidos como en el design system
+                // y no apretados contra el centro.
+                const Expanded(child: SizedBox.shrink()),
+                _slot(2),
+                _slot(3),
+              ],
+            ),
           ),
         ),
       ),
