@@ -77,6 +77,18 @@ class SyncWorker {
   Future<SyncRunReport>? _inFlight;
   StreamSubscription<void>? _subscription;
 
+  /// Avisa cada vez que una corrida termina.
+  ///
+  /// Lo escucha `BackgroundServices` para refrescar el Diario: sin esto, una
+  /// fila que sube sola al reconectar seguiria mostrandose como pendiente
+  /// hasta que el paciente tirara de la lista, que es lo que paso en la
+  /// verificacion en dispositivo de Mobile-3.1.
+  final StreamController<SyncRunReport> _completions =
+      StreamController<SyncRunReport>.broadcast();
+
+  /// Corridas terminadas, con su reporte.
+  Stream<SyncRunReport> get completions => _completions.stream;
+
   /// Empieza a escuchar las reconexiones.
   void start() {
     _subscription ??= _connectivity.onReconnected().listen((_) {
@@ -95,7 +107,18 @@ class SyncWorker {
   /// Nunca lanza: el worker corre en segundo plano y una excepcion suelta no
   /// tendria a quien avisarle. Todo fallo se refleja en el [SyncRunOutcome].
   Future<SyncRunReport> run() {
-    return _inFlight ??= _run().whenComplete(() => _inFlight = null);
+    return _inFlight ??= _run().then((report) {
+      if (!_completions.isClosed) {
+        _completions.add(report);
+      }
+      return report;
+    }).whenComplete(() => _inFlight = null);
+  }
+
+  /// Libera el worker por completo. Lo llama el `onDispose` del provider.
+  Future<void> dispose() async {
+    await stop();
+    await _completions.close();
   }
 
   Future<SyncRunReport> _run() async {
@@ -163,6 +186,6 @@ SyncWorker syncWorker(Ref ref) {
     repository: ref.watch(syncRepositoryProvider),
     connectivity: ref.watch(connectivityMonitorProvider),
   );
-  ref.onDispose(worker.stop);
+  ref.onDispose(worker.dispose);
   return worker;
 }
