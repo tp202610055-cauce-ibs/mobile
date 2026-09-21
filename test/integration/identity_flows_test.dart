@@ -305,7 +305,7 @@ void main() {
 
       expect(h.adapter.lastRequest.body['token'], 'tok-del-correo');
       expect(h.adapter.lastRequest.body['newPassword'], 'NuevaClave1');
-      expect(find.text('Contrasena actualizada'), findsOneWidget);
+      expect(find.text('Contraseña actualizada'), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('reset_success_ok')));
       await tester.pumpAndSettle();
