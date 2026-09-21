@@ -47,8 +47,8 @@ AppBorders appBorders({
 
   final database = AppDatabase.memory();
   final connectivity = FakeConnectivityMonitor(online: online);
-  final transport =
-      adapter ?? CannedHttpAdapter(const CannedResponse.ok(<String, dynamic>{}));
+  final transport = adapter ??
+      CannedHttpAdapter(const CannedResponse.ok(<String, dynamic>{}));
 
   addTearDown(database.close);
   addTearDown(connectivity.dispose);

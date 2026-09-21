@@ -43,7 +43,8 @@ const String _pendingGuid = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
 /// `/sync/batch`, y hacer fallar el test por una ruta lateral que la home
 /// consulta de paso lo volveria fragil sin agregar nada.
 class _RoutedAdapter extends CannedHttpAdapter {
-  _RoutedAdapter(this.routes) : super(const CannedResponse.ok(<String, dynamic>{}));
+  _RoutedAdapter(this.routes)
+      : super(const CannedResponse.ok(<String, dynamic>{}));
 
   final Map<String, CannedResponse> routes;
 
@@ -150,8 +151,7 @@ Future<_Harness> _pumpApp(
 
 void main() {
   group('R12 · los servicios de fondo se encienden con la sesion', () {
-    testWidgets('lo pendiente sube solo al volver la conexion',
-        (tester) async {
+    testWidgets('lo pendiente sube solo al volver la conexion', (tester) async {
       // Arranca sin red y con una comida ya encolada, que es como queda el
       // dispositivo despues de un registro en modo avion.
       final h = await _pumpApp(tester, online: false);
@@ -171,8 +171,7 @@ void main() {
       expect(h.adapter.requestsFor('POST', '/sync/batch'), hasLength(1));
     });
 
-    testWidgets('el lote lleva la comida que estaba pendiente',
-        (tester) async {
+    testWidgets('el lote lleva la comida que estaba pendiente', (tester) async {
       final h = await _pumpApp(tester, online: false);
       await insertPendingMeal(h.database, _pendingGuid);
 

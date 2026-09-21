@@ -96,8 +96,7 @@ class CauceBottomNav extends StatelessWidget {
   Widget _slot(int index) {
     final item = items[index];
     final selected = index == currentIndex;
-    final color =
-        selected ? CauceColors.brandBase : CauceColors.textTertiary;
+    final color = selected ? CauceColors.brandBase : CauceColors.textTertiary;
 
     return Expanded(
       child: Semantics(

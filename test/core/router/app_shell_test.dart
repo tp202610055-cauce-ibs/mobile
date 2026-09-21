@@ -153,8 +153,7 @@ void main() {
       expect(find.byType(ProfileScreen), findsOneWidget);
     });
 
-    testWidgets('cambiar de pestana y volver conserva la rama',
-        (tester) async {
+    testWidgets('cambiar de pestana y volver conserva la rama', (tester) async {
       await _pumpShell(tester);
 
       await _tapTab(tester, 'nav_journal');

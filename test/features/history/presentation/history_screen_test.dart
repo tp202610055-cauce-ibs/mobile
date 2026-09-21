@@ -161,7 +161,10 @@ void main() {
 
     testWidgets('el sintoma muestra su tipo y su intensidad', (tester) async {
       final l10n = await AppLocalizations.delegate.load(const Locale('es'));
-      await _pump(tester, <HistoryEntry>[_symptom(at: aLas(15), intensity: 60)]);
+      await _pump(
+        tester,
+        <HistoryEntry>[_symptom(at: aLas(15), intensity: 60)],
+      );
 
       expect(find.text(l10n.historyIntensityBadge(60)), findsOneWidget);
     });
@@ -170,7 +173,11 @@ void main() {
         (tester) async {
       final l10n = await AppLocalizations.delegate.load(const Locale('es'));
       await _pump(tester, <HistoryEntry>[
-        _meal(at: aLas(20), sync: HistoryEntrySyncState.pending, serverId: null),
+        _meal(
+          at: aLas(20),
+          sync: HistoryEntrySyncState.pending,
+          serverId: null,
+        ),
       ]);
 
       expect(find.text(l10n.historySyncPending), findsOneWidget);
@@ -189,14 +196,16 @@ void main() {
       ]);
 
       final hoyY = tester.getTopLeft(find.text(l10n.historyToday)).dy;
-      final tarjetas = tester
-          .widgetList<HistoryCard>(find.byType(HistoryCard))
-          .toList();
+      final tarjetas =
+          tester.widgetList<HistoryCard>(find.byType(HistoryCard)).toList();
 
       expect(tarjetas, hasLength(2));
       // La primera tarjeta de la lista es la de hoy.
       expect(tarjetas.first.entry.occurredAt.day, hoy.day);
-      expect(hoyY, lessThan(tester.getTopLeft(find.byType(HistoryCard).last).dy));
+      expect(
+        hoyY,
+        lessThan(tester.getTopLeft(find.byType(HistoryCard).last).dy),
+      );
     });
 
     testWidgets('sin registros de hoy aparece la invitacion corta',

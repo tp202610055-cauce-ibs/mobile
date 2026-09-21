@@ -125,9 +125,7 @@ class _CauceExpandableFabState extends State<CauceExpandableFab> {
             height: 56,
             child: Material(
               key: cauceFabKey,
-              color: _open
-                  ? CauceColors.brandStrong
-                  : CauceColors.brandBase,
+              color: _open ? CauceColors.brandStrong : CauceColors.brandBase,
               shape: const CircleBorder(
                 // El borde en el color del fondo de pagina recorta el circulo
                 // contra la barra, que es lo que le da el aire de elevado.
@@ -228,9 +226,8 @@ class _ActionPill extends StatelessWidget {
               Icon(
                 action.icon,
                 size: 20,
-                color: enabled
-                    ? CauceColors.brandBase
-                    : CauceColors.textTertiary,
+                color:
+                    enabled ? CauceColors.brandBase : CauceColors.textTertiary,
               ),
               const SizedBox(width: 10),
               Column(

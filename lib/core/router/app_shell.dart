@@ -82,8 +82,7 @@ class AppShell extends ConsumerWidget {
           openLabel: l10n.fabQuickAction,
           closeLabel: l10n.fabCloseMenu,
         ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CauceBottomNav(
           currentIndex: navigationShell.currentIndex,
           onSelected: (int index) => _select(ref, index),

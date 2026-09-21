@@ -175,9 +175,7 @@ class _FoodPickerSheetState extends ConsumerState<_FoodPickerSheet> {
                 label: l10n.mealsSearchTitle,
                 hint: l10n.mealsSearchHint,
                 enabled: !_resolving,
-                onChanged: ref
-                    .read(foodSearchNotifierProvider.notifier)
-                    .search,
+                onChanged: ref.read(foodSearchNotifierProvider.notifier).search,
               ),
               const SizedBox(height: CauceSpacing.space3),
               Flexible(
@@ -226,8 +224,7 @@ class _FoodPickerSheetState extends ConsumerState<_FoodPickerSheet> {
                               child: Text(
                                 l10n.mealsOwnDishesOffline,
                                 key: const Key('food_picker_dishes_offline'),
-                                style:
-                                    Theme.of(context).textTheme.bodySmall,
+                                style: Theme.of(context).textTheme.bodySmall,
                               ),
                             ),
                           ],

@@ -30,8 +30,7 @@ class _FakeCustomFoodsRepository implements CustomFoodsRepository {
   }
 
   @override
-  dynamic noSuchMethod(Invocation invocation) =>
-      super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 final CustomFoodRecord _ajiDeGallina = CustomFoodRecord(
@@ -220,8 +219,7 @@ void main() {
   });
 
   group('CP025 paso 3 · sin resultados, crear un plato', () {
-    testWidgets('ofrece la salida cuando no hay coincidencias',
-        (tester) async {
+    testWidgets('ofrece la salida cuando no hay coincidencias', (tester) async {
       await pumpPicker(tester);
 
       await tester.enterText(
@@ -253,7 +251,10 @@ void main() {
       // La hoja se cerro y devolvio el plato nuevo, sin una segunda busqueda.
       final value = selected.value;
       expect(value, isA<CustomDishSelection>());
-      expect((value! as CustomDishSelection).record.name, 'Causa limeña de casa');
+      expect(
+        (value! as CustomDishSelection).record.name,
+        'Causa limeña de casa',
+      );
       expect(find.byKey(const Key('food_picker_query')), findsNothing);
     });
   });

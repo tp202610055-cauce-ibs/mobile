@@ -42,9 +42,8 @@ class HomeScoreCard extends ConsumerWidget {
       return const SizedBox.shrink();
     }
 
-    final delta = evolution?.isEmpty ?? true
-        ? null
-        : evolution!.last.deltaFromBaseline;
+    final delta =
+        evolution?.isEmpty ?? true ? null : evolution!.last.deltaFromBaseline;
     final due = latest.nextAssessmentDate;
 
     return _Card(
@@ -135,8 +134,7 @@ class HomeTodayCard extends ConsumerWidget {
           when.day == today.day;
     }).toList();
 
-    final comidas =
-        hoy.where((e) => e.kind == HistoryEntryKind.meal).length;
+    final comidas = hoy.where((e) => e.kind == HistoryEntryKind.meal).length;
     final sintomas =
         hoy.where((e) => e.kind == HistoryEntryKind.symptom).length;
 

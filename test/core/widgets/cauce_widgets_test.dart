@@ -643,8 +643,7 @@ void main() {
   });
 
   group('CauceBadge · seccion F del design system', () {
-    testWidgets('lleva icono y texto juntos, nunca solo color',
-        (tester) async {
+    testWidgets('lleva icono y texto juntos, nunca solo color', (tester) async {
       await _pump(
         tester,
         const CauceBadge(
