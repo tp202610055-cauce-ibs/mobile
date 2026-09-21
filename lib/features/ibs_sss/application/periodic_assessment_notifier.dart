@@ -113,6 +113,17 @@ class PeriodicAssessmentNotifier extends _$PeriodicAssessmentNotifier {
   }
 }
 
+/// Serie de evolucion del paciente, de la linea base en adelante.
+///
+/// La consume la tarjeta de Inicio para mostrar el cambio contra la linea
+/// base. No es un endpoint nuevo: `GET /ibs-sss/evolution` ya se consumia
+/// desde el cuestionario periodico (US12 CA03). El grafico grande con eje
+/// temporal llega en Mobile-4 con HU0023.
+@riverpod
+Future<List<IbsSssEvolutionPoint>> ibsSssEvolution(Ref ref) {
+  return ref.watch(ibsSssRepositoryProvider).evolution();
+}
+
 /// Evaluacion IBS-SSS mas reciente del paciente.
 ///
 /// Alimenta el aviso de la home: su `nextAssessmentDate` dice cuando vence el

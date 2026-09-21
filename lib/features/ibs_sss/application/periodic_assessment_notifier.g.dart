@@ -6,6 +6,32 @@ part of 'periodic_assessment_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$ibsSssEvolutionHash() => r'08363795f87604f16bebd3369deeff54c2c2e7db';
+
+/// Serie de evolucion del paciente, de la linea base en adelante.
+///
+/// La consume la tarjeta de Inicio para mostrar el cambio contra la linea
+/// base. No es un endpoint nuevo: `GET /ibs-sss/evolution` ya se consumia
+/// desde el cuestionario periodico (US12 CA03). El grafico grande con eje
+/// temporal llega en Mobile-4 con HU0023.
+///
+/// Copied from [ibsSssEvolution].
+@ProviderFor(ibsSssEvolution)
+final ibsSssEvolutionProvider =
+    AutoDisposeFutureProvider<List<IbsSssEvolutionPoint>>.internal(
+  ibsSssEvolution,
+  name: r'ibsSssEvolutionProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$ibsSssEvolutionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IbsSssEvolutionRef
+    = AutoDisposeFutureProviderRef<List<IbsSssEvolutionPoint>>;
 String _$latestIbsSssAssessmentHash() =>
     r'1f51c19f644f8f5dcd533e0736ae79f13c55522d';
 
