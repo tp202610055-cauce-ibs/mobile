@@ -59,8 +59,12 @@ class SymptomFormScreen extends ConsumerWidget {
           CauceSlider(
             key: const Key('symptom_intensity_field'),
             value: state.draft.intensity,
-            min: SymptomDraft.minIntensity,
+            // De diez en diez, no de uno en uno (acta M40). El dominio sigue
+            // aceptando 1 a 100, que es lo que valida el backend: la escala
+            // de la pantalla es un subconjunto suyo.
+            min: SymptomDraft.intensityStep,
             max: SymptomDraft.maxIntensity,
+            step: SymptomDraft.intensityStep,
             enabled: !state.submitting,
             onChanged: notifier.setIntensity,
             minLabel: l10n.symptomsIntensityMin,
