@@ -1,5 +1,10 @@
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
+import 'package:cauce_mobile/core/config/env.dart';
+import 'package:cauce_mobile/core/database/app_database.dart';
+import 'package:cauce_mobile/core/database/app_database_provider.dart';
+import 'package:cauce_mobile/core/network/dio_provider.dart';
+import 'package:cauce_mobile/core/sync/connectivity_monitor.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/history/presentation/history_screen.dart';
@@ -18,10 +23,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../helpers/canned_http_adapter.dart';
 import '../../helpers/fake_auth_repository.dart';
 import '../../helpers/fake_ibs_sss_repository.dart';
 import '../../helpers/fake_patients_repository.dart';
 import '../../helpers/fake_token_storage.dart';
+import '../../helpers/sync_fixtures.dart';
 
 /// Monta la aplicacion entera con sesion valida y el shell a la vista.
 ///
@@ -32,16 +39,45 @@ Future<ProviderContainer> _pumpShell(
   bool onboardingCompleted = true,
   IbsSssAssessmentSummaryData? latestAssessment,
 }) async {
+  // Desde Mobile-3.2 montar `CauceApp` enciende los servicios de fondo, que
+  // necesitan base local, conectividad y transporte. Se falsean los tres: lo
+  // que este archivo ejercita es la navegacion, y quien prueba los servicios
+  // es `test/integration/background_services_test.dart`.
+  Env.loadForTesting(const <String, String>{
+    'API_BASE_URL': 'http://localhost:5074',
+    'ENV_NAME': 'dev',
+    'CLIENT_ID': 'cauce-mobile',
+    'DEEP_LINK_SCHEME': 'cauce',
+  });
+  addTearDown(Env.reset);
+
+  final database = AppDatabase.memory();
+  final connectivity = FakeConnectivityMonitor(online: false);
+  addTearDown(database.close);
+  addTearDown(connectivity.dispose);
+
+  final storage = FakeTokenStorage(
+    accessToken: 'access-1',
+    refreshToken: 'refresh-1',
+    userSnapshot: demoUser,
+  );
+
   final container = ProviderContainer(
     overrides: <Override>[
+      appDatabaseProvider.overrideWithValue(database),
+      connectivityMonitorProvider.overrideWithValue(connectivity),
+      dioProvider.overrideWith((ref) {
+        final dio = buildDio(
+          tokenStorage: storage,
+          baseUrl: 'http://localhost:5074',
+        );
+        dio.httpClientAdapter = CannedHttpAdapter(
+          const CannedResponse.ok(<String, dynamic>{}),
+        );
+        return dio;
+      }),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
-      tokenStorageProvider.overrideWithValue(
-        FakeTokenStorage(
-          accessToken: 'access-1',
-          refreshToken: 'refresh-1',
-          userSnapshot: demoUser,
-        ),
-      ),
+      tokenStorageProvider.overrideWithValue(storage),
       patientsRepositoryProvider.overrideWithValue(
         FakePatientsRepository(
           profile: demoProfile.copyWith(
@@ -117,8 +153,7 @@ void main() {
       expect(find.byType(ProfileScreen), findsOneWidget);
     });
 
-    testWidgets('cambiar de pestana y volver conserva la rama',
-        (tester) async {
+    testWidgets('cambiar de pestana y volver conserva la rama', (tester) async {
       await _pumpShell(tester);
 
       await _tapTab(tester, 'nav_journal');

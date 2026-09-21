@@ -6,7 +6,7 @@ part of 'app_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appRouterHash() => r'fedb600b567a0936976e854ee89fb0c0973608c4';
+String _$appRouterHash() => r'6cfd932c0ecc4a4e042d071f9ae708afbbbbb490';
 
 /// Router de la aplicacion, con el guard de sesion montado.
 ///

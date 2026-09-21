@@ -91,9 +91,26 @@ CauceBadgeTone intensityTone(int intensity) {
   };
 }
 
+/// Ventana canonica que el servidor usa para asociar comida y sintoma.
+const Duration mealAssociationWindow = Duration(hours: 4);
+
+/// `true` si la distancia entre la comida y el sintoma se puede mostrar.
+///
+/// **Una distancia negativa es posible y no es un error de calculo.** El
+/// servidor ancla la ventana en `clientCreatedAt` y no en `occurredAt`, de
+/// modo que un sintoma de ayer registrado hoy puede quedar asociado con una
+/// comida **posterior** al sintoma. Decir "asociado con el almuerzo, 3 h
+/// despues" cuando el sintoma fue antes seria afirmar algo falso sobre un
+/// dato clinico, asi que en ese caso se muestra la asociacion sin la
+/// distancia. Lo mismo si supera las cuatro horas de la ventana.
+bool isPlausibleDelay(Duration delay) =>
+    !delay.isNegative && delay <= mealAssociationWindow;
+
 /// Formatea la distancia entre la comida y el sintoma.
+///
+/// Solo se llama con una distancia que [isPlausibleDelay] acepto.
 String formatDelay(AppLocalizations l10n, Duration delay) {
-  final minutes = delay.inMinutes.abs();
+  final minutes = delay.inMinutes;
   final hours = minutes ~/ 60;
   return hours == 0
       ? l10n.historyDelayMinutes(minutes)
@@ -124,38 +141,53 @@ class HistoryCard extends StatelessWidget {
     final isSymptom = entry.kind == HistoryEntryKind.symptom;
     final accent = _accent;
 
+    // **El acento lateral va como franja, no como borde.**
+    //
+    // Antes era un `Border` con el lado izquierdo de otro color, junto con
+    // `borderRadius`. Flutter no puede pintar eso: lanza
+    // "a borderRadius can only be given on borders with uniform colors" en
+    // `paint()`, y la tarjeta **se dibuja vacia**. Eso era lo que en el
+    // celular se veia como dos tarjetas blancas, y por eso el sintoma
+    // parecia no aparecer: estaba, pero invisible. El borde vuelve a ser
+    // uniforme y la franja se pinta dentro del recorte.
     return Container(
       margin: const EdgeInsets.only(bottom: CauceSpacing.space3),
-      padding: const EdgeInsets.all(CauceSpacing.space4),
       decoration: BoxDecoration(
         color: CauceColors.bgCard,
         borderRadius: CauceRadii.borderLg,
-        border: Border(
-          top: _side,
-          right: _side,
-          bottom: _side,
-          // La tarjeta de sintoma lleva un acento lateral de 4, que es lo que
-          // la distingue de un vistazo dentro de una lista mezclada.
-          left: isSymptom && accent != null
-              ? BorderSide(color: accent, width: 4)
-              : _side,
+        border: Border.all(
+          color: CauceColors.bgDivider,
+          width: CauceBorders.subtle,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _Header(entry: entry),
-          ..._body(context, l10n, textTheme),
-          ..._actions(l10n, textTheme),
-        ],
+      child: ClipRRect(
+        borderRadius: CauceRadii.borderLg,
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(CauceSpacing.space4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _Header(entry: entry),
+                  ..._body(context, l10n, textTheme),
+                  ..._actions(l10n, textTheme),
+                ],
+              ),
+            ),
+            if (isSymptom && accent != null)
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: 4,
+                child: ColoredBox(color: accent),
+              ),
+          ],
+        ),
       ),
     );
   }
-
-  static const BorderSide _side = BorderSide(
-    color: CauceColors.bgDivider,
-    width: CauceBorders.subtle,
-  );
 
   /// Color del acento lateral del sintoma, segun su intensidad.
   Color? get _accent {
@@ -213,13 +245,28 @@ class HistoryCard extends StatelessWidget {
   List<Widget> _symptomBody(AppLocalizations l10n, TextTheme textTheme) {
     final mealTime = entry.associatedMealTime;
     final delay = entry.associatedMealDelay;
+    final intensity = entry.intensity;
 
     return <Widget>[
+      if (intensity != null) ...<Widget>[
+        const SizedBox(height: CauceSpacing.space2),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: CauceBadge(
+            key: const Key('history_intensity_badge'),
+            label: l10n.historyIntensityBadge(intensity),
+            icon: TablerIcons.wave_saw_tool,
+            tone: intensityTone(intensity),
+            compact: true,
+          ),
+        ),
+      ],
       // La asociacion la resolvio el servidor (DEC-B3-06). El cliente no
       // calcula la ventana de cuatro horas: solo muestra lo confirmado.
       if ((entry.hasMealAssociation ?? false) &&
           mealTime != null &&
-          delay != null) ...<Widget>[
+          delay != null &&
+          isPlausibleDelay(delay)) ...<Widget>[
         const SizedBox(height: CauceSpacing.space2),
         Row(
           key: const Key('history_meal_associated'),
@@ -245,7 +292,8 @@ class HistoryCard extends StatelessWidget {
         ),
       ] else if (entry.hasMealAssociation ?? false) ...<Widget>[
         // El servidor confirmo la asociacion pero la comida no esta en el
-        // rango cargado. Se dice lo que se sabe, sin inventar cual fue.
+        // rango cargado, o la distancia no es plausible. Se dice lo que se
+        // sabe, sin inventar cual fue ni cuanto paso.
         const SizedBox(height: CauceSpacing.space2),
         Text(
           l10n.historyMealAssociated,
@@ -313,7 +361,6 @@ class _Header extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
     final isSymptom = entry.kind == HistoryEntryKind.symptom;
-    final intensity = entry.intensity;
 
     // Hora corta y en el locale de la aplicacion. Antes se imprimia la fecha
     // completa en cada fila, en el locale del sistema: en un telefono en
@@ -322,6 +369,11 @@ class _Header extends StatelessWidget {
       Localizations.localeOf(context).toLanguageTag(),
     ).format(entry.occurredAt.toLocal());
 
+    // **Las dos mitades ceden.** El badge de sincronizacion mide distinto en
+    // cada estado ("Sincronizado" contra "Pendiente de sincronizar") y con un
+    // ancho fijo la fila se desbordaba 52 pixeles en un telefono normal, con
+    // Flutter recortando el contenido. Ahora el titulo y el badge reparten el
+    // ancho disponible y los dos elipsan si hace falta.
     return Row(
       children: <Widget>[
         Icon(
@@ -330,35 +382,44 @@ class _Header extends StatelessWidget {
           color: isSymptom ? CauceColors.warningText : CauceColors.brandBase,
         ),
         const SizedBox(width: CauceSpacing.space2),
-        Flexible(
-          child: Text(
-            _title(l10n),
-            overflow: TextOverflow.ellipsis,
-            style: textTheme.bodyMedium?.copyWith(
-              color: CauceColors.textSecondary,
-            ),
+        Expanded(
+          flex: 3,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Flexible(
+                child: Text(
+                  _title(l10n),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: CauceColors.textSecondary,
+                  ),
+                ),
+              ),
+              const SizedBox(width: CauceSpacing.space2),
+              Text(
+                time,
+                style: textTheme.labelSmall?.copyWith(
+                  color: CauceColors.textTertiary,
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(width: CauceSpacing.space2),
-        Text(
-          time,
-          style: textTheme.labelSmall?.copyWith(
-            color: CauceColors.textTertiary,
+        // **Un solo badge en el encabezado.** Con dos, la fila se desbordaba
+        // 52 pixeles a la derecha en un telefono normal y Flutter recortaba
+        // el contenido. La intensidad se movio al cuerpo, donde ademas queda
+        // al lado de la linea de asociacion, que es el otro dato clinico de
+        // la tarjeta.
+        Flexible(
+          flex: 2,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: _syncBadge(l10n, entry.syncState),
           ),
         ),
-        const Spacer(),
-        if (isSymptom && intensity != null)
-          Padding(
-            padding: const EdgeInsets.only(right: CauceSpacing.space2),
-            child: CauceBadge(
-              key: const Key('history_intensity_badge'),
-              label: l10n.historyIntensityBadge(intensity),
-              icon: TablerIcons.wave_saw_tool,
-              tone: intensityTone(intensity),
-              compact: true,
-            ),
-          ),
-        _syncBadge(l10n, entry.syncState),
       ],
     );
   }

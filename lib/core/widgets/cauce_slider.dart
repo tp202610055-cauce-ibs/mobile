@@ -37,12 +37,18 @@ class CauceSlider extends StatelessWidget {
     required this.onChanged,
     this.min = 0,
     this.max = 100,
+    this.step = 1,
     this.minLabel,
     this.maxLabel,
     this.semanticLabel,
     this.enabled = true,
     super.key,
-  }) : assert(min < max, 'El extremo inferior debe ser menor que el superior');
+  })  : assert(min < max, 'El extremo inferior debe ser menor que el superior'),
+        assert(step > 0, 'El paso tiene que ser positivo'),
+        assert(
+          (max - min) % step == 0,
+          'La escala tiene que entrar entera en pasos de ese tamano',
+        );
 
   /// Valor actual, o `null` si la pregunta sigue sin responder.
   final int? value;
@@ -70,7 +76,27 @@ class CauceSlider extends StatelessWidget {
   /// Extremo superior de la escala. 100 en los dos usos actuales.
   final int max;
 
+  /// Cuanto avanza el control en cada muesca.
+  ///
+  /// El default de 1 es el del IBS-SSS, **que no se toca**: es un instrumento
+  /// validado de escala continua y agruparlo en tramos alteraria el puntaje.
+  ///
+  /// La intensidad de un sintoma lo instancia con 10. Lo pidio el paciente
+  /// que probo la app: "no se como diferenciar 64 de intensidad y 63". Es
+  /// auto-reporte, no una medicion, y una escala de cien valores finge una
+  /// precision que nadie tiene (acta M40).
+  final int step;
+
   bool get _answered => value != null;
+
+  /// Punto medio alineado al paso, para el estado sin responder.
+  ///
+  /// Sin alinearlo, `Slider` con `divisions` acomoda el pulgar a la muesca
+  /// mas cercana y el control aparece corrido respecto del centro.
+  int get _midpoint {
+    final steps = (max - min) ~/ step;
+    return min + (steps ~/ 2) * step;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,12 +128,12 @@ class CauceSlider extends StatelessWidget {
                     : CauceColors.textTertiary,
               ),
               child: Slider(
-                value: (value ?? (min + max) ~/ 2).toDouble(),
+                value: (value ?? _midpoint).toDouble(),
                 min: min.toDouble(),
                 max: max.toDouble(),
-                // Una division por unidad: la escala es de enteros y permitir
-                // decimales daria un dato que el backend rechaza.
-                divisions: max - min,
+                // Divisiones segun el paso: la escala es de enteros y
+                // permitir decimales daria un dato que el backend rechaza.
+                divisions: (max - min) ~/ step,
                 label: _answered ? '$value' : null,
                 onChanged: active ? (raw) => onChanged!(raw.round()) : null,
               ),

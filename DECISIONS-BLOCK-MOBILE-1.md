@@ -330,7 +330,7 @@ Actas M33 a M37. Decisiones vinculantes del bloque Mobile-3 (registro clínico d
 Fecha del bloque: 2026-09-18.
 Autores: Trigo (decisión), Kiwicha (redacción del prompt de bloque), Quinua (redacción del acta).
 Estado global: aprobadas.
-Nota de procedencia: estas cinco actas se redactaron en Mobile-3.1 (2026-09-19), a partir del índice del CLAUDE.md v1.3.0 y del código ya mergeado en el PR #6. El texto original vivía en la descripción de ese PR, que no es alcanzable desde la terminal de trabajo. Conviene contrastarlas contra esa descripción antes de darlas por definitivas.
+Nota de procedencia: estas cinco actas se redactaron en Mobile-3.1 (2026-09-19), a partir del índice del CLAUDE.md v1.3.0 y del código ya mergeado en el PR #6, porque el texto original vivía en la descripción de ese PR y no es alcanzable desde la terminal de trabajo. Kiwicha las contrastó contra esa descripción y quedan como definitivas.
 
 Acta M33: CauceSlider parametriza sus extremos
 
@@ -342,7 +342,7 @@ Justificación. Un slider que ofrece el cero cuando el servidor lo rechaza produ
 
 Consecuencias. El átomo queda con dos parámetros más y con sus etiquetas derivadas de ellos. Los tests del cuestionario de línea base siguen valiendo sin cambios, porque el default es el comportamiento anterior. Ampliar un átomo compartido de `core/widgets/` es un cambio de alcance y se reportó antes de hacerlo.
 
-Alternativas consideradas. Un segundo átomo para la intensidad, descartado por duplicar la accesibilidad, el semantic value y el tratamiento del estado sin responder por una diferencia de un punto en un extremo. Dejar el cero y traducir el 400 del servidor, descartado porque convierte una regla conocida de antemano en un error de red.
+Alternativas consideradas. (a) Dejar el cero y traducir el 400 del servidor, descartada porque convierte una regla conocida de antemano en un error de red. (b) Un átomo nuevo, `CauceIntensitySlider`, descartado por obligar a mantener dos controles casi idénticos: la accesibilidad, el valor semántico y el tratamiento del estado sin responder se duplicarían por una diferencia de un punto en un extremo. (c) Una guarda en la pantalla, con el botón de envío deshabilitado si el valor es menor que 1, descartada porque el paciente puede dejar el pulgar en un valor que no lo deja avanzar y la pantalla no le explica por qué.
 
 Acta M34: Tercer estado local de sincronización, failed, que nunca viaja al servidor
 
@@ -354,7 +354,7 @@ Justificación. La distinción entre un fallo que se resuelve solo al reintentar
 
 Consecuencias. `LocalSyncStatus` tiene tres valores y el mapeo hacia el contrato cubre solo dos, con la conversión explícita. El historial muestra el estado y ofrece el descarte cuando corresponde. El design system no define este estado, de modo que su badge se diseñó en Mobile-3.1 siguiendo la sección F, con icono y texto y nunca solo color.
 
-Alternativas consideradas. Reintentar indefinidamente, descartado porque gasta batería y cupo de rate limit sobre algo que no va a prosperar. Borrar la fila al primer rechazo permanente, descartado porque el paciente registró algo real y perderlo sin avisar es peor que mostrarlo trabado.
+Alternativas consideradas. (a) Borrar la fila al primer rechazo permanente, descartada porque el paciente registró algo real y perderlo sin avisar es peor que mostrarlo trabado. (b) Un contador de reintentos que pasa a terminal después de N intentos, por ejemplo cinco, descartado porque tarda en rendirse ante un error que ya se sabe permanente: `food_item_not_found` no cambia por intentarlo cinco veces, y mientras tanto la fila reaparece en cada lote. (c) Dejar todo en `pending` para siempre, descartado porque el lote crece sin techo y vuelve a fallar en cada reconexión, arrastrando también a las filas sanas que viajan con él.
 
 Acta M35: La búsqueda del catálogo de alimentos es siempre local
 
@@ -430,3 +430,66 @@ Consecuencias.
 - Dos reglas nuevas y permanentes entran al CLAUDE.md como R10 y R11: toda ruta nueva tiene un punto de entrada cubierto por un test que llega a ella tocando desde la raíz, y toda pantalla se construye contra la sección del design system que le corresponde y su mockup si existe.
 
 Alternativas consideradas. Sumarle un `bottomNavigationBar` opcional a `CauceScaffold` y que cada raíz lo pase, descartado porque pierde la preservación de estado por rama, duplica la barra en cuatro pantallas y amplía un átomo compartido de `core/widgets/` sin necesidad. Dejar la navegación inferior para Mobile-4 junto con EP0005 y EP0006, descartado porque habría dejado EP0002 cerrado sobre el papel y sin usar durante otro bloque entero. Deshabilitar las pestañas restringidas en la barra, descartado por la regla de que nada se deshabilita sin explicar: un botón apagado en la barra no tiene dónde decir por qué.
+
+DECISIONS-BLOCK-MOBILE-3.2
+Actas M39 y M40. Decisiones vinculantes del bloque Mobile-3.2 (correcciones de la verificación en dispositivo).
+Fecha del bloque: 2026-09-21.
+Autores: Trigo (decisión), Kiwicha (redacción del prompt de bloque), Quinua (redacción del acta).
+Estado global: aprobadas.
+
+Acta M39: Todo servicio de fondo tiene quien lo encienda y quien lo apague
+
+Contexto. La primera prueba de la aplicación en un celular real encontró que una comida registrada sin conexión seguía diciendo "Pendiente de sincronizar" después de recuperar la señal, y que no subía nunca. La causa, verificada con `grep` sobre todo `lib/`: **`syncWorkerProvider` no tenía un solo lector**. El objeto nunca se creaba, de modo que nadie se suscribía a las reconexiones. El mismo inventario encontró que `foodCatalogRefresherProvider` tampoco tenía lectores, y por eso `food_catalog_cache` estaba vacía en el dispositivo: la búsqueda local del acta M35 no tenía contra qué buscar, y sin conexión el buscador no devolvía nada.
+
+Es la tercera vez que aparece el mismo patrón en el proyecto. Mobile-3.1 ya había encontrado cuatro pantallas de EP0002 registradas en el router y sin ninguna vía desde la interfaz, y un plato personalizado que se podía crear y nunca usar. Las tres veces: construido, testeado en aislamiento, nunca conectado.
+
+**Los 842 tests no lo veían, y el motivo importa.** Los 17 tests de `SyncWorker` lo instancian a mano y le disparan la reconexión ellos mismos. Prueban que el worker hace bien su trabajo; ninguno pregunta quién lo enciende en la aplicación de verdad. Un test de unidad sobre un servicio nunca puede responder esa pregunta, por bueno que sea.
+
+Decisión.
+
+1. Se crea `BackgroundServices` en `lib/core/services/`, que agrupa los servicios sin pantalla: el worker de sincronización y el refresco del catálogo. Expone `start()` y `stop()`, los dos idempotentes.
+2. `sessionBackgroundServicesProvider` ata su ciclo de vida al de la sesión: arranca con `SessionAuthenticated`, se detiene con `SessionUnauthenticated` y con `SessionPendingEmailVerification`, y **no toca nada** con `SessionUnknown`, que es el estado del arranque mientras se lee el Keystore.
+3. **`CauceApp` lo lee.** Es la línea que faltaba, y lleva su propio comentario diciendo que no se borra sin leer esta acta.
+4. `start()` además corre la sincronización una vez, sin esperar una reconexión: la aplicación pudo cerrarse con filas pendientes y arrancar con señal, en cuyo caso el evento nunca llega.
+5. El catálogo se refresca al abrir sesión y en cada reconexión, que es lo que pide el acta M35.
+6. `SyncWorker` expone un `Stream<SyncRunReport> completions`. `BackgroundServices` lo escucha y recarga el Diario cuando una corrida deja filas resueltas, de modo que una fila que sube sola deja de decir "pendiente" sin que el paciente tire de la lista.
+7. **Regla R12 en el CLAUDE.md:** todo servicio de fondo tiene quien lo encienda y quien lo apague, cubierto por un test que arranca la composición real de la aplicación. Cada plan declara, por cada servicio nuevo, quién lo arranca.
+
+Justificación. La sesión es la frontera natural: fuera de ella no hay cola que subir ni catálogo que traer, y un worker escuchando con el paciente deslogueado solo puede hacer daño. Agrupar los dos servicios en una pieza con nombre evita que el próximo servicio se sume como una línea suelta en `app.dart` que nadie vuelva a mirar.
+
+La regla R12 es la lección del patrón, no de este caso. R10 ya exigía que toda ruta nueva tuviera un punto de entrada; resulta que quedaba corta, porque un servicio de fondo no tiene ruta y se escapaba por el hueco.
+
+Consecuencias.
+
+- `test/integration/background_services_test.dart` monta `CauceApp` entero con los providers de producción y falsea solo los bordes: transporte HTTP, conectividad, Keystore y archivo de la base. Verifica que, tras restaurar la sesión, una comida pendiente sube al volver la conexión. **Se comprobó que sirve**: al comentar el `ref.watch` de `app.dart`, tres de sus cuatro casos se ponen rojos.
+- Montar `CauceApp` en un test pasa a exigir esos cuatro bordes. Se agrupan en `test/helpers/app_borders.dart` para que ningún archivo los arme a mano.
+- `SyncWorker.dispose()` reemplaza a `stop()` en el `onDispose` del provider, porque ahora hay un `StreamController` que cerrar.
+
+Alternativas consideradas. (a) Arrancar los servicios desde `main()`, descartado porque `main()` no conoce el estado de sesión y habría que apagarlos desde otro lado, partiendo el ciclo de vida en dos lugares. (b) Que `SplashScreen` los encienda al resolver el bootstrap, descartado porque el splash se desmonta y deja al servicio sin dueño, y porque un `logout` posterior no tendría cómo apagarlo. (c) Que cada pantalla arranque lo que necesita, descartado porque es justamente lo que produce servicios sin dueño: el Diario encendería el worker y la home lo apagaría al reconstruirse.
+
+Acta M40: Escala de intensidad en tramos de diez, y cantidades con default y tope por unidad
+
+Contexto. Dos hallazgos de la misma sesión en el celular, los dos sobre el mismo formulario.
+
+El primero, sobre la intensidad del síntoma: la barra va de 1 a 100 de uno en uno, y el paciente que la probó dijo textualmente "no sé cómo diferenciar 64 de intensidad y 63". Es auto-reporte de una molestia, no una medición: cien valores fingen una precisión que nadie tiene, y el propio design system solo muestra el ejemplo "Intensidad 60", un número redondo.
+
+El segundo, sobre las unidades: la cantidad arrancaba en 100 gramos, y al cambiar la unidad el número se arrastraba. El formulario ofrecía **100 tazas de brócoli** sin una sola advertencia. `MealItemRequestValidator` del backend solo exige mayor que cero, así que el servidor lo habría aceptado.
+
+Decisión.
+
+1. `CauceSlider` recibe `step`, con default 1. El formulario de síntoma lo instancia con `min: 10`, `max: 100` y `step: 10`: diez valores, con las anclas "Leve" y "Muy intenso" que ya existían.
+2. **El IBS-SSS no se toca.** Sigue con `step: 1`, que es el default.
+3. El dominio conserva `minIntensity = 1` y `maxIntensity = 100`. Lo que cambia es lo que la pantalla **ofrece**, que es un subconjunto de lo que el backend acepta.
+4. Cada `MeasurementUnitOption` declara su `defaultQuantity` y su `maxQuantity`. Al cambiar de unidad, la cantidad se reinicia al default de la nueva.
+5. Los valores: gramos 100 y tope 3000; onzas 4 y tope 100; tazas 1 y tope 10; unidades 1 y tope 50; cucharadas 2 y tope 30.
+6. Se declara además el registro de color del badge de intensidad, que el design system no publica: tramos de la escala 1 a 100 en tercios, con **gris** de 1 a 33, ámbar de 34 a 66 y rojo de 67 a 100.
+
+Justificación. Sobre la escala: el instrumento IBS-SSS es un cuestionario validado de escala continua y agruparlo en tramos alteraría el puntaje, mientras que la intensidad de un síntoma es una apreciación del paciente en el momento. Son dos cosas distintas aunque usen el mismo control, y por eso el parámetro va en el átomo y no una escala fija para los dos.
+
+Sobre las unidades: el backend no valida el rango porque no puede saber qué es plausible para cada unidad sin conocer el alimento. Es una guarda del cliente contra el error de tipeo, con margen holgado para no estorbar a nadie: tres kilos de un alimento en una comida es absurdo, pero 2999 gramos pasa.
+
+Sobre el color: el tramo bajo va en **gris y no en verde** a propósito. Verde felicitaría al paciente por un día de poco dolor, que es un juicio clínico que la aplicación no está en condiciones de hacer y que contradice el encuadre neutro con el que se dibujó la evolución del IBS-SSS. Gris registra el dato sin opinar. Ámbar y rojo sí escalan, porque escalan sobre lo que el propio paciente reportó. La carga FODMAP, en cambio, sí usa verde: ahí el color califica al alimento, no a la persona.
+
+Consecuencias. Un valor de intensidad anterior a este bloque, o llegado por sincronización, sigue siendo válido aunque no caiga en la nueva grilla: el dominio no cambió. La pantalla de cantidad muestra el tope en su mensaje de error, de modo que el rechazo dice cuál es el límite en vez de solo negar.
+
+Alternativas consideradas. (a) Etiquetas en vez de números para la intensidad ("leve", "moderado", "intenso"), descartada porque el backend guarda un entero y la conversión quedaría escrita en el cliente, con el mismo problema que el MCID re-derivado. (b) Tramos de cinco en vez de diez, descartada por no resolver el problema: nadie distingue 60 de 65 tampoco. (c) Para las unidades, validar contra la composición del alimento, descartada porque el catálogo no publica densidades y habría que inventarlas.

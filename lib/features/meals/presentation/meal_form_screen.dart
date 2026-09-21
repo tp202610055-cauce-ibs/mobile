@@ -178,11 +178,26 @@ class _QuantitySheetState extends State<_QuantitySheet> {
   /// Validarlo aca le da al paciente la respuesta al instante en vez de un 400.
   double? get _parsed {
     final value = double.tryParse(_quantity.text.replaceAll(',', '.'));
-    if (value == null || value <= 0) {
+    if (value == null || value <= 0 || value > _unit.maxQuantity) {
       return null;
     }
     return value;
   }
+
+  /// Al cambiar de unidad, la cantidad vuelve a un valor razonable.
+  ///
+  /// Arrastrarla era lo que producia "100 tazas" al pasar de gramos a tazas
+  /// sin tocar el numero (acta M40).
+  void _changeUnit(MeasurementUnitOption unit) {
+    setState(() {
+      _unit = unit;
+      _quantity.text = _format(unit.defaultQuantity);
+    });
+  }
+
+  /// Sin decimales cuando no hacen falta: "1" y no "1.0".
+  static String _format(double value) =>
+      value == value.roundToDouble() ? value.round().toString() : '$value';
 
   @override
   Widget build(BuildContext context) {
@@ -210,8 +225,12 @@ class _QuantitySheetState extends State<_QuantitySheet> {
                 label: l10n.mealsQuantityLabel,
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
-                errorText:
-                    _parsed == null ? l10n.mealsIssueInvalidQuantity : null,
+                errorText: _parsed == null
+                    ? l10n.mealsIssueQuantityOutOfRange(
+                        MealLabels.unit(l10n, _unit).toLowerCase(),
+                        _format(_unit.maxQuantity),
+                      )
+                    : null,
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: CauceSpacing.space4),
@@ -219,7 +238,7 @@ class _QuantitySheetState extends State<_QuantitySheet> {
                 key: const Key('meal_unit_field'),
                 label: l10n.mealsUnitLabel,
                 value: _unit,
-                onChanged: (value) => setState(() => _unit = value),
+                onChanged: _changeUnit,
                 choices: <CauceChoice<MeasurementUnitOption>>[
                   for (final option in MeasurementUnitOption.values)
                     CauceChoice<MeasurementUnitOption>(

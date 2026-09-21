@@ -7,3 +7,14 @@
 # git escribe con lo que el generador produce, y deja el diff de una
 # regeneracion reducido a los archivos que de verdad cambiaron.
 packages/cauce_api_client/** text eol=lf
+
+# Finales de linea del codigo generado de la aplicacion.
+#
+# Mismo problema que el cliente OpenAPI, una carpeta mas adentro: build_runner
+# escribe con LF, git deja CRLF al hacer checkout, y cada corrida del codegen
+# marca como modificados archivos cuyo contenido es identico al de HEAD. El
+# 2026-09-19 eso dejo 34 archivos marcados con cero cambios reales, y obliga a
+# separarlos a mano antes de cada commit.
+*.g.dart text eol=lf
+*.freezed.dart text eol=lf
+lib/l10n/generated/** text eol=lf

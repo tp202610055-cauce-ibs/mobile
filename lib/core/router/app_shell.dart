@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
+import '../../features/history/application/history_notifier.dart';
 import '../../features/ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../features/onboarding/application/onboarding_notifier.dart';
 import '../../l10n/generated/app_localizations.dart';
@@ -61,6 +64,15 @@ class AppShell extends ConsumerWidget {
         // una pestana cae debajo del boton y **no se puede tocar**: el cierre
         // de sesion de Perfil aterrizaba exactamente ahi. Se reserva en el
         // shell y no en cada pantalla para que ninguna futura lo olvide.
+        // **Sin transicion entre pestanas, a proposito.**
+        //
+        // Se probo un `AnimatedSwitcher` con la rama activa como clave, que
+        // es el contenedor sencillo que pedia el pedido. No sirve: al cambiar
+        // la clave, el shell reconstruye la rama entera y se pierde el estado
+        // que el `indexedStack` existe para conservar, con lo que el Diario
+        // volveria a cargar en cada visita. Hacerlo bien exige un controlador
+        // de animacion propio en un `StatefulWidget`, que es mas que un
+        // contenedor, asi que queda fuera del bloque y anotado.
         body: Padding(
           padding: const EdgeInsets.only(bottom: _fabOverhang),
           child: navigationShell,
@@ -70,11 +82,10 @@ class AppShell extends ConsumerWidget {
           openLabel: l10n.fabQuickAction,
           closeLabel: l10n.fabCloseMenu,
         ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CauceBottomNav(
           currentIndex: navigationShell.currentIndex,
-          onSelected: _select,
+          onSelected: (int index) => _select(ref, index),
           items: <CauceBottomNavItem>[
             CauceBottomNavItem(
               label: l10n.navHome,
@@ -173,7 +184,7 @@ class AppShell extends ConsumerWidget {
         icon: TablerIcons.activity,
         actionKey: const Key('fab_symptom'),
         onPressed: canLog
-            ? () => context.push(AppRoutes.symptomNew)
+            ? () => _openForm(context, ref, AppRoutes.symptomNew)
             : resumeOnboarding,
         hint: canLog ? null : l10n.fabHintCompleteProfile,
       ),
@@ -182,11 +193,25 @@ class AppShell extends ConsumerWidget {
         icon: TablerIcons.bowl,
         actionKey: const Key('fab_meal'),
         onPressed: canLog
-            ? () => context.push(AppRoutes.mealNew)
+            ? () => _openForm(context, ref, AppRoutes.mealNew)
             : resumeOnboarding,
         hint: canLog ? null : l10n.fabHintCompleteProfile,
       ),
     ];
+  }
+
+  /// Abre un formulario de registro y recarga el Diario al volver.
+  ///
+  /// El formulario vive sobre el navigator raiz, asi que la rama del Diario
+  /// no se reconstruye sola cuando se cierra. Esperarlo y recargar es lo que
+  /// hace que el registro recien guardado ya este en la lista.
+  Future<void> _openForm(
+    BuildContext context,
+    WidgetRef ref,
+    String route,
+  ) async {
+    await context.push<void>(route);
+    await ref.read(historyNotifierProvider.notifier).load();
   }
 
   /// Cambia de pestana, o vuelve a la raiz de la actual si ya se esta en ella.
@@ -194,11 +219,19 @@ class AppShell extends ConsumerWidget {
   /// `initialLocation: true` es lo que hace que tocar Perfil estando en
   /// `Perfil > Privacidad` devuelva a Perfil, que es lo que un paciente espera
   /// de tocar la pestana en la que ya esta.
-  void _select(int index) {
+  void _select(WidgetRef ref, int index) {
     navigationShell.goBranch(
       index,
       initialLocation: index == navigationShell.currentIndex,
     );
+
+    // El `IndexedStack` mantiene viva cada rama, de modo que el `initState`
+    // del Diario corre una sola vez, la primera. Sin este disparo, entrar a
+    // la pestana despues de registrar algo muestra la lista de hace un rato
+    // y obliga a tirar para refrescar, que es lo que paso en el celular.
+    if (index == ShellBranch.journal) {
+      unawaited(ref.read(historyNotifierProvider.notifier).load());
+    }
   }
 
   /// Retroceso de Android, en tres escalones.

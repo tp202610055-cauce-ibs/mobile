@@ -143,13 +143,13 @@ abstract class AppLocalizations {
   /// Mensaje bajo el logo mientras el SplashScreen resuelve el bootstrap de sesion
   ///
   /// In es, this message translates to:
-  /// **'Preparando tu sesion'**
+  /// **'Preparando tu sesión'**
   String get splashLoading;
 
   /// No description provided for @loginTitle.
   ///
   /// In es, this message translates to:
-  /// **'Inicia sesion'**
+  /// **'Inicia sesión'**
   String get loginTitle;
 
   /// No description provided for @loginSubtitle.
@@ -161,7 +161,7 @@ abstract class AppLocalizations {
   /// No description provided for @loginEmailLabel.
   ///
   /// In es, this message translates to:
-  /// **'Correo electronico'**
+  /// **'Correo electrónico'**
   String get loginEmailLabel;
 
   /// No description provided for @loginEmailHint.
@@ -173,25 +173,25 @@ abstract class AppLocalizations {
   /// No description provided for @loginPasswordLabel.
   ///
   /// In es, this message translates to:
-  /// **'Contrasena'**
+  /// **'Contraseña'**
   String get loginPasswordLabel;
 
   /// No description provided for @loginPasswordHint.
   ///
   /// In es, this message translates to:
-  /// **'Tu contrasena'**
+  /// **'Tu contraseña'**
   String get loginPasswordHint;
 
   /// No description provided for @loginSubmit.
   ///
   /// In es, this message translates to:
-  /// **'Iniciar sesion'**
+  /// **'Iniciar sesión'**
   String get loginSubmit;
 
   /// No description provided for @loginForgotPassword.
   ///
   /// In es, this message translates to:
-  /// **'Olvide mi contrasena'**
+  /// **'Olvidé mi contraseña'**
   String get loginForgotPassword;
 
   /// No description provided for @loginCreateAccount.
@@ -203,19 +203,19 @@ abstract class AppLocalizations {
   /// No description provided for @loginNoAccountPrompt.
   ///
   /// In es, this message translates to:
-  /// **'No tienes cuenta?'**
+  /// **'¿No tienes cuenta?'**
   String get loginNoAccountPrompt;
 
   /// No description provided for @loginShowPassword.
   ///
   /// In es, this message translates to:
-  /// **'Mostrar contrasena'**
+  /// **'Mostrar contraseña'**
   String get loginShowPassword;
 
   /// No description provided for @loginHidePassword.
   ///
   /// In es, this message translates to:
-  /// **'Ocultar contrasena'**
+  /// **'Ocultar contraseña'**
   String get loginHidePassword;
 
   /// No description provided for @registerTitle.
@@ -245,7 +245,7 @@ abstract class AppLocalizations {
   /// No description provided for @registerEmailLabel.
   ///
   /// In es, this message translates to:
-  /// **'Correo electronico'**
+  /// **'Correo electrónico'**
   String get registerEmailLabel;
 
   /// No description provided for @registerEmailHint.
@@ -257,25 +257,25 @@ abstract class AppLocalizations {
   /// No description provided for @registerPasswordLabel.
   ///
   /// In es, this message translates to:
-  /// **'Contrasena'**
+  /// **'Contraseña'**
   String get registerPasswordLabel;
 
   /// No description provided for @registerPasswordHint.
   ///
   /// In es, this message translates to:
-  /// **'Minimo 8 caracteres'**
+  /// **'Mínimo 8 caracteres'**
   String get registerPasswordHint;
 
   /// No description provided for @registerPasswordConfirmLabel.
   ///
   /// In es, this message translates to:
-  /// **'Confirma tu contrasena'**
+  /// **'Confirma tu contraseña'**
   String get registerPasswordConfirmLabel;
 
   /// No description provided for @registerInvitationCodeLabel.
   ///
   /// In es, this message translates to:
-  /// **'Codigo de invitacion'**
+  /// **'Código de invitación'**
   String get registerInvitationCodeLabel;
 
   /// No description provided for @registerInvitationCodeHint.
@@ -317,13 +317,13 @@ abstract class AppLocalizations {
   /// No description provided for @registerHasAccountPrompt.
   ///
   /// In es, this message translates to:
-  /// **'Ya tienes cuenta?'**
+  /// **'¿Ya tienes cuenta?'**
   String get registerHasAccountPrompt;
 
   /// No description provided for @passwordRecoveryTitle.
   ///
   /// In es, this message translates to:
-  /// **'Recupera tu contrasena'**
+  /// **'Recupera tu contraseña'**
   String get passwordRecoveryTitle;
 
   /// No description provided for @passwordRecoverySubtitle.
@@ -335,7 +335,7 @@ abstract class AppLocalizations {
   /// No description provided for @passwordRecoveryEmailLabel.
   ///
   /// In es, this message translates to:
-  /// **'Correo electronico'**
+  /// **'Correo electrónico'**
   String get passwordRecoveryEmailLabel;
 
   /// No description provided for @passwordRecoverySubmit.
@@ -353,55 +353,55 @@ abstract class AppLocalizations {
   /// No description provided for @passwordRecoverySentBody.
   ///
   /// In es, this message translates to:
-  /// **'Si el correo existe en nuestro sistema, recibiras un enlace de recuperacion valido por 30 minutos.'**
+  /// **'Si el correo existe en nuestro sistema, recibirás un enlace de recuperación válido por 30 minutos.'**
   String get passwordRecoverySentBody;
 
   /// No description provided for @passwordRecoverySentBackToLogin.
   ///
   /// In es, this message translates to:
-  /// **'Volver a iniciar sesion'**
+  /// **'Volver a iniciar sesión'**
   String get passwordRecoverySentBackToLogin;
 
   /// No description provided for @passwordResetTitle.
   ///
   /// In es, this message translates to:
-  /// **'Nueva contrasena'**
+  /// **'Nueva contraseña'**
   String get passwordResetTitle;
 
   /// No description provided for @passwordResetSubtitle.
   ///
   /// In es, this message translates to:
-  /// **'Elige una contrasena que no hayas usado antes'**
+  /// **'Elige una contraseña que no hayas usado antes'**
   String get passwordResetSubtitle;
 
   /// No description provided for @passwordResetNewPasswordLabel.
   ///
   /// In es, this message translates to:
-  /// **'Nueva contrasena'**
+  /// **'Nueva contraseña'**
   String get passwordResetNewPasswordLabel;
 
   /// No description provided for @passwordResetConfirmLabel.
   ///
   /// In es, this message translates to:
-  /// **'Confirma la nueva contrasena'**
+  /// **'Confirma la nueva contraseña'**
   String get passwordResetConfirmLabel;
 
   /// No description provided for @passwordResetSubmit.
   ///
   /// In es, this message translates to:
-  /// **'Restablecer contrasena'**
+  /// **'Restablecer contraseña'**
   String get passwordResetSubmit;
 
   /// No description provided for @passwordResetSuccessTitle.
   ///
   /// In es, this message translates to:
-  /// **'Contrasena actualizada'**
+  /// **'Contraseña actualizada'**
   String get passwordResetSuccessTitle;
 
   /// No description provided for @passwordResetSuccessBody.
   ///
   /// In es, this message translates to:
-  /// **'Ya puedes iniciar sesion con tu nueva contrasena.'**
+  /// **'Ya puedes iniciar sesión con tu nueva contraseña.'**
   String get passwordResetSuccessBody;
 
   /// No description provided for @passwordResetRequestNewLink.
@@ -419,19 +419,19 @@ abstract class AppLocalizations {
   /// Aviso post registro con el correo al que se envio la verificacion
   ///
   /// In es, this message translates to:
-  /// **'Registramos tu cuenta. Te enviamos un correo de verificacion a {email}. Sigue el enlace para activarla.'**
+  /// **'Registramos tu cuenta. Te enviamos un correo de verificación a {email}. Sigue el enlace para activarla.'**
   String verifyEmailPendingBody(String email);
 
   /// No description provided for @verifyEmailPendingNoEmailHint.
   ///
   /// In es, this message translates to:
-  /// **'Si no recibiste el correo, comunicate con soporte.'**
+  /// **'Si no recibiste el correo, comunícate con soporte.'**
   String get verifyEmailPendingNoEmailHint;
 
   /// No description provided for @verifyEmailPendingLogout.
   ///
   /// In es, this message translates to:
-  /// **'Cerrar sesion'**
+  /// **'Cerrar sesión'**
   String get verifyEmailPendingLogout;
 
   /// Saludo de bienvenida en HomeScreen
@@ -443,7 +443,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeLogout.
   ///
   /// In es, this message translates to:
-  /// **'Cerrar sesion'**
+  /// **'Cerrar sesión'**
   String get homeLogout;
 
   /// No description provided for @validationRequired.
@@ -455,7 +455,7 @@ abstract class AppLocalizations {
   /// No description provided for @validationEmailInvalid.
   ///
   /// In es, this message translates to:
-  /// **'Ingresa un correo electronico valido'**
+  /// **'Ingresa un correo electrónico válido'**
   String get validationEmailInvalid;
 
   /// No description provided for @validationEmailTooLong.
@@ -473,7 +473,7 @@ abstract class AppLocalizations {
   /// No description provided for @validationPasswordTooShort.
   ///
   /// In es, this message translates to:
-  /// **'La contrasena debe tener al menos 8 caracteres'**
+  /// **'La contraseña debe tener al menos 8 caracteres'**
   String get validationPasswordTooShort;
 
   /// No description provided for @validationPasswordWeak.
@@ -485,13 +485,13 @@ abstract class AppLocalizations {
   /// No description provided for @validationPasswordMismatch.
   ///
   /// In es, this message translates to:
-  /// **'Las contrasenas no coinciden'**
+  /// **'Las contraseñas no coinciden'**
   String get validationPasswordMismatch;
 
   /// No description provided for @validationInvitationCodeFormat.
   ///
   /// In es, this message translates to:
-  /// **'El codigo debe tener entre 8 y 20 caracteres, solo letras y numeros'**
+  /// **'El código debe tener entre 8 y 20 caracteres, solo letras y números'**
   String get validationInvitationCodeFormat;
 
   /// No description provided for @validationConsentRequired.
@@ -557,31 +557,31 @@ abstract class AppLocalizations {
   /// errorCode invalid_invitation_code (400)
   ///
   /// In es, this message translates to:
-  /// **'El codigo de invitacion no existe'**
+  /// **'El código de invitación no existe'**
   String get errorInvalidInvitationCode;
 
   /// errorCode expired_invitation_code (400)
   ///
   /// In es, this message translates to:
-  /// **'El codigo de invitacion vencio'**
+  /// **'El código de invitación venció'**
   String get errorExpiredInvitationCode;
 
   /// errorCode invitation_code_already_used (400)
   ///
   /// In es, this message translates to:
-  /// **'El codigo de invitacion ya fue usado'**
+  /// **'El código de invitación ya fue usado'**
   String get errorInvitationCodeAlreadyUsed;
 
   /// errorCode nutritionist_not_available (409) con la extension reason en pending_activation. El codigo no se consume, asi que reintentar con el mismo es valido
   ///
   /// In es, this message translates to:
-  /// **'Este nutricionista todavia no activo su cuenta. Intenta de nuevo mas tarde o comunicate directamente con el.'**
+  /// **'Este nutricionista todavía no activó su cuenta. Intenta de nuevo más tarde o comunícate directamente con él.'**
   String get errorNutritionistPendingActivation;
 
   /// errorCode nutritionist_not_available (409) con la extension reason en inactive o suspended. Tambien cubre el reason ausente o desconocido, que ErrorMapper degrada a inactive
   ///
   /// In es, this message translates to:
-  /// **'Este codigo ya no esta disponible. Comunicate con tu nutricionista para obtener uno nuevo.'**
+  /// **'Este código ya no está disponible. Comunícate con tu nutricionista para obtener uno nuevo.'**
   String get errorNutritionistUnavailable;
 
   /// errorCode patient_already_assigned (409). El backend no sobrescribe la asignacion vigente
@@ -665,7 +665,7 @@ abstract class AppLocalizations {
   /// Seccion frequentLast30Days de GET /foods/suggestions
   ///
   /// In es, this message translates to:
-  /// **'Los que mas registras'**
+  /// **'Los que más registras'**
   String get mealsSuggestionsFrequent;
 
   /// Seccion recentLast24Hours de GET /foods/suggestions
@@ -695,7 +695,7 @@ abstract class AppLocalizations {
   /// Etiqueta del selector de MealTime
   ///
   /// In es, this message translates to:
-  /// **'Momento del dia'**
+  /// **'Momento del día'**
   String get mealsTimeLabel;
 
   /// Encabezado de la lista de items
@@ -707,7 +707,7 @@ abstract class AppLocalizations {
   /// Lista de items vacia
   ///
   /// In es, this message translates to:
-  /// **'Todavia no agregaste ningun alimento'**
+  /// **'Todavía no agregaste ningún alimento'**
   String get mealsItemsEmpty;
 
   /// Accion que saca un alimento de la comida
@@ -731,7 +731,7 @@ abstract class AppLocalizations {
   /// Confirmacion de CA02: el registro quedo en la cola local (CP023)
   ///
   /// In es, this message translates to:
-  /// **'Comida guardada. Se enviara cuando vuelva la conexion.'**
+  /// **'Comida guardada. Se enviará cuando vuelva la conexión.'**
   String get mealsQueuedOffline;
 
   /// Accion para vaciar el formulario y anotar otra comida
@@ -743,7 +743,7 @@ abstract class AppLocalizations {
   /// CA04: falta MealTime
   ///
   /// In es, this message translates to:
-  /// **'Elige el momento del dia'**
+  /// **'Elige el momento del día'**
   String get mealsIssueMissingMealTime;
 
   /// CA04: la comida no tiene items
@@ -869,7 +869,7 @@ abstract class AppLocalizations {
   /// Campo de portionSizeGrams
   ///
   /// In es, this message translates to:
-  /// **'Tamano de porcion (g)'**
+  /// **'Tamaño de porción (g)'**
   String get customFoodPortionLabel;
 
   /// Encabezado de la lista de ingredientes
@@ -881,7 +881,7 @@ abstract class AppLocalizations {
   /// Lista de ingredientes vacia
   ///
   /// In es, this message translates to:
-  /// **'Todavia no agregaste ingredientes'**
+  /// **'Todavía no agregaste ingredientes'**
   String get customFoodIngredientsEmpty;
 
   /// Accion que abre el buscador del catalogo
@@ -911,13 +911,13 @@ abstract class AppLocalizations {
   /// Diferencia entre la suma de proporciones y portionSizeGrams. Informativa: el backend no la valida
   ///
   /// In es, this message translates to:
-  /// **'Los ingredientes suman {grams} g mas que la porcion declarada'**
+  /// **'Los ingredientes suman {grams} g más que la porción declarada'**
   String customFoodWeightDelta(String grams);
 
   /// Misma diferencia, cuando los ingredientes pesan menos
   ///
   /// In es, this message translates to:
-  /// **'Los ingredientes suman {grams} g menos que la porcion declarada'**
+  /// **'Los ingredientes suman {grams} g menos que la porción declarada'**
   String customFoodWeightDeltaShort(String grams);
 
   /// Encabezado de la vista previa de CA01
@@ -929,13 +929,13 @@ abstract class AppLocalizations {
   /// Aclaracion de CA01: el calculo es del cliente y el contrato no lo persiste
   ///
   /// In es, this message translates to:
-  /// **'Es una estimacion por 100 g a partir de los ingredientes. No se guarda con el plato.'**
+  /// **'Es una estimación por 100 g a partir de los ingredientes. No se guarda con el plato.'**
   String get customFoodEstimateNote;
 
   /// Aviso cuando algun ingrediente no tiene FoodItemDetail
   ///
   /// In es, this message translates to:
-  /// **'Falta la composicion de algun ingrediente, asi que la estimacion es parcial.'**
+  /// **'Falta la composición de algún ingrediente, así que la estimación es parcial.'**
   String get customFoodEstimatePartial;
 
   /// Calorias por 100 g
@@ -983,7 +983,7 @@ abstract class AppLocalizations {
   /// Invariante de portionSizeGrams
   ///
   /// In es, this message translates to:
-  /// **'La porcion debe ser mayor que cero'**
+  /// **'La porción debe ser mayor que cero'**
   String get customFoodIssueInvalidPortion;
 
   /// Plato sin ingredientes
@@ -1061,7 +1061,7 @@ abstract class AppLocalizations {
   /// Titulo de la pantalla de registro de sintoma (US11)
   ///
   /// In es, this message translates to:
-  /// **'Registrar sintoma'**
+  /// **'Registrar síntoma'**
   String get symptomsTitle;
 
   /// Etiqueta del selector de SymptomType
@@ -1091,19 +1091,19 @@ abstract class AppLocalizations {
   /// Boton de envio
   ///
   /// In es, this message translates to:
-  /// **'Registrar sintoma'**
+  /// **'Registrar síntoma'**
   String get symptomsSubmit;
 
   /// Confirmacion cuando el servidor lo acepto
   ///
   /// In es, this message translates to:
-  /// **'Sintoma registrado'**
+  /// **'Síntoma registrado'**
   String get symptomsRegistered;
 
   /// Confirmacion cuando quedo en la cola local
   ///
   /// In es, this message translates to:
-  /// **'Sintoma guardado. Se enviara cuando vuelva la conexion.'**
+  /// **'Síntoma guardado. Se enviará cuando vuelva la conexión.'**
   String get symptomsQueuedOffline;
 
   /// Accion para vaciar el formulario
@@ -1127,7 +1127,7 @@ abstract class AppLocalizations {
   /// Sin conexion: la ventana de 4 horas la resuelve el servidor, no el cliente
   ///
   /// In es, this message translates to:
-  /// **'La relacion con tus comidas se calcula al sincronizar.'**
+  /// **'La relación con tus comidas se calcula al sincronizar.'**
   String get symptomsMealPending;
 
   /// Falta SymptomType
@@ -1217,7 +1217,7 @@ abstract class AppLocalizations {
   /// Historial vacio
   ///
   /// In es, this message translates to:
-  /// **'Todavia no registraste nada'**
+  /// **'Todavía no registraste nada'**
   String get historyEmpty;
 
   /// Intensidad de un sintoma en el historial
@@ -1331,7 +1331,7 @@ abstract class AppLocalizations {
   /// Bajada del cuestionario periodico. Mismo instrumento que la linea base
   ///
   /// In es, this message translates to:
-  /// **'Responde las cinco preguntas pensando en los ultimos diez dias.'**
+  /// **'Responde las cinco preguntas pensando en los últimos diez días.'**
   String get ibsSssPeriodicSubtitle;
 
   /// Boton de envio del cuestionario periodico
@@ -1343,13 +1343,13 @@ abstract class AppLocalizations {
   /// Encabezado del grafico de evolucion (CA03)
   ///
   /// In es, this message translates to:
-  /// **'Tu evolucion'**
+  /// **'Tu evolución'**
   String get ibsSssEvolutionTitle;
 
   /// Menos de dos puntos: no hay linea que trazar
   ///
   /// In es, this message translates to:
-  /// **'Con una sola evaluacion todavia no hay evolucion que mostrar.'**
+  /// **'Con una sola evaluación todavía no hay evolución que mostrar.'**
   String get ibsSssEvolutionEmpty;
 
   /// Extremos de la serie, en texto, porque el grafico no dibuja escala
@@ -1361,13 +1361,13 @@ abstract class AppLocalizations {
   /// Diferencia contra la linea base. Negativo es mejoria
   ///
   /// In es, this message translates to:
-  /// **'{value} puntos respecto de tu linea base'**
+  /// **'{value} puntos respecto de tu línea base'**
   String ibsSssEvolutionDelta(int value);
 
   /// MCID del IBS-SSS. Se enuncia como dato, no como felicitacion
   ///
   /// In es, this message translates to:
-  /// **'Es una reduccion de 50 puntos o mas respecto de tu linea base. Tu nutricionista lo interpretara contigo.'**
+  /// **'Es una reducción de 50 puntos o más respecto de tu línea base. Tu nutricionista lo interpretará contigo.'**
   String get ibsSssEvolutionImprovement;
 
   /// Titulo del aviso de la home cuando vencio el ciclo (CA01)
@@ -1379,7 +1379,7 @@ abstract class AppLocalizations {
   /// Cuerpo del aviso de la home
   ///
   /// In es, this message translates to:
-  /// **'Pasaron los catorce dias desde tu ultima evaluacion.'**
+  /// **'Pasaron los catorce días desde tu última evaluación.'**
   String get ibsSssReminderBody;
 
   /// Accion del aviso que lleva al cuestionario
@@ -1505,25 +1505,25 @@ abstract class AppLocalizations {
   /// errorCode invalid_refresh_token (401)
   ///
   /// In es, this message translates to:
-  /// **'Tu sesion expiro. Inicia sesion de nuevo.'**
+  /// **'Tu sesión expiró. Inicia sesión de nuevo.'**
   String get errorInvalidRefreshToken;
 
   /// errorCode invalid_password_reset_token (400)
   ///
   /// In es, this message translates to:
-  /// **'El enlace de recuperacion no es valido'**
+  /// **'El enlace de recuperación no es válido'**
   String get errorInvalidPasswordResetToken;
 
   /// errorCode expired_password_reset_token (400)
   ///
   /// In es, this message translates to:
-  /// **'El enlace de recuperacion vencio o ya fue usado'**
+  /// **'El enlace de recuperación venció o ya fue usado'**
   String get errorExpiredPasswordResetToken;
 
   /// errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend
   ///
   /// In es, this message translates to:
-  /// **'Hay un problema con tu cuenta. Comunicate con soporte.'**
+  /// **'Hay un problema con tu cuenta. Comunícate con soporte.'**
   String get errorUserLocalMissing;
 
   /// errorCode internal_server_error (500)
@@ -1541,7 +1541,7 @@ abstract class AppLocalizations {
   /// errorCode forbidden (403)
   ///
   /// In es, this message translates to:
-  /// **'No tienes permiso para realizar esta accion'**
+  /// **'No tienes permiso para realizar esta acción'**
   String get errorForbidden;
 
   /// HTTP 429, que no trae errorCode. Los segundos salen de la extension retryAfterSeconds o del header Retry-After
@@ -1553,7 +1553,7 @@ abstract class AppLocalizations {
   /// Timeout o ausencia de red, sin respuesta del servidor
   ///
   /// In es, this message translates to:
-  /// **'Sin conexion. Verifica tu internet e intenta de nuevo.'**
+  /// **'Sin conexión. Verifica tu internet e intenta de nuevo.'**
   String get errorNetwork;
 
   /// Fallback para cualquier status no contemplado
@@ -2431,6 +2431,78 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Continuar donde quedé'**
   String get journalLockedAction;
+
+  /// No description provided for @mealsIssueQuantityOutOfRange.
+  ///
+  /// In es, this message translates to:
+  /// **'Indica una cantidad entre 0 y {max} {unit}'**
+  String mealsIssueQuantityOutOfRange(String unit, String max);
+
+  /// Tarjeta del mockup 06-home-dashboard, version minima de Mobile-3.2
+  ///
+  /// In es, this message translates to:
+  /// **'Tu puntaje IBS-SSS'**
+  String get homeScoreTitle;
+
+  /// No description provided for @homeScoreEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu primera evaluación todavía no está registrada.'**
+  String get homeScoreEmpty;
+
+  /// No description provided for @homeScoreBaseline.
+  ///
+  /// In es, this message translates to:
+  /// **'Es tu línea base, el punto de partida de tu seguimiento.'**
+  String get homeScoreBaseline;
+
+  /// Delta contra la linea base. Negativo es mejoria; el texto no lo califica (encuadre neutro)
+  ///
+  /// In es, this message translates to:
+  /// **'{value} puntos respecto de tu línea base'**
+  String homeScoreDelta(String value);
+
+  /// No description provided for @homeScoreNext.
+  ///
+  /// In es, this message translates to:
+  /// **'Próximo cuestionario: {date}'**
+  String homeScoreNext(String date);
+
+  /// No description provided for @homeScoreDue.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu próximo cuestionario ya está disponible'**
+  String get homeScoreDue;
+
+  /// No description provided for @homeTodayTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy'**
+  String get homeTodayTitle;
+
+  /// No description provided for @homeTodayEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no registraste nada hoy'**
+  String get homeTodayEmpty;
+
+  /// No description provided for @homeTodayMeals.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =0{Sin comidas} =1{1 comida} other{{count} comidas}}'**
+  String homeTodayMeals(int count);
+
+  /// No description provided for @homeTodaySymptoms.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =0{sin síntomas} =1{1 síntoma} other{{count} síntomas}}'**
+  String homeTodaySymptoms(int count);
+
+  /// No description provided for @homeTodayOpen.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver mi diario'**
+  String get homeTodayOpen;
 }
 
 class _AppLocalizationsDelegate

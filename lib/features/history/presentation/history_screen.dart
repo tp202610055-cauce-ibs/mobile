@@ -222,8 +222,7 @@ class _TodayInvitation extends StatelessWidget {
 /// Un dia del diario con sus entradas, ya ordenadas.
 typedef _DayGroup = ({DateTime day, List<HistoryEntry> entries});
 
-DateTime _dayOf(DateTime value) =>
-    DateTime(value.year, value.month, value.day);
+DateTime _dayOf(DateTime value) => DateTime(value.year, value.month, value.day);
 
 /// Agrupa por dia local, de mas reciente a mas antiguo.
 ///

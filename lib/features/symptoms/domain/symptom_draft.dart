@@ -108,6 +108,14 @@ abstract class SymptomDraft with _$SymptomDraft {
   static const int minIntensity = 1;
   static const int maxIntensity = 100;
 
+  /// Paso de la escala que ve el paciente (acta M40).
+  ///
+  /// El dominio sigue aceptando cualquier entero de 1 a 100, que es lo que
+  /// valida `CreateSymptomCommandValidator`: un valor viejo o llegado por
+  /// sincronizacion no se vuelve invalido por esto. Lo que cambia es lo que
+  /// la pantalla **ofrece**, que va de 10 en 10 desde 10 hasta 100.
+  static const int intensityStep = 10;
+
   /// Tolerancia de reloj que aplica el backend (`ClockSkewToleranceMinutes`).
   static const Duration clockSkewTolerance = Duration(minutes: 5);
 

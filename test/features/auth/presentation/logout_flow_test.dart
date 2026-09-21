@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/app_borders.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
 
@@ -34,8 +35,10 @@ Future<({FakeAuthRepository repository, FakeTokenStorage storage})> _pumpApp(
     refreshToken: 'refresh-1',
     userSnapshot: user,
   );
+  final borders = appBorders(storage: storage);
   final container = ProviderContainer(
     overrides: <Override>[
+      ...borders.overrides,
       authRepositoryProvider.overrideWithValue(repository),
       tokenStorageProvider.overrideWithValue(storage),
     ],
@@ -142,7 +145,7 @@ void main() {
       await _pumpApp(tester, user: unverified);
 
       expect(
-        find.textContaining('comunicate con soporte'),
+        find.textContaining('comunícate con soporte'),
         findsOneWidget,
       );
     });

@@ -79,12 +79,28 @@ abstract final class Env {
     return value;
   }
 
+  /// URL base pasada en tiempo de compilacion, si la hay.
+  ///
+  /// `flutter run --dart-define=API_BASE_URL=http://localhost:5074` alcanza
+  /// para probar en un **celular fisico** con `adb reverse`, sin editar el
+  /// `.env.dev` ni acordarse de revertirlo despues. Antes habia que cambiar
+  /// el archivo a mano y devolverlo, y olvidarse dejaba el emulador roto.
+  ///
+  /// Vacia en cualquier compilacion normal: `String.fromEnvironment` devuelve
+  /// la cadena vacia cuando el define no se paso, de modo que staging y prod
+  /// no cambian salvo que alguien lo pida de forma explicita.
+  static const String _compileTimeBaseUrl =
+      String.fromEnvironment('API_BASE_URL');
+
   /// URL base del backend, sin el sufijo `/api/v1`.
   ///
   /// En [Flavor.dev] el valor del archivo apunta al emulador de Android
   /// (`10.0.2.2`). El simulador de iOS alcanza el host por `localhost`, asi
   /// que se reescribe en runtime segun la plataforma.
   static String get apiBaseUrl {
+    if (_compileTimeBaseUrl.isNotEmpty) {
+      return _compileTimeBaseUrl;
+    }
     return resolveBaseUrl(
       raw: _require('API_BASE_URL'),
       flavor: flavor,

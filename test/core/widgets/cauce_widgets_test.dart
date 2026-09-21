@@ -50,7 +50,7 @@ void main() {
     testWidgets('tertiary se apoya en TextButton', (tester) async {
       await _pump(
         tester,
-        CauceButton.tertiary(label: 'Olvide mi contrasena', onPressed: () {}),
+        CauceButton.tertiary(label: 'Olvidé mi contraseña', onPressed: () {}),
       );
 
       expect(find.byType(TextButton), findsOneWidget);
@@ -272,7 +272,7 @@ void main() {
         const CauceErrorBanner(error: CauceApiError.network()),
       );
 
-      expect(find.textContaining('Sin conexion'), findsOneWidget);
+      expect(find.textContaining('Sin conexión'), findsOneWidget);
       // Sin timer pendiente, el test termina limpio sin bombear tiempo.
     });
   });
@@ -643,8 +643,7 @@ void main() {
   });
 
   group('CauceBadge · seccion F del design system', () {
-    testWidgets('lleva icono y texto juntos, nunca solo color',
-        (tester) async {
+    testWidgets('lleva icono y texto juntos, nunca solo color', (tester) async {
       await _pump(
         tester,
         const CauceBadge(
@@ -873,7 +872,7 @@ void main() {
               onOutcome(
                 await CauceConfirmDialog.show(
                   context,
-                  title: 'Cerrar sesion',
+                  title: 'Cerrar sesión',
                   message: 'Vas a salir de tu cuenta.',
                   confirmLabel: 'Si, cerrar sesion',
                   cancelLabel: 'Cancelar',

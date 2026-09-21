@@ -9,6 +9,7 @@ import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/session_notifier.dart';
 import '../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
+import 'widgets/home_cards.dart';
 
 /// Pestana de Inicio.
 ///
@@ -17,10 +18,15 @@ import '../../onboarding/application/onboarding_notifier.dart';
 /// cerrar sesion, que se mudo a Perfil con su confirmacion (CP020 paso 3), y
 /// el icono que abria el perfil, que ahora es una pestana de la barra.
 ///
-/// El tablero completo del mockup `06-home-dashboard` (dia de seguimiento,
-/// tarjeta hero con el puntaje IBS-SSS y el delta contra la linea base) llega
-/// en Mobile-4 junto con HU0023, y la seccion "Para hoy" en Mobile-5 con
-/// EP0003. Lo que queda aca son los dos avisos, que son accionables hoy.
+/// Mobile-3.2 le puso contenido. Hasta entonces era un saludo y aire, porque
+/// se le habian quitado el cierre de sesion y el icono de perfil sin poner
+/// nada en su lugar, y asi se vio en el celular.
+///
+/// Es la version minima del mockup `06-home-dashboard`, armada **solo con
+/// datos que ya existen**: el puntaje IBS-SSS con su cambio contra la linea
+/// base y la fecha del proximo cuestionario, y el resumen de lo registrado
+/// hoy. El grafico grande con eje temporal llega en Mobile-4 con HU0023, y la
+/// seccion "Para hoy" en Mobile-5 con EP0003.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -38,6 +44,7 @@ class HomeScreen extends ConsumerWidget {
       scrollable: true,
       body: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           if (onboarding.showsReminder) ...<Widget>[
             _OnboardingReminder(step: onboarding.step!),
@@ -47,11 +54,16 @@ class HomeScreen extends ConsumerWidget {
           // notificacion en este bloque, este aviso es la via que el propio CA
           // contempla con "o desde el menu principal".
           const _IbsSssReminder(),
-          Text(
-            l10n.homeGreeting(user?.fullName ?? ''),
-            style: textTheme.headlineMedium,
-            textAlign: TextAlign.center,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              l10n.homeGreeting(user?.fullName ?? ''),
+              style: textTheme.headlineMedium,
+            ),
           ),
+          const SizedBox(height: CauceSpacing.space6),
+          const HomeScoreCard(),
+          const HomeTodayCard(),
         ],
       ),
     );
