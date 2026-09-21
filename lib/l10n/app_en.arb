@@ -547,5 +547,55 @@
   },
   "journalLockedTitle": "Available once you complete your profile",
   "journalLockedBody": "Your journal unlocks once you save your clinical profile. It is a short step and you can pick it up now.",
-  "journalLockedAction": "Pick up where I left off"
+  "journalLockedAction": "Pick up where I left off",
+  "mealsIssueQuantityOutOfRange": "Enter an amount between 0 and {max} {unit}",
+  "@mealsIssueQuantityOutOfRange": {
+      "placeholders": {
+          "unit": {
+              "type": "String"
+          },
+          "max": {
+              "type": "String"
+          }
+      }
+  },
+  "homeScoreTitle": "Your IBS-SSS score",
+  "homeScoreEmpty": "Your first assessment is not recorded yet.",
+  "homeScoreBaseline": "This is your baseline, the starting point of your follow-up.",
+  "homeScoreDelta": "{value} points against your baseline",
+  "@homeScoreDelta": {
+      "placeholders": {
+          "value": {
+              "type": "String"
+          }
+      }
+  },
+  "homeScoreNext": "Next questionnaire: {date}",
+  "@homeScoreNext": {
+      "placeholders": {
+          "date": {
+              "type": "String"
+          }
+      }
+  },
+  "homeScoreDue": "Your next questionnaire is available",
+  "homeTodayTitle": "Today",
+  "homeTodayEmpty": "Nothing logged today yet",
+  "homeTodayMeals": "{count, plural, =0{No meals} =1{1 meal} other{{count} meals}}",
+  "@homeTodayMeals": {
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "homeTodaySymptoms": "{count, plural, =0{no symptoms} =1{1 symptom} other{{count} symptoms}}",
+  "@homeTodaySymptoms": {
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "homeTodayOpen": "Open my journal"
 }

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/app_borders.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
 
@@ -21,10 +22,13 @@ Future<({ProviderContainer container, FakeAuthRepository repository})> _pumpApp(
   CauceApiError? error,
 }) async {
   final repository = FakeAuthRepository(error: error);
+  final storage = FakeTokenStorage();
+  final borders = appBorders(storage: storage);
   final container = ProviderContainer(
     overrides: <Override>[
+      ...borders.overrides,
       authRepositoryProvider.overrideWithValue(repository),
-      tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+      tokenStorageProvider.overrideWithValue(storage),
     ],
   );
   addTearDown(container.dispose);
@@ -147,7 +151,7 @@ void main() {
       expect(h.repository.confirmPasswordResetCalls, 1);
       expect(h.repository.lastToken, 'abc123');
       expect(h.repository.lastNewPassword, 'NuevaClave1');
-      expect(find.text('Contrasena actualizada'), findsOneWidget);
+      expect(find.text('Contraseña actualizada'), findsOneWidget);
     });
 
     testWidgets('tras aceptar el dialogo vuelve al login', (tester) async {
@@ -208,7 +212,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(h.repository.confirmPasswordResetCalls, 0);
-      expect(find.text('Las contrasenas no coinciden'), findsOneWidget);
+      expect(find.text('Las contraseñas no coinciden'), findsOneWidget);
     });
 
     testWidgets('un enlace vencido ofrece pedir uno nuevo', (tester) async {
@@ -231,7 +235,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        find.text('El enlace de recuperacion vencio o ya fue usado'),
+        find.text('El enlace de recuperación venció o ya fue usado'),
         findsOneWidget,
       );
       expect(

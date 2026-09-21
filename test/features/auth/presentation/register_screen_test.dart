@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/canned_http_adapter.dart';
+import '../../../helpers/app_borders.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
 
@@ -25,10 +26,13 @@ Future<({ProviderContainer container, FakeAuthRepository repository})>
 }) async {
   final repository = FakeAuthRepository(error: error)
     ..consentError = consentError;
+  final storage = FakeTokenStorage();
+  final borders = appBorders(storage: storage);
   final container = ProviderContainer(
     overrides: <Override>[
+      ...borders.overrides,
       authRepositoryProvider.overrideWithValue(repository),
-      tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+      tokenStorageProvider.overrideWithValue(storage),
     ],
   );
   addTearDown(container.dispose);
@@ -355,12 +359,15 @@ void main() {
           dio: dio,
           interceptors: const <Interceptor>[],
         );
+        final inlineStorage = FakeTokenStorage();
+        final borders = appBorders(storage: inlineStorage);
         final container = ProviderContainer(
           overrides: <Override>[
+            ...borders.overrides,
             authRepositoryProvider.overrideWithValue(
               AuthRepository(client.getAuthApi(), client.getConsentApi()),
             ),
-            tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+            tokenStorageProvider.overrideWithValue(inlineStorage),
           ],
         );
         addTearDown(container.dispose);
@@ -396,7 +403,7 @@ void main() {
         );
         expect(register.body['invitationCode'], 'ABCD1234');
         expect(
-          find.textContaining('todavia no activo su cuenta'),
+          find.textContaining('todavía no activó su cuenta'),
           findsOneWidget,
         );
         expect(find.byType(VerifyEmailPendingScreen), findsNothing);

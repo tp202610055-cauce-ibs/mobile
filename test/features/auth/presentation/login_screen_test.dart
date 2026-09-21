@@ -72,7 +72,7 @@ void main() {
 
       expect(repository.loginCalls, 0);
       expect(
-        find.text('Ingresa un correo electronico valido'),
+        find.text('Ingresa un correo electrónico válido'),
         findsOneWidget,
       );
     });
@@ -202,7 +202,7 @@ void main() {
       await tester.tap(find.byKey(const Key('login_submit')));
       await tester.pumpAndSettle();
 
-      expect(find.textContaining('Sin conexion'), findsOneWidget);
+      expect(find.textContaining('Sin conexión'), findsOneWidget);
     });
 
     testWidgets('los errores por campo se pintan bajo su input', (

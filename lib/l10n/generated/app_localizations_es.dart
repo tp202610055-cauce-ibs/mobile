@@ -30,44 +30,44 @@ class AppLocalizationsEs extends AppLocalizations {
   String get commonLoading => 'Cargando';
 
   @override
-  String get splashLoading => 'Preparando tu sesion';
+  String get splashLoading => 'Preparando tu sesión';
 
   @override
-  String get loginTitle => 'Inicia sesion';
+  String get loginTitle => 'Inicia sesión';
 
   @override
   String get loginSubtitle =>
       'Ingresa a tu cuenta para continuar con tu seguimiento';
 
   @override
-  String get loginEmailLabel => 'Correo electronico';
+  String get loginEmailLabel => 'Correo electrónico';
 
   @override
   String get loginEmailHint => 'tucorreo@ejemplo.com';
 
   @override
-  String get loginPasswordLabel => 'Contrasena';
+  String get loginPasswordLabel => 'Contraseña';
 
   @override
-  String get loginPasswordHint => 'Tu contrasena';
+  String get loginPasswordHint => 'Tu contraseña';
 
   @override
-  String get loginSubmit => 'Iniciar sesion';
+  String get loginSubmit => 'Iniciar sesión';
 
   @override
-  String get loginForgotPassword => 'Olvide mi contrasena';
+  String get loginForgotPassword => 'Olvidé mi contraseña';
 
   @override
   String get loginCreateAccount => 'Crear cuenta';
 
   @override
-  String get loginNoAccountPrompt => 'No tienes cuenta?';
+  String get loginNoAccountPrompt => '¿No tienes cuenta?';
 
   @override
-  String get loginShowPassword => 'Mostrar contrasena';
+  String get loginShowPassword => 'Mostrar contraseña';
 
   @override
-  String get loginHidePassword => 'Ocultar contrasena';
+  String get loginHidePassword => 'Ocultar contraseña';
 
   @override
   String get registerTitle => 'Crea tu cuenta';
@@ -83,22 +83,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get registerFullNameHint => 'Nombre y apellidos';
 
   @override
-  String get registerEmailLabel => 'Correo electronico';
+  String get registerEmailLabel => 'Correo electrónico';
 
   @override
   String get registerEmailHint => 'tucorreo@ejemplo.com';
 
   @override
-  String get registerPasswordLabel => 'Contrasena';
+  String get registerPasswordLabel => 'Contraseña';
 
   @override
-  String get registerPasswordHint => 'Minimo 8 caracteres';
+  String get registerPasswordHint => 'Mínimo 8 caracteres';
 
   @override
-  String get registerPasswordConfirmLabel => 'Confirma tu contrasena';
+  String get registerPasswordConfirmLabel => 'Confirma tu contraseña';
 
   @override
-  String get registerInvitationCodeLabel => 'Codigo de invitacion';
+  String get registerInvitationCodeLabel => 'Código de invitación';
 
   @override
   String get registerInvitationCodeHint => 'Opcional';
@@ -121,17 +121,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get registerSubmit => 'Crear cuenta';
 
   @override
-  String get registerHasAccountPrompt => 'Ya tienes cuenta?';
+  String get registerHasAccountPrompt => '¿Ya tienes cuenta?';
 
   @override
-  String get passwordRecoveryTitle => 'Recupera tu contrasena';
+  String get passwordRecoveryTitle => 'Recupera tu contraseña';
 
   @override
   String get passwordRecoverySubtitle =>
       'Te enviaremos un enlace para restablecerla';
 
   @override
-  String get passwordRecoveryEmailLabel => 'Correo electronico';
+  String get passwordRecoveryEmailLabel => 'Correo electrónico';
 
   @override
   String get passwordRecoverySubmit => 'Enviar enlace';
@@ -141,33 +141,33 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get passwordRecoverySentBody =>
-      'Si el correo existe en nuestro sistema, recibiras un enlace de recuperacion valido por 30 minutos.';
+      'Si el correo existe en nuestro sistema, recibirás un enlace de recuperación válido por 30 minutos.';
 
   @override
-  String get passwordRecoverySentBackToLogin => 'Volver a iniciar sesion';
+  String get passwordRecoverySentBackToLogin => 'Volver a iniciar sesión';
 
   @override
-  String get passwordResetTitle => 'Nueva contrasena';
+  String get passwordResetTitle => 'Nueva contraseña';
 
   @override
   String get passwordResetSubtitle =>
-      'Elige una contrasena que no hayas usado antes';
+      'Elige una contraseña que no hayas usado antes';
 
   @override
-  String get passwordResetNewPasswordLabel => 'Nueva contrasena';
+  String get passwordResetNewPasswordLabel => 'Nueva contraseña';
 
   @override
-  String get passwordResetConfirmLabel => 'Confirma la nueva contrasena';
+  String get passwordResetConfirmLabel => 'Confirma la nueva contraseña';
 
   @override
-  String get passwordResetSubmit => 'Restablecer contrasena';
+  String get passwordResetSubmit => 'Restablecer contraseña';
 
   @override
-  String get passwordResetSuccessTitle => 'Contrasena actualizada';
+  String get passwordResetSuccessTitle => 'Contraseña actualizada';
 
   @override
   String get passwordResetSuccessBody =>
-      'Ya puedes iniciar sesion con tu nueva contrasena.';
+      'Ya puedes iniciar sesión con tu nueva contraseña.';
 
   @override
   String get passwordResetRequestNewLink => 'Solicitar un enlace nuevo';
@@ -177,15 +177,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String verifyEmailPendingBody(String email) {
-    return 'Registramos tu cuenta. Te enviamos un correo de verificacion a $email. Sigue el enlace para activarla.';
+    return 'Registramos tu cuenta. Te enviamos un correo de verificación a $email. Sigue el enlace para activarla.';
   }
 
   @override
   String get verifyEmailPendingNoEmailHint =>
-      'Si no recibiste el correo, comunicate con soporte.';
+      'Si no recibiste el correo, comunícate con soporte.';
 
   @override
-  String get verifyEmailPendingLogout => 'Cerrar sesion';
+  String get verifyEmailPendingLogout => 'Cerrar sesión';
 
   @override
   String homeGreeting(String fullName) {
@@ -193,13 +193,13 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get homeLogout => 'Cerrar sesion';
+  String get homeLogout => 'Cerrar sesión';
 
   @override
   String get validationRequired => 'Este campo es obligatorio';
 
   @override
-  String get validationEmailInvalid => 'Ingresa un correo electronico valido';
+  String get validationEmailInvalid => 'Ingresa un correo electrónico válido';
 
   @override
   String get validationEmailTooLong =>
@@ -211,18 +211,18 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validationPasswordTooShort =>
-      'La contrasena debe tener al menos 8 caracteres';
+      'La contraseña debe tener al menos 8 caracteres';
 
   @override
   String get validationPasswordWeak =>
       'Debe incluir una mayuscula, una minuscula y un digito';
 
   @override
-  String get validationPasswordMismatch => 'Las contrasenas no coinciden';
+  String get validationPasswordMismatch => 'Las contraseñas no coinciden';
 
   @override
   String get validationInvitationCodeFormat =>
-      'El codigo debe tener entre 8 y 20 caracteres, solo letras y numeros';
+      'El código debe tener entre 8 y 20 caracteres, solo letras y números';
 
   @override
   String get validationConsentRequired =>
@@ -265,22 +265,22 @@ class AppLocalizationsEs extends AppLocalizations {
       'El consentimiento informado cambio. Vuelve a leerlo y aceptalo.';
 
   @override
-  String get errorInvalidInvitationCode => 'El codigo de invitacion no existe';
+  String get errorInvalidInvitationCode => 'El código de invitación no existe';
 
   @override
-  String get errorExpiredInvitationCode => 'El codigo de invitacion vencio';
+  String get errorExpiredInvitationCode => 'El código de invitación venció';
 
   @override
   String get errorInvitationCodeAlreadyUsed =>
-      'El codigo de invitacion ya fue usado';
+      'El código de invitación ya fue usado';
 
   @override
   String get errorNutritionistPendingActivation =>
-      'Este nutricionista todavia no activo su cuenta. Intenta de nuevo mas tarde o comunicate directamente con el.';
+      'Este nutricionista todavía no activó su cuenta. Intenta de nuevo más tarde o comunícate directamente con él.';
 
   @override
   String get errorNutritionistUnavailable =>
-      'Este codigo ya no esta disponible. Comunicate con tu nutricionista para obtener uno nuevo.';
+      'Este código ya no está disponible. Comunícate con tu nutricionista para obtener uno nuevo.';
 
   @override
   String get errorPatientAlreadyAssigned =>
@@ -328,7 +328,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get mealsSearchNoResults => 'No encontramos alimentos con ese nombre';
 
   @override
-  String get mealsSuggestionsFrequent => 'Los que mas registras';
+  String get mealsSuggestionsFrequent => 'Los que más registras';
 
   @override
   String get mealsSuggestionsRecent => 'Registrados hoy';
@@ -343,13 +343,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get mealsUnitLabel => 'Unidad';
 
   @override
-  String get mealsTimeLabel => 'Momento del dia';
+  String get mealsTimeLabel => 'Momento del día';
 
   @override
   String get mealsItemsLabel => 'Alimentos de esta comida';
 
   @override
-  String get mealsItemsEmpty => 'Todavia no agregaste ningun alimento';
+  String get mealsItemsEmpty => 'Todavía no agregaste ningún alimento';
 
   @override
   String get mealsRemoveItem => 'Quitar';
@@ -362,13 +362,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get mealsQueuedOffline =>
-      'Comida guardada. Se enviara cuando vuelva la conexion.';
+      'Comida guardada. Se enviará cuando vuelva la conexión.';
 
   @override
   String get mealsRegisterAnother => 'Registrar otra';
 
   @override
-  String get mealsIssueMissingMealTime => 'Elige el momento del dia';
+  String get mealsIssueMissingMealTime => 'Elige el momento del día';
 
   @override
   String get mealsIssueNoItems => 'Agrega al menos un alimento';
@@ -433,13 +433,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get customFoodNameHint => 'Por ejemplo: Mi lomo saltado';
 
   @override
-  String get customFoodPortionLabel => 'Tamano de porcion (g)';
+  String get customFoodPortionLabel => 'Tamaño de porción (g)';
 
   @override
   String get customFoodIngredientsLabel => 'Ingredientes';
 
   @override
-  String get customFoodIngredientsEmpty => 'Todavia no agregaste ingredientes';
+  String get customFoodIngredientsEmpty => 'Todavía no agregaste ingredientes';
 
   @override
   String get customFoodAddIngredient => 'Agregar ingrediente';
@@ -455,12 +455,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String customFoodWeightDelta(String grams) {
-    return 'Los ingredientes suman $grams g mas que la porcion declarada';
+    return 'Los ingredientes suman $grams g más que la porción declarada';
   }
 
   @override
   String customFoodWeightDeltaShort(String grams) {
-    return 'Los ingredientes suman $grams g menos que la porcion declarada';
+    return 'Los ingredientes suman $grams g menos que la porción declarada';
   }
 
   @override
@@ -468,11 +468,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get customFoodEstimateNote =>
-      'Es una estimacion por 100 g a partir de los ingredientes. No se guarda con el plato.';
+      'Es una estimación por 100 g a partir de los ingredientes. No se guarda con el plato.';
 
   @override
   String get customFoodEstimatePartial =>
-      'Falta la composicion de algun ingrediente, asi que la estimacion es parcial.';
+      'Falta la composición de algún ingrediente, así que la estimación es parcial.';
 
   @override
   String customFoodEstimateCalories(String value) {
@@ -509,7 +509,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get customFoodIssueInvalidPortion =>
-      'La porcion debe ser mayor que cero';
+      'La porción debe ser mayor que cero';
 
   @override
   String get customFoodIssueNoIngredients => 'Agrega al menos un ingrediente';
@@ -553,7 +553,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get customFoodAllergenCancel => 'Volver y editar';
 
   @override
-  String get symptomsTitle => 'Registrar sintoma';
+  String get symptomsTitle => 'Registrar síntoma';
 
   @override
   String get symptomsTypeLabel => 'Que sentiste';
@@ -568,14 +568,14 @@ class AppLocalizationsEs extends AppLocalizations {
   String get symptomsIntensityMax => 'Muy intenso';
 
   @override
-  String get symptomsSubmit => 'Registrar sintoma';
+  String get symptomsSubmit => 'Registrar síntoma';
 
   @override
-  String get symptomsRegistered => 'Sintoma registrado';
+  String get symptomsRegistered => 'Síntoma registrado';
 
   @override
   String get symptomsQueuedOffline =>
-      'Sintoma guardado. Se enviara cuando vuelva la conexion.';
+      'Síntoma guardado. Se enviará cuando vuelva la conexión.';
 
   @override
   String get symptomsRegisterAnother => 'Registrar otro';
@@ -590,7 +590,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get symptomsMealPending =>
-      'La relacion con tus comidas se calcula al sincronizar.';
+      'La relación con tus comidas se calcula al sincronizar.';
 
   @override
   String get symptomsIssueMissingType => 'Elige que sentiste';
@@ -636,7 +636,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get historyTitle => 'Mi registro';
 
   @override
-  String get historyEmpty => 'Todavia no registraste nada';
+  String get historyEmpty => 'Todavía no registraste nada';
 
   @override
   String historyMealIntensity(int value) {
@@ -702,17 +702,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ibsSssPeriodicSubtitle =>
-      'Responde las cinco preguntas pensando en los ultimos diez dias.';
+      'Responde las cinco preguntas pensando en los últimos diez días.';
 
   @override
   String get ibsSssPeriodicSubmit => 'Enviar cuestionario';
 
   @override
-  String get ibsSssEvolutionTitle => 'Tu evolucion';
+  String get ibsSssEvolutionTitle => 'Tu evolución';
 
   @override
   String get ibsSssEvolutionEmpty =>
-      'Con una sola evaluacion todavia no hay evolucion que mostrar.';
+      'Con una sola evaluación todavía no hay evolución que mostrar.';
 
   @override
   String ibsSssEvolutionRange(int first, int last) {
@@ -721,19 +721,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String ibsSssEvolutionDelta(int value) {
-    return '$value puntos respecto de tu linea base';
+    return '$value puntos respecto de tu línea base';
   }
 
   @override
   String get ibsSssEvolutionImprovement =>
-      'Es una reduccion de 50 puntos o mas respecto de tu linea base. Tu nutricionista lo interpretara contigo.';
+      'Es una reducción de 50 puntos o más respecto de tu línea base. Tu nutricionista lo interpretará contigo.';
 
   @override
   String get ibsSssReminderTitle => 'Toca tu cuestionario de seguimiento';
 
   @override
   String get ibsSssReminderBody =>
-      'Pasaron los catorce dias desde tu ultima evaluacion.';
+      'Pasaron los catorce días desde tu última evaluación.';
 
   @override
   String get ibsSssReminderAction => 'Responder ahora';
@@ -810,19 +810,19 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorInvalidRefreshToken =>
-      'Tu sesion expiro. Inicia sesion de nuevo.';
+      'Tu sesión expiró. Inicia sesión de nuevo.';
 
   @override
   String get errorInvalidPasswordResetToken =>
-      'El enlace de recuperacion no es valido';
+      'El enlace de recuperación no es válido';
 
   @override
   String get errorExpiredPasswordResetToken =>
-      'El enlace de recuperacion vencio o ya fue usado';
+      'El enlace de recuperación venció o ya fue usado';
 
   @override
   String get errorUserLocalMissing =>
-      'Hay un problema con tu cuenta. Comunicate con soporte.';
+      'Hay un problema con tu cuenta. Comunícate con soporte.';
 
   @override
   String get errorInternalServer =>
@@ -833,7 +833,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'No encontramos tu consentimiento registrado';
 
   @override
-  String get errorForbidden => 'No tienes permiso para realizar esta accion';
+  String get errorForbidden => 'No tienes permiso para realizar esta acción';
 
   @override
   String errorRateLimited(int seconds) {
@@ -842,7 +842,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorNetwork =>
-      'Sin conexion. Verifica tu internet e intenta de nuevo.';
+      'Sin conexión. Verifica tu internet e intenta de nuevo.';
 
   @override
   String get errorUnknown => 'Ocurrio un error inesperado. Intenta de nuevo.';
@@ -1343,4 +1343,66 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get journalLockedAction => 'Continuar donde quedé';
+
+  @override
+  String mealsIssueQuantityOutOfRange(String unit, String max) {
+    return 'Indica una cantidad entre 0 y $max $unit';
+  }
+
+  @override
+  String get homeScoreTitle => 'Tu puntaje IBS-SSS';
+
+  @override
+  String get homeScoreEmpty =>
+      'Tu primera evaluación todavía no está registrada.';
+
+  @override
+  String get homeScoreBaseline =>
+      'Es tu línea base, el punto de partida de tu seguimiento.';
+
+  @override
+  String homeScoreDelta(String value) {
+    return '$value puntos respecto de tu línea base';
+  }
+
+  @override
+  String homeScoreNext(String date) {
+    return 'Próximo cuestionario: $date';
+  }
+
+  @override
+  String get homeScoreDue => 'Tu próximo cuestionario ya está disponible';
+
+  @override
+  String get homeTodayTitle => 'Hoy';
+
+  @override
+  String get homeTodayEmpty => 'Todavía no registraste nada hoy';
+
+  @override
+  String homeTodayMeals(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count comidas',
+      one: '1 comida',
+      zero: 'Sin comidas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeTodaySymptoms(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count síntomas',
+      one: '1 síntoma',
+      zero: 'sin síntomas',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeTodayOpen => 'Ver mi diario';
 }

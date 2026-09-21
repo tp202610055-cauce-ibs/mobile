@@ -1341,4 +1341,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get journalLockedAction => 'Pick up where I left off';
+
+  @override
+  String mealsIssueQuantityOutOfRange(String unit, String max) {
+    return 'Enter an amount between 0 and $max $unit';
+  }
+
+  @override
+  String get homeScoreTitle => 'Your IBS-SSS score';
+
+  @override
+  String get homeScoreEmpty => 'Your first assessment is not recorded yet.';
+
+  @override
+  String get homeScoreBaseline =>
+      'This is your baseline, the starting point of your follow-up.';
+
+  @override
+  String homeScoreDelta(String value) {
+    return '$value points against your baseline';
+  }
+
+  @override
+  String homeScoreNext(String date) {
+    return 'Next questionnaire: $date';
+  }
+
+  @override
+  String get homeScoreDue => 'Your next questionnaire is available';
+
+  @override
+  String get homeTodayTitle => 'Today';
+
+  @override
+  String get homeTodayEmpty => 'Nothing logged today yet';
+
+  @override
+  String homeTodayMeals(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count meals',
+      one: '1 meal',
+      zero: 'No meals',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeTodaySymptoms(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count symptoms',
+      one: '1 symptom',
+      zero: 'no symptoms',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeTodayOpen => 'Open my journal';
 }

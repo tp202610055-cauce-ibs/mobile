@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'helpers/app_borders.dart';
 import 'helpers/fake_auth_repository.dart';
 import 'helpers/fake_token_storage.dart';
 
@@ -33,9 +34,12 @@ Future<ProviderContainer> _pumpApp(
   WidgetTester tester, {
   FakeTokenStorage? storage,
 }) async {
+  final tokenStorage = storage ?? FakeTokenStorage();
+  final borders = appBorders(storage: tokenStorage);
   final container = ProviderContainer(
     overrides: <Override>[
-      tokenStorageProvider.overrideWithValue(storage ?? FakeTokenStorage()),
+      ...borders.overrides,
+      tokenStorageProvider.overrideWithValue(tokenStorage),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
     ],
   );
@@ -79,11 +83,13 @@ void main() {
     ) async {
       // La demora simula lo que tarda el Keystore. Sin ella la lectura
       // resuelve en el mismo microtask y la ventana es inobservable.
+      final slowStorage =
+          FakeTokenStorage(readDelay: const Duration(milliseconds: 50));
+      final borders = appBorders(storage: slowStorage);
       final container = ProviderContainer(
         overrides: <Override>[
-          tokenStorageProvider.overrideWithValue(
-            FakeTokenStorage(readDelay: const Duration(milliseconds: 50)),
-          ),
+          ...borders.overrides,
+          tokenStorageProvider.overrideWithValue(slowStorage),
           authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
         ],
       );
@@ -212,9 +218,12 @@ void main() {
       // Es el caso real: el paciente toca el enlace del correo con la app
       // cerrada. Sin la excepcion del guard, el token se perderia camino al
       // splash.
+      final deepLinkStorage = FakeTokenStorage();
+      final borders = appBorders(storage: deepLinkStorage);
       final container = ProviderContainer(
         overrides: <Override>[
-          tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+          ...borders.overrides,
+          tokenStorageProvider.overrideWithValue(deepLinkStorage),
           authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
         ],
       );

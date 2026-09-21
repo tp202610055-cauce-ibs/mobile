@@ -24,9 +24,9 @@ void main() {
       final message = error.localizedMessage(es);
 
       expect(message, es.errorNutritionistPendingActivation);
-      expect(message, contains('todavia no activo su cuenta'));
+      expect(message, contains('todavía no activó su cuenta'));
       // Reintentar sirve: el codigo no se consume cuando el canje falla.
-      expect(message, contains('Intenta de nuevo mas tarde'));
+      expect(message, contains('Intenta de nuevo más tarde'));
     });
 
     test('inactive y suspended comparten mensaje a proposito', () {
@@ -47,7 +47,7 @@ void main() {
       expect(inactive.localizedMessage(es), es.errorNutritionistUnavailable);
       expect(
         inactive.localizedMessage(es),
-        contains('Comunicate con tu nutricionista'),
+        contains('Comunícate con tu nutricionista'),
       );
     });
 
