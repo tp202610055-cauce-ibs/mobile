@@ -145,29 +145,49 @@ class AppShell extends ConsumerWidget {
     // instrumento mide sobre catorce dias y responderlo antes ensucia la
     // serie, asi que el movil lo frena y queda pedido al backend que lo
     // rechace del lado servidor (acta M38).
-    final (VoidCallback? ibsSssAction, String? ibsSssHint) = switch (latest) {
+    String fecha(DateTime value) => DateFormat.yMd(
+          Localizations.localeOf(context).toLanguageTag(),
+        ).format(value.toLocal());
+
+    final (
+      VoidCallback? ibsSssAction,
+      String? ibsSssHint,
+      VoidCallback? ibsSssBlocked,
+    ) = switch (latest) {
       _ when !onboarding.allowsAdvice && !canLog => (
           resumeOnboarding,
           l10n.fabHintCompleteProfile,
+          null,
         ),
       _ when !onboarding.allowsAdvice => (
           resumeOnboarding,
           l10n.fabHintBaselinePending,
+          null,
         ),
-      null => (null, null),
+      null => (null, null, null),
       final summary when summary.isDue() => (
           () => context.push(AppRoutes.ibsSssPeriodic),
+          null,
+          null,
+        ),
+      final summary when summary.nextAssessmentDate == null => (
+          null,
+          null,
           null,
         ),
       final summary => (
           null,
-          summary.nextAssessmentDate == null
-              ? null
-              : l10n.fabHintNotDue(
-                  DateFormat.yMd(
-                    Localizations.localeOf(context).toLanguageTag(),
-                  ).format(summary.nextAssessmentDate!.toLocal()),
+          l10n.fabHintNotDue(fecha(summary.nextAssessmentDate!)),
+          // Tocar el candado explica la regla de los catorce dias. La fecha
+          // sola dice hasta cuando y no dice por que, que es lo que un
+          // paciente que ya se siente listo para responder se pregunta.
+          () => CauceToast.info(
+                context,
+                title: l10n.fabIbsSssLockedTitle,
+                message: l10n.fabIbsSssLockedBody(
+                  fecha(summary.nextAssessmentDate!),
                 ),
+              ),
         ),
     };
 
@@ -178,6 +198,7 @@ class AppShell extends ConsumerWidget {
         actionKey: const Key('fab_ibs_sss'),
         onPressed: ibsSssAction,
         hint: ibsSssHint,
+        onBlocked: ibsSssBlocked,
       ),
       CauceFabAction(
         label: l10n.fabLogSymptom,

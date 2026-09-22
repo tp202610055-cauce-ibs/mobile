@@ -51,6 +51,15 @@ class CauceBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Alto de la barra de botones o de gestos del sistema.
+    //
+    // Se lee de `viewPadding` y **no** con un `SafeArea`, que mira `padding`:
+    // el `Scaffold` que monta esta barra ya consumio ese padding, de modo que
+    // un `SafeArea` aca adentro mide cero y el blanco se corta justo arriba de
+    // la franja del sistema. `viewPadding` informa el hueco fisico siempre,
+    // lo haya consumido un ancestro o no.
+    final double systemInset = MediaQuery.viewPaddingOf(context).bottom;
+
     // `Material` y no `Container` con color: la onda del `InkWell` se pinta
     // sobre el Material mas cercano, y cualquier widget opaco dibujado encima
     // la tapa. Con el Container, tocar una pestana no producia ningun efecto
@@ -66,27 +75,27 @@ class CauceBottomNav extends StatelessWidget {
             ),
           ),
         ),
-        child: SafeArea(
-          top: false,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(
-              CauceSpacing.space2,
-              CauceSpacing.space3,
-              CauceSpacing.space2,
-              CauceSpacing.space4,
-            ),
-            child: Row(
-              children: <Widget>[
-                _slot(0),
-                _slot(1),
-                // Hueco del FAB. Ocupa una columna completa para que los
-                // cuatro destinos queden repartidos como en el design system
-                // y no apretados contra el centro.
-                const Expanded(child: SizedBox.shrink()),
-                _slot(2),
-                _slot(3),
-              ],
-            ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(
+            CauceSpacing.space2,
+            CauceSpacing.space3,
+            CauceSpacing.space2,
+            // El relleno del design system, y debajo el hueco del sistema,
+            // para que el blanco de la barra llegue hasta el borde inferior
+            // de la pantalla.
+            CauceSpacing.space4 + systemInset,
+          ),
+          child: Row(
+            children: <Widget>[
+              _slot(0),
+              _slot(1),
+              // Hueco del FAB. Ocupa una columna completa para que los
+              // cuatro destinos queden repartidos como en el design system
+              // y no apretados contra el centro.
+              const Expanded(child: SizedBox.shrink()),
+              _slot(2),
+              _slot(3),
+            ],
           ),
         ),
       ),
