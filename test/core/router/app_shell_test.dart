@@ -21,6 +21,7 @@ import 'package:cauce_mobile/features/symptoms/presentation/symptom_form_screen.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/canned_http_adapter.dart';
@@ -252,11 +253,42 @@ void main() {
       // Sigue visible: una accion que desaparece deja al paciente sin saber
       // que existe.
       expect(find.byKey(const Key('fab_ibs_sss')), findsOneWidget);
+      // Y cerrada de forma legible, no solo en gris: el candado es la senal
+      // que no depende del color.
+      expect(find.byIcon(TablerIcons.lock), findsOneWidget);
 
       await tester.tap(find.byKey(const Key('fab_ibs_sss')));
       await tester.pumpAndSettle();
 
       expect(find.byType(PeriodicAssessmentScreen), findsNothing);
+    });
+
+    testWidgets('tocar el candado explica la regla de los catorce dias',
+        (tester) async {
+      // El gris y la fecha dicen "hasta cuando". Esto dice "por que", que es
+      // lo que se pregunta un paciente que ya se siente listo para responder.
+      final due = DateTime.now().toUtc().add(const Duration(days: 9));
+      await _pumpShell(
+        tester,
+        latestAssessment: IbsSssAssessmentSummaryData(
+          assessmentId: 'd3',
+          totalScore: 180,
+          assessmentType: IbsSssAssessmentType.periodic,
+          cycleNumber: 1,
+          completedAt: DateTime.now().toUtc(),
+          nextAssessmentDate: due,
+        ),
+      );
+      await _openFab(tester);
+
+      await tester.tap(find.byKey(const Key('fab_ibs_sss')));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(cauceToastKey), findsOneWidget);
+      expect(find.textContaining('catorce días'), findsOneWidget);
+      // El velo se fue: si quedara puesto, el aviso se leeria atenuado por
+      // detras de la cortina.
+      expect(find.byKey(cauceFabScrimKey), findsNothing);
     });
 
     testWidgets('con el onboarding pendiente lleva a completarlo',

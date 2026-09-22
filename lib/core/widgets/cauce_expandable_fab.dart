@@ -11,6 +11,7 @@ class CauceFabAction {
     required this.icon,
     required this.onPressed,
     this.hint,
+    this.onBlocked,
     this.actionKey,
   });
 
@@ -29,10 +30,20 @@ class CauceFabAction {
   /// `null`: la regla del proyecto es que nada se deshabilita sin explicar.
   final String? hint;
 
+  /// Que hacer cuando se toca estando apagada.
+  ///
+  /// Una accion apagada que ademas no responde al toque deja al paciente
+  /// tocandola sin entender. El candado y el [hint] dicen que esta cerrada;
+  /// esto dice **por que**, que es lo que el candado por si solo no comunica.
+  final VoidCallback? onBlocked;
+
   /// Clave de la pildora, para ubicarla en tests.
   final Key? actionKey;
 
   bool get enabled => onPressed != null;
+
+  /// Si la pildora responde al toque, encendida o apagada.
+  bool get tappable => enabled || onBlocked != null;
 }
 
 /// Clave del boton flotante, para ubicarlo en tests.
@@ -107,7 +118,14 @@ class _CauceExpandableFabState extends State<CauceExpandableFab> {
   /// velo queda un instante sobre la pantalla nueva.
   void _run(CauceFabAction action) {
     _close();
-    action.onPressed?.call();
+    if (action.enabled) {
+      action.onPressed!.call();
+      return;
+    }
+    // El menu se cierra igual antes de explicar: el aviso se monta en el
+    // `ScaffoldMessenger`, que esta **debajo** del velo del overlay, y dejarlo
+    // abierto mostraria el mensaje atenuado detras de la cortina.
+    action.onBlocked?.call();
   }
 
   @override
@@ -201,7 +219,7 @@ class _ActionPill extends StatelessWidget {
       child: InkWell(
         key: action.actionKey,
         borderRadius: CauceRadii.borderXl,
-        onTap: enabled ? onTap : null,
+        onTap: action.tappable ? onTap : null,
         child: Container(
           constraints: const BoxConstraints(
             minHeight: CauceSizes.touchTargetMin,
@@ -251,6 +269,21 @@ class _ActionPill extends StatelessWidget {
                     ),
                 ],
               ),
+              // El candado no reemplaza al texto, lo acompana. Es la senal
+              // que se lee de un vistazo; el [hint] dice hasta cuando y el
+              // toque dice por que.
+              // Con el estado todavia sin resolver no hay candado: cerrar
+              // algo sin poder decir por que es peor que mostrarlo apagado
+              // un instante.
+              if (!enabled &&
+                  (hint != null || action.onBlocked != null)) ...<Widget>[
+                const SizedBox(width: 10),
+                const Icon(
+                  TablerIcons.lock,
+                  size: 16,
+                  color: CauceColors.textTertiary,
+                ),
+              ],
             ],
           ),
         ),

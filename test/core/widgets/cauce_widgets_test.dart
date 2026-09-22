@@ -923,4 +923,198 @@ void main() {
       expect(find.byKey(cauceConfirmDialogKey), findsNothing);
     });
   });
+
+  group('CauceToast.info · variante propia para lo que todavia no toca', () {
+    testWidgets('lleva los tokens de informacion, no los de error',
+        (tester) async {
+      // Pintar de rojo un "todavia no" lo convertiria en un fallo del
+      // paciente, que es justo lo que no es.
+      await _pump(
+        tester,
+        Builder(
+          builder: (BuildContext context) => TextButton(
+            onPressed: () => CauceToast.info(
+              context,
+              title: 'Todavía no toca responderlo',
+              message: 'Se habilita el 2/10/2026.',
+            ),
+            child: const Text('mostrar'),
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('mostrar'));
+      await tester.pump();
+
+      expect(find.text('Todavía no toca responderlo'), findsOneWidget);
+      expect(find.text('Se habilita el 2/10/2026.'), findsOneWidget);
+      expect(find.byIcon(TablerIcons.info_circle), findsOneWidget);
+
+      final container = tester.widget<Container>(find.byKey(cauceToastKey));
+      final decoration = container.decoration! as BoxDecoration;
+      expect(decoration.color, CauceColors.infoBg);
+    });
+  });
+
+  group('CauceExpandableFab · una accion cerrada explica por que', () {
+    /// Monta el FAB **anclado al pie**, como en el shell.
+    ///
+    /// Suelto en el cuerpo del Scaffold queda arriba a la izquierda y las
+    /// pildoras, que se apilan hacia arriba, caen fuera de la pantalla: el
+    /// toque no aterriza en ninguna.
+    Future<void> abrirMenu(
+      WidgetTester tester,
+      CauceFabAction accion,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light(),
+          localizationsDelegates: const <LocalizationsDelegate<Object>>[
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('es'),
+          home: Scaffold(
+            body: const SizedBox.expand(),
+            floatingActionButton: CauceExpandableFab(
+              actions: <CauceFabAction>[accion],
+              openLabel: 'Acción rápida',
+              closeLabel: 'Cerrar menú',
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+          ),
+        ),
+      );
+      await tester.tap(find.byKey(cauceFabKey));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('la cerrada muestra candado y la abierta no', (tester) async {
+      await abrirMenu(
+        tester,
+        const CauceFabAction(
+          label: 'Cuestionario IBS-SSS',
+          icon: TablerIcons.clipboard_text,
+          onPressed: null,
+          hint: 'Disponible el 2/10/2026',
+          actionKey: Key('fab_ibs_sss'),
+        ),
+      );
+
+      expect(find.byIcon(TablerIcons.lock), findsOneWidget);
+      expect(find.text('Disponible el 2/10/2026'), findsOneWidget);
+    });
+
+    testWidgets('sin motivo que dar no se dibuja candado', (tester) async {
+      // El estado todavia sin resolver: apagada, pero sin afirmar que este
+      // cerrada, porque nadie sabe todavia si lo esta.
+      await abrirMenu(
+        tester,
+        const CauceFabAction(
+          label: 'Cuestionario IBS-SSS',
+          icon: TablerIcons.clipboard_text,
+          onPressed: null,
+          actionKey: Key('fab_ibs_sss'),
+        ),
+      );
+
+      expect(find.byIcon(TablerIcons.lock), findsNothing);
+    });
+
+    testWidgets('tocar la cerrada dispara su explicacion', (tester) async {
+      var explicado = 0;
+      await abrirMenu(
+        tester,
+        CauceFabAction(
+          label: 'Cuestionario IBS-SSS',
+          icon: TablerIcons.clipboard_text,
+          onPressed: null,
+          hint: 'Disponible el 2/10/2026',
+          onBlocked: () => explicado++,
+          actionKey: const Key('fab_ibs_sss'),
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('fab_ibs_sss')));
+      await tester.pumpAndSettle();
+
+      expect(explicado, 1);
+      // Y el menu se cierra, para que el aviso no quede detras del velo.
+      expect(find.byKey(cauceFabScrimKey), findsNothing);
+    });
+
+    testWidgets('sin explicacion, el toque no hace nada', (tester) async {
+      await abrirMenu(
+        tester,
+        const CauceFabAction(
+          label: 'Cuestionario IBS-SSS',
+          icon: TablerIcons.clipboard_text,
+          onPressed: null,
+          actionKey: Key('fab_ibs_sss'),
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key('fab_ibs_sss')));
+      await tester.pumpAndSettle();
+
+      // El menu sigue abierto: la pildora no respondio.
+      expect(find.byKey(cauceFabScrimKey), findsOneWidget);
+    });
+  });
+
+  group('CauceBottomNav · el blanco llega hasta el borde de la pantalla', () {
+    /// Monta la barra con una franja de sistema de [inset] px declarada en
+    /// `viewPadding`, y con `padding` ya consumido por un ancestro, que es
+    /// como la recibe dentro de un `Scaffold`.
+    Future<void> montar(WidgetTester tester, double inset) async {
+      await _pump(
+        tester,
+        MediaQuery(
+          data: MediaQueryData(
+            viewPadding: EdgeInsets.only(bottom: inset),
+          ),
+          child: CauceBottomNav(
+            currentIndex: 0,
+            onSelected: (_) {},
+            items: const <CauceBottomNavItem>[
+              CauceBottomNavItem(label: 'Inicio', icon: TablerIcons.home),
+              CauceBottomNavItem(label: 'Diario', icon: TablerIcons.notebook),
+              CauceBottomNavItem(label: 'Consejos', icon: TablerIcons.bulb),
+              CauceBottomNavItem(label: 'Perfil', icon: TablerIcons.user),
+            ],
+          ),
+        ),
+      );
+    }
+
+    testWidgets('la barra crece con la franja del sistema', (tester) async {
+      await montar(tester, 0);
+      final sinFranja = tester.getSize(find.byType(CauceBottomNav)).height;
+
+      await montar(tester, 48);
+      final conFranja = tester.getSize(find.byType(CauceBottomNav)).height;
+
+      // Si no creciera, el blanco se cortaria justo arriba de los tres
+      // botones de Android y debajo quedaria el crema de pagina, que es el
+      // corte que se vio en el celular.
+      expect(conFranja - sinFranja, 48);
+    });
+
+    testWidgets('no usa SafeArea, que mide cero dentro del Scaffold',
+        (tester) async {
+      await montar(tester, 48);
+
+      expect(
+        find.descendant(
+          of: find.byType(CauceBottomNav),
+          matching: find.byType(SafeArea),
+        ),
+        findsNothing,
+      );
+    });
+  });
 }

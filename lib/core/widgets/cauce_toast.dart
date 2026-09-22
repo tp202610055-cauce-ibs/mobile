@@ -45,6 +45,28 @@ abstract final class CauceToast {
     );
   }
 
+  /// Aviso informativo, sin exito ni problema.
+  ///
+  /// **Variante propia, no esta en la seccion I**, que define exito y error.
+  /// Hace falta para explicar por que algo esta cerrado: decirlo en rojo
+  /// convertiria en un fallo lo que es solo un "todavia no". Usa los mismos
+  /// tokens `info` con los que [CauceBadge] pinta lo que esta en curso.
+  static void info(
+    BuildContext context, {
+    required String title,
+    String? message,
+  }) {
+    _show(
+      context,
+      title: title,
+      message: message,
+      icon: TablerIcons.info_circle,
+      background: CauceColors.infoBg,
+      foreground: CauceColors.infoText,
+      duration: _plain,
+    );
+  }
+
   /// Aviso de error, con reintento opcional.
   static void error(
     BuildContext context, {
