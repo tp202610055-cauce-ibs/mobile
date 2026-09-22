@@ -42,6 +42,37 @@ import '../test/helpers/sync_fixtures.dart';
 /// ```
 ///
 /// Exige el backend local arriba con el paciente demo sembrado.
+///
+/// **Escribe registros clinicos de verdad.** Inicia sesion como el paciente
+/// demo y deja en el servidor las comidas que encola, que despues aparecen en
+/// el diario de ese paciente. En local es lo esperado; contra el backend del
+/// piloto seria contaminar el historial de una persona real, asi que
+/// [_exigirBackendLocal] corta antes de la primera peticion.
+
+/// Hosts que se consideran el backend de desarrollo de la maquina propia.
+///
+/// `10.0.2.2` es el host visto desde el emulador de Android y `localhost` lo
+/// que ve un dispositivo fisico con el tunel `adb reverse` armado.
+const Set<String> _hostsLocales = <String>{
+  'localhost',
+  '127.0.0.1',
+  '10.0.2.2',
+  '::1',
+};
+
+/// Aborta si la URL base no apunta a un backend local.
+void _exigirBackendLocal() {
+  final uri = Uri.parse(Env.apiBaseUrl);
+  if (_hostsLocales.contains(uri.host)) {
+    return;
+  }
+  fail(
+    'Este test escribe comidas y sintomas reales en la cuenta del paciente '
+    'demo, asi que solo corre contra un backend local. '
+    'API_BASE_URL apunta a "${Env.apiBaseUrl}".',
+  );
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -51,6 +82,7 @@ void main() {
 
   setUpAll(() async {
     await Env.load();
+    _exigirBackendLocal();
   });
 
   setUp(() {
