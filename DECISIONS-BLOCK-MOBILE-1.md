@@ -493,3 +493,55 @@ Sobre el color: el tramo bajo va en **gris y no en verde** a propósito. Verde f
 Consecuencias. Un valor de intensidad anterior a este bloque, o llegado por sincronización, sigue siendo válido aunque no caiga en la nueva grilla: el dominio no cambió. La pantalla de cantidad muestra el tope en su mensaje de error, de modo que el rechazo dice cuál es el límite en vez de solo negar.
 
 Alternativas consideradas. (a) Etiquetas en vez de números para la intensidad ("leve", "moderado", "intenso"), descartada porque el backend guarda un entero y la conversión quedaría escrita en el cliente, con el mismo problema que el MCID re-derivado. (b) Tramos de cinco en vez de diez, descartada por no resolver el problema: nadie distingue 60 de 65 tampoco. (c) Para las unidades, validar contra la composición del alimento, descartada porque el catálogo no publica densidades y habría que inventarlas.
+
+Acta M41: Las medidas caseras no tienen equivalencia en gramos, y el servidor las ignora
+
+Contexto. La pregunta la hizo Trigo mirando el formulario en el celular: cuando la aplicación dice "tazas", ¿son tazas americanas? ¿Y una cucharada, de las de sopa o de las de café? Al ir a buscar la respuesta apareció algo más grande.
+
+Lo verificado en el backend, el 2026-09-21:
+
+- El enum `MeasurementUnit` tiene cinco valores: `Grams`, `Cups`, `Units`, `Ounces`, `Tablespoons`. Ninguno declara equivalencia.
+- `CreateMealCommandHandler.cs:75` hace `fodmapInputs.Add((food.FodmapLevel, item.Quantity))`. El segundo elemento de esa tupla está declarado como `decimal weightGrams`. **La cantidad entra como si fuera gramos, sea cual sea la unidad**: una taza pesa 1 y cien gramos pesan 100.
+- `FodmapAggregator` solo pregunta `weightGrams > 0m` y devuelve el nivel máximo entre los ítems. Con esa regla el peso no influye, así que hoy el error no produce ningún resultado incorrecto.
+- El propio agregador lleva un `TODO (clinical)` que dice refinar con umbrales de carga acumulada por porción según Monash.
+- `GET /foods/{id}` publica macros, `fodmapLevel` y `fodmapTags`. **No publica ninguna equivalencia de medida casera a gramos.**
+
+Decisión.
+
+1. El móvil **no inventa conversiones**. Sigue ofreciendo las cinco unidades del contrato y enviando el par cantidad más unidad tal como el paciente lo eligió.
+2. El defecto queda **reportado al backend** como gap, con su efecto declarado: es latente hoy y se vuelve real el día que se implemente el TODO de Monash, porque entonces "1 taza" entraría al cálculo como un gramo.
+3. La pregunta de qué es una taza y qué es una cucharada en este piloto queda **abierta para Mirian**, no para el equipo de software. Es una decisión de instrumento, no de código.
+4. Mientras tanto la única guarda es la del acta M40: cada unidad declara su cantidad por defecto y su tope, de modo que el formulario no ofrece cien tazas.
+
+Justificación. Escribir la tabla de conversión en el móvil repetiría el error del umbral del MCID, que hoy está re-derivado en el cliente porque el contrato no lo expone. Y sería peor que ese caso, porque la conversión de medida casera a gramos **no es una constante**: depende del alimento. Una taza de arroz cocido pesa alrededor de 200 gramos y una taza de lechuga alrededor de 40. La tabla correcta es una columna por alimento en el catálogo, que es del backend, no una constante en el cliente.
+
+Consecuencias. Mientras el agregador siga siendo la regla de nivel máximo, nada de esto afecta al paciente ni al dato que ve la nutricionista. El día que el backend implemente los umbrales de Monash **hay que resolver esto antes**, o las comidas registradas en tazas, cucharadas, onzas y unidades entrarán al cálculo con un peso sin sentido. Queda anotado como bloqueante de esa funcionalidad, no de este bloque.
+
+Alternativas consideradas. (a) Ofrecer solo gramos, descartada porque nadie pesa su almuerzo y el recordatorio dietético se hace con medidas caseras precisamente por eso. (b) Poner la equivalencia en la etiqueta ("Taza (240 ml)"), descartada por ahora porque afirmaría un número que nadie del proyecto ha decidido todavía, y afirmarlo en la interfaz es peor que no decirlo. (c) Convertir en el cliente antes de enviar, descartada por la razón de la justificación: la conversión depende del alimento y el catálogo no la publica.
+
+Acta M42: El badge FODMAP del Diario depende de un dato que el listado no devuelve
+
+Contexto. La sección G del design system pide un badge de carga FODMAP en la tarjeta de comida del Diario. El badge está implementado y en el celular no aparece nunca.
+
+Lo verificado contra el backend real, el 2026-09-21, sobre la misma comida:
+
+| Llamada | `aggregatedFodmap` |
+|---|---|
+| `POST /meals` (reenvío idempotente del mismo `clientGuid`) | `"Moderate"` |
+| `GET /meals?from=...&to=...` | `null` |
+
+El alimento sí tiene nivel: `GET /foods/{id}` devuelve `fodmapLevel: "Moderate"` para "Camote sancochado". El cliente tampoco tiene la culpa: `MealsRepository` lee `item.aggregatedFodmap` del listado en la línea 145 y la tarjeta pinta el badge cuando no es nulo. El dato llega vacío.
+
+Decisión.
+
+1. **El cliente no recalcula la carga FODMAP.** El badge se muestra solo cuando el servidor lo manda, y queda oculto el resto del tiempo.
+2. El gap se reporta al backend: que `GET /meals` devuelva `aggregatedFodmap` como lo hace el `POST`.
+3. La tarjeta del Diario queda como está. No se agrega un texto de relleno en su lugar.
+
+Justificación. La caché local tiene el nivel FODMAP de cada alimento, así que el cliente **podría** calcular el agregado. No lo hace porque la regla de agregación es clínica y vive en el servidor: hoy es el nivel máximo entre los ítems con peso positivo, y el propio backend declara en un `TODO` que va a cambiar a umbrales de carga acumulada. Replicarla en el móvil crearía dos definiciones de la misma cosa que se separan en cuanto el backend cambie la suya, que es exactamente el problema que el acta del MCID ya dejó anotado como deuda.
+
+Un badge que a veces dice "Moderado FODMAP" calculado por el móvil y a veces por el servidor, sin que nadie pueda saber cuál fue, es peor que un badge que no aparece.
+
+Consecuencias. Hasta que el backend lo devuelva, el badge FODMAP solo existiría en el instante posterior a registrar una comida con conexión, y ni siquiera ahí, porque el Diario se recompone desde el listado. En la práctica es una pieza del design system implementada y sin datos. Los tests de la tarjeta la cubren igual, con el valor puesto a mano, de modo que el día que el dato llegue la pieza ya está probada.
+
+Alternativas consideradas. (a) Calcular el agregado en el cliente desde `food_catalog_cache`, descartada por la justificación. (b) Pedir el detalle de cada comida una por una para ver si ahí viene, descartada sin probarla: serían N peticiones por pantalla de Diario, y el contrato no declara que el detalle lo traiga. (c) Quitar el badge del Diario, descartada porque el dato es del contrato y lo que falta es que lo manden, no que el badge sobre.
