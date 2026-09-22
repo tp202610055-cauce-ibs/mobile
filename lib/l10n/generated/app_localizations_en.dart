@@ -1333,6 +1333,18 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get fabIbsSssLockedTitle => 'Not due yet';
+
+  @override
+  String fabIbsSssLockedBody(String date) {
+    return 'It is answered every fourteen days, so the comparison with your baseline stays valid. The next one opens on $date.';
+  }
+
+  @override
+  String get fabLockedGeneric =>
+      'This opens once you complete your clinical profile';
+
+  @override
   String get journalLockedTitle => 'Available once you complete your profile';
 
   @override

@@ -677,7 +677,7 @@ abstract class AppLocalizations {
   /// Seccion catalogSuggestions de GET /foods/suggestions
   ///
   /// In es, this message translates to:
-  /// **'Del catalogo'**
+  /// **'Del catálogo'**
   String get mealsSuggestionsCatalog;
 
   /// Etiqueta del campo de cantidad
@@ -767,7 +767,7 @@ abstract class AppLocalizations {
   /// Invariante XOR de Meal.Register
   ///
   /// In es, this message translates to:
-  /// **'Cada alimento debe venir del catalogo o de tus platos'**
+  /// **'Cada alimento debe venir del catálogo o de tus platos'**
   String get mealsIssueInvalidReference;
 
   /// Invariante de fecha de Meal.Register
@@ -1067,7 +1067,7 @@ abstract class AppLocalizations {
   /// Etiqueta del selector de SymptomType
   ///
   /// In es, this message translates to:
-  /// **'Que sentiste'**
+  /// **'Qué sentiste'**
   String get symptomsTypeLabel;
 
   /// Etiqueta de la escala de intensidad
@@ -1133,7 +1133,7 @@ abstract class AppLocalizations {
   /// Falta SymptomType
   ///
   /// In es, this message translates to:
-  /// **'Elige que sentiste'**
+  /// **'Elige qué sentiste'**
   String get symptomsIssueMissingType;
 
   /// Falta mover la escala
@@ -1163,7 +1163,7 @@ abstract class AppLocalizations {
   /// SymptomType Bloating
   ///
   /// In es, this message translates to:
-  /// **'Distension abdominal'**
+  /// **'Distensión abdominal'**
   String get symptomTypeBloating;
 
   /// SymptomType Flatulence
@@ -1181,13 +1181,13 @@ abstract class AppLocalizations {
   /// SymptomType Constipation
   ///
   /// In es, this message translates to:
-  /// **'Estrenimiento'**
+  /// **'Estreñimiento'**
   String get symptomTypeConstipation;
 
   /// SymptomType Nausea
   ///
   /// In es, this message translates to:
-  /// **'Nauseas'**
+  /// **'Náuseas'**
   String get symptomTypeNausea;
 
   /// SymptomType Reflux
@@ -2413,6 +2413,24 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Disponible el {date}'**
   String fabHintNotDue(String date);
+
+  /// Titulo del aviso al tocar el cuestionario con candado
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no toca responderlo'**
+  String get fabIbsSssLockedTitle;
+
+  /// Cuerpo del aviso al tocar el cuestionario con candado
+  ///
+  /// In es, this message translates to:
+  /// **'Se responde cada catorce días, para que la comparación con tu línea base sea válida. El próximo se habilita el {date}.'**
+  String fabIbsSssLockedBody(String date);
+
+  /// Aviso al tocar una accion cerrada que no tiene explicacion propia
+  ///
+  /// In es, this message translates to:
+  /// **'Esto se habilita cuando completes tu perfil clínico'**
+  String get fabLockedGeneric;
 
   /// Restriccion del Diario con el perfil clinico pendiente (HU0003 CA01)
   ///

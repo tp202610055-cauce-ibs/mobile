@@ -538,6 +538,21 @@
   "fabHintCompleteProfile": "Complete your clinical profile to log entries",
   "fabHintBaselinePending": "First answer your baseline assessment",
   "fabHintNotDue": "Available on {date}",
+  "fabIbsSssLockedTitle": "Not due yet",
+  "@fabIbsSssLockedTitle": {
+    "description": "Titulo del aviso al tocar el cuestionario con candado"
+  },
+  "fabIbsSssLockedBody": "It is answered every fourteen days, so the comparison with your baseline stays valid. The next one opens on {date}.",
+  "@fabIbsSssLockedBody": {
+    "description": "Cuerpo del aviso al tocar el cuestionario con candado",
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "fabLockedGeneric": "This opens once you complete your clinical profile",
+  "@fabLockedGeneric": {
+    "description": "Aviso al tocar una accion cerrada que no tiene explicacion propia"
+  },
   "@fabHintNotDue": {
       "placeholders": {
           "date": {

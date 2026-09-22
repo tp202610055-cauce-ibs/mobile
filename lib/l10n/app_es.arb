@@ -214,7 +214,7 @@
   "@mealsSuggestionsRecent": {
     "description": "Seccion recentLast24Hours de GET /foods/suggestions"
   },
-  "mealsSuggestionsCatalog": "Del catalogo",
+  "mealsSuggestionsCatalog": "Del catálogo",
   "@mealsSuggestionsCatalog": {
     "description": "Seccion catalogSuggestions de GET /foods/suggestions"
   },
@@ -274,7 +274,7 @@
   "@mealsIssueInvalidQuantity": {
     "description": "CA04: cantidad invalida"
   },
-  "mealsIssueInvalidReference": "Cada alimento debe venir del catalogo o de tus platos",
+  "mealsIssueInvalidReference": "Cada alimento debe venir del catálogo o de tus platos",
   "@mealsIssueInvalidReference": {
     "description": "Invariante XOR de Meal.Register"
   },
@@ -526,7 +526,7 @@
   "@symptomsTitle": {
     "description": "Titulo de la pantalla de registro de sintoma (US11)"
   },
-  "symptomsTypeLabel": "Que sentiste",
+  "symptomsTypeLabel": "Qué sentiste",
   "@symptomsTypeLabel": {
     "description": "Etiqueta del selector de SymptomType"
   },
@@ -570,7 +570,7 @@
   "@symptomsMealPending": {
     "description": "Sin conexion: la ventana de 4 horas la resuelve el servidor, no el cliente"
   },
-  "symptomsIssueMissingType": "Elige que sentiste",
+  "symptomsIssueMissingType": "Elige qué sentiste",
   "@symptomsIssueMissingType": {
     "description": "Falta SymptomType"
   },
@@ -590,7 +590,7 @@
   "@symptomTypeAbdominalPain": {
     "description": "SymptomType AbdominalPain"
   },
-  "symptomTypeBloating": "Distension abdominal",
+  "symptomTypeBloating": "Distensión abdominal",
   "@symptomTypeBloating": {
     "description": "SymptomType Bloating"
   },
@@ -602,11 +602,11 @@
   "@symptomTypeDiarrhea": {
     "description": "SymptomType Diarrhea"
   },
-  "symptomTypeConstipation": "Estrenimiento",
+  "symptomTypeConstipation": "Estreñimiento",
   "@symptomTypeConstipation": {
     "description": "SymptomType Constipation"
   },
-  "symptomTypeNausea": "Nauseas",
+  "symptomTypeNausea": "Náuseas",
   "@symptomTypeNausea": {
     "description": "SymptomType Nausea"
   },
@@ -1199,6 +1199,21 @@
   "fabHintCompleteProfile": "Completa tu perfil clínico para registrar",
   "fabHintBaselinePending": "Primero responde tu evaluación inicial",
   "fabHintNotDue": "Disponible el {date}",
+  "fabIbsSssLockedTitle": "Todavía no toca responderlo",
+  "@fabIbsSssLockedTitle": {
+    "description": "Titulo del aviso al tocar el cuestionario con candado"
+  },
+  "fabIbsSssLockedBody": "Se responde cada catorce días, para que la comparación con tu línea base sea válida. El próximo se habilita el {date}.",
+  "@fabIbsSssLockedBody": {
+    "description": "Cuerpo del aviso al tocar el cuestionario con candado",
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+  "fabLockedGeneric": "Esto se habilita cuando completes tu perfil clínico",
+  "@fabLockedGeneric": {
+    "description": "Aviso al tocar una accion cerrada que no tiene explicacion propia"
+  },
   "@fabHintNotDue": {
       "description": "Tercer estado del item del cuestionario: visible, deshabilitado y con la fecha en que vence el ciclo",
       "placeholders": {

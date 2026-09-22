@@ -334,7 +334,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get mealsSuggestionsRecent => 'Registrados hoy';
 
   @override
-  String get mealsSuggestionsCatalog => 'Del catalogo';
+  String get mealsSuggestionsCatalog => 'Del catálogo';
 
   @override
   String get mealsQuantityLabel => 'Cantidad';
@@ -381,7 +381,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get mealsIssueInvalidReference =>
-      'Cada alimento debe venir del catalogo o de tus platos';
+      'Cada alimento debe venir del catálogo o de tus platos';
 
   @override
   String get mealsIssueFutureConsumedAt =>
@@ -556,7 +556,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get symptomsTitle => 'Registrar síntoma';
 
   @override
-  String get symptomsTypeLabel => 'Que sentiste';
+  String get symptomsTypeLabel => 'Qué sentiste';
 
   @override
   String get symptomsIntensityLabel => 'Intensidad';
@@ -593,7 +593,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'La relación con tus comidas se calcula al sincronizar.';
 
   @override
-  String get symptomsIssueMissingType => 'Elige que sentiste';
+  String get symptomsIssueMissingType => 'Elige qué sentiste';
 
   @override
   String get symptomsIssueMissingIntensity => 'Indica la intensidad';
@@ -609,7 +609,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get symptomTypeAbdominalPain => 'Dolor abdominal';
 
   @override
-  String get symptomTypeBloating => 'Distension abdominal';
+  String get symptomTypeBloating => 'Distensión abdominal';
 
   @override
   String get symptomTypeFlatulence => 'Flatulencia';
@@ -618,10 +618,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get symptomTypeDiarrhea => 'Diarrea';
 
   @override
-  String get symptomTypeConstipation => 'Estrenimiento';
+  String get symptomTypeConstipation => 'Estreñimiento';
 
   @override
-  String get symptomTypeNausea => 'Nauseas';
+  String get symptomTypeNausea => 'Náuseas';
 
   @override
   String get symptomTypeReflux => 'Reflujo o acidez';
@@ -1333,6 +1333,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String fabHintNotDue(String date) {
     return 'Disponible el $date';
   }
+
+  @override
+  String get fabIbsSssLockedTitle => 'Todavía no toca responderlo';
+
+  @override
+  String fabIbsSssLockedBody(String date) {
+    return 'Se responde cada catorce días, para que la comparación con tu línea base sea válida. El próximo se habilita el $date.';
+  }
+
+  @override
+  String get fabLockedGeneric =>
+      'Esto se habilita cuando completes tu perfil clínico';
 
   @override
   String get journalLockedTitle => 'Disponible al completar tu perfil';
