@@ -51,6 +51,30 @@ final patientProfileProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef PatientProfileRef = AutoDisposeFutureProviderRef<PatientProfile?>;
+String _$patientSummaryHash() => r'ff06819dafd1e00035b860b7f2056124c3ab9023';
+
+/// Resumen del paciente, para la pantalla de Perfil (HU0023).
+///
+/// Sin `keepAlive`, por lo mismo que [patientProfile]: los puntajes cambian
+/// cada vez que el paciente responde el cuestionario, y el nutricionista puede
+/// asignarse desde la consulta. Recargarlo al entrar cuesta una peticion.
+///
+/// Copied from [patientSummary].
+@ProviderFor(patientSummary)
+final patientSummaryProvider =
+    AutoDisposeFutureProvider<PatientSummary>.internal(
+  patientSummary,
+  name: r'patientSummaryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$patientSummaryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PatientSummaryRef = AutoDisposeFutureProviderRef<PatientSummary>;
 String _$acceptedConsentHash() => r'7369864d07a2b8fcd6569e8abc5eabcfb3f72555';
 
 /// Consentimiento aceptado por el paciente, para la seccion de privacidad.

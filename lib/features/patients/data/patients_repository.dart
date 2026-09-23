@@ -9,6 +9,7 @@ import '../../../core/network/api_guard.dart';
 import '../../../core/network/dio_provider.dart';
 import '../domain/allergy.dart';
 import '../domain/patient_profile.dart';
+import '../domain/patient_summary.dart';
 
 part 'patients_repository.g.dart';
 
@@ -434,6 +435,44 @@ class PatientsRepository {
     });
   }
 
+  /// HU0023. `GET /api/v1/patients/me/summary`.
+  ///
+  /// Resuelve de una sola consulta todo lo que la pantalla de Perfil dibuja:
+  /// identidad, estado del piloto, subtipo clinico y los tres puntajes de la
+  /// evolucion IBS-SSS. El mockup `12-mi-perfil-v2` lo pide asi de forma
+  /// explicita, y evita que la pantalla coordine cuatro cargas en paralelo.
+  ///
+  /// **Solo el nombre es obligatorio.** El resto del contrato es nullable y
+  /// los huecos son estados legitimos que la pantalla sabe dibujar: sin linea
+  /// base todavia, o sin nutricionista asignado.
+  Future<PatientSummary> fetchSummary() {
+    return _guard(() async {
+      final response = await _api.apiV1PatientsMeSummaryGet();
+      final result = response.data;
+      final fullName = result?.patient?.fullName;
+
+      if (fullName == null || fullName.isEmpty) {
+        throw const FormatException(
+          'El resumen del perfil respondio sin fullName.',
+        );
+      }
+
+      return PatientSummary(
+        fullName: fullName,
+        ibsSubtype: IbsSubtypeOption.fromApi(result?.clinical?.ibsSubtype),
+        pilotStartDate: result?.pilotStartDate?.toDateTime(),
+        nutritionistName: result?.assignedNutritionist?.nutritionistFullName,
+        ibsSssBaseline: result?.ibsSssBaseline,
+        ibsSssLatest: result?.ibsSssLatest,
+        cumulativeChange: result?.cumulativeChange,
+        // Ante la duda, sin logro: anunciar una respuesta clinica que el
+        // servidor no afirmo seria peor que omitir la pildora.
+        significantClinicalResponse:
+            result?.significantClinicalResponse ?? false,
+      );
+    });
+  }
+
   /// Lee `filename` de la cabecera `Content-Disposition`.
   ///
   /// Recibe el valor y no el objeto `Headers` para no volver a importar dio
@@ -474,6 +513,16 @@ PatientsRepository patientsRepository(Ref ref) {
 @riverpod
 Future<PatientProfile?> patientProfile(Ref ref) {
   return ref.watch(patientsRepositoryProvider).fetchProfile();
+}
+
+/// Resumen del paciente, para la pantalla de Perfil (HU0023).
+///
+/// Sin `keepAlive`, por lo mismo que [patientProfile]: los puntajes cambian
+/// cada vez que el paciente responde el cuestionario, y el nutricionista puede
+/// asignarse desde la consulta. Recargarlo al entrar cuesta una peticion.
+@riverpod
+Future<PatientSummary> patientSummary(Ref ref) {
+  return ref.watch(patientsRepositoryProvider).fetchSummary();
 }
 
 /// Consentimiento aceptado por el paciente, para la seccion de privacidad.
