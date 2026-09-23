@@ -1108,7 +1108,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profileOpen => 'Abrir tu perfil';
 
   @override
-  String get profileClinicalSection => 'Datos clínicos';
+  String get profileClinicalSection => 'Mi perfil clínico';
 
   @override
   String profileAge(int age) {
@@ -1141,6 +1141,103 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profileLoadError => 'No pudimos cargar tu perfil';
+
+  @override
+  String get profileSettings => 'Ajustes y privacidad';
+
+  @override
+  String get profileTrackingSection => 'Mi seguimiento';
+
+  @override
+  String get profileTrackingStart => 'Inicio del piloto';
+
+  @override
+  String get profileTrackingElapsed => 'Tiempo transcurrido';
+
+  @override
+  String profileTrackingElapsedWeeks(int weeks) {
+    String _temp0 = intl.Intl.pluralLogic(
+      weeks,
+      locale: localeName,
+      other: '$weeks semanas',
+      one: '1 semana',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get profileTrackingElapsedFresh => 'Menos de una semana';
+
+  @override
+  String get profileTrackingNutritionist => 'Mi nutricionista';
+
+  @override
+  String get profileTrackingNutritionistPending => 'Pendiente de asignación';
+
+  @override
+  String get profileClinicalSubtype => 'Subtipo de SII';
+
+  @override
+  String get profileEvolutionSection => 'Mi evolución IBS-SSS';
+
+  @override
+  String get profileEvolutionBaseline => 'Línea base';
+
+  @override
+  String get profileEvolutionLatest => 'Último puntaje';
+
+  @override
+  String get profileEvolutionChange => 'Cambio acumulado';
+
+  @override
+  String profileEvolutionScore(int score) {
+    return '$score / 500';
+  }
+
+  @override
+  String profileEvolutionChangeDown(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '$points puntos menos',
+      one: '1 punto menos',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String profileEvolutionChangeUp(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '$points puntos más',
+      one: '1 punto más',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get profileEvolutionChangeSame => 'Igual que tu línea base';
+
+  @override
+  String get profileEvolutionAchievement => 'Respuesta clínica significativa';
+
+  @override
+  String get profileEvolutionOngoing => 'Sigues en tu proceso de seguimiento';
+
+  @override
+  String get profileEvolutionEmpty =>
+      'Completa tu primera evaluación para ver tu evolución acá.';
+
+  @override
+  String get profileEvolutionEmptyAction => 'Responder el cuestionario';
+
+  @override
+  String get profileEdit => 'Editar mi información';
+
+  @override
+  String get profileEditUnavailable =>
+      'La edición de tus datos llega en una próxima versión.';
 
   @override
   String get privacyTitle => 'Privacidad y datos';

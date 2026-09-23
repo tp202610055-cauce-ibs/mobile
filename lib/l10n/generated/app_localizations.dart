@@ -2039,7 +2039,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileClinicalSection.
   ///
   /// In es, this message translates to:
-  /// **'Datos clínicos'**
+  /// **'Mi perfil clínico'**
   String get profileClinicalSection;
 
   /// Edad que calcula el backend a partir de la fecha de nacimiento
@@ -2083,6 +2083,144 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No pudimos cargar tu perfil'**
   String get profileLoadError;
+
+  /// Tooltip del engranaje de la barra superior de Perfil
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustes y privacidad'**
+  String get profileSettings;
+
+  /// No description provided for @profileTrackingSection.
+  ///
+  /// In es, this message translates to:
+  /// **'Mi seguimiento'**
+  String get profileTrackingSection;
+
+  /// No description provided for @profileTrackingStart.
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio del piloto'**
+  String get profileTrackingStart;
+
+  /// No description provided for @profileTrackingElapsed.
+  ///
+  /// In es, this message translates to:
+  /// **'Tiempo transcurrido'**
+  String get profileTrackingElapsed;
+
+  /// Semanas completas desde el inicio del piloto
+  ///
+  /// In es, this message translates to:
+  /// **'{weeks, plural, =1{1 semana} other{{weeks} semanas}}'**
+  String profileTrackingElapsedWeeks(int weeks);
+
+  /// No description provided for @profileTrackingElapsedFresh.
+  ///
+  /// In es, this message translates to:
+  /// **'Menos de una semana'**
+  String get profileTrackingElapsedFresh;
+
+  /// No description provided for @profileTrackingNutritionist.
+  ///
+  /// In es, this message translates to:
+  /// **'Mi nutricionista'**
+  String get profileTrackingNutritionist;
+
+  /// No description provided for @profileTrackingNutritionistPending.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente de asignación'**
+  String get profileTrackingNutritionistPending;
+
+  /// No description provided for @profileClinicalSubtype.
+  ///
+  /// In es, this message translates to:
+  /// **'Subtipo de SII'**
+  String get profileClinicalSubtype;
+
+  /// No description provided for @profileEvolutionSection.
+  ///
+  /// In es, this message translates to:
+  /// **'Mi evolución IBS-SSS'**
+  String get profileEvolutionSection;
+
+  /// No description provided for @profileEvolutionBaseline.
+  ///
+  /// In es, this message translates to:
+  /// **'Línea base'**
+  String get profileEvolutionBaseline;
+
+  /// No description provided for @profileEvolutionLatest.
+  ///
+  /// In es, this message translates to:
+  /// **'Último puntaje'**
+  String get profileEvolutionLatest;
+
+  /// No description provided for @profileEvolutionChange.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambio acumulado'**
+  String get profileEvolutionChange;
+
+  /// Puntaje IBS-SSS sobre el máximo del instrumento
+  ///
+  /// In es, this message translates to:
+  /// **'{score} / 500'**
+  String profileEvolutionScore(int score);
+
+  /// Mejora respecto de la línea base. El backend la entrega como un cambio negativo
+  ///
+  /// In es, this message translates to:
+  /// **'{points, plural, =1{1 punto menos} other{{points} puntos menos}}'**
+  String profileEvolutionChangeDown(int points);
+
+  /// Empeoramiento respecto de la línea base. Se muestra en tono neutro, nunca en rojo
+  ///
+  /// In es, this message translates to:
+  /// **'{points, plural, =1{1 punto más} other{{points} puntos más}}'**
+  String profileEvolutionChangeUp(int points);
+
+  /// No description provided for @profileEvolutionChangeSame.
+  ///
+  /// In es, this message translates to:
+  /// **'Igual que tu línea base'**
+  String get profileEvolutionChangeSame;
+
+  /// No description provided for @profileEvolutionAchievement.
+  ///
+  /// In es, this message translates to:
+  /// **'Respuesta clínica significativa'**
+  String get profileEvolutionAchievement;
+
+  /// No description provided for @profileEvolutionOngoing.
+  ///
+  /// In es, this message translates to:
+  /// **'Sigues en tu proceso de seguimiento'**
+  String get profileEvolutionOngoing;
+
+  /// No description provided for @profileEvolutionEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Completa tu primera evaluación para ver tu evolución acá.'**
+  String get profileEvolutionEmpty;
+
+  /// No description provided for @profileEvolutionEmptyAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Responder el cuestionario'**
+  String get profileEvolutionEmptyAction;
+
+  /// No description provided for @profileEdit.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar mi información'**
+  String get profileEdit;
+
+  /// No description provided for @profileEditUnavailable.
+  ///
+  /// In es, this message translates to:
+  /// **'La edición de tus datos llega en una próxima versión.'**
+  String get profileEditUnavailable;
 
   /// No description provided for @privacyTitle.
   ///

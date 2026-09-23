@@ -1106,7 +1106,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileOpen => 'Open your profile';
 
   @override
-  String get profileClinicalSection => 'Clinical data';
+  String get profileClinicalSection => 'My clinical profile';
 
   @override
   String profileAge(int age) {
@@ -1139,6 +1139,104 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileLoadError => 'We could not load your profile';
+
+  @override
+  String get profileSettings => 'Settings and privacy';
+
+  @override
+  String get profileTrackingSection => 'My tracking';
+
+  @override
+  String get profileTrackingStart => 'Pilot start';
+
+  @override
+  String get profileTrackingElapsed => 'Time elapsed';
+
+  @override
+  String profileTrackingElapsedWeeks(int weeks) {
+    String _temp0 = intl.Intl.pluralLogic(
+      weeks,
+      locale: localeName,
+      other: '$weeks weeks',
+      one: '1 week',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get profileTrackingElapsedFresh => 'Less than a week';
+
+  @override
+  String get profileTrackingNutritionist => 'My nutritionist';
+
+  @override
+  String get profileTrackingNutritionistPending => 'Pending assignment';
+
+  @override
+  String get profileClinicalSubtype => 'IBS subtype';
+
+  @override
+  String get profileEvolutionSection => 'My IBS-SSS evolution';
+
+  @override
+  String get profileEvolutionBaseline => 'Baseline';
+
+  @override
+  String get profileEvolutionLatest => 'Latest score';
+
+  @override
+  String get profileEvolutionChange => 'Cumulative change';
+
+  @override
+  String profileEvolutionScore(int score) {
+    return '$score / 500';
+  }
+
+  @override
+  String profileEvolutionChangeDown(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '$points points lower',
+      one: '1 point lower',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String profileEvolutionChangeUp(int points) {
+    String _temp0 = intl.Intl.pluralLogic(
+      points,
+      locale: localeName,
+      other: '$points points higher',
+      one: '1 point higher',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get profileEvolutionChangeSame => 'Same as your baseline';
+
+  @override
+  String get profileEvolutionAchievement => 'Clinically significant response';
+
+  @override
+  String get profileEvolutionOngoing =>
+      'You are still in your follow-up process';
+
+  @override
+  String get profileEvolutionEmpty =>
+      'Complete your first assessment to see your evolution here.';
+
+  @override
+  String get profileEvolutionEmptyAction => 'Answer the questionnaire';
+
+  @override
+  String get profileEdit => 'Edit my information';
+
+  @override
+  String get profileEditUnavailable =>
+      'Editing your details arrives in a future version.';
 
   @override
   String get privacyTitle => 'Privacy and data';

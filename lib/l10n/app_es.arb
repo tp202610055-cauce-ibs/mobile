@@ -1029,7 +1029,7 @@
   "@profileOpen": {
     "description": "Tooltip del acceso al perfil desde la barra superior"
   },
-  "profileClinicalSection": "Datos clínicos",
+  "profileClinicalSection": "Mi perfil clínico",
   "profileAge": "{age} años",
   "@profileAge": {
     "description": "Edad que calcula el backend a partir de la fecha de nacimiento",
@@ -1055,6 +1055,68 @@
   "profilePrivacyEntry": "Tu consentimiento informado",
   "profilePrivacyEntryHint": "Consulta y descarga el documento que aceptaste",
   "profileLoadError": "No pudimos cargar tu perfil",
+  "profileSettings": "Ajustes y privacidad",
+  "@profileSettings": {
+    "description": "Tooltip del engranaje de la barra superior de Perfil"
+  },
+  "profileTrackingSection": "Mi seguimiento",
+  "profileTrackingStart": "Inicio del piloto",
+  "profileTrackingElapsed": "Tiempo transcurrido",
+  "profileTrackingElapsedWeeks": "{weeks, plural, =1{1 semana} other{{weeks} semanas}}",
+  "@profileTrackingElapsedWeeks": {
+    "description": "Semanas completas desde el inicio del piloto",
+    "placeholders": {
+      "weeks": {
+        "type": "int",
+        "example": "6"
+      }
+    }
+  },
+  "profileTrackingElapsedFresh": "Menos de una semana",
+  "profileTrackingNutritionist": "Mi nutricionista",
+  "profileTrackingNutritionistPending": "Pendiente de asignación",
+  "profileClinicalSubtype": "Subtipo de SII",
+  "profileEvolutionSection": "Mi evolución IBS-SSS",
+  "profileEvolutionBaseline": "Línea base",
+  "profileEvolutionLatest": "Último puntaje",
+  "profileEvolutionChange": "Cambio acumulado",
+  "profileEvolutionScore": "{score} / 500",
+  "@profileEvolutionScore": {
+    "description": "Puntaje IBS-SSS sobre el máximo del instrumento",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "230"
+      }
+    }
+  },
+  "profileEvolutionChangeDown": "{points, plural, =1{1 punto menos} other{{points} puntos menos}}",
+  "@profileEvolutionChangeDown": {
+    "description": "Mejora respecto de la línea base. El backend la entrega como un cambio negativo",
+    "placeholders": {
+      "points": {
+        "type": "int",
+        "example": "50"
+      }
+    }
+  },
+  "profileEvolutionChangeUp": "{points, plural, =1{1 punto más} other{{points} puntos más}}",
+  "@profileEvolutionChangeUp": {
+    "description": "Empeoramiento respecto de la línea base. Se muestra en tono neutro, nunca en rojo",
+    "placeholders": {
+      "points": {
+        "type": "int",
+        "example": "20"
+      }
+    }
+  },
+  "profileEvolutionChangeSame": "Igual que tu línea base",
+  "profileEvolutionAchievement": "Respuesta clínica significativa",
+  "profileEvolutionOngoing": "Sigues en tu proceso de seguimiento",
+  "profileEvolutionEmpty": "Completa tu primera evaluación para ver tu evolución acá.",
+  "profileEvolutionEmptyAction": "Responder el cuestionario",
+  "profileEdit": "Editar mi información",
+  "profileEditUnavailable": "La edición de tus datos llega en una próxima versión.",
   "privacyTitle": "Privacidad y datos",
   "privacySubtitle": "Tus derechos sobre la información que Cauce guarda de ti, según la Ley N.° 29733.",
   "privacyConsentTitle": "Consentimiento informado",
