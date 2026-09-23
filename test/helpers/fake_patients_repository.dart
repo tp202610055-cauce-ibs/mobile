@@ -4,6 +4,7 @@ import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/patients/domain/allergy.dart';
 import 'package:cauce_mobile/features/patients/domain/patient_profile.dart';
+import 'package:cauce_mobile/features/patients/domain/patient_summary.dart';
 
 /// Perfil clinico de referencia, con el onboarding todavia abierto.
 ///
@@ -50,6 +51,23 @@ const List<AllergyCatalogEntry> demoCatalog = <AllergyCatalogEntry>[
   ),
 ];
 
+/// Resumen de referencia del paciente demo, ya avanzado en el piloto.
+///
+/// Los puntajes son los del `DemoPatientSeeder`: linea base 220 y ultimo 130,
+/// de modo que el cambio acumulado es **-90** y alcanza el MCID de 50 puntos.
+/// El signo negativo no es un descuido: el backend entrega
+/// `latest - baseline`, asi que mejorar da negativo.
+final PatientSummary demoSummary = PatientSummary(
+  fullName: 'Paciente Demo Kaelin',
+  ibsSubtype: IbsSubtypeOption.ibsD,
+  pilotStartDate: DateTime(2026, 8, 10),
+  nutritionistName: 'Ana Quispe',
+  ibsSssBaseline: 220,
+  ibsSssLatest: 130,
+  cumulativeChange: -90,
+  significantClinicalResponse: true,
+);
+
 /// Consentimiento aceptado de referencia: la unica version publicada hoy.
 final AcceptedConsent demoAcceptedConsent = AcceptedConsent(
   documentVersion: '1.0',
@@ -87,6 +105,11 @@ class FakePatientsRepository implements PatientsRepository {
   /// Lo que devuelve [acceptedConsent].
   AcceptedConsent acceptedConsentValue = demoAcceptedConsent;
   CauceApiError? acceptedConsentError;
+
+  /// Lo que devuelve [fetchSummary].
+  PatientSummary summaryValue = demoSummary;
+  CauceApiError? fetchSummaryError;
+  int fetchSummaryCalls = 0;
 
   /// Error por `allergyId`, para simular que solo una declaracion falla.
   final Map<String, CauceApiError> declareAllergyErrors =
@@ -150,6 +173,17 @@ class FakePatientsRepository implements PatientsRepository {
     }
     declaredAllergies.add(draft);
     return 'bbbbbbbb-0000-4000-8000-${declaredAllergies.length.toString().padLeft(12, '0')}';
+  }
+
+  @override
+  Future<PatientSummary> fetchSummary() async {
+    fetchSummaryCalls++;
+    await _wait();
+    final error = fetchSummaryError;
+    if (error != null) {
+      throw error;
+    }
+    return summaryValue;
   }
 
   @override
