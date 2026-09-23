@@ -12,6 +12,7 @@ part 'clinical_note_summary.g.dart';
 ///
 /// Properties:
 /// * [noteId] 
+/// * [clientGuid] 
 /// * [mealId] 
 /// * [symptomId] 
 /// * [content] 
@@ -20,6 +21,9 @@ part 'clinical_note_summary.g.dart';
 abstract class ClinicalNoteSummary implements Built<ClinicalNoteSummary, ClinicalNoteSummaryBuilder> {
   @BuiltValueField(wireName: r'noteId')
   String? get noteId;
+
+  @BuiltValueField(wireName: r'clientGuid')
+  String? get clientGuid;
 
   @BuiltValueField(wireName: r'mealId')
   String? get mealId;
@@ -60,6 +64,13 @@ class _$ClinicalNoteSummarySerializer implements PrimitiveSerializer<ClinicalNot
       yield r'noteId';
       yield serializers.serialize(
         object.noteId,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.clientGuid != null) {
+      yield r'clientGuid';
+      yield serializers.serialize(
+        object.clientGuid,
         specifiedType: const FullType(String),
       );
     }
@@ -120,6 +131,13 @@ class _$ClinicalNoteSummarySerializer implements PrimitiveSerializer<ClinicalNot
             specifiedType: const FullType(String),
           ) as String;
           result.noteId = valueDes;
+          break;
+        case r'clientGuid':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.clientGuid = valueDes;
           break;
         case r'mealId':
           final valueDes = serializers.deserialize(

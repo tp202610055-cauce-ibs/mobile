@@ -1428,6 +1428,26 @@
               }
             }
           },
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateClinicalNoteResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateClinicalNoteResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateClinicalNoteResult"
+                }
+              }
+            }
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1450,6 +1470,26 @@
           },
           "404": {
             "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
             "content": {
               "text/plain": {
                 "schema": {
@@ -2010,7 +2050,7 @@
         "tags": [
           "CustomFoods"
         ],
-        "summary": "Actualiza un alimento personalizado del paciente autenticado.",
+        "summary": "Actualiza un alimento personalizado del paciente autenticado. Igual que en la creación, si los\r\ningredientes coinciden con alergias declaradas y el paciente no lo confirmó, responde 409\r\n`unconfirmed_allergens` con el detalle (US10 CA03).",
         "parameters": [
           {
             "name": "customFoodId",
@@ -3216,7 +3256,17 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/HistoryEvent"
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/MealHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SymptomHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ClinicalNoteHistoryEvent"
+                      }
+                    ]
                   }
                 }
               },
@@ -3224,7 +3274,17 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/HistoryEvent"
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/MealHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SymptomHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ClinicalNoteHistoryEvent"
+                      }
+                    ]
                   }
                 }
               },
@@ -3232,7 +3292,17 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/HistoryEvent"
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/MealHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SymptomHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ClinicalNoteHistoryEvent"
+                      }
+                    ]
                   }
                 }
               }
@@ -7558,7 +7628,27 @@
         "tags": [
           "Patients"
         ],
-        "summary": "Genera el reporte clínico personal del paciente autenticado (US24), cubriendo sus últimos 90\r\ndías. Devuelve una URL prefirmada de descarga; la contraseña del PDF cifrado se envía por correo\r\nen un mensaje separado. Responde 422 si el paciente no tiene datos en el período.",
+        "summary": "Genera el reporte clínico personal del paciente autenticado (US24). Devuelve una URL prefirmada\r\nde descarga; la contraseña del PDF cifrado se envía por correo en un mensaje separado. Responde\r\n422 si el paciente no tiene datos en el período.",
+        "requestBody": {
+          "description": "Período a cubrir (HU0024 CA01). Es opcional: sin cuerpo, el reporte abarca los últimos 90 días.\r\nSi se envía, deben ir los dos extremos, con inicio anterior al fin, fin no futuro y una\r\nduración de hasta 90 días.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateMyClinicalReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateMyClinicalReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateMyClinicalReportRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "401": {
             "description": "Unauthorized",
@@ -7636,6 +7726,26 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GenerateMyClinicalReportResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -8990,10 +9100,30 @@
         ],
         "type": "string"
       },
+      "ClinicalNoteHistoryEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HistoryEvent"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "note": {
+                "$ref": "#/components/schemas/ClinicalNoteSummary"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
       "ClinicalNoteSummary": {
         "type": "object",
         "properties": {
           "noteId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clientGuid": {
             "type": "string",
             "format": "uuid"
           },
@@ -9053,6 +9183,12 @@
           "content": {
             "type": "string",
             "description": "Contenido de la nota (1–500 caracteres).",
+            "nullable": true
+          },
+          "clientGuid": {
+            "type": "string",
+            "description": "Identificador generado en el dispositivo que da idempotencia al alta. Puede omitirse en el cuerpo\r\ny enviarse en el encabezado `Idempotency-Key`; si viajan ambos, deben coincidir.",
+            "format": "uuid",
             "nullable": true
           }
         },
@@ -9743,6 +9879,25 @@
         },
         "additionalProperties": false
       },
+      "GenerateMyClinicalReportRequest": {
+        "type": "object",
+        "properties": {
+          "periodStart": {
+            "type": "string",
+            "description": "Inicio del período, o null.",
+            "format": "date",
+            "nullable": true
+          },
+          "periodEnd": {
+            "type": "string",
+            "description": "Fin del período, o null.",
+            "format": "date",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Cuerpo opcional de la solicitud del autoreporte clínico del paciente (US24). Si se omite el\r\ncuerpo, o si ambos extremos llegan en null, el reporte cubre la ventana por\r\ndefecto de 90 días hacia atrás."
+      },
       "GenerateMyClinicalReportResult": {
         "type": "object",
         "properties": {
@@ -9955,14 +10110,28 @@
         "additionalProperties": false
       },
       "HistoryEvent": {
+        "required": [
+          "eventType"
+        ],
         "type": "object",
         "properties": {
+          "eventType": {
+            "type": "string"
+          },
           "occurredAt": {
             "type": "string",
             "format": "date-time"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "discriminator": {
+          "propertyName": "eventType",
+          "mapping": {
+            "meal": "#/components/schemas/MealHistoryEvent",
+            "symptom": "#/components/schemas/SymptomHistoryEvent",
+            "clinical_note": "#/components/schemas/ClinicalNoteHistoryEvent"
+          }
+        }
       },
       "IbsSssAssessmentSummary": {
         "type": "object",
@@ -10135,6 +10304,22 @@
           }
         },
         "additionalProperties": false
+      },
+      "MealHistoryEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HistoryEvent"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "meal": {
+                "$ref": "#/components/schemas/MealHistoryItem"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
       },
       "MealHistoryItem": {
         "type": "object",
@@ -10957,6 +11142,22 @@
         },
         "additionalProperties": false
       },
+      "SymptomHistoryEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HistoryEvent"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "symptom": {
+                "$ref": "#/components/schemas/SymptomHistoryItem"
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      },
       "SymptomHistoryItem": {
         "type": "object",
         "properties": {
@@ -11159,6 +11360,10 @@
             },
             "description": "Nuevo conjunto de ingredientes.",
             "nullable": true
+          },
+          "confirmedAllergens": {
+            "type": "boolean",
+            "description": "Confirma el guardado pese a coincidencias con alergias declaradas (US10 CA03). Por defecto\r\nfalse: si hay coincidencias sin confirmar, la respuesta es 409 con el detalle."
           }
         },
         "additionalProperties": false,

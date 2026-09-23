@@ -18,6 +18,7 @@ import 'package:cauce_api_client/src/model/create_patient_profile_result.dart';
 import 'package:cauce_api_client/src/model/declare_allergy_request.dart';
 import 'package:cauce_api_client/src/model/declare_patient_allergy_result.dart';
 import 'package:cauce_api_client/src/model/export_my_data_result.dart';
+import 'package:cauce_api_client/src/model/generate_my_clinical_report_request.dart';
 import 'package:cauce_api_client/src/model/generate_my_clinical_report_result.dart';
 import 'package:cauce_api_client/src/model/get_patient_profile_result.dart';
 import 'package:cauce_api_client/src/model/my_consent_result.dart';
@@ -662,10 +663,11 @@ class PatientsApi {
     );
   }
 
-  /// Genera el reporte clínico personal del paciente autenticado (US24), cubriendo sus últimos 90  días. Devuelve una URL prefirmada de descarga; la contraseña del PDF cifrado se envía por correo  en un mensaje separado. Responde 422 si el paciente no tiene datos en el período.
+  /// Genera el reporte clínico personal del paciente autenticado (US24). Devuelve una URL prefirmada  de descarga; la contraseña del PDF cifrado se envía por correo en un mensaje separado. Responde  422 si el paciente no tiene datos en el período.
   /// 
   ///
   /// Parameters:
+  /// * [generateMyClinicalReportRequest] - Período a cubrir (HU0024 CA01). Es opcional: sin cuerpo, el reporte abarca los últimos 90 días.  Si se envía, deben ir los dos extremos, con inicio anterior al fin, fin no futuro y una  duración de hasta 90 días.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -676,6 +678,7 @@ class PatientsApi {
   /// Returns a [Future] containing a [Response] with a [GenerateMyClinicalReportResult] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<GenerateMyClinicalReportResult>> apiV1PatientsMeReportPost({ 
+    GenerateMyClinicalReportRequest? generateMyClinicalReportRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -699,11 +702,31 @@ class PatientsApi {
         ],
         ...?extra,
       },
+      contentType: 'application/json',
       validateStatus: validateStatus,
     );
 
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(GenerateMyClinicalReportRequest);
+      _bodyData = generateMyClinicalReportRequest == null ? null : _serializers.serialize(generateMyClinicalReportRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
     final _response = await _dio.request<Object>(
       _path,
+      data: _bodyData,
       options: _options,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,

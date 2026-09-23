@@ -14,6 +14,7 @@ part 'create_clinical_note_request.g.dart';
 /// * [mealId] - Identificador de la comida asociada, o null.
 /// * [symptomId] - Identificador del síntoma asociado, o null.
 /// * [content] - Contenido de la nota (1–500 caracteres).
+/// * [clientGuid] - Identificador generado en el dispositivo que da idempotencia al alta. Puede omitirse en el cuerpo  y enviarse en el encabezado `Idempotency-Key`; si viajan ambos, deben coincidir.
 @BuiltValue()
 abstract class CreateClinicalNoteRequest implements Built<CreateClinicalNoteRequest, CreateClinicalNoteRequestBuilder> {
   /// Identificador de la comida asociada, o null.
@@ -27,6 +28,10 @@ abstract class CreateClinicalNoteRequest implements Built<CreateClinicalNoteRequ
   /// Contenido de la nota (1–500 caracteres).
   @BuiltValueField(wireName: r'content')
   String? get content;
+
+  /// Identificador generado en el dispositivo que da idempotencia al alta. Puede omitirse en el cuerpo  y enviarse en el encabezado `Idempotency-Key`; si viajan ambos, deben coincidir.
+  @BuiltValueField(wireName: r'clientGuid')
+  String? get clientGuid;
 
   CreateClinicalNoteRequest._();
 
@@ -69,6 +74,13 @@ class _$CreateClinicalNoteRequestSerializer implements PrimitiveSerializer<Creat
       yield r'content';
       yield serializers.serialize(
         object.content,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.clientGuid != null) {
+      yield r'clientGuid';
+      yield serializers.serialize(
+        object.clientGuid,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -118,6 +130,14 @@ class _$CreateClinicalNoteRequestSerializer implements PrimitiveSerializer<Creat
           ) as String?;
           if (valueDes == null) continue;
           result.content = valueDes;
+          break;
+        case r'clientGuid':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.clientGuid = valueDes;
           break;
         default:
           unhandled.add(key);

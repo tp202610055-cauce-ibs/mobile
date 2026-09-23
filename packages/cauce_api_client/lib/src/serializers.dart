@@ -18,6 +18,7 @@ import 'package:cauce_api_client/src/model/action_type.dart';
 import 'package:cauce_api_client/src/model/allergy_catalog_item.dart';
 import 'package:cauce_api_client/src/model/allergy_severity.dart';
 import 'package:cauce_api_client/src/model/allergy_type.dart';
+import 'package:cauce_api_client/src/model/api_v1_history_get200_response_inner.dart';
 import 'package:cauce_api_client/src/model/approve_recommendation_request.dart';
 import 'package:cauce_api_client/src/model/archive_reason.dart';
 import 'package:cauce_api_client/src/model/archive_recommendation_request.dart';
@@ -27,6 +28,7 @@ import 'package:cauce_api_client/src/model/assign_nutritionist_result.dart';
 import 'package:cauce_api_client/src/model/assigned_patient_summary.dart';
 import 'package:cauce_api_client/src/model/authenticated_user.dart';
 import 'package:cauce_api_client/src/model/biological_sex.dart';
+import 'package:cauce_api_client/src/model/clinical_note_history_event.dart';
 import 'package:cauce_api_client/src/model/clinical_note_summary.dart';
 import 'package:cauce_api_client/src/model/confirm_password_reset_request.dart';
 import 'package:cauce_api_client/src/model/create_clinical_note_request.dart';
@@ -62,6 +64,7 @@ import 'package:cauce_api_client/src/model/food_suggestions_result.dart';
 import 'package:cauce_api_client/src/model/generate_clinical_report_request.dart';
 import 'package:cauce_api_client/src/model/generate_clinical_report_result.dart';
 import 'package:cauce_api_client/src/model/generate_invitation_code_result.dart';
+import 'package:cauce_api_client/src/model/generate_my_clinical_report_request.dart';
 import 'package:cauce_api_client/src/model/generate_my_clinical_report_result.dart';
 import 'package:cauce_api_client/src/model/generate_recommendation_result.dart';
 import 'package:cauce_api_client/src/model/get_assigned_patient_detail_result.dart';
@@ -78,6 +81,7 @@ import 'package:cauce_api_client/src/model/login_request.dart';
 import 'package:cauce_api_client/src/model/login_result.dart';
 import 'package:cauce_api_client/src/model/logout_request.dart';
 import 'package:cauce_api_client/src/model/meal_batch_item.dart';
+import 'package:cauce_api_client/src/model/meal_history_event.dart';
 import 'package:cauce_api_client/src/model/meal_history_item.dart';
 import 'package:cauce_api_client/src/model/meal_history_item_paged_result.dart';
 import 'package:cauce_api_client/src/model/meal_item_request.dart';
@@ -111,6 +115,7 @@ import 'package:cauce_api_client/src/model/resend_verification_email_request.dar
 import 'package:cauce_api_client/src/model/severity_category.dart';
 import 'package:cauce_api_client/src/model/submit_feedback_request.dart';
 import 'package:cauce_api_client/src/model/symptom_batch_item.dart';
+import 'package:cauce_api_client/src/model/symptom_history_event.dart';
 import 'package:cauce_api_client/src/model/symptom_history_item.dart';
 import 'package:cauce_api_client/src/model/symptom_history_item_paged_result.dart';
 import 'package:cauce_api_client/src/model/symptom_type.dart';
@@ -134,6 +139,7 @@ part 'serializers.g.dart';
   AllergyCatalogItem,
   AllergySeverity,
   AllergyType,
+  ApiV1HistoryGet200ResponseInner,
   ApproveRecommendationRequest,
   ArchiveReason,
   ArchiveRecommendationRequest,
@@ -143,6 +149,7 @@ part 'serializers.g.dart';
   AssignedPatientSummary,
   AuthenticatedUser,
   BiologicalSex,
+  ClinicalNoteHistoryEvent,
   ClinicalNoteSummary,
   ConfirmPasswordResetRequest,
   CreateClinicalNoteRequest,
@@ -178,6 +185,7 @@ part 'serializers.g.dart';
   GenerateClinicalReportRequest,
   GenerateClinicalReportResult,
   GenerateInvitationCodeResult,
+  GenerateMyClinicalReportRequest,
   GenerateMyClinicalReportResult,
   GenerateRecommendationResult,
   GetAssignedPatientDetailResult,
@@ -186,7 +194,7 @@ part 'serializers.g.dart';
   GlossaryCategory,
   GlossaryResult,
   GlossaryTermDto,
-  HistoryEvent,
+  HistoryEvent,$HistoryEvent,
   IbsSssAssessmentSummary,
   IbsSssEvolutionEntry,
   IbsSubtype,
@@ -194,6 +202,7 @@ part 'serializers.g.dart';
   LoginResult,
   LogoutRequest,
   MealBatchItem,
+  MealHistoryEvent,
   MealHistoryItem,
   MealHistoryItemPagedResult,
   MealItemRequest,
@@ -227,6 +236,7 @@ part 'serializers.g.dart';
   SeverityCategory,
   SubmitFeedbackRequest,
   SymptomBatchItem,
+  SymptomHistoryEvent,
   SymptomHistoryItem,
   SymptomHistoryItemPagedResult,
   SymptomType,
@@ -265,17 +275,18 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<ClinicalNoteSummary>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(HistoryEvent)]),
-        () => ListBuilder<HistoryEvent>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(IbsSssEvolutionEntry)]),
         () => ListBuilder<IbsSssEvolutionEntry>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ApiV1HistoryGet200ResponseInner)]),
+        () => ListBuilder<ApiV1HistoryGet200ResponseInner>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(AllergyCatalogItem)]),
         () => ListBuilder<AllergyCatalogItem>(),
       )
+      ..add(HistoryEvent.serializer)
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())
       ..add(const DateSerializer())

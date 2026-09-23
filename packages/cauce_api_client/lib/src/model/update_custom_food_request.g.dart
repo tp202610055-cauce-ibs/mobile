@@ -13,13 +13,18 @@ class _$UpdateCustomFoodRequest extends UpdateCustomFoodRequest {
   final double? portionSizeGrams;
   @override
   final BuiltList<CustomFoodIngredientRequest>? ingredients;
+  @override
+  final bool? confirmedAllergens;
 
   factory _$UpdateCustomFoodRequest(
           [void Function(UpdateCustomFoodRequestBuilder)? updates]) =>
       (UpdateCustomFoodRequestBuilder()..update(updates))._build();
 
   _$UpdateCustomFoodRequest._(
-      {this.name, this.portionSizeGrams, this.ingredients})
+      {this.name,
+      this.portionSizeGrams,
+      this.ingredients,
+      this.confirmedAllergens})
       : super._();
   @override
   UpdateCustomFoodRequest rebuild(
@@ -36,7 +41,8 @@ class _$UpdateCustomFoodRequest extends UpdateCustomFoodRequest {
     return other is UpdateCustomFoodRequest &&
         name == other.name &&
         portionSizeGrams == other.portionSizeGrams &&
-        ingredients == other.ingredients;
+        ingredients == other.ingredients &&
+        confirmedAllergens == other.confirmedAllergens;
   }
 
   @override
@@ -45,6 +51,7 @@ class _$UpdateCustomFoodRequest extends UpdateCustomFoodRequest {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, portionSizeGrams.hashCode);
     _$hash = $jc(_$hash, ingredients.hashCode);
+    _$hash = $jc(_$hash, confirmedAllergens.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -54,7 +61,8 @@ class _$UpdateCustomFoodRequest extends UpdateCustomFoodRequest {
     return (newBuiltValueToStringHelper(r'UpdateCustomFoodRequest')
           ..add('name', name)
           ..add('portionSizeGrams', portionSizeGrams)
-          ..add('ingredients', ingredients))
+          ..add('ingredients', ingredients)
+          ..add('confirmedAllergens', confirmedAllergens))
         .toString();
   }
 }
@@ -79,6 +87,11 @@ class UpdateCustomFoodRequestBuilder
   set ingredients(ListBuilder<CustomFoodIngredientRequest>? ingredients) =>
       _$this._ingredients = ingredients;
 
+  bool? _confirmedAllergens;
+  bool? get confirmedAllergens => _$this._confirmedAllergens;
+  set confirmedAllergens(bool? confirmedAllergens) =>
+      _$this._confirmedAllergens = confirmedAllergens;
+
   UpdateCustomFoodRequestBuilder() {
     UpdateCustomFoodRequest._defaults(this);
   }
@@ -89,6 +102,7 @@ class UpdateCustomFoodRequestBuilder
       _name = $v.name;
       _portionSizeGrams = $v.portionSizeGrams;
       _ingredients = $v.ingredients?.toBuilder();
+      _confirmedAllergens = $v.confirmedAllergens;
       _$v = null;
     }
     return this;
@@ -115,6 +129,7 @@ class UpdateCustomFoodRequestBuilder
             name: name,
             portionSizeGrams: portionSizeGrams,
             ingredients: _ingredients?.build(),
+            confirmedAllergens: confirmedAllergens,
           );
     } catch (_) {
       late String _$failedField;

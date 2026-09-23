@@ -10,6 +10,8 @@ class _$ClinicalNoteSummary extends ClinicalNoteSummary {
   @override
   final String? noteId;
   @override
+  final String? clientGuid;
+  @override
   final String? mealId;
   @override
   final String? symptomId;
@@ -23,7 +25,12 @@ class _$ClinicalNoteSummary extends ClinicalNoteSummary {
       (ClinicalNoteSummaryBuilder()..update(updates))._build();
 
   _$ClinicalNoteSummary._(
-      {this.noteId, this.mealId, this.symptomId, this.content, this.createdAt})
+      {this.noteId,
+      this.clientGuid,
+      this.mealId,
+      this.symptomId,
+      this.content,
+      this.createdAt})
       : super._();
   @override
   ClinicalNoteSummary rebuild(
@@ -39,6 +46,7 @@ class _$ClinicalNoteSummary extends ClinicalNoteSummary {
     if (identical(other, this)) return true;
     return other is ClinicalNoteSummary &&
         noteId == other.noteId &&
+        clientGuid == other.clientGuid &&
         mealId == other.mealId &&
         symptomId == other.symptomId &&
         content == other.content &&
@@ -49,6 +57,7 @@ class _$ClinicalNoteSummary extends ClinicalNoteSummary {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, noteId.hashCode);
+    _$hash = $jc(_$hash, clientGuid.hashCode);
     _$hash = $jc(_$hash, mealId.hashCode);
     _$hash = $jc(_$hash, symptomId.hashCode);
     _$hash = $jc(_$hash, content.hashCode);
@@ -61,6 +70,7 @@ class _$ClinicalNoteSummary extends ClinicalNoteSummary {
   String toString() {
     return (newBuiltValueToStringHelper(r'ClinicalNoteSummary')
           ..add('noteId', noteId)
+          ..add('clientGuid', clientGuid)
           ..add('mealId', mealId)
           ..add('symptomId', symptomId)
           ..add('content', content)
@@ -76,6 +86,10 @@ class ClinicalNoteSummaryBuilder
   String? _noteId;
   String? get noteId => _$this._noteId;
   set noteId(String? noteId) => _$this._noteId = noteId;
+
+  String? _clientGuid;
+  String? get clientGuid => _$this._clientGuid;
+  set clientGuid(String? clientGuid) => _$this._clientGuid = clientGuid;
 
   String? _mealId;
   String? get mealId => _$this._mealId;
@@ -101,6 +115,7 @@ class ClinicalNoteSummaryBuilder
     final $v = _$v;
     if ($v != null) {
       _noteId = $v.noteId;
+      _clientGuid = $v.clientGuid;
       _mealId = $v.mealId;
       _symptomId = $v.symptomId;
       _content = $v.content;
@@ -127,6 +142,7 @@ class ClinicalNoteSummaryBuilder
     final _$result = _$v ??
         _$ClinicalNoteSummary._(
           noteId: noteId,
+          clientGuid: clientGuid,
           mealId: mealId,
           symptomId: symptomId,
           content: content,

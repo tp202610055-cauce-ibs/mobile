@@ -78,7 +78,7 @@ class CustomFoodsApi {
     return _response;
   }
 
-  /// Actualiza un alimento personalizado del paciente autenticado.
+  /// Actualiza un alimento personalizado del paciente autenticado. Igual que en la creación, si los  ingredientes coinciden con alergias declaradas y el paciente no lo confirmó, responde 409  &#x60;unconfirmed_allergens&#x60; con el detalle (US10 CA03).
   /// 
   ///
   /// Parameters:

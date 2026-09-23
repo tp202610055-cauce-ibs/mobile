@@ -16,6 +16,7 @@ part 'update_custom_food_request.g.dart';
 /// * [name] - Nuevo nombre del alimento personalizado.
 /// * [portionSizeGrams] - Nuevo tamaño de porción en gramos.
 /// * [ingredients] - Nuevo conjunto de ingredientes.
+/// * [confirmedAllergens] - Confirma el guardado pese a coincidencias con alergias declaradas (US10 CA03). Por defecto  false: si hay coincidencias sin confirmar, la respuesta es 409 con el detalle.
 @BuiltValue()
 abstract class UpdateCustomFoodRequest implements Built<UpdateCustomFoodRequest, UpdateCustomFoodRequestBuilder> {
   /// Nuevo nombre del alimento personalizado.
@@ -29,6 +30,10 @@ abstract class UpdateCustomFoodRequest implements Built<UpdateCustomFoodRequest,
   /// Nuevo conjunto de ingredientes.
   @BuiltValueField(wireName: r'ingredients')
   BuiltList<CustomFoodIngredientRequest>? get ingredients;
+
+  /// Confirma el guardado pese a coincidencias con alergias declaradas (US10 CA03). Por defecto  false: si hay coincidencias sin confirmar, la respuesta es 409 con el detalle.
+  @BuiltValueField(wireName: r'confirmedAllergens')
+  bool? get confirmedAllergens;
 
   UpdateCustomFoodRequest._();
 
@@ -72,6 +77,13 @@ class _$UpdateCustomFoodRequestSerializer implements PrimitiveSerializer<UpdateC
       yield serializers.serialize(
         object.ingredients,
         specifiedType: const FullType.nullable(BuiltList, [FullType(CustomFoodIngredientRequest)]),
+      );
+    }
+    if (object.confirmedAllergens != null) {
+      yield r'confirmedAllergens';
+      yield serializers.serialize(
+        object.confirmedAllergens,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -119,6 +131,13 @@ class _$UpdateCustomFoodRequestSerializer implements PrimitiveSerializer<UpdateC
           ) as BuiltList<CustomFoodIngredientRequest>?;
           if (valueDes == null) continue;
           result.ingredients.replace(valueDes);
+          break;
+        case r'confirmedAllergens':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.confirmedAllergens = valueDes;
           break;
         default:
           unhandled.add(key);

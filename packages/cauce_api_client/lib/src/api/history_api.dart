@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:cauce_api_client/src/api_util.dart';
-import 'package:cauce_api_client/src/model/history_event.dart';
+import 'package:cauce_api_client/src/model/api_v1_history_get200_response_inner.dart';
 import 'package:cauce_api_client/src/model/problem_details.dart';
 
 class HistoryApi {
@@ -34,9 +34,9 @@ class HistoryApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<HistoryEvent>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<ApiV1HistoryGet200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<HistoryEvent>>> apiV1HistoryGet({ 
+  Future<Response<BuiltList<ApiV1HistoryGet200ResponseInner>>> apiV1HistoryGet({ 
     DateTime? from,
     DateTime? to,
     CancelToken? cancelToken,
@@ -79,14 +79,14 @@ class HistoryApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<HistoryEvent>? _responseData;
+    BuiltList<ApiV1HistoryGet200ResponseInner>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(HistoryEvent)]),
-      ) as BuiltList<HistoryEvent>;
+        specifiedType: const FullType(BuiltList, [FullType(ApiV1HistoryGet200ResponseInner)]),
+      ) as BuiltList<ApiV1HistoryGet200ResponseInner>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -98,7 +98,7 @@ class HistoryApi {
       );
     }
 
-    return Response<BuiltList<HistoryEvent>>(
+    return Response<BuiltList<ApiV1HistoryGet200ResponseInner>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

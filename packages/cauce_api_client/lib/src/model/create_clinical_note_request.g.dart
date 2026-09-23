@@ -13,12 +13,15 @@ class _$CreateClinicalNoteRequest extends CreateClinicalNoteRequest {
   final String? symptomId;
   @override
   final String? content;
+  @override
+  final String? clientGuid;
 
   factory _$CreateClinicalNoteRequest(
           [void Function(CreateClinicalNoteRequestBuilder)? updates]) =>
       (CreateClinicalNoteRequestBuilder()..update(updates))._build();
 
-  _$CreateClinicalNoteRequest._({this.mealId, this.symptomId, this.content})
+  _$CreateClinicalNoteRequest._(
+      {this.mealId, this.symptomId, this.content, this.clientGuid})
       : super._();
   @override
   CreateClinicalNoteRequest rebuild(
@@ -35,7 +38,8 @@ class _$CreateClinicalNoteRequest extends CreateClinicalNoteRequest {
     return other is CreateClinicalNoteRequest &&
         mealId == other.mealId &&
         symptomId == other.symptomId &&
-        content == other.content;
+        content == other.content &&
+        clientGuid == other.clientGuid;
   }
 
   @override
@@ -44,6 +48,7 @@ class _$CreateClinicalNoteRequest extends CreateClinicalNoteRequest {
     _$hash = $jc(_$hash, mealId.hashCode);
     _$hash = $jc(_$hash, symptomId.hashCode);
     _$hash = $jc(_$hash, content.hashCode);
+    _$hash = $jc(_$hash, clientGuid.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,7 +58,8 @@ class _$CreateClinicalNoteRequest extends CreateClinicalNoteRequest {
     return (newBuiltValueToStringHelper(r'CreateClinicalNoteRequest')
           ..add('mealId', mealId)
           ..add('symptomId', symptomId)
-          ..add('content', content))
+          ..add('content', content)
+          ..add('clientGuid', clientGuid))
         .toString();
   }
 }
@@ -75,6 +81,10 @@ class CreateClinicalNoteRequestBuilder
   String? get content => _$this._content;
   set content(String? content) => _$this._content = content;
 
+  String? _clientGuid;
+  String? get clientGuid => _$this._clientGuid;
+  set clientGuid(String? clientGuid) => _$this._clientGuid = clientGuid;
+
   CreateClinicalNoteRequestBuilder() {
     CreateClinicalNoteRequest._defaults(this);
   }
@@ -85,6 +95,7 @@ class CreateClinicalNoteRequestBuilder
       _mealId = $v.mealId;
       _symptomId = $v.symptomId;
       _content = $v.content;
+      _clientGuid = $v.clientGuid;
       _$v = null;
     }
     return this;
@@ -109,6 +120,7 @@ class CreateClinicalNoteRequestBuilder
           mealId: mealId,
           symptomId: symptomId,
           content: content,
+          clientGuid: clientGuid,
         );
     replace(_$result);
     return _$result;
