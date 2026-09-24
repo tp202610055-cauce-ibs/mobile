@@ -691,6 +691,18 @@ mixin _$IbsSssEvolutionPoint {
   /// `-50`). Llega `null` para la propia linea base y cuando no hay ninguna.
   int? get deltaFromBaseline => throw _privateConstructorUsedError;
 
+  /// Vencimiento del proximo ciclo, a catorce dias. Lo agenda el backend.
+  ///
+  /// Viaja dentro de cada entrada de la serie (`assessment.nextAssessmentDate`)
+  /// y lo escribe **toda** evaluacion, incluida la linea base: el constructor
+  /// de `IbsSssAssessment` lo fija sin condicionar por tipo. Por eso CP061
+  /// puede anunciar la fecha de la proxima evaluacion cuando el paciente
+  /// todavia no tiene ninguna periodica.
+  ///
+  /// Hasta Mobile-4 el mapeo lo descartaba y la pantalla no tenia de donde
+  /// sacarlo.
+  DateTime? get nextAssessmentDate => throw _privateConstructorUsedError;
+
   /// Create a copy of IbsSssEvolutionPoint
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -711,7 +723,8 @@ abstract class $IbsSssEvolutionPointCopyWith<$Res> {
       int cycleNumber,
       IbsSssSeverity? severity,
       DateTime? completedAt,
-      int? deltaFromBaseline});
+      int? deltaFromBaseline,
+      DateTime? nextAssessmentDate});
 }
 
 /// @nodoc
@@ -737,6 +750,7 @@ class _$IbsSssEvolutionPointCopyWithImpl<$Res,
     Object? severity = freezed,
     Object? completedAt = freezed,
     Object? deltaFromBaseline = freezed,
+    Object? nextAssessmentDate = freezed,
   }) {
     return _then(_value.copyWith(
       assessmentId: null == assessmentId
@@ -767,6 +781,10 @@ class _$IbsSssEvolutionPointCopyWithImpl<$Res,
           ? _value.deltaFromBaseline
           : deltaFromBaseline // ignore: cast_nullable_to_non_nullable
               as int?,
+      nextAssessmentDate: freezed == nextAssessmentDate
+          ? _value.nextAssessmentDate
+          : nextAssessmentDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -786,7 +804,8 @@ abstract class _$$IbsSssEvolutionPointImplCopyWith<$Res>
       int cycleNumber,
       IbsSssSeverity? severity,
       DateTime? completedAt,
-      int? deltaFromBaseline});
+      int? deltaFromBaseline,
+      DateTime? nextAssessmentDate});
 }
 
 /// @nodoc
@@ -809,6 +828,7 @@ class __$$IbsSssEvolutionPointImplCopyWithImpl<$Res>
     Object? severity = freezed,
     Object? completedAt = freezed,
     Object? deltaFromBaseline = freezed,
+    Object? nextAssessmentDate = freezed,
   }) {
     return _then(_$IbsSssEvolutionPointImpl(
       assessmentId: null == assessmentId
@@ -839,6 +859,10 @@ class __$$IbsSssEvolutionPointImplCopyWithImpl<$Res>
           ? _value.deltaFromBaseline
           : deltaFromBaseline // ignore: cast_nullable_to_non_nullable
               as int?,
+      nextAssessmentDate: freezed == nextAssessmentDate
+          ? _value.nextAssessmentDate
+          : nextAssessmentDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -853,7 +877,8 @@ class _$IbsSssEvolutionPointImpl extends _IbsSssEvolutionPoint {
       this.cycleNumber = 0,
       this.severity,
       this.completedAt,
-      this.deltaFromBaseline})
+      this.deltaFromBaseline,
+      this.nextAssessmentDate})
       : super._();
 
   @override
@@ -879,9 +904,22 @@ class _$IbsSssEvolutionPointImpl extends _IbsSssEvolutionPoint {
   @override
   final int? deltaFromBaseline;
 
+  /// Vencimiento del proximo ciclo, a catorce dias. Lo agenda el backend.
+  ///
+  /// Viaja dentro de cada entrada de la serie (`assessment.nextAssessmentDate`)
+  /// y lo escribe **toda** evaluacion, incluida la linea base: el constructor
+  /// de `IbsSssAssessment` lo fija sin condicionar por tipo. Por eso CP061
+  /// puede anunciar la fecha de la proxima evaluacion cuando el paciente
+  /// todavia no tiene ninguna periodica.
+  ///
+  /// Hasta Mobile-4 el mapeo lo descartaba y la pantalla no tenia de donde
+  /// sacarlo.
+  @override
+  final DateTime? nextAssessmentDate;
+
   @override
   String toString() {
-    return 'IbsSssEvolutionPoint(assessmentId: $assessmentId, totalScore: $totalScore, assessmentType: $assessmentType, cycleNumber: $cycleNumber, severity: $severity, completedAt: $completedAt, deltaFromBaseline: $deltaFromBaseline)';
+    return 'IbsSssEvolutionPoint(assessmentId: $assessmentId, totalScore: $totalScore, assessmentType: $assessmentType, cycleNumber: $cycleNumber, severity: $severity, completedAt: $completedAt, deltaFromBaseline: $deltaFromBaseline, nextAssessmentDate: $nextAssessmentDate)';
   }
 
   @override
@@ -902,12 +940,22 @@ class _$IbsSssEvolutionPointImpl extends _IbsSssEvolutionPoint {
             (identical(other.completedAt, completedAt) ||
                 other.completedAt == completedAt) &&
             (identical(other.deltaFromBaseline, deltaFromBaseline) ||
-                other.deltaFromBaseline == deltaFromBaseline));
+                other.deltaFromBaseline == deltaFromBaseline) &&
+            (identical(other.nextAssessmentDate, nextAssessmentDate) ||
+                other.nextAssessmentDate == nextAssessmentDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, assessmentId, totalScore,
-      assessmentType, cycleNumber, severity, completedAt, deltaFromBaseline);
+  int get hashCode => Object.hash(
+      runtimeType,
+      assessmentId,
+      totalScore,
+      assessmentType,
+      cycleNumber,
+      severity,
+      completedAt,
+      deltaFromBaseline,
+      nextAssessmentDate);
 
   /// Create a copy of IbsSssEvolutionPoint
   /// with the given fields replaced by the non-null parameter values.
@@ -928,7 +976,8 @@ abstract class _IbsSssEvolutionPoint extends IbsSssEvolutionPoint {
       final int cycleNumber,
       final IbsSssSeverity? severity,
       final DateTime? completedAt,
-      final int? deltaFromBaseline}) = _$IbsSssEvolutionPointImpl;
+      final int? deltaFromBaseline,
+      final DateTime? nextAssessmentDate}) = _$IbsSssEvolutionPointImpl;
   const _IbsSssEvolutionPoint._() : super._();
 
   @override
@@ -952,6 +1001,19 @@ abstract class _IbsSssEvolutionPoint extends IbsSssEvolutionPoint {
   /// `-50`). Llega `null` para la propia linea base y cuando no hay ninguna.
   @override
   int? get deltaFromBaseline;
+
+  /// Vencimiento del proximo ciclo, a catorce dias. Lo agenda el backend.
+  ///
+  /// Viaja dentro de cada entrada de la serie (`assessment.nextAssessmentDate`)
+  /// y lo escribe **toda** evaluacion, incluida la linea base: el constructor
+  /// de `IbsSssAssessment` lo fija sin condicionar por tipo. Por eso CP061
+  /// puede anunciar la fecha de la proxima evaluacion cuando el paciente
+  /// todavia no tiene ninguna periodica.
+  ///
+  /// Hasta Mobile-4 el mapeo lo descartaba y la pantalla no tenia de donde
+  /// sacarlo.
+  @override
+  DateTime? get nextAssessmentDate;
 
   /// Create a copy of IbsSssEvolutionPoint
   /// with the given fields replaced by the non-null parameter values.

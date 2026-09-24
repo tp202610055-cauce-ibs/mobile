@@ -174,6 +174,10 @@ class IbsSssRepository {
                   severity: IbsSssSeverity.fromApi(assessment.severityCategory),
                   completedAt: assessment.completedAt,
                   deltaFromBaseline: entry.deltaFromBaseline,
+                  // Mismo patron que `latestAssessment()`: el contrato lo
+                  // declara como `Date` y el dominio trabaja con `DateTime`.
+                  nextAssessmentDate:
+                      assessment.nextAssessmentDate?.toDateTime(),
                 );
               })
               .nonNulls

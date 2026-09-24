@@ -195,6 +195,18 @@ abstract class IbsSssEvolutionPoint with _$IbsSssEvolutionPoint {
     /// con su test `CompareTotalScoreTo_Improvement_ReturnsNegative` asertando
     /// `-50`). Llega `null` para la propia linea base y cuando no hay ninguna.
     int? deltaFromBaseline,
+
+    /// Vencimiento del proximo ciclo, a catorce dias. Lo agenda el backend.
+    ///
+    /// Viaja dentro de cada entrada de la serie (`assessment.nextAssessmentDate`)
+    /// y lo escribe **toda** evaluacion, incluida la linea base: el constructor
+    /// de `IbsSssAssessment` lo fija sin condicionar por tipo. Por eso CP061
+    /// puede anunciar la fecha de la proxima evaluacion cuando el paciente
+    /// todavia no tiene ninguna periodica.
+    ///
+    /// Hasta Mobile-4 el mapeo lo descartaba y la pantalla no tenia de donde
+    /// sacarlo.
+    DateTime? nextAssessmentDate,
   }) = _IbsSssEvolutionPoint;
 
   const IbsSssEvolutionPoint._();

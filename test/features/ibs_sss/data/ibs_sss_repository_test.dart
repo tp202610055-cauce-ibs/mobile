@@ -211,4 +211,73 @@ void main() {
       }
     });
   });
+
+  group('IbsSssRepository · evolucion (US12 CA03, HU0023)', () {
+    test('conserva nextAssessmentDate de cada entrada', () async {
+      // El campo viaja dentro de `assessment` y hasta Mobile-4 el mapeo lo
+      // descartaba en silencio: la serie llegaba sin la fecha que CP061
+      // necesita para anunciar la proxima evaluacion.
+      final h = _harness(
+        const CannedListResponse(<Map<String, dynamic>>[
+          <String, dynamic>{
+            'assessment': <String, dynamic>{
+              'assessmentId': 'dddddddd-0000-4000-8000-000000000001',
+              'assessmentType': 'Baseline',
+              'cycleNumber': 0,
+              'totalScore': 220,
+              'severityCategory': 'Moderate',
+              'completedAt': '2026-08-10T14:05:00Z',
+              'nextAssessmentDate': '2026-08-24',
+            },
+            'deltaFromBaseline': null,
+          },
+          <String, dynamic>{
+            'assessment': <String, dynamic>{
+              'assessmentId': 'dddddddd-0000-4000-8000-000000000002',
+              'assessmentType': 'Periodic',
+              'cycleNumber': 1,
+              'totalScore': 130,
+              'severityCategory': 'Mild',
+              'completedAt': '2026-09-20T14:05:00Z',
+              'nextAssessmentDate': '2026-10-04',
+            },
+            'deltaFromBaseline': -90,
+          },
+        ]),
+      );
+
+      final points = await h.repository.evolution();
+
+      expect(points.length, 2);
+      // `Date.toDateTime()` devuelve hora local, igual que en
+      // `latestAssessment()`: la fecha agendada es un dia del calendario,
+      // no un instante.
+      expect(points.first.nextAssessmentDate, DateTime(2026, 8, 24));
+      expect(points.last.nextAssessmentDate, DateTime(2026, 10, 4));
+      expect(points.last.deltaFromBaseline, -90);
+    });
+
+    test('una entrada sin nextAssessmentDate no rompe el resto', () async {
+      final h = _harness(
+        const CannedListResponse(<Map<String, dynamic>>[
+          <String, dynamic>{
+            'assessment': <String, dynamic>{
+              'assessmentId': 'dddddddd-0000-4000-8000-000000000001',
+              'assessmentType': 'Baseline',
+              'cycleNumber': 0,
+              'totalScore': 220,
+              'severityCategory': 'Moderate',
+              'completedAt': '2026-08-10T14:05:00Z',
+            },
+            'deltaFromBaseline': null,
+          },
+        ]),
+      );
+
+      final points = await h.repository.evolution();
+
+      expect(points.single.nextAssessmentDate, isNull);
+      expect(points.single.totalScore, 220);
+    });
+  });
 }
