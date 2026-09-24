@@ -790,6 +790,14 @@ class AppLocalizationsEn extends AppLocalizations {
       'We could not complete the operation. Check the details and try again.';
 
   @override
+  String get errorPatientHasNoDataInPeriod =>
+      'There are no records in that period. Choose a different date range.';
+
+  @override
+  String get errorReportPeriodInvalid =>
+      'The requested period is not valid. Choose a range of up to 90 days that does not include future dates.';
+
+  @override
   String get errorDuplicateEmail => 'An account with this email already exists';
 
   @override
@@ -1508,6 +1516,63 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsCredits =>
       'Built by Universidad Peruana de Ciencias Aplicadas in partnership with EsSalud, Complejo Hospitalario Guillermo Kaelin de la Fuente';
+
+  @override
+  String get reportTitle => 'Your clinical report';
+
+  @override
+  String get reportEntry => 'Generate my report';
+
+  @override
+  String get reportEntryHint =>
+      'A PDF with your history to take to an appointment';
+
+  @override
+  String get reportIntro =>
+      'Generate a PDF with your meal history, your symptoms and their intensities, your IBS-SSS scores and the advice you received. It is meant to be taken to an appointment outside the app.';
+
+  @override
+  String get reportPeriodLabel => 'Report period';
+
+  @override
+  String get reportPeriodLast30 => 'Last 30 days';
+
+  @override
+  String get reportPeriodLast90 => 'Last 90 days';
+
+  @override
+  String get reportSubmit => 'Generate the report';
+
+  @override
+  String get reportGenerating => 'Preparing your report';
+
+  @override
+  String get reportReadyTitle => 'Your report is ready';
+
+  @override
+  String get reportReadyBody =>
+      'The download link stays available for 24 hours.';
+
+  @override
+  String get reportReadyPassword =>
+      'The PDF is protected. The password to open it arrives separately in your email.';
+
+  @override
+  String get reportReadyRetryHint =>
+      'If it does not arrive in a few minutes, generate the report again: each attempt creates a new password.';
+
+  @override
+  String get reportOpenDownload => 'Open the download';
+
+  @override
+  String get reportOpened => 'We opened your download.';
+
+  @override
+  String get reportNotOpened =>
+      'Your report was generated, but we could not open the link. Check that you have a browser available.';
+
+  @override
+  String get reportNoDataHint => 'Choose a different date range and try again.';
 
   @override
   String get navHome => 'Home';

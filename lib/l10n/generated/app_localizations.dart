@@ -1472,6 +1472,18 @@ abstract class AppLocalizations {
   /// **'No pudimos completar la operación. Revisa los datos e intenta de nuevo.'**
   String get errorDomainRuleViolation;
 
+  /// errorCode patient_has_no_data_in_period (422). CP063 pasos 4 y 5: avisar y sugerir otro rango
+  ///
+  /// In es, this message translates to:
+  /// **'No hay datos registrados en ese período. Elige un rango de fechas diferente.'**
+  String get errorPatientHasNoDataInPeriod;
+
+  /// errorCode report_period_invalid (422)
+  ///
+  /// In es, this message translates to:
+  /// **'El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.'**
+  String get errorReportPeriodInvalid;
+
   /// errorCode duplicate_email (409)
   ///
   /// In es, this message translates to:
@@ -2683,6 +2695,108 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente'**
   String get settingsCredits;
+
+  /// No description provided for @reportTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu reporte clínico'**
+  String get reportTitle;
+
+  /// No description provided for @reportEntry.
+  ///
+  /// In es, this message translates to:
+  /// **'Generar mi reporte'**
+  String get reportEntry;
+
+  /// No description provided for @reportEntryHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Un PDF con tu historial para llevar a la consulta'**
+  String get reportEntryHint;
+
+  /// No description provided for @reportIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Genera un PDF con tu historial de comidas, tus síntomas con sus intensidades, tus puntajes IBS-SSS y las recomendaciones que recibiste. Sirve para llevarlo a una consulta fuera de la aplicación.'**
+  String get reportIntro;
+
+  /// No description provided for @reportPeriodLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Período del reporte'**
+  String get reportPeriodLabel;
+
+  /// No description provided for @reportPeriodLast30.
+  ///
+  /// In es, this message translates to:
+  /// **'Últimos 30 días'**
+  String get reportPeriodLast30;
+
+  /// No description provided for @reportPeriodLast90.
+  ///
+  /// In es, this message translates to:
+  /// **'Últimos 90 días'**
+  String get reportPeriodLast90;
+
+  /// No description provided for @reportSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Generar el reporte'**
+  String get reportSubmit;
+
+  /// No description provided for @reportGenerating.
+  ///
+  /// In es, this message translates to:
+  /// **'Preparando tu reporte'**
+  String get reportGenerating;
+
+  /// Titulo del estado de exito. Afirma solo lo que el servidor confirmo: el PDF se genero
+  ///
+  /// In es, this message translates to:
+  /// **'Tu reporte está listo'**
+  String get reportReadyTitle;
+
+  /// No description provided for @reportReadyBody.
+  ///
+  /// In es, this message translates to:
+  /// **'El enlace de descarga queda disponible por 24 horas.'**
+  String get reportReadyBody;
+
+  /// El backend envia el correo despues de responder y no confirma la entrega. Se describe como el paso esperado, nunca como un hecho
+  ///
+  /// In es, this message translates to:
+  /// **'El PDF está protegido. La contraseña para abrirlo llega por separado a tu correo.'**
+  String get reportReadyPassword;
+
+  /// No description provided for @reportReadyRetryHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Si en unos minutos no llega, genera el reporte de nuevo: cada intento crea una contraseña nueva.'**
+  String get reportReadyRetryHint;
+
+  /// No description provided for @reportOpenDownload.
+  ///
+  /// In es, this message translates to:
+  /// **'Abrir la descarga'**
+  String get reportOpenDownload;
+
+  /// No description provided for @reportOpened.
+  ///
+  /// In es, this message translates to:
+  /// **'Abrimos tu descarga.'**
+  String get reportOpened;
+
+  /// No description provided for @reportNotOpened.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu reporte se generó, pero no pudimos abrir el enlace. Revisa que tengas un navegador disponible.'**
+  String get reportNotOpened;
+
+  /// No description provided for @reportNoDataHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige un rango de fechas diferente y vuelve a intentarlo.'**
+  String get reportNoDataHint;
 
   /// Etiqueta del primer destino de la barra inferior (design system, seccion H)
   ///

@@ -790,6 +790,14 @@ class AppLocalizationsEs extends AppLocalizations {
       'No pudimos completar la operación. Revisa los datos e intenta de nuevo.';
 
   @override
+  String get errorPatientHasNoDataInPeriod =>
+      'No hay datos registrados en ese período. Elige un rango de fechas diferente.';
+
+  @override
+  String get errorReportPeriodInvalid =>
+      'El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.';
+
+  @override
   String get errorDuplicateEmail => 'Ya existe una cuenta con este correo';
 
   @override
@@ -1509,6 +1517,64 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get settingsCredits =>
       'Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente';
+
+  @override
+  String get reportTitle => 'Tu reporte clínico';
+
+  @override
+  String get reportEntry => 'Generar mi reporte';
+
+  @override
+  String get reportEntryHint =>
+      'Un PDF con tu historial para llevar a la consulta';
+
+  @override
+  String get reportIntro =>
+      'Genera un PDF con tu historial de comidas, tus síntomas con sus intensidades, tus puntajes IBS-SSS y las recomendaciones que recibiste. Sirve para llevarlo a una consulta fuera de la aplicación.';
+
+  @override
+  String get reportPeriodLabel => 'Período del reporte';
+
+  @override
+  String get reportPeriodLast30 => 'Últimos 30 días';
+
+  @override
+  String get reportPeriodLast90 => 'Últimos 90 días';
+
+  @override
+  String get reportSubmit => 'Generar el reporte';
+
+  @override
+  String get reportGenerating => 'Preparando tu reporte';
+
+  @override
+  String get reportReadyTitle => 'Tu reporte está listo';
+
+  @override
+  String get reportReadyBody =>
+      'El enlace de descarga queda disponible por 24 horas.';
+
+  @override
+  String get reportReadyPassword =>
+      'El PDF está protegido. La contraseña para abrirlo llega por separado a tu correo.';
+
+  @override
+  String get reportReadyRetryHint =>
+      'Si en unos minutos no llega, genera el reporte de nuevo: cada intento crea una contraseña nueva.';
+
+  @override
+  String get reportOpenDownload => 'Abrir la descarga';
+
+  @override
+  String get reportOpened => 'Abrimos tu descarga.';
+
+  @override
+  String get reportNotOpened =>
+      'Tu reporte se generó, pero no pudimos abrir el enlace. Revisa que tengas un navegador disponible.';
+
+  @override
+  String get reportNoDataHint =>
+      'Elige un rango de fechas diferente y vuelve a intentarlo.';
 
   @override
   String get navHome => 'Inicio';

@@ -823,6 +823,14 @@
     "description": "errorCode idempotency_mismatch (409). Señala un bug del cliente, no una accion del paciente: el reintento debe repetir el mismo client_guid intacto"
   },
   "errorDomainRuleViolation": "No pudimos completar la operación. Revisa los datos e intenta de nuevo.",
+  "errorPatientHasNoDataInPeriod": "No hay datos registrados en ese período. Elige un rango de fechas diferente.",
+  "@errorPatientHasNoDataInPeriod": {
+      "description": "errorCode patient_has_no_data_in_period (422). CP063 pasos 4 y 5: avisar y sugerir otro rango"
+  },
+  "errorReportPeriodInvalid": "El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.",
+  "@errorReportPeriodInvalid": {
+      "description": "errorCode report_period_invalid (422)"
+  },
   "@errorDomainRuleViolation": {
     "description": "errorCode domain_rule_violation (400). Caso general de DomainException para las reglas sin errorCode propio"
   },
@@ -1303,6 +1311,29 @@
       }
   },
   "settingsCredits": "Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente",
+  "reportTitle": "Tu reporte clínico",
+  "reportEntry": "Generar mi reporte",
+  "reportEntryHint": "Un PDF con tu historial para llevar a la consulta",
+  "reportIntro": "Genera un PDF con tu historial de comidas, tus síntomas con sus intensidades, tus puntajes IBS-SSS y las recomendaciones que recibiste. Sirve para llevarlo a una consulta fuera de la aplicación.",
+  "reportPeriodLabel": "Período del reporte",
+  "reportPeriodLast30": "Últimos 30 días",
+  "reportPeriodLast90": "Últimos 90 días",
+  "reportSubmit": "Generar el reporte",
+  "reportGenerating": "Preparando tu reporte",
+  "reportReadyTitle": "Tu reporte está listo",
+  "@reportReadyTitle": {
+      "description": "Titulo del estado de exito. Afirma solo lo que el servidor confirmo: el PDF se genero"
+  },
+  "reportReadyBody": "El enlace de descarga queda disponible por 24 horas.",
+  "reportReadyPassword": "El PDF está protegido. La contraseña para abrirlo llega por separado a tu correo.",
+  "@reportReadyPassword": {
+      "description": "El backend envia el correo despues de responder y no confirma la entrega. Se describe como el paso esperado, nunca como un hecho"
+  },
+  "reportReadyRetryHint": "Si en unos minutos no llega, genera el reporte de nuevo: cada intento crea una contraseña nueva.",
+  "reportOpenDownload": "Abrir la descarga",
+  "reportOpened": "Abrimos tu descarga.",
+  "reportNotOpened": "Tu reporte se generó, pero no pudimos abrir el enlace. Revisa que tengas un navegador disponible.",
+  "reportNoDataHint": "Elige un rango de fechas diferente y vuelve a intentarlo.",
   "@privacyConsentTextUnavailable": {
     "description": "Aceptaciones anteriores a que el backend guardara el texto por version. El endpoint del PDF responde 404 para estas"
   },
