@@ -2798,6 +2798,84 @@ abstract class AppLocalizations {
   /// **'Elige un rango de fechas diferente y vuelve a intentarlo.'**
   String get reportNoDataHint;
 
+  /// No description provided for @glossaryTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Glosario'**
+  String get glossaryTitle;
+
+  /// No description provided for @glossaryEntryHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Términos médicos y nutricionales explicados'**
+  String get glossaryEntryHint;
+
+  /// No description provided for @glossarySearchLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Buscar un término'**
+  String get glossarySearchLabel;
+
+  /// No description provided for @glossarySearchHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Por ejemplo: FODMAP'**
+  String get glossarySearchHint;
+
+  /// HU0027 CA2, CP069 paso 3. La busqueda no encontro ningun termino
+  ///
+  /// In es, this message translates to:
+  /// **'Ese término no está en el glosario'**
+  String get glossaryNotFoundTitle;
+
+  /// No description provided for @glossaryNotFoundBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa cómo lo escribiste o prueba con otra palabra.'**
+  String get glossaryNotFoundBody;
+
+  /// HU0027 CA2, CP069 paso 4. Encabezado de las sugerencias por prefijo compartido
+  ///
+  /// In es, this message translates to:
+  /// **'Términos parecidos'**
+  String get glossarySuggestionsLabel;
+
+  /// Categoria Nutritional. Texto literal de CP068 paso 6
+  ///
+  /// In es, this message translates to:
+  /// **'Nutricional'**
+  String get glossaryCategoryNutritional;
+
+  /// Categoria ClinicalIbs. Texto literal de CP068 paso 6, en minuscula como en el caso de prueba
+  ///
+  /// In es, this message translates to:
+  /// **'clínico del SII'**
+  String get glossaryCategoryClinicalIbs;
+
+  /// Categoria System. Texto literal de CP068 paso 6, en minuscula como en el caso de prueba
+  ///
+  /// In es, this message translates to:
+  /// **'propio del sistema'**
+  String get glossaryCategorySystem;
+
+  /// Se muestra mientras el backend declare contentStatus draft-pending-clinical-review (acta A27 del backend)
+  ///
+  /// In es, this message translates to:
+  /// **'Estas definiciones son una guía general y todavía están pendientes de la validación clínica final. Ante cualquier duda, consulta con tu equipo de salud.'**
+  String get glossaryDraftNote;
+
+  /// No description provided for @glossaryEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'El glosario todavía no tiene términos.'**
+  String get glossaryEmpty;
+
+  /// No description provided for @glossaryLoadError.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar el glosario'**
+  String get glossaryLoadError;
+
   /// Etiqueta del primer destino de la barra inferior (design system, seccion H)
   ///
   /// In es, this message translates to:

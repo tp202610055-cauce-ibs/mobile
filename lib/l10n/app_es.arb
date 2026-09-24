@@ -1334,6 +1334,37 @@
   "reportOpened": "Abrimos tu descarga.",
   "reportNotOpened": "Tu reporte se generó, pero no pudimos abrir el enlace. Revisa que tengas un navegador disponible.",
   "reportNoDataHint": "Elige un rango de fechas diferente y vuelve a intentarlo.",
+  "glossaryTitle": "Glosario",
+  "glossaryEntryHint": "Términos médicos y nutricionales explicados",
+  "glossarySearchLabel": "Buscar un término",
+  "glossarySearchHint": "Por ejemplo: FODMAP",
+  "glossaryNotFoundTitle": "Ese término no está en el glosario",
+  "@glossaryNotFoundTitle": {
+      "description": "HU0027 CA2, CP069 paso 3. La busqueda no encontro ningun termino"
+  },
+  "glossaryNotFoundBody": "Revisa cómo lo escribiste o prueba con otra palabra.",
+  "glossarySuggestionsLabel": "Términos parecidos",
+  "@glossarySuggestionsLabel": {
+      "description": "HU0027 CA2, CP069 paso 4. Encabezado de las sugerencias por prefijo compartido"
+  },
+  "glossaryCategoryNutritional": "Nutricional",
+  "@glossaryCategoryNutritional": {
+      "description": "Categoria Nutritional. Texto literal de CP068 paso 6"
+  },
+  "glossaryCategoryClinicalIbs": "clínico del SII",
+  "@glossaryCategoryClinicalIbs": {
+      "description": "Categoria ClinicalIbs. Texto literal de CP068 paso 6, en minuscula como en el caso de prueba"
+  },
+  "glossaryCategorySystem": "propio del sistema",
+  "@glossaryCategorySystem": {
+      "description": "Categoria System. Texto literal de CP068 paso 6, en minuscula como en el caso de prueba"
+  },
+  "glossaryDraftNote": "Estas definiciones son una guía general y todavía están pendientes de la validación clínica final. Ante cualquier duda, consulta con tu equipo de salud.",
+  "@glossaryDraftNote": {
+      "description": "Se muestra mientras el backend declare contentStatus draft-pending-clinical-review (acta A27 del backend)"
+  },
+  "glossaryEmpty": "El glosario todavía no tiene términos.",
+  "glossaryLoadError": "No pudimos cargar el glosario",
   "@privacyConsentTextUnavailable": {
     "description": "Aceptaciones anteriores a que el backend guardara el texto por version. El endpoint del PDF responde 404 para estas"
   },

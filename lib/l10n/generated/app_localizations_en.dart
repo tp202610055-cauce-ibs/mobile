@@ -1575,6 +1575,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportNoDataHint => 'Choose a different date range and try again.';
 
   @override
+  String get glossaryTitle => 'Glossary';
+
+  @override
+  String get glossaryEntryHint => 'Medical and nutrition terms explained';
+
+  @override
+  String get glossarySearchLabel => 'Search a term';
+
+  @override
+  String get glossarySearchHint => 'For example: FODMAP';
+
+  @override
+  String get glossaryNotFoundTitle => 'That term is not in the glossary';
+
+  @override
+  String get glossaryNotFoundBody =>
+      'Check how you spelled it or try another word.';
+
+  @override
+  String get glossarySuggestionsLabel => 'Similar terms';
+
+  @override
+  String get glossaryCategoryNutritional => 'Nutritional';
+
+  @override
+  String get glossaryCategoryClinicalIbs => 'IBS clinical';
+
+  @override
+  String get glossaryCategorySystem => 'system-specific';
+
+  @override
+  String get glossaryDraftNote =>
+      'These definitions are a general guide and are still pending final clinical validation. If in doubt, ask your health team.';
+
+  @override
+  String get glossaryEmpty => 'The glossary has no terms yet.';
+
+  @override
+  String get glossaryLoadError => 'We could not load the glossary';
+
+  @override
   String get navHome => 'Home';
 
   @override

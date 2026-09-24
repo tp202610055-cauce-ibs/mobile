@@ -1577,6 +1577,47 @@ class AppLocalizationsEs extends AppLocalizations {
       'Elige un rango de fechas diferente y vuelve a intentarlo.';
 
   @override
+  String get glossaryTitle => 'Glosario';
+
+  @override
+  String get glossaryEntryHint => 'Términos médicos y nutricionales explicados';
+
+  @override
+  String get glossarySearchLabel => 'Buscar un término';
+
+  @override
+  String get glossarySearchHint => 'Por ejemplo: FODMAP';
+
+  @override
+  String get glossaryNotFoundTitle => 'Ese término no está en el glosario';
+
+  @override
+  String get glossaryNotFoundBody =>
+      'Revisa cómo lo escribiste o prueba con otra palabra.';
+
+  @override
+  String get glossarySuggestionsLabel => 'Términos parecidos';
+
+  @override
+  String get glossaryCategoryNutritional => 'Nutricional';
+
+  @override
+  String get glossaryCategoryClinicalIbs => 'clínico del SII';
+
+  @override
+  String get glossaryCategorySystem => 'propio del sistema';
+
+  @override
+  String get glossaryDraftNote =>
+      'Estas definiciones son una guía general y todavía están pendientes de la validación clínica final. Ante cualquier duda, consulta con tu equipo de salud.';
+
+  @override
+  String get glossaryEmpty => 'El glosario todavía no tiene términos.';
+
+  @override
+  String get glossaryLoadError => 'No pudimos cargar el glosario';
+
+  @override
   String get navHome => 'Inicio';
 
   @override
