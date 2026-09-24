@@ -545,3 +545,23 @@ Un badge que a veces dice "Moderado FODMAP" calculado por el móvil y a veces po
 Consecuencias. Hasta que el backend lo devuelva, el badge FODMAP solo existiría en el instante posterior a registrar una comida con conexión, y ni siquiera ahí, porque el Diario se recompone desde el listado. En la práctica es una pieza del design system implementada y sin datos. Los tests de la tarjeta la cubren igual, con el valor puesto a mano, de modo que el día que el dato llegue la pieza ya está probada.
 
 Alternativas consideradas. (a) Calcular el agregado en el cliente desde `food_catalog_cache`, descartada por la justificación. (b) Pedir el detalle de cada comida una por una para ver si ahí viene, descartada sin probarla: serían N peticiones por pantalla de Diario, y el contrato no declara que el detalle lo traiga. (c) Quitar el badge del Diario, descartada porque el dato es del contrato y lo que falta es que lo manden, no que el badge sobre.
+
+Acta M43: fl_chart entra solo para el gráfico de Evolución, y su estilo por defecto se doma
+
+Contexto. HU0023 pide una línea de tiempo del puntaje IBS-SSS con eje temporal, escala del instrumento, grilla y toque sobre un punto para ver su valor. El proyecto no tenía ninguna librería de gráficos: el único gráfico existente es `CauceSparkline`, 177 líneas de `CustomPainter` que dibujan una polilínea y sus marcadores, sin ejes y sin escala, por decisión propia documentada en su comentario. La tabla del stack del CLAUDE.md ya nombraba `fl_chart` como la opción prevista para IBS-SSS, con estado "Pendiente", pero nunca se instaló ni se aprobó.
+
+Decisión.
+
+1. Se agrega `fl_chart: ^1.2.0` a `pubspec.yaml`, y se usa **solo** en la pantalla de Evolución.
+2. `CauceSparkline` no se toca. Sigue siendo el gráfico chico que DEC-008 reserva para el hero de Inicio.
+3. El estilo por defecto de la librería se doma de forma explícita: sin gradiente, sin área sombreada bajo la línea, sin la paleta de alarma de fábrica, y sin curvatura. Eje vertical fijo de 0 a 500, grilla horizontal en el gris de los divisores, y la línea en `brandBase`.
+
+Justificación. La resolución se verificó antes de escribir una línea de pantalla, que era la condición del bloque. Contra el pin de Flutter 3.44.2, `flutter pub add fl_chart --dry-run` respondió "Would change 2 dependencies": entra `fl_chart 1.2.0` y su transitiva `equatable 2.1.0`, y **ninguna dependencia existente se mueve**. El diff de `pubspec.lock` es puramente aditivo, cero líneas eliminadas. Con la deuda de toolchain abierta (el SDK local está clavado en 3.44.2 porque 3.47.4 rompe el codegen), una dependencia que no toca el resto del grafo es exactamente lo que se podía aceptar.
+
+Escribir los ejes a mano sobre `CauceSparkline` era la alternativa sin dependencias, y se descartó por dos razones. La primera es que obligaba a ampliar un átomo compartido de `core/` que hoy usan Inicio y el cuestionario periódico, con el riesgo de mover dos pantallas ya probadas para servir a una tercera. La segunda es que lo que faltaba no era una línea más: eran ejes con etiquetas, escala, grilla e interacción táctil, que es precisamente el trabajo que una librería de gráficos ya resolvió.
+
+El domado del estilo no es cosmético. Es el mismo criterio que el comentario de `CauceSparkline` ya dejó escrito: el gráfico muestra una medición clínica y no debe sugerir un juicio que el paciente no está en condiciones de hacer solo. Un área sombreada bajo la línea sugiere "acumulado" cuando el valor es una medición puntual; una curva dibuja puntajes entre dos evaluaciones que nadie midió; y la paleta de rojos y ámbares de fábrica convierte un número en un veredicto.
+
+Consecuencias. El proyecto suma su primera dependencia de presentación desde `flutter_tabler_icons`. Quedan dos formas de dibujar una serie en el árbol, `CauceSparkline` y `IbsSssEvolutionChart`, y conviene que siga siendo así: la división no es por tamaño sino por si el gráfico necesita ejes. Cualquier gráfico futuro con ejes va con `fl_chart`; cualquier indicador de forma sin escala va con el sparkline.
+
+Alternativas consideradas. (a) Ampliar `CauceSparkline` con ejes, descartada por la justificación. (b) Un pintor propio dentro de la feature, sin tocar `core/`, descartada porque dejaba dos implementaciones de `CustomPainter` casi iguales y seguía sin resolver la interacción táctil. (c) `syncfusion_flutter_charts`, descartada sin probarla por su licencia comercial, que no corresponde comprometer en un proyecto académico con un piloto clínico por delante.

@@ -52,6 +52,16 @@ dependencies:
   # Iconografia del design system
   flutter_tabler_icons: ^1.43.0
 
+  # Grafico de la evolucion IBS-SSS (HU0023), por acta M43.
+  #
+  # Entra solo por la pantalla de Evolucion, que necesita ejes, escala y toque
+  # sobre un punto. `CauceSparkline` se queda como esta: es una polilinea sin
+  # ejes y no justifica una dependencia (DEC-008 lo deja en el hero de Inicio).
+  #
+  # Resolvio sin mover ninguna dependencia existente: suma fl_chart y su
+  # transitiva `equatable`, y nada mas.
+  fl_chart: ^1.2.0
+
   # Utilidades
   uuid: ^4.5.0
   intl: ^0.20.2
