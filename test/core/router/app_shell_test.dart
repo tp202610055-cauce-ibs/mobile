@@ -7,6 +7,8 @@ import 'package:cauce_mobile/core/network/dio_provider.dart';
 import 'package:cauce_mobile/core/sync/connectivity_monitor.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
+import 'package:cauce_mobile/features/glossary/data/glossary_repository.dart';
+import 'package:cauce_mobile/features/glossary/presentation/glossary_screen.dart';
 import 'package:cauce_mobile/features/history/presentation/history_screen.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
 import 'package:cauce_mobile/features/ibs_sss/data/ibs_sss_repository.dart';
@@ -29,6 +31,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/canned_http_adapter.dart';
 import '../../helpers/fake_auth_repository.dart';
+import '../../helpers/fake_glossary_repository.dart';
 import '../../helpers/fake_ibs_sss_repository.dart';
 import '../../helpers/fake_patients_repository.dart';
 import '../../helpers/fake_token_storage.dart';
@@ -90,6 +93,7 @@ Future<ProviderContainer> _pumpShell(
           ),
         ),
       ),
+      glossaryRepositoryProvider.overrideWithValue(FakeGlossaryRepository()),
       ibsSssRepositoryProvider.overrideWithValue(
         FakeIbsSssRepository()
           ..latest = latestAssessment
@@ -410,6 +414,28 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(ClinicalReportScreen), findsOneWidget);
+    });
+  });
+
+  group('AppShell · Glosario (HU0027)', () {
+    testWidgets('se llega desde Configuracion, en la seccion Sobre la app',
+        (tester) async {
+      // R10. El "menu de ayuda" de CP068 paso 2 no existe en la app; el acceso
+      // vive en Configuracion de cuenta, que se abre desde el engranaje.
+      await _pumpShell(tester);
+
+      await _tapTab(tester, 'nav_profile');
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('profile_settings_entry')));
+      await tester.pumpAndSettle();
+
+      final entry = find.byKey(const Key('settings_glossary'));
+      await tester.ensureVisible(entry);
+      await tester.pumpAndSettle();
+      await tester.tap(entry);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(GlossaryScreen), findsOneWidget);
     });
   });
 }

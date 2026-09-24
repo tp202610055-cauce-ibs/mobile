@@ -54,6 +54,12 @@ abstract final class AppRoutes {
   /// Perfil y seleccionar la opcion para generar su reporte".
   static const String profileReport = '/profile/report';
 
+  /// Glosario clinico-nutricional (HU0027).
+  ///
+  /// Hermana de las demas rutas bajo Perfil. Se alcanza desde la seccion
+  /// "Sobre la app" de Configuracion de cuenta.
+  static const String profileGlossary = '/profile/glossary';
+
   /// Registro de una comida (US09).
   static const String mealNew = '/meals/new';
 

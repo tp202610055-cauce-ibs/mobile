@@ -7,6 +7,7 @@ import '../../features/auth/application/session_notifier.dart';
 import '../../features/auth/presentation/auth_screens.dart';
 import '../../features/clinical_notes/presentation/clinical_note_form_screen.dart';
 import '../../features/custom_foods/presentation/custom_food_form_screen.dart';
+import '../../features/glossary/presentation/glossary_screen.dart';
 import '../../features/history/domain/history_entry.dart';
 import '../../features/history/presentation/history_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
@@ -113,6 +114,10 @@ GoRouter appRouter(Ref ref) {
                   GoRoute(
                     path: 'report',
                     builder: (_, __) => const ClinicalReportScreen(),
+                  ),
+                  GoRoute(
+                    path: 'glossary',
+                    builder: (_, __) => const GlossaryScreen(),
                   ),
                 ],
               ),
