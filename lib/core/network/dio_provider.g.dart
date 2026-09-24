@@ -151,6 +151,28 @@ final ibsSssApiProvider = Provider<IbsSssApi>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IbsSssApiRef = ProviderRef<IbsSssApi>;
+String _$glossaryApiHash() => r'0d549e5e6b22441ef82572ff2907da7dca34bd88';
+
+/// Glosario clinico-nutricional (HU0027). Mobile-4 Bloque 5.
+///
+/// Accesible para cualquier autenticado; la definicion que devuelve depende
+/// del rol del JWT, de modo que el paciente recibe la redactada para el.
+/// Solo se usa `GET /glossary`: la busqueda se resuelve en el cliente.
+///
+/// Copied from [glossaryApi].
+@ProviderFor(glossaryApi)
+final glossaryApiProvider = Provider<GlossaryApi>.internal(
+  glossaryApi,
+  name: r'glossaryApiProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$glossaryApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GlossaryApiRef = ProviderRef<GlossaryApi>;
 String _$foodsApiHash() => r'df093a2dd734819110f9186fdc1cf5d21f00506c';
 
 /// Catalogo de alimentos: listado, busqueda, detalle y sugerencias.

@@ -110,12 +110,22 @@ IbsSssApi ibsSssApi(Ref ref) => ref.watch(apiClientProvider).getIbsSssApi();
 // ---------------------------------------------------------------------------
 // Modulo ClinicalRegistry (EP0002). Agregados en Mobile-3.
 //
-// `GlossaryApi` e `HistoryApi` quedan deliberadamente fuera: el glosario no
-// entra en el alcance del bloque, y `GET /history` es inutilizable con el
-// cliente generado porque el contrato aplana su jerarquia polimorfica a
-// `{occurredAt}` y el resto del evento se descarta al deserializar. El
-// historial se compone desde `/meals`, `/symptoms` y `/clinical-notes`.
+// `HistoryApi` sigue sin provider. Antes del contrato v1.3.0 `GET /history`
+// era inutilizable porque aplanaba su jerarquia polimorfica a `{occurredAt}`;
+// desde la regeneracion de Mobile-4 Bloque 1 declara `oneOf` con los tres
+// eventos concretos, asi que ese motivo ya no aplica. El historial se sigue
+// componiendo desde `/meals`, `/symptoms` y `/clinical-notes` hasta que un
+// bloque propio decida migrarlo (acta M36).
 // ---------------------------------------------------------------------------
+
+/// Glosario clinico-nutricional (HU0027). Mobile-4 Bloque 5.
+///
+/// Accesible para cualquier autenticado; la definicion que devuelve depende
+/// del rol del JWT, de modo que el paciente recibe la redactada para el.
+/// Solo se usa `GET /glossary`: la busqueda se resuelve en el cliente.
+@Riverpod(keepAlive: true)
+GlossaryApi glossaryApi(Ref ref) =>
+    ref.watch(apiClientProvider).getGlossaryApi();
 
 /// Catalogo de alimentos: listado, busqueda, detalle y sugerencias.
 ///
