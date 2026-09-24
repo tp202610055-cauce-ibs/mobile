@@ -295,6 +295,22 @@ sealed class CauceApiError with _$CauceApiError {
   const factory CauceApiError.consentRecordNotFound() =
       ConsentRecordNotFoundError;
 
+  /// 422 `patient_has_no_data_in_period`. El periodo pedido no tiene ningun
+  /// registro (HU0024 CA02, CP063).
+  ///
+  /// **No es un fallo.** El backend comprueba `HasDataInPeriodAsync` antes de
+  /// generar nada, justamente para no emitir un PDF vacio. La pantalla lo
+  /// trata como una respuesta valida y sugiere otro rango.
+  const factory CauceApiError.patientHasNoDataInPeriod() =
+      PatientHasNoDataInPeriodError;
+
+  /// 422 `report_period_invalid`. Invariante de dominio del periodo.
+  ///
+  /// Las reglas del validador (los dos extremos, orden, tope de 90 dias)
+  /// responden **400 con `errors`**, no este codigo. Se mapea igual para no
+  /// dejar el switch incompleto.
+  const factory CauceApiError.reportPeriodInvalid() = ReportPeriodInvalidError;
+
   /// 403 `forbidden`.
   const factory CauceApiError.forbidden() = ForbiddenError;
 

@@ -57,6 +57,9 @@ abstract final class ErrorMapper {
   static const String _invalidClinicalNoteAssociation =
       'invalid_clinical_note_association';
   static const String _idempotencyMismatch = 'idempotency_mismatch';
+  static const String _patientHasNoDataInPeriod =
+      'patient_has_no_data_in_period';
+  static const String _reportPeriodInvalid = 'report_period_invalid';
   static const String _domainRuleViolation = 'domain_rule_violation';
 
   /// Punto de entrada. Convierte cualquier [DioException] en un error tipado.
@@ -149,6 +152,9 @@ abstract final class ErrorMapper {
       _invalidClinicalNoteAssociation =>
         const CauceApiError.invalidClinicalNoteAssociation(),
       _idempotencyMismatch => const CauceApiError.idempotencyMismatch(),
+      _patientHasNoDataInPeriod =>
+        const CauceApiError.patientHasNoDataInPeriod(),
+      _reportPeriodInvalid => const CauceApiError.reportPeriodInvalid(),
       _domainRuleViolation => CauceApiError.domainRuleViolation(
           detail: _string(body['detail']),
         ),
@@ -314,8 +320,13 @@ abstract final class ErrorMapper {
   /// descargas declaran `responseType: ResponseType.bytes`, y dio aplica ese
   /// tipo tambien a las respuestas de error: el `problem+json` del 404 llega
   /// como `Uint8List` y, sin decodificarlo, el `errorCode` se pierde y todo
-  /// degrada a [UnknownError]. Le pasa a `consent/pdf`, y le pasaria igual a
-  /// `export-data` y a los reportes.
+  /// degrada a [UnknownError]. Le pasa a `consent/pdf`, que es hoy el unico
+  /// endpoint del movil que declara ese `responseType`.
+  ///
+  /// **No le pasa ni a `export-data` ni al autoreporte**, aunque este
+  /// comentario lo decia hasta Mobile-4: los dos terminaron devolviendo una
+  /// URL prefirmada en JSON, no el binario, asi que su `problem+json` llega
+  /// como `Map` y el `errorCode` se conserva.
   static Map<String, dynamic> _asMap(Object? data) {
     if (data is Map<String, dynamic>) {
       return data;

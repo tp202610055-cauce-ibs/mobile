@@ -250,6 +250,8 @@ mixin _$CauceApiError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -295,6 +297,8 @@ mixin _$CauceApiError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -340,6 +344,8 @@ mixin _$CauceApiError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -401,6 +407,10 @@ mixin _$CauceApiError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -450,6 +460,9 @@ mixin _$CauceApiError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -496,6 +509,9 @@ mixin _$CauceApiError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -653,6 +669,8 @@ class _$ValidationErrorImpl implements ValidationError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -701,6 +719,8 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -749,6 +769,8 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -816,6 +838,10 @@ class _$ValidationErrorImpl implements ValidationError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -868,6 +894,9 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -917,6 +946,9 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -1028,6 +1060,8 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -1076,6 +1110,8 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -1124,6 +1160,8 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -1191,6 +1229,10 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -1243,6 +1285,9 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -1292,6 +1337,9 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -1418,6 +1466,8 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -1466,6 +1516,8 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -1514,6 +1566,8 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -1581,6 +1635,10 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -1633,6 +1691,9 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -1682,6 +1743,9 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -1789,6 +1853,8 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -1837,6 +1903,8 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -1885,6 +1953,8 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -1952,6 +2022,10 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -2004,6 +2078,9 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -2053,6 +2130,9 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -2151,6 +2231,8 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -2199,6 +2281,8 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -2247,6 +2331,8 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -2314,6 +2400,10 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -2366,6 +2456,9 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -2415,6 +2508,9 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -2540,6 +2636,8 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -2588,6 +2686,8 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -2636,6 +2736,8 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -2703,6 +2805,10 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -2755,6 +2861,9 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -2804,6 +2913,9 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -2940,6 +3052,8 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -2988,6 +3102,8 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -3036,6 +3152,8 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -3103,6 +3221,10 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -3155,6 +3277,9 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -3204,6 +3329,9 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -3344,6 +3472,8 @@ class _$NutritionistNotAvailableErrorImpl
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -3392,6 +3522,8 @@ class _$NutritionistNotAvailableErrorImpl
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -3440,6 +3572,8 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -3507,6 +3641,10 @@ class _$NutritionistNotAvailableErrorImpl
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -3559,6 +3697,9 @@ class _$NutritionistNotAvailableErrorImpl
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -3608,6 +3749,9 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -3719,6 +3863,8 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -3767,6 +3913,8 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -3815,6 +3963,8 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -3882,6 +4032,10 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -3934,6 +4088,9 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -3983,6 +4140,9 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -4084,6 +4244,8 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -4132,6 +4294,8 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -4180,6 +4344,8 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -4247,6 +4413,10 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -4299,6 +4469,9 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -4348,6 +4521,9 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -4448,6 +4624,8 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -4496,6 +4674,8 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -4544,6 +4724,8 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -4611,6 +4793,10 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -4663,6 +4849,9 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -4712,6 +4901,9 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -4812,6 +5004,8 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -4860,6 +5054,8 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -4908,6 +5104,8 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -4975,6 +5173,10 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -5027,6 +5229,9 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -5076,6 +5281,9 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -5174,6 +5382,8 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -5222,6 +5432,8 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -5270,6 +5482,8 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -5337,6 +5551,10 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -5389,6 +5607,9 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -5438,6 +5659,9 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -5537,6 +5761,8 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -5585,6 +5811,8 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -5633,6 +5861,8 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -5700,6 +5930,10 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -5752,6 +5986,9 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -5801,6 +6038,9 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -5901,6 +6141,8 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -5949,6 +6191,8 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -5997,6 +6241,8 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -6064,6 +6310,10 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -6116,6 +6366,9 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -6165,6 +6418,9 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -6268,6 +6524,8 @@ class _$DuplicateBaselineAssessmentErrorImpl
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -6316,6 +6574,8 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -6364,6 +6624,8 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -6431,6 +6693,10 @@ class _$DuplicateBaselineAssessmentErrorImpl
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -6483,6 +6749,9 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -6532,6 +6801,9 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -6632,6 +6904,8 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -6680,6 +6954,8 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -6728,6 +7004,8 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -6795,6 +7073,10 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -6847,6 +7129,9 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -6896,6 +7181,9 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -6996,6 +7284,8 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -7044,6 +7334,8 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -7092,6 +7384,8 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -7159,6 +7453,10 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -7211,6 +7509,9 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -7260,6 +7561,9 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -7360,6 +7664,8 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -7408,6 +7714,8 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -7456,6 +7764,8 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -7523,6 +7833,10 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -7575,6 +7889,9 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -7624,6 +7941,9 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -7722,6 +8042,8 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -7770,6 +8092,8 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -7818,6 +8142,8 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -7885,6 +8211,10 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -7937,6 +8267,9 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -7986,6 +8319,9 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -8086,6 +8422,8 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -8134,6 +8472,8 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -8182,6 +8522,8 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -8249,6 +8591,10 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -8301,6 +8647,9 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -8350,6 +8699,9 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -8450,6 +8802,8 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -8498,6 +8852,8 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -8546,6 +8902,8 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -8613,6 +8971,10 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -8665,6 +9027,9 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -8714,6 +9079,9 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -8850,6 +9218,8 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -8898,6 +9268,8 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -8946,6 +9318,8 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -9013,6 +9387,10 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -9065,6 +9443,9 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -9114,6 +9495,9 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -9226,6 +9610,8 @@ class _$InvalidMealRegistrationErrorImpl
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -9274,6 +9660,8 @@ class _$InvalidMealRegistrationErrorImpl
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -9322,6 +9710,8 @@ class _$InvalidMealRegistrationErrorImpl
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -9389,6 +9779,10 @@ class _$InvalidMealRegistrationErrorImpl
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -9441,6 +9835,9 @@ class _$InvalidMealRegistrationErrorImpl
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -9490,6 +9887,9 @@ class _$InvalidMealRegistrationErrorImpl
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -9588,6 +9988,8 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -9636,6 +10038,8 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -9684,6 +10088,8 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -9751,6 +10157,10 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -9803,6 +10213,9 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -9852,6 +10265,9 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -9950,6 +10366,8 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -9998,6 +10416,8 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -10046,6 +10466,8 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -10113,6 +10535,10 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -10165,6 +10591,9 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -10214,6 +10643,9 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -10314,6 +10746,8 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -10362,6 +10796,8 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -10410,6 +10846,8 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -10477,6 +10915,10 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -10529,6 +10971,9 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -10578,6 +11023,9 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -10680,6 +11128,8 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -10728,6 +11178,8 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -10776,6 +11228,8 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -10843,6 +11297,10 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -10895,6 +11353,9 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -10944,6 +11405,9 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -11045,6 +11509,8 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -11093,6 +11559,8 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -11141,6 +11609,8 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -11208,6 +11678,10 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -11260,6 +11734,9 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -11309,6 +11786,9 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -11436,6 +11916,8 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -11484,6 +11966,8 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -11532,6 +12016,8 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -11599,6 +12085,10 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -11651,6 +12141,9 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -11700,6 +12193,9 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -11809,6 +12305,8 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -11857,6 +12355,8 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -11905,6 +12405,8 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -11972,6 +12474,10 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -12024,6 +12530,9 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -12073,6 +12582,9 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -12199,6 +12711,8 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -12247,6 +12761,8 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -12295,6 +12811,8 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -12362,6 +12880,10 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -12414,6 +12936,9 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -12463,6 +12988,9 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -12572,6 +13100,8 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -12620,6 +13150,8 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -12668,6 +13200,8 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -12735,6 +13269,10 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -12787,6 +13325,9 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -12836,6 +13377,9 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -12935,6 +13479,8 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -12983,6 +13529,8 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -13031,6 +13579,8 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -13098,6 +13648,10 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -13150,6 +13704,9 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -13199,6 +13756,9 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -13299,6 +13859,8 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -13347,6 +13909,8 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -13395,6 +13959,8 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -13462,6 +14028,10 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -13514,6 +14084,9 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -13563,6 +14136,9 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -13577,6 +14153,769 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
 
 abstract class ConsentRecordNotFoundError implements CauceApiError {
   const factory ConsentRecordNotFoundError() = _$ConsentRecordNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$PatientHasNoDataInPeriodErrorImplCopyWith<$Res> {
+  factory _$$PatientHasNoDataInPeriodErrorImplCopyWith(
+          _$PatientHasNoDataInPeriodErrorImpl value,
+          $Res Function(_$PatientHasNoDataInPeriodErrorImpl) then) =
+      __$$PatientHasNoDataInPeriodErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PatientHasNoDataInPeriodErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res,
+        _$PatientHasNoDataInPeriodErrorImpl>
+    implements _$$PatientHasNoDataInPeriodErrorImplCopyWith<$Res> {
+  __$$PatientHasNoDataInPeriodErrorImplCopyWithImpl(
+      _$PatientHasNoDataInPeriodErrorImpl _value,
+      $Res Function(_$PatientHasNoDataInPeriodErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$PatientHasNoDataInPeriodErrorImpl
+    implements PatientHasNoDataInPeriodError {
+  const _$PatientHasNoDataInPeriodErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.patientHasNoDataInPeriod()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PatientHasNoDataInPeriodErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return patientHasNoDataInPeriod();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return patientHasNoDataInPeriod?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (patientHasNoDataInPeriod != null) {
+      return patientHasNoDataInPeriod();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return patientHasNoDataInPeriod(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return patientHasNoDataInPeriod?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (patientHasNoDataInPeriod != null) {
+      return patientHasNoDataInPeriod(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PatientHasNoDataInPeriodError implements CauceApiError {
+  const factory PatientHasNoDataInPeriodError() =
+      _$PatientHasNoDataInPeriodErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$ReportPeriodInvalidErrorImplCopyWith<$Res> {
+  factory _$$ReportPeriodInvalidErrorImplCopyWith(
+          _$ReportPeriodInvalidErrorImpl value,
+          $Res Function(_$ReportPeriodInvalidErrorImpl) then) =
+      __$$ReportPeriodInvalidErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ReportPeriodInvalidErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$ReportPeriodInvalidErrorImpl>
+    implements _$$ReportPeriodInvalidErrorImplCopyWith<$Res> {
+  __$$ReportPeriodInvalidErrorImplCopyWithImpl(
+      _$ReportPeriodInvalidErrorImpl _value,
+      $Res Function(_$ReportPeriodInvalidErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
+  const _$ReportPeriodInvalidErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.reportPeriodInvalid()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReportPeriodInvalidErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return reportPeriodInvalid();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return reportPeriodInvalid?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (reportPeriodInvalid != null) {
+      return reportPeriodInvalid();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return reportPeriodInvalid(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return reportPeriodInvalid?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (reportPeriodInvalid != null) {
+      return reportPeriodInvalid(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ReportPeriodInvalidError implements CauceApiError {
+  const factory ReportPeriodInvalidError() = _$ReportPeriodInvalidErrorImpl;
 }
 
 /// @nodoc
@@ -13660,6 +14999,8 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -13708,6 +15049,8 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -13756,6 +15099,8 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -13823,6 +15168,10 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -13875,6 +15224,9 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -13924,6 +15276,9 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -14021,6 +15376,8 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -14069,6 +15426,8 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -14117,6 +15476,8 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -14184,6 +15545,10 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -14236,6 +15601,9 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -14285,6 +15653,9 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -14428,6 +15799,8 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function() keycloakIntegration,
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -14476,6 +15849,8 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function()? keycloakIntegration,
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -14524,6 +15899,8 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function()? keycloakIntegration,
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -14591,6 +15968,10 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function(UserLocalMissingError value) userLocalMissing,
     required TResult Function(ConsentRecordNotFoundError value)
         consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -14643,6 +16024,9 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult? Function(UserLocalMissingError value)? userLocalMissing,
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -14692,6 +16076,9 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
     TResult Function(UserLocalMissingError value)? userLocalMissing,
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
