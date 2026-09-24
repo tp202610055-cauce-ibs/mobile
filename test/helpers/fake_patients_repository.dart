@@ -106,6 +106,18 @@ class FakePatientsRepository implements PatientsRepository {
   AcceptedConsent acceptedConsentValue = demoAcceptedConsent;
   CauceApiError? acceptedConsentError;
 
+  /// Reporte que devuelve [generateReport].
+  ClinicalReport reportValue = ClinicalReport(
+    reportId: 'eeeeeeee-0000-4000-8000-000000000001',
+    downloadUrl: 'https://minio.local/reports/paciente-demo.pdf',
+    expiresAt: DateTime.utc(2026, 9, 25, 9, 0),
+  );
+  CauceApiError? generateReportError;
+
+  /// Periodos con los que se llamo a [generateReport], en orden.
+  final List<({DateTime start, DateTime end})> requestedReportPeriods =
+      <({DateTime start, DateTime end})>[];
+
   /// Enlace de exportacion que devuelve [exportData].
   DataExportLink exportLinkValue = DataExportLink(
     downloadUrl: 'https://minio.local/exports/paciente-demo.zip',
@@ -196,6 +208,20 @@ class FakePatientsRepository implements PatientsRepository {
       throw error;
     }
     return summaryValue;
+  }
+
+  @override
+  Future<ClinicalReport> generateReport({
+    required DateTime periodStart,
+    required DateTime periodEnd,
+  }) async {
+    await _wait();
+    final error = generateReportError;
+    if (error != null) {
+      throw error;
+    }
+    requestedReportPeriods.add((start: periodStart, end: periodEnd));
+    return reportValue;
   }
 
   @override

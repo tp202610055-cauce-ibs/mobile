@@ -17,6 +17,7 @@ import 'package:cauce_mobile/features/meals/presentation/meal_form_screen.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/ibs_sss_baseline_screen.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/patients/presentation/account_settings_screen.dart';
+import 'package:cauce_mobile/features/patients/presentation/clinical_report_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/profile_screen.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendations_screen.dart';
 import 'package:cauce_mobile/features/symptoms/presentation/symptom_form_screen.dart';
@@ -388,6 +389,27 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(AccountSettingsScreen), findsOneWidget);
+    });
+  });
+
+  group('AppShell · Reporte personal (HU0024)', () {
+    testWidgets('se llega desde Perfil tocando la fila del reporte',
+        (tester) async {
+      // R10. CP062 paso 2 y CP063 paso 1 describen el recorrido como "acceder
+      // a la seccion Perfil... seleccionar la opcion para generar su reporte".
+      await _pumpShell(tester);
+
+      await _tapTab(tester, 'nav_profile');
+      await tester.pumpAndSettle();
+      expect(find.byType(ProfileScreen), findsOneWidget);
+
+      final entry = find.byKey(const Key('profile_report_entry'));
+      await tester.ensureVisible(entry);
+      await tester.pumpAndSettle();
+      await tester.tap(entry);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ClinicalReportScreen), findsOneWidget);
     });
   });
 }
