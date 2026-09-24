@@ -7,6 +7,7 @@ import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/widgets/onboarding_labels.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/patients/domain/patient_profile.dart';
+import 'package:cauce_mobile/features/patients/presentation/account_settings_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/privacy_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/profile_screen.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
@@ -68,6 +69,10 @@ Future<void> _pumpWithoutSettle(
                   path: AppRoutes.profilePrivacy.substring(1),
                   builder: (_, __) => const PrivacyScreen(),
                 ),
+                GoRoute(
+                  path: AppRoutes.profileSettings.substring(1),
+                  builder: (_, __) => const AccountSettingsScreen(),
+                ),
               ],
             ),
           ],
@@ -103,14 +108,16 @@ void main() {
     });
   });
 
-  group('ProfileScreen · acceso a privacidad', () {
-    testWidgets('el engranaje abre Privacidad', (tester) async {
+  group('ProfileScreen · acceso a la configuracion', () {
+    testWidgets('el engranaje abre Configuracion de cuenta', (tester) async {
+      // Hasta Mobile-4 llevaba directo a Privacidad, que era la unica de sus
+      // secciones construida. Ahora Privacidad se alcanza desde adentro.
       await _pump(tester);
 
-      await tester.tap(find.byKey(const Key('profile_privacy_entry')));
+      await tester.tap(find.byKey(const Key('profile_settings_entry')));
       await tester.pumpAndSettle();
 
-      expect(find.byType(PrivacyScreen), findsOneWidget);
+      expect(find.byType(AccountSettingsScreen), findsOneWidget);
     });
 
     testWidgets('sigue disponible aunque el resumen falle', (tester) async {
@@ -121,7 +128,7 @@ void main() {
         ..fetchSummaryError = const CauceApiError.network();
       await _pump(tester, repository: repository);
 
-      expect(find.byKey(const Key('profile_privacy_entry')), findsOneWidget);
+      expect(find.byKey(const Key('profile_settings_entry')), findsOneWidget);
       expect(find.byKey(const Key('profile_logout')), findsOneWidget);
     });
   });

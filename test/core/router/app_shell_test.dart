@@ -16,6 +16,7 @@ import 'package:cauce_mobile/features/ibs_sss/presentation/periodic_assessment_s
 import 'package:cauce_mobile/features/meals/presentation/meal_form_screen.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/ibs_sss_baseline_screen.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
+import 'package:cauce_mobile/features/patients/presentation/account_settings_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/profile_screen.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendations_screen.dart';
 import 'package:cauce_mobile/features/symptoms/presentation/symptom_form_screen.dart';
@@ -369,6 +370,24 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(EvolutionScreen), findsOneWidget);
+    });
+  });
+
+  group('AppShell · Configuracion de cuenta (mockup 12b)', () {
+    testWidgets('se llega desde Perfil tocando el engranaje', (tester) async {
+      // R10: la ruta nueva tiene que ser alcanzable con el dedo desde la raiz.
+      // Reemplaza al salto directo a Privacidad, que es ahora una seccion de
+      // adentro y no el destino del engranaje.
+      await _pumpShell(tester);
+
+      await _tapTab(tester, 'nav_profile');
+      await tester.pumpAndSettle();
+      expect(find.byType(ProfileScreen), findsOneWidget);
+
+      await tester.tap(find.byKey(const Key('profile_settings_entry')));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(AccountSettingsScreen), findsOneWidget);
     });
   });
 }

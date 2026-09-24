@@ -106,6 +106,18 @@ class FakePatientsRepository implements PatientsRepository {
   AcceptedConsent acceptedConsentValue = demoAcceptedConsent;
   CauceApiError? acceptedConsentError;
 
+  /// Enlace de exportacion que devuelve [exportData].
+  DataExportLink exportLinkValue = DataExportLink(
+    downloadUrl: 'https://minio.local/exports/paciente-demo.zip',
+    expiresAt: DateTime.utc(2026, 9, 23, 15, 5),
+  );
+  CauceApiError? exportDataError;
+  int exportDataCalls = 0;
+
+  /// Confirmaciones de piloto con las que se llamo a [deleteAccount].
+  final List<bool> deleteAcknowledgements = <bool>[];
+  CauceApiError? deleteAccountError;
+
   /// Lo que devuelve [fetchSummary].
   PatientSummary summaryValue = demoSummary;
   CauceApiError? fetchSummaryError;
@@ -184,6 +196,27 @@ class FakePatientsRepository implements PatientsRepository {
       throw error;
     }
     return summaryValue;
+  }
+
+  @override
+  Future<DataExportLink> exportData() async {
+    exportDataCalls++;
+    await _wait();
+    final error = exportDataError;
+    if (error != null) {
+      throw error;
+    }
+    return exportLinkValue;
+  }
+
+  @override
+  Future<void> deleteAccount({required bool activePilotAcknowledged}) async {
+    await _wait();
+    final error = deleteAccountError;
+    if (error != null) {
+      throw error;
+    }
+    deleteAcknowledgements.add(activePilotAcknowledged);
   }
 
   @override
