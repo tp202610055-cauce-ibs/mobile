@@ -69,6 +69,14 @@ dependencies:
   # consentimiento donde pueda volver a encontrarlo (HU0001 escenario 4,
   # CP004 pasos 6 y 7). Misma familia que connectivity_plus.
   share_plus: ^12.0.2
+  # Apertura del ZIP de portabilidad en el navegador del sistema (HU0025,
+  # CP064 paso 5), por acta M44. El endpoint devuelve una URL prefirmada y no
+  # bytes, de modo que la hoja de compartir de `share_plus` no sirve: lo que
+  # hay que abrir es un enlace, no un archivo que el movil ya tenga.
+  url_launcher: ^6.3.2
+  # Version y build de la app para la seccion "Sobre la app" (mockup 12b), por
+  # acta M44. Se fija en 9.x: la 10.x pide un SDK mas nuevo que el pin 3.44.2.
+  package_info_plus: ^9.0.1
   flutter_dotenv: ^5.2.1
   connectivity_plus: ^6.0.5
 

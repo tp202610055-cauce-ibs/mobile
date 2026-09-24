@@ -565,3 +565,54 @@ El domado del estilo no es cosmético. Es el mismo criterio que el comentario de
 Consecuencias. El proyecto suma su primera dependencia de presentación desde `flutter_tabler_icons`. Quedan dos formas de dibujar una serie en el árbol, `CauceSparkline` y `IbsSssEvolutionChart`, y conviene que siga siendo así: la división no es por tamaño sino por si el gráfico necesita ejes. Cualquier gráfico futuro con ejes va con `fl_chart`; cualquier indicador de forma sin escala va con el sparkline.
 
 Alternativas consideradas. (a) Ampliar `CauceSparkline` con ejes, descartada por la justificación. (b) Un pintor propio dentro de la feature, sin tocar `core/`, descartada porque dejaba dos implementaciones de `CustomPainter` casi iguales y seguía sin resolver la interacción táctil. (c) `syncfusion_flutter_charts`, descartada sin probarla por su licencia comercial, que no corresponde comprometer en un proyecto académico con un piloto clínico por delante.
+
+Acta M44: url_launcher y package_info_plus para Configuración de cuenta, y el piso de SDK que empujan
+
+Contexto. La pantalla de Configuración de cuenta (mockup 12b) necesita dos cosas que el proyecto no tenía. La exportación de portabilidad (HU0025) devuelve una **URL prefirmada**, no bytes: `ExportMyDataResult` trae `downloadUrl` y `expiresAtUtc`, de modo que la hoja de compartir de `share_plus`, que sirve para el PDF del consentimiento, no aplica. Lo que hay que abrir es un enlace. Y la sección "Sobre la app" muestra versión y compilación, que son datos del paquete instalado y no de la API.
+
+Decisión.
+
+1. Se agrega `url_launcher: ^6.3.2`, usado solo para abrir el enlace del ZIP en modo `externalApplication`.
+2. Se agrega `package_info_plus: ^9.0.1`, usado solo para la fila de versión.
+3. Las dos se consumen detrás de una interfaz propia (`DataExportLauncher`, `appPackageInfoProvider`), con el mismo criterio que `ConsentPdfSharer`: un test no debería depender de que el sistema operativo responda.
+
+Justificación de la resolución, verificada antes de escribir código de pantalla.
+
+| Paquete | Lo que suma | Dependencias existentes que mueve |
+| --- | --- | --- |
+| `url_launcher` 6.3.2 | más `url_launcher_android` 6.3.33, `url_launcher_ios` 6.4.2, `url_launcher_macos` 3.2.6 | ninguna |
+| `package_info_plus` 9.0.1 | más `package_info_plus_platform_interface` 3.2.1 | ninguna |
+
+El diff de `pubspec.lock` no elimina ningún paquete. `package_info_plus` se fija en la rama 9.x y no en la 10.2.1 disponible porque la 10.x pide un SDK más nuevo que el pin; el resolutor lo eligió solo.
+
+**El piso de SDK del lockfile subió, y eso sí es un cambio real.** El bloque `sdks:` pasó de `dart >=3.10.3` / `flutter >=3.38.4` a `dart >=3.12.0` / `flutter >=3.44.0`. El responsable es `url_launcher_android` 6.3.33, cuyo `environment` declara `sdk: ^3.12.0` y `flutter: ">=3.44.0"`.
+
+El pin local y el de CI son los dos **3.44.2**, así que resuelve y compila. Lo que desaparece es el margen: el proyecto ya no puede bajar de Flutter 3.44.0 sin romper la resolución, y antes podía llegar hasta 3.38.4. Es la diferencia con el acta M43, donde `fl_chart` no movió absolutamente nada. Queda anotado porque la deuda de toolchain sigue abierta: el SDK está clavado en 3.44.2 porque 3.47.4 rompe el codegen, y ahora el borde inferior también está tocando.
+
+Consecuencias. Cualquier intento futuro de bajar el pin por debajo de 3.44.0 exige revisar `url_launcher_android` primero. Subir sigue bloqueado por la migración de Riverpod 2 a 3, que es un bloque propio.
+
+Alternativas consideradas. (a) Descargar el ZIP dentro de la app y pasarlo a `share_plus`, descartada porque obligaría a traer a disco el expediente clínico completo del paciente para después entregarlo, ampliando sin necesidad la superficie bajo la Ley N.° 29733; el enlace prefirmado ya vence en 60 minutos por el acta A60 del backend y el gestor de descargas del sistema es quien sabe dónde dejar el archivo. (b) Escribir la versión a mano en una constante, descartada porque se desincroniza del `pubspec` en el primer release y nadie lo nota hasta que un paciente reporta un número equivocado.
+
+---
+
+Acta M45: Configuración de cuenta no absorbe a Privacidad, y seis de sus once filas nacen con guarda
+
+Contexto. El mockup 12b dibuja una pantalla de ajustes con cinco secciones. Al inventariarla contra el contrato, solo tres de sus once filas accionables tenían respaldo real: exportación de datos, eliminación de cuenta y cierre de sesión. Además, ya existía `PrivacyScreen`, construida en el bloque de HU0001 escenario 4 para CP004, cuyo comentario anticipaba que la exportación y la baja aterrizarían **ahí**.
+
+Decisión.
+
+1. **`PrivacyScreen` no se toca ni se absorbe.** Conserva su archivo, su ruta `/profile/privacy` y sus 14 casos de prueba. La pantalla nueva vive en `/profile/settings` y la enlaza desde la sección "Sobre la app".
+2. El engranaje de Perfil pasa a abrir Configuración, que es su destino según P12 y el nombre que usan CP064 paso 2 y CP067 paso 2 ("abrir la configuración de la cuenta desde la sección Perfil"). La key de esa acción se renombra de `profile_privacy_entry` a `profile_settings_entry`.
+3. La fila que el mockup llama "Política de privacidad" se renombra a "Tu consentimiento y tus datos". El destino es `PrivacyScreen`, que muestra y descarga el consentimiento aceptado: prometer un documento legal que no existe sería peor que nombrar lo que hay.
+4. La fila "Solicitar corrección o eliminación" del mockup **se parte en dos**. La eliminación tiene endpoint y se construye entera; la corrección es edición de perfil y va con guarda. Juntarlas obligaría a bloquear la mitad que sí funciona.
+5. Seis filas nacen con guarda "Próximamente": los dos avisos de notificaciones, corrección de datos, oposición al tratamiento y términos y condiciones.
+
+Justificación. La contradicción entre el comentario de `PrivacyScreen` y el mockup era real y no la resolvía ninguno de los dos documentos. Se eligió no absorber porque `PrivacyScreen` está construida, probada con 14 casos y cubre un criterio de una historia distinta: CP004 es HU0001 escenario 4, no HU0025 ni HU0026. Fusionarla habría significado migrar esos catorce casos para no ganar ninguna función.
+
+Sobre la forma de la guarda, la condición de la Ley N.° 29733 que fijó Trigo es que ninguna acción deshabilitada simule una confirmación. Se implementó literal: `onTap` en `null`, etiqueta "Próximamente" en la fila misma y no en un tooltip, y **ningún aviso al tocar**, porque una fila inerte no produce toque que responder. Los dos interruptores de notificaciones van con `onChanged` en `null` y sin estado local: un switch que se mueve y recuerda su posición sin nada detrás es exactamente la confirmación falsa que la condición prohíbe.
+
+**Las notificaciones no tienen historia de usuario.** El backlog real tiene 30 historias, HU0001 a HU0030, y ninguna trata sobre configurarlas; HU0012 y HU0014 son de **recibir** un aviso. Tampoco hay caso de prueba. La numeración "US18" que cita el mockup no corresponde a ninguna HU: los "US" del mockup vienen de una numeración anterior y no sirven para trazar, como también se ve en "US20 · Cerrar sesión", que en el backlog real es HU0008. Se construyen con guarda porque la decisión de armar el mockup entero ya estaba tomada, y queda anotado que redactar esa historia es trabajo de Trigo y Mirian.
+
+Consecuencias. Hay dos pantallas hermanas bajo Perfil, y la de Privacidad solo se alcanza a través de la de Configuración. El día que exista el endpoint de preferencias, o que se corrija el dato de prueba de CP071, la guarda se reemplaza por la acción real sin mover la estructura de la pantalla.
+
+Alternativas consideradas. (a) Absorber Privacidad dentro de Configuración, descartada por la justificación. (b) Hacer crecer Privacidad y no construir P12-B, descartada por la decisión ya tomada de armar el mockup entero. (c) Omitir las filas sin respaldo, descartada porque una pantalla de derechos que no nombra los derechos que todavía no se pueden ejercer es menos honesta que una que los nombra y dice que están en camino.
