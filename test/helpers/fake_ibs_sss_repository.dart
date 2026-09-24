@@ -78,6 +78,9 @@ class FakeIbsSssRepository implements IbsSssRepository {
 
   @override
   Future<List<IbsSssEvolutionPoint>> evolution() async {
+    if (delay != Duration.zero) {
+      await Future<void>.delayed(delay);
+    }
     final pending = error;
     if (pending != null) {
       throw pending;

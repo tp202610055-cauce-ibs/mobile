@@ -11,6 +11,7 @@ import 'package:cauce_mobile/features/history/presentation/history_screen.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
 import 'package:cauce_mobile/features/ibs_sss/data/ibs_sss_repository.dart';
 import 'package:cauce_mobile/features/ibs_sss/domain/ibs_sss_assessment.dart';
+import 'package:cauce_mobile/features/ibs_sss/presentation/evolution_screen.dart';
 import 'package:cauce_mobile/features/ibs_sss/presentation/periodic_assessment_screen.dart';
 import 'package:cauce_mobile/features/meals/presentation/meal_form_screen.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/ibs_sss_baseline_screen.dart';
@@ -39,6 +40,7 @@ Future<ProviderContainer> _pumpShell(
   WidgetTester tester, {
   bool onboardingCompleted = true,
   IbsSssAssessmentSummaryData? latestAssessment,
+  List<IbsSssEvolutionPoint> evolutionPoints = const <IbsSssEvolutionPoint>[],
 }) async {
   // Desde Mobile-3.2 montar `CauceApp` enciende los servicios de fondo, que
   // necesitan base local, conectividad y transporte. Se falsean los tres: lo
@@ -87,7 +89,9 @@ Future<ProviderContainer> _pumpShell(
         ),
       ),
       ibsSssRepositoryProvider.overrideWithValue(
-        FakeIbsSssRepository()..latest = latestAssessment,
+        FakeIbsSssRepository()
+          ..latest = latestAssessment
+          ..evolutionPoints = evolutionPoints,
       ),
     ],
   );
@@ -323,6 +327,48 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(HomeScreen), findsOneWidget);
+    });
+  });
+
+  group('AppShell · Evolucion del IBS-SSS (HU0023)', () {
+    testWidgets('se llega desde Perfil tocando la tarjeta de evolucion',
+        (tester) async {
+      // R10: la ruta nueva tiene que ser alcanzable con el dedo desde la raiz,
+      // no solo existir en el router. Antes de Mobile-4 esta tarjeta no
+      // llevaba a ningun lado.
+      await _pumpShell(
+        tester,
+        evolutionPoints: <IbsSssEvolutionPoint>[
+          IbsSssEvolutionPoint(
+            assessmentId: 'assessment-0',
+            totalScore: 220,
+            assessmentType: IbsSssAssessmentType.baseline,
+            completedAt: DateTime.utc(2026, 8, 10),
+            nextAssessmentDate: DateTime.utc(2026, 8, 24),
+          ),
+          IbsSssEvolutionPoint(
+            assessmentId: 'assessment-1',
+            totalScore: 130,
+            assessmentType: IbsSssAssessmentType.periodic,
+            cycleNumber: 1,
+            completedAt: DateTime.utc(2026, 9, 20),
+            deltaFromBaseline: -90,
+            nextAssessmentDate: DateTime.utc(2026, 10, 4),
+          ),
+        ],
+      );
+
+      await _tapTab(tester, 'nav_profile');
+      await tester.pumpAndSettle();
+      expect(find.byType(ProfileScreen), findsOneWidget);
+
+      final link = find.byKey(const Key('profile_evolution_open'));
+      await tester.ensureVisible(link);
+      await tester.pumpAndSettle();
+      await tester.tap(link);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(EvolutionScreen), findsOneWidget);
     });
   });
 }
