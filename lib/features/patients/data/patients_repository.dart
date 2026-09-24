@@ -62,6 +62,24 @@ class AcceptedConsent {
   final bool textAvailable;
 }
 
+/// Enlace de descarga del archivo de portabilidad (HU0025).
+///
+/// El endpoint **no devuelve el ZIP**, devuelve una URL prefirmada contra
+/// MinIO. Es otra mecanica que la del consentimiento, que llega como bytes:
+/// aca lo que hay que abrir es un enlace.
+class DataExportLink {
+  const DataExportLink({required this.downloadUrl, required this.expiresAt});
+
+  final String downloadUrl;
+
+  /// Vencimiento del enlace, siempre en UTC.
+  ///
+  /// Son **60 minutos** desde el acta A60 del backend, que los bajo de los
+  /// siete dias anteriores: una URL prefirmada es una credencial al portador y
+  /// quien la tenga descarga el expediente clinico completo sin autenticarse.
+  final DateTime expiresAt;
+}
+
 /// Comprobante en PDF del consentimiento aceptado (HU0001 escenario 4).
 class ConsentPdf {
   const ConsentPdf({required this.bytes, required this.fileName});
@@ -469,6 +487,45 @@ class PatientsRepository {
         // servidor no afirmo seria peor que omitir la pildora.
         significantClinicalResponse:
             result?.significantClinicalResponse ?? false,
+      );
+    });
+  }
+
+  /// HU0025, CP064 y CP065. `GET /api/v1/patients/me/export-data`.
+  ///
+  /// Un paciente sin registros **no es un error**: CP065 exige que la
+  /// exportacion salga igual, con los CSV vacios pero con sus encabezados. El
+  /// backend responde 200 en los dos casos y el cliente no distingue.
+  Future<DataExportLink> exportData() {
+    return _guard(() async {
+      final response = await _api.apiV1PatientsMeExportDataGet();
+      final result = response.data;
+      final url = result?.downloadUrl;
+      final expiresAt = result?.expiresAtUtc;
+
+      if (url == null || url.isEmpty || expiresAt == null) {
+        throw const FormatException(
+          'La exportacion respondio sin downloadUrl o sin expiresAtUtc.',
+        );
+      }
+
+      return DataExportLink(downloadUrl: url, expiresAt: expiresAt.toUtc());
+    });
+  }
+
+  /// HU0026, CP066 y CP067. `DELETE /api/v1/patients/me`.
+  ///
+  /// [activePilotAcknowledged] viaja como `confirmedActivePilotAcknowledged` y
+  /// es lo que el backend exige cuando el paciente participa de un piloto
+  /// activo. Sin esa marca responde 409 y no borra nada, que es justamente lo
+  /// que CP067 pide comprobar: sin la segunda confirmacion, la cuenta sigue.
+  ///
+  /// La baja **no es un borrado fisico**: el backend elimina lo identificable
+  /// y anonimiza lo clinico que la norma obliga a conservar.
+  Future<void> deleteAccount({required bool activePilotAcknowledged}) {
+    return _guard(() async {
+      await _api.apiV1PatientsMeDelete(
+        confirmedActivePilotAcknowledged: activePilotAcknowledged,
       );
     });
   }
