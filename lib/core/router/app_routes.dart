@@ -47,6 +47,13 @@ abstract final class AppRoutes {
   /// ruta y su pantalla, y Configuracion la enlaza desde "Sobre la app".
   static const String profileSettings = '/profile/settings';
 
+  /// Reporte clinico personal en PDF (HU0024).
+  ///
+  /// Hermana de [profileSettings] bajo Perfil, y no una seccion suya: CP062
+  /// paso 2 y CP063 paso 1 describen el recorrido como "acceder a la seccion
+  /// Perfil y seleccionar la opcion para generar su reporte".
+  static const String profileReport = '/profile/report';
+
   /// Registro de una comida (US09).
   static const String mealNew = '/meals/new';
 

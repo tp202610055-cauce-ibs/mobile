@@ -74,6 +74,11 @@ class ProfileScreen extends ConsumerWidget {
             data: (value) => _Summary(summary: value),
           ),
           const SizedBox(height: CauceSpacing.space6),
+          // Fuera del `when` a proposito: el reporte no necesita ningun dato
+          // del resumen, y ofrecerlo igual cuando la consulta falla es lo
+          // mismo que ya se hace con privacidad y con el cierre de sesion.
+          const _ReportEntry(),
+          const SizedBox(height: CauceSpacing.space6),
           const _SessionSection(),
         ],
       ),
@@ -548,6 +553,65 @@ class _InfoRow extends StatelessWidget {
             ),
           ],
         ],
+      ),
+    );
+  }
+}
+
+/// Acceso al reporte clinico personal (HU0024).
+///
+/// Vive en Perfil y no en Configuracion de cuenta porque asi lo describen
+/// CP062 paso 2 y CP063 paso 1: "acceder a la seccion Perfil... seleccionar la
+/// opcion para generar su reporte". Mismo criterio que el cierre de sesion con
+/// CP020 y que la tarjeta de Evolucion.
+class _ReportEntry extends StatelessWidget {
+  const _ReportEntry();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+
+    return Material(
+      color: CauceColors.bgCard,
+      borderRadius: CauceRadii.borderMd,
+      child: InkWell(
+        key: const Key('profile_report_entry'),
+        borderRadius: CauceRadii.borderMd,
+        onTap: () => context.push(AppRoutes.profileReport),
+        child: Container(
+          constraints: const BoxConstraints(
+            minHeight: CauceSizes.touchTargetMin,
+          ),
+          padding: const EdgeInsets.all(CauceSpacing.space4),
+          decoration: BoxDecoration(
+            borderRadius: CauceRadii.borderMd,
+            border: Border.all(
+              color: CauceColors.bgDivider,
+              width: CauceBorders.subtle,
+            ),
+          ),
+          child: Row(
+            children: <Widget>[
+              const Icon(
+                TablerIcons.file_text,
+                size: 20,
+                color: CauceColors.brandBase,
+              ),
+              const SizedBox(width: CauceSpacing.space3),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(l10n.reportEntry, style: textTheme.bodyLarge),
+                    Text(l10n.reportEntryHint, style: textTheme.labelSmall),
+                  ],
+                ),
+              ),
+              const Icon(TablerIcons.chevron_right, size: 20),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -17,6 +17,7 @@ import '../../features/onboarding/application/onboarding_notifier.dart';
 import '../../features/onboarding/presentation/clinical_profile_screen.dart';
 import '../../features/onboarding/presentation/ibs_sss_baseline_screen.dart';
 import '../../features/patients/presentation/account_settings_screen.dart';
+import '../../features/patients/presentation/clinical_report_screen.dart';
 import '../../features/patients/presentation/privacy_screen.dart';
 import '../../features/patients/presentation/profile_screen.dart';
 import '../../features/recommendations/presentation/recommendations_screen.dart';
@@ -108,6 +109,10 @@ GoRouter appRouter(Ref ref) {
                   GoRoute(
                     path: 'settings',
                     builder: (_, __) => const AccountSettingsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'report',
+                    builder: (_, __) => const ClinicalReportScreen(),
                   ),
                 ],
               ),
