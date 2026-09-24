@@ -80,6 +80,30 @@ class DataExportLink {
   final DateTime expiresAt;
 }
 
+/// Reporte clinico personal ya generado (HU0024).
+///
+/// Como la exportacion, el endpoint devuelve **un enlace y no el PDF**. A
+/// diferencia de ella, este vive **24 horas** y no 60 minutos: el reporte
+/// tambien viaja por correo, de modo que el paciente puede volver a el mas
+/// tarde desde ahi.
+///
+/// **La contraseña del PDF no esta aca, y no es un olvido.** El backend cifra
+/// el documento y manda la clave en un correo aparte, despues de haber
+/// respondido; nunca la persiste ni la incluye en la respuesta HTTP.
+class ClinicalReport {
+  const ClinicalReport({
+    required this.reportId,
+    required this.downloadUrl,
+    required this.expiresAt,
+  });
+
+  final String reportId;
+  final String downloadUrl;
+
+  /// Vencimiento del enlace, siempre en UTC.
+  final DateTime expiresAt;
+}
+
 /// Comprobante en PDF del consentimiento aceptado (HU0001 escenario 4).
 class ConsentPdf {
   const ConsentPdf({required this.bytes, required this.fileName});
@@ -526,6 +550,48 @@ class PatientsRepository {
     return _guard(() async {
       await _api.apiV1PatientsMeDelete(
         confirmedActivePilotAcknowledged: activePilotAcknowledged,
+      );
+    });
+  }
+
+  /// HU0024, CP062 y CP063. `POST /api/v1/patients/me/report`.
+  ///
+  /// **El periodo se manda siempre explicito**, aunque el contrato lo declare
+  /// opcional. Sin cuerpo el servidor cae a su ventana de 90 dias calculada
+  /// contra su propio reloj, y eso haria depender lo que el paciente recibe de
+  /// una hora que el cliente no controla ni puede probar.
+  ///
+  /// El 422 `patient_has_no_data_in_period` no es un fallo de la peticion: el
+  /// backend lo devuelve antes de generar nada, para no emitir un PDF vacio.
+  /// Llega tipado y la pantalla lo trata como un estado propio.
+  Future<ClinicalReport> generateReport({
+    required DateTime periodStart,
+    required DateTime periodEnd,
+  }) {
+    return _guard(() async {
+      final response = await _api.apiV1PatientsMeReportPost(
+        generateMyClinicalReportRequest: GenerateMyClinicalReportRequest(
+          (b) => b
+            ..periodStart = _toDate(periodStart)
+            ..periodEnd = _toDate(periodEnd),
+        ),
+      );
+
+      final result = response.data;
+      final reportId = result?.reportId;
+      final url = result?.presignedUrl;
+      final expiresAt = result?.presignedUrlExpiresAt;
+
+      if (reportId == null || url == null || url.isEmpty || expiresAt == null) {
+        throw const FormatException(
+          'El reporte respondio sin reportId, presignedUrl o expiracion.',
+        );
+      }
+
+      return ClinicalReport(
+        reportId: reportId,
+        downloadUrl: url,
+        expiresAt: expiresAt.toUtc(),
       );
     });
   }
