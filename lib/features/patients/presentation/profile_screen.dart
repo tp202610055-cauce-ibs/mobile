@@ -373,6 +373,41 @@ class _EvolutionCard extends StatelessWidget {
             style: Theme.of(context).textTheme.labelSmall,
             textAlign: TextAlign.center,
           ),
+        const SizedBox(height: CauceSpacing.space3),
+        // Punto de entrada a la pantalla de Evolucion (HU0023). Hasta
+        // Mobile-4 esta tarjeta no llevaba a ningun lado.
+        InkWell(
+          key: const Key('profile_evolution_open'),
+          borderRadius: CauceRadii.borderMd,
+          onTap: () => context.push(AppRoutes.ibsSssEvolution),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: CauceSpacing.space2,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // Flexible y no Text suelto: la etiqueta es larga y con el
+                // ancho de una pantalla chica la fila se desbordaba.
+                Flexible(
+                  child: Text(
+                    l10n.evolutionOpen,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(color: CauceColors.brandBase),
+                  ),
+                ),
+                const SizedBox(width: CauceSpacing.space1),
+                const Icon(
+                  TablerIcons.chevron_right,
+                  size: 18,
+                  color: CauceColors.brandBase,
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

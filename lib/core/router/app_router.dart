@@ -10,6 +10,7 @@ import '../../features/custom_foods/presentation/custom_food_form_screen.dart';
 import '../../features/history/domain/history_entry.dart';
 import '../../features/history/presentation/history_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/ibs_sss/presentation/evolution_screen.dart';
 import '../../features/ibs_sss/presentation/periodic_assessment_screen.dart';
 import '../../features/meals/presentation/meal_form_screen.dart';
 import '../../features/onboarding/application/onboarding_notifier.dart';
@@ -142,6 +143,11 @@ GoRouter appRouter(Ref ref) {
         path: AppRoutes.ibsSssPeriodic,
         parentNavigatorKey: rootNavigatorKey,
         builder: (_, __) => const PeriodicAssessmentScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.ibsSssEvolution,
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (_, __) => const EvolutionScreen(),
       ),
 
       GoRoute(

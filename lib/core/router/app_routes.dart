@@ -62,6 +62,13 @@ abstract final class AppRoutes {
   /// Cuestionario IBS-SSS periodico (US12).
   static const String ibsSssPeriodic = '/ibs-sss/periodic';
 
+  /// Evolucion del puntaje IBS-SSS (HU0023).
+  ///
+  /// Se apila sobre el navigator raiz, como los formularios: es una vista de
+  /// detalle a la que se llega desde la tarjeta de Perfil, no una raiz de
+  /// pestana.
+  static const String ibsSssEvolution = '/ibs-sss/evolution';
+
   /// Recomendaciones aprobadas por la nutricionista (EP0003).
   ///
   /// La pestana existe desde Mobile-3.1 y Mobile-5 la llena. La ruta se llama
