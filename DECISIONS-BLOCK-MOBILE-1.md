@@ -616,3 +616,37 @@ Sobre la forma de la guarda, la condición de la Ley N.° 29733 que fijó Trigo 
 Consecuencias. Hay dos pantallas hermanas bajo Perfil, y la de Privacidad solo se alcanza a través de la de Configuración. El día que exista el endpoint de preferencias, o que se corrija el dato de prueba de CP071, la guarda se reemplaza por la acción real sin mover la estructura de la pantalla.
 
 Alternativas consideradas. (a) Absorber Privacidad dentro de Configuración, descartada por la justificación. (b) Hacer crecer Privacidad y no construir P12-B, descartada por la decisión ya tomada de armar el mockup entero. (c) Omitir las filas sin respaldo, descartada porque una pantalla de derechos que no nombra los derechos que todavía no se pueden ejercer es menos honesta que una que los nombra y dice que están en camino.
+
+Acta M46: El reporte personal afirma lo que el servidor confirma, y nada más
+
+**Estado:** Aprobada, implementada en Mobile-4 Bloque 4 (HU0024, CP062 y CP063)
+**Fecha:** 2026-09-24
+
+---
+
+Contexto. HU0024 pide un PDF con el historial del paciente para llevar a una consulta externa. `POST /api/v1/patients/me/report` lo genera y devuelve `{reportId, presignedUrl, presignedUrlExpiresAt}`. Al leer el handler del backend en la Fase 0 aparecieron tres cosas que el contrato no dice.
+
+**El PDF va cifrado y la contraseña no viaja en la respuesta.** `PdfReportGenerator` lo protege con una clave de 12 caracteres y el handler manda **dos correos separados**, uno con el enlace y otro con la contraseña, *después* de haber devuelto el 200. La contraseña nunca se persiste.
+
+**Si el correo falla, la generación se considera exitosa igual.** El envío está dentro de un `try/catch` que solo registra un `LogWarning`. El paciente recibiría su 200, descargaría un PDF cifrado y no tendría con qué abrirlo. El móvil no tiene forma de enterarse.
+
+**El enlace del reporte vive 24 horas**, no 60 minutos como el de la exportación (acta A60 del backend lo dice explícitamente: el reporte "sí viaja por correo y por eso conserva sus 24 h").
+
+Decisión.
+
+1. **La pantalla no promete la entrega del correo.** El estado de éxito afirma solo lo verificado: el reporte se generó y el enlace vive 24 horas. La contraseña se describe como el paso esperado ("la contraseña para abrirlo llega por separado a tu correo"), nunca como un hecho consumado, y va en tono informativo y no de éxito. Se agrega la sugerencia de volver a generar si no llega, que es la única salida real hoy.
+2. **El período se calcula en el cliente**, siempre explícito: `hoy − N días` a `hoy`. El contrato lo declara opcional y sin cuerpo el servidor cae a su ventana de 90 días contra su propio reloj; delegarlo haría que lo que el paciente recibe dependiera de una hora que el cliente no controla ni puede probar.
+3. **Dos píldoras y no tres**: "Últimos 30 días" por defecto y "Últimos 90 días", que es el tope del backend. `ClinicalReportPeriod` es un enum propio y **no reutiliza `IbsSssEvolutionRange`**: comparten el átomo visual y nada más, porque aquel recorta qué puntos se dibujan en un gráfico ya cargado y este decide qué se le pide al servidor. Los "Últimos 10 días" de CP062 son dato de prueba y se usan para armar el escenario del test, no como una tercera opción de interfaz.
+4. **El 422 `patient_has_no_data_in_period` es un estado propio, no un error.** El backend lo devuelve antes de generar nada, justamente para no emitir un PDF vacío (CP063 paso 6). Se dibuja en tono ámbar con la sugerencia de elegir otro rango (CP063 pasos 4 y 5), y no con `CauceErrorBanner`: presentarlo como un fallo haría pensar al paciente que algo se rompió.
+5. **No se replica en el cliente la precondición de "al menos 7 días de registros"** de CP062. La resuelve el servidor con ese mismo 422.
+6. **El punto de entrada va en Perfil**, no en Configuración de cuenta, siguiendo el texto de CP062 paso 2 y CP063 paso 1. Es el mismo criterio con el que el cierre de sesión se quedó en Perfil por CP020 y con el que se ubicó la tarjeta de Evolución.
+
+Sobre los `errorCode`. Se mapean **dos**, no cuatro. `report_access_denied` lo lanza únicamente `GenerateClinicalReportCommandHandler`, que es el reporte del nutricionista (HU0022), y `report_not_ready` **no existe en el backend**: cero coincidencias en todo el árbol. El 403 que este endpoint puede producir viene de `UnauthorizedAccessException` y sale como el genérico `forbidden`, que el móvil ya mapea.
+
+Se corrige además el comentario de `error_mapper.dart`, que afirmaba que el problema del `ResponseType.bytes` "le pasaría igual a `export-data` y a los reportes". Los dos terminaron devolviendo una URL prefirmada en JSON, así que su `problem+json` llega como `Map` y el `errorCode` se conserva. `consent/pdf` queda como el único endpoint del móvil con ese `responseType`.
+
+Consecuencias. Hay una tercera pantalla que abre enlaces con `DataExportLauncher`, que deja de ser "el de la exportación" para ser el mecanismo compartido de abrir URLs prefirmadas. Su nombre quedó atado a la exportación y conviene renombrarlo el día que aparezca un cuarto consumidor.
+
+**Queda un gap del backend reportado y no resuelto:** que un fallo de correo deje al paciente con un archivo que no puede abrir, sin que nada se lo diga. La pantalla lo mitiga con la sugerencia de regenerar, que es un paliativo y no un arreglo. La solución de fondo es que el backend exponga el estado del envío, o que la contraseña llegue por un canal que el cliente pueda confirmar.
+
+Alternativas consideradas. (a) Mostrar la contraseña en la pantalla, descartada porque el backend no la devuelve y pedirla sería cambiar el contrato para poner una credencial del documento clínico en la respuesta HTTP y en el historial de la app. (b) Un selector de fechas libre, descartado porque obligaría a replicar en el cliente las tres reglas del validador (ambos extremos, orden, tope de 90 días) para evitar un 400 que con dos píldoras no puede ocurrir. (c) Reutilizar `IbsSssEvolutionRange`, descartada por la razón de la decisión 3.
