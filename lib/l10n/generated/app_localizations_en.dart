@@ -1100,6 +1100,74 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ibsSssResultContinue => 'Go to home';
 
   @override
+  String get evolutionOpen => 'See your full evolution';
+
+  @override
+  String get evolutionLoadError => 'We could not load your evolution';
+
+  @override
+  String get evolutionEmpty => 'You have not completed any assessment yet.';
+
+  @override
+  String evolutionScore(int score) {
+    return '$score / 500';
+  }
+
+  @override
+  String get evolutionRangeLabel => 'Period';
+
+  @override
+  String get evolutionRangeLastMonth => 'Last month';
+
+  @override
+  String get evolutionRangeLastQuarter => 'Last 3 months';
+
+  @override
+  String get evolutionRangeAll => 'All';
+
+  @override
+  String get evolutionRangeEmpty =>
+      'There are no assessments in this period. Try a wider one.';
+
+  @override
+  String get evolutionPercentLabel => 'Change from your baseline';
+
+  @override
+  String evolutionPercentDown(String percent) {
+    return '$percent % lower';
+  }
+
+  @override
+  String evolutionPercentUp(String percent) {
+    return '$percent % higher';
+  }
+
+  @override
+  String get evolutionPercentSame => 'Same as your baseline';
+
+  @override
+  String evolutionChartSemantics(int count, int first, int last) {
+    return 'Chart of your IBS-SSS score: $count assessments, from $first to $last points.';
+  }
+
+  @override
+  String evolutionPointTooltip(int score, String date) {
+    return '$score points on $date';
+  }
+
+  @override
+  String get evolutionBaselineOnlyTitle => 'Your baseline';
+
+  @override
+  String get evolutionBaselineOnlyBody =>
+      'Your full chart will show up here after your first periodic assessment.';
+
+  @override
+  String evolutionNextAssessment(String date) {
+    return 'Next assessment: $date';
+  }
+
+  @override
   String get profileTitle => 'Your profile';
 
   @override

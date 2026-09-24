@@ -439,6 +439,75 @@
   "ibsSssSeveritySevere": "Severe severity",
   "ibsSssResultNote": "It is your starting point to measure progress. Your nutritionist reviews it with you.",
   "ibsSssResultContinue": "Go to home",
+  "evolutionOpen": "See your full evolution",
+  "evolutionLoadError": "We could not load your evolution",
+  "evolutionEmpty": "You have not completed any assessment yet.",
+  "evolutionScore": "{score} / 500",
+  "@evolutionScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "evolutionRangeLabel": "Period",
+  "evolutionRangeLastMonth": "Last month",
+  "evolutionRangeLastQuarter": "Last 3 months",
+  "evolutionRangeAll": "All",
+  "evolutionRangeEmpty": "There are no assessments in this period. Try a wider one.",
+  "evolutionPercentLabel": "Change from your baseline",
+  "evolutionPercentDown": "{percent} % lower",
+  "@evolutionPercentDown": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "evolutionPercentUp": "{percent} % higher",
+  "@evolutionPercentUp": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "evolutionPercentSame": "Same as your baseline",
+  "evolutionChartSemantics": "Chart of your IBS-SSS score: {count} assessments, from {first} to {last} points.",
+  "@evolutionChartSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "first": {
+        "type": "int"
+      },
+      "last": {
+        "type": "int"
+      }
+    }
+  },
+  "evolutionPointTooltip": "{score} points on {date}",
+  "@evolutionPointTooltip": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "evolutionBaselineOnlyTitle": "Your baseline",
+  "evolutionBaselineOnlyBody": "Your full chart will show up here after your first periodic assessment.",
+  "evolutionNextAssessment": "Next assessment: {date}",
+  "@evolutionNextAssessment": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "profileTitle": "Your profile",
   "profileOpen": "Open your profile",
   "profileClinicalSection": "My clinical profile",

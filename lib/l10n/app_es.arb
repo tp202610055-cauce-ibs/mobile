@@ -1024,6 +1024,93 @@
     "description": "Encuadre neutro del resultado. Registro informativo, sin adjetivos de alarma"
   },
   "ibsSssResultContinue": "Ir al inicio",
+  "evolutionOpen": "Ver tu evolución completa",
+  "@evolutionOpen": {
+    "description": "Acceso a la pantalla de Evolucion desde la tarjeta de Perfil (HU0023)"
+  },
+  "evolutionLoadError": "No pudimos cargar tu evolución",
+  "evolutionEmpty": "Todavía no registraste ninguna evaluación.",
+  "evolutionScore": "{score} / 500",
+  "@evolutionScore": {
+    "description": "Puntaje IBS-SSS sobre el máximo del instrumento",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "230"
+      }
+    }
+  },
+  "evolutionRangeLabel": "Período",
+  "evolutionRangeLastMonth": "Último mes",
+  "evolutionRangeLastQuarter": "Últimos 3 meses",
+  "evolutionRangeAll": "Todo",
+  "evolutionRangeEmpty": "No hay evaluaciones en este período. Probá con uno más amplio.",
+  "evolutionPercentLabel": "Cambio respecto de tu línea base",
+  "evolutionPercentDown": "{percent} % menos",
+  "@evolutionPercentDown": {
+    "description": "Mejora porcentual. El backend entrega el cambio como negativo cuando el puntaje baja",
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "example": "40.9"
+      }
+    }
+  },
+  "evolutionPercentUp": "{percent} % más",
+  "@evolutionPercentUp": {
+    "description": "Empeoramiento porcentual. Se muestra en tono neutro, nunca en rojo",
+    "placeholders": {
+      "percent": {
+        "type": "String",
+        "example": "18.2"
+      }
+    }
+  },
+  "evolutionPercentSame": "Igual que tu línea base",
+  "evolutionChartSemantics": "Gráfico de tu puntaje IBS-SSS: {count} evaluaciones, de {first} a {last} puntos.",
+  "@evolutionChartSemantics": {
+    "description": "Descripcion del grafico para lectores de pantalla",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "4"
+      },
+      "first": {
+        "type": "int",
+        "example": "220"
+      },
+      "last": {
+        "type": "int",
+        "example": "130"
+      }
+    }
+  },
+  "evolutionPointTooltip": "{score} puntos el {date}",
+  "@evolutionPointTooltip": {
+    "description": "Globo que aparece al tocar un punto del grafico",
+    "placeholders": {
+      "score": {
+        "type": "int",
+        "example": "130"
+      },
+      "date": {
+        "type": "String",
+        "example": "12 sep 2026"
+      }
+    }
+  },
+  "evolutionBaselineOnlyTitle": "Tu línea base",
+  "evolutionBaselineOnlyBody": "Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.",
+  "evolutionNextAssessment": "Próxima evaluación: {date}",
+  "@evolutionNextAssessment": {
+    "description": "Fecha que agenda el backend a catorce dias de la ultima evaluacion (CP061)",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "6 oct 2026"
+      }
+    }
+  },
   "profileTitle": "Tu perfil",
   "profileOpen": "Abrir tu perfil",
   "@profileOpen": {

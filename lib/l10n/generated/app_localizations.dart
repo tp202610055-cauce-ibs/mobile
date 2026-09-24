@@ -2024,6 +2024,114 @@ abstract class AppLocalizations {
   /// **'Ir al inicio'**
   String get ibsSssResultContinue;
 
+  /// Acceso a la pantalla de Evolucion desde la tarjeta de Perfil (HU0023)
+  ///
+  /// In es, this message translates to:
+  /// **'Ver tu evolución completa'**
+  String get evolutionOpen;
+
+  /// No description provided for @evolutionLoadError.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tu evolución'**
+  String get evolutionLoadError;
+
+  /// No description provided for @evolutionEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no registraste ninguna evaluación.'**
+  String get evolutionEmpty;
+
+  /// Puntaje IBS-SSS sobre el máximo del instrumento
+  ///
+  /// In es, this message translates to:
+  /// **'{score} / 500'**
+  String evolutionScore(int score);
+
+  /// No description provided for @evolutionRangeLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Período'**
+  String get evolutionRangeLabel;
+
+  /// No description provided for @evolutionRangeLastMonth.
+  ///
+  /// In es, this message translates to:
+  /// **'Último mes'**
+  String get evolutionRangeLastMonth;
+
+  /// No description provided for @evolutionRangeLastQuarter.
+  ///
+  /// In es, this message translates to:
+  /// **'Últimos 3 meses'**
+  String get evolutionRangeLastQuarter;
+
+  /// No description provided for @evolutionRangeAll.
+  ///
+  /// In es, this message translates to:
+  /// **'Todo'**
+  String get evolutionRangeAll;
+
+  /// No description provided for @evolutionRangeEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay evaluaciones en este período. Probá con uno más amplio.'**
+  String get evolutionRangeEmpty;
+
+  /// No description provided for @evolutionPercentLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambio respecto de tu línea base'**
+  String get evolutionPercentLabel;
+
+  /// Mejora porcentual. El backend entrega el cambio como negativo cuando el puntaje baja
+  ///
+  /// In es, this message translates to:
+  /// **'{percent} % menos'**
+  String evolutionPercentDown(String percent);
+
+  /// Empeoramiento porcentual. Se muestra en tono neutro, nunca en rojo
+  ///
+  /// In es, this message translates to:
+  /// **'{percent} % más'**
+  String evolutionPercentUp(String percent);
+
+  /// No description provided for @evolutionPercentSame.
+  ///
+  /// In es, this message translates to:
+  /// **'Igual que tu línea base'**
+  String get evolutionPercentSame;
+
+  /// Descripcion del grafico para lectores de pantalla
+  ///
+  /// In es, this message translates to:
+  /// **'Gráfico de tu puntaje IBS-SSS: {count} evaluaciones, de {first} a {last} puntos.'**
+  String evolutionChartSemantics(int count, int first, int last);
+
+  /// Globo que aparece al tocar un punto del grafico
+  ///
+  /// In es, this message translates to:
+  /// **'{score} puntos el {date}'**
+  String evolutionPointTooltip(int score, String date);
+
+  /// No description provided for @evolutionBaselineOnlyTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu línea base'**
+  String get evolutionBaselineOnlyTitle;
+
+  /// No description provided for @evolutionBaselineOnlyBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.'**
+  String get evolutionBaselineOnlyBody;
+
+  /// Fecha que agenda el backend a catorce dias de la ultima evaluacion (CP061)
+  ///
+  /// In es, this message translates to:
+  /// **'Próxima evaluación: {date}'**
+  String evolutionNextAssessment(String date);
+
   /// No description provided for @profileTitle.
   ///
   /// In es, this message translates to:

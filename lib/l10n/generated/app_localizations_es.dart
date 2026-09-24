@@ -1102,6 +1102,74 @@ class AppLocalizationsEs extends AppLocalizations {
   String get ibsSssResultContinue => 'Ir al inicio';
 
   @override
+  String get evolutionOpen => 'Ver tu evolución completa';
+
+  @override
+  String get evolutionLoadError => 'No pudimos cargar tu evolución';
+
+  @override
+  String get evolutionEmpty => 'Todavía no registraste ninguna evaluación.';
+
+  @override
+  String evolutionScore(int score) {
+    return '$score / 500';
+  }
+
+  @override
+  String get evolutionRangeLabel => 'Período';
+
+  @override
+  String get evolutionRangeLastMonth => 'Último mes';
+
+  @override
+  String get evolutionRangeLastQuarter => 'Últimos 3 meses';
+
+  @override
+  String get evolutionRangeAll => 'Todo';
+
+  @override
+  String get evolutionRangeEmpty =>
+      'No hay evaluaciones en este período. Probá con uno más amplio.';
+
+  @override
+  String get evolutionPercentLabel => 'Cambio respecto de tu línea base';
+
+  @override
+  String evolutionPercentDown(String percent) {
+    return '$percent % menos';
+  }
+
+  @override
+  String evolutionPercentUp(String percent) {
+    return '$percent % más';
+  }
+
+  @override
+  String get evolutionPercentSame => 'Igual que tu línea base';
+
+  @override
+  String evolutionChartSemantics(int count, int first, int last) {
+    return 'Gráfico de tu puntaje IBS-SSS: $count evaluaciones, de $first a $last puntos.';
+  }
+
+  @override
+  String evolutionPointTooltip(int score, String date) {
+    return '$score puntos el $date';
+  }
+
+  @override
+  String get evolutionBaselineOnlyTitle => 'Tu línea base';
+
+  @override
+  String get evolutionBaselineOnlyBody =>
+      'Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.';
+
+  @override
+  String evolutionNextAssessment(String date) {
+    return 'Próxima evaluación: $date';
+  }
+
+  @override
   String get profileTitle => 'Tu perfil';
 
   @override
