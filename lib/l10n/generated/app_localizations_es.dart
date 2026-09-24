@@ -1350,6 +1350,167 @@ class AppLocalizationsEs extends AppLocalizations {
       'No conservamos el texto de esta versión, así que no podemos generar el PDF. Tu aceptación sigue registrada y es válida. Si necesitas una copia, comunícate con tu nutricionista.';
 
   @override
+  String get settingsTitle => 'Ajustes y privacidad';
+
+  @override
+  String get settingsEntry => 'Ajustes y privacidad';
+
+  @override
+  String get settingsEntryHint => 'Notificaciones, tus derechos y tu cuenta';
+
+  @override
+  String get settingsComingSoon => 'Próximamente';
+
+  @override
+  String get settingsNotificationsSection => 'Notificaciones';
+
+  @override
+  String get settingsNotifAssessmentTitle => 'Evaluaciones quincenales';
+
+  @override
+  String get settingsNotifAssessmentBody =>
+      'Recordatorio cada 14 días para responder el cuestionario IBS-SSS';
+
+  @override
+  String get settingsNotifAdviceTitle => 'Nuevas recomendaciones';
+
+  @override
+  String get settingsNotifAdviceBody =>
+      'Aviso cuando tu nutricionista te envía una recomendación nueva';
+
+  @override
+  String get settingsRightsSection => 'Mis derechos sobre mis datos';
+
+  @override
+  String get settingsRightsIntro =>
+      'Según la Ley N.° 29733 de Protección de Datos Personales, tienes derechos sobre la información que recopilamos sobre ti.';
+
+  @override
+  String get settingsExportTitle => 'Descargar mis datos';
+
+  @override
+  String get settingsExportBody =>
+      'Obtén un archivo con toda tu información registrada';
+
+  @override
+  String get settingsExportConfirmTitle => '¿Descargar tus datos?';
+
+  @override
+  String get settingsExportConfirmBody =>
+      'Vamos a preparar un archivo comprimido con tus comidas, síntomas, evaluaciones IBS-SSS, recomendaciones y tu perfil clínico. El enlace de descarga es personal y vence en 60 minutos.';
+
+  @override
+  String get settingsExportConfirmAction => 'Preparar mi archivo';
+
+  @override
+  String get settingsExportOpened =>
+      'Abrimos tu descarga. El enlace vence en 60 minutos.';
+
+  @override
+  String get settingsExportNotOpened =>
+      'Preparamos tu archivo, pero no pudimos abrir el enlace. Revisa que tengas un navegador disponible e inténtalo otra vez.';
+
+  @override
+  String get settingsDeleteTitle => 'Eliminar mi cuenta';
+
+  @override
+  String get settingsDeleteBody =>
+      'Solicita eliminar tu cuenta y tus datos identificables';
+
+  @override
+  String get settingsDeleteConfirmTitle => '¿Eliminar tu cuenta?';
+
+  @override
+  String get settingsDeleteConfirmBody =>
+      'Vamos a eliminar tu nombre, tu correo y todo dato que te identifique. Tus registros clínicos se conservan de forma anonimizada, sin ninguna referencia a ti, porque la normativa de investigación clínica obliga a mantenerlos. Perderás el acceso de inmediato y esta acción no se puede deshacer.';
+
+  @override
+  String get settingsDeleteConfirmAction => 'Continuar';
+
+  @override
+  String get settingsDeletePilotTitle => 'Estás en el piloto clínico';
+
+  @override
+  String get settingsDeletePilotBody =>
+      'Tu participación en el piloto del Complejo Hospitalario Guillermo Kaelín de la Fuente sigue activa. Al eliminar tu cuenta dejas el estudio. Las evaluaciones y registros que ya entregaste se conservan anonimizados y seguirán formando parte del análisis, porque retirarlos comprometería resultados ya publicados.';
+
+  @override
+  String get settingsDeletePilotAction => 'Entiendo, eliminar mi cuenta';
+
+  @override
+  String get settingsDeleteDone => 'Tu cuenta fue eliminada.';
+
+  @override
+  String get settingsCorrectTitle => 'Corregir mis datos';
+
+  @override
+  String get settingsCorrectBody =>
+      'Modifica la información personal que registraste';
+
+  @override
+  String get settingsObjectTitle => 'Oponerme al uso de mis datos';
+
+  @override
+  String get settingsObjectBody =>
+      'Solicita limitar el uso de tu información para investigación';
+
+  @override
+  String get settingsRedFlagsSection => '¿Cuándo consultar al médico?';
+
+  @override
+  String get settingsRedFlagsIntro =>
+      'Algunas señales no son típicas del SII y pueden requerir atención médica directa. Si experimentas alguna de estas, considera contactar a tu médico:';
+
+  @override
+  String get settingsRedFlagBlood => 'Sangre en heces';
+
+  @override
+  String get settingsRedFlagVomiting => 'Vómitos persistentes';
+
+  @override
+  String get settingsRedFlagWeightLoss => 'Pérdida de peso sin razón aparente';
+
+  @override
+  String get settingsRedFlagFever => 'Fiebre alta sostenida';
+
+  @override
+  String get settingsRedFlagPain => 'Dolor abdominal muy intenso e inusual';
+
+  @override
+  String get settingsRedFlagStool => 'Heces muy oscuras o con color inusual';
+
+  @override
+  String get settingsEmergencyLabel => 'En caso de emergencia';
+
+  @override
+  String get settingsEmergencyValue => 'EsSalud Línea 411';
+
+  @override
+  String get settingsAboutSection => 'Sobre la app';
+
+  @override
+  String get settingsTerms => 'Términos y condiciones';
+
+  @override
+  String get settingsPrivacyPolicy => 'Tu consentimiento y tus datos';
+
+  @override
+  String get settingsPrivacyPolicyHint =>
+      'Consulta y descarga el documento que aceptaste';
+
+  @override
+  String get settingsVersion => 'Versión de la app';
+
+  @override
+  String settingsVersionValue(String version, String build) {
+    return '$version ($build)';
+  }
+
+  @override
+  String get settingsCredits =>
+      'Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente';
+
+  @override
   String get navHome => 'Inicio';
 
   @override

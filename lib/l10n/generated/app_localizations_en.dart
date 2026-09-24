@@ -1349,6 +1349,167 @@ class AppLocalizationsEn extends AppLocalizations {
       'We do not keep the text of this version, so we cannot generate the PDF. Your acceptance is still recorded and valid. If you need a copy, contact your nutritionist.';
 
   @override
+  String get settingsTitle => 'Settings and privacy';
+
+  @override
+  String get settingsEntry => 'Settings and privacy';
+
+  @override
+  String get settingsEntryHint => 'Notifications, your rights and your account';
+
+  @override
+  String get settingsComingSoon => 'Coming soon';
+
+  @override
+  String get settingsNotificationsSection => 'Notifications';
+
+  @override
+  String get settingsNotifAssessmentTitle => 'Fortnightly assessments';
+
+  @override
+  String get settingsNotifAssessmentBody =>
+      'A reminder every 14 days to answer the IBS-SSS questionnaire';
+
+  @override
+  String get settingsNotifAdviceTitle => 'New advice';
+
+  @override
+  String get settingsNotifAdviceBody =>
+      'A notice when your nutritionist sends you new advice';
+
+  @override
+  String get settingsRightsSection => 'My rights over my data';
+
+  @override
+  String get settingsRightsIntro =>
+      'Under Peruvian Law No. 29733 on Personal Data Protection, you have rights over the information we collect about you.';
+
+  @override
+  String get settingsExportTitle => 'Download my data';
+
+  @override
+  String get settingsExportBody =>
+      'Get a file with all the information you have logged';
+
+  @override
+  String get settingsExportConfirmTitle => 'Download your data?';
+
+  @override
+  String get settingsExportConfirmBody =>
+      'We will prepare a compressed file with your meals, symptoms, IBS-SSS assessments, advice and clinical profile. The download link is personal and expires in 60 minutes.';
+
+  @override
+  String get settingsExportConfirmAction => 'Prepare my file';
+
+  @override
+  String get settingsExportOpened =>
+      'We opened your download. The link expires in 60 minutes.';
+
+  @override
+  String get settingsExportNotOpened =>
+      'We prepared your file, but we could not open the link. Check that you have a browser available and try again.';
+
+  @override
+  String get settingsDeleteTitle => 'Delete my account';
+
+  @override
+  String get settingsDeleteBody =>
+      'Request the deletion of your account and identifiable data';
+
+  @override
+  String get settingsDeleteConfirmTitle => 'Delete your account?';
+
+  @override
+  String get settingsDeleteConfirmBody =>
+      'We will delete your name, your email and any data that identifies you. Your clinical records are kept anonymised, with no reference to you, because clinical research regulation requires it. You will lose access immediately and this cannot be undone.';
+
+  @override
+  String get settingsDeleteConfirmAction => 'Continue';
+
+  @override
+  String get settingsDeletePilotTitle => 'You are in the clinical pilot';
+
+  @override
+  String get settingsDeletePilotBody =>
+      'Your participation in the pilot at Complejo Hospitalario Guillermo Kaelin de la Fuente is still active. Deleting your account means leaving the study. The assessments and records you already submitted are kept anonymised and will remain part of the analysis, because withdrawing them would compromise results already published.';
+
+  @override
+  String get settingsDeletePilotAction => 'I understand, delete my account';
+
+  @override
+  String get settingsDeleteDone => 'Your account was deleted.';
+
+  @override
+  String get settingsCorrectTitle => 'Correct my data';
+
+  @override
+  String get settingsCorrectBody =>
+      'Change the personal information you registered';
+
+  @override
+  String get settingsObjectTitle => 'Object to the use of my data';
+
+  @override
+  String get settingsObjectBody =>
+      'Request to limit the use of your information for research';
+
+  @override
+  String get settingsRedFlagsSection => 'When should you see a doctor?';
+
+  @override
+  String get settingsRedFlagsIntro =>
+      'Some signs are not typical of IBS and may need direct medical attention. If you experience any of these, consider contacting your doctor:';
+
+  @override
+  String get settingsRedFlagBlood => 'Blood in stool';
+
+  @override
+  String get settingsRedFlagVomiting => 'Persistent vomiting';
+
+  @override
+  String get settingsRedFlagWeightLoss => 'Unexplained weight loss';
+
+  @override
+  String get settingsRedFlagFever => 'Sustained high fever';
+
+  @override
+  String get settingsRedFlagPain => 'Very intense and unusual abdominal pain';
+
+  @override
+  String get settingsRedFlagStool => 'Very dark or unusually coloured stool';
+
+  @override
+  String get settingsEmergencyLabel => 'In an emergency';
+
+  @override
+  String get settingsEmergencyValue => 'EsSalud Line 411';
+
+  @override
+  String get settingsAboutSection => 'About the app';
+
+  @override
+  String get settingsTerms => 'Terms and conditions';
+
+  @override
+  String get settingsPrivacyPolicy => 'Your consent and your data';
+
+  @override
+  String get settingsPrivacyPolicyHint =>
+      'Review and download the document you accepted';
+
+  @override
+  String get settingsVersion => 'App version';
+
+  @override
+  String settingsVersionValue(String version, String build) {
+    return '$version ($build)';
+  }
+
+  @override
+  String get settingsCredits =>
+      'Built by Universidad Peruana de Ciencias Aplicadas in partnership with EsSalud, Complejo Hospitalario Guillermo Kaelin de la Fuente';
+
+  @override
   String get navHome => 'Home';
 
   @override

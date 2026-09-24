@@ -2396,6 +2396,294 @@ abstract class AppLocalizations {
   /// **'No conservamos el texto de esta versión, así que no podemos generar el PDF. Tu aceptación sigue registrada y es válida. Si necesitas una copia, comunícate con tu nutricionista.'**
   String get privacyConsentTextUnavailable;
 
+  /// No description provided for @settingsTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustes y privacidad'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsEntry.
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustes y privacidad'**
+  String get settingsEntry;
+
+  /// No description provided for @settingsEntryHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Notificaciones, tus derechos y tu cuenta'**
+  String get settingsEntryHint;
+
+  /// Etiqueta de una fila sin soporte todavia. Va en la fila misma, no en un tooltip
+  ///
+  /// In es, this message translates to:
+  /// **'Próximamente'**
+  String get settingsComingSoon;
+
+  /// No description provided for @settingsNotificationsSection.
+  ///
+  /// In es, this message translates to:
+  /// **'Notificaciones'**
+  String get settingsNotificationsSection;
+
+  /// No description provided for @settingsNotifAssessmentTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Evaluaciones quincenales'**
+  String get settingsNotifAssessmentTitle;
+
+  /// No description provided for @settingsNotifAssessmentBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Recordatorio cada 14 días para responder el cuestionario IBS-SSS'**
+  String get settingsNotifAssessmentBody;
+
+  /// No description provided for @settingsNotifAdviceTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevas recomendaciones'**
+  String get settingsNotifAdviceTitle;
+
+  /// No description provided for @settingsNotifAdviceBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Aviso cuando tu nutricionista te envía una recomendación nueva'**
+  String get settingsNotifAdviceBody;
+
+  /// No description provided for @settingsRightsSection.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis derechos sobre mis datos'**
+  String get settingsRightsSection;
+
+  /// No description provided for @settingsRightsIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Según la Ley N.° 29733 de Protección de Datos Personales, tienes derechos sobre la información que recopilamos sobre ti.'**
+  String get settingsRightsIntro;
+
+  /// No description provided for @settingsExportTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Descargar mis datos'**
+  String get settingsExportTitle;
+
+  /// No description provided for @settingsExportBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Obtén un archivo con toda tu información registrada'**
+  String get settingsExportBody;
+
+  /// No description provided for @settingsExportConfirmTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Descargar tus datos?'**
+  String get settingsExportConfirmTitle;
+
+  /// No description provided for @settingsExportConfirmBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Vamos a preparar un archivo comprimido con tus comidas, síntomas, evaluaciones IBS-SSS, recomendaciones y tu perfil clínico. El enlace de descarga es personal y vence en 60 minutos.'**
+  String get settingsExportConfirmBody;
+
+  /// No description provided for @settingsExportConfirmAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Preparar mi archivo'**
+  String get settingsExportConfirmAction;
+
+  /// No description provided for @settingsExportOpened.
+  ///
+  /// In es, this message translates to:
+  /// **'Abrimos tu descarga. El enlace vence en 60 minutos.'**
+  String get settingsExportOpened;
+
+  /// No description provided for @settingsExportNotOpened.
+  ///
+  /// In es, this message translates to:
+  /// **'Preparamos tu archivo, pero no pudimos abrir el enlace. Revisa que tengas un navegador disponible e inténtalo otra vez.'**
+  String get settingsExportNotOpened;
+
+  /// No description provided for @settingsDeleteTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar mi cuenta'**
+  String get settingsDeleteTitle;
+
+  /// No description provided for @settingsDeleteBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Solicita eliminar tu cuenta y tus datos identificables'**
+  String get settingsDeleteBody;
+
+  /// No description provided for @settingsDeleteConfirmTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Eliminar tu cuenta?'**
+  String get settingsDeleteConfirmTitle;
+
+  /// No description provided for @settingsDeleteConfirmBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Vamos a eliminar tu nombre, tu correo y todo dato que te identifique. Tus registros clínicos se conservan de forma anonimizada, sin ninguna referencia a ti, porque la normativa de investigación clínica obliga a mantenerlos. Perderás el acceso de inmediato y esta acción no se puede deshacer.'**
+  String get settingsDeleteConfirmBody;
+
+  /// No description provided for @settingsDeleteConfirmAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar'**
+  String get settingsDeleteConfirmAction;
+
+  /// No description provided for @settingsDeletePilotTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Estás en el piloto clínico'**
+  String get settingsDeletePilotTitle;
+
+  /// No description provided for @settingsDeletePilotBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu participación en el piloto del Complejo Hospitalario Guillermo Kaelín de la Fuente sigue activa. Al eliminar tu cuenta dejas el estudio. Las evaluaciones y registros que ya entregaste se conservan anonimizados y seguirán formando parte del análisis, porque retirarlos comprometería resultados ya publicados.'**
+  String get settingsDeletePilotBody;
+
+  /// No description provided for @settingsDeletePilotAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Entiendo, eliminar mi cuenta'**
+  String get settingsDeletePilotAction;
+
+  /// No description provided for @settingsDeleteDone.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta fue eliminada.'**
+  String get settingsDeleteDone;
+
+  /// No description provided for @settingsCorrectTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Corregir mis datos'**
+  String get settingsCorrectTitle;
+
+  /// No description provided for @settingsCorrectBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Modifica la información personal que registraste'**
+  String get settingsCorrectBody;
+
+  /// No description provided for @settingsObjectTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Oponerme al uso de mis datos'**
+  String get settingsObjectTitle;
+
+  /// No description provided for @settingsObjectBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Solicita limitar el uso de tu información para investigación'**
+  String get settingsObjectBody;
+
+  /// No description provided for @settingsRedFlagsSection.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cuándo consultar al médico?'**
+  String get settingsRedFlagsSection;
+
+  /// No description provided for @settingsRedFlagsIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Algunas señales no son típicas del SII y pueden requerir atención médica directa. Si experimentas alguna de estas, considera contactar a tu médico:'**
+  String get settingsRedFlagsIntro;
+
+  /// No description provided for @settingsRedFlagBlood.
+  ///
+  /// In es, this message translates to:
+  /// **'Sangre en heces'**
+  String get settingsRedFlagBlood;
+
+  /// No description provided for @settingsRedFlagVomiting.
+  ///
+  /// In es, this message translates to:
+  /// **'Vómitos persistentes'**
+  String get settingsRedFlagVomiting;
+
+  /// No description provided for @settingsRedFlagWeightLoss.
+  ///
+  /// In es, this message translates to:
+  /// **'Pérdida de peso sin razón aparente'**
+  String get settingsRedFlagWeightLoss;
+
+  /// No description provided for @settingsRedFlagFever.
+  ///
+  /// In es, this message translates to:
+  /// **'Fiebre alta sostenida'**
+  String get settingsRedFlagFever;
+
+  /// No description provided for @settingsRedFlagPain.
+  ///
+  /// In es, this message translates to:
+  /// **'Dolor abdominal muy intenso e inusual'**
+  String get settingsRedFlagPain;
+
+  /// No description provided for @settingsRedFlagStool.
+  ///
+  /// In es, this message translates to:
+  /// **'Heces muy oscuras o con color inusual'**
+  String get settingsRedFlagStool;
+
+  /// No description provided for @settingsEmergencyLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'En caso de emergencia'**
+  String get settingsEmergencyLabel;
+
+  /// No description provided for @settingsEmergencyValue.
+  ///
+  /// In es, this message translates to:
+  /// **'EsSalud Línea 411'**
+  String get settingsEmergencyValue;
+
+  /// No description provided for @settingsAboutSection.
+  ///
+  /// In es, this message translates to:
+  /// **'Sobre la app'**
+  String get settingsAboutSection;
+
+  /// No description provided for @settingsTerms.
+  ///
+  /// In es, this message translates to:
+  /// **'Términos y condiciones'**
+  String get settingsTerms;
+
+  /// Fila que abre PrivacyScreen. El mockup la llama Politica de privacidad; se renombra porque el destino es el consentimiento que el paciente acepto, no un documento legal aparte
+  ///
+  /// In es, this message translates to:
+  /// **'Tu consentimiento y tus datos'**
+  String get settingsPrivacyPolicy;
+
+  /// No description provided for @settingsPrivacyPolicyHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta y descarga el documento que aceptaste'**
+  String get settingsPrivacyPolicyHint;
+
+  /// No description provided for @settingsVersion.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión de la app'**
+  String get settingsVersion;
+
+  /// Version y numero de compilacion que resuelve package_info_plus
+  ///
+  /// In es, this message translates to:
+  /// **'{version} ({build})'**
+  String settingsVersionValue(String version, String build);
+
+  /// No description provided for @settingsCredits.
+  ///
+  /// In es, this message translates to:
+  /// **'Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente'**
+  String get settingsCredits;
+
   /// Etiqueta del primer destino de la barra inferior (design system, seccion H)
   ///
   /// In es, this message translates to:

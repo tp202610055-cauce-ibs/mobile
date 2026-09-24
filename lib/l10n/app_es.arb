@@ -1236,6 +1236,73 @@
   },
   "privacyConsentLoading": "Cargando tu consentimiento",
   "privacyConsentTextUnavailable": "No conservamos el texto de esta versión, así que no podemos generar el PDF. Tu aceptación sigue registrada y es válida. Si necesitas una copia, comunícate con tu nutricionista.",
+  "settingsTitle": "Ajustes y privacidad",
+  "settingsEntry": "Ajustes y privacidad",
+  "settingsEntryHint": "Notificaciones, tus derechos y tu cuenta",
+  "settingsComingSoon": "Próximamente",
+  "@settingsComingSoon": {
+      "description": "Etiqueta de una fila sin soporte todavia. Va en la fila misma, no en un tooltip"
+  },
+  "settingsNotificationsSection": "Notificaciones",
+  "settingsNotifAssessmentTitle": "Evaluaciones quincenales",
+  "settingsNotifAssessmentBody": "Recordatorio cada 14 días para responder el cuestionario IBS-SSS",
+  "settingsNotifAdviceTitle": "Nuevas recomendaciones",
+  "settingsNotifAdviceBody": "Aviso cuando tu nutricionista te envía una recomendación nueva",
+  "settingsRightsSection": "Mis derechos sobre mis datos",
+  "settingsRightsIntro": "Según la Ley N.° 29733 de Protección de Datos Personales, tienes derechos sobre la información que recopilamos sobre ti.",
+  "settingsExportTitle": "Descargar mis datos",
+  "settingsExportBody": "Obtén un archivo con toda tu información registrada",
+  "settingsExportConfirmTitle": "¿Descargar tus datos?",
+  "settingsExportConfirmBody": "Vamos a preparar un archivo comprimido con tus comidas, síntomas, evaluaciones IBS-SSS, recomendaciones y tu perfil clínico. El enlace de descarga es personal y vence en 60 minutos.",
+  "settingsExportConfirmAction": "Preparar mi archivo",
+  "settingsExportOpened": "Abrimos tu descarga. El enlace vence en 60 minutos.",
+  "settingsExportNotOpened": "Preparamos tu archivo, pero no pudimos abrir el enlace. Revisa que tengas un navegador disponible e inténtalo otra vez.",
+  "settingsDeleteTitle": "Eliminar mi cuenta",
+  "settingsDeleteBody": "Solicita eliminar tu cuenta y tus datos identificables",
+  "settingsDeleteConfirmTitle": "¿Eliminar tu cuenta?",
+  "settingsDeleteConfirmBody": "Vamos a eliminar tu nombre, tu correo y todo dato que te identifique. Tus registros clínicos se conservan de forma anonimizada, sin ninguna referencia a ti, porque la normativa de investigación clínica obliga a mantenerlos. Perderás el acceso de inmediato y esta acción no se puede deshacer.",
+  "settingsDeleteConfirmAction": "Continuar",
+  "settingsDeletePilotTitle": "Estás en el piloto clínico",
+  "settingsDeletePilotBody": "Tu participación en el piloto del Complejo Hospitalario Guillermo Kaelín de la Fuente sigue activa. Al eliminar tu cuenta dejas el estudio. Las evaluaciones y registros que ya entregaste se conservan anonimizados y seguirán formando parte del análisis, porque retirarlos comprometería resultados ya publicados.",
+  "settingsDeletePilotAction": "Entiendo, eliminar mi cuenta",
+  "settingsDeleteDone": "Tu cuenta fue eliminada.",
+  "settingsCorrectTitle": "Corregir mis datos",
+  "settingsCorrectBody": "Modifica la información personal que registraste",
+  "settingsObjectTitle": "Oponerme al uso de mis datos",
+  "settingsObjectBody": "Solicita limitar el uso de tu información para investigación",
+  "settingsRedFlagsSection": "¿Cuándo consultar al médico?",
+  "settingsRedFlagsIntro": "Algunas señales no son típicas del SII y pueden requerir atención médica directa. Si experimentas alguna de estas, considera contactar a tu médico:",
+  "settingsRedFlagBlood": "Sangre en heces",
+  "settingsRedFlagVomiting": "Vómitos persistentes",
+  "settingsRedFlagWeightLoss": "Pérdida de peso sin razón aparente",
+  "settingsRedFlagFever": "Fiebre alta sostenida",
+  "settingsRedFlagPain": "Dolor abdominal muy intenso e inusual",
+  "settingsRedFlagStool": "Heces muy oscuras o con color inusual",
+  "settingsEmergencyLabel": "En caso de emergencia",
+  "settingsEmergencyValue": "EsSalud Línea 411",
+  "settingsAboutSection": "Sobre la app",
+  "settingsTerms": "Términos y condiciones",
+  "settingsPrivacyPolicy": "Tu consentimiento y tus datos",
+  "@settingsPrivacyPolicy": {
+      "description": "Fila que abre PrivacyScreen. El mockup la llama Politica de privacidad; se renombra porque el destino es el consentimiento que el paciente acepto, no un documento legal aparte"
+  },
+  "settingsPrivacyPolicyHint": "Consulta y descarga el documento que aceptaste",
+  "settingsVersion": "Versión de la app",
+  "settingsVersionValue": "{version} ({build})",
+  "@settingsVersionValue": {
+      "description": "Version y numero de compilacion que resuelve package_info_plus",
+      "placeholders": {
+          "version": {
+              "type": "String",
+              "example": "1.0.0"
+          },
+          "build": {
+              "type": "String",
+              "example": "1"
+          }
+      }
+  },
+  "settingsCredits": "Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente",
   "@privacyConsentTextUnavailable": {
     "description": "Aceptaciones anteriores a que el backend guardara el texto por version. El endpoint del PDF responde 404 para estas"
   },
