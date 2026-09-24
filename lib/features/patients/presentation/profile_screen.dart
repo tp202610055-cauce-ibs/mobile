@@ -47,13 +47,13 @@ class ProfileScreen extends ConsumerWidget {
         title: l10n.profileTitle,
         actions: <Widget>[
           IconButton(
-            // El engranaje del mockup. Su destino definitivo es P12-B, que
-            // todavia no existe; hasta entonces lleva a Privacidad, que es la
-            // unica de sus secciones ya construida.
-            key: const Key('profile_privacy_entry'),
+            // El engranaje del mockup, ya con su destino definitivo: P12-B.
+            // Privacidad sigue existiendo y se alcanza desde alli, en la
+            // seccion "Sobre la app".
+            key: const Key('profile_settings_entry'),
             icon: const Icon(TablerIcons.settings),
             tooltip: l10n.profileSettings,
-            onPressed: () => context.push(AppRoutes.profilePrivacy),
+            onPressed: () => context.push(AppRoutes.profileSettings),
           ),
         ],
       ),

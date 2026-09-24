@@ -16,6 +16,7 @@ import '../../features/meals/presentation/meal_form_screen.dart';
 import '../../features/onboarding/application/onboarding_notifier.dart';
 import '../../features/onboarding/presentation/clinical_profile_screen.dart';
 import '../../features/onboarding/presentation/ibs_sss_baseline_screen.dart';
+import '../../features/patients/presentation/account_settings_screen.dart';
 import '../../features/patients/presentation/privacy_screen.dart';
 import '../../features/patients/presentation/profile_screen.dart';
 import '../../features/recommendations/presentation/recommendations_screen.dart';
@@ -103,6 +104,10 @@ GoRouter appRouter(Ref ref) {
                   GoRoute(
                     path: 'privacy',
                     builder: (_, __) => const PrivacyScreen(),
+                  ),
+                  GoRoute(
+                    path: 'settings',
+                    builder: (_, __) => const AccountSettingsScreen(),
                   ),
                 ],
               ),

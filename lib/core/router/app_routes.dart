@@ -41,6 +41,12 @@ abstract final class AppRoutes {
   /// descarga el consentimiento aceptado (HU0001 escenario 4, CP004).
   static const String profilePrivacy = '/profile/privacy';
 
+  /// Configuracion de la cuenta (mockup 12b, P12-B).
+  ///
+  /// Hermana de [profilePrivacy] y no su reemplazo: Privacidad conserva su
+  /// ruta y su pantalla, y Configuracion la enlaza desde "Sobre la app".
+  static const String profileSettings = '/profile/settings';
+
   /// Registro de una comida (US09).
   static const String mealNew = '/meals/new';
 
