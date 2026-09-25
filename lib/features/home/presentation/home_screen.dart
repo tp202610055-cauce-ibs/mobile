@@ -9,6 +9,7 @@ import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/session_notifier.dart';
 import '../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
+import '../../recommendations/application/recommendations_feed_notifier.dart';
 import 'widgets/home_cards.dart';
 
 /// Pestana de Inicio.
@@ -25,8 +26,9 @@ import 'widgets/home_cards.dart';
 /// Es la version minima del mockup `06-home-dashboard`, armada **solo con
 /// datos que ya existen**: el puntaje IBS-SSS con su cambio contra la linea
 /// base y la fecha del proximo cuestionario, y el resumen de lo registrado
-/// hoy. El grafico grande con eje temporal llega en Mobile-4 con HU0023, y la
-/// seccion "Para hoy" en Mobile-5 con EP0003.
+/// hoy. El grafico grande con eje temporal llego en Mobile-4 con HU0023, y la
+/// seccion "Para hoy" en el bloque 6 con EP0003: el aviso de la recomendacion
+/// en revision y las nuevas, con su "Ver todas".
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -54,6 +56,9 @@ class HomeScreen extends ConsumerWidget {
           // notificacion en este bloque, este aviso es la via que el propio CA
           // contempla con "o desde el menu principal".
           const _IbsSssReminder(),
+          // HU0014 CA2 / CP037: la recomendacion propia en revision. Sin push
+          // en este bloque, el aviso vive aca, igual que el del cuestionario.
+          if (onboarding.allowsAdvice) const _RecommendationPendingReminder(),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -64,6 +69,9 @@ class HomeScreen extends ConsumerWidget {
           const SizedBox(height: CauceSpacing.space6),
           const HomeScoreCard(),
           const HomeTodayCard(),
+          // HU0014 CA1: las recomendaciones nuevas en la pantalla principal,
+          // con la puerta a Consejos del mockup 06 ("Ver todas").
+          if (onboarding.allowsAdvice) const HomeAdviceCard(),
         ],
       ),
     );
@@ -125,6 +133,67 @@ class _IbsSssReminder extends ConsumerWidget {
               key: const Key('home_ibs_sss_resume'),
               label: l10n.ibsSssReminderAction,
               onPressed: () => context.push(AppRoutes.ibsSssPeriodic),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Aviso de una recomendacion propia en revision (HU0014 CA2, CP037).
+///
+/// Hermano de [_IbsSssReminder], con el mismo lenguaje visual (decision 1).
+/// Lee el marcador local de la guarda anti-duplicados, asi que se sostiene
+/// sin conexion. **Sin tiempo estimado**: el backend no calcula ninguno, y
+/// `expiresAt` es el plazo en que vence si nadie la revisa, no una promesa.
+///
+/// Mientras la lista todavia carga no se muestra: el marcador puede ser de
+/// una recomendacion que se aprobo con la app cerrada, y el aviso apareceria
+/// para desaparecer un instante despues.
+class _RecommendationPendingReminder extends ConsumerWidget {
+  const _RecommendationPendingReminder();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final feed = ref.watch(recommendationsFeedNotifierProvider);
+    final pending = ref.watch(pendingRecommendationRequestProvider).valueOrNull;
+
+    if (pending == null || (feed.isLoading && !feed.hasValue)) {
+      return const SizedBox.shrink();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: CauceSpacing.space6),
+      child: Container(
+        key: const Key('home_recommendation_pending'),
+        width: double.infinity,
+        padding: const EdgeInsets.all(CauceSpacing.space4),
+        decoration: const BoxDecoration(
+          color: CauceColors.infoBg,
+          borderRadius: CauceRadii.borderMd,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              l10n.homeRecommendationPendingTitle,
+              style: textTheme.titleMedium?.copyWith(
+                color: CauceColors.infoText,
+              ),
+            ),
+            const SizedBox(height: CauceSpacing.space1),
+            Text(
+              l10n.homeRecommendationPendingBody,
+              style: textTheme.bodyMedium,
+            ),
+            const SizedBox(height: CauceSpacing.space3),
+            CauceButton.tertiary(
+              key: const Key('home_recommendation_pending_open'),
+              label: l10n.homeRecommendationPendingAction,
+              onPressed: () => context.go(AppRoutes.recommendations),
             ),
           ],
         ),

@@ -21,6 +21,11 @@ import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/patients/presentation/account_settings_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/clinical_report_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/profile_screen.dart';
+import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/features/recommendations/data/recommendation_request_store.dart';
+import 'package:cauce_mobile/features/recommendations/data/recommendations_repository.dart';
+import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_request.dart';
+import 'package:cauce_mobile/features/recommendations/presentation/recommendation_detail_screen.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendations_screen.dart';
 import 'package:cauce_mobile/features/symptoms/presentation/symptom_form_screen.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +39,7 @@ import '../../helpers/fake_auth_repository.dart';
 import '../../helpers/fake_glossary_repository.dart';
 import '../../helpers/fake_ibs_sss_repository.dart';
 import '../../helpers/fake_patients_repository.dart';
+import '../../helpers/fake_recommendations_repository.dart';
 import '../../helpers/fake_token_storage.dart';
 import '../../helpers/sync_fixtures.dart';
 
@@ -46,6 +52,8 @@ Future<ProviderContainer> _pumpShell(
   bool onboardingCompleted = true,
   IbsSssAssessmentSummaryData? latestAssessment,
   List<IbsSssEvolutionPoint> evolutionPoints = const <IbsSssEvolutionPoint>[],
+  FakeRecommendationsRepository? recommendations,
+  InMemoryRecommendationRequestStore? recommendationRequest,
 }) async {
   // Desde Mobile-3.2 montar `CauceApp` enciende los servicios de fondo, que
   // necesitan base local, conectividad y transporte. Se falsean los tres: lo
@@ -98,6 +106,17 @@ Future<ProviderContainer> _pumpShell(
         FakeIbsSssRepository()
           ..latest = latestAssessment
           ..evolutionPoints = evolutionPoints,
+      ),
+      // Sin recomendaciones, Consejos pide una al entrar. Por defecto se le
+      // responde el 422 silencioso: estos tests prueban navegacion.
+      recommendationsRepositoryProvider.overrideWithValue(
+        recommendations ??
+            (FakeRecommendationsRepository()
+              ..generationError =
+                  const CauceApiError.insufficientClinicalHistory()),
+      ),
+      recommendationRequestStoreProvider.overrideWithValue(
+        recommendationRequest ?? InMemoryRecommendationRequestStore(),
       ),
     ],
   );
@@ -436,6 +455,98 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(GlossaryScreen), findsOneWidget);
+    });
+  });
+
+  group('AppShell · Consejos (EP0003, R10)', () {
+    testWidgets('de la pestana Consejos al detalle, tocando una tarjeta',
+        (tester) async {
+      final recommendations =
+          FakeRecommendationsRepository(details: [approvedDetail]);
+      await _pumpShell(tester, recommendations: recommendations);
+
+      await _tapTab(tester, 'nav_advice');
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.byKey(Key('recommendation_card_${approvedDetail.id}')),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(RecommendationDetailScreen), findsOneWidget);
+      // Abrirla la entrega; que la tarjeta la pidiera antes, no.
+      expect(recommendations.deliveredIds, <String>[approvedDetail.id]);
+    });
+
+    testWidgets('de Inicio a Consejos por "Ver todas" (mockup 06)',
+        (tester) async {
+      await _pumpShell(
+        tester,
+        recommendations:
+            FakeRecommendationsRepository(details: [approvedDetail]),
+      );
+
+      final seeAll = find.byKey(const Key('home_advice_see_all'));
+      await tester.ensureVisible(seeAll);
+      await tester.pumpAndSettle();
+      await tester.tap(seeAll);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(RecommendationsScreen), findsOneWidget);
+    });
+
+    testWidgets('la nueva aparece en Inicio y abre su detalle (HU0014 CA1)',
+        (tester) async {
+      await _pumpShell(
+        tester,
+        recommendations:
+            FakeRecommendationsRepository(details: [approvedDetail]),
+      );
+
+      final card = find.byKey(Key('recommendation_card_${approvedDetail.id}'));
+      expect(
+        find.byKey(Key('recommendation_new_${approvedDetail.id}')),
+        findsOneWidget,
+      );
+      await tester.ensureVisible(card);
+      await tester.pumpAndSettle();
+      await tester.tap(card);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(RecommendationDetailScreen), findsOneWidget);
+
+      // Volver lleva a la lista de Consejos, no a Inicio: el detalle vive en
+      // esa rama.
+      await tester.tap(find.byKey(const Key('cauce_app_bar_back')));
+      await tester.pumpAndSettle();
+      expect(find.byType(RecommendationsScreen), findsOneWidget);
+    });
+
+    testWidgets('el aviso "en revision" de Inicio lleva a Consejos (CP037)',
+        (tester) async {
+      await _pumpShell(
+        tester,
+        recommendationRequest: InMemoryRecommendationRequestStore(
+          PendingRecommendationRequest(
+            ownerUserId: demoUser.userId,
+            idempotencyKey: 'key-1',
+            requestedAt: DateTime.now().toUtc(),
+            recommendationId: 'rec-pending',
+            expiresAt: DateTime.now().toUtc().add(const Duration(hours: 40)),
+          ),
+        ),
+      );
+
+      expect(
+        find.byKey(const Key('home_recommendation_pending')),
+        findsOneWidget,
+      );
+      await tester.tap(
+        find.byKey(const Key('home_recommendation_pending_open')),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(RecommendationsScreen), findsOneWidget);
+      expect(find.byKey(const Key('recommendations_pending')), findsOneWidget);
     });
   });
 }

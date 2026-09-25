@@ -12,6 +12,8 @@ import '../../../history/application/history_notifier.dart';
 import '../../../history/domain/history_entry.dart';
 import '../../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../../ibs_sss/domain/ibs_sss_assessment.dart';
+import '../../../recommendations/application/recommendations_feed_notifier.dart';
+import '../../../recommendations/presentation/widgets/recommendation_card.dart';
 
 /// Tarjeta del puntaje IBS-SSS (mockup `06-home-dashboard`, version minima).
 ///
@@ -164,6 +166,73 @@ class HomeTodayCard extends ConsumerWidget {
               onPressed: () => context.go(AppRoutes.history),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Consejos en la pantalla principal (HU0014 CA1, mockup 06 "Para hoy").
+///
+/// Muestra las recomendaciones **nuevas**, aprobadas y todavia sin abrir,
+/// marcadas como tales, con la misma tarjeta que la lista de Consejos y hasta
+/// [maxShown]. "Ver todas" lleva a la pestana.
+///
+/// **No pide ninguna recomendacion.** Lee el mismo estado que Consejos, pero
+/// solo entrar a esa pestana dispara la generacion (decision 2). Sin nada
+/// visible, o mientras carga o si falla, no se muestra: el aviso de "en
+/// revision" ya vive en su propio banner.
+class HomeAdviceCard extends ConsumerWidget {
+  const HomeAdviceCard({super.key});
+
+  /// Tarjetas que caben sin desplazar el resto de Inicio.
+  static const int maxShown = 2;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final feed = ref.watch(recommendationsFeedNotifierProvider).valueOrNull;
+
+    if (feed == null || feed.summaries.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    final fresh = feed.fresh.take(maxShown).toList();
+
+    return _Card(
+      cardKey: const Key('home_advice_card'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  l10n.recommendationsTitle,
+                  style: textTheme.labelLarge,
+                ),
+              ),
+              CauceButton.tertiary(
+                key: const Key('home_advice_see_all'),
+                label: l10n.homeAdviceSeeAll,
+                // `go`: Consejos es una pestana, igual que el Diario.
+                onPressed: () => context.go(AppRoutes.recommendations),
+              ),
+            ],
+          ),
+          const SizedBox(height: CauceSpacing.space2),
+          if (fresh.isEmpty)
+            Text(
+              l10n.homeAdviceNothingNew,
+              key: const Key('home_advice_nothing_new'),
+              style: textTheme.bodyMedium,
+            )
+          else
+            for (final summary in fresh)
+              RecommendationCard(
+                key: ValueKey<String>('home_${summary.id}'),
+                summary: summary,
+              ),
         ],
       ),
     );
