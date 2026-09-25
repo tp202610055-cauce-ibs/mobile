@@ -730,3 +730,36 @@ Alternativas consideradas.
 - (c) Inferir el origen solo con los tres campos de la decisión 10, descartada porque la píldora cambiaba de "Modificada por Ana Gómez" a "Sugerencia del sistema" en el mismo momento en que el paciente abría el detalle.
 - (d) Persistir la memoria de origen, diferida: el arreglo de fondo es del contrato.
 - (e) Compuerta de 24 h en el cliente, descartada por la decisión 9.
+
+Acta M48: La nota clínica manda su clientGuid, con una clave por pantalla
+
+**Estado:** Aprobada, implementada como arreglo puntual (HU0013, ruta `/history/note`). Decisión de Kiwicha sobre el momento de generar la clave; lugar en la arquitectura, de Quinua
+**Fecha:** 2026-09-25
+
+---
+
+Contexto. El 2026-09-22 el backend hizo idempotentes las notas clínicas (`d557e8d`): `CreateClinicalNoteRequest` suma `clientGuid`, `ResolveClientGuid` lo toma del cuerpo o del header `Idempotency-Key`, y `CreateClinicalNoteCommandValidator` exige `NotEmpty()`. El móvil regeneró el cliente al día siguiente (`2f839ef`) y el campo quedó disponible, pero `ClinicalNotesRepository.create()` nunca lo asignó. En el esquema el campo es opcional y *nullable*, de modo que compilaba sin aviso. Sin cuerpo ni header, `ResolveClientGuid` devuelve `Guid.Empty` y el validador responde 400: **ninguna nota se podía guardar desde el móvil.** Ningún test lo veía, porque el del formulario usa un repositorio mockeado.
+
+Decisión.
+
+1. **La clave vive en el estado del formulario**, `ClinicalNoteFormState.clientGuid`. Se genera con `Uuid().v4()` en el primer `submit()`, cuando el borrador ya pasó `canSubmit`, y se repite en cada reintento. El notifier es `autoDispose`, así que la clave dura lo que dura la pantalla: salir y volver es una nota nueva y una clave nueva.
+2. **El repositorio la recibe como parámetro**, `create(draft, {required String clientGuid})`, con la misma firma que `MealsRepository` y `SymptomsRepository`, y la asigna en el cuerpo.
+3. **Corregir el texto no renueva la clave.** Si el primer envío había llegado y se perdió la respuesta, el reintento con el texto corregido recibe 409 `idempotency_mismatch` en lugar de guardar una segunda nota. Se prefiere el aviso al duplicado en el registro clínico.
+4. **Las notas siguen exigiendo conexión.** No entran a la cola offline ni se guardan en el dispositivo. La idempotencia cubre el reintento desde la pantalla, no el envío diferido.
+
+Por qué ahí y no en otro lado.
+
+- **No en `ClinicalNoteDraft`.** El borrador es el contenido y su asociación, validado por `issues`. Su valor por defecto es `const`, que no puede generar un UUID, y comidas y síntomas tampoco llevan la clave en el borrador.
+- **No cacheada en el repositorio.** Es un singleton `keepAlive`: cachear por borrador exigiría elegir una clave de caché y decidir cuándo liberarla, y cualquiera de las dos se equivoca en algún caso. El estado del formulario ya tiene exactamente la vida que pide la decisión.
+
+Consecuencias.
+
+- Crear una nota vuelve a funcionar contra el backend vigente.
+- Un reintento tras un corte de red ya no puede duplicar la nota.
+- Nuevo `test/features/clinical_notes/data/clinical_notes_repository_test.dart` contra el cliente real con `CannedHttpAdapter`. Se comprobó que atrapa el defecto: al quitar la asignación, sus dos casos de cuerpo se ponen rojos.
+- La tabla de idempotencia de la §6.3 de `CLAUDE.md` y su fila de gaps ("`POST /clinical-notes` no tiene `clientGuid`") quedan desactualizadas. `CLAUDE.md` es local y no se tocó.
+
+Alternativas consideradas.
+- (a) Renovar la clave al corregir el texto, como en el feedback de recomendaciones (M47): descartada porque el alcance lo fija la pantalla, y un duplicado clínico pesa más que un aviso.
+- (b) Mandar la clave en el header `Idempotency-Key`: descartada para mantener el patrón de cuerpo de `/meals` y `/symptoms`.
+- (c) Cola offline para notas: fuera de alcance.
