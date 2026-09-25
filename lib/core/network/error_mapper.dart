@@ -61,6 +61,16 @@ abstract final class ErrorMapper {
       'patient_has_no_data_in_period';
   static const String _reportPeriodInvalid = 'report_period_invalid';
   static const String _domainRuleViolation = 'domain_rule_violation';
+  static const String _recommendationNotFound = 'recommendation_not_found';
+  static const String _recommendationAccessDenied =
+      'recommendation_access_denied';
+  static const String _conflictState = 'conflict_state';
+  static const String _recommendationExpired = 'recommendation_expired';
+  static const String _insufficientClinicalHistory =
+      'insufficient_clinical_history';
+  static const String _allCandidatesFilteredByAllergies =
+      'all_candidates_filtered_by_allergies';
+  static const String _noActiveModelVersion = 'no_active_model_version';
 
   /// Punto de entrada. Convierte cualquier [DioException] en un error tipado.
   static CauceApiError map(DioException exception) {
@@ -158,6 +168,16 @@ abstract final class ErrorMapper {
       _domainRuleViolation => CauceApiError.domainRuleViolation(
           detail: _string(body['detail']),
         ),
+      _recommendationNotFound => const CauceApiError.recommendationNotFound(),
+      _recommendationAccessDenied =>
+        const CauceApiError.recommendationAccessDenied(),
+      _conflictState => const CauceApiError.conflictState(),
+      _recommendationExpired => const CauceApiError.recommendationExpired(),
+      _insufficientClinicalHistory =>
+        const CauceApiError.insufficientClinicalHistory(),
+      _allCandidatesFilteredByAllergies =>
+        const CauceApiError.allCandidatesFilteredByAllergies(),
+      _noActiveModelVersion => const CauceApiError.noActiveModelVersion(),
       // Sin errorCode reconocido. Un 400 todavia puede traer `errors`: es el
       // camino del binding automatico de [ApiController], que el contrato
       // documenta como 400 sin errorCode.

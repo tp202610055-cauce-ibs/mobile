@@ -798,6 +798,34 @@ class AppLocalizationsEn extends AppLocalizations {
       'The requested period is not valid. Choose a range of up to 90 days that does not include future dates.';
 
   @override
+  String get errorRecommendationNotFound =>
+      'This recommendation is no longer available.';
+
+  @override
+  String get errorRecommendationAccessDenied =>
+      'You do not have access to this recommendation.';
+
+  @override
+  String get errorConflictState =>
+      'This recommendation changed while you were viewing it. We refreshed it to show its current state.';
+
+  @override
+  String get errorRecommendationExpired =>
+      'This recommendation expired and is no longer available.';
+
+  @override
+  String get errorInsufficientClinicalHistory =>
+      'There are not enough records yet to prepare a recommendation. Keep logging your meals and symptoms.';
+
+  @override
+  String get errorAllCandidatesFilteredByAllergies =>
+      'Because of your declared allergies we could not find foods to recommend. Your nutritionist can help you review this.';
+
+  @override
+  String get errorNoActiveModelVersion =>
+      'Recommendations are not available right now. Please try again later.';
+
+  @override
   String get errorDuplicateEmail => 'An account with this email already exists';
 
   @override
@@ -1646,11 +1674,348 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recommendationsTitle => 'Advice';
 
   @override
-  String get recommendationsEmptyTitle => 'No approved advice yet';
+  String get recommendationsEmptyTitle => 'No recommendations yet';
 
   @override
   String get recommendationsEmptyBody =>
-      'Once your nutritionist approves a recommendation for you, it will show up here.';
+      'We are analyzing your first records. The more meals and symptoms you log, the better we can advise you.';
+
+  @override
+  String get recommendationsEmptyAction => 'Log a meal';
+
+  @override
+  String get recommendationsPendingTitle =>
+      'Your recommendation is under review';
+
+  @override
+  String get recommendationsPendingBody =>
+      'Your nutritionist is reviewing it before it reaches you. In the meantime, you can keep using the app as usual.';
+
+  @override
+  String get recommendationsLoadError =>
+      'We could not load your recommendations.';
+
+  @override
+  String get recommendationsListHeader => 'Your recommendations';
+
+  @override
+  String get recommendationsListHint => 'Tap one to see the details';
+
+  @override
+  String get recommendationNewBadge => 'New';
+
+  @override
+  String recommendationActionAvoid(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'avoid $count foods',
+      one: 'avoid 1 food',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationActionSubstitute(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'substitute $count foods',
+      one: 'substitute 1 food',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationActionReduce(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'reduce $count foods',
+      one: 'reduce 1 food',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationActionSuggest(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'add $count foods',
+      one: 'add 1 food',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationFoodsMore(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'and $count more',
+      one: 'and 1 more',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recommendationManualTitle => 'Guidance from your nutritionist';
+
+  @override
+  String get recommendationFallbackTitle => 'A recommendation for you';
+
+  @override
+  String get recommendationOriginSystem => 'System suggestion';
+
+  @override
+  String recommendationOriginModified(String name) {
+    return 'Modified by $name';
+  }
+
+  @override
+  String recommendationOriginManual(String name) {
+    return 'Guidance from $name';
+  }
+
+  @override
+  String get recommendationYourNutritionist => 'your nutritionist';
+
+  @override
+  String recommendationReviewedBy(String name) {
+    return 'Reviewed and approved by $name';
+  }
+
+  @override
+  String get recommendationDateToday => 'Today';
+
+  @override
+  String get recommendationDateYesterday => 'Yesterday';
+
+  @override
+  String recommendationDateDaysAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days ago',
+      one: '1 day ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get recommendationDetailTitle => 'Recommendation details';
+
+  @override
+  String get recommendationSectionWhy => 'Why we recommend it';
+
+  @override
+  String get recommendationAttribution =>
+      'FODMAP classification based on the Monash University (2019) catalogue.';
+
+  @override
+  String get recommendationSectionItems => 'What we suggest';
+
+  @override
+  String get recommendationItemsSuggest => 'Add';
+
+  @override
+  String get recommendationItemsReduce => 'Reduce';
+
+  @override
+  String get recommendationItemsAvoid => 'Avoid';
+
+  @override
+  String get recommendationItemsSubstitute => 'Substitute';
+
+  @override
+  String recommendationSubstituteBy(String food, String substitute) {
+    return '$food with $substitute';
+  }
+
+  @override
+  String get recommendationSectionNote => 'Note from your nutritionist';
+
+  @override
+  String get recommendationSectionSteps => 'How to apply it';
+
+  @override
+  String get recommendationSectionData => 'Based on this data';
+
+  @override
+  String recommendationDataSymptoms(int count, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'symptoms logged in the last $days days',
+      one: 'symptom logged in the last $days days',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationDataMeals(int count, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'meals logged in the last $days days',
+      one: 'meal logged in the last $days days',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationDataHours(int hours) {
+    return '$hours h';
+  }
+
+  @override
+  String get recommendationDataWindow =>
+      'window the system uses to relate a meal to the symptoms that follow it';
+
+  @override
+  String recommendationDataTopFoods(String foods) {
+    return 'High-FODMAP foods you logged most: $foods';
+  }
+
+  @override
+  String get recommendationInfoBanner =>
+      'Any questions about this recommendation? Your nutritionist will review your progress at your next appointment and you can talk about any adjustment.';
+
+  @override
+  String get recommendationConfidenceHigh => 'High confidence';
+
+  @override
+  String get recommendationConfidenceMedium => 'Medium confidence';
+
+  @override
+  String get recommendationConfidenceLow => 'Low confidence';
+
+  @override
+  String get recommendationConfidenceHighBody =>
+      'Your records show a clear, repeated pattern that supports this recommendation.';
+
+  @override
+  String get recommendationConfidenceMediumBody =>
+      'Your records show a pattern, but it has not repeated much yet. Logging more helps confirm it.';
+
+  @override
+  String get recommendationConfidenceLowBody =>
+      'There are few signals in your records. Take it as a starting point to talk with your nutritionist.';
+
+  @override
+  String get recommendationConfidenceHint => 'Tap to see what it means';
+
+  @override
+  String get recommendationFeedbackTitle => 'How did it go?';
+
+  @override
+  String get recommendationFeedbackIntro =>
+      'Tell us whether you applied this recommendation and how you felt. Your answer helps improve the next ones.';
+
+  @override
+  String get recommendationFeedbackAppliedLabel =>
+      'Did you apply the recommendation?';
+
+  @override
+  String get recommendationFeedbackAppliedYes => 'Yes';
+
+  @override
+  String get recommendationFeedbackAppliedNo => 'No';
+
+  @override
+  String get recommendationFeedbackOutcomeLabel => 'How are your symptoms?';
+
+  @override
+  String get recommendationFeedbackOutcomeImprovement => 'Better';
+
+  @override
+  String get recommendationFeedbackOutcomeNoChange => 'The same';
+
+  @override
+  String get recommendationFeedbackOutcomeWorsening => 'Worse';
+
+  @override
+  String get recommendationFeedbackCommentLabel => 'Comment (optional)';
+
+  @override
+  String get recommendationFeedbackCommentHint =>
+      'For example: less bloating at night';
+
+  @override
+  String recommendationFeedbackRemaining(int count) {
+    return '$count characters left';
+  }
+
+  @override
+  String get recommendationFeedbackTooLong =>
+      'The comment is longer than 500 characters.';
+
+  @override
+  String get recommendationFeedbackSubmit => 'Send my answer';
+
+  @override
+  String get recommendationFeedbackNetworkError =>
+      'We could not send your answer';
+
+  @override
+  String get recommendationFeedbackNetworkErrorBody =>
+      'Check your connection and try again.';
+
+  @override
+  String get recommendationFeedbackSent => 'Thanks for telling us how it went';
+
+  @override
+  String get recommendationFeedbackSummaryTitle =>
+      'You already told us how it went';
+
+  @override
+  String get recommendationFeedbackSummaryApplied =>
+      'You applied the recommendation';
+
+  @override
+  String get recommendationFeedbackSummaryNotApplied =>
+      'You did not apply the recommendation';
+
+  @override
+  String get recommendationFeedbackSummaryImprovement =>
+      'Your symptoms got better';
+
+  @override
+  String get recommendationFeedbackSummaryNoChange =>
+      'Your symptoms stayed the same';
+
+  @override
+  String get recommendationFeedbackSummaryWorsening =>
+      'Your symptoms got worse';
+
+  @override
+  String get recommendationNotAvailableTitle =>
+      'This recommendation is no longer available';
+
+  @override
+  String get recommendationNotAvailableBody =>
+      'It may have expired or your nutritionist may have withdrawn it.';
+
+  @override
+  String get recommendationNotAvailableAction => 'Back to my advice';
+
+  @override
+  String get homeAdviceSeeAll => 'See all';
+
+  @override
+  String get homeAdviceNothingNew => 'You have no new recommendations.';
+
+  @override
+  String get homeRecommendationPendingTitle =>
+      'Your recommendation is under review';
+
+  @override
+  String get homeRecommendationPendingBody =>
+      'Your nutritionist is reviewing it. Once approved, you will find it in Advice.';
+
+  @override
+  String get homeRecommendationPendingAction => 'See my advice';
 
   @override
   String get recommendationsLockedTitle =>

@@ -59,6 +59,15 @@ extension CauceApiErrorMessage on CauceApiError {
       PatientHasNoDataInPeriodError() => l10n.errorPatientHasNoDataInPeriod,
       ReportPeriodInvalidError() => l10n.errorReportPeriodInvalid,
       DomainRuleViolationError() => l10n.errorDomainRuleViolation,
+      RecommendationNotFoundError() => l10n.errorRecommendationNotFound,
+      RecommendationAccessDeniedError() => l10n.errorRecommendationAccessDenied,
+      ConflictStateError() => l10n.errorConflictState,
+      RecommendationExpiredError() => l10n.errorRecommendationExpired,
+      InsufficientClinicalHistoryError() =>
+        l10n.errorInsufficientClinicalHistory,
+      AllCandidatesFilteredByAllergiesError() =>
+        l10n.errorAllCandidatesFilteredByAllergies,
+      NoActiveModelVersionError() => l10n.errorNoActiveModelVersion,
       DuplicateEmailError() => l10n.errorDuplicateEmail,
       KeycloakIntegrationError() => l10n.errorKeycloakIntegration,
       InvalidCredentialsError() => l10n.errorInvalidCredentials,

@@ -1484,6 +1484,48 @@ abstract class AppLocalizations {
   /// **'El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.'**
   String get errorReportPeriodInvalid;
 
+  /// errorCode recommendation_not_found (404). Tambien cubre las que existen pero no son visibles para el paciente (acta A24)
+  ///
+  /// In es, this message translates to:
+  /// **'Esta recomendación ya no está disponible.'**
+  String get errorRecommendationNotFound;
+
+  /// errorCode recommendation_access_denied (403). La recomendacion es de otro paciente
+  ///
+  /// In es, this message translates to:
+  /// **'No tienes acceso a esta recomendación.'**
+  String get errorRecommendationAccessDenied;
+
+  /// errorCode conflict_state (409). Transicion de estado invalida en el modulo de recomendaciones
+  ///
+  /// In es, this message translates to:
+  /// **'Esta recomendación cambió mientras la veías. La actualizamos para mostrarte su estado actual.'**
+  String get errorConflictState;
+
+  /// errorCode recommendation_expired (409). Vencio su ventana de 72 horas sin entregarse
+  ///
+  /// In es, this message translates to:
+  /// **'Esta recomendación venció y ya no está disponible.'**
+  String get errorRecommendationExpired;
+
+  /// errorCode insufficient_clinical_history (422). La pantalla de Consejos no lo muestra como error: es el estado vacio
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no hay suficientes registros para preparar una recomendación. Sigue registrando tus comidas y síntomas.'**
+  String get errorInsufficientClinicalHistory;
+
+  /// errorCode all_candidates_filtered_by_allergies (422)
+  ///
+  /// In es, this message translates to:
+  /// **'Por tus alergias declaradas no encontramos alimentos para recomendarte. Tu nutricionista puede ayudarte a revisarlo.'**
+  String get errorAllCandidatesFilteredByAllergies;
+
+  /// errorCode no_active_model_version (422). Condicion del servidor, no del paciente
+  ///
+  /// In es, this message translates to:
+  /// **'Las recomendaciones no están disponibles en este momento. Inténtalo más tarde.'**
+  String get errorNoActiveModelVersion;
+
   /// errorCode duplicate_email (409)
   ///
   /// In es, this message translates to:
@@ -2936,17 +2978,485 @@ abstract class AppLocalizations {
   /// **'Consejos'**
   String get recommendationsTitle;
 
-  /// Estado vacio de la pestana Consejos con el onboarding completo (EP0003 llega en Mobile-5)
+  /// Estado vacio de la pestana Consejos (mockup 10, variante 'Sin recomendaciones aun'). Cubre tambien el 422 insufficient_clinical_history del disparo automatico
   ///
   /// In es, this message translates to:
-  /// **'Aún no hay consejos aprobados'**
+  /// **'Aún no hay recomendaciones'**
   String get recommendationsEmptyTitle;
 
   /// No description provided for @recommendationsEmptyBody.
   ///
   /// In es, this message translates to:
-  /// **'Cuando tu nutricionista apruebe una recomendación para ti, la vas a encontrar acá.'**
+  /// **'Estamos analizando tus primeros registros. Mientras más comidas y síntomas registres, mejor podremos recomendarte.'**
   String get recommendationsEmptyBody;
+
+  /// Boton secundario del estado vacio (mockup 10): invita a registrar para que haya historial
+  ///
+  /// In es, this message translates to:
+  /// **'Registrar comida'**
+  String get recommendationsEmptyAction;
+
+  /// HU0014 CA2 / CP037. Sin tiempo estimado: el backend no calcula ninguno
+  ///
+  /// In es, this message translates to:
+  /// **'Tu recomendación está en revisión'**
+  String get recommendationsPendingTitle;
+
+  /// No description provided for @recommendationsPendingBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu nutricionista la está revisando antes de que llegue a ti. Mientras tanto, puedes seguir usando la app con normalidad.'**
+  String get recommendationsPendingBody;
+
+  /// No description provided for @recommendationsLoadError.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tus recomendaciones.'**
+  String get recommendationsLoadError;
+
+  /// No description provided for @recommendationsListHeader.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus recomendaciones'**
+  String get recommendationsListHeader;
+
+  /// No description provided for @recommendationsListHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca una para ver el detalle'**
+  String get recommendationsListHint;
+
+  /// HU0014 CA1: aprobada y todavia sin abrir
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva'**
+  String get recommendationNewBadge;
+
+  /// Parte del titulo compuesto de una tarjeta (decision 3). Va en minuscula: la pantalla capitaliza la primera parte
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{evitar 1 alimento} other{evitar {count} alimentos}}'**
+  String recommendationActionAvoid(int count);
+
+  /// No description provided for @recommendationActionSubstitute.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{sustituir 1 alimento} other{sustituir {count} alimentos}}'**
+  String recommendationActionSubstitute(int count);
+
+  /// No description provided for @recommendationActionReduce.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{reducir 1 alimento} other{reducir {count} alimentos}}'**
+  String recommendationActionReduce(int count);
+
+  /// No description provided for @recommendationActionSuggest.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{incorporar 1 alimento} other{incorporar {count} alimentos}}'**
+  String recommendationActionSuggest(int count);
+
+  /// Cola de la descripcion compuesta: 'Cebolla, ajo, manzana y 2 más'
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{y 1 más} other{y {count} más}}'**
+  String recommendationFoodsMore(int count);
+
+  /// No description provided for @recommendationManualTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Indicación de tu nutricionista'**
+  String get recommendationManualTitle;
+
+  /// No description provided for @recommendationFallbackTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Recomendación para ti'**
+  String get recommendationFallbackTitle;
+
+  /// Pildora de origen del mockup 11 (decision 10) para Approved
+  ///
+  /// In es, this message translates to:
+  /// **'Sugerencia del sistema'**
+  String get recommendationOriginSystem;
+
+  /// No description provided for @recommendationOriginModified.
+  ///
+  /// In es, this message translates to:
+  /// **'Modificada por {name}'**
+  String recommendationOriginModified(String name);
+
+  /// No description provided for @recommendationOriginManual.
+  ///
+  /// In es, this message translates to:
+  /// **'Indicación de {name}'**
+  String recommendationOriginManual(String name);
+
+  /// Respaldo cuando el backend no manda el nombre del revisor. Va en minuscula porque se inserta en una frase
+  ///
+  /// In es, this message translates to:
+  /// **'tu nutricionista'**
+  String get recommendationYourNutritionist;
+
+  /// HU0015 CA2 / CP041: el encabezado indica la revision y el nombre del profesional
+  ///
+  /// In es, this message translates to:
+  /// **'Revisada y validada por {name}'**
+  String recommendationReviewedBy(String name);
+
+  /// No description provided for @recommendationDateToday.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy'**
+  String get recommendationDateToday;
+
+  /// No description provided for @recommendationDateYesterday.
+  ///
+  /// In es, this message translates to:
+  /// **'Ayer'**
+  String get recommendationDateYesterday;
+
+  /// No description provided for @recommendationDateDaysAgo.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{Hace 1 día} other{Hace {count} días}}'**
+  String recommendationDateDaysAgo(int count);
+
+  /// No description provided for @recommendationDetailTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Detalle de la recomendación'**
+  String get recommendationDetailTitle;
+
+  /// No description provided for @recommendationSectionWhy.
+  ///
+  /// In es, this message translates to:
+  /// **'Por qué te lo recomendamos'**
+  String get recommendationSectionWhy;
+
+  /// Texto literal del mockup 11 (atribucion fija, no generada). Decision 6: siempre que explanationSource no sea Manual
+  ///
+  /// In es, this message translates to:
+  /// **'Clasificación FODMAP basada en el catálogo de Monash University (2019).'**
+  String get recommendationAttribution;
+
+  /// No description provided for @recommendationSectionItems.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué te proponemos'**
+  String get recommendationSectionItems;
+
+  /// No description provided for @recommendationItemsSuggest.
+  ///
+  /// In es, this message translates to:
+  /// **'Incorporar'**
+  String get recommendationItemsSuggest;
+
+  /// No description provided for @recommendationItemsReduce.
+  ///
+  /// In es, this message translates to:
+  /// **'Reducir'**
+  String get recommendationItemsReduce;
+
+  /// No description provided for @recommendationItemsAvoid.
+  ///
+  /// In es, this message translates to:
+  /// **'Evitar'**
+  String get recommendationItemsAvoid;
+
+  /// No description provided for @recommendationItemsSubstitute.
+  ///
+  /// In es, this message translates to:
+  /// **'Sustituir'**
+  String get recommendationItemsSubstitute;
+
+  /// No description provided for @recommendationSubstituteBy.
+  ///
+  /// In es, this message translates to:
+  /// **'{food} por {substitute}'**
+  String recommendationSubstituteBy(String food, String substitute);
+
+  /// No description provided for @recommendationSectionNote.
+  ///
+  /// In es, this message translates to:
+  /// **'Nota de tu nutricionista'**
+  String get recommendationSectionNote;
+
+  /// No description provided for @recommendationSectionSteps.
+  ///
+  /// In es, this message translates to:
+  /// **'Cómo aplicarlo'**
+  String get recommendationSectionSteps;
+
+  /// No description provided for @recommendationSectionData.
+  ///
+  /// In es, this message translates to:
+  /// **'Basado en estos datos'**
+  String get recommendationSectionData;
+
+  /// No description provided for @recommendationDataSymptoms.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{síntoma registrado en los últimos {days} días} other{síntomas registrados en los últimos {days} días}}'**
+  String recommendationDataSymptoms(int count, int days);
+
+  /// No description provided for @recommendationDataMeals.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{comida registrada en los últimos {days} días} other{comidas registradas en los últimos {days} días}}'**
+  String recommendationDataMeals(int count, int days);
+
+  /// No description provided for @recommendationDataHours.
+  ///
+  /// In es, this message translates to:
+  /// **'{hours} h'**
+  String recommendationDataHours(int hours);
+
+  /// No description provided for @recommendationDataWindow.
+  ///
+  /// In es, this message translates to:
+  /// **'ventana que usa el sistema para relacionar una comida con los síntomas que vienen después'**
+  String get recommendationDataWindow;
+
+  /// No description provided for @recommendationDataTopFoods.
+  ///
+  /// In es, this message translates to:
+  /// **'Alimentos altos en FODMAP que más registraste: {foods}'**
+  String recommendationDataTopFoods(String foods);
+
+  /// Banner informativo del pie del mockup 11, literal
+  ///
+  /// In es, this message translates to:
+  /// **'¿Tienes dudas sobre esta recomendación? Tu nutricionista revisará tu progreso en la próxima consulta y podrás conversar sobre cualquier ajuste.'**
+  String get recommendationInfoBanner;
+
+  /// Seccion F del design system. Umbral >= 0.70 (AvoidThreshold del motor), reversible (acta M47)
+  ///
+  /// In es, this message translates to:
+  /// **'Confianza alta'**
+  String get recommendationConfidenceHigh;
+
+  /// No description provided for @recommendationConfidenceMedium.
+  ///
+  /// In es, this message translates to:
+  /// **'Confianza media'**
+  String get recommendationConfidenceMedium;
+
+  /// No description provided for @recommendationConfidenceLow.
+  ///
+  /// In es, this message translates to:
+  /// **'Confianza baja'**
+  String get recommendationConfidenceLow;
+
+  /// HU0015 CA1: que significa el nivel en terminos practicos. Redaccion del cliente, pendiente de revision clinica
+  ///
+  /// In es, this message translates to:
+  /// **'Tus registros muestran un patrón claro y repetido que respalda esta recomendación.'**
+  String get recommendationConfidenceHighBody;
+
+  /// No description provided for @recommendationConfidenceMediumBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus registros muestran un patrón, pero con pocas repeticiones todavía. Seguir registrando ayuda a confirmarlo.'**
+  String get recommendationConfidenceMediumBody;
+
+  /// No description provided for @recommendationConfidenceLowBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay pocas señales en tus registros. Tómala como un punto de partida para conversar con tu nutricionista.'**
+  String get recommendationConfidenceLowBody;
+
+  /// No description provided for @recommendationConfidenceHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca para ver qué significa'**
+  String get recommendationConfidenceHint;
+
+  /// No description provided for @recommendationFeedbackTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cómo te fue?'**
+  String get recommendationFeedbackTitle;
+
+  /// No description provided for @recommendationFeedbackIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuéntanos si aplicaste esta recomendación y cómo te sentiste. Tu respuesta ayuda a mejorar las próximas.'**
+  String get recommendationFeedbackIntro;
+
+  /// No description provided for @recommendationFeedbackAppliedLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Aplicaste la recomendación?'**
+  String get recommendationFeedbackAppliedLabel;
+
+  /// No description provided for @recommendationFeedbackAppliedYes.
+  ///
+  /// In es, this message translates to:
+  /// **'Sí'**
+  String get recommendationFeedbackAppliedYes;
+
+  /// No description provided for @recommendationFeedbackAppliedNo.
+  ///
+  /// In es, this message translates to:
+  /// **'No'**
+  String get recommendationFeedbackAppliedNo;
+
+  /// No description provided for @recommendationFeedbackOutcomeLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cómo están tus síntomas?'**
+  String get recommendationFeedbackOutcomeLabel;
+
+  /// No description provided for @recommendationFeedbackOutcomeImprovement.
+  ///
+  /// In es, this message translates to:
+  /// **'Mejoraron'**
+  String get recommendationFeedbackOutcomeImprovement;
+
+  /// No description provided for @recommendationFeedbackOutcomeNoChange.
+  ///
+  /// In es, this message translates to:
+  /// **'Siguen igual'**
+  String get recommendationFeedbackOutcomeNoChange;
+
+  /// No description provided for @recommendationFeedbackOutcomeWorsening.
+  ///
+  /// In es, this message translates to:
+  /// **'Empeoraron'**
+  String get recommendationFeedbackOutcomeWorsening;
+
+  /// No description provided for @recommendationFeedbackCommentLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Comentario (opcional)'**
+  String get recommendationFeedbackCommentLabel;
+
+  /// No description provided for @recommendationFeedbackCommentHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Por ejemplo: menos hinchazón en las noches'**
+  String get recommendationFeedbackCommentHint;
+
+  /// Contador del comentario opcional (maximo 500, SubmitFeedbackCommandValidator). Se vuelve negativo si se pasa el tope
+  ///
+  /// In es, this message translates to:
+  /// **'Quedan {count} caracteres'**
+  String recommendationFeedbackRemaining(int count);
+
+  /// No description provided for @recommendationFeedbackTooLong.
+  ///
+  /// In es, this message translates to:
+  /// **'El comentario supera los 500 caracteres.'**
+  String get recommendationFeedbackTooLong;
+
+  /// No description provided for @recommendationFeedbackSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar mi respuesta'**
+  String get recommendationFeedbackSubmit;
+
+  /// Decision 8: el feedback es solo online. Sin conexion se avisa con un toast de error y reintento, sin cola local
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos enviar tu respuesta'**
+  String get recommendationFeedbackNetworkError;
+
+  /// No description provided for @recommendationFeedbackNetworkErrorBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa tu conexión e inténtalo otra vez.'**
+  String get recommendationFeedbackNetworkErrorBody;
+
+  /// No description provided for @recommendationFeedbackSent.
+  ///
+  /// In es, this message translates to:
+  /// **'Gracias por contarnos cómo te fue'**
+  String get recommendationFeedbackSent;
+
+  /// No description provided for @recommendationFeedbackSummaryTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya nos contaste cómo te fue'**
+  String get recommendationFeedbackSummaryTitle;
+
+  /// No description provided for @recommendationFeedbackSummaryApplied.
+  ///
+  /// In es, this message translates to:
+  /// **'Aplicaste la recomendación'**
+  String get recommendationFeedbackSummaryApplied;
+
+  /// No description provided for @recommendationFeedbackSummaryNotApplied.
+  ///
+  /// In es, this message translates to:
+  /// **'No aplicaste la recomendación'**
+  String get recommendationFeedbackSummaryNotApplied;
+
+  /// No description provided for @recommendationFeedbackSummaryImprovement.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus síntomas mejoraron'**
+  String get recommendationFeedbackSummaryImprovement;
+
+  /// No description provided for @recommendationFeedbackSummaryNoChange.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus síntomas siguieron igual'**
+  String get recommendationFeedbackSummaryNoChange;
+
+  /// No description provided for @recommendationFeedbackSummaryWorsening.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus síntomas empeoraron'**
+  String get recommendationFeedbackSummaryWorsening;
+
+  /// No description provided for @recommendationNotAvailableTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta recomendación ya no está disponible'**
+  String get recommendationNotAvailableTitle;
+
+  /// No description provided for @recommendationNotAvailableBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Puede que haya vencido o que tu nutricionista la haya retirado.'**
+  String get recommendationNotAvailableBody;
+
+  /// No description provided for @recommendationNotAvailableAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver a mis consejos'**
+  String get recommendationNotAvailableAction;
+
+  /// Enlace del mockup 06 hacia la pestana Consejos
+  ///
+  /// In es, this message translates to:
+  /// **'Ver todas'**
+  String get homeAdviceSeeAll;
+
+  /// No description provided for @homeAdviceNothingNew.
+  ///
+  /// In es, this message translates to:
+  /// **'No tienes recomendaciones nuevas.'**
+  String get homeAdviceNothingNew;
+
+  /// Decision 1: aviso in-app en Inicio, hermano del de IBS-SSS, sin push
+  ///
+  /// In es, this message translates to:
+  /// **'Tu recomendación está en revisión'**
+  String get homeRecommendationPendingTitle;
+
+  /// No description provided for @homeRecommendationPendingBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu nutricionista la está revisando. Cuando la apruebe, la vas a encontrar en Consejos.'**
+  String get homeRecommendationPendingBody;
+
+  /// No description provided for @homeRecommendationPendingAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver mis consejos'**
+  String get homeRecommendationPendingAction;
 
   /// Restriccion de la pestana Consejos con el onboarding pendiente (CP011 paso 6)
   ///

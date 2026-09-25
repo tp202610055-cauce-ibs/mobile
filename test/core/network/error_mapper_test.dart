@@ -597,4 +597,57 @@ void main() {
       expect((malformada as UnconfirmedAllergensError).allergens, isEmpty);
     });
   });
+
+  group('ErrorMapper · recomendaciones (EP0003)', () {
+    test('mapea los siete codigos del modulo', () {
+      final cases = <String, ({int status, Matcher matcher})>{
+        'recommendation_not_found': (
+          status: 404,
+          matcher: isA<RecommendationNotFoundError>()
+        ),
+        'recommendation_access_denied': (
+          status: 403,
+          matcher: isA<RecommendationAccessDeniedError>()
+        ),
+        'conflict_state': (status: 409, matcher: isA<ConflictStateError>()),
+        'recommendation_expired': (
+          status: 409,
+          matcher: isA<RecommendationExpiredError>()
+        ),
+        'insufficient_clinical_history': (
+          status: 422,
+          matcher: isA<InsufficientClinicalHistoryError>()
+        ),
+        'all_candidates_filtered_by_allergies': (
+          status: 422,
+          matcher: isA<AllCandidatesFilteredByAllergiesError>()
+        ),
+        'no_active_model_version': (
+          status: 422,
+          matcher: isA<NoActiveModelVersionError>()
+        ),
+      };
+
+      for (final entry in cases.entries) {
+        final error = ErrorMapper.map(
+          _problem(status: entry.value.status, errorCode: entry.key),
+        );
+
+        expect(error, entry.value.matcher, reason: entry.key);
+      }
+    });
+
+    test('los dos 409 del modulo no se confunden entre si', () {
+      // `conflict_state` se trata como exito silencioso al entregar;
+      // `recommendation_expired`, no. Confundirlos ocultaria una vencida.
+      final conflict =
+          ErrorMapper.map(_problem(status: 409, errorCode: 'conflict_state'));
+      final expired = ErrorMapper.map(
+        _problem(status: 409, errorCode: 'recommendation_expired'),
+      );
+
+      expect(conflict, isNot(isA<RecommendationExpiredError>()));
+      expect(expired, isNot(isA<ConflictStateError>()));
+    });
+  });
 }

@@ -247,4 +247,62 @@ void main() {
       expect(error.localizedMessage(es), isNot(contains('79974080')));
     });
   });
+
+  group('CauceApiErrorMessage · recomendaciones (EP0003)', () {
+    final cases = <String, (CauceApiError, String)>{
+      'recommendation_not_found': (
+        const CauceApiError.recommendationNotFound(),
+        es.errorRecommendationNotFound,
+      ),
+      'recommendation_access_denied': (
+        const CauceApiError.recommendationAccessDenied(),
+        es.errorRecommendationAccessDenied,
+      ),
+      'conflict_state': (
+        const CauceApiError.conflictState(),
+        es.errorConflictState,
+      ),
+      'recommendation_expired': (
+        const CauceApiError.recommendationExpired(),
+        es.errorRecommendationExpired,
+      ),
+      'insufficient_clinical_history': (
+        const CauceApiError.insufficientClinicalHistory(),
+        es.errorInsufficientClinicalHistory,
+      ),
+      'all_candidates_filtered_by_allergies': (
+        const CauceApiError.allCandidatesFilteredByAllergies(),
+        es.errorAllCandidatesFilteredByAllergies,
+      ),
+      'no_active_model_version': (
+        const CauceApiError.noActiveModelVersion(),
+        es.errorNoActiveModelVersion,
+      ),
+    };
+
+    for (final entry in cases.entries) {
+      test('${entry.key} tiene mensaje propio en es y en en', () {
+        final (error, expected) = entry.value;
+
+        expect(error.localizedMessage(es), expected);
+        expect(error.localizedMessage(en), isNotEmpty);
+        expect(error.localizedMessage(es), isNot(es.errorUnknown));
+      });
+    }
+
+    test('los siete mensajes son distintos entre si', () {
+      final messages =
+          cases.values.map((value) => value.$1.localizedMessage(es)).toSet();
+
+      expect(messages, hasLength(cases.length));
+    });
+
+    test('ninguno usa registro alarmista', () {
+      for (final value in cases.values) {
+        final message = value.$1.localizedMessage(es);
+        expect(message, isNot(contains('!')));
+        expect(message.toLowerCase(), isNot(contains('peligro')));
+      }
+    });
+  });
 }

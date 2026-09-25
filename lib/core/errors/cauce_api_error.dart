@@ -311,6 +311,47 @@ sealed class CauceApiError with _$CauceApiError {
   /// dejar el switch incompleto.
   const factory CauceApiError.reportPeriodInvalid() = ReportPeriodInvalidError;
 
+  // Modulo Recommendations (EP0003). Mobile-5, bloque 6.
+
+  /// 404 `recommendation_not_found`. No existe **o no es visible** para el
+  /// paciente: en revision, rechazada, vencida o archivada. El backend no
+  /// distingue los casos a proposito (acta A24), para no revelar que existe.
+  const factory CauceApiError.recommendationNotFound() =
+      RecommendationNotFoundError;
+
+  /// 403 `recommendation_access_denied`. La recomendacion es de otro paciente.
+  const factory CauceApiError.recommendationAccessDenied() =
+      RecommendationAccessDeniedError;
+
+  /// 409 `conflict_state`. La transicion pedida no vale desde el estado
+  /// actual: entregar una ya entregada, o enviar feedback sobre una que no
+  /// esta entregada o que ya lo tiene. Solo lo emite este modulo.
+  const factory CauceApiError.conflictState() = ConflictStateError;
+
+  /// 409 `recommendation_expired`. Vencio su ventana de 72 horas sin
+  /// entregarse, y el propio intento de entrega la marco como vencida.
+  const factory CauceApiError.recommendationExpired() =
+      RecommendationExpiredError;
+
+  /// 422 `insufficient_clinical_history`. Hay menos alimentos candidatos que
+  /// el minimo del motor en los ultimos 14 dias.
+  ///
+  /// **No es un fallo para el paciente.** Lo recibe un disparo automatico que
+  /// el paciente no pidio, y la pantalla lo trata como "todavia no hay
+  /// recomendaciones", sin banner de error.
+  const factory CauceApiError.insufficientClinicalHistory() =
+      InsufficientClinicalHistoryError;
+
+  /// 422 `all_candidates_filtered_by_allergies`. Las alergias declaradas
+  /// dejaron sin ningun alimento que recomendar.
+  const factory CauceApiError.allCandidatesFilteredByAllergies() =
+      AllCandidatesFilteredByAllergiesError;
+
+  /// 422 `no_active_model_version`. El backend no tiene una version del motor
+  /// activa. Es una condicion del servidor, no del paciente.
+  const factory CauceApiError.noActiveModelVersion() =
+      NoActiveModelVersionError;
+
   /// 403 `forbidden`.
   const factory CauceApiError.forbidden() = ForbiddenError;
 

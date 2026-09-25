@@ -252,6 +252,13 @@ mixin _$CauceApiError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -299,6 +306,13 @@ mixin _$CauceApiError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -346,6 +360,13 @@ mixin _$CauceApiError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -411,6 +432,19 @@ mixin _$CauceApiError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -463,6 +497,17 @@ mixin _$CauceApiError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -512,6 +557,16 @@ mixin _$CauceApiError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -671,6 +726,13 @@ class _$ValidationErrorImpl implements ValidationError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -721,6 +783,13 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -771,6 +840,13 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -842,6 +918,19 @@ class _$ValidationErrorImpl implements ValidationError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -897,6 +986,17 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -949,6 +1049,16 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -1062,6 +1172,13 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -1112,6 +1229,13 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -1162,6 +1286,13 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -1233,6 +1364,19 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -1288,6 +1432,17 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -1340,6 +1495,16 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -1468,6 +1633,13 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -1518,6 +1690,13 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -1568,6 +1747,13 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -1639,6 +1825,19 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -1694,6 +1893,17 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -1746,6 +1956,16 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -1855,6 +2075,13 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -1905,6 +2132,13 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -1955,6 +2189,13 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -2026,6 +2267,19 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -2081,6 +2335,17 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -2133,6 +2398,16 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -2233,6 +2508,13 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -2283,6 +2565,13 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -2333,6 +2622,13 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -2404,6 +2700,19 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -2459,6 +2768,17 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -2511,6 +2831,16 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -2638,6 +2968,13 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -2688,6 +3025,13 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -2738,6 +3082,13 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -2809,6 +3160,19 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -2864,6 +3228,17 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -2916,6 +3291,16 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -3054,6 +3439,13 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -3104,6 +3496,13 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -3154,6 +3553,13 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -3225,6 +3631,19 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -3280,6 +3699,17 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -3332,6 +3762,16 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -3474,6 +3914,13 @@ class _$NutritionistNotAvailableErrorImpl
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -3524,6 +3971,13 @@ class _$NutritionistNotAvailableErrorImpl
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -3574,6 +4028,13 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -3645,6 +4106,19 @@ class _$NutritionistNotAvailableErrorImpl
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -3700,6 +4174,17 @@ class _$NutritionistNotAvailableErrorImpl
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -3752,6 +4237,16 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -3865,6 +4360,13 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -3915,6 +4417,13 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -3965,6 +4474,13 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -4036,6 +4552,19 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -4091,6 +4620,17 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -4143,6 +4683,16 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -4246,6 +4796,13 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -4296,6 +4853,13 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -4346,6 +4910,13 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -4417,6 +4988,19 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -4472,6 +5056,17 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -4524,6 +5119,16 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -4626,6 +5231,13 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -4676,6 +5288,13 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -4726,6 +5345,13 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -4797,6 +5423,19 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -4852,6 +5491,17 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -4904,6 +5554,16 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -5006,6 +5666,13 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -5056,6 +5723,13 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -5106,6 +5780,13 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -5177,6 +5858,19 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -5232,6 +5926,17 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -5284,6 +5989,16 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -5384,6 +6099,13 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -5434,6 +6156,13 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -5484,6 +6213,13 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -5555,6 +6291,19 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -5610,6 +6359,17 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -5662,6 +6422,16 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -5763,6 +6533,13 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -5813,6 +6590,13 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -5863,6 +6647,13 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -5934,6 +6725,19 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -5989,6 +6793,17 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -6041,6 +6856,16 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -6143,6 +6968,13 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -6193,6 +7025,13 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -6243,6 +7082,13 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -6314,6 +7160,19 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -6369,6 +7228,17 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -6421,6 +7291,16 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -6526,6 +7406,13 @@ class _$DuplicateBaselineAssessmentErrorImpl
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -6576,6 +7463,13 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -6626,6 +7520,13 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -6697,6 +7598,19 @@ class _$DuplicateBaselineAssessmentErrorImpl
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -6752,6 +7666,17 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -6804,6 +7729,16 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -6906,6 +7841,13 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -6956,6 +7898,13 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -7006,6 +7955,13 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -7077,6 +8033,19 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -7132,6 +8101,17 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -7184,6 +8164,16 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -7286,6 +8276,13 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -7336,6 +8333,13 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -7386,6 +8390,13 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -7457,6 +8468,19 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -7512,6 +8536,17 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -7564,6 +8599,16 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -7666,6 +8711,13 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -7716,6 +8768,13 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -7766,6 +8825,13 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -7837,6 +8903,19 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -7892,6 +8971,17 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -7944,6 +9034,16 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -8044,6 +9144,13 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -8094,6 +9201,13 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -8144,6 +9258,13 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -8215,6 +9336,19 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -8270,6 +9404,17 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -8322,6 +9467,16 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -8424,6 +9579,13 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -8474,6 +9636,13 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -8524,6 +9693,13 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -8595,6 +9771,19 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -8650,6 +9839,17 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -8702,6 +9902,16 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -8804,6 +10014,13 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -8854,6 +10071,13 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -8904,6 +10128,13 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -8975,6 +10206,19 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -9030,6 +10274,17 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -9082,6 +10337,16 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -9220,6 +10485,13 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -9270,6 +10542,13 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -9320,6 +10599,13 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -9391,6 +10677,19 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -9446,6 +10745,17 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -9498,6 +10808,16 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -9612,6 +10932,13 @@ class _$InvalidMealRegistrationErrorImpl
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -9662,6 +10989,13 @@ class _$InvalidMealRegistrationErrorImpl
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -9712,6 +11046,13 @@ class _$InvalidMealRegistrationErrorImpl
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -9783,6 +11124,19 @@ class _$InvalidMealRegistrationErrorImpl
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -9838,6 +11192,17 @@ class _$InvalidMealRegistrationErrorImpl
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -9890,6 +11255,16 @@ class _$InvalidMealRegistrationErrorImpl
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -9990,6 +11365,13 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -10040,6 +11422,13 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -10090,6 +11479,13 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -10161,6 +11557,19 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -10216,6 +11625,17 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -10268,6 +11688,16 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -10368,6 +11798,13 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -10418,6 +11855,13 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -10468,6 +11912,13 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -10539,6 +11990,19 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -10594,6 +12058,17 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -10646,6 +12121,16 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -10748,6 +12233,13 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -10798,6 +12290,13 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -10848,6 +12347,13 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -10919,6 +12425,19 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -10974,6 +12493,17 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -11026,6 +12556,16 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -11130,6 +12670,13 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -11180,6 +12727,13 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -11230,6 +12784,13 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -11301,6 +12862,19 @@ class _$InvalidClinicalNoteAssociationErrorImpl
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -11356,6 +12930,17 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -11408,6 +12993,16 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -11511,6 +13106,13 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -11561,6 +13163,13 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -11611,6 +13220,13 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -11682,6 +13298,19 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -11737,6 +13366,17 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -11789,6 +13429,16 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -11918,6 +13568,13 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -11968,6 +13625,13 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -12018,6 +13682,13 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -12089,6 +13760,19 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -12144,6 +13828,17 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -12196,6 +13891,16 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -12307,6 +14012,13 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -12357,6 +14069,13 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -12407,6 +14126,13 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -12478,6 +14204,19 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -12533,6 +14272,17 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -12585,6 +14335,16 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -12713,6 +14473,13 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -12763,6 +14530,13 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -12813,6 +14587,13 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -12884,6 +14665,19 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -12939,6 +14733,17 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -12991,6 +14796,16 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -13102,6 +14917,13 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -13152,6 +14974,13 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -13202,6 +15031,13 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -13273,6 +15109,19 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -13328,6 +15177,17 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -13380,6 +15240,16 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -13481,6 +15351,13 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -13531,6 +15408,13 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -13581,6 +15465,13 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -13652,6 +15543,19 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -13707,6 +15611,17 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -13759,6 +15674,16 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -13861,6 +15786,13 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -13911,6 +15843,13 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -13961,6 +15900,13 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -14032,6 +15978,19 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -14087,6 +16046,17 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -14139,6 +16109,16 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -14243,6 +16223,13 @@ class _$PatientHasNoDataInPeriodErrorImpl
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -14293,6 +16280,13 @@ class _$PatientHasNoDataInPeriodErrorImpl
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -14343,6 +16337,13 @@ class _$PatientHasNoDataInPeriodErrorImpl
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -14414,6 +16415,19 @@ class _$PatientHasNoDataInPeriodErrorImpl
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -14469,6 +16483,17 @@ class _$PatientHasNoDataInPeriodErrorImpl
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -14521,6 +16546,16 @@ class _$PatientHasNoDataInPeriodErrorImpl
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -14624,6 +16659,13 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -14674,6 +16716,13 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -14724,6 +16773,13 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -14795,6 +16851,19 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -14850,6 +16919,17 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -14902,6 +16982,16 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -14916,6 +17006,3058 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
 
 abstract class ReportPeriodInvalidError implements CauceApiError {
   const factory ReportPeriodInvalidError() = _$ReportPeriodInvalidErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$RecommendationNotFoundErrorImplCopyWith<$Res> {
+  factory _$$RecommendationNotFoundErrorImplCopyWith(
+          _$RecommendationNotFoundErrorImpl value,
+          $Res Function(_$RecommendationNotFoundErrorImpl) then) =
+      __$$RecommendationNotFoundErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RecommendationNotFoundErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$RecommendationNotFoundErrorImpl>
+    implements _$$RecommendationNotFoundErrorImplCopyWith<$Res> {
+  __$$RecommendationNotFoundErrorImplCopyWithImpl(
+      _$RecommendationNotFoundErrorImpl _value,
+      $Res Function(_$RecommendationNotFoundErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RecommendationNotFoundErrorImpl implements RecommendationNotFoundError {
+  const _$RecommendationNotFoundErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.recommendationNotFound()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecommendationNotFoundErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return recommendationNotFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return recommendationNotFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (recommendationNotFound != null) {
+      return recommendationNotFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return recommendationNotFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return recommendationNotFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (recommendationNotFound != null) {
+      return recommendationNotFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecommendationNotFoundError implements CauceApiError {
+  const factory RecommendationNotFoundError() =
+      _$RecommendationNotFoundErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$RecommendationAccessDeniedErrorImplCopyWith<$Res> {
+  factory _$$RecommendationAccessDeniedErrorImplCopyWith(
+          _$RecommendationAccessDeniedErrorImpl value,
+          $Res Function(_$RecommendationAccessDeniedErrorImpl) then) =
+      __$$RecommendationAccessDeniedErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RecommendationAccessDeniedErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res,
+        _$RecommendationAccessDeniedErrorImpl>
+    implements _$$RecommendationAccessDeniedErrorImplCopyWith<$Res> {
+  __$$RecommendationAccessDeniedErrorImplCopyWithImpl(
+      _$RecommendationAccessDeniedErrorImpl _value,
+      $Res Function(_$RecommendationAccessDeniedErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RecommendationAccessDeniedErrorImpl
+    implements RecommendationAccessDeniedError {
+  const _$RecommendationAccessDeniedErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.recommendationAccessDenied()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecommendationAccessDeniedErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return recommendationAccessDenied();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return recommendationAccessDenied?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (recommendationAccessDenied != null) {
+      return recommendationAccessDenied();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return recommendationAccessDenied(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return recommendationAccessDenied?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (recommendationAccessDenied != null) {
+      return recommendationAccessDenied(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecommendationAccessDeniedError implements CauceApiError {
+  const factory RecommendationAccessDeniedError() =
+      _$RecommendationAccessDeniedErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$ConflictStateErrorImplCopyWith<$Res> {
+  factory _$$ConflictStateErrorImplCopyWith(_$ConflictStateErrorImpl value,
+          $Res Function(_$ConflictStateErrorImpl) then) =
+      __$$ConflictStateErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ConflictStateErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$ConflictStateErrorImpl>
+    implements _$$ConflictStateErrorImplCopyWith<$Res> {
+  __$$ConflictStateErrorImplCopyWithImpl(_$ConflictStateErrorImpl _value,
+      $Res Function(_$ConflictStateErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ConflictStateErrorImpl implements ConflictStateError {
+  const _$ConflictStateErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.conflictState()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ConflictStateErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return conflictState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return conflictState?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (conflictState != null) {
+      return conflictState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return conflictState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return conflictState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (conflictState != null) {
+      return conflictState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ConflictStateError implements CauceApiError {
+  const factory ConflictStateError() = _$ConflictStateErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$RecommendationExpiredErrorImplCopyWith<$Res> {
+  factory _$$RecommendationExpiredErrorImplCopyWith(
+          _$RecommendationExpiredErrorImpl value,
+          $Res Function(_$RecommendationExpiredErrorImpl) then) =
+      __$$RecommendationExpiredErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RecommendationExpiredErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$RecommendationExpiredErrorImpl>
+    implements _$$RecommendationExpiredErrorImplCopyWith<$Res> {
+  __$$RecommendationExpiredErrorImplCopyWithImpl(
+      _$RecommendationExpiredErrorImpl _value,
+      $Res Function(_$RecommendationExpiredErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$RecommendationExpiredErrorImpl implements RecommendationExpiredError {
+  const _$RecommendationExpiredErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.recommendationExpired()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecommendationExpiredErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return recommendationExpired();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return recommendationExpired?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (recommendationExpired != null) {
+      return recommendationExpired();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return recommendationExpired(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return recommendationExpired?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (recommendationExpired != null) {
+      return recommendationExpired(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecommendationExpiredError implements CauceApiError {
+  const factory RecommendationExpiredError() = _$RecommendationExpiredErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$InsufficientClinicalHistoryErrorImplCopyWith<$Res> {
+  factory _$$InsufficientClinicalHistoryErrorImplCopyWith(
+          _$InsufficientClinicalHistoryErrorImpl value,
+          $Res Function(_$InsufficientClinicalHistoryErrorImpl) then) =
+      __$$InsufficientClinicalHistoryErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InsufficientClinicalHistoryErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res,
+        _$InsufficientClinicalHistoryErrorImpl>
+    implements _$$InsufficientClinicalHistoryErrorImplCopyWith<$Res> {
+  __$$InsufficientClinicalHistoryErrorImplCopyWithImpl(
+      _$InsufficientClinicalHistoryErrorImpl _value,
+      $Res Function(_$InsufficientClinicalHistoryErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InsufficientClinicalHistoryErrorImpl
+    implements InsufficientClinicalHistoryError {
+  const _$InsufficientClinicalHistoryErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.insufficientClinicalHistory()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InsufficientClinicalHistoryErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return insufficientClinicalHistory();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return insufficientClinicalHistory?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (insufficientClinicalHistory != null) {
+      return insufficientClinicalHistory();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return insufficientClinicalHistory(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return insufficientClinicalHistory?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (insufficientClinicalHistory != null) {
+      return insufficientClinicalHistory(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InsufficientClinicalHistoryError implements CauceApiError {
+  const factory InsufficientClinicalHistoryError() =
+      _$InsufficientClinicalHistoryErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$AllCandidatesFilteredByAllergiesErrorImplCopyWith<$Res> {
+  factory _$$AllCandidatesFilteredByAllergiesErrorImplCopyWith(
+          _$AllCandidatesFilteredByAllergiesErrorImpl value,
+          $Res Function(_$AllCandidatesFilteredByAllergiesErrorImpl) then) =
+      __$$AllCandidatesFilteredByAllergiesErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AllCandidatesFilteredByAllergiesErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res,
+        _$AllCandidatesFilteredByAllergiesErrorImpl>
+    implements _$$AllCandidatesFilteredByAllergiesErrorImplCopyWith<$Res> {
+  __$$AllCandidatesFilteredByAllergiesErrorImplCopyWithImpl(
+      _$AllCandidatesFilteredByAllergiesErrorImpl _value,
+      $Res Function(_$AllCandidatesFilteredByAllergiesErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$AllCandidatesFilteredByAllergiesErrorImpl
+    implements AllCandidatesFilteredByAllergiesError {
+  const _$AllCandidatesFilteredByAllergiesErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.allCandidatesFilteredByAllergies()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AllCandidatesFilteredByAllergiesErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return allCandidatesFilteredByAllergies();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return allCandidatesFilteredByAllergies?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (allCandidatesFilteredByAllergies != null) {
+      return allCandidatesFilteredByAllergies();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return allCandidatesFilteredByAllergies(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return allCandidatesFilteredByAllergies?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (allCandidatesFilteredByAllergies != null) {
+      return allCandidatesFilteredByAllergies(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AllCandidatesFilteredByAllergiesError implements CauceApiError {
+  const factory AllCandidatesFilteredByAllergiesError() =
+      _$AllCandidatesFilteredByAllergiesErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$NoActiveModelVersionErrorImplCopyWith<$Res> {
+  factory _$$NoActiveModelVersionErrorImplCopyWith(
+          _$NoActiveModelVersionErrorImpl value,
+          $Res Function(_$NoActiveModelVersionErrorImpl) then) =
+      __$$NoActiveModelVersionErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$NoActiveModelVersionErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$NoActiveModelVersionErrorImpl>
+    implements _$$NoActiveModelVersionErrorImplCopyWith<$Res> {
+  __$$NoActiveModelVersionErrorImplCopyWithImpl(
+      _$NoActiveModelVersionErrorImpl _value,
+      $Res Function(_$NoActiveModelVersionErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$NoActiveModelVersionErrorImpl implements NoActiveModelVersionError {
+  const _$NoActiveModelVersionErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.noActiveModelVersion()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NoActiveModelVersionErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return noActiveModelVersion();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return noActiveModelVersion?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (noActiveModelVersion != null) {
+      return noActiveModelVersion();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return noActiveModelVersion(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return noActiveModelVersion?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (noActiveModelVersion != null) {
+      return noActiveModelVersion(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class NoActiveModelVersionError implements CauceApiError {
+  const factory NoActiveModelVersionError() = _$NoActiveModelVersionErrorImpl;
 }
 
 /// @nodoc
@@ -15001,6 +20143,13 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -15051,6 +20200,13 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -15101,6 +20257,13 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -15172,6 +20335,19 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -15227,6 +20403,17 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -15279,6 +20466,16 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -15378,6 +20575,13 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -15428,6 +20632,13 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -15478,6 +20689,13 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -15549,6 +20767,19 @@ class _$NetworkErrorImpl implements NetworkError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -15604,6 +20835,17 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -15656,6 +20898,16 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,
@@ -15801,6 +21053,13 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
     required TResult Function() reportPeriodInvalid,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
     required TResult Function() forbidden,
     required TResult Function() network,
     required TResult Function(int statusCode, String? errorCode, String? detail)
@@ -15851,6 +21110,13 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
     TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
     TResult? Function()? forbidden,
     TResult? Function()? network,
     TResult? Function(int statusCode, String? errorCode, String? detail)?
@@ -15901,6 +21167,13 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
     TResult Function()? reportPeriodInvalid,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
     TResult Function()? forbidden,
     TResult Function()? network,
     TResult Function(int statusCode, String? errorCode, String? detail)?
@@ -15972,6 +21245,19 @@ class _$UnknownErrorImpl implements UnknownError {
         patientHasNoDataInPeriod,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
     required TResult Function(ForbiddenError value) forbidden,
     required TResult Function(NetworkError value) network,
     required TResult Function(UnknownError value) unknown,
@@ -16027,6 +21313,17 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult? Function(ForbiddenError value)? forbidden,
     TResult? Function(NetworkError value)? network,
     TResult? Function(UnknownError value)? unknown,
@@ -16079,6 +21376,16 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
     TResult Function(ForbiddenError value)? forbidden,
     TResult Function(NetworkError value)? network,
     TResult Function(UnknownError value)? unknown,

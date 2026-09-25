@@ -834,6 +834,34 @@
   "@errorDomainRuleViolation": {
     "description": "errorCode domain_rule_violation (400). Caso general de DomainException para las reglas sin errorCode propio"
   },
+  "errorRecommendationNotFound": "Esta recomendación ya no está disponible.",
+  "@errorRecommendationNotFound": {
+    "description": "errorCode recommendation_not_found (404). Tambien cubre las que existen pero no son visibles para el paciente (acta A24)"
+  },
+  "errorRecommendationAccessDenied": "No tienes acceso a esta recomendación.",
+  "@errorRecommendationAccessDenied": {
+    "description": "errorCode recommendation_access_denied (403). La recomendacion es de otro paciente"
+  },
+  "errorConflictState": "Esta recomendación cambió mientras la veías. La actualizamos para mostrarte su estado actual.",
+  "@errorConflictState": {
+    "description": "errorCode conflict_state (409). Transicion de estado invalida en el modulo de recomendaciones"
+  },
+  "errorRecommendationExpired": "Esta recomendación venció y ya no está disponible.",
+  "@errorRecommendationExpired": {
+    "description": "errorCode recommendation_expired (409). Vencio su ventana de 72 horas sin entregarse"
+  },
+  "errorInsufficientClinicalHistory": "Todavía no hay suficientes registros para preparar una recomendación. Sigue registrando tus comidas y síntomas.",
+  "@errorInsufficientClinicalHistory": {
+    "description": "errorCode insufficient_clinical_history (422). La pantalla de Consejos no lo muestra como error: es el estado vacio"
+  },
+  "errorAllCandidatesFilteredByAllergies": "Por tus alergias declaradas no encontramos alimentos para recomendarte. Tu nutricionista puede ayudarte a revisarlo.",
+  "@errorAllCandidatesFilteredByAllergies": {
+    "description": "errorCode all_candidates_filtered_by_allergies (422)"
+  },
+  "errorNoActiveModelVersion": "Las recomendaciones no están disponibles en este momento. Inténtalo más tarde.",
+  "@errorNoActiveModelVersion": {
+    "description": "errorCode no_active_model_version (422). Condicion del servidor, no del paciente"
+  },
   "errorDuplicateEmail": "Ya existe una cuenta con este correo",
   "@errorDuplicateEmail": {
     "description": "errorCode duplicate_email (409)"
@@ -1387,11 +1415,243 @@
   "fabLogSymptom": "Registrar síntoma",
   "fabIbsSss": "Cuestionario IBS-SSS",
   "recommendationsTitle": "Consejos",
-  "recommendationsEmptyTitle": "Aún no hay consejos aprobados",
+  "recommendationsEmptyTitle": "Aún no hay recomendaciones",
   "@recommendationsEmptyTitle": {
-      "description": "Estado vacio de la pestana Consejos con el onboarding completo (EP0003 llega en Mobile-5)"
+      "description": "Estado vacio de la pestana Consejos (mockup 10, variante 'Sin recomendaciones aun'). Cubre tambien el 422 insufficient_clinical_history del disparo automatico"
   },
-  "recommendationsEmptyBody": "Cuando tu nutricionista apruebe una recomendación para ti, la vas a encontrar acá.",
+  "recommendationsEmptyBody": "Estamos analizando tus primeros registros. Mientras más comidas y síntomas registres, mejor podremos recomendarte.",
+  "recommendationsEmptyAction": "Registrar comida",
+  "@recommendationsEmptyAction": {
+      "description": "Boton secundario del estado vacio (mockup 10): invita a registrar para que haya historial"
+  },
+  "recommendationsPendingTitle": "Tu recomendación está en revisión",
+  "@recommendationsPendingTitle": {
+      "description": "HU0014 CA2 / CP037. Sin tiempo estimado: el backend no calcula ninguno"
+  },
+  "recommendationsPendingBody": "Tu nutricionista la está revisando antes de que llegue a ti. Mientras tanto, puedes seguir usando la app con normalidad.",
+  "recommendationsLoadError": "No pudimos cargar tus recomendaciones.",
+  "recommendationsListHeader": "Tus recomendaciones",
+  "recommendationsListHint": "Toca una para ver el detalle",
+  "recommendationNewBadge": "Nueva",
+  "@recommendationNewBadge": {
+      "description": "HU0014 CA1: aprobada y todavia sin abrir"
+  },
+  "recommendationActionAvoid": "{count, plural, =1{evitar 1 alimento} other{evitar {count} alimentos}}",
+  "@recommendationActionAvoid": {
+      "description": "Parte del titulo compuesto de una tarjeta (decision 3). Va en minuscula: la pantalla capitaliza la primera parte",
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationActionSubstitute": "{count, plural, =1{sustituir 1 alimento} other{sustituir {count} alimentos}}",
+  "@recommendationActionSubstitute": {
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationActionReduce": "{count, plural, =1{reducir 1 alimento} other{reducir {count} alimentos}}",
+  "@recommendationActionReduce": {
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationActionSuggest": "{count, plural, =1{incorporar 1 alimento} other{incorporar {count} alimentos}}",
+  "@recommendationActionSuggest": {
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationFoodsMore": "{count, plural, =1{y 1 más} other{y {count} más}}",
+  "@recommendationFoodsMore": {
+      "description": "Cola de la descripcion compuesta: 'Cebolla, ajo, manzana y 2 más'",
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationManualTitle": "Indicación de tu nutricionista",
+  "recommendationFallbackTitle": "Recomendación para ti",
+  "recommendationOriginSystem": "Sugerencia del sistema",
+  "@recommendationOriginSystem": {
+      "description": "Pildora de origen del mockup 11 (decision 10) para Approved"
+  },
+  "recommendationOriginModified": "Modificada por {name}",
+  "@recommendationOriginModified": {
+      "placeholders": {
+          "name": {
+              "type": "String"
+          }
+      }
+  },
+  "recommendationOriginManual": "Indicación de {name}",
+  "@recommendationOriginManual": {
+      "placeholders": {
+          "name": {
+              "type": "String"
+          }
+      }
+  },
+  "recommendationYourNutritionist": "tu nutricionista",
+  "@recommendationYourNutritionist": {
+      "description": "Respaldo cuando el backend no manda el nombre del revisor. Va en minuscula porque se inserta en una frase"
+  },
+  "recommendationReviewedBy": "Revisada y validada por {name}",
+  "@recommendationReviewedBy": {
+      "description": "HU0015 CA2 / CP041: el encabezado indica la revision y el nombre del profesional",
+      "placeholders": {
+          "name": {
+              "type": "String"
+          }
+      }
+  },
+  "recommendationDateToday": "Hoy",
+  "recommendationDateYesterday": "Ayer",
+  "recommendationDateDaysAgo": "{count, plural, =1{Hace 1 día} other{Hace {count} días}}",
+  "@recommendationDateDaysAgo": {
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationDetailTitle": "Detalle de la recomendación",
+  "recommendationSectionWhy": "Por qué te lo recomendamos",
+  "recommendationAttribution": "Clasificación FODMAP basada en el catálogo de Monash University (2019).",
+  "@recommendationAttribution": {
+      "description": "Texto literal del mockup 11 (atribucion fija, no generada). Decision 6: siempre que explanationSource no sea Manual"
+  },
+  "recommendationSectionItems": "Qué te proponemos",
+  "recommendationItemsSuggest": "Incorporar",
+  "recommendationItemsReduce": "Reducir",
+  "recommendationItemsAvoid": "Evitar",
+  "recommendationItemsSubstitute": "Sustituir",
+  "recommendationSubstituteBy": "{food} por {substitute}",
+  "@recommendationSubstituteBy": {
+      "placeholders": {
+          "food": {
+              "type": "String"
+          },
+          "substitute": {
+              "type": "String"
+          }
+      }
+  },
+  "recommendationSectionNote": "Nota de tu nutricionista",
+  "recommendationSectionSteps": "Cómo aplicarlo",
+  "recommendationSectionData": "Basado en estos datos",
+  "recommendationDataSymptoms": "{count, plural, =1{síntoma registrado en los últimos {days} días} other{síntomas registrados en los últimos {days} días}}",
+  "@recommendationDataSymptoms": {
+      "placeholders": {
+          "count": {
+              "type": "int"
+          },
+          "days": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationDataMeals": "{count, plural, =1{comida registrada en los últimos {days} días} other{comidas registradas en los últimos {days} días}}",
+  "@recommendationDataMeals": {
+      "placeholders": {
+          "count": {
+              "type": "int"
+          },
+          "days": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationDataHours": "{hours} h",
+  "@recommendationDataHours": {
+      "placeholders": {
+          "hours": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationDataWindow": "ventana que usa el sistema para relacionar una comida con los síntomas que vienen después",
+  "recommendationDataTopFoods": "Alimentos altos en FODMAP que más registraste: {foods}",
+  "@recommendationDataTopFoods": {
+      "placeholders": {
+          "foods": {
+              "type": "String"
+          }
+      }
+  },
+  "recommendationInfoBanner": "¿Tienes dudas sobre esta recomendación? Tu nutricionista revisará tu progreso en la próxima consulta y podrás conversar sobre cualquier ajuste.",
+  "@recommendationInfoBanner": {
+      "description": "Banner informativo del pie del mockup 11, literal"
+  },
+  "recommendationConfidenceHigh": "Confianza alta",
+  "@recommendationConfidenceHigh": {
+      "description": "Seccion F del design system. Umbral >= 0.70 (AvoidThreshold del motor), reversible (acta M47)"
+  },
+  "recommendationConfidenceMedium": "Confianza media",
+  "recommendationConfidenceLow": "Confianza baja",
+  "recommendationConfidenceHighBody": "Tus registros muestran un patrón claro y repetido que respalda esta recomendación.",
+  "@recommendationConfidenceHighBody": {
+      "description": "HU0015 CA1: que significa el nivel en terminos practicos. Redaccion del cliente, pendiente de revision clinica"
+  },
+  "recommendationConfidenceMediumBody": "Tus registros muestran un patrón, pero con pocas repeticiones todavía. Seguir registrando ayuda a confirmarlo.",
+  "recommendationConfidenceLowBody": "Hay pocas señales en tus registros. Tómala como un punto de partida para conversar con tu nutricionista.",
+  "recommendationConfidenceHint": "Toca para ver qué significa",
+  "recommendationFeedbackTitle": "¿Cómo te fue?",
+  "recommendationFeedbackIntro": "Cuéntanos si aplicaste esta recomendación y cómo te sentiste. Tu respuesta ayuda a mejorar las próximas.",
+  "recommendationFeedbackAppliedLabel": "¿Aplicaste la recomendación?",
+  "recommendationFeedbackAppliedYes": "Sí",
+  "recommendationFeedbackAppliedNo": "No",
+  "recommendationFeedbackOutcomeLabel": "¿Cómo están tus síntomas?",
+  "recommendationFeedbackOutcomeImprovement": "Mejoraron",
+  "recommendationFeedbackOutcomeNoChange": "Siguen igual",
+  "recommendationFeedbackOutcomeWorsening": "Empeoraron",
+  "recommendationFeedbackCommentLabel": "Comentario (opcional)",
+  "recommendationFeedbackCommentHint": "Por ejemplo: menos hinchazón en las noches",
+  "recommendationFeedbackRemaining": "Quedan {count} caracteres",
+  "@recommendationFeedbackRemaining": {
+      "description": "Contador del comentario opcional (maximo 500, SubmitFeedbackCommandValidator). Se vuelve negativo si se pasa el tope",
+      "placeholders": {
+          "count": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationFeedbackTooLong": "El comentario supera los 500 caracteres.",
+  "recommendationFeedbackSubmit": "Enviar mi respuesta",
+  "recommendationFeedbackNetworkError": "No pudimos enviar tu respuesta",
+  "@recommendationFeedbackNetworkError": {
+      "description": "Decision 8: el feedback es solo online. Sin conexion se avisa con un toast de error y reintento, sin cola local"
+  },
+  "recommendationFeedbackNetworkErrorBody": "Revisa tu conexión e inténtalo otra vez.",
+  "recommendationFeedbackSent": "Gracias por contarnos cómo te fue",
+  "recommendationFeedbackSummaryTitle": "Ya nos contaste cómo te fue",
+  "recommendationFeedbackSummaryApplied": "Aplicaste la recomendación",
+  "recommendationFeedbackSummaryNotApplied": "No aplicaste la recomendación",
+  "recommendationFeedbackSummaryImprovement": "Tus síntomas mejoraron",
+  "recommendationFeedbackSummaryNoChange": "Tus síntomas siguieron igual",
+  "recommendationFeedbackSummaryWorsening": "Tus síntomas empeoraron",
+  "recommendationNotAvailableTitle": "Esta recomendación ya no está disponible",
+  "recommendationNotAvailableBody": "Puede que haya vencido o que tu nutricionista la haya retirado.",
+  "recommendationNotAvailableAction": "Volver a mis consejos",
+  "homeAdviceSeeAll": "Ver todas",
+  "@homeAdviceSeeAll": {
+      "description": "Enlace del mockup 06 hacia la pestana Consejos"
+  },
+  "homeAdviceNothingNew": "No tienes recomendaciones nuevas.",
+  "homeRecommendationPendingTitle": "Tu recomendación está en revisión",
+  "@homeRecommendationPendingTitle": {
+      "description": "Decision 1: aviso in-app en Inicio, hermano del de IBS-SSS, sin push"
+  },
+  "homeRecommendationPendingBody": "Tu nutricionista la está revisando. Cuando la apruebe, la vas a encontrar en Consejos.",
+  "homeRecommendationPendingAction": "Ver mis consejos",
   "recommendationsLockedTitle": "Disponible al completar tu perfil",
   "@recommendationsLockedTitle": {
       "description": "Restriccion de la pestana Consejos con el onboarding pendiente (CP011 paso 6)"
