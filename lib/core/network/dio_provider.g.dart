@@ -173,6 +173,52 @@ final glossaryApiProvider = Provider<GlossaryApi>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GlossaryApiRef = ProviderRef<GlossaryApi>;
+String _$patientRecommendationsApiHash() =>
+    r'2d10256256e24f8b6a81b8b5e1797f8288ff4c34';
+
+/// Listado, generacion, entrega y retroalimentacion del paciente.
+///
+/// Politica `Patient` y rate limit `default-auth` (60/min por usuario).
+///
+/// Copied from [patientRecommendationsApi].
+@ProviderFor(patientRecommendationsApi)
+final patientRecommendationsApiProvider =
+    Provider<PatientRecommendationsApi>.internal(
+  patientRecommendationsApi,
+  name: r'patientRecommendationsApiProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$patientRecommendationsApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef PatientRecommendationsApiRef = ProviderRef<PatientRecommendationsApi>;
+String _$recommendationsApiHash() =>
+    r'26448d3475b0e21e5788227194be8e03731753b3';
+
+/// Detalle de una recomendacion (HU0015).
+///
+/// Para el paciente responde 404 `recommendation_not_found` ante una
+/// recomendacion que existe pero no es visible (acta A24 del backend).
+///
+/// Copied from [recommendationsApi].
+@ProviderFor(recommendationsApi)
+final recommendationsApiProvider = Provider<RecommendationsApi>.internal(
+  recommendationsApi,
+  name: r'recommendationsApiProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$recommendationsApiHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef RecommendationsApiRef = ProviderRef<RecommendationsApi>;
 String _$foodsApiHash() => r'df093a2dd734819110f9186fdc1cf5d21f00506c';
 
 /// Catalogo de alimentos: listado, busqueda, detalle y sugerencias.

@@ -127,6 +127,31 @@ IbsSssApi ibsSssApi(Ref ref) => ref.watch(apiClientProvider).getIbsSssApi();
 GlossaryApi glossaryApi(Ref ref) =>
     ref.watch(apiClientProvider).getGlossaryApi();
 
+// ---------------------------------------------------------------------------
+// Modulo Recommendations (EP0003). Mobile-5, bloque 6.
+//
+// Son dos APIs y no una: el detalle `GET /recommendations/{id}` vive en el
+// controlador compartido con el nutricionista, que autoriza por recurso, y el
+// cliente generado lo pone en `RecommendationsApi`. El resto de lo que usa el
+// paciente esta en `PatientRecommendationsApi`. La tercera,
+// `NutritionistRecommendationsApi`, es del portal y no tiene provider.
+// ---------------------------------------------------------------------------
+
+/// Listado, generacion, entrega y retroalimentacion del paciente.
+///
+/// Politica `Patient` y rate limit `default-auth` (60/min por usuario).
+@Riverpod(keepAlive: true)
+PatientRecommendationsApi patientRecommendationsApi(Ref ref) =>
+    ref.watch(apiClientProvider).getPatientRecommendationsApi();
+
+/// Detalle de una recomendacion (HU0015).
+///
+/// Para el paciente responde 404 `recommendation_not_found` ante una
+/// recomendacion que existe pero no es visible (acta A24 del backend).
+@Riverpod(keepAlive: true)
+RecommendationsApi recommendationsApi(Ref ref) =>
+    ref.watch(apiClientProvider).getRecommendationsApi();
+
 /// Catalogo de alimentos: listado, busqueda, detalle y sugerencias.
 ///
 /// Los tres primeros los expone el backend a cualquier autenticado; solo
