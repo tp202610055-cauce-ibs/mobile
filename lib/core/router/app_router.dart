@@ -21,6 +21,7 @@ import '../../features/patients/presentation/account_settings_screen.dart';
 import '../../features/patients/presentation/clinical_report_screen.dart';
 import '../../features/patients/presentation/privacy_screen.dart';
 import '../../features/patients/presentation/profile_screen.dart';
+import '../../features/recommendations/presentation/recommendation_detail_screen.dart';
 import '../../features/recommendations/presentation/recommendations_screen.dart';
 import '../../features/splash/presentation/splash_screen.dart';
 import '../../features/symptoms/presentation/symptom_form_screen.dart';
@@ -90,6 +91,15 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: AppRoutes.recommendations,
                 builder: (_, __) => const RecommendationsScreen(),
+                routes: <RouteBase>[
+                  GoRoute(
+                    path: ':id',
+                    builder: (_, GoRouterState state) =>
+                        RecommendationDetailScreen(
+                      recommendationId: state.pathParameters['id']!,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import '../../features/history/application/history_notifier.dart';
 import '../../features/ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../features/onboarding/application/onboarding_notifier.dart';
+import '../../features/recommendations/application/recommendations_feed_notifier.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../widgets/widgets.dart';
 import 'app_routes.dart';
@@ -252,6 +253,19 @@ class AppShell extends ConsumerWidget {
     // y obliga a tirar para refrescar, que es lo que paso en el celular.
     if (index == ShellBranch.journal) {
       unawaited(ref.read(historyNotifierProvider.notifier).load());
+    }
+
+    // Mismo motivo para Consejos: una recomendacion que el nutricionista
+    // aprobo mientras el paciente estaba en otra pestana tiene que aparecer
+    // al volver, sin tirar para refrescar. Con el onboarding pendiente la
+    // pestana esta restringida y no hay nada que pedir.
+    if (index == ShellBranch.advice &&
+        ref.read(resolvedOnboardingProvider).allowsAdvice) {
+      unawaited(
+        ref
+            .read(recommendationsFeedNotifierProvider.notifier)
+            .openAdviceTab(refresh: true),
+      );
     }
   }
 

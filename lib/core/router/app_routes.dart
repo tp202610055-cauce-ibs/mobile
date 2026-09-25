@@ -95,6 +95,14 @@ abstract final class AppRoutes {
   /// "Consejos" es solo la etiqueta que ve el paciente, en el arb.
   static const String recommendations = '/recommendations';
 
+  /// Detalle de una recomendacion (HU0015), dentro de la rama de Consejos.
+  ///
+  /// Se queda en la rama, como Privacidad bajo Perfil, y no sube al navigator
+  /// raiz: es una vista de consulta y conservar la barra deja al paciente
+  /// saltar a otra pestana y volver donde estaba. Se llega tocando una
+  /// tarjeta, en Consejos o en Inicio.
+  static String recommendationDetailPath(String id) => '$recommendations/$id';
+
   /// Nombre del parametro de consulta que trae el token de recuperacion.
   static const String tokenQueryParam = 'token';
 }
