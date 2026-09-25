@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../core/errors/cauce_api_error.dart';
 import '../data/clinical_notes_repository.dart';
@@ -18,6 +19,10 @@ abstract class ClinicalNoteFormState with _$ClinicalNoteFormState {
     /// Identificador de la nota creada, tras un envio exitoso.
     String? createdId,
     CauceApiError? error,
+
+    /// `clientGuid` de esta nota: se genera en el primer envio y se repite en
+    /// cada reintento mientras la pantalla siga abierta (acta M48).
+    String? clientGuid,
   }) = _ClinicalNoteFormState;
 
   const ClinicalNoteFormState._();
@@ -32,9 +37,16 @@ abstract class ClinicalNoteFormState with _$ClinicalNoteFormState {
 
 /// Gobierna la escritura y el envio de una nota de contexto.
 ///
-/// **Exige conexion.** El endpoint no es idempotente, asi que la nota no entra
-/// a la cola offline: reintentarla sin una clave de deduplicacion crearia una
-/// segunda nota sobre el mismo registro clinico.
+/// **Exige conexion.** La nota no entra a la cola offline ni se guarda en el
+/// dispositivo: sin red, el envio falla y el paciente reintenta desde la misma
+/// pantalla.
+///
+/// **La idempotencia vive aca, en el alcance de la pantalla** (acta M48). El
+/// `clientGuid` se genera en el primer envio, cuando el borrador ya paso
+/// `canSubmit`, y se repite en cada reintento. Si un envio llego al servidor
+/// pero la respuesta se perdio, el reintento devuelve la misma nota en vez de
+/// crear otra. El provider se libera al salir de la pantalla, y con el la
+/// clave: una nota nueva es una clave nueva.
 @riverpod
 class ClinicalNoteFormNotifier extends _$ClinicalNoteFormNotifier {
   @override
@@ -69,15 +81,27 @@ class ClinicalNoteFormNotifier extends _$ClinicalNoteFormNotifier {
   ///
   /// Ante un rechazo el texto queda intacto (CA02): el paciente ya lo escribio
   /// y perderlo por un fallo del servidor lo obligaria a redactarlo de nuevo.
+  ///
+  /// La clave **no** se renueva si el paciente corrige el texto entre un
+  /// fallo y el reintento. Si el primer envio si habia llegado, el servidor
+  /// responde 409 `idempotency_mismatch` en lugar de guardar una segunda nota
+  /// con el texto corregido: se prefiere el aviso al duplicado en el registro
+  /// clinico (acta M48).
   Future<bool> submit() async {
     if (!state.canSubmit) {
       return false;
     }
-    state = state.copyWith(submitting: true, error: null);
+    final clientGuid = state.clientGuid ?? const Uuid().v4();
+    state = state.copyWith(
+      submitting: true,
+      error: null,
+      clientGuid: clientGuid,
+    );
 
     try {
-      final noteId =
-          await ref.read(clinicalNotesRepositoryProvider).create(state.draft);
+      final noteId = await ref
+          .read(clinicalNotesRepositoryProvider)
+          .create(state.draft, clientGuid: clientGuid);
 
       state = state.copyWith(submitting: false, createdId: noteId);
       return true;

@@ -10,22 +10,27 @@ part 'clinical_notes_repository.g.dart';
 
 /// Notas de contexto sobre una comida o un sintoma (US13).
 ///
-/// **Este endpoint no es idempotente.** `CreateClinicalNoteRequest` no tiene
-/// `clientGuid` y `ClinicalNotesController` tampoco lee el header
-/// `Idempotency-Key`, de modo que un reintento crea una nota duplicada. Por eso
-/// las notas **no entran a la cola de sincronizacion** de este bloque y exigen
-/// conexion activa.
+/// **El endpoint es idempotente por `clientGuid`** desde el backend
+/// `d557e8d` (2026-09-22), con el mismo patron que `/meals` y `/symptoms`: el
+/// `clientGuid` viaja en el **cuerpo**. `ResolveClientGuid` acepta tambien el
+/// header `Idempotency-Key`, pero sin ninguno de los dos el validador responde
+/// 400: el campo es opcional en el esquema y obligatorio en el servidor. Un
+/// reintento con la misma clave y el mismo cuerpo devuelve la nota ya creada
+/// (200), y con otro cuerpo, 409 `idempotency_mismatch`.
 ///
-/// Si mas adelante hiciera falta crearlas sin conexion, es un pedido de backend
-/// (agregar `client_guid` a la peticion), no algo que el cliente pueda resolver
-/// por su cuenta sin arriesgar duplicados en el registro clinico.
+/// Las notas **siguen exigiendo conexion activa**: no entran a la cola de
+/// sincronizacion ni se guardan en el dispositivo. La idempotencia cubre el
+/// reintento desde la pantalla, no el envio diferido (acta M48).
 class ClinicalNotesRepository {
   const ClinicalNotesRepository(this._api);
 
   final ClinicalNotesApi _api;
 
   /// `POST /api/v1/clinical-notes`. Devuelve el identificador de la nota.
-  Future<String> create(ClinicalNoteDraft draft) {
+  ///
+  /// [clientGuid] lo genera quien llama, una vez por nota, y lo repite en cada
+  /// reintento.
+  Future<String> create(ClinicalNoteDraft draft, {required String clientGuid}) {
     if (!draft.canSubmit) {
       throw StateError(
         'La nota exige contenido y exactamente una asociacion. La pantalla ya '
@@ -38,6 +43,7 @@ class ClinicalNotesRepository {
         final response = await _api.apiV1ClinicalNotesPost(
           createClinicalNoteRequest: CreateClinicalNoteRequest(
             (b) => b
+              ..clientGuid = clientGuid
               ..mealId = draft.mealId
               ..symptomId = draft.symptomId
               ..content = draft.content.trim(),

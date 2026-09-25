@@ -7,13 +7,20 @@ part of 'clinical_note_form_notifier.dart';
 // **************************************************************************
 
 String _$clinicalNoteFormNotifierHash() =>
-    r'16313345f107355a6ec9616de748702cb0e157c9';
+    r'74f6725595da201f0bc42500e658b9564fafd360';
 
 /// Gobierna la escritura y el envio de una nota de contexto.
 ///
-/// **Exige conexion.** El endpoint no es idempotente, asi que la nota no entra
-/// a la cola offline: reintentarla sin una clave de deduplicacion crearia una
-/// segunda nota sobre el mismo registro clinico.
+/// **Exige conexion.** La nota no entra a la cola offline ni se guarda en el
+/// dispositivo: sin red, el envio falla y el paciente reintenta desde la misma
+/// pantalla.
+///
+/// **La idempotencia vive aca, en el alcance de la pantalla** (acta M48). El
+/// `clientGuid` se genera en el primer envio, cuando el borrador ya paso
+/// `canSubmit`, y se repite en cada reintento. Si un envio llego al servidor
+/// pero la respuesta se perdio, el reintento devuelve la misma nota en vez de
+/// crear otra. El provider se libera al salir de la pantalla, y con el la
+/// clave: una nota nueva es una clave nueva.
 ///
 /// Copied from [ClinicalNoteFormNotifier].
 @ProviderFor(ClinicalNoteFormNotifier)

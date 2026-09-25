@@ -132,7 +132,8 @@ void main() {
 
   group('ClinicalNoteFormNotifier · envio', () {
     test('guarda y expone el identificador', () async {
-      when(() => repository.create(any())).thenAnswer((_) async => 'note-1');
+      when(() => repository.create(any(), clientGuid: any(named: 'clientGuid')))
+          .thenAnswer((_) async => 'note-1');
       notifier()
         ..attachTo(mealId: 'server-meal')
         ..setContent('Comi apurado');
@@ -147,13 +148,15 @@ void main() {
       notifier().setContent('Sin asociacion');
 
       expect(await notifier().submit(), isFalse);
-      verifyNever(() => repository.create(any()));
+      verifyNever(
+        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+      );
     });
 
     test('un rechazo conserva el texto escrito', () async {
       // El paciente ya lo redacto: perderlo por un fallo del servidor lo
       // obligaria a escribirlo de nuevo.
-      when(() => repository.create(any()))
+      when(() => repository.create(any(), clientGuid: any(named: 'clientGuid')))
           .thenThrow(const CauceApiError.mealNotFound());
       notifier()
         ..attachTo(mealId: 'server-meal')
@@ -167,7 +170,7 @@ void main() {
     });
 
     test('traduce el error de asociacion invalida del servidor', () async {
-      when(() => repository.create(any()))
+      when(() => repository.create(any(), clientGuid: any(named: 'clientGuid')))
           .thenThrow(const CauceApiError.invalidClinicalNoteAssociation());
       notifier()
         ..attachTo(symptomId: 'server-symptom')
@@ -179,7 +182,7 @@ void main() {
     });
 
     test('escribir de nuevo limpia el error anterior', () async {
-      when(() => repository.create(any()))
+      when(() => repository.create(any(), clientGuid: any(named: 'clientGuid')))
           .thenThrow(const CauceApiError.forbidden());
       notifier()
         ..attachTo(mealId: 'server-meal')
@@ -189,6 +192,100 @@ void main() {
       notifier().setContent('Nota corregida');
 
       expect(state().error, isNull);
+    });
+  });
+
+  group('ClinicalNoteFormNotifier · clientGuid (acta M48)', () {
+    /// Claves con las que el repositorio fue llamado, en orden.
+    List<String> sentKeys() => verify(
+          () => repository.create(
+            any(),
+            clientGuid: captureAny(named: 'clientGuid'),
+          ),
+        ).captured.cast<String>();
+
+    test('se genera al enviar, como UUID v4', () async {
+      when(
+        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+      ).thenAnswer((_) async => 'note-1');
+      notifier()
+        ..attachTo(mealId: 'server-meal')
+        ..setContent('Comi apurado');
+
+      expect(state().clientGuid, isNull);
+      await notifier().submit();
+
+      final key = sentKeys().single;
+      expect(key, state().clientGuid);
+      expect(
+        key,
+        matches(RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab]')),
+      );
+    });
+
+    test('un reintento tras un fallo de red repite la misma clave', () async {
+      // Si el primer envio llego y se perdio la respuesta, repetir la clave
+      // hace que el servidor devuelva la nota ya creada en vez de otra.
+      var calls = 0;
+      when(
+        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+      ).thenAnswer((_) async {
+        calls++;
+        if (calls == 1) {
+          throw const CauceApiError.network();
+        }
+        return 'note-1';
+      });
+      notifier()
+        ..attachTo(mealId: 'server-meal')
+        ..setContent('Comi apurado');
+
+      expect(await notifier().submit(), isFalse);
+      expect(await notifier().submit(), isTrue);
+
+      final keys = sentKeys();
+      expect(keys, hasLength(2));
+      expect(keys.last, keys.first);
+    });
+
+    test('corregir el texto antes de reintentar no renueva la clave', () async {
+      // Alcance de pantalla: se prefiere el 409 idempotency_mismatch a una
+      // segunda nota con el texto corregido si el primer envio si llego.
+      when(
+        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+      ).thenThrow(const CauceApiError.network());
+      notifier()
+        ..attachTo(mealId: 'server-meal')
+        ..setContent('Comi apurado');
+
+      await notifier().submit();
+      notifier().setContent('Comi apurado, en la calle');
+      await notifier().submit();
+
+      final keys = sentKeys();
+      expect(keys, hasLength(2));
+      expect(keys.last, keys.first);
+    });
+
+    test('otra pantalla, otra nota: la clave no se hereda', () async {
+      when(
+        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+      ).thenAnswer((_) async => 'note-1');
+      notifier()
+        ..attachTo(mealId: 'server-meal')
+        ..setContent('Primera nota');
+      await notifier().submit();
+      final first = state().clientGuid;
+
+      // Al salir de la pantalla el provider se libera y se reconstruye.
+      container.invalidate(clinicalNoteFormNotifierProvider);
+      notifier()
+        ..attachTo(symptomId: 'server-symptom')
+        ..setContent('Segunda nota');
+      await notifier().submit();
+
+      expect(state().clientGuid, isNotNull);
+      expect(state().clientGuid, isNot(first));
     });
   });
 }

@@ -23,6 +23,10 @@ mixin _$ClinicalNoteFormState {
   String? get createdId => throw _privateConstructorUsedError;
   CauceApiError? get error => throw _privateConstructorUsedError;
 
+  /// `clientGuid` de esta nota: se genera en el primer envio y se repite en
+  /// cada reintento mientras la pantalla siga abierta (acta M48).
+  String? get clientGuid => throw _privateConstructorUsedError;
+
   /// Create a copy of ClinicalNoteFormState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -40,7 +44,8 @@ abstract class $ClinicalNoteFormStateCopyWith<$Res> {
       {ClinicalNoteDraft draft,
       bool submitting,
       String? createdId,
-      CauceApiError? error});
+      CauceApiError? error,
+      String? clientGuid});
 
   $ClinicalNoteDraftCopyWith<$Res> get draft;
   $CauceApiErrorCopyWith<$Res>? get error;
@@ -66,6 +71,7 @@ class _$ClinicalNoteFormStateCopyWithImpl<$Res,
     Object? submitting = null,
     Object? createdId = freezed,
     Object? error = freezed,
+    Object? clientGuid = freezed,
   }) {
     return _then(_value.copyWith(
       draft: null == draft
@@ -84,6 +90,10 @@ class _$ClinicalNoteFormStateCopyWithImpl<$Res,
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as CauceApiError?,
+      clientGuid: freezed == clientGuid
+          ? _value.clientGuid
+          : clientGuid // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -125,7 +135,8 @@ abstract class _$$ClinicalNoteFormStateImplCopyWith<$Res>
       {ClinicalNoteDraft draft,
       bool submitting,
       String? createdId,
-      CauceApiError? error});
+      CauceApiError? error,
+      String? clientGuid});
 
   @override
   $ClinicalNoteDraftCopyWith<$Res> get draft;
@@ -151,6 +162,7 @@ class __$$ClinicalNoteFormStateImplCopyWithImpl<$Res>
     Object? submitting = null,
     Object? createdId = freezed,
     Object? error = freezed,
+    Object? clientGuid = freezed,
   }) {
     return _then(_$ClinicalNoteFormStateImpl(
       draft: null == draft
@@ -169,6 +181,10 @@ class __$$ClinicalNoteFormStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as CauceApiError?,
+      clientGuid: freezed == clientGuid
+          ? _value.clientGuid
+          : clientGuid // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -180,7 +196,8 @@ class _$ClinicalNoteFormStateImpl extends _ClinicalNoteFormState {
       {this.draft = const ClinicalNoteDraft(),
       this.submitting = false,
       this.createdId,
-      this.error})
+      this.error,
+      this.clientGuid})
       : super._();
 
   @override
@@ -196,9 +213,14 @@ class _$ClinicalNoteFormStateImpl extends _ClinicalNoteFormState {
   @override
   final CauceApiError? error;
 
+  /// `clientGuid` de esta nota: se genera en el primer envio y se repite en
+  /// cada reintento mientras la pantalla siga abierta (acta M48).
+  @override
+  final String? clientGuid;
+
   @override
   String toString() {
-    return 'ClinicalNoteFormState(draft: $draft, submitting: $submitting, createdId: $createdId, error: $error)';
+    return 'ClinicalNoteFormState(draft: $draft, submitting: $submitting, createdId: $createdId, error: $error, clientGuid: $clientGuid)';
   }
 
   @override
@@ -211,12 +233,14 @@ class _$ClinicalNoteFormStateImpl extends _ClinicalNoteFormState {
                 other.submitting == submitting) &&
             (identical(other.createdId, createdId) ||
                 other.createdId == createdId) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.clientGuid, clientGuid) ||
+                other.clientGuid == clientGuid));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, draft, submitting, createdId, error);
+      Object.hash(runtimeType, draft, submitting, createdId, error, clientGuid);
 
   /// Create a copy of ClinicalNoteFormState
   /// with the given fields replaced by the non-null parameter values.
@@ -233,7 +257,8 @@ abstract class _ClinicalNoteFormState extends ClinicalNoteFormState {
       {final ClinicalNoteDraft draft,
       final bool submitting,
       final String? createdId,
-      final CauceApiError? error}) = _$ClinicalNoteFormStateImpl;
+      final CauceApiError? error,
+      final String? clientGuid}) = _$ClinicalNoteFormStateImpl;
   const _ClinicalNoteFormState._() : super._();
 
   @override
@@ -246,6 +271,11 @@ abstract class _ClinicalNoteFormState extends ClinicalNoteFormState {
   String? get createdId;
   @override
   CauceApiError? get error;
+
+  /// `clientGuid` de esta nota: se genera en el primer envio y se repite en
+  /// cada reintento mientras la pantalla siga abierta (acta M48).
+  @override
+  String? get clientGuid;
 
   /// Create a copy of ClinicalNoteFormState
   /// with the given fields replaced by the non-null parameter values.
