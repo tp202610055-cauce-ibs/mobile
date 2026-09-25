@@ -650,3 +650,83 @@ Consecuencias. Hay una tercera pantalla que abre enlaces con `DataExportLauncher
 **Queda un gap del backend reportado y no resuelto:** que un fallo de correo deje al paciente con un archivo que no puede abrir, sin que nada se lo diga. La pantalla lo mitiga con la sugerencia de regenerar, que es un paliativo y no un arreglo. La solución de fondo es que el backend exponga el estado del envío, o que la contraseña llegue por un canal que el cliente pueda confirmar.
 
 Alternativas consideradas. (a) Mostrar la contraseña en la pantalla, descartada porque el backend no la devuelve y pedirla sería cambiar el contrato para poner una credencial del documento clínico en la respuesta HTTP y en el historial de la app. (b) Un selector de fechas libre, descartado porque obligaría a replicar en el cliente las tres reglas del validador (ambos extremos, orden, tope de 90 días) para evitar un 400 que con dos píldoras no puede ocurrir. (c) Reutilizar `IbsSssEvolutionRange`, descartada por la razón de la decisión 3.
+
+Acta M47: Consejos sobre un contrato sin título, sin origen estable y sin guarda contra duplicados
+
+**Estado:** Aprobada, implementada en Mobile-5 Bloque 6 (HU0014, HU0015 y HU0016; CP036 a CP044 y CP077). Decisiones 1 a 11 de Kiwicha; tarjeta, nombre y tiempo estimado resueltos por Trigo al arrancar el bloque
+**Fecha:** 2026-09-24
+
+---
+
+Contexto. La pestaña de Consejos era un estado vacío desde Mobile-3.1. El contrato de recomendaciones está completo y vendorizado, pero al construir sobre él aparecieron cinco huecos que ninguna pantalla podía ignorar.
+
+**El backend no evita duplicados.** `GenerateRecommendationCommandHandler` no busca una recomendación `Generated` o `PendingReview` abierta del mismo paciente antes de crear otra; solo deduplica el replay exacto de la misma `Idempotency-Key`. Y el paciente no puede verlas: el listado oculta las que están en revisión (acta A24 del backend). La generación la dispara únicamente `POST /recommendations`, sin ningún job.
+
+**El resumen del listado no trae ítems, revisor ni nota**, solo `recommendationId`, `status`, `confidenceScore`, `itemsCount`, `generatedAt` y `expiresAt`. **Ningún DTO trae título ni descripción**: el backend no implementa las plantillas clínicas del mockup 11 (DEC-013).
+
+**El origen se pierde al entregar.** `Approve` y `ModifyByNutritionist` escriben los mismos tres campos (revisor, nota, `AutoApproved = false`). Una vez `Delivered`, una aprobada sin cambios y una modificada son indistinguibles en el contrato.
+
+**No hay nivel de confianza discreto**, solo el `double`.
+
+Decisión.
+
+1. **Guarda anti-duplicados local (decisión 2).** Un marcador `PendingRecommendationRequest` guardado en `flutter_secure_storage` bajo la clave `recommendations_pending_request`, separada de las tres de la sesión. Pasa por dos momentos: pedido en curso (solo la clave, guardada *antes* de llamar) y en revisión (con `recommendationId` y `expiresAt`). Reglas, en `RecommendationRequestPolicy`:
+   - Se pide solo con la lista visible vacía y sin nada en revisión.
+   - El marcador se borra cuando la recomendación aparece visible, cuando vence su ventana (`expiresAt`, o 72 h desde el pedido si el servidor no lo informó) o cuando es de otra cuenta del dispositivo.
+   - Un fallo de red, 429 o 5xx conserva la clave: el reintento la repite y el servidor devuelve la recomendación que ya había creado en vez de crear otra.
+   - Los 422 `insufficient_clinical_history`, `all_candidates_filtered_by_allergies`, `no_active_model_version` y el 404 `patient_profile_not_found` no se muestran y dejan el estado vacío: el paciente no pidió nada.
+   - El almacén nunca lanza: un fallo de lectura es "no hay marcador".
+
+   Va en almacenamiento seguro y no en drift porque drift exigiría migrar el esquema a v3, y este bloque lo deja congelado en v2 (decisión 8). Un solo marcador es exactamente un par clave-valor.
+
+2. **Detalle por tarjeta (Trigo, 2026-09-24).** Como el resumen no trae ítems, cada tarjeta pide su `GET /recommendations/{id}` y el detalle lo reutiliza al abrirse. **Esa lectura es silenciosa y nunca entrega**: `POST /deliver` lo dispara solo la pantalla de detalle al montarse. Con el detalle ya disponible, la decisión 4 queda sin efecto y la píldora lleva el nombre real del revisor también en la lista.
+
+3. **Vocabulario de la píldora de origen (decisión 10).**
+
+   | Estado | Píldora |
+   |---|---|
+   | `Approved` | "Sugerencia del sistema" |
+   | `ModifiedApproved` | "Modificada por {nombre}" |
+   | `ManualApproved` | "Indicación de {nombre}" |
+   | `Delivered`, `FeedbackReceived` | La del origen, resuelta como se explica abajo |
+
+   "{nombre}" es `reviewedByNutritionistName`, con "tu nutricionista" como respaldo si llega vacío. El paciente nunca lee "Entregada" ni "Con feedback". Para las dos entregadas, en este orden:
+   - el origen que el dispositivo vio antes de entregarla, si lo vio en esta sesión (`RecommendationOriginMemory`);
+   - "Indicación" si `explanationSource` es `Manual`, o si no llegó y tiene cero ítems (el motor nunca genera una vacía);
+   - "Sugerencia del sistema" en cualquier otro caso, porque es verdad tanto para una aprobada como para una modificada, y "Modificada" sería falso para la primera.
+
+   Los tres campos que sugería la decisión no se usan: no distinguen nada.
+
+4. **Umbrales de confianza, reversibles.** `confidenceScore` >= 0,70 es alta; >= 0,45, media; menor, baja. Salen de `AvoidThreshold` y `ReduceThreshold` de `RecommendationsOptions`, 0,70 y 0,45 en `appsettings.json` del backend, sin override en Development. **No se muestra en una indicación manual**, que llega con 1,0 fijo sin modelo de por medio. El texto de qué significa cada nivel lo redactó el cliente y queda pendiente de revisión clínica.
+
+5. **Nota del nutricionista en cualquier estado en que exista**, incluido `Approved`. Sigue HU0015 CA2 y CP041 por sobre el mockup 11, que la omite en ese estado (DEC-014).
+
+6. **Título, descripción e ícono compuestos en el cliente (decisiones 3 y 5).** Se cuentan los ítems por acción en el orden de `FallbackExplanationProvider` del backend (evitar, sustituir, reducir, incorporar). La descripción nombra hasta tres alimentos y resume el resto ("y 2 más"). El ícono es el de la acción con más ítems, y un empate lo gana la que va primero en ese orden. No se usa la del primer ítem, porque el motor ordena por puntaje y no por relevancia para quien lee. Una indicación manual sin ítems se titula "Indicación de tu nutricionista" y se describe con su nota.
+
+7. **Atribución FODMAP literal del mockup 11**, al pie de la explicación, siempre que `explanationSource` no sea `Manual`.
+
+8. **Clave de entrega estable:** UUID v5 sobre `https://cauce.app/recommendations/{id}/deliver`. Un 409 `conflict_state` es éxito silencioso; un 409 `recommendation_expired` deja el detalle como "ya no está disponible".
+
+9. **Feedback solo en línea, sin compuerta de 24 h (decisiones 8 y 9).** La clave del intento se repite en el reintento de la misma respuesta y se descarta si el paciente cambia algo, porque la misma clave con otra carga daría 409 `idempotency_mismatch`.
+
+Consecuencias.
+
+- **Una sola recomendación del motor por paciente, en la práctica.** `FeedbackReceived` sigue visible para siempre (acta A24), así que la lista no vuelve a quedar vacía y no se vuelve a pedir. Se dejó literal, a pedido de Trigo; la cadencia queda para una decisión posterior.
+- Una recomendación **rechazada** se sigue mostrando "en revisión" hasta que vence su ventana de 72 h: el contrato no distingue rechazada de pendiente.
+- El aviso "en revisión" va **sin tiempo estimado**. CP037 lo pide, pero el backend no calcula ninguno y `expiresAt` es un vencimiento, no una estimación.
+- **Tras reiniciar la app**, una modificada que ya se entregó se lee "Sugerencia del sistema": la memoria de origen dura la sesión.
+- Cargar la lista cuesta una petición más por tarjeta, bajo el límite `default-auth` de 60 por minuto.
+
+Gaps del backend reportados:
+- exponer el origen (`source` o `wasModified`) en el resumen y en el detalle;
+- exponer `Title` y `Description`;
+- evitar la segunda generación del lado servidor;
+- informar un tiempo estimado de revisión;
+- distinguir rechazada de pendiente para el paciente.
+
+Alternativas consideradas.
+- (a) Tabla drift para el marcador, descartada por la migración a v3.
+- (b) Tarjetas solo con el resumen, descartada por Trigo.
+- (c) Inferir el origen solo con los tres campos de la decisión 10, descartada porque la píldora cambiaba de "Modificada por Ana Gómez" a "Sugerencia del sistema" en el mismo momento en que el paciente abría el detalle.
+- (d) Persistir la memoria de origen, diferida: el arreglo de fondo es del contrato.
+- (e) Compuerta de 24 h en el cliente, descartada por la decisión 9.
