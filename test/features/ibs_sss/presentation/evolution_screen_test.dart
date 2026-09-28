@@ -8,6 +8,7 @@ import 'package:cauce_mobile/features/ibs_sss/presentation/widgets/ibs_sss_evolu
 import 'package:cauce_mobile/features/onboarding/presentation/widgets/onboarding_labels.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -94,6 +95,87 @@ Future<FakeIbsSssRepository> _pump(
 }
 
 void main() {
+  group('IbsSssEvolutionChart · eje de tiempo real (HU0023, acta M49)', () {
+    Future<LineChartData> pumpChart(
+      WidgetTester tester,
+      List<IbsSssEvolutionPoint> points,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light(),
+          localizationsDelegates: const <LocalizationsDelegate<Object>>[
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('es'),
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 340,
+                child: IbsSssEvolutionChart(points: points),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      return tester.widget<LineChart>(find.byKey(evolutionChartKey)).data;
+    }
+
+    // El paciente demo: la linea base y dos periodicas respondidas con 18
+    // minutos de diferencia. Por orden, las dos ultimas ocupaban media grafica
+    // como una meseta de semanas (lo encontro el recorrido en el celular).
+    List<IbsSssEvolutionPoint> demoSeries() => <IbsSssEvolutionPoint>[
+          _point(
+            totalScore: 220,
+            cycleNumber: 0,
+            completedAt: DateTime(2026, 8, 31, 16, 44),
+            type: IbsSssAssessmentType.baseline,
+          ),
+          _point(
+            totalScore: 130,
+            cycleNumber: 1,
+            completedAt: DateTime(2026, 9, 18, 13, 42),
+          ),
+          _point(
+            totalScore: 130,
+            cycleNumber: 2,
+            completedAt: DateTime(2026, 9, 18, 14),
+          ),
+        ];
+
+    testWidgets('cada punto va en el dia en que se respondio', (tester) async {
+      final data = await pumpChart(tester, demoSeries());
+
+      final xs = data.lineBarsData.single.spots.map((spot) => spot.x).toList();
+      expect(xs, <double>[0, 18, 18]);
+      expect(data.minX, lessThan(0));
+      expect(data.maxX, greaterThan(18));
+    });
+
+    testWidgets('el mismo dia lleva una sola fecha debajo', (tester) async {
+      await pumpChart(tester, demoSeries());
+
+      expect(find.text('31/08'), findsOneWidget);
+      expect(find.text('18/09'), findsOneWidget);
+    });
+
+    testWidgets('el globo del toque dice el puntaje y el dia del punto',
+        (tester) async {
+      final data = await pumpChart(tester, demoSeries());
+      final bar = data.lineBarsData.single;
+
+      final items = data.lineTouchData.touchTooltipData.getTooltipItems(
+        <LineBarSpot>[LineBarSpot(bar, 0, bar.spots.first)],
+      );
+
+      expect(items.single?.text, l10n.evolutionPointTooltip(220, '31/08'));
+    });
+  });
+
   group('IbsSssEvolutionChart · etiquetas del eje (acta M49)', () {
     testWidgets('la primera y la ultima fecha entran enteras en el grafico',
         (tester) async {
