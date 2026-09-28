@@ -8,6 +8,36 @@ import '../../domain/meal_draft.dart';
 /// lugar, de modo que agregar un valor al dominio falle en compilacion aca y no
 /// pase inadvertido en cuatro pantallas.
 abstract final class MealLabels {
+  /// Cantidad sin decimales cuando no hacen falta: "1" y no "1.0", pero
+  /// "0.5" sigue siendo "0.5".
+  ///
+  /// Es la misma forma con la que el paciente la escribio en el formulario, de
+  /// modo que lo que ve en la lista coincide con lo que tipeo.
+  static String quantity(double value) =>
+      value == value.roundToDouble() ? value.round().toString() : '$value';
+
+  /// Cantidad con su unidad, en minuscula y con plural: "1 taza", "0.5 tazas",
+  /// "100 gramos".
+  ///
+  /// Reemplaza al texto que la lista armaba a mano con la etiqueta de la
+  /// opcion ("100 Gramos") y la cantidad redondeada a entero, que mostraba
+  /// media taza como "1 Tazas" (lo encontro el recorrido en el celular).
+  static String amount(
+    AppLocalizations l10n,
+    double value,
+    MeasurementUnitOption unit,
+  ) {
+    final text = quantity(value);
+    return switch (unit) {
+      MeasurementUnitOption.grams => l10n.mealItemAmountGrams(value, text),
+      MeasurementUnitOption.cups => l10n.mealItemAmountCups(value, text),
+      MeasurementUnitOption.units => l10n.mealItemAmountUnits(value, text),
+      MeasurementUnitOption.ounces => l10n.mealItemAmountOunces(value, text),
+      MeasurementUnitOption.tablespoons =>
+        l10n.mealItemAmountTablespoons(value, text),
+    };
+  }
+
   static String mealTime(AppLocalizations l10n, MealTimeOption v) =>
       switch (v) {
         MealTimeOption.breakfast => l10n.mealTimeBreakfast,

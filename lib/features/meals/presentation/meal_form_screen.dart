@@ -68,7 +68,7 @@ class MealFormScreen extends ConsumerWidget {
               item: item,
               enabled: !state.submitting,
               onRemove: () => notifier.removeItemAt(index),
-              unitLabel: MealLabels.unit(l10n, item.unit),
+              amountLabel: MealLabels.amount(l10n, item.quantity, item.unit),
               removeLabel: l10n.mealsRemoveItem,
             ),
           const SizedBox(height: CauceSpacing.space3),
@@ -191,13 +191,9 @@ class _QuantitySheetState extends State<_QuantitySheet> {
   void _changeUnit(MeasurementUnitOption unit) {
     setState(() {
       _unit = unit;
-      _quantity.text = _format(unit.defaultQuantity);
+      _quantity.text = MealLabels.quantity(unit.defaultQuantity);
     });
   }
-
-  /// Sin decimales cuando no hacen falta: "1" y no "1.0".
-  static String _format(double value) =>
-      value == value.roundToDouble() ? value.round().toString() : '$value';
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +224,7 @@ class _QuantitySheetState extends State<_QuantitySheet> {
                 errorText: _parsed == null
                     ? l10n.mealsIssueQuantityOutOfRange(
                         MealLabels.unit(l10n, _unit).toLowerCase(),
-                        _format(_unit.maxQuantity),
+                        MealLabels.quantity(_unit.maxQuantity),
                       )
                     : null,
                 onChanged: (_) => setState(() {}),
@@ -268,7 +264,7 @@ class _ItemRow extends StatelessWidget {
     required this.item,
     required this.enabled,
     required this.onRemove,
-    required this.unitLabel,
+    required this.amountLabel,
     required this.removeLabel,
     super.key,
   });
@@ -276,7 +272,9 @@ class _ItemRow extends StatelessWidget {
   final MealItemDraft item;
   final bool enabled;
   final VoidCallback onRemove;
-  final String unitLabel;
+
+  /// Cantidad con su unidad, ya localizada ([MealLabels.amount]).
+  final String amountLabel;
   final String removeLabel;
 
   @override
@@ -284,7 +282,7 @@ class _ItemRow extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       title: Text(item.displayName),
-      subtitle: Text('${item.quantity.toStringAsFixed(0)} $unitLabel'),
+      subtitle: Text(amountLabel),
       trailing: TextButton(
         onPressed: enabled ? onRemove : null,
         child: Text(removeLabel),
