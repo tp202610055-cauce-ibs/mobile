@@ -150,8 +150,10 @@ class HomeTodayCard extends ConsumerWidget {
           Text(
             hoy.isEmpty
                 ? l10n.homeTodayEmpty
-                : '${l10n.homeTodayMeals(comidas)}, '
-                    '${l10n.homeTodaySymptoms(sintomas)}',
+                : l10n.homeTodaySummary(
+                    l10n.homeTodayMeals(comidas),
+                    l10n.homeTodaySymptoms(sintomas),
+                  ),
             key: const Key('home_today_summary'),
             style: textTheme.bodyLarge,
           ),

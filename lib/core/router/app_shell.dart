@@ -49,6 +49,13 @@ class AppShell extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
 
+    // Con el teclado abierto la barra queda debajo y el FAB, que se ancla a
+    // ella, sube con el teclado y tapa lo que el paciente esta leyendo: en el
+    // Glosario ocultaba la mitad del "no esta en el glosario" (lo encontro el
+    // recorrido en el celular). Mientras se escribe no hay nada que registrar
+    // desde ese boton, asi que se retira hasta que el teclado se cierra.
+    final keyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
+
     return PopScope(
       // El retroceso lo resuelve `_handlePop` en los tres casos, asi que nunca
       // se deja que el marco lo haga solo.
@@ -78,11 +85,13 @@ class AppShell extends ConsumerWidget {
           padding: const EdgeInsets.only(bottom: _fabOverhang),
           child: navigationShell,
         ),
-        floatingActionButton: CauceExpandableFab(
-          actions: _quickActions(context, ref, l10n),
-          openLabel: l10n.fabQuickAction,
-          closeLabel: l10n.fabCloseMenu,
-        ),
+        floatingActionButton: keyboardOpen
+            ? null
+            : CauceExpandableFab(
+                actions: _quickActions(context, ref, l10n),
+                openLabel: l10n.fabQuickAction,
+                closeLabel: l10n.fabCloseMenu,
+              ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CauceBottomNav(
           currentIndex: navigationShell.currentIndex,
@@ -251,7 +260,9 @@ class AppShell extends ConsumerWidget {
     // del Diario corre una sola vez, la primera. Sin este disparo, entrar a
     // la pestana despues de registrar algo muestra la lista de hace un rato
     // y obliga a tirar para refrescar, que es lo que paso en el celular.
-    if (index == ShellBranch.journal) {
+    // Inicio lee el mismo historial para su tarjeta "Hoy" y tiene el mismo
+    // problema (acta M49).
+    if (index == ShellBranch.journal || index == ShellBranch.home) {
       unawaited(ref.read(historyNotifierProvider.notifier).load());
     }
 

@@ -7,6 +7,7 @@ import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../auth/application/session_notifier.dart';
+import '../../history/application/history_notifier.dart';
 import '../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
 import '../../recommendations/application/recommendations_feed_notifier.dart';
@@ -29,11 +30,33 @@ import 'widgets/home_cards.dart';
 /// hoy. El grafico grande con eje temporal llego en Mobile-4 con HU0023, y la
 /// seccion "Para hoy" en el bloque 6 con EP0003: el aviso de la recomendacion
 /// en revision y las nuevas, con su "Ver todas".
-class HomeScreen extends ConsumerWidget {
+///
+/// **Carga el historial al montarse.** La tarjeta "Hoy" lee el mismo
+/// `HistoryNotifier` que el Diario, y hasta este bloque solo lo llenaba el
+/// Diario: al entrar a la app, Inicio decia "Todavia no registraste nada hoy"
+/// aunque hubiera registros, hasta que el paciente pasaba por la otra pestana
+/// (lo encontro el recorrido en el celular). Al volver a la pestana lo
+/// recarga el shell, igual que al Diario.
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(historyNotifierProvider.notifier).load();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
     final user = ref.watch(sessionNotifierProvider).user;
