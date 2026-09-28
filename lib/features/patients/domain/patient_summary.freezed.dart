@@ -17,7 +17,15 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PatientSummary {
   String get fullName => throw _privateConstructorUsedError;
+
+  /// Codigo de paciente del piloto (`P-2026-0042`, acta A59 del backend).
+  ///
+  /// Opcional: una cuenta que todavia no entro al piloto no tiene codigo.
+  String? get patientCode => throw _privateConstructorUsedError;
   IbsSubtypeOption? get ibsSubtype => throw _privateConstructorUsedError;
+
+  /// Alergias declaradas. Vacia es un estado legitimo, no un dato faltante.
+  List<AllergyDeclaration> get allergies => throw _privateConstructorUsedError;
   DateTime? get pilotStartDate => throw _privateConstructorUsedError;
   String? get nutritionistName => throw _privateConstructorUsedError;
   int? get ibsSssBaseline => throw _privateConstructorUsedError;
@@ -53,7 +61,9 @@ abstract class $PatientSummaryCopyWith<$Res> {
   @useResult
   $Res call(
       {String fullName,
+      String? patientCode,
       IbsSubtypeOption? ibsSubtype,
+      List<AllergyDeclaration> allergies,
       DateTime? pilotStartDate,
       String? nutritionistName,
       int? ibsSssBaseline,
@@ -78,7 +88,9 @@ class _$PatientSummaryCopyWithImpl<$Res, $Val extends PatientSummary>
   @override
   $Res call({
     Object? fullName = null,
+    Object? patientCode = freezed,
     Object? ibsSubtype = freezed,
+    Object? allergies = null,
     Object? pilotStartDate = freezed,
     Object? nutritionistName = freezed,
     Object? ibsSssBaseline = freezed,
@@ -91,10 +103,18 @@ class _$PatientSummaryCopyWithImpl<$Res, $Val extends PatientSummary>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
+      patientCode: freezed == patientCode
+          ? _value.patientCode
+          : patientCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       ibsSubtype: freezed == ibsSubtype
           ? _value.ibsSubtype
           : ibsSubtype // ignore: cast_nullable_to_non_nullable
               as IbsSubtypeOption?,
+      allergies: null == allergies
+          ? _value.allergies
+          : allergies // ignore: cast_nullable_to_non_nullable
+              as List<AllergyDeclaration>,
       pilotStartDate: freezed == pilotStartDate
           ? _value.pilotStartDate
           : pilotStartDate // ignore: cast_nullable_to_non_nullable
@@ -133,7 +153,9 @@ abstract class _$$PatientSummaryImplCopyWith<$Res>
   @useResult
   $Res call(
       {String fullName,
+      String? patientCode,
       IbsSubtypeOption? ibsSubtype,
+      List<AllergyDeclaration> allergies,
       DateTime? pilotStartDate,
       String? nutritionistName,
       int? ibsSssBaseline,
@@ -156,7 +178,9 @@ class __$$PatientSummaryImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fullName = null,
+    Object? patientCode = freezed,
     Object? ibsSubtype = freezed,
+    Object? allergies = null,
     Object? pilotStartDate = freezed,
     Object? nutritionistName = freezed,
     Object? ibsSssBaseline = freezed,
@@ -169,10 +193,18 @@ class __$$PatientSummaryImplCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
+      patientCode: freezed == patientCode
+          ? _value.patientCode
+          : patientCode // ignore: cast_nullable_to_non_nullable
+              as String?,
       ibsSubtype: freezed == ibsSubtype
           ? _value.ibsSubtype
           : ibsSubtype // ignore: cast_nullable_to_non_nullable
               as IbsSubtypeOption?,
+      allergies: null == allergies
+          ? _value._allergies
+          : allergies // ignore: cast_nullable_to_non_nullable
+              as List<AllergyDeclaration>,
       pilotStartDate: freezed == pilotStartDate
           ? _value.pilotStartDate
           : pilotStartDate // ignore: cast_nullable_to_non_nullable
@@ -206,19 +238,41 @@ class __$$PatientSummaryImplCopyWithImpl<$Res>
 class _$PatientSummaryImpl extends _PatientSummary {
   const _$PatientSummaryImpl(
       {required this.fullName,
+      this.patientCode,
       this.ibsSubtype,
+      final List<AllergyDeclaration> allergies = const <AllergyDeclaration>[],
       this.pilotStartDate,
       this.nutritionistName,
       this.ibsSssBaseline,
       this.ibsSssLatest,
       this.cumulativeChange,
       this.significantClinicalResponse = false})
-      : super._();
+      : _allergies = allergies,
+        super._();
 
   @override
   final String fullName;
+
+  /// Codigo de paciente del piloto (`P-2026-0042`, acta A59 del backend).
+  ///
+  /// Opcional: una cuenta que todavia no entro al piloto no tiene codigo.
+  @override
+  final String? patientCode;
   @override
   final IbsSubtypeOption? ibsSubtype;
+
+  /// Alergias declaradas. Vacia es un estado legitimo, no un dato faltante.
+  final List<AllergyDeclaration> _allergies;
+
+  /// Alergias declaradas. Vacia es un estado legitimo, no un dato faltante.
+  @override
+  @JsonKey()
+  List<AllergyDeclaration> get allergies {
+    if (_allergies is EqualUnmodifiableListView) return _allergies;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_allergies);
+  }
+
   @override
   final DateTime? pilotStartDate;
   @override
@@ -248,7 +302,7 @@ class _$PatientSummaryImpl extends _PatientSummary {
 
   @override
   String toString() {
-    return 'PatientSummary(fullName: $fullName, ibsSubtype: $ibsSubtype, pilotStartDate: $pilotStartDate, nutritionistName: $nutritionistName, ibsSssBaseline: $ibsSssBaseline, ibsSssLatest: $ibsSssLatest, cumulativeChange: $cumulativeChange, significantClinicalResponse: $significantClinicalResponse)';
+    return 'PatientSummary(fullName: $fullName, patientCode: $patientCode, ibsSubtype: $ibsSubtype, allergies: $allergies, pilotStartDate: $pilotStartDate, nutritionistName: $nutritionistName, ibsSssBaseline: $ibsSssBaseline, ibsSssLatest: $ibsSssLatest, cumulativeChange: $cumulativeChange, significantClinicalResponse: $significantClinicalResponse)';
   }
 
   @override
@@ -258,8 +312,12 @@ class _$PatientSummaryImpl extends _PatientSummary {
             other is _$PatientSummaryImpl &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
+            (identical(other.patientCode, patientCode) ||
+                other.patientCode == patientCode) &&
             (identical(other.ibsSubtype, ibsSubtype) ||
                 other.ibsSubtype == ibsSubtype) &&
+            const DeepCollectionEquality()
+                .equals(other._allergies, _allergies) &&
             (identical(other.pilotStartDate, pilotStartDate) ||
                 other.pilotStartDate == pilotStartDate) &&
             (identical(other.nutritionistName, nutritionistName) ||
@@ -280,7 +338,9 @@ class _$PatientSummaryImpl extends _PatientSummary {
   int get hashCode => Object.hash(
       runtimeType,
       fullName,
+      patientCode,
       ibsSubtype,
+      const DeepCollectionEquality().hash(_allergies),
       pilotStartDate,
       nutritionistName,
       ibsSssBaseline,
@@ -301,7 +361,9 @@ class _$PatientSummaryImpl extends _PatientSummary {
 abstract class _PatientSummary extends PatientSummary {
   const factory _PatientSummary(
       {required final String fullName,
+      final String? patientCode,
       final IbsSubtypeOption? ibsSubtype,
+      final List<AllergyDeclaration> allergies,
       final DateTime? pilotStartDate,
       final String? nutritionistName,
       final int? ibsSssBaseline,
@@ -312,8 +374,18 @@ abstract class _PatientSummary extends PatientSummary {
 
   @override
   String get fullName;
+
+  /// Codigo de paciente del piloto (`P-2026-0042`, acta A59 del backend).
+  ///
+  /// Opcional: una cuenta que todavia no entro al piloto no tiene codigo.
+  @override
+  String? get patientCode;
   @override
   IbsSubtypeOption? get ibsSubtype;
+
+  /// Alergias declaradas. Vacia es un estado legitimo, no un dato faltante.
+  @override
+  List<AllergyDeclaration> get allergies;
   @override
   DateTime? get pilotStartDate;
   @override

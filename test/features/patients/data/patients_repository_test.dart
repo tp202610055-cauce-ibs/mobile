@@ -639,4 +639,161 @@ void main() {
       );
     });
   });
+
+  group('PatientsRepository · resumen del perfil (HU0023, CP070)', () {
+    Map<String, dynamic> summaryJson({
+      Object? patientCode = 'P-2026-0042',
+      Object? allergies = const <Map<String, dynamic>>[],
+    }) =>
+        <String, dynamic>{
+          'patient': <String, dynamic>{
+            'fullName': 'Paciente Demo Kaelin',
+            'patientCode': patientCode,
+            'maskedEmail': 'p***@cauce.local',
+          },
+          'clinical': <String, dynamic>{
+            'ibsSubtype': 'IbsD',
+            'age': 36,
+            'allergies': allergies,
+          },
+          'pilotStartDate': '2026-08-10',
+          'ibsSssBaseline': 220,
+          'significantClinicalResponse': false,
+        };
+
+    const lactoseJson = <String, dynamic>{
+      'patientAllergyId': 'b1b2b3b4-0000-4000-8000-000000000001',
+      'allergyId': 'c1c2c3c4-0000-4000-8000-000000000001',
+      'allergyName': 'Lactosa',
+      'allergyType': 'Intolerance',
+      'severity': 'Mild',
+      'declaredAt': '2026-08-10T15:00:00Z',
+    };
+
+    test('traduce el codigo y las alergias declaradas', () async {
+      final h = _harness(
+        CannedResponse.ok(
+          summaryJson(allergies: <Map<String, dynamic>>[lactoseJson]),
+        ),
+      );
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.patientCode, 'P-2026-0042');
+      expect(summary.allergies, hasLength(1));
+      final allergy = summary.allergies.single;
+      expect(allergy.allergyName, 'Lactosa');
+      expect(allergy.type, AllergyTypeOption.intolerance);
+      expect(allergy.severity, AllergySeverityLevel.mild);
+      expect(allergy.declaredAt, DateTime.utc(2026, 8, 10, 15));
+    });
+
+    test('sin codigo, el codigo queda nulo', () async {
+      final h = _harness(CannedResponse.ok(summaryJson(patientCode: null)));
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.patientCode, isNull);
+      expect(summary.fullName, 'Paciente Demo Kaelin');
+    });
+
+    test('un codigo en blanco cuenta como ausente', () async {
+      final h = _harness(CannedResponse.ok(summaryJson(patientCode: '   ')));
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.patientCode, isNull);
+    });
+
+    test('alergias nulas se leen como lista vacia', () async {
+      final h = _harness(CannedResponse.ok(summaryJson(allergies: null)));
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.allergies, isEmpty);
+    });
+
+    test('lista vacia de alergias no es un error', () async {
+      final h = _harness(CannedResponse.ok(summaryJson()));
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.allergies, isEmpty);
+    });
+
+    test('una alergia sin identificador se descarta y el resto sigue',
+        () async {
+      final h = _harness(
+        CannedResponse.ok(
+          summaryJson(
+            allergies: <Map<String, dynamic>>[
+              <String, dynamic>{...lactoseJson}..remove('patientAllergyId'),
+              <String, dynamic>{
+                ...lactoseJson,
+                'patientAllergyId': 'b1b2b3b4-0000-4000-8000-000000000002',
+                'allergyName': 'Gluten',
+              },
+            ],
+          ),
+        ),
+      );
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.allergies.map((a) => a.allergyName), <String>['Gluten']);
+    });
+
+    test('una alergia sin allergyId tambien se descarta', () async {
+      final h = _harness(
+        CannedResponse.ok(
+          summaryJson(
+            allergies: <Map<String, dynamic>>[
+              <String, dynamic>{...lactoseJson}..remove('allergyId'),
+            ],
+          ),
+        ),
+      );
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.allergies, isEmpty);
+    });
+
+    test('una alergia sin nombre se conserva: sigue siendo una alergia',
+        () async {
+      final h = _harness(
+        CannedResponse.ok(
+          summaryJson(
+            allergies: <Map<String, dynamic>>[
+              <String, dynamic>{...lactoseJson, 'allergyName': null},
+            ],
+          ),
+        ),
+      );
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.allergies, hasLength(1));
+      expect(summary.allergies.single.allergyName, isEmpty);
+    });
+
+    test('sin tipo ni severidad se conserva con los dos nulos', () async {
+      final h = _harness(
+        CannedResponse.ok(
+          summaryJson(
+            allergies: <Map<String, dynamic>>[
+              <String, dynamic>{...lactoseJson}
+                ..remove('allergyType')
+                ..remove('severity'),
+            ],
+          ),
+        ),
+      );
+
+      final summary = await h.repository.fetchSummary();
+
+      expect(summary.allergies.single.type, isNull);
+      expect(summary.allergies.single.severity, isNull);
+    });
+  });
 }
