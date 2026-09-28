@@ -102,6 +102,7 @@ class _DetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final description = detail.descriptionText;
     final explanation = detail.explanationText;
     final note = detail.note;
     final data = detail.supportingData;
@@ -110,6 +111,21 @@ class _DetailBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         _Hero(detail: detail),
+        // "En que consiste" (acta M49): la descripcion del nutricionista,
+        // entera. El mockup 11 no tiene este bloque porque la penso para la
+        // tarjeta, donde va recortada a dos lineas; sin el, el paciente nunca
+        // leeria completa la de una indicacion manual. Solo si el servidor la
+        // trae: la compuesta de una del motor ya esta en la lista de items.
+        if (description != null) ...<Widget>[
+          _SectionHead(
+            icon: TablerIcons.file_description,
+            title: l10n.recommendationSectionDescription,
+          ),
+          _SectionCard(
+            key: const Key('recommendation_description'),
+            child: Text(description, style: _bodyStyle(context)),
+          ),
+        ],
         // Bloque 1 (HU0015 CA3): explicacion XAI. Una indicacion manual no la
         // tiene. Si el LLM fallo, llega la plantilla de respaldo y se muestra
         // igual, sin marcarla como error (HU0015 CA4, CP077).

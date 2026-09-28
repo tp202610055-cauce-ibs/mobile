@@ -17,13 +17,19 @@ enum RecommendationOrigin {
 
   /// Resuelve el origen a partir de lo que trae el detalle.
   ///
-  /// Los tres estados aprobados lo dicen directo. `Delivered` y
-  /// `FeedbackReceived` ya lo perdieron, y hay que inferirlo:
+  /// **`source` manda cuando llega** (contrato v1.6.0, acta M49): `Manual` es
+  /// una indicacion en cualquier estado, tambien despues de entregada. Lo que
+  /// `source` no resuelve es si una del motor se aprobo tal cual o se
+  /// modifico, porque las dos son `EngineGenerated`.
   ///
-  /// - **Manual** si `explanationSource` es `Manual`. Es la senal fiable: el
-  ///   backend la fija en `CreateManual` y ningun otro camino la escribe. Sin
-  ///   ese dato, cero items tambien indica manual, porque el motor nunca
-  ///   genera una recomendacion vacia (`EmptyRecommendationException`).
+  /// Los tres estados aprobados lo dicen directo. `Delivered` y
+  /// `FeedbackReceived` ya lo perdieron, y para una del motor queda
+  /// "sistema". Sin `source` se cae a la inferencia de M47:
+  ///
+  /// - **Manual** si `explanationSource` es `Manual`: el backend la fija en
+  ///   `CreateManual` y ningun otro camino la escribe. Sin ese dato, cero
+  ///   items tambien indica manual, porque el motor nunca genera una
+  ///   recomendacion vacia (`EmptyRecommendationException`).
   /// - **Sistema** en cualquier otro caso.
   ///
   /// **Por que no se usan `autoApproved`, `reviewedByNutritionistId` ni
@@ -40,11 +46,14 @@ enum RecommendationOrigin {
     required RecommendationStatusOption status,
     required ExplanationOrigin? explanationSource,
     required int itemsCount,
+    RecommendationSourceOption? source,
   }) {
     return switch (status) {
+      _ when source == RecommendationSourceOption.manual => manual,
       RecommendationStatusOption.approved => system,
       RecommendationStatusOption.modifiedApproved => modified,
       RecommendationStatusOption.manualApproved => manual,
+      _ when source == RecommendationSourceOption.engineGenerated => system,
       _ when explanationSource == ExplanationOrigin.manual => manual,
       _ when explanationSource == null && itemsCount == 0 => manual,
       _ => system,

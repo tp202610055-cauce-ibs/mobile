@@ -78,6 +78,24 @@ void main() {
       );
     });
 
+    test('RecommendationSourceOption mapea los dos valores del contrato', () {
+      expect(
+        RecommendationSourceOption.fromApi(
+          api.RecommendationSource.engineGenerated,
+        ),
+        RecommendationSourceOption.engineGenerated,
+      );
+      expect(
+        RecommendationSourceOption.fromApi(api.RecommendationSource.manual),
+        RecommendationSourceOption.manual,
+      );
+      expect(
+        api.RecommendationSource.values.map(RecommendationSourceOption.fromApi),
+        everyElement(isNotNull),
+      );
+      expect(RecommendationSourceOption.fromApi(null), isNull);
+    });
+
     test('FeedbackOutcomeOption va y vuelve sin perder nada', () {
       for (final outcome in FeedbackOutcomeOption.values) {
         expect(FeedbackOutcomeOption.fromApi(outcome.toApi()), outcome);
@@ -92,6 +110,51 @@ void main() {
       expect(manualDetail.confidenceLevel, isNull);
       expect(manualDetail.showsAttribution, isFalse);
       expect(manualDetail.origin, RecommendationOrigin.manual);
+    });
+
+    test('source Manual basta para ser indicacion (acta M49)', () {
+      // Aunque la explicacion diga otra cosa: el origen lo fija source.
+      final manual = approvedDetail.copyWith(
+        source: RecommendationSourceOption.manual,
+      );
+
+      expect(manual.isManual, isTrue);
+      expect(manual.confidenceLevel, isNull);
+      expect(manual.showsAttribution, isFalse);
+    });
+
+    test('source EngineGenerated le gana a una explicacion manual', () {
+      final engine = manualDetail.copyWith(
+        source: RecommendationSourceOption.engineGenerated,
+      );
+
+      expect(engine.isManual, isFalse);
+    });
+
+    test(
+        'modificada con titulo y descripcion del servidor sigue siendo del '
+        'motor', () {
+      // `ModifyByNutritionist` puede escribir titulo y descripcion sin cambiar
+      // el origen: la recomendacion salio del motor y eso no cambia.
+      final detail = rewrittenModifiedDetail;
+
+      expect(detail.source, RecommendationSourceOption.engineGenerated);
+      expect(detail.titleText, 'Reduce la cebolla en los almuerzos');
+      expect(detail.descriptionText, startsWith('Mantén el ajo fuera'));
+      expect(detail.isManual, isFalse);
+      expect(detail.origin, RecommendationOrigin.modified);
+      expect(detail.confidenceLevel, ConfidenceLevel.medium);
+      expect(detail.showsAttribution, isTrue);
+    });
+
+    test('titulo y descripcion en blanco se leen como ausentes', () {
+      final blank = writtenManualDetail.copyWith(
+        title: '  ',
+        description: '\n\t',
+      );
+
+      expect(blank.titleText, isNull);
+      expect(blank.descriptionText, isNull);
     });
 
     test('una del motor muestra confianza y atribucion (decision 6)', () {

@@ -1,5 +1,8 @@
 import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart';
 import 'package:cauce_mobile/features/recommendations/domain/recommendation_headline.dart';
+import 'package:cauce_mobile/features/recommendations/domain/recommendation_origin.dart';
+import 'package:cauce_mobile/features/recommendations/presentation/recommendation_texts.dart';
+import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/fake_recommendations_repository.dart';
@@ -61,6 +64,66 @@ void main() {
       expect(headline.hasItems, isFalse);
       expect(headline.leadAction, isNull);
       expect(headline.note, manualDetail.note);
+    });
+  });
+
+  group('RecommendationTexts · texto del servidor primero (acta M49)', () {
+    final l10n = AppLocalizationsEs();
+
+    String titleOf(RecommendationDetail detail) => RecommendationTexts.title(
+          l10n,
+          RecommendationHeadline.of(detail),
+          origin: detail.origin,
+        );
+
+    String? descriptionOf(RecommendationDetail detail) =>
+        RecommendationTexts.description(
+          l10n,
+          RecommendationHeadline.of(detail),
+        );
+
+    test('una manual muestra su titulo y su descripcion', () {
+      expect(titleOf(writtenManualDetail), 'Hidratación en ayunas');
+      expect(
+        descriptionOf(writtenManualDetail),
+        writtenManualDetail.descriptionText,
+      );
+    });
+
+    test('una modificada con textos propios los usa en vez de componer', () {
+      expect(
+        titleOf(rewrittenModifiedDetail),
+        'Reduce la cebolla en los almuerzos',
+      );
+      expect(
+        descriptionOf(rewrittenModifiedDetail),
+        startsWith('Mantén el ajo fuera'),
+      );
+      // Los items siguen ahi: el icono sale de ellos, no del titulo.
+      expect(
+        RecommendationTexts.icon(
+          RecommendationHeadline.of(rewrittenModifiedDetail),
+        ),
+        RecommendationTexts.actionIcon(RecommendationAction.avoid),
+      );
+    });
+
+    test('una del motor sin titulo sigue componiendo el suyo', () {
+      expect(approvedDetail.title, isNull);
+      expect(
+        titleOf(approvedDetail),
+        'Evitar 2 alimentos, sustituir 1 alimento, incorporar 1 alimento',
+      );
+      expect(
+        descriptionOf(approvedDetail),
+        'Cebolla, Ajo, Leche entera y 1 más',
+      );
+    });
+
+    test('una manual sin descripcion cae a la nota, como en M47', () {
+      expect(manualDetail.origin, RecommendationOrigin.manual);
+      expect(titleOf(manualDetail), l10n.recommendationManualTitle);
+      expect(descriptionOf(manualDetail), manualDetail.note);
     });
   });
 }

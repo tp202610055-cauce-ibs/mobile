@@ -86,6 +86,32 @@ final RecommendationDetail manualDetail = RecommendationDetail(
   supportingData: approvedDetail.supportingData,
 );
 
+/// Indicacion manual tal como la devuelve el contrato v1.6.0: con `source`,
+/// titulo y descripcion, que el backend exige al crearla (acta M49).
+///
+/// [manualDetail] queda como la forma anterior, sin esos campos, para cubrir
+/// el respaldo de M47.
+final RecommendationDetail writtenManualDetail = manualDetail.copyWith(
+  id: 'rec-manual-written',
+  source: RecommendationSourceOption.manual,
+  title: 'Hidratación en ayunas',
+  description: 'Toma un vaso de agua tibia al despertar, antes del desayuno. '
+      'Ayuda a que el tránsito intestinal arranque sin esfuerzo y no suma '
+      'carga FODMAP. Sostenlo durante la próxima semana y cuéntame en la '
+      'consulta cómo te fue, sobre todo los días de más distensión.',
+);
+
+/// Recomendacion del motor que la nutricionista modifico escribiendole
+/// titulo y descripcion propios. Sigue siendo del motor: `EngineGenerated`.
+final RecommendationDetail rewrittenModifiedDetail = approvedDetail.copyWith(
+  id: 'rec-modified-rewritten',
+  status: RecommendationStatusOption.modifiedApproved,
+  source: RecommendationSourceOption.engineGenerated,
+  title: 'Reduce la cebolla en los almuerzos',
+  description: 'Mantén el ajo fuera y cambia la leche entera; la cebolla, '
+      'solo cocida y en poca cantidad.',
+);
+
 /// El resumen que el listado devolveria para [detail].
 RecommendationSummary summaryOf(RecommendationDetail detail) {
   return RecommendationSummary(
