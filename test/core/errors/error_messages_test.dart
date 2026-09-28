@@ -305,4 +305,22 @@ void main() {
       }
     });
   });
+
+  group('CauceApiErrorMessage · baja de cuenta (CP067)', () {
+    const error = CauceApiError.activePilotRetention();
+
+    test('active_pilot_retention tiene mensaje propio en es y en en', () {
+      expect(error.localizedMessage(es), es.errorActivePilotRetention);
+      expect(error.localizedMessage(en), en.errorActivePilotRetention);
+      expect(error.localizedMessage(es), isNot(es.errorUnknown));
+    });
+
+    test('dice que la cuenta sigue y que falta confirmar el aviso', () {
+      final message = error.localizedMessage(es);
+
+      expect(message, contains('sigue activa'));
+      expect(message, contains('piloto'));
+      expect(message, isNot(contains('!')));
+    });
+  });
 }

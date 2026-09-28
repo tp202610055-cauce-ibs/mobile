@@ -650,4 +650,33 @@ void main() {
       expect(expired, isNot(isA<ConflictStateError>()));
     });
   });
+
+  group('ErrorMapper · baja de cuenta (HU0026, CP067)', () {
+    test('active_pilot_retention se tipa y no cae en unknown', () {
+      // Hasta este bloque llegaba como error generico: la pantalla no podia
+      // reconocerlo para reabrir el aviso del piloto (acta M49).
+      final error = ErrorMapper.map(
+        _problem(status: 409, errorCode: 'active_pilot_retention'),
+      );
+
+      expect(error, isA<ActivePilotRetentionError>());
+    });
+
+    test('no se confunde con el 409 de recomendaciones', () {
+      final retention = ErrorMapper.map(
+        _problem(status: 409, errorCode: 'active_pilot_retention'),
+      );
+      final conflict =
+          ErrorMapper.map(_problem(status: 409, errorCode: 'conflict_state'));
+
+      expect(retention, isNot(isA<ConflictStateError>()));
+      expect(conflict, isNot(isA<ActivePilotRetentionError>()));
+    });
+
+    test('un 409 sin errorCode sigue siendo desconocido', () {
+      final error = ErrorMapper.map(_problem(status: 409));
+
+      expect(error, isA<UnknownError>());
+    });
+  });
 }

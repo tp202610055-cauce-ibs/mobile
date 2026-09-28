@@ -311,6 +311,15 @@ sealed class CauceApiError with _$CauceApiError {
   /// dejar el switch incompleto.
   const factory CauceApiError.reportPeriodInvalid() = ReportPeriodInvalidError;
 
+  /// 409 `active_pilot_retention`. La baja de cuenta llego sin el acuse de
+  /// piloto activo y el paciente si esta en uno (HU0026, CP067).
+  ///
+  /// Pasa cuando el snapshot local todavia dice "fuera del piloto" y el
+  /// servidor ya sabe que no. La pantalla de baja no lo muestra como fallo:
+  /// reabre el aviso del piloto y reintenta con el acuse (acta M49).
+  const factory CauceApiError.activePilotRetention() =
+      ActivePilotRetentionError;
+
   // Modulo Recommendations (EP0003). Mobile-5, bloque 6.
 
   /// 404 `recommendation_not_found`. No existe **o no es visible** para el

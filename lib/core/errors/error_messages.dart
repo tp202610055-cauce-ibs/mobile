@@ -58,6 +58,7 @@ extension CauceApiErrorMessage on CauceApiError {
       IdempotencyMismatchError() => l10n.errorIdempotencyMismatch,
       PatientHasNoDataInPeriodError() => l10n.errorPatientHasNoDataInPeriod,
       ReportPeriodInvalidError() => l10n.errorReportPeriodInvalid,
+      ActivePilotRetentionError() => l10n.errorActivePilotRetention,
       DomainRuleViolationError() => l10n.errorDomainRuleViolation,
       RecommendationNotFoundError() => l10n.errorRecommendationNotFound,
       RecommendationAccessDeniedError() => l10n.errorRecommendationAccessDenied,

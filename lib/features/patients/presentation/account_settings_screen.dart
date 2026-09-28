@@ -4,6 +4,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../core/errors/cauce_api_error.dart';
 import '../../../core/router/app_routes.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
@@ -228,35 +229,52 @@ class _RightsSection extends ConsumerWidget {
       return;
     }
 
-    // El estado de piloto ya viaja en el snapshot de sesion desde Mobile-1b.
-    // No se consulta de nuevo ni se deduce de otra cosa.
-    final inPilot =
-        ref.read(sessionNotifierProvider).user?.isInActivePilot ?? false;
+    final deletion = ref.read(accountDeletionNotifierProvider.notifier);
 
-    if (inPilot) {
-      final second = await CauceConfirmDialog.show(
-        context,
-        title: l10n.settingsDeletePilotTitle,
-        message: l10n.settingsDeletePilotBody,
-        confirmLabel: l10n.settingsDeletePilotAction,
-        cancelLabel: l10n.commonCancel,
-      );
-      // CP067 paso 5: cerrar el aviso sin la confirmacion adicional deja la
-      // cuenta activa y no ejecuta nada.
-      if (!second || !context.mounted) {
-        return;
-      }
+    // El estado de piloto sale del snapshot guardado, que el refresh mantiene
+    // al dia (acta M49). No se consulta al servidor aparte.
+    final inPilot = await deletion.requiresPilotAcknowledgement();
+    if (!context.mounted) {
+      return;
     }
 
-    final deleted = await ref
-        .read(accountDeletionNotifierProvider.notifier)
-        .delete(activePilotAcknowledged: inPilot);
+    // CP067 paso 5: cerrar el aviso sin la confirmacion adicional deja la
+    // cuenta activa y no ejecuta nada.
+    if (inPilot && !await _confirmPilot(context)) {
+      return;
+    }
+
+    var deleted = await deletion.delete(activePilotAcknowledged: inPilot);
+
+    // El snapshot podia estar viejo: el servidor sabe que el paciente esta en
+    // el piloto y respondio 409 sin borrar nada. Se le muestra el mismo aviso
+    // que habria visto y, si confirma, se reintenta con el acuse. Si cancela,
+    // la cuenta sigue y el banner explica por que (acta M49).
+    final retention = ref.read(accountDeletionNotifierProvider).error
+        is ActivePilotRetentionError;
+    if (!deleted && !inPilot && retention && context.mounted) {
+      if (await _confirmPilot(context)) {
+        deleted = await deletion.delete(activePilotAcknowledged: true);
+      }
+    }
 
     // Sin navegacion propia: el guard del router lleva al login en cuanto la
     // sesion pasa a no autenticada.
     if (deleted && context.mounted) {
       CauceToast.success(context, title: l10n.settingsDeleteDone);
     }
+  }
+
+  /// Segundo aviso de CP067: la baja con piloto clinico activo.
+  Future<bool> _confirmPilot(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return CauceConfirmDialog.show(
+      context,
+      title: l10n.settingsDeletePilotTitle,
+      message: l10n.settingsDeletePilotBody,
+      confirmLabel: l10n.settingsDeletePilotAction,
+      cancelLabel: l10n.commonCancel,
+    );
   }
 }
 
