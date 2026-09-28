@@ -4,6 +4,7 @@ import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
 import 'package:cauce_mobile/core/network/dio_provider.dart';
 import 'package:cauce_mobile/core/sync/connectivity_monitor.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -32,10 +33,15 @@ typedef AppBorders = ({
 /// [online] en `false` por defecto: un test de navegacion o de identidad no
 /// quiere que la cola salga a sincronizar de fondo y le ensucie las llamadas
 /// que si esta observando.
+///
+/// [refreshClient] sustituye al cliente de `POST /auth/refresh`, que el
+/// interceptor arma aparte y sin interceptors. Sin el, la renovacion saldria
+/// a la red de verdad.
 AppBorders appBorders({
   required TokenStorage storage,
   bool online = false,
   CannedHttpAdapter? adapter,
+  Dio? refreshClient,
 }) {
   Env.loadForTesting(const <String, String>{
     'API_BASE_URL': 'http://localhost:5074',
@@ -63,6 +69,8 @@ AppBorders appBorders({
         final dio = buildDio(
           tokenStorage: storage,
           baseUrl: 'http://localhost:5074',
+          refreshClient: refreshClient,
+          onSessionExpired: sessionExpiryCallback(ref),
         );
         dio.httpClientAdapter = transport;
         return dio;

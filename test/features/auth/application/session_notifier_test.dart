@@ -1,4 +1,5 @@
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
+import 'package:cauce_mobile/core/auth/session_expiry.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
@@ -263,6 +264,70 @@ void main() {
         isA<SessionUnauthenticated>(),
       );
       expect(h.storage.clearSessionCalls, 0);
+    });
+  });
+
+  group('SessionNotifier · aviso de sesion vencida (acta M49)', () {
+    test('el aviso de la red lleva la sesion a no autenticada', () async {
+      // Hasta este bloque nadie llamaba a expire(): la red borraba el
+      // almacenamiento y la sesion en memoria seguia autenticada.
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _verified,
+      );
+      await h.container.read(sessionNotifierProvider.notifier).bootstrap();
+      expect(
+        h.container.read(sessionNotifierProvider),
+        isA<SessionAuthenticated>(),
+      );
+
+      h.container.read(sessionExpiryProvider.notifier).raise();
+
+      expect(
+        h.container.read(sessionNotifierProvider),
+        isA<SessionUnauthenticated>(),
+      );
+      // La red ya borro las keys antes de avisar: no se repite.
+      expect(h.storage.clearSessionCalls, 0);
+    });
+
+    test('tambien cierra una sesion que esperaba verificar el correo',
+        () async {
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _unverified,
+      );
+      await h.container.read(sessionNotifierProvider.notifier).bootstrap();
+
+      h.container.read(sessionExpiryProvider.notifier).raise();
+
+      expect(
+        h.container.read(sessionNotifierProvider),
+        isA<SessionUnauthenticated>(),
+      );
+    });
+
+    test('sobre una sesion ya cerrada no notifica a nadie', () async {
+      // Un pedido que se escapo despues del logout termina en este aviso.
+      // Si notificara, el router se reconstruiria sin motivo.
+      final h = _harness();
+      await h.container.read(sessionNotifierProvider.notifier).bootstrap();
+      var notifications = 0;
+      h.container.listen(
+        sessionNotifierProvider,
+        (_, __) => notifications++,
+      );
+
+      h.container.read(sessionExpiryProvider.notifier).raise();
+      h.container.read(sessionExpiryProvider.notifier).raise();
+
+      expect(notifications, 0);
+      expect(
+        h.container.read(sessionNotifierProvider),
+        isA<SessionUnauthenticated>(),
+      );
     });
   });
 

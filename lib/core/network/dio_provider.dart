@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../auth/session_expiry.dart';
 import '../auth/token_storage.dart';
 import '../auth/token_storage_provider.dart';
 import '../config/env.dart';
@@ -20,8 +21,20 @@ part 'dio_provider.g.dart';
 @Riverpod(keepAlive: true)
 Dio dio(Ref ref) {
   final tokenStorage = ref.watch(tokenStorageProvider);
-  return buildDio(tokenStorage: tokenStorage, baseUrl: Env.apiBaseUrl);
+  return buildDio(
+    tokenStorage: tokenStorage,
+    baseUrl: Env.apiBaseUrl,
+    onSessionExpired: sessionExpiryCallback(ref),
+  );
 }
+
+/// Lo que hace la red cuando la sesion ya no se puede renovar: levantar la
+/// senal que escucha `SessionNotifier` (acta M49).
+///
+/// Se expone para que el override de [dioProvider] en los tests cablee la
+/// misma funcion y no una copia que podria divergir.
+void Function() sessionExpiryCallback(Ref ref) =>
+    () => ref.read(sessionExpiryProvider.notifier).raise();
 
 /// Construye el [Dio] de la aplicacion.
 ///
@@ -33,6 +46,7 @@ Dio buildDio({
   required String baseUrl,
   bool enableLogging = false,
   Dio? refreshClient,
+  void Function()? onSessionExpired,
 }) {
   final dio = Dio(
     BaseOptions(
@@ -54,6 +68,7 @@ Dio buildDio({
       retryClient: dio,
       baseUrl: baseUrl,
       refreshClient: refreshClient,
+      onSessionExpired: onSessionExpired,
     ),
     if (enableLogging)
       LogInterceptor(requestBody: true, responseBody: true, error: true),
