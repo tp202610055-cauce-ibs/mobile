@@ -1,5 +1,6 @@
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
+import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/history/application/history_notifier.dart';
@@ -12,11 +13,13 @@ import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/symptoms/domain/symptom_draft.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/app_fonts.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
@@ -183,6 +186,78 @@ void main() {
       expect(find.text(l10n.historySyncPending), findsOneWidget);
       expect(find.byKey(const Key('history_note_unavailable')), findsOneWidget);
       expect(find.byKey(const Key('history_add_note')), findsNothing);
+    });
+
+    testWidgets(
+        'en un telefono normal ni el badge ni el titulo se cortan (acta M49)',
+        (tester) async {
+      // Lo encontro el recorrido en el Redmi (1080 x 2400 a 3x): el reparto
+      // fijo de la cabecera dejaba "Pendiente ..." y "Distension abdom...".
+      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      // Con la fuente de prueba de flutter_test el badge mide el doble que en
+      // el celular y no entraria ni solo en su linea.
+      await tester.runAsync(loadAppFonts);
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(21),
+          sync: HistoryEntrySyncState.pending,
+          serverId: null,
+          mealTime: MealTimeOption.snack,
+        ),
+        _symptom(at: aLas(18)).copyWith(
+          symptomType: SymptomTypeOption.bloating,
+          syncState: HistoryEntrySyncState.pending,
+          serverId: null,
+        ),
+      ]);
+
+      final badges = find.text(l10n.historySyncPending);
+      expect(badges, findsNWidgets(2));
+      for (final paragraph in tester.renderObjectList<RenderParagraph>(
+        badges,
+      )) {
+        expect(paragraph.didExceedMaxLines, isFalse);
+      }
+      for (final paragraph in tester.renderObjectList<RenderParagraph>(
+        find.byKey(const Key('history_card_title')),
+      )) {
+        expect(paragraph.didExceedMaxLines, isFalse);
+      }
+      expect(find.text(l10n.symptomTypeBloating), findsOneWidget);
+    });
+
+    testWidgets('si el badge entra al lado del titulo, va al borde derecho',
+        (tester) async {
+      // Con el `Wrap` a lo ancho de su contenido, el badge quedaba pegado al
+      // titulo en vez de alinearse a la derecha como en la seccion G.
+      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      await tester.runAsync(loadAppFonts);
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+
+      await _pump(tester, <HistoryEntry>[_meal(at: aLas(13))]);
+
+      final badge = tester.getRect(
+        find.ancestor(
+          of: find.text(l10n.historySyncDone),
+          matching: find.byType(CauceBadge),
+        ),
+      );
+      final header = tester.getRect(
+        find
+            .ancestor(
+              of: find.text(l10n.historySyncDone),
+              matching: find.byType(Wrap),
+            )
+            .first,
+      );
+      expect(badge.right, moreOrLessEquals(header.right, epsilon: 0.5));
+      expect(badge.top, moreOrLessEquals(header.top, epsilon: 8));
     });
   });
 

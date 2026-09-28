@@ -369,27 +369,39 @@ class _Header extends StatelessWidget {
       Localizations.localeOf(context).toLanguageTag(),
     ).format(entry.occurredAt.toLocal());
 
-    // **Las dos mitades ceden.** El badge de sincronizacion mide distinto en
-    // cada estado ("Sincronizado" contra "Pendiente de sincronizar") y con un
-    // ancho fijo la fila se desbordaba 52 pixeles en un telefono normal, con
-    // Flutter recortando el contenido. Ahora el titulo y el badge reparten el
-    // ancho disponible y los dos elipsan si hace falta.
-    return Row(
-      children: <Widget>[
-        Icon(
-          isSymptom ? TablerIcons.activity : TablerIcons.bowl,
-          size: 18,
-          color: isSymptom ? CauceColors.warningText : CauceColors.brandBase,
-        ),
-        const SizedBox(width: CauceSpacing.space2),
-        Expanded(
-          flex: 3,
-          child: Row(
+    // **El badge baja de linea en vez de cortarse.** Mide distinto en cada
+    // estado ("Sincronizado" contra "Pendiente de sincronizar", el texto del
+    // design system). Con ancho fijo la fila se desbordaba 52 pixeles; con un
+    // reparto fijo de 3 a 2 el badge quedaba en "Pendiente ..." y arrastraba
+    // al titulo a "Distension abdom..." (lo encontro el recorrido en el
+    // celular, acta M49). Con `Wrap`, si los dos entran van a los extremos de
+    // la misma linea, y si no el badge pasa entero a la siguiente y el titulo
+    // usa todo el ancho. El `SizedBox` le da al `Wrap` el ancho completo: sin
+    // el, un `Wrap` mide lo que su contenido y no le queda espacio que
+    // repartir, con lo que el badge quedaba pegado al titulo en vez de irse al
+    // borde derecho.
+    return SizedBox(
+      width: double.infinity,
+      child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: CauceSpacing.space2,
+        runSpacing: CauceSpacing.space2,
+        children: <Widget>[
+          Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              Icon(
+                isSymptom ? TablerIcons.activity : TablerIcons.bowl,
+                size: 18,
+                color:
+                    isSymptom ? CauceColors.warningText : CauceColors.brandBase,
+              ),
+              const SizedBox(width: CauceSpacing.space2),
               Flexible(
                 child: Text(
                   _title(l10n),
+                  key: const Key('history_card_title'),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyMedium?.copyWith(
@@ -406,21 +418,14 @@ class _Header extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        const SizedBox(width: CauceSpacing.space2),
-        // **Un solo badge en el encabezado.** Con dos, la fila se desbordaba
-        // 52 pixeles a la derecha en un telefono normal y Flutter recortaba
-        // el contenido. La intensidad se movio al cuerpo, donde ademas queda
-        // al lado de la linea de asociacion, que es el otro dato clinico de
-        // la tarjeta.
-        Flexible(
-          flex: 2,
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: _syncBadge(l10n, entry.syncState),
-          ),
-        ),
-      ],
+          // **Un solo badge en el encabezado.** Con dos, la fila se desbordaba
+          // 52 pixeles a la derecha en un telefono normal y Flutter recortaba
+          // el contenido. La intensidad se movio al cuerpo, donde ademas queda
+          // al lado de la linea de asociacion, que es el otro dato clinico de
+          // la tarjeta.
+          _syncBadge(l10n, entry.syncState),
+        ],
+      ),
     );
   }
 
