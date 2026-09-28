@@ -227,7 +227,7 @@ abstract class AppLocalizations {
   /// No description provided for @registerSubtitle.
   ///
   /// In es, this message translates to:
-  /// **'Registrate para participar en el seguimiento nutricional'**
+  /// **'Regístrate para participar en el seguimiento nutricional'**
   String get registerSubtitle;
 
   /// No description provided for @registerFullNameLabel.
@@ -479,7 +479,7 @@ abstract class AppLocalizations {
   /// No description provided for @validationPasswordWeak.
   ///
   /// In es, this message translates to:
-  /// **'Debe incluir una mayuscula, una minuscula y un digito'**
+  /// **'Debe incluir una mayúscula, una minúscula y un dígito'**
   String get validationPasswordWeak;
 
   /// No description provided for @validationPasswordMismatch.
@@ -551,7 +551,7 @@ abstract class AppLocalizations {
   /// errorCode consent_text_mismatch (400)
   ///
   /// In es, this message translates to:
-  /// **'El consentimiento informado cambio. Vuelve a leerlo y aceptalo.'**
+  /// **'El consentimiento informado cambió. Vuelve a leerlo y acéptalo.'**
   String get errorConsentTextMismatch;
 
   /// errorCode invalid_invitation_code (400)
@@ -847,6 +847,36 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Cucharadas'**
   String get measurementUnitTablespoons;
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} gramo} other{{quantity} gramos}}'**
+  String mealItemAmountGrams(num count, String quantity);
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} taza} other{{quantity} tazas}}'**
+  String mealItemAmountCups(num count, String quantity);
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} unidad} other{{quantity} unidades}}'**
+  String mealItemAmountUnits(num count, String quantity);
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} onza} other{{quantity} onzas}}'**
+  String mealItemAmountOunces(num count, String quantity);
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} cucharada} other{{quantity} cucharadas}}'**
+  String mealItemAmountTablespoons(num count, String quantity);
 
   /// Titulo de la pantalla del constructor de platos (US10)
   ///
@@ -1283,7 +1313,7 @@ abstract class AppLocalizations {
   /// Bajada de la pantalla de nota
   ///
   /// In es, this message translates to:
-  /// **'Anota lo que quieras recordar sobre este registro. Tu nutricionista lo vera junto al dato.'**
+  /// **'Anota lo que quieras recordar sobre este registro. Tu nutricionista lo verá junto al dato.'**
   String get clinicalNoteSubtitle;
 
   /// Campo de texto de la nota
@@ -1295,7 +1325,7 @@ abstract class AppLocalizations {
   /// Placeholder del campo de nota
   ///
   /// In es, this message translates to:
-  /// **'Por ejemplo: comi apurado, en la calle'**
+  /// **'Por ejemplo: comí apurado, en la calle'**
   String get clinicalNoteContentHint;
 
   /// Contador visible de CA02. Se vuelve negativo si el paciente pasa el tope
@@ -1484,6 +1514,12 @@ abstract class AppLocalizations {
   /// **'El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.'**
   String get errorReportPeriodInvalid;
 
+  /// errorCode active_pilot_retention (409), CP067. Se muestra si el paciente cierra sin confirmar el aviso del piloto que se reabre tras el 409
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta sigue activa. Participas en el piloto clínico y, para eliminarla, necesitamos que confirmes el aviso del piloto.'**
+  String get errorActivePilotRetention;
+
   /// errorCode recommendation_not_found (404). Tambien cubre las que existen pero no son visibles para el paciente (acta A24)
   ///
   /// In es, this message translates to:
@@ -1583,7 +1619,7 @@ abstract class AppLocalizations {
   /// errorCode internal_server_error (500)
   ///
   /// In es, this message translates to:
-  /// **'Ocurrio un error en el servidor. Intenta de nuevo.'**
+  /// **'Ocurrió un error en el servidor. Intenta de nuevo.'**
   String get errorInternalServer;
 
   /// errorCode consent_record_not_found (404). Solo aplica a US01 CA04, fuera del alcance de Mobile-1b
@@ -1613,7 +1649,7 @@ abstract class AppLocalizations {
   /// Fallback para cualquier status no contemplado
   ///
   /// In es, this message translates to:
-  /// **'Ocurrio un error inesperado. Intenta de nuevo.'**
+  /// **'Ocurrió un error inesperado. Intenta de nuevo.'**
   String get errorUnknown;
 
   /// Indicador de progreso del wizard de onboarding clinico
@@ -2129,7 +2165,7 @@ abstract class AppLocalizations {
   /// No description provided for @evolutionRangeEmpty.
   ///
   /// In es, this message translates to:
-  /// **'No hay evaluaciones en este período. Probá con uno más amplio.'**
+  /// **'No hay evaluaciones en este período. Prueba con uno más amplio.'**
   String get evolutionRangeEmpty;
 
   /// No description provided for @evolutionPercentLabel.
@@ -2299,6 +2335,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Subtipo de SII'**
   String get profileClinicalSubtype;
+
+  /// No description provided for @profileClinicalAllergies.
+  ///
+  /// In es, this message translates to:
+  /// **'Alergias declaradas'**
+  String get profileClinicalAllergies;
+
+  /// Valor de la fila de alergias cuando el paciente no declaró ninguna (CP070)
+  ///
+  /// In es, this message translates to:
+  /// **'Ninguna'**
+  String get profileClinicalAllergiesNone;
+
+  /// Una alergia declarada con su tipo y severidad entre paréntesis, como en el mockup 12: 'Lactosa (intolerancia leve)'
+  ///
+  /// In es, this message translates to:
+  /// **'{name} ({qualifier})'**
+  String profileAllergyDetail(String name, String qualifier);
+
+  /// Tipo y severidad de una alergia, ya en minúscula. El orden depende del idioma
+  ///
+  /// In es, this message translates to:
+  /// **'{type} {severity}'**
+  String profileAllergyQualifier(String type, String severity);
 
   /// No description provided for @profileEvolutionSection.
   ///
@@ -3128,6 +3188,12 @@ abstract class AppLocalizations {
   /// **'Detalle de la recomendación'**
   String get recommendationDetailTitle;
 
+  /// Bloque con la descripción que escribió el nutricionista. No está en el mockup 11: lo agrega el acta M49 para que la de una indicación manual se lea entera
+  ///
+  /// In es, this message translates to:
+  /// **'En qué consiste'**
+  String get recommendationSectionDescription;
+
   /// No description provided for @recommendationSectionWhy.
   ///
   /// In es, this message translates to:
@@ -3757,6 +3823,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ver mi diario'**
   String get homeTodayOpen;
+
+  /// Resumen de lo registrado hoy en Inicio: homeTodayMeals y homeTodaySymptoms ya resueltos. Es una frase propia para que la puntuación también pase por l10n
+  ///
+  /// In es, this message translates to:
+  /// **'{meals}, {symptoms}'**
+  String homeTodaySummary(String meals, String symptoms);
 }
 
 class _AppLocalizationsDelegate

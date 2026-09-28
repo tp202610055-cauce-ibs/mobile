@@ -423,6 +423,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get measurementUnitTablespoons => 'Tablespoons';
 
   @override
+  String mealItemAmountGrams(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity grams',
+      one: '$quantity gram',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountCups(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity cups',
+      one: '$quantity cup',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountUnits(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity units',
+      one: '$quantity unit',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountOunces(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity ounces',
+      one: '$quantity ounce',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountTablespoons(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity tablespoons',
+      one: '$quantity tablespoon',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get customFoodTitle => 'Create custom dish';
 
   @override
@@ -796,6 +851,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorReportPeriodInvalid =>
       'The requested period is not valid. Choose a range of up to 90 days that does not include future dates.';
+
+  @override
+  String get errorActivePilotRetention =>
+      'Your account is still active. You are taking part in the clinical pilot and, to delete it, we need you to confirm the pilot notice.';
 
   @override
   String get errorRecommendationNotFound =>
@@ -1278,6 +1337,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileClinicalSubtype => 'IBS subtype';
+
+  @override
+  String get profileClinicalAllergies => 'Declared allergies';
+
+  @override
+  String get profileClinicalAllergiesNone => 'None';
+
+  @override
+  String profileAllergyDetail(String name, String qualifier) {
+    return '$name ($qualifier)';
+  }
+
+  @override
+  String profileAllergyQualifier(String type, String severity) {
+    return '$severity $type';
+  }
 
   @override
   String get profileEvolutionSection => 'My IBS-SSS evolution';
@@ -1807,6 +1882,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recommendationDetailTitle => 'Recommendation details';
 
   @override
+  String get recommendationSectionDescription => 'What it involves';
+
+  @override
   String get recommendationSectionWhy => 'Why we recommend it';
 
   @override
@@ -2212,4 +2290,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeTodayOpen => 'Open my journal';
+
+  @override
+  String homeTodaySummary(String meals, String symptoms) {
+    return '$meals, $symptoms';
+  }
 }

@@ -192,7 +192,7 @@ void main() {
 
       expect(h.repository.confirmPasswordResetCalls, 0);
       expect(
-        find.text('Debe incluir una mayuscula, una minuscula y un digito'),
+        find.text('Debe incluir una mayúscula, una minúscula y un dígito'),
         findsOneWidget,
       );
     });

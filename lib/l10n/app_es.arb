@@ -30,7 +30,7 @@
   "loginShowPassword": "Mostrar contraseña",
   "loginHidePassword": "Ocultar contraseña",
   "registerTitle": "Crea tu cuenta",
-  "registerSubtitle": "Registrate para participar en el seguimiento nutricional",
+  "registerSubtitle": "Regístrate para participar en el seguimiento nutricional",
   "registerFullNameLabel": "Nombre completo",
   "registerFullNameHint": "Nombre y apellidos",
   "registerEmailLabel": "Correo electrónico",
@@ -93,7 +93,7 @@
   "validationEmailTooLong": "El correo no puede superar los 150 caracteres",
   "validationFullNameLength": "El nombre debe tener entre 2 y 150 caracteres",
   "validationPasswordTooShort": "La contraseña debe tener al menos 8 caracteres",
-  "validationPasswordWeak": "Debe incluir una mayuscula, una minuscula y un digito",
+  "validationPasswordWeak": "Debe incluir una mayúscula, una minúscula y un dígito",
   "validationPasswordMismatch": "Las contraseñas no coinciden",
   "validationInvitationCodeFormat": "El código debe tener entre 8 y 20 caracteres, solo letras y números",
   "validationConsentRequired": "Debes aceptar el consentimiento informado para continuar",
@@ -130,7 +130,7 @@
   "@errorValidation": {
     "description": "errorCode validation_error (400). Los detalles por campo van en cada CauceTextField"
   },
-  "errorConsentTextMismatch": "El consentimiento informado cambio. Vuelve a leerlo y aceptalo.",
+  "errorConsentTextMismatch": "El consentimiento informado cambió. Vuelve a leerlo y acéptalo.",
   "@errorConsentTextMismatch": {
     "description": "errorCode consent_text_mismatch (400)"
   },
@@ -329,6 +329,71 @@
   "measurementUnitTablespoons": "Cucharadas",
   "@measurementUnitTablespoons": {
     "description": "MeasurementUnit Tablespoons"
+  },
+  "mealItemAmountGrams": "{count, plural, =1{{quantity} gramo} other{{quantity} gramos}}",
+  "@mealItemAmountGrams": {
+    "description": "Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      },
+      "quantity": {
+        "type": "String",
+        "example": "0.5"
+      }
+    }
+  },
+  "mealItemAmountCups": "{count, plural, =1{{quantity} taza} other{{quantity} tazas}}",
+  "@mealItemAmountCups": {
+    "description": "Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      },
+      "quantity": {
+        "type": "String",
+        "example": "0.5"
+      }
+    }
+  },
+  "mealItemAmountUnits": "{count, plural, =1{{quantity} unidad} other{{quantity} unidades}}",
+  "@mealItemAmountUnits": {
+    "description": "Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      },
+      "quantity": {
+        "type": "String",
+        "example": "0.5"
+      }
+    }
+  },
+  "mealItemAmountOunces": "{count, plural, =1{{quantity} onza} other{{quantity} onzas}}",
+  "@mealItemAmountOunces": {
+    "description": "Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      },
+      "quantity": {
+        "type": "String",
+        "example": "0.5"
+      }
+    }
+  },
+  "mealItemAmountTablespoons": "{count, plural, =1{{quantity} cucharada} other{{quantity} cucharadas}}",
+  "@mealItemAmountTablespoons": {
+    "description": "Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada",
+    "placeholders": {
+      "count": {
+        "type": "num"
+      },
+      "quantity": {
+        "type": "String",
+        "example": "0.5"
+      }
+    }
   },
   "customFoodTitle": "Crear plato personalizado",
   "@customFoodTitle": {
@@ -676,7 +741,7 @@
   "@clinicalNoteTitle": {
     "description": "Titulo de la pantalla de nota de contexto (US13)"
   },
-  "clinicalNoteSubtitle": "Anota lo que quieras recordar sobre este registro. Tu nutricionista lo vera junto al dato.",
+  "clinicalNoteSubtitle": "Anota lo que quieras recordar sobre este registro. Tu nutricionista lo verá junto al dato.",
   "@clinicalNoteSubtitle": {
     "description": "Bajada de la pantalla de nota"
   },
@@ -684,7 +749,7 @@
   "@clinicalNoteContentLabel": {
     "description": "Campo de texto de la nota"
   },
-  "clinicalNoteContentHint": "Por ejemplo: comi apurado, en la calle",
+  "clinicalNoteContentHint": "Por ejemplo: comí apurado, en la calle",
   "@clinicalNoteContentHint": {
     "description": "Placeholder del campo de nota"
   },
@@ -831,6 +896,10 @@
   "@errorReportPeriodInvalid": {
       "description": "errorCode report_period_invalid (422)"
   },
+  "errorActivePilotRetention": "Tu cuenta sigue activa. Participas en el piloto clínico y, para eliminarla, necesitamos que confirmes el aviso del piloto.",
+  "@errorActivePilotRetention": {
+      "description": "errorCode active_pilot_retention (409), CP067. Se muestra si el paciente cierra sin confirmar el aviso del piloto que se reabre tras el 409"
+  },
   "@errorDomainRuleViolation": {
     "description": "errorCode domain_rule_violation (400). Caso general de DomainException para las reglas sin errorCode propio"
   },
@@ -904,7 +973,7 @@
   "@errorUserLocalMissing": {
     "description": "errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend"
   },
-  "errorInternalServer": "Ocurrio un error en el servidor. Intenta de nuevo.",
+  "errorInternalServer": "Ocurrió un error en el servidor. Intenta de nuevo.",
   "@errorInternalServer": {
     "description": "errorCode internal_server_error (500)"
   },
@@ -930,7 +999,7 @@
   "@errorNetwork": {
     "description": "Timeout o ausencia de red, sin respuesta del servidor"
   },
-  "errorUnknown": "Ocurrio un error inesperado. Intenta de nuevo.",
+  "errorUnknown": "Ocurrió un error inesperado. Intenta de nuevo.",
   "@errorUnknown": {
     "description": "Fallback para cualquier status no contemplado"
   },
@@ -1080,7 +1149,7 @@
   "evolutionRangeLastMonth": "Último mes",
   "evolutionRangeLastQuarter": "Últimos 3 meses",
   "evolutionRangeAll": "Todo",
-  "evolutionRangeEmpty": "No hay evaluaciones en este período. Probá con uno más amplio.",
+  "evolutionRangeEmpty": "No hay evaluaciones en este período. Prueba con uno más amplio.",
   "evolutionPercentLabel": "Cambio respecto de tu línea base",
   "evolutionPercentDown": "{percent} % menos",
   "@evolutionPercentDown": {
@@ -1199,6 +1268,39 @@
   "profileTrackingNutritionist": "Mi nutricionista",
   "profileTrackingNutritionistPending": "Pendiente de asignación",
   "profileClinicalSubtype": "Subtipo de SII",
+  "profileClinicalAllergies": "Alergias declaradas",
+  "profileClinicalAllergiesNone": "Ninguna",
+  "@profileClinicalAllergiesNone": {
+    "description": "Valor de la fila de alergias cuando el paciente no declaró ninguna (CP070)"
+  },
+  "profileAllergyDetail": "{name} ({qualifier})",
+  "@profileAllergyDetail": {
+    "description": "Una alergia declarada con su tipo y severidad entre paréntesis, como en el mockup 12: 'Lactosa (intolerancia leve)'",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Lactosa"
+      },
+      "qualifier": {
+        "type": "String",
+        "example": "intolerancia leve"
+      }
+    }
+  },
+  "profileAllergyQualifier": "{type} {severity}",
+  "@profileAllergyQualifier": {
+    "description": "Tipo y severidad de una alergia, ya en minúscula. El orden depende del idioma",
+    "placeholders": {
+      "type": {
+        "type": "String",
+        "example": "intolerancia"
+      },
+      "severity": {
+        "type": "String",
+        "example": "leve"
+      }
+    }
+  },
   "profileEvolutionSection": "Mi evolución IBS-SSS",
   "profileEvolutionBaseline": "Línea base",
   "profileEvolutionLatest": "Último puntaje",
@@ -1524,6 +1626,10 @@
       }
   },
   "recommendationDetailTitle": "Detalle de la recomendación",
+  "recommendationSectionDescription": "En qué consiste",
+  "@recommendationSectionDescription": {
+    "description": "Bloque con la descripción que escribió el nutricionista. No está en el mockup 11: lo agrega el acta M49 para que la de una indicación manual se lea entera"
+  },
   "recommendationSectionWhy": "Por qué te lo recomendamos",
   "recommendationAttribution": "Clasificación FODMAP basada en el catálogo de Monash University (2019).",
   "@recommendationAttribution": {
@@ -1819,5 +1925,19 @@
           }
       }
   },
-  "homeTodayOpen": "Ver mi diario"
+  "homeTodayOpen": "Ver mi diario",
+  "homeTodaySummary": "{meals}, {symptoms}",
+  "@homeTodaySummary": {
+    "description": "Resumen de lo registrado hoy en Inicio: homeTodayMeals y homeTodaySymptoms ya resueltos. Es una frase propia para que la puntuación también pase por l10n",
+    "placeholders": {
+      "meals": {
+        "type": "String",
+        "example": "1 comida"
+      },
+      "symptoms": {
+        "type": "String",
+        "example": "sin síntomas"
+      }
+    }
+  }
 }

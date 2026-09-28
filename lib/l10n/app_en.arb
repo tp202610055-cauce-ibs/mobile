@@ -139,6 +139,11 @@
   "measurementUnitUnits": "Units",
   "measurementUnitOunces": "Ounces",
   "measurementUnitTablespoons": "Tablespoons",
+  "mealItemAmountGrams": "{count, plural, =1{{quantity} gram} other{{quantity} grams}}",
+  "mealItemAmountCups": "{count, plural, =1{{quantity} cup} other{{quantity} cups}}",
+  "mealItemAmountUnits": "{count, plural, =1{{quantity} unit} other{{quantity} units}}",
+  "mealItemAmountOunces": "{count, plural, =1{{quantity} ounce} other{{quantity} ounces}}",
+  "mealItemAmountTablespoons": "{count, plural, =1{{quantity} tablespoon} other{{quantity} tablespoons}}",
   "customFoodTitle": "Create custom dish",
   "customFoodNameLabel": "Dish name",
   "customFoodNameHint": "For example: My lomo saltado",
@@ -342,6 +347,7 @@
   "errorNoActiveModelVersion": "Recommendations are not available right now. Please try again later.",
   "errorPatientHasNoDataInPeriod": "There are no records in that period. Choose a different date range.",
   "errorReportPeriodInvalid": "The requested period is not valid. Choose a range of up to 90 days that does not include future dates.",
+  "errorActivePilotRetention": "Your account is still active. You are taking part in the clinical pilot and, to delete it, we need you to confirm the pilot notice.",
   "errorDuplicateEmail": "An account with this email already exists",
   "errorKeycloakIntegration": "We could not create your account. Try again in a few minutes.",
   "errorInvalidCredentials": "Incorrect credentials",
@@ -536,6 +542,10 @@
   "profileTrackingNutritionist": "My nutritionist",
   "profileTrackingNutritionistPending": "Pending assignment",
   "profileClinicalSubtype": "IBS subtype",
+  "profileClinicalAllergies": "Declared allergies",
+  "profileClinicalAllergiesNone": "None",
+  "profileAllergyDetail": "{name} ({qualifier})",
+  "profileAllergyQualifier": "{severity} {type}",
   "profileEvolutionSection": "My IBS-SSS evolution",
   "profileEvolutionBaseline": "Baseline",
   "profileEvolutionLatest": "Latest score",
@@ -684,6 +694,7 @@
   "recommendationDateYesterday": "Yesterday",
   "recommendationDateDaysAgo": "{count, plural, =1{1 day ago} other{{count} days ago}}",
   "recommendationDetailTitle": "Recommendation details",
+  "recommendationSectionDescription": "What it involves",
   "recommendationSectionWhy": "Why we recommend it",
   "recommendationAttribution": "FODMAP classification based on the Monash University (2019) catalogue.",
   "recommendationSectionItems": "What we suggest",
@@ -872,6 +883,7 @@
       }
   },
   "homeTodaySymptoms": "{count, plural, =0{no symptoms} =1{1 symptom} other{{count} symptoms}}",
+  "homeTodaySummary": "{meals}, {symptoms}",
   "@homeTodaySymptoms": {
       "placeholders": {
           "count": {

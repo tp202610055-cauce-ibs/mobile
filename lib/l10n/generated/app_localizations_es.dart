@@ -74,7 +74,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get registerSubtitle =>
-      'Registrate para participar en el seguimiento nutricional';
+      'Regístrate para participar en el seguimiento nutricional';
 
   @override
   String get registerFullNameLabel => 'Nombre completo';
@@ -215,7 +215,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validationPasswordWeak =>
-      'Debe incluir una mayuscula, una minuscula y un digito';
+      'Debe incluir una mayúscula, una minúscula y un dígito';
 
   @override
   String get validationPasswordMismatch => 'Las contraseñas no coinciden';
@@ -262,7 +262,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorConsentTextMismatch =>
-      'El consentimiento informado cambio. Vuelve a leerlo y aceptalo.';
+      'El consentimiento informado cambió. Vuelve a leerlo y acéptalo.';
 
   @override
   String get errorInvalidInvitationCode => 'El código de invitación no existe';
@@ -422,6 +422,61 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get measurementUnitTablespoons => 'Cucharadas';
+
+  @override
+  String mealItemAmountGrams(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity gramos',
+      one: '$quantity gramo',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountCups(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity tazas',
+      one: '$quantity taza',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountUnits(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity unidades',
+      one: '$quantity unidad',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountOunces(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity onzas',
+      one: '$quantity onza',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountTablespoons(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity cucharadas',
+      one: '$quantity cucharada',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get customFoodTitle => 'Crear plato personalizado';
@@ -673,14 +728,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get clinicalNoteSubtitle =>
-      'Anota lo que quieras recordar sobre este registro. Tu nutricionista lo vera junto al dato.';
+      'Anota lo que quieras recordar sobre este registro. Tu nutricionista lo verá junto al dato.';
 
   @override
   String get clinicalNoteContentLabel => 'Nota';
 
   @override
   String get clinicalNoteContentHint =>
-      'Por ejemplo: comi apurado, en la calle';
+      'Por ejemplo: comí apurado, en la calle';
 
   @override
   String clinicalNoteRemaining(int count) {
@@ -798,6 +853,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.';
 
   @override
+  String get errorActivePilotRetention =>
+      'Tu cuenta sigue activa. Participas en el piloto clínico y, para eliminarla, necesitamos que confirmes el aviso del piloto.';
+
+  @override
   String get errorRecommendationNotFound =>
       'Esta recomendación ya no está disponible.';
 
@@ -862,7 +921,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorInternalServer =>
-      'Ocurrio un error en el servidor. Intenta de nuevo.';
+      'Ocurrió un error en el servidor. Intenta de nuevo.';
 
   @override
   String get errorConsentRecordNotFound =>
@@ -881,7 +940,7 @@ class AppLocalizationsEs extends AppLocalizations {
       'Sin conexión. Verifica tu internet e intenta de nuevo.';
 
   @override
-  String get errorUnknown => 'Ocurrio un error inesperado. Intenta de nuevo.';
+  String get errorUnknown => 'Ocurrió un error inesperado. Intenta de nuevo.';
 
   @override
   String onboardingStepLabel(int current, int total) {
@@ -1165,7 +1224,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get evolutionRangeEmpty =>
-      'No hay evaluaciones en este período. Probá con uno más amplio.';
+      'No hay evaluaciones en este período. Prueba con uno más amplio.';
 
   @override
   String get evolutionPercentLabel => 'Cambio respecto de tu línea base';
@@ -1280,6 +1339,22 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profileClinicalSubtype => 'Subtipo de SII';
+
+  @override
+  String get profileClinicalAllergies => 'Alergias declaradas';
+
+  @override
+  String get profileClinicalAllergiesNone => 'Ninguna';
+
+  @override
+  String profileAllergyDetail(String name, String qualifier) {
+    return '$name ($qualifier)';
+  }
+
+  @override
+  String profileAllergyQualifier(String type, String severity) {
+    return '$type $severity';
+  }
 
   @override
   String get profileEvolutionSection => 'Mi evolución IBS-SSS';
@@ -1808,6 +1883,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get recommendationDetailTitle => 'Detalle de la recomendación';
 
   @override
+  String get recommendationSectionDescription => 'En qué consiste';
+
+  @override
   String get recommendationSectionWhy => 'Por qué te lo recomendamos';
 
   @override
@@ -2214,4 +2292,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get homeTodayOpen => 'Ver mi diario';
+
+  @override
+  String homeTodaySummary(String meals, String symptoms) {
+    return '$meals, $symptoms';
+  }
 }
