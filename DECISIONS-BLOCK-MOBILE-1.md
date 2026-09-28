@@ -763,3 +763,50 @@ Alternativas consideradas.
 - (a) Renovar la clave al corregir el texto, como en el feedback de recomendaciones (M47): descartada porque el alcance lo fija la pantalla, y un duplicado clínico pesa más que un aviso.
 - (b) Mandar la clave en el header `Idempotency-Key`: descartada para mantener el patrón de cuerpo de `/meals` y `/symptoms`.
 - (c) Cola offline para notas: fuera de alcance.
+
+Acta M49: Contrato v1.6.0 en Consejos y en la baja, sesión vencida que vuelve al login, y lo que encontró el recorrido en el celular
+
+**Estado:** Aprobada. Confirmada por Kiwicha sin objeciones el 2026-09-28. Decisiones 1 a 4 aprobadas por Trigo el 2026-09-27; decisión 5 y arreglos del recorrido, el 2026-09-28
+**Fecha:** 2026-09-28
+
+---
+
+Contexto. El bloque "Recorrido en el celular y cierre chico" regeneró el cliente contra `openapi-v1.6.0.json` y recorrió en el Redmi todo lo construido desde `v0.7.0-device-fixes`. El contrato nuevo trae `title`, `description` y `source` en el detalle de recomendación, que resuelven dos rodeos del acta M47. El recorrido encontró cinco defectos que ninguna prueba veía y un sexto al verificar los arreglos.
+
+Decisión.
+
+1. **`source` manda sobre la inferencia de M47.** `Manual` es una indicación en cualquier estado, también después de entregada. El título y la descripción del servidor mandan sobre los compuestos; sin ellos se compone como decía M47 (decisiones 3 y 6). `source` no distingue una aprobada de una modificada, así que la memoria de origen de M47 sigue haciendo falta.
+2. **La descripción entera va en un bloque nuevo, "En qué consiste",** antes de la explicación. El mockup 11 no lo tiene: pensó la descripción para la tarjeta, recortada a dos líneas.
+3. **El 409 `active_pilot_retention` reabre el aviso del piloto** y reintenta con el acuse. Si el paciente cancela, la cuenta sigue y el banner explica por qué. Si el acuse ya viajó y aun así llega el 409, no se vuelve a preguntar.
+4. **El refresh guarda el `user` en el almacenamiento seguro y no lo publica en memoria.** `SessionNotifier` avisa por identidad (`!identical` en Riverpod 2.6.1): un estado nuevo cada 15 minutos reconstruiría `appRouter` y relanzaría `OnboardingNotifier`. La baja lee `isInActivePilot` del snapshot guardado. Un `user` roto o incompleto nunca cierra la sesión.
+5. **La sesión que ya no se puede renovar vuelve al login.** Nadie llamaba a `SessionNotifier.expire()`: el interceptor borraba las tres keys y lanzaba `SessionExpiredException`, que nadie atrapaba. Ahora levanta una señal en `core/auth/session_expiry.dart` (`SessionExpiry`), que `dioProvider` cablea y `SessionNotifier` escucha. La red no depende de la feature de auth.
+
+   La renovación compartida entre peticiones concurrentes pasa a terminar **siempre con un valor** (`_RefreshOutcome`). Dio corre cada interceptor en su propia zona, y un error de `Future` no cruza de una zona de errores a otra: cuando la renovación fallaba, las peticiones que la esperaban desde otra zona quedaban colgadas y el error salía como no atrapado.
+
+Arreglos del recorrido, sin decisión de por medio.
+
+- El detalle de una recomendación no pide nada sin sesión: al cerrarla, la memoria de origen se renovaba y cada detalle en pantalla salía a pedirse sin token.
+- Inicio carga el historial al montarse y al volver a la pestaña: la tarjeta "Hoy" decía "Todavía no registraste nada hoy" hasta pasar por el Diario.
+- El FAB se retira mientras el teclado está abierto: en el Glosario tapaba el mensaje de término no encontrado.
+- Las etiquetas del primer y del último punto del gráfico de Evolución entran enteras (`SideTitleFitInsideData`).
+- La cabecera de la tarjeta del Diario pasa a un `Wrap` a lo ancho: el badge "Pendiente de sincronizar" (texto del design system) baja de línea entero en vez de cortarse, y el título deja de cortarse con él.
+- La cantidad de un alimento se escribe con su unidad en minúscula y con plural ("0.5 tazas", "100 gramos"). Antes la lista la redondeaba a entero y usaba la etiqueta de la opción: media taza se leía "1 Tazas".
+- Ocho cadenas con diez palabras sin tilde o en voseo ("vera", "comi", "Probá", "Ocurrio", "Registrate", "mayuscula", "minuscula", "digito", "cambio", "aceptalo"). La guarda de ortografía suma esas palabras y una prueba nueva contra el voseo.
+
+Consecuencias.
+
+- 1186 pruebas, 88 más que al arrancar el bloque. Cada defecto tiene su prueba, y se comprobó que la del gráfico y la de Inicio se ponen rojas sin el arreglo. La de la sesión vencida monta `CauceApp` entero (R12).
+- `test/helpers/app_fonts.dart` carga Inter en las pruebas que miden si un texto entra: la fuente de prueba de `flutter_test` dibuja cada letra como un cuadrado y mide el doble.
+- `appBorders` acepta un cliente de refresh falso, para que la renovación no salga a la red.
+- M47 queda enmendada en las decisiones 3 y 6. Su consecuencia "tras reiniciar la app, una modificada que ya se entregó se lee Sugerencia del sistema" sigue vigente, porque `source` no la resuelve.
+
+Gaps del backend reportados:
+- el período del reporte se corta en días UTC y deja afuera lo registrado después de las 19:00 de Lima;
+- el PDF muestra valores internos en inglés y "1 episodios";
+- "Aji de gallina" sin tilde en el catálogo;
+- los correos tratan al paciente de "usted".
+
+Alternativas consideradas.
+- (a) Acortar el badge a "Pendiente": descartada, el design system usa "Pendiente de sincronizar".
+- (b) Publicar el `user` del refresh en memoria solo si cambió: descartada, el paciente perdería su lugar en la navegación cuando cambiara.
+- (c) Atrapar `SessionExpiredException` en cada repositorio: descartada, la vuelta al login no puede depender de que cada llamador se acuerde.
