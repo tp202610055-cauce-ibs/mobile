@@ -14,8 +14,8 @@ import 'package:cauce_api_client/src/model/archive_recommendation_request.dart';
 import 'package:cauce_api_client/src/model/create_manual_recommendation_request.dart';
 import 'package:cauce_api_client/src/model/create_manual_recommendation_result.dart';
 import 'package:cauce_api_client/src/model/modify_recommendation_request.dart';
+import 'package:cauce_api_client/src/model/pending_review_recommendation_dto_paged_result.dart';
 import 'package:cauce_api_client/src/model/problem_details.dart';
-import 'package:cauce_api_client/src/model/recommendation_summary_dto_paged_result.dart';
 import 'package:cauce_api_client/src/model/reject_recommendation_request.dart';
 
 class NutritionistRecommendationsApi {
@@ -179,11 +179,12 @@ class NutritionistRecommendationsApi {
     return _response;
   }
 
-  /// Aprueba una recomendación en revisión tras modificar sus ítems y/o su contenido (US17 CA03).
+  /// Aprueba una recomendación en revisión tras modificar sus ítems y/o su contenido (US17 CA03). Requiere  el header &#x60;Idempotency-Key&#x60;, como aprobar y rechazar (acta A69).
   /// 
   ///
   /// Parameters:
   /// * [id] - Identificador de la recomendación.
+  /// * [idempotencyKey] - Clave de idempotencia del header `Idempotency-Key`.
   /// * [modifyRecommendationRequest] - Cambios y nota clínica de la modificación.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -196,6 +197,7 @@ class NutritionistRecommendationsApi {
   /// Throws [DioException] if API call or serialization fails
   Future<Response<void>> apiV1RecommendationsIdModifyPost({ 
     required String id,
+    String? idempotencyKey,
     ModifyRecommendationRequest? modifyRecommendationRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -208,6 +210,7 @@ class NutritionistRecommendationsApi {
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
+        if (idempotencyKey != null) r'Idempotency-Key': idempotencyKey,
         ...?headers,
       },
       extra: <String, dynamic>{
@@ -433,7 +436,7 @@ class NutritionistRecommendationsApi {
     );
   }
 
-  /// Lista, paginadas, las recomendaciones pendientes de revisión de los pacientes asignados.
+  /// Lista, paginadas, las recomendaciones pendientes de revisión de los pacientes asignados. Cada fila  incluye el identificador y el nombre completo del paciente (acta A69).
   /// 
   ///
   /// Parameters:
@@ -446,9 +449,9 @@ class NutritionistRecommendationsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [RecommendationSummaryDtoPagedResult] as data
+  /// Returns a [Future] containing a [Response] with a [PendingReviewRecommendationDtoPagedResult] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<RecommendationSummaryDtoPagedResult>> apiV1RecommendationsPendingReviewGet({ 
+  Future<Response<PendingReviewRecommendationDtoPagedResult>> apiV1RecommendationsPendingReviewGet({ 
     int? page = 1,
     int? pageSize = 20,
     CancelToken? cancelToken,
@@ -491,14 +494,14 @@ class NutritionistRecommendationsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    RecommendationSummaryDtoPagedResult? _responseData;
+    PendingReviewRecommendationDtoPagedResult? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(RecommendationSummaryDtoPagedResult),
-      ) as RecommendationSummaryDtoPagedResult;
+        specifiedType: const FullType(PendingReviewRecommendationDtoPagedResult),
+      ) as PendingReviewRecommendationDtoPagedResult;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -510,7 +513,7 @@ class NutritionistRecommendationsApi {
       );
     }
 
-    return Response<RecommendationSummaryDtoPagedResult>(
+    return Response<PendingReviewRecommendationDtoPagedResult>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

@@ -23,6 +23,12 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
   final bool? onboardingCompleted;
   @override
   final BuiltList<PatientAllergySummary>? allergies;
+  @override
+  final BiologicalSex? biologicalSex;
+  @override
+  final Date? diagnosisDate;
+  @override
+  final String? medications;
 
   factory _$GetAssignedPatientDetailResult(
           [void Function(GetAssignedPatientDetailResultBuilder)? updates]) =>
@@ -36,7 +42,10 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
       this.bmiCategory,
       this.ibsSubtype,
       this.onboardingCompleted,
-      this.allergies})
+      this.allergies,
+      this.biologicalSex,
+      this.diagnosisDate,
+      this.medications})
       : super._();
   @override
   GetAssignedPatientDetailResult rebuild(
@@ -58,7 +67,10 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
         bmiCategory == other.bmiCategory &&
         ibsSubtype == other.ibsSubtype &&
         onboardingCompleted == other.onboardingCompleted &&
-        allergies == other.allergies;
+        allergies == other.allergies &&
+        biologicalSex == other.biologicalSex &&
+        diagnosisDate == other.diagnosisDate &&
+        medications == other.medications;
   }
 
   @override
@@ -72,6 +84,9 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
     _$hash = $jc(_$hash, ibsSubtype.hashCode);
     _$hash = $jc(_$hash, onboardingCompleted.hashCode);
     _$hash = $jc(_$hash, allergies.hashCode);
+    _$hash = $jc(_$hash, biologicalSex.hashCode);
+    _$hash = $jc(_$hash, diagnosisDate.hashCode);
+    _$hash = $jc(_$hash, medications.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -86,7 +101,10 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
           ..add('bmiCategory', bmiCategory)
           ..add('ibsSubtype', ibsSubtype)
           ..add('onboardingCompleted', onboardingCompleted)
-          ..add('allergies', allergies))
+          ..add('allergies', allergies)
+          ..add('biologicalSex', biologicalSex)
+          ..add('diagnosisDate', diagnosisDate)
+          ..add('medications', medications))
         .toString();
   }
 }
@@ -133,6 +151,20 @@ class GetAssignedPatientDetailResultBuilder
   set allergies(ListBuilder<PatientAllergySummary>? allergies) =>
       _$this._allergies = allergies;
 
+  BiologicalSex? _biologicalSex;
+  BiologicalSex? get biologicalSex => _$this._biologicalSex;
+  set biologicalSex(BiologicalSex? biologicalSex) =>
+      _$this._biologicalSex = biologicalSex;
+
+  Date? _diagnosisDate;
+  Date? get diagnosisDate => _$this._diagnosisDate;
+  set diagnosisDate(Date? diagnosisDate) =>
+      _$this._diagnosisDate = diagnosisDate;
+
+  String? _medications;
+  String? get medications => _$this._medications;
+  set medications(String? medications) => _$this._medications = medications;
+
   GetAssignedPatientDetailResultBuilder() {
     GetAssignedPatientDetailResult._defaults(this);
   }
@@ -148,6 +180,9 @@ class GetAssignedPatientDetailResultBuilder
       _ibsSubtype = $v.ibsSubtype;
       _onboardingCompleted = $v.onboardingCompleted;
       _allergies = $v.allergies?.toBuilder();
+      _biologicalSex = $v.biologicalSex;
+      _diagnosisDate = $v.diagnosisDate;
+      _medications = $v.medications;
       _$v = null;
     }
     return this;
@@ -179,6 +214,9 @@ class GetAssignedPatientDetailResultBuilder
             ibsSubtype: ibsSubtype,
             onboardingCompleted: onboardingCompleted,
             allergies: _allergies?.build(),
+            biologicalSex: biologicalSex,
+            diagnosisDate: diagnosisDate,
+            medications: medications,
           );
     } catch (_) {
       late String _$failedField;

@@ -6,66 +6,57 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'my_profile_patient_info.g.dart';
+part 'portal_login_request.g.dart';
 
-/// MyProfilePatientInfo
+/// Cuerpo de la petición de inicio de sesión del portal web. No lleva cliente OIDC: el canal lo define  la ruta, y el backend usa siempre `cauce-web-portal` (acta A68).
 ///
 /// Properties:
-/// * [patientCode] 
-/// * [fullName] 
-/// * [maskedEmail] 
+/// * [email] - Correo electrónico.
+/// * [password] - Contraseña.
 @BuiltValue()
-abstract class MyProfilePatientInfo implements Built<MyProfilePatientInfo, MyProfilePatientInfoBuilder> {
-  @BuiltValueField(wireName: r'patientCode')
-  String? get patientCode;
+abstract class PortalLoginRequest implements Built<PortalLoginRequest, PortalLoginRequestBuilder> {
+  /// Correo electrónico.
+  @BuiltValueField(wireName: r'email')
+  String? get email;
 
-  @BuiltValueField(wireName: r'fullName')
-  String? get fullName;
+  /// Contraseña.
+  @BuiltValueField(wireName: r'password')
+  String? get password;
 
-  @BuiltValueField(wireName: r'maskedEmail')
-  String? get maskedEmail;
+  PortalLoginRequest._();
 
-  MyProfilePatientInfo._();
-
-  factory MyProfilePatientInfo([void updates(MyProfilePatientInfoBuilder b)]) = _$MyProfilePatientInfo;
+  factory PortalLoginRequest([void updates(PortalLoginRequestBuilder b)]) = _$PortalLoginRequest;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(MyProfilePatientInfoBuilder b) => b;
+  static void _defaults(PortalLoginRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<MyProfilePatientInfo> get serializer => _$MyProfilePatientInfoSerializer();
+  static Serializer<PortalLoginRequest> get serializer => _$PortalLoginRequestSerializer();
 }
 
-class _$MyProfilePatientInfoSerializer implements PrimitiveSerializer<MyProfilePatientInfo> {
+class _$PortalLoginRequestSerializer implements PrimitiveSerializer<PortalLoginRequest> {
   @override
-  final Iterable<Type> types = const [MyProfilePatientInfo, _$MyProfilePatientInfo];
+  final Iterable<Type> types = const [PortalLoginRequest, _$PortalLoginRequest];
 
   @override
-  final String wireName = r'MyProfilePatientInfo';
+  final String wireName = r'PortalLoginRequest';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    MyProfilePatientInfo object, {
+    PortalLoginRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.patientCode != null) {
-      yield r'patientCode';
+    if (object.email != null) {
+      yield r'email';
       yield serializers.serialize(
-        object.patientCode,
+        object.email,
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.fullName != null) {
-      yield r'fullName';
+    if (object.password != null) {
+      yield r'password';
       yield serializers.serialize(
-        object.fullName,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.maskedEmail != null) {
-      yield r'maskedEmail';
-      yield serializers.serialize(
-        object.maskedEmail,
+        object.password,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -74,7 +65,7 @@ class _$MyProfilePatientInfoSerializer implements PrimitiveSerializer<MyProfileP
   @override
   Object serialize(
     Serializers serializers,
-    MyProfilePatientInfo object, {
+    PortalLoginRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -85,36 +76,28 @@ class _$MyProfilePatientInfoSerializer implements PrimitiveSerializer<MyProfileP
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required MyProfilePatientInfoBuilder result,
+    required PortalLoginRequestBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'patientCode':
+        case r'email':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.patientCode = valueDes;
+          result.email = valueDes;
           break;
-        case r'fullName':
+        case r'password':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.fullName = valueDes;
-          break;
-        case r'maskedEmail':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.maskedEmail = valueDes;
+          result.password = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -125,12 +108,12 @@ class _$MyProfilePatientInfoSerializer implements PrimitiveSerializer<MyProfileP
   }
 
   @override
-  MyProfilePatientInfo deserialize(
+  PortalLoginRequest deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = MyProfilePatientInfoBuilder();
+    final result = PortalLoginRequestBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

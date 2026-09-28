@@ -23,9 +23,11 @@ import 'package:cauce_api_client/src/api/ibs_sss_api.dart';
 import 'package:cauce_api_client/src/api/invitations_api.dart';
 import 'package:cauce_api_client/src/api/meals_api.dart';
 import 'package:cauce_api_client/src/api/nutritionist_recommendations_api.dart';
+import 'package:cauce_api_client/src/api/nutritionist_symptoms_api.dart';
 import 'package:cauce_api_client/src/api/nutritionists_api.dart';
 import 'package:cauce_api_client/src/api/patient_recommendations_api.dart';
 import 'package:cauce_api_client/src/api/patients_api.dart';
+import 'package:cauce_api_client/src/api/portal_auth_api.dart';
 import 'package:cauce_api_client/src/api/recommendations_api.dart';
 import 'package:cauce_api_client/src/api/reports_api.dart';
 import 'package:cauce_api_client/src/api/symptoms_api.dart';
@@ -170,6 +172,12 @@ class CauceApiClient {
     return NutritionistRecommendationsApi(dio, serializers);
   }
 
+  /// Get NutritionistSymptomsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  NutritionistSymptomsApi getNutritionistSymptomsApi() {
+    return NutritionistSymptomsApi(dio, serializers);
+  }
+
   /// Get NutritionistsApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   NutritionistsApi getNutritionistsApi() {
@@ -186,6 +194,12 @@ class CauceApiClient {
   /// by doing that all interceptors will not be executed
   PatientsApi getPatientsApi() {
     return PatientsApi(dio, serializers);
+  }
+
+  /// Get PortalAuthApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  PortalAuthApi getPortalAuthApi() {
+    return PortalAuthApi(dio, serializers);
   }
 
   /// Get RecommendationsApi instance, base route and serializer can be overridden by a given but be careful,

@@ -97,11 +97,16 @@ import 'package:cauce_api_client/src/model/my_profile_summary_result.dart';
 import 'package:cauce_api_client/src/model/nutritionist_assignment_summary.dart';
 import 'package:cauce_api_client/src/model/patient_allergy_summary.dart';
 import 'package:cauce_api_client/src/model/patient_evolution_for_nutritionist_result.dart';
+import 'package:cauce_api_client/src/model/pending_review_recommendation_dto.dart';
+import 'package:cauce_api_client/src/model/pending_review_recommendation_dto_paged_result.dart';
+import 'package:cauce_api_client/src/model/portal_login_request.dart';
+import 'package:cauce_api_client/src/model/portal_session_result.dart';
 import 'package:cauce_api_client/src/model/priority_level.dart';
 import 'package:cauce_api_client/src/model/problem_details.dart';
 import 'package:cauce_api_client/src/model/recommendation_detail_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_feedback_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_item_dto.dart';
+import 'package:cauce_api_client/src/model/recommendation_source.dart';
 import 'package:cauce_api_client/src/model/recommendation_status.dart';
 import 'package:cauce_api_client/src/model/recommendation_summary_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_summary_dto_paged_result.dart';
@@ -112,6 +117,7 @@ import 'package:cauce_api_client/src/model/register_patient_result.dart';
 import 'package:cauce_api_client/src/model/reject_recommendation_request.dart';
 import 'package:cauce_api_client/src/model/request_password_reset_request.dart';
 import 'package:cauce_api_client/src/model/resend_verification_email_request.dart';
+import 'package:cauce_api_client/src/model/set_symptom_meal_association_request.dart';
 import 'package:cauce_api_client/src/model/severity_category.dart';
 import 'package:cauce_api_client/src/model/submit_feedback_request.dart';
 import 'package:cauce_api_client/src/model/symptom_batch_item.dart';
@@ -218,11 +224,16 @@ part 'serializers.g.dart';
   NutritionistAssignmentSummary,
   PatientAllergySummary,
   PatientEvolutionForNutritionistResult,
+  PendingReviewRecommendationDto,
+  PendingReviewRecommendationDtoPagedResult,
+  PortalLoginRequest,
+  PortalSessionResult,
   PriorityLevel,
   ProblemDetails,
   RecommendationDetailDto,
   RecommendationFeedbackDto,
   RecommendationItemDto,
+  RecommendationSource,
   RecommendationStatus,
   RecommendationSummaryDto,
   RecommendationSummaryDtoPagedResult,
@@ -233,6 +244,7 @@ part 'serializers.g.dart';
   RejectRecommendationRequest,
   RequestPasswordResetRequest,
   ResendVerificationEmailRequest,
+  SetSymptomMealAssociationRequest,
   SeverityCategory,
   SubmitFeedbackRequest,
   SymptomBatchItem,

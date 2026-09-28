@@ -8,25 +8,23 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:built_collection/built_collection.dart';
-import 'package:cauce_api_client/src/api_util.dart';
-import 'package:cauce_api_client/src/model/assigned_patient_summary.dart';
-import 'package:cauce_api_client/src/model/get_assigned_patient_detail_result.dart';
-import 'package:cauce_api_client/src/model/patient_evolution_for_nutritionist_result.dart';
+import 'package:cauce_api_client/src/model/portal_login_request.dart';
+import 'package:cauce_api_client/src/model/portal_session_result.dart';
 import 'package:cauce_api_client/src/model/problem_details.dart';
 
-class NutritionistsApi {
+class PortalAuthApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const NutritionistsApi(this._dio, this._serializers);
+  const PortalAuthApi(this._dio, this._serializers);
 
-  /// Lista los pacientes activos asignados al nutricionista autenticado.
+  /// Inicia sesión en el portal. Devuelve el access token en el cuerpo y deja el refresh token en la  cookie &#x60;cauce_portal_rt&#x60;. Un paciente, una cuenta deshabilitada, pendiente de activación,  suspendida o inactiva, y una contraseña incorrecta reciben el mismo 401 &#x60;invalid_credentials&#x60;;  la causa queda solo en la auditoría. La cuenta bloqueada por intentos fallidos recibe 423  &#x60;account_locked&#x60; con &#x60;lockedUntil&#x60;.
   /// 
   ///
   /// Parameters:
+  /// * [portalLoginRequest] - Credenciales del nutricionista.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -34,9 +32,10 @@ class NutritionistsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<AssignedPatientSummary>] as data
+  /// Returns a [Future] containing a [Response] with a [PortalSessionResult] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<AssignedPatientSummary>>> apiV1NutritionistsMePatientsGet({ 
+  Future<Response<PortalSessionResult>> apiV1AuthPortalLoginPost({ 
+    PortalLoginRequest? portalLoginRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -44,9 +43,9 @@ class NutritionistsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v1/nutritionists/me/patients';
+    final _path = r'/api/v1/auth/portal/login';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -60,25 +59,45 @@ class NutritionistsApi {
         ],
         ...?extra,
       },
+      contentType: 'application/json',
       validateStatus: validateStatus,
     );
 
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(PortalLoginRequest);
+      _bodyData = portalLoginRequest == null ? null : _serializers.serialize(portalLoginRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
     final _response = await _dio.request<Object>(
       _path,
+      data: _bodyData,
       options: _options,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<AssignedPatientSummary>? _responseData;
+    PortalSessionResult? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(AssignedPatientSummary)]),
-      ) as BuiltList<AssignedPatientSummary>;
+        specifiedType: const FullType(PortalSessionResult),
+      ) as PortalSessionResult;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -90,7 +109,7 @@ class NutritionistsApi {
       );
     }
 
-    return Response<BuiltList<AssignedPatientSummary>>(
+    return Response<PortalSessionResult>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -102,11 +121,10 @@ class NutritionistsApi {
     );
   }
 
-  /// Devuelve las métricas de evolución clínica de un paciente asignado (US21): serie  IBS-SSS, variación respecto de la línea base, respuesta clínica significativa y  frecuencia de registro reciente. Requiere una asignación activa; de lo contrario 403.
+  /// Cierra la sesión del portal: revoca en Keycloak el refresh token de la cookie y la borra. Exige el  access token del nutricionista y el header &#x60;X-Cauce-Portal&#x60;. Sin cookie, igual responde 204.
   /// 
   ///
   /// Parameters:
-  /// * [patientId] - Identificador de la cuenta del paciente.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -114,10 +132,9 @@ class NutritionistsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [PatientEvolutionForNutritionistResult] as data
+  /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<PatientEvolutionForNutritionistResult>> apiV1NutritionistsMePatientsPatientIdEvolutionGet({ 
-    required String patientId,
+  Future<Response<void>> apiV1AuthPortalLogoutPost({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -125,9 +142,9 @@ class NutritionistsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v1/nutritionists/me/patients/{patientId}/evolution'.replaceAll('{' r'patientId' '}', encodeQueryParameter(_serializers, patientId, const FullType(String)).toString());
+    final _path = r'/api/v1/auth/portal/logout';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -152,42 +169,13 @@ class NutritionistsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    PatientEvolutionForNutritionistResult? _responseData;
-
-    try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(PatientEvolutionForNutritionistResult),
-      ) as PatientEvolutionForNutritionistResult;
-
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<PatientEvolutionForNutritionistResult>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
+    return _response;
   }
 
-  /// Devuelve el detalle clínico de un paciente asignado. Requiere una asignación  activa con el paciente; de lo contrario responde 403. Si el paciente todavía no completó  su perfil, responde 200 con &#x60;onboardingCompleted: false&#x60; y los campos clínicos en null  (acta A69).
+  /// Renueva la sesión del portal con el refresh token de la cookie. Exige el header  &#x60;X-Cauce-Portal&#x60;. Rota la cookie y devuelve un access token nuevo. Sin cookie, o con un token  vencido, revocado o de un nutricionista que ya no puede usar el portal, responde 401  &#x60;invalid_refresh_token&#x60;: el portal debe volver al login.
   /// 
   ///
   /// Parameters:
-  /// * [patientUserId] - Identificador de la cuenta del paciente.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -195,10 +183,9 @@ class NutritionistsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetAssignedPatientDetailResult] as data
+  /// Returns a [Future] containing a [Response] with a [PortalSessionResult] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetAssignedPatientDetailResult>> apiV1NutritionistsMePatientsPatientUserIdGet({ 
-    required String patientUserId,
+  Future<Response<PortalSessionResult>> apiV1AuthPortalRefreshPost({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -206,9 +193,9 @@ class NutritionistsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v1/nutritionists/me/patients/{patientUserId}'.replaceAll('{' r'patientUserId' '}', encodeQueryParameter(_serializers, patientUserId, const FullType(String)).toString());
+    final _path = r'/api/v1/auth/portal/refresh';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -233,14 +220,14 @@ class NutritionistsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetAssignedPatientDetailResult? _responseData;
+    PortalSessionResult? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(GetAssignedPatientDetailResult),
-      ) as GetAssignedPatientDetailResult;
+        specifiedType: const FullType(PortalSessionResult),
+      ) as PortalSessionResult;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -252,7 +239,7 @@ class NutritionistsApi {
       );
     }
 
-    return Response<GetAssignedPatientDetailResult>(
+    return Response<PortalSessionResult>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
