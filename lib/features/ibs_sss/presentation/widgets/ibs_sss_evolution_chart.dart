@@ -105,7 +105,7 @@ class IbsSssEvolutionChart extends StatelessWidget {
                   showTitles: true,
                   interval: 1,
                   reservedSize: 28,
-                  getTitlesWidget: (value, _) {
+                  getTitlesWidget: (value, meta) {
                     final index = value.round();
                     if (index < 0 ||
                         index >= points.length ||
@@ -116,8 +116,14 @@ class IbsSssEvolutionChart extends StatelessWidget {
                     if (completedAt == null) {
                       return const SizedBox.shrink();
                     }
-                    return Padding(
-                      padding: const EdgeInsets.only(top: CauceSpacing.space1),
+                    // `fitInside`: la etiqueta del primer y del ultimo punto
+                    // cae centrada sobre el borde del area del grafico, y la
+                    // mitad se salia. Se corre hacia adentro lo justo para
+                    // entrar entera (lo encontro el recorrido en el celular).
+                    return SideTitleWidget(
+                      meta: meta,
+                      space: CauceSpacing.space1,
+                      fitInside: SideTitleFitInsideData.fromTitleMeta(meta),
                       child: Text(
                         _shortDate(completedAt.toLocal()),
                         style: Theme.of(context).textTheme.labelSmall,

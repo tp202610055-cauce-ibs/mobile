@@ -94,6 +94,70 @@ Future<FakeIbsSssRepository> _pump(
 }
 
 void main() {
+  group('IbsSssEvolutionChart · etiquetas del eje (acta M49)', () {
+    testWidgets('la primera y la ultima fecha entran enteras en el grafico',
+        (tester) async {
+      // Lo encontro el recorrido en el celular: la etiqueta del ultimo punto
+      // cae centrada sobre el borde derecho y la mitad se salia.
+      final points = <IbsSssEvolutionPoint>[
+        _point(
+          totalScore: 220,
+          cycleNumber: 0,
+          completedAt: DateTime(2026, 8, 31, 12),
+          type: IbsSssAssessmentType.baseline,
+        ),
+        _point(
+          totalScore: 150,
+          cycleNumber: 1,
+          completedAt: DateTime(2026, 9, 10, 12),
+        ),
+        _point(
+          totalScore: 130,
+          cycleNumber: 2,
+          completedAt: DateTime(2026, 9, 18, 12),
+        ),
+      ];
+
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light(),
+          localizationsDelegates: const <LocalizationsDelegate<Object>>[
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: const Locale('es'),
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: 340,
+                child: IbsSssEvolutionChart(points: points),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final chart = tester.getRect(find.byKey(evolutionChartKey));
+      for (final label in <String>['31/08', '10/09', '18/09']) {
+        final rect = tester.getRect(find.text(label));
+        expect(
+          rect.left,
+          greaterThanOrEqualTo(chart.left),
+          reason: '$label se sale por la izquierda',
+        );
+        expect(
+          rect.right,
+          lessThanOrEqualTo(chart.right),
+          reason: '$label se sale por la derecha',
+        );
+      }
+    });
+  });
+
   group('EvolutionScreen · CP060, con dos evaluaciones o mas', () {
     testWidgets('dibuja el grafico, el filtro y el cambio porcentual',
         (tester) async {
