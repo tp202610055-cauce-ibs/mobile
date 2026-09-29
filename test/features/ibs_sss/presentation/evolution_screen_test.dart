@@ -174,6 +174,58 @@ void main() {
 
       expect(items.single?.text, l10n.evolutionPointTooltip(220, '31/08'));
     });
+
+    testWidgets('el globo de un punto en el borde entra entero en el grafico',
+        (tester) async {
+      // Lo encontro el recorrido en el celular: el globo se centra sobre el
+      // punto, y en el primero y el ultimo se salia de la pantalla. Al del
+      // 18/09 le faltaba el "el".
+      final data = await pumpChart(tester, demoSeries());
+      final chart = tester.getRect(find.byKey(evolutionChartKey));
+      // El area de dibujo empieza despues de los puntajes (36) y del borde
+      // (1). El globo se pinta en sus coordenadas.
+      const plotLeft = 37.0;
+      final plotWidth = chart.width - plotLeft;
+
+      for (final day in <double>[0, 18]) {
+        final x = chart.left +
+            plotLeft +
+            (day - data.minX) / (data.maxX - data.minX) * plotWidth;
+        final gesture = await tester.startGesture(Offset(x, chart.center.dy));
+        await tester.pump();
+
+        Rect? tooltip;
+        expect(
+          find.byKey(evolutionChartKey),
+          paints
+            ..something((method, arguments) {
+              if (method != #drawRRect) {
+                return false;
+              }
+              final paint = arguments[1] as Paint;
+              if (paint.color.toARGB32() !=
+                  CauceColors.textPrimary.toARGB32()) {
+                return false;
+              }
+              tooltip = (arguments[0] as RRect).outerRect;
+              return true;
+            }),
+        );
+        expect(
+          tooltip!.left,
+          greaterThanOrEqualTo(0),
+          reason: 'el globo del dia $day se sale por la izquierda',
+        );
+        expect(
+          tooltip!.right,
+          lessThanOrEqualTo(plotWidth),
+          reason: 'el globo del dia $day se sale por la derecha',
+        );
+
+        await gesture.up();
+        await tester.pumpAndSettle();
+      }
+    });
   });
 
   group('IbsSssEvolutionChart · etiquetas del eje (acta M49)', () {

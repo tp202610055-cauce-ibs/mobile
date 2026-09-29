@@ -267,6 +267,11 @@ class IbsSssEvolutionChart extends StatelessWidget {
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
           getTooltipColor: (_) => CauceColors.textPrimary,
+          // El globo se centra sobre el punto, y el primero y el ultimo estan
+          // cerca del borde: sin esto se salia de la pantalla y perdia texto.
+          // Arriba pasa lo mismo con un puntaje cercano a 500.
+          fitInsideHorizontally: true,
+          fitInsideVertically: true,
           // Por indice del punto y no por su posicion: con el eje de tiempo
           // dos evaluaciones del mismo dia comparten la `x`.
           getTooltipItems: (spots) => spots.map((spot) {
