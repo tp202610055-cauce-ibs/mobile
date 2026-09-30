@@ -20,10 +20,16 @@ class SymptomsLocalStore {
 
   /// Guarda el sintoma como pendiente y devuelve su `client_guid`.
   ///
-  /// El UUID v4 se genera en el dispositivo y una sola vez: es la clave con la
-  /// que el backend deduplica, y el reintento tiene que repetirla intacta.
-  Future<String> enqueue(SymptomDraft draft, {DateTime? now}) async {
-    final clientGuid = _uuid.v4();
+  /// Mismas reglas que `MealsLocalStore.enqueue` (acta M50): la clave llega
+  /// del formulario y se repite en cada reintento, y con una clave que ya
+  /// existe se reemplaza la fila, salvo que ya haya llegado al servidor. Sin
+  /// [clientGuid] se genera una.
+  Future<String> enqueue(
+    SymptomDraft draft, {
+    String? clientGuid,
+    DateTime? now,
+  }) async {
+    final key = clientGuid ?? _uuid.v4();
     final createdAt = (now ?? DateTime.now()).toUtc();
     final symptomType = draft.symptomType;
     final intensity = draft.intensity;
@@ -35,18 +41,32 @@ class SymptomsLocalStore {
       );
     }
 
-    await _db.into(_db.symptomsLocal).insert(
-          SymptomsLocalCompanion.insert(
-            clientGuid: clientGuid,
-            symptomType: symptomType.wireValue,
-            intensity: intensity,
-            occurredAt: (draft.occurredAt ?? createdAt).toUtc(),
-            clientCreatedAt: createdAt,
-            syncStatus: LocalSyncStatus.pending,
-          ),
-        );
+    await _db.transaction(() async {
+      final existing = await (_db.select(_db.symptomsLocal)
+            ..where((row) => row.clientGuid.equals(key)))
+          .getSingleOrNull();
+      if (existing != null) {
+        if (existing.syncStatus == LocalSyncStatus.completed) {
+          return;
+        }
+        await (_db.delete(_db.symptomsLocal)
+              ..where((row) => row.clientGuid.equals(key)))
+            .go();
+      }
 
-    return clientGuid;
+      await _db.into(_db.symptomsLocal).insert(
+            SymptomsLocalCompanion.insert(
+              clientGuid: key,
+              symptomType: symptomType.wireValue,
+              intensity: intensity,
+              occurredAt: (draft.occurredAt ?? createdAt).toUtc(),
+              clientCreatedAt: createdAt,
+              syncStatus: LocalSyncStatus.pending,
+            ),
+          );
+    });
+
+    return key;
   }
 
   /// Cierra una fila local que el servidor ya acepto, con lo que respondio

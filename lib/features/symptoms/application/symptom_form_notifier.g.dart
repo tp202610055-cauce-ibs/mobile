@@ -7,7 +7,7 @@ part of 'symptom_form_notifier.dart';
 // **************************************************************************
 
 String _$symptomFormNotifierHash() =>
-    r'7ec71b5a937f93affbe4ecbb9c8edf528fcb8d04';
+    r'600b0b890ee89400eee578701146b67ec8f9fe91';
 
 /// Gobierna el armado y el envio de un sintoma.
 ///

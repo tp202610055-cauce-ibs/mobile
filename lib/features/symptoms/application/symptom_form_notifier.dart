@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../core/errors/cauce_api_error.dart';
 import '../../../core/sync/connectivity_monitor.dart';
@@ -19,6 +20,8 @@ enum SymptomSubmitOutcome {
   ///
   /// La asociacion con una comida queda sin resolver hasta que sincronice: la
   /// calcula el servidor, no el cliente.
+  ///
+  /// Tambien cuando habia red pero el envio no llego al servidor (acta M50).
   queuedOffline,
 
   /// El servidor lo rechazo. El formulario conserva lo cargado.
@@ -37,6 +40,13 @@ abstract class SymptomFormState with _$SymptomFormState {
     /// recien tras el envio con conexion.
     CreatedSymptom? result,
     CauceApiError? error,
+
+    /// `client_guid` de este sintoma, fijado en el primer envio y repetido en
+    /// cada reintento (acta M50). Ver `MealFormState.clientGuid`.
+    String? clientGuid,
+
+    /// Momento del registro, fijado junto con [clientGuid].
+    DateTime? clientCreatedAt,
   }) = _SymptomFormState;
 
   const SymptomFormState._();
@@ -83,17 +93,33 @@ class SymptomFormNotifier extends _$SymptomFormNotifier {
   }
 
   /// Registra el sintoma. Devuelve `true` si el dato quedo a salvo.
+  ///
+  /// Mismas reglas que `MealFormNotifier.submit` (acta M50): una clave por
+  /// sintoma, repetida en cada reintento, y un fallo de red tras guardar no es
+  /// un rechazo.
   Future<bool> submit() async {
     if (!state.canSubmit) {
       return false;
     }
-    state = state.copyWith(submitting: true, error: null);
+    final clientGuid = state.clientGuid ?? const Uuid().v4();
+    final clientCreatedAt = state.clientCreatedAt ?? DateTime.now().toUtc();
+    state = state.copyWith(
+      submitting: true,
+      error: null,
+      clientGuid: clientGuid,
+      clientCreatedAt: clientCreatedAt,
+    );
 
     final draft = state.draft;
     final localStore = ref.read(symptomsLocalStoreProvider);
 
+    await localStore.enqueue(
+      draft,
+      clientGuid: clientGuid,
+      now: clientCreatedAt,
+    );
+
     if (!await ref.read(connectivityMonitorProvider).isOnline()) {
-      await localStore.enqueue(draft);
       state = state.copyWith(
         submitting: false,
         outcome: SymptomSubmitOutcome.queuedOffline,
@@ -101,12 +127,12 @@ class SymptomFormNotifier extends _$SymptomFormNotifier {
       return true;
     }
 
-    final clientGuid = await localStore.enqueue(draft);
-
     try {
-      final created = await ref
-          .read(symptomsRepositoryProvider)
-          .create(draft, clientGuid: clientGuid);
+      final created = await ref.read(symptomsRepositoryProvider).create(
+            draft,
+            clientGuid: clientGuid,
+            clientCreatedAt: clientCreatedAt,
+          );
 
       await localStore.markSynced(
         clientGuid,
@@ -122,6 +148,16 @@ class SymptomFormNotifier extends _$SymptomFormNotifier {
       );
       return true;
     } on CauceApiError catch (error) {
+      if (error is NetworkError) {
+        // Un fallo de red no es un rechazo: el sintoma ya esta guardado y queda
+        // igual que si se hubiera registrado sin conexion.
+        state = state.copyWith(
+          submitting: false,
+          outcome: SymptomSubmitOutcome.queuedOffline,
+        );
+        return true;
+      }
+
       // La fila local queda pendiente: el paciente ya registro lo que sintio y
       // el worker lo sube cuando pueda.
       state = state.copyWith(
