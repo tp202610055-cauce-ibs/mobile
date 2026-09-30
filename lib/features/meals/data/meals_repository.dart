@@ -27,7 +27,18 @@ class MealsRepository {
   /// El endpoint es idempotente respecto de [clientGuid]: un reintento con la
   /// misma carga devuelve 200 en vez de 201 y **no** duplica el registro. Por
   /// eso el mismo UUID se repite en cada reintento.
-  Future<CreatedMeal> create(MealDraft draft, {required String clientGuid}) {
+  ///
+  /// **La carga tambien tiene que ser la misma, fechas incluidas.** El backend
+  /// compara el hash del comando entero (`IdempotencyBehavior`), y antes las
+  /// dos fechas salian de `DateTime.now()` en cada intento: un reintento cuyo
+  /// primer envio si habia llegado recibia 409 en vez de 200. Por eso
+  /// [clientCreatedAt] llega del formulario, fijado junto con la clave, y es el
+  /// mismo que guardo la fila local y que el lote de sincronizacion manda.
+  Future<CreatedMeal> create(
+    MealDraft draft, {
+    required String clientGuid,
+    required DateTime clientCreatedAt,
+  }) {
     final mealTime = draft.mealTime;
     if (mealTime == null || draft.items.isEmpty) {
       throw StateError(
@@ -42,8 +53,10 @@ class MealsRepository {
             (b) => b
               ..clientGuid = clientGuid
               ..mealTime = mealTime.toApi()
-              ..consumedAt = (draft.consumedAt ?? DateTime.now()).toUtc()
-              ..clientCreatedAt = DateTime.now().toUtc()
+              // Mismo valor por defecto que la fila local
+              // (`MealsLocalStore.enqueue`).
+              ..consumedAt = (draft.consumedAt ?? clientCreatedAt).toUtc()
+              ..clientCreatedAt = clientCreatedAt.toUtc()
               ..items.addAll(
                 draft.items.map(
                   (item) => MealItemRequest(

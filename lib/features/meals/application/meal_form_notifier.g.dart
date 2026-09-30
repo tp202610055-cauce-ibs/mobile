@@ -6,7 +6,7 @@ part of 'meal_form_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mealFormNotifierHash() => r'e1c0720dffdc6b733e666dc62dddf1eb34e8bdb2';
+String _$mealFormNotifierHash() => r'be93b95b0ef690c080fadfeec51927ba7457fc3a';
 
 /// Gobierna el armado y el envio de una comida.
 ///
