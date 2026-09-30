@@ -260,11 +260,41 @@ abstract class AppLocalizations {
   /// **'Contraseña'**
   String get registerPasswordLabel;
 
-  /// No description provided for @registerPasswordHint.
+  /// Regla de contraseña, siempre visible bajo el campo en registro y restablecimiento (mockup 02)
   ///
   /// In es, this message translates to:
-  /// **'Mínimo 8 caracteres'**
-  String get registerPasswordHint;
+  /// **'Al menos 8 caracteres'**
+  String get passwordRuleLength;
+
+  /// No description provided for @passwordRuleUppercase.
+  ///
+  /// In es, this message translates to:
+  /// **'Una letra mayúscula'**
+  String get passwordRuleUppercase;
+
+  /// No description provided for @passwordRuleLowercase.
+  ///
+  /// In es, this message translates to:
+  /// **'Una letra minúscula'**
+  String get passwordRuleLowercase;
+
+  /// No description provided for @passwordRuleDigit.
+  ///
+  /// In es, this message translates to:
+  /// **'Un número'**
+  String get passwordRuleDigit;
+
+  /// Estado de una regla de contraseña para el lector de pantalla
+  ///
+  /// In es, this message translates to:
+  /// **'cumplida'**
+  String get passwordRuleMet;
+
+  /// No description provided for @passwordRulePending.
+  ///
+  /// In es, this message translates to:
+  /// **'pendiente'**
+  String get passwordRulePending;
 
   /// No description provided for @registerPasswordConfirmLabel.
   ///
@@ -425,8 +455,20 @@ abstract class AppLocalizations {
   /// No description provided for @verifyEmailPendingNoEmailHint.
   ///
   /// In es, this message translates to:
-  /// **'Si no recibiste el correo, comunícate con soporte.'**
+  /// **'Si no recibiste el correo, usa el botón para reenviarlo. Si el problema continúa, vuelve a intentarlo más tarde.'**
   String get verifyEmailPendingNoEmailHint;
+
+  /// Botón que pide un correo de verificación nuevo (POST /auth/verification-email/resend)
+  ///
+  /// In es, this message translates to:
+  /// **'Reenviar correo'**
+  String get verifyEmailResend;
+
+  /// Acuse genérico del reenvío. El backend responde 200 en todos los casos para no revelar si la cuenta existe
+  ///
+  /// In es, this message translates to:
+  /// **'Te enviamos un correo nuevo. Puede tardar unos minutos en llegar; revisa también la carpeta de spam.'**
+  String get verifyEmailResent;
 
   /// No description provided for @verifyEmailPendingLogout.
   ///
@@ -1274,11 +1316,23 @@ abstract class AppLocalizations {
   /// **'Este registro no se pudo enviar y no va a reintentarse. Puedes descartarlo.'**
   String get historyFailedExplanation;
 
-  /// Accion que borra una fila local rechazada
+  /// Accion que borra una fila local que no llego al servidor, rechazada o pendiente
   ///
   /// In es, this message translates to:
   /// **'Descartar'**
   String get historyDiscard;
+
+  /// Confirmacion antes de descartar una fila pendiente de sincronizar (acta M50)
+  ///
+  /// In es, this message translates to:
+  /// **'¿Descartar este registro?'**
+  String get historyDiscardPendingTitle;
+
+  /// No description provided for @historyDiscardPendingBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no llegó al servidor. Si lo descartas, se borra de este teléfono y no se enviará.'**
+  String get historyDiscardPendingBody;
 
   /// Accion que abre el formulario de nota de contexto (US13)
   ///
@@ -1610,10 +1664,10 @@ abstract class AppLocalizations {
   /// **'El enlace de recuperación venció o ya fue usado'**
   String get errorExpiredPasswordResetToken;
 
-  /// errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend
+  /// errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend: sale al iniciar sesión o al renovarla, y ni reintentar ni cerrar sesión la resuelven (acta M50)
   ///
   /// In es, this message translates to:
-  /// **'Hay un problema con tu cuenta. Comunícate con soporte.'**
+  /// **'No encontramos tu cuenta completa en el sistema. Volver a intentarlo no lo resuelve. Avisa al equipo del piloto o a tu nutricionista para que lo revisen.'**
   String get errorUserLocalMissing;
 
   /// errorCode internal_server_error (500)
@@ -2795,7 +2849,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsCredits.
   ///
   /// In es, this message translates to:
-  /// **'Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente'**
+  /// **'Desarrollado en la Universidad Peruana de Ciencias Aplicadas, como proyecto de tesis dirigido a un piloto propuesto en el Complejo Hospitalario Guillermo Kaelín de la Fuente (EsSalud)'**
   String get settingsCredits;
 
   /// No description provided for @reportTitle.

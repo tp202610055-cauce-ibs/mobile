@@ -187,4 +187,38 @@ void main() {
       expect(Validators.allergyNotes('  ${'a' * 500}  ', l10n), isNull);
     });
   });
+
+  group('Validators.passwordRules', () {
+    // Es la fuente de la lista de requisitos que se ve bajo el campo y de
+    // `newPassword`: si divergieran, la lista diria "cumplida" sobre algo que
+    // el formulario rechaza.
+    test('evalua cada regla por separado', () {
+      final rules = Validators.passwordRules('240801_A94#');
+
+      expect(rules.length, isTrue);
+      expect(rules.uppercase, isTrue);
+      expect(rules.digit, isTrue);
+      expect(rules.lowercase, isFalse);
+    });
+
+    test('newPassword acepta exactamente lo que cumple las cuatro', () {
+      for (final (password, ok) in <(String, bool)>[
+        ('ClaveSegura1', true),
+        ('240801_A94#', false),
+        ('clavesegura1', false),
+        ('ClaveSegura', false),
+        ('Cl4ve', false),
+      ]) {
+        final rules = Validators.passwordRules(password);
+        final all =
+            rules.length && rules.uppercase && rules.lowercase && rules.digit;
+        expect(all, ok, reason: password);
+        expect(
+          Validators.newPassword(password, l10n) == null,
+          ok,
+          reason: password,
+        );
+      }
+    });
+  });
 }

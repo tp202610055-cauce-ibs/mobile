@@ -27,7 +27,12 @@
   "registerEmailLabel": "Email",
   "registerEmailHint": "you@example.com",
   "registerPasswordLabel": "Password",
-  "registerPasswordHint": "At least 8 characters",
+  "passwordRuleLength": "At least 8 characters",
+  "passwordRuleUppercase": "One uppercase letter",
+  "passwordRuleLowercase": "One lowercase letter",
+  "passwordRuleDigit": "One number",
+  "passwordRuleMet": "met",
+  "passwordRulePending": "pending",
   "registerPasswordConfirmLabel": "Confirm your password",
   "registerInvitationCodeLabel": "Invitation code",
   "registerInvitationCodeHint": "Optional",
@@ -61,7 +66,9 @@
       }
     }
   },
-  "verifyEmailPendingNoEmailHint": "If you did not receive the email, contact support.",
+  "verifyEmailPendingNoEmailHint": "If you did not receive the email, use the button to resend it. If the problem continues, try again later.",
+  "verifyEmailResend": "Resend email",
+  "verifyEmailResent": "We sent you a new email. It may take a few minutes to arrive; check your spam folder too.",
   "verifyEmailPendingLogout": "Sign out",
   "homeGreeting": "Hello, {fullName}",
   "@homeGreeting": {
@@ -277,6 +284,8 @@
   "historyStateFailed": "Could not be sent",
   "historyFailedExplanation": "This record could not be sent and will not be retried. You can discard it.",
   "historyDiscard": "Discard",
+  "historyDiscardPendingTitle": "Discard this record?",
+  "historyDiscardPendingBody": "It has not reached the server yet. If you discard it, it is deleted from this phone and will not be sent.",
   "historyAddNote": "Add note",
   "historyNoteUnavailable": "Available once it syncs",
   "historyMealAssociated": "Linked to a meal",
@@ -363,7 +372,7 @@
   "errorInvalidRefreshToken": "Your session expired. Sign in again.",
   "errorInvalidPasswordResetToken": "The recovery link is not valid",
   "errorExpiredPasswordResetToken": "The recovery link expired or was already used",
-  "errorUserLocalMissing": "There is a problem with your account. Contact support.",
+  "errorUserLocalMissing": "We couldn't find your complete account in the system. Trying again won't fix it. Let the pilot team or your nutritionist know so they can look into it.",
   "errorInternalServer": "A server error occurred. Try again.",
   "errorConsentRecordNotFound": "We could not find your registered consent",
   "errorForbidden": "You do not have permission to perform this action",
@@ -628,7 +637,7 @@
           }
       }
   },
-  "settingsCredits": "Built by Universidad Peruana de Ciencias Aplicadas in partnership with EsSalud, Complejo Hospitalario Guillermo Kaelin de la Fuente",
+  "settingsCredits": "Developed at Universidad Peruana de Ciencias Aplicadas, as a thesis project aimed at a pilot proposed at Complejo Hospitalario Guillermo Kaelín de la Fuente (EsSalud)",
   "reportTitle": "Your clinical report",
   "reportEntry": "Generate my report",
   "reportEntryHint": "A PDF with your history to take to an appointment",

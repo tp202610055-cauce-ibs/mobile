@@ -92,7 +92,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get registerPasswordLabel => 'Contraseña';
 
   @override
-  String get registerPasswordHint => 'Mínimo 8 caracteres';
+  String get passwordRuleLength => 'Al menos 8 caracteres';
+
+  @override
+  String get passwordRuleUppercase => 'Una letra mayúscula';
+
+  @override
+  String get passwordRuleLowercase => 'Una letra minúscula';
+
+  @override
+  String get passwordRuleDigit => 'Un número';
+
+  @override
+  String get passwordRuleMet => 'cumplida';
+
+  @override
+  String get passwordRulePending => 'pendiente';
 
   @override
   String get registerPasswordConfirmLabel => 'Confirma tu contraseña';
@@ -182,7 +197,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get verifyEmailPendingNoEmailHint =>
-      'Si no recibiste el correo, comunícate con soporte.';
+      'Si no recibiste el correo, usa el botón para reenviarlo. Si el problema continúa, vuelve a intentarlo más tarde.';
+
+  @override
+  String get verifyEmailResend => 'Reenviar correo';
+
+  @override
+  String get verifyEmailResent =>
+      'Te enviamos un correo nuevo. Puede tardar unos minutos en llegar; revisa también la carpeta de spam.';
 
   @override
   String get verifyEmailPendingLogout => 'Cerrar sesión';
@@ -712,6 +734,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get historyDiscard => 'Descartar';
 
   @override
+  String get historyDiscardPendingTitle => '¿Descartar este registro?';
+
+  @override
+  String get historyDiscardPendingBody =>
+      'Todavía no llegó al servidor. Si lo descartas, se borra de este teléfono y no se enviará.';
+
+  @override
   String get historyAddNote => 'Agregar nota';
 
   @override
@@ -917,7 +946,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get errorUserLocalMissing =>
-      'Hay un problema con tu cuenta. Comunícate con soporte.';
+      'No encontramos tu cuenta completa en el sistema. Volver a intentarlo no lo resuelve. Avisa al equipo del piloto o a tu nutricionista para que lo revisen.';
 
   @override
   String get errorInternalServer =>
@@ -1619,7 +1648,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsCredits =>
-      'Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente';
+      'Desarrollado en la Universidad Peruana de Ciencias Aplicadas, como proyecto de tesis dirigido a un piloto propuesto en el Complejo Hospitalario Guillermo Kaelín de la Fuente (EsSalud)';
 
   @override
   String get reportTitle => 'Tu reporte clínico';

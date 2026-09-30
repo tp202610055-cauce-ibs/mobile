@@ -10,6 +10,7 @@ import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../application/register_notifier.dart';
 import '../data/auth_repository.dart';
+import 'widgets/password_requirements.dart';
 
 /// US01 CA01, CA02 y CA03. Registro de paciente con consentimiento informado.
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -163,13 +164,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
             key: const Key('register_password'),
             controller: _passwordController,
             label: l10n.registerPasswordLabel,
-            hint: l10n.registerPasswordHint,
             errorText: fieldErrors['password']?.first,
             textInputAction: TextInputAction.next,
             enabled: !state.isSubmitting,
             validator: (value) => Validators.newPassword(value, l10n),
             onChanged: onEdited,
           ),
+          PasswordRequirements(controller: _passwordController),
           const SizedBox(height: CauceSpacing.space4),
           CauceTextField.password(
             key: const Key('register_password_confirmation'),

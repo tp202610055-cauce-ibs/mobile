@@ -36,7 +36,18 @@
   "registerEmailLabel": "Correo electrónico",
   "registerEmailHint": "tucorreo@ejemplo.com",
   "registerPasswordLabel": "Contraseña",
-  "registerPasswordHint": "Mínimo 8 caracteres",
+  "passwordRuleLength": "Al menos 8 caracteres",
+  "@passwordRuleLength": {
+    "description": "Regla de contraseña, siempre visible bajo el campo en registro y restablecimiento (mockup 02)"
+  },
+  "passwordRuleUppercase": "Una letra mayúscula",
+  "passwordRuleLowercase": "Una letra minúscula",
+  "passwordRuleDigit": "Un número",
+  "passwordRuleMet": "cumplida",
+  "@passwordRuleMet": {
+    "description": "Estado de una regla de contraseña para el lector de pantalla"
+  },
+  "passwordRulePending": "pendiente",
   "registerPasswordConfirmLabel": "Confirma tu contraseña",
   "registerInvitationCodeLabel": "Código de invitación",
   "registerInvitationCodeHint": "Opcional",
@@ -75,7 +86,15 @@
       }
     }
   },
-  "verifyEmailPendingNoEmailHint": "Si no recibiste el correo, comunícate con soporte.",
+  "verifyEmailPendingNoEmailHint": "Si no recibiste el correo, usa el botón para reenviarlo. Si el problema continúa, vuelve a intentarlo más tarde.",
+  "verifyEmailResend": "Reenviar correo",
+  "@verifyEmailResend": {
+    "description": "Botón que pide un correo de verificación nuevo (POST /auth/verification-email/resend)"
+  },
+  "verifyEmailResent": "Te enviamos un correo nuevo. Puede tardar unos minutos en llegar; revisa también la carpeta de spam.",
+  "@verifyEmailResent": {
+    "description": "Acuse genérico del reenvío. El backend responde 200 en todos los casos para no revelar si la cuenta existe"
+  },
   "verifyEmailPendingLogout": "Cerrar sesión",
   "homeGreeting": "Hola, {fullName}",
   "@homeGreeting": {
@@ -719,8 +738,13 @@
   },
   "historyDiscard": "Descartar",
   "@historyDiscard": {
-    "description": "Accion que borra una fila local rechazada"
+    "description": "Accion que borra una fila local que no llego al servidor, rechazada o pendiente"
   },
+  "historyDiscardPendingTitle": "¿Descartar este registro?",
+  "@historyDiscardPendingTitle": {
+    "description": "Confirmacion antes de descartar una fila pendiente de sincronizar (acta M50)"
+  },
+  "historyDiscardPendingBody": "Todavía no llegó al servidor. Si lo descartas, se borra de este teléfono y no se enviará.",
   "historyAddNote": "Agregar nota",
   "@historyAddNote": {
     "description": "Accion que abre el formulario de nota de contexto (US13)"
@@ -969,9 +993,9 @@
   "@errorExpiredPasswordResetToken": {
     "description": "errorCode expired_password_reset_token (400)"
   },
-  "errorUserLocalMissing": "Hay un problema con tu cuenta. Comunícate con soporte.",
+  "errorUserLocalMissing": "No encontramos tu cuenta completa en el sistema. Volver a intentarlo no lo resuelve. Avisa al equipo del piloto o a tu nutricionista para que lo revisen.",
   "@errorUserLocalMissing": {
-    "description": "errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend"
+    "description": "errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend: sale al iniciar sesión o al renovarla, y ni reintentar ni cerrar sesión la resuelven (acta M50)"
   },
   "errorInternalServer": "Ocurrió un error en el servidor. Intenta de nuevo.",
   "@errorInternalServer": {
@@ -1440,7 +1464,7 @@
           }
       }
   },
-  "settingsCredits": "Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente",
+  "settingsCredits": "Desarrollado en la Universidad Peruana de Ciencias Aplicadas, como proyecto de tesis dirigido a un piloto propuesto en el Complejo Hospitalario Guillermo Kaelín de la Fuente (EsSalud)",
   "reportTitle": "Tu reporte clínico",
   "reportEntry": "Generar mi reporte",
   "reportEntryHint": "Un PDF con tu historial para llevar a la consulta",

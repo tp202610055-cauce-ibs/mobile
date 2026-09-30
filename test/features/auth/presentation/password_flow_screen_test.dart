@@ -132,6 +132,21 @@ void main() {
       return h;
     }
 
+    testWidgets('las reglas de la contrasena siguen a la vista al escribir', (
+      tester,
+    ) async {
+      // Antes eran un hint que desaparecia con la primera letra.
+      await openResetLink(tester);
+
+      expect(find.byKey(const Key('password_requirements')), findsOneWidget);
+      await tester.enterText(find.byKey(const Key('reset_password')), 'abc');
+      await tester.pump();
+
+      expect(find.byKey(const Key('password_requirements')), findsOneWidget);
+      expect(find.text('Una letra minúscula'), findsOneWidget);
+      expect(find.text('Un número'), findsOneWidget);
+    });
+
     testWidgets('confirma la contrasena con el token del enlace', (
       tester,
     ) async {
