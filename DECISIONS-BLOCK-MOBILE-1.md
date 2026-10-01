@@ -810,3 +810,52 @@ Alternativas consideradas.
 - (a) Acortar el badge a "Pendiente": descartada, el design system usa "Pendiente de sincronizar".
 - (b) Publicar el `user` del refresh en memoria solo si cambió: descartada, el paciente perdería su lugar en la navegación cuando cambiara.
 - (c) Atrapar `SessionExpiredException` en cada repositorio: descartada, la vuelta al login no puede depender de que cada llamador se acuerde.
+
+Acta M50: Una clave por formulario, un reintento que no duplica, y un fallo de red que no es un rechazo
+
+**Estado:** Aprobada por Kiwicha el 2026-09-29. Decisiones de Kiwicha del 2026-09-28 y 29 sobre los hallazgos de la revisión manual de Trigo; lugar en la arquitectura, de Quinua. Extiende M48 y enmienda un arreglo de M49
+**Fecha:** 2026-09-29
+
+---
+
+Contexto. En la revisión manual del 28-sep, con el backend inalcanzable y la radio del teléfono encendida, tres toques de "Registrar" sobre la misma comida dejaron tres comidas. La Fase 0 confirmó la cadena:
+
+- `MealsLocalStore.enqueue` y `SymptomsLocalStore.enqueue` generaban un UUID nuevo en cada llamada, y el formulario los llamaba en cada envío.
+- `isOnline()` mira la interfaz de red, no si el servidor responde. Con la radio encendida el formulario intentaba el `POST`, el `POST` fallaba por red y el resultado quedaba en `rejected`, con el aviso "Sin conexión. Verifica tu internet e intenta de nuevo", sobre una comida que ya estaba guardada en el dispositivo.
+- El formulario conservaba lo cargado y el botón seguía activo: cada reintento creaba una fila nueva, con otra clave, que el servidor no podía reconocer como la misma. El ADR-03 de la Memoria dice que el identificador "acompaña al recurso durante toda su vida", y la TS05 promete registrar sin duplicación.
+- Una vez sincronizado, un registro no se puede borrar: el contrato no tiene `DELETE` ni `PUT` para comidas ni síntomas.
+
+Al implementar apareció un segundo problema, más fino. La huella de idempotencia del backend (`IdempotencyBehavior`) es el SHA-256 del **comando entero**, fechas incluidas, y el `POST` directo mandaba `clientCreatedAt`, y el valor por defecto de `consumedAt` u `occurredAt`, con `DateTime.now()` en cada intento. Reusar la clave no alcanzaba: un reintento cuyo primer envío sí había llegado recibía 409 `idempotency_mismatch` en vez de 200, y lo mismo el lote de sincronización posterior, que manda las fechas de la fila local.
+
+Decisión. Es la convención para cualquier pantalla que registre un dato clínico con clave de idempotencia, no solo para estas dos.
+
+1. **Una clave por formulario.** `MealFormState` y `SymptomFormState` guardan `clientGuid` y `clientCreatedAt`, generados en el primer `submit()` y repetidos en cada reintento, como la nota clínica de M48. El notifier es `autoDispose` y `reset()` los vacía: registrar otra comida estrena clave.
+2. **El reintento repite la carga entera.** Los repositorios reciben `clientCreatedAt` del formulario y derivan de él el valor por defecto de `consumedAt` y `occurredAt`, con la misma regla que la fila local. El `POST` directo y el lote de sincronización mandan exactamente lo mismo.
+3. **La fila local se reemplaza, no se duplica.** `enqueue` recibe la clave del formulario. Si ya hay una fila con esa clave y no llegó al servidor, la reemplaza en una transacción, y los ítems se van con la comida por la cascada. Una fila `completed` no se toca.
+4. **Un fallo de red no es un rechazo.** Un `CauceApiError.network()` (transporte y timeouts) después de guardar localmente termina en `queuedOffline`, con la misma confirmación que el registro sin conexión: "Comida guardada. Se enviará cuando vuelva la conexión." Un rechazo del servidor sigue en `rejected`, con su mensaje, y el reintento conserva la clave.
+5. **Doble toque.** Ya estaba cubierto: `submit()` pone `submitting` en true antes del primer `await`, y el botón queda apagado mientras tanto. Ahora lo fija una prueba.
+6. **"Descartar" también en las filas pendientes,** con una confirmación de un toque. Las trabadas (`failed`) se descartan como antes, sin preguntar y con su explicación. Las sincronizadas no se pueden descartar.
+
+No se construye borrar ni editar un registro ya sincronizado: no hay HU que lo pida, no hay endpoint, y chocaría con el audit log inmutable de TS04. Queda como candidato de backlog.
+
+Arreglos de la misma revisión, sin decisión de por medio.
+
+- **Reglas de contraseña visibles.** Registro y restablecimiento muestran las cuatro reglas (8 caracteres, mayúscula, minúscula, número) bajo el campo, siempre, y marcan cada una al cumplirse. Es la lista del mockup 02 con la minúscula que el mockup no tiene y el backend y Keycloak sí exigen, sin la barra de fortaleza. Reemplaza al hint "Mínimo 8 caracteres", que desaparecía al escribir. `Validators.passwordRules` es la fuente común de la lista y de `newPassword`.
+- **Reenvío del correo de verificación.** `AuthRepository.resendVerificationEmail` existía sin ningún llamador. La pantalla de verificación pendiente suma el botón, con un acuse genérico porque el backend responde 200 en los tres casos. El límite de tres por hora lo comunica el 429 del backend. El aviso deja de mandar a un "soporte" que no existe.
+- **Tarjeta de síntoma según la sección G.** La intensidad va arriba a la derecha y la sincronización baja a su propia línea en el cuerpo. **Enmienda el arreglo de la cabecera de M49:** el `Wrap` a lo ancho bajaba el badge a la izquierda, debajo del nombre, en cuanto no entraba. Ahora el badge queda fuera de lo que se acomoda, y lo que baja de línea es la hora. Vale también para la tarjeta de comida.
+- **Créditos.** "En convenio con EsSalud" afirmaba un convenio que no existe. Ahora dicen que es un proyecto de tesis dirigido a un piloto propuesto en el Complejo Hospitalario Guillermo Kaelín de la Fuente.
+- **`user_local_missing` sin un soporte inventado.** El backend lo lanza cuando Keycloak autentica y no existe la cuenta local, al iniciar sesión y al renovarla. Ni reintentar ni cerrar sesión lo resuelven, así que el texto lo dice y remite a quienes sí existen: "No encontramos tu cuenta completa en el sistema. Volver a intentarlo no lo resuelve. Avisa al equipo del piloto o a tu nutricionista para que lo revisen." El texto es de Kiwicha.
+
+Consecuencias.
+
+- Tres toques tras un corte de red dejan una sola comida, y el servidor la reconoce como la misma si el primer envío sí había llegado.
+- `MealsRepository.create` y `SymptomsRepository.create` suman el parámetro obligatorio `clientCreatedAt`.
+- Pruebas nuevas en `meal_form_notifier_test.dart`, `symptom_form_notifier_test.dart`, `meals_repository_test.dart` e `history_screen_test.dart`. Se comprobó que atrapan el defecto: con la clave nueva en cada envío, las dos de reintento se ponen rojas.
+- **Límite conocido.** Una fila que quedó pendiente por un fallo de red con la radio encendida sube recién en el próximo arranque de sesión o cuando la radio se reconecte: `SyncWorker` no es periódico, por diseño. El texto "Se enviará cuando vuelva la conexión" es cierto, pero puede tardar más de lo que el paciente espera.
+- **Ventana no cubierta.** Descartar una pendiente mientras el worker la está subiendo borra la fila local, pero el servidor puede recibirla igual, y el Diario la volvería a mostrar desde el servidor.
+- Para `user_local_missing` se descartó "cerrar sesión y volver a ingresar": en el login no hay sesión que cerrar, y reingresar choca con la misma cuenta faltante.
+
+Alternativas consideradas.
+- (a) La clave en el borrador (`MealDraft`): descartada por la misma razón que en M48. El borrador es contenido, no identidad, y su valor por defecto es `const`.
+- (b) Tratar también 5xx y 429 como encolados: fuera de lo decidido. El worker ya los reintenta y el formulario los sigue mostrando como rechazo, con su mensaje.
+- (c) Un temporizador que apague "Registrar": innecesario. El candado de `submitting` ya lo hace, y con la clave única un segundo envío es inocuo.
