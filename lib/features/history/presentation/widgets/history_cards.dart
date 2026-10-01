@@ -120,8 +120,9 @@ String formatDelay(AppLocalizations l10n, Duration delay) {
 /// Tarjeta de una entrada del diario (seccion G del design system).
 ///
 /// Una sola clase para comida y sintoma porque comparten el 80 por ciento: el
-/// encabezado con icono, etiqueta, hora y badge de sincronizacion, y el pie
-/// con las acciones. Lo que cambia es el cuerpo y el acento lateral.
+/// encabezado con icono, etiqueta, hora y un badge, y el pie con las
+/// acciones. Lo que cambia es el badge del encabezado (sincronizacion en la
+/// comida, intensidad en el sintoma), el cuerpo y el acento lateral.
 class HistoryCard extends StatelessWidget {
   const HistoryCard({
     required this.entry,
@@ -245,22 +246,9 @@ class HistoryCard extends StatelessWidget {
   List<Widget> _symptomBody(AppLocalizations l10n, TextTheme textTheme) {
     final mealTime = entry.associatedMealTime;
     final delay = entry.associatedMealDelay;
-    final intensity = entry.intensity;
 
+    // La intensidad va en el encabezado (seccion G); aca queda lo demas.
     return <Widget>[
-      if (intensity != null) ...<Widget>[
-        const SizedBox(height: CauceSpacing.space2),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: CauceBadge(
-            key: const Key('history_intensity_badge'),
-            label: l10n.historyIntensityBadge(intensity),
-            icon: TablerIcons.wave_saw_tool,
-            tone: intensityTone(intensity),
-            compact: true,
-          ),
-        ),
-      ],
       // La asociacion la resolvio el servidor (DEC-B3-06). El cliente no
       // calcula la ventana de cuatro horas: solo muestra lo confirmado.
       if ((entry.hasMealAssociation ?? false) &&
@@ -303,6 +291,16 @@ class HistoryCard extends StatelessWidget {
           ),
         ),
       ],
+      // **La sincronizacion no se elimina, se reubica.** La seccion G no la
+      // dibuja en el sintoma, pero el paciente necesita saber si su registro
+      // llego (la razon del badge siempre visible). Va en su propia linea para
+      // no competir por el ancho con el nombre.
+      const SizedBox(height: CauceSpacing.space2),
+      Align(
+        key: const Key('history_symptom_sync'),
+        alignment: Alignment.centerLeft,
+        child: _syncBadge(l10n, entry.syncState),
+      ),
     ];
   }
 
@@ -312,10 +310,14 @@ class HistoryCard extends StatelessWidget {
     return <Widget>[
       // Una fila terminal necesita una salida, no solo un cartel: sin el
       // descarte el atasco se vuelve visible pero no se resuelve (acta M34).
+      // Una pendiente tambien se puede descartar (acta M50), sin el cartel:
+      // no fallo nada, y la pantalla pide confirmarlo antes.
       if (entry.isDiscardable) ...<Widget>[
         const SizedBox(height: CauceSpacing.space2),
-        Text(l10n.historyFailedExplanation, style: textTheme.bodySmall),
-        const SizedBox(height: CauceSpacing.space1),
+        if (entry.isFailed) ...<Widget>[
+          Text(l10n.historyFailedExplanation, style: textTheme.bodySmall),
+          const SizedBox(height: CauceSpacing.space1),
+        ],
         Align(
           alignment: Alignment.centerLeft,
           child: CauceButton.tertiary(
@@ -369,47 +371,55 @@ class _Header extends StatelessWidget {
       Localizations.localeOf(context).toLanguageTag(),
     ).format(entry.occurredAt.toLocal());
 
-    // **El badge baja de linea en vez de cortarse.** Mide distinto en cada
-    // estado ("Sincronizado" contra "Pendiente de sincronizar", el texto del
-    // design system). Con ancho fijo la fila se desbordaba 52 pixeles; con un
-    // reparto fijo de 3 a 2 el badge quedaba en "Pendiente ..." y arrastraba
-    // al titulo a "Distension abdom..." (lo encontro el recorrido en el
-    // celular, acta M49). Con `Wrap`, si los dos entran van a los extremos de
-    // la misma linea, y si no el badge pasa entero a la siguiente y el titulo
-    // usa todo el ancho. El `SizedBox` le da al `Wrap` el ancho completo: sin
-    // el, un `Wrap` mide lo que su contenido y no le queda espacio que
-    // repartir, con lo que el badge quedaba pegado al titulo en vez de irse al
-    // borde derecho.
-    return SizedBox(
-      width: double.infinity,
-      child: Wrap(
-        alignment: WrapAlignment.spaceBetween,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: CauceSpacing.space2,
-        runSpacing: CauceSpacing.space2,
-        children: <Widget>[
-          Row(
-            mainAxisSize: MainAxisSize.min,
+    // **Un solo badge, siempre arriba a la derecha** (seccion G): la
+    // intensidad en el sintoma y la sincronizacion en la comida. Con dos, la
+    // fila se desbordaba 52 pixeles en un telefono normal.
+    //
+    // El badge queda fuera de lo que puede bajar de linea. Antes la cabecera
+    // entera era un `Wrap` con `spaceBetween` (acta M49): cuando no entraba,
+    // el badge pasaba a la linea siguiente **alineado a la izquierda**, justo
+    // debajo del nombre, que es lo que se vio en la revision del 28-sep. Ahora
+    // el que se acomoda es el texto: el titulo y la hora van en un `Wrap`
+    // propio, y si no entran juntos la hora baja debajo del titulo.
+    final badge = isSymptom && entry.intensity != null
+        ? CauceBadge(
+            key: const Key('history_intensity_badge'),
+            label: l10n.historyIntensityBadge(entry.intensity!),
+            icon: TablerIcons.wave_saw_tool,
+            tone: intensityTone(entry.intensity!),
+            compact: true,
+          )
+        : isSymptom
+            ? null
+            : _syncBadge(l10n, entry.syncState);
+
+    return Row(
+      key: const Key('history_card_header'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 1),
+          child: Icon(
+            isSymptom ? TablerIcons.activity : TablerIcons.bowl,
+            size: 18,
+            color: isSymptom ? CauceColors.warningText : CauceColors.brandBase,
+          ),
+        ),
+        const SizedBox(width: CauceSpacing.space2),
+        Expanded(
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: CauceSpacing.space2,
             children: <Widget>[
-              Icon(
-                isSymptom ? TablerIcons.activity : TablerIcons.bowl,
-                size: 18,
-                color:
-                    isSymptom ? CauceColors.warningText : CauceColors.brandBase,
-              ),
-              const SizedBox(width: CauceSpacing.space2),
-              Flexible(
-                child: Text(
-                  _title(l10n),
-                  key: const Key('history_card_title'),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: CauceColors.textSecondary,
-                  ),
+              Text(
+                _title(l10n),
+                key: const Key('history_card_title'),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: CauceColors.textSecondary,
                 ),
               ),
-              const SizedBox(width: CauceSpacing.space2),
               Text(
                 time,
                 style: textTheme.labelSmall?.copyWith(
@@ -418,14 +428,12 @@ class _Header extends StatelessWidget {
               ),
             ],
           ),
-          // **Un solo badge en el encabezado.** Con dos, la fila se desbordaba
-          // 52 pixeles a la derecha en un telefono normal y Flutter recortaba
-          // el contenido. La intensidad se movio al cuerpo, donde ademas queda
-          // al lado de la linea de asociacion, que es el otro dato clinico de
-          // la tarjeta.
-          _syncBadge(l10n, entry.syncState),
+        ),
+        if (badge != null) ...<Widget>[
+          const SizedBox(width: CauceSpacing.space2),
+          badge,
         ],
-      ),
+      ],
     );
   }
 

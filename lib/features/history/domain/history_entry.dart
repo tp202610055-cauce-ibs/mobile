@@ -42,7 +42,8 @@ abstract class HistoryEntry with _$HistoryEntry {
     /// Identificador del servidor. `null` mientras no se haya sincronizado.
     String? serverId,
 
-    /// Identificador local, para poder descartar una fila rechazada.
+    /// Identificador local, para poder descartar una fila que no llego al
+    /// servidor.
     String? clientGuid,
 
     /// `errorCode` del ultimo rechazo, si lo hubo.
@@ -81,5 +82,17 @@ abstract class HistoryEntry with _$HistoryEntry {
       syncState == HistoryEntrySyncState.synced && serverId != null;
 
   /// `true` si la fila quedo trabada y espera que el paciente la descarte.
-  bool get isDiscardable => syncState == HistoryEntrySyncState.failed;
+  bool get isFailed => syncState == HistoryEntrySyncState.failed;
+
+  /// `true` si el paciente puede descartar la fila: la trabada y tambien la
+  /// que espera sincronizar (acta M50).
+  ///
+  /// Una pendiente puede ser un registro duplicado que el paciente reconoce, y
+  /// sin esta salida no tenia forma de sacarlo antes de que llegara al
+  /// servidor, donde ya no se puede borrar. Una sincronizada es un registro
+  /// clinico y no se descarta desde aca (`SyncQueueStore.discard` tampoco lo
+  /// permitiria).
+  bool get isDiscardable =>
+      syncState == HistoryEntrySyncState.failed ||
+      syncState == HistoryEntrySyncState.pending;
 }

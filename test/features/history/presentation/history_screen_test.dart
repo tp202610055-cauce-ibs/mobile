@@ -35,11 +35,17 @@ class _FixedHistory extends HistoryNotifier {
 
   final List<HistoryEntry> _entries;
 
+  /// Claves que la pantalla mando a descartar.
+  static final List<String> discarded = <String>[];
+
   @override
   HistoryState build() => HistoryState(entries: _entries);
 
   @override
   Future<void> load({DateTime? from, DateTime? to}) async {}
+
+  @override
+  Future<void> discard(String clientGuid) async => discarded.add(clientGuid);
 }
 
 HistoryEntry _meal({
@@ -66,12 +72,13 @@ HistoryEntry _symptom({
   bool associated = false,
   MealTimeOption? associatedMealTime,
   Duration? delay,
+  HistoryEntrySyncState sync = HistoryEntrySyncState.synced,
 }) {
   return HistoryEntry(
     kind: HistoryEntryKind.symptom,
     occurredAt: at,
-    syncState: HistoryEntrySyncState.synced,
-    serverId: 'symptom-1',
+    syncState: sync,
+    serverId: sync == HistoryEntrySyncState.synced ? 'symptom-1' : null,
     clientGuid: 'guid-symptom',
     symptomType: SymptomTypeOption.diarrhea,
     intensity: intensity,
@@ -248,16 +255,147 @@ void main() {
           matching: find.byType(CauceBadge),
         ),
       );
-      final header = tester.getRect(
-        find
-            .ancestor(
-              of: find.text(l10n.historySyncDone),
-              matching: find.byType(Wrap),
-            )
-            .first,
-      );
+      final header =
+          tester.getRect(find.byKey(const Key('history_card_header')));
       expect(badge.right, moreOrLessEquals(header.right, epsilon: 0.5));
       expect(badge.top, moreOrLessEquals(header.top, epsilon: 8));
+    });
+
+    testWidgets(
+        'el sintoma lleva la intensidad arriba a la derecha y la '
+        'sincronizacion debajo, sin chocar con el nombre', (tester) async {
+      // Seccion G del design system. La revision manual del 28-sep encontro
+      // la etiqueta debajo del nombre: la cabecera entera era un `Wrap` que,
+      // en un ancho angosto, bajaba el badge a la izquierda.
+      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      await tester.runAsync(loadAppFonts);
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+
+      await _pump(tester, <HistoryEntry>[
+        _symptom(
+          at: aLas(18),
+          intensity: 70,
+          sync: HistoryEntrySyncState.pending,
+        ).copyWith(symptomType: SymptomTypeOption.bloating),
+      ]);
+
+      final header =
+          tester.getRect(find.byKey(const Key('history_card_header')));
+      final intensity =
+          tester.getRect(find.byKey(const Key('history_intensity_badge')));
+      final title = tester.getRect(find.byKey(const Key('history_card_title')));
+      final sync = tester.getRect(
+        find.ancestor(
+          of: find.text(l10n.historySyncPending),
+          matching: find.byType(CauceBadge),
+        ),
+      );
+
+      // La intensidad, en la esquina superior derecha de la cabecera.
+      expect(intensity.right, moreOrLessEquals(header.right, epsilon: 0.5));
+      expect(intensity.top, moreOrLessEquals(header.top, epsilon: 2));
+      // La sincronizacion, en su propia linea y debajo del nombre.
+      expect(sync.top, greaterThanOrEqualTo(header.bottom));
+      expect(sync.overlaps(title), isFalse);
+      // Y el nombre entero.
+      for (final paragraph in tester.renderObjectList<RenderParagraph>(
+        find.byKey(const Key('history_card_title')),
+      )) {
+        expect(paragraph.didExceedMaxLines, isFalse);
+      }
+      expect(find.text(l10n.symptomTypeBloating), findsOneWidget);
+    });
+  });
+
+  group('Diario · descartar lo que no llego al servidor (acta M50)', () {
+    setUp(_FixedHistory.discarded.clear);
+
+    testWidgets('una fila pendiente se descarta despues de confirmar',
+        (tester) async {
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(20),
+          sync: HistoryEntrySyncState.pending,
+          serverId: null,
+        ),
+      ]);
+
+      await tester.tap(find.byKey(const Key('history_discard')));
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.historyDiscardPendingTitle), findsOneWidget);
+      expect(_FixedHistory.discarded, isEmpty);
+
+      await tester.tap(
+        find.descendant(
+          of: find.byType(Dialog),
+          matching: find.text(l10n.historyDiscard),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(_FixedHistory.discarded, <String>['guid-meal']);
+    });
+
+    testWidgets('cancelar la confirmacion no descarta nada', (tester) async {
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+      await _pump(tester, <HistoryEntry>[
+        _symptom(at: aLas(18), sync: HistoryEntrySyncState.pending),
+      ]);
+
+      await tester.tap(find.byKey(const Key('history_discard')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(l10n.commonCancel));
+      await tester.pumpAndSettle();
+
+      expect(_FixedHistory.discarded, isEmpty);
+      expect(find.byType(HistoryCard), findsOneWidget);
+    });
+
+    testWidgets('una fila trabada se sigue descartando sin preguntar',
+        (tester) async {
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(20),
+          sync: HistoryEntrySyncState.failed,
+          serverId: null,
+        ),
+      ]);
+
+      expect(find.text(l10n.historyFailedExplanation), findsOneWidget);
+      await tester.tap(find.byKey(const Key('history_discard')));
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.historyDiscardPendingTitle), findsNothing);
+      expect(_FixedHistory.discarded, <String>['guid-meal']);
+    });
+
+    testWidgets('una fila sincronizada no se puede descartar', (tester) async {
+      await _pump(tester, <HistoryEntry>[
+        _meal(at: aLas(13)),
+        _symptom(at: aLas(15)),
+      ]);
+
+      expect(find.byKey(const Key('history_discard')), findsNothing);
+    });
+
+    testWidgets('una pendiente no muestra el cartel de las trabadas',
+        (tester) async {
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(20),
+          sync: HistoryEntrySyncState.pending,
+          serverId: null,
+        ),
+      ]);
+
+      expect(find.byKey(const Key('history_discard')), findsOneWidget);
+      expect(find.text(l10n.historyFailedExplanation), findsNothing);
     });
   });
 
