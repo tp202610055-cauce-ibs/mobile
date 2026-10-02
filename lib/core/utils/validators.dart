@@ -1,5 +1,13 @@
 import '../../l10n/generated/app_localizations.dart';
 
+/// Cumplimiento de cada regla de una contrasena nueva.
+typedef PasswordRules = ({
+  bool length,
+  bool uppercase,
+  bool lowercase,
+  bool digit,
+});
+
 /// Validaciones de formulario del lado cliente.
 ///
 /// Replican las reglas de FluentValidation del backend para dar respuesta
@@ -48,18 +56,35 @@ abstract final class Validators {
     return null;
   }
 
+  /// Largo minimo de una contrasena nueva. El mismo que exigen el backend y la
+  /// politica del realm de Keycloak.
+  static const int minPasswordLength = 8;
+
+  /// Que reglas de contrasena cumple [password], una por una.
+  ///
+  /// Es la misma evaluacion que usa [newPassword], expuesta para que la
+  /// pantalla muestre las reglas antes del primer intento en vez de
+  /// revelarlas recien con el error. Una sola fuente para las dos cosas.
+  static PasswordRules passwordRules(String password) {
+    return (
+      length: password.length >= minPasswordLength,
+      uppercase: _hasUppercase.hasMatch(password),
+      lowercase: _hasLowercase.hasMatch(password),
+      digit: _hasDigit.hasMatch(password),
+    );
+  }
+
   /// Reglas completas de contrasena, para registro y restablecimiento.
   static String? newPassword(String? value, AppLocalizations l10n) {
     final password = value ?? '';
     if (password.isEmpty) {
       return l10n.validationRequired;
     }
-    if (password.length < 8) {
+    final rules = passwordRules(password);
+    if (!rules.length) {
       return l10n.validationPasswordTooShort;
     }
-    if (!_hasUppercase.hasMatch(password) ||
-        !_hasLowercase.hasMatch(password) ||
-        !_hasDigit.hasMatch(password)) {
+    if (!rules.uppercase || !rules.lowercase || !rules.digit) {
       return l10n.validationPasswordWeak;
     }
     return null;

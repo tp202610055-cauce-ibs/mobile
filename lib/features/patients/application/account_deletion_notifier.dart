@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/auth/token_storage_provider.dart';
 import '../../../core/errors/cauce_api_error.dart';
 import '../../auth/application/session_notifier.dart';
 import '../data/patients_repository.dart';
@@ -32,13 +33,31 @@ sealed class AccountDeletionState with _$AccountDeletionState {
 
 /// Gobierna la baja de cuenta, una vez que el paciente ya confirmo.
 ///
-/// **No decide si hace falta la segunda confirmacion.** Esa es la pantalla,
-/// que es quien la muestra y quien sabe si el paciente la otorgo. Aca llega el
-/// resultado de esa decision, ya tomada.
+/// **No muestra la segunda confirmacion.** Informa si hace falta
+/// ([requiresPilotAcknowledgement]), y la pantalla es quien la muestra y quien
+/// sabe si el paciente la otorgo. Aca llega el resultado de esa decision, ya
+/// tomada.
 @riverpod
 class AccountDeletionNotifier extends _$AccountDeletionNotifier {
   @override
   AccountDeletionState build() => const AccountDeletionState.idle();
+
+  /// Si el paciente participa de un piloto activo y la baja necesita el acuse.
+  ///
+  /// **Lee el snapshot guardado, no el de memoria.** Desde el acta M49 el
+  /// refresh reescribe el guardado con el usuario vigente pero no lo publica
+  /// en la sesion, para no reconstruir el router cada 15 minutos. El guardado
+  /// es entonces el mas fresco que tiene el dispositivo. Si no hay ninguno se
+  /// cae al de memoria, que es el del login.
+  ///
+  /// Aunque los dos esten viejos, el backend tiene la ultima palabra: sin el
+  /// acuse responde 409 `active_pilot_retention` y no borra nada.
+  Future<bool> requiresPilotAcknowledgement() async {
+    final stored = await ref.read(tokenStorageProvider).readUserSnapshot();
+    return stored?.isInActivePilot ??
+        ref.read(sessionNotifierProvider).user?.isInActivePilot ??
+        false;
+  }
 
   /// Ejecuta la baja y cierra la sesion local.
   ///

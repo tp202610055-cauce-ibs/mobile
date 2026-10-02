@@ -28,7 +28,7 @@ final recommendationOriginMemoryProvider =
 // ignore: unused_element
 typedef RecommendationOriginMemoryRef = ProviderRef<RecommendationOriginMemory>;
 String _$recommendationDetailHash() =>
-    r'10d9fa3835cfc4503acb01ff4888ac8fc02e39a6';
+    r'e7cef9ee0c433407c8258bd92a0b6f0aeb212968';
 
 /// Copied from Dart SDK
 class _SystemHash {

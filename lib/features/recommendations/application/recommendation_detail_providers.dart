@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -65,6 +67,18 @@ RecommendationOriginMemory recommendationOriginMemory(Ref ref) {
 /// eso es [RecommendationDelivery], y solo lo dispara abrir el detalle.
 @riverpod
 Future<RecommendationDetail> recommendationDetail(Ref ref, String id) async {
+  // Sin sesion no hay a quien pedirle nada. Al cerrarla, la memoria de origen
+  // se renueva y arrastraba a cada detalle que seguia en pantalla: salian
+  // pedidos ya sin token, con su 401 y su renovacion fallida (lo encontro el
+  // recorrido en el celular). Queda cargando hasta que el provider se
+  // descarte, que es lo que pasa en cuanto el router lleva al login.
+  final userId = ref.watch(
+    sessionNotifierProvider.select((session) => session.user?.userId),
+  );
+  if (userId == null) {
+    return Completer<RecommendationDetail>().future;
+  }
+
   final memory = ref.watch(recommendationOriginMemoryProvider);
   final detail =
       await ref.watch(recommendationsRepositoryProvider).fetchDetail(id);

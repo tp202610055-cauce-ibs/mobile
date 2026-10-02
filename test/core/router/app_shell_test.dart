@@ -436,6 +436,28 @@ void main() {
     });
   });
 
+  group('AppShell · teclado abierto (acta M49)', () {
+    testWidgets('el FAB se retira mientras el teclado esta abierto',
+        (tester) async {
+      // Lo encontro el recorrido en el celular: en el Glosario, con el
+      // teclado abierto, el FAB subia con el y tapaba el "no esta en el
+      // glosario".
+      await _pumpShell(tester);
+      expect(find.byKey(cauceFabKey), findsOneWidget);
+
+      tester.view.viewInsets = const FakeViewPadding(bottom: 900);
+      addTearDown(tester.view.resetViewInsets);
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(cauceFabKey), findsNothing);
+
+      tester.view.resetViewInsets();
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(cauceFabKey), findsOneWidget);
+    });
+  });
+
   group('AppShell · Glosario (HU0027)', () {
     testWidgets('se llega desde Configuracion, en la seccion Sobre la app',
         (tester) async {

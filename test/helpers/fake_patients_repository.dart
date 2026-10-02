@@ -130,6 +130,14 @@ class FakePatientsRepository implements PatientsRepository {
   final List<bool> deleteAcknowledgements = <bool>[];
   CauceApiError? deleteAccountError;
 
+  /// Todas las llamadas a [deleteAccount] con su acuse, hayan prosperado o no.
+  final List<bool> deleteAttempts = <bool>[];
+
+  /// Lo que el servidor sabe del piloto, que puede no coincidir con el
+  /// snapshot del dispositivo. Como el backend, sin el acuse responde 409
+  /// `active_pilot_retention` y no borra nada (CP067).
+  bool serverInActivePilot = false;
+
   /// Lo que devuelve [fetchSummary].
   PatientSummary summaryValue = demoSummary;
   CauceApiError? fetchSummaryError;
@@ -238,9 +246,13 @@ class FakePatientsRepository implements PatientsRepository {
   @override
   Future<void> deleteAccount({required bool activePilotAcknowledged}) async {
     await _wait();
+    deleteAttempts.add(activePilotAcknowledged);
     final error = deleteAccountError;
     if (error != null) {
       throw error;
+    }
+    if (serverInActivePilot && !activePilotAcknowledged) {
+      throw const CauceApiError.activePilotRetention();
     }
     deleteAcknowledgements.add(activePilotAcknowledged);
   }

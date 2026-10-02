@@ -195,6 +195,103 @@ void main() {
       expect(detail.feedback, isNull);
     });
 
+    test('una del motor sin textos propios: titulo y descripcion nulos',
+        () async {
+      // Forma v1.6.0 completa, con los campos de archivo que la app todavia
+      // no usa: tienen que deserializar sin romper el detalle.
+      final h = _harness(<String, Object>{
+        'GET /api/v1/recommendations/$_id': CannedResponse.ok(<String, dynamic>{
+          ..._detail(),
+          'title': null,
+          'description': null,
+          'source': 'EngineGenerated',
+          'isActive': true,
+          'archivedAt': null,
+          'archiveReason': null,
+          'validUntil': null,
+        }),
+      });
+
+      final detail = await h.repository.fetchDetail(_id);
+
+      expect(detail.source, RecommendationSourceOption.engineGenerated);
+      expect(detail.title, isNull);
+      expect(detail.description, isNull);
+      expect(detail.isManual, isFalse);
+    });
+
+    test('una manual trae su titulo, su descripcion y source Manual', () async {
+      final h = _harness(<String, Object>{
+        'GET /api/v1/recommendations/$_id': CannedResponse.ok(<String, dynamic>{
+          ..._detail(status: 'ManualApproved', source: 'Manual'),
+          'items': <Map<String, dynamic>>[],
+          'aiExplanation': null,
+          'confidenceScore': 1.0,
+          'title': 'Hidratación en ayunas',
+          'description': 'Toma un vaso de agua tibia al despertar.',
+          'source': 'Manual',
+          'isActive': true,
+          'validUntil': '2026-10-20T00:00:00Z',
+        }),
+      });
+
+      final detail = await h.repository.fetchDetail(_id);
+
+      expect(detail.source, RecommendationSourceOption.manual);
+      expect(detail.title, 'Hidratación en ayunas');
+      expect(detail.description, 'Toma un vaso de agua tibia al despertar.');
+      expect(detail.isManual, isTrue);
+    });
+
+    test('modificada con textos del servidor sigue siendo EngineGenerated',
+        () async {
+      final h = _harness(<String, Object>{
+        'GET /api/v1/recommendations/$_id': CannedResponse.ok(<String, dynamic>{
+          ..._detail(),
+          'title': 'Reduce la cebolla en los almuerzos',
+          'description': 'La cebolla, solo cocida y en poca cantidad.',
+          'source': 'EngineGenerated',
+        }),
+      });
+
+      final detail = await h.repository.fetchDetail(_id);
+
+      expect(detail.status, RecommendationStatusOption.modifiedApproved);
+      expect(detail.title, 'Reduce la cebolla en los almuerzos');
+      expect(detail.source, RecommendationSourceOption.engineGenerated);
+      expect(detail.isManual, isFalse);
+    });
+
+    test('titulo y descripcion en blanco llegan como nulos', () async {
+      final h = _harness(<String, Object>{
+        'GET /api/v1/recommendations/$_id': CannedResponse.ok(<String, dynamic>{
+          ..._detail(),
+          'title': '   ',
+          'description': '',
+          'source': 'EngineGenerated',
+        }),
+      });
+
+      final detail = await h.repository.fetchDetail(_id);
+
+      expect(detail.title, isNull);
+      expect(detail.description, isNull);
+    });
+
+    test('sin source se conserva la inferencia de M47', () async {
+      // Un backend anterior a v1.6.0 no lo manda.
+      final h = _harness(<String, Object>{
+        'GET /api/v1/recommendations/$_id': CannedResponse.ok(
+          _detail(status: 'Delivered', source: 'Manual'),
+        ),
+      });
+
+      final detail = await h.repository.fetchDetail(_id);
+
+      expect(detail.source, isNull);
+      expect(detail.isManual, isTrue);
+    });
+
     test('una no visible responde 404 recommendation_not_found (CP038)', () {
       final h = _harness(<String, Object>{
         'GET /api/v1/recommendations/$_id': CannedResponse.problem(

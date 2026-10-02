@@ -85,6 +85,7 @@ Future<({ProviderContainer container, _RoutedAdapter adapter})> _pumpApp(
         final dio = buildDio(
           tokenStorage: tokenStorage,
           baseUrl: 'http://localhost:5074',
+          onSessionExpired: sessionExpiryCallback(ref),
         );
         dio.httpClientAdapter = adapter;
         return dio;

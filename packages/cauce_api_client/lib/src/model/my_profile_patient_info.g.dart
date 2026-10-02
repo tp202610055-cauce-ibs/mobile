@@ -8,6 +8,8 @@ part of 'my_profile_patient_info.dart';
 
 class _$MyProfilePatientInfo extends MyProfilePatientInfo {
   @override
+  final String? patientCode;
+  @override
   final String? fullName;
   @override
   final String? maskedEmail;
@@ -16,7 +18,8 @@ class _$MyProfilePatientInfo extends MyProfilePatientInfo {
           [void Function(MyProfilePatientInfoBuilder)? updates]) =>
       (MyProfilePatientInfoBuilder()..update(updates))._build();
 
-  _$MyProfilePatientInfo._({this.fullName, this.maskedEmail}) : super._();
+  _$MyProfilePatientInfo._({this.patientCode, this.fullName, this.maskedEmail})
+      : super._();
   @override
   MyProfilePatientInfo rebuild(
           void Function(MyProfilePatientInfoBuilder) updates) =>
@@ -30,6 +33,7 @@ class _$MyProfilePatientInfo extends MyProfilePatientInfo {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is MyProfilePatientInfo &&
+        patientCode == other.patientCode &&
         fullName == other.fullName &&
         maskedEmail == other.maskedEmail;
   }
@@ -37,6 +41,7 @@ class _$MyProfilePatientInfo extends MyProfilePatientInfo {
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, patientCode.hashCode);
     _$hash = $jc(_$hash, fullName.hashCode);
     _$hash = $jc(_$hash, maskedEmail.hashCode);
     _$hash = $jf(_$hash);
@@ -46,6 +51,7 @@ class _$MyProfilePatientInfo extends MyProfilePatientInfo {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'MyProfilePatientInfo')
+          ..add('patientCode', patientCode)
           ..add('fullName', fullName)
           ..add('maskedEmail', maskedEmail))
         .toString();
@@ -55,6 +61,10 @@ class _$MyProfilePatientInfo extends MyProfilePatientInfo {
 class MyProfilePatientInfoBuilder
     implements Builder<MyProfilePatientInfo, MyProfilePatientInfoBuilder> {
   _$MyProfilePatientInfo? _$v;
+
+  String? _patientCode;
+  String? get patientCode => _$this._patientCode;
+  set patientCode(String? patientCode) => _$this._patientCode = patientCode;
 
   String? _fullName;
   String? get fullName => _$this._fullName;
@@ -71,6 +81,7 @@ class MyProfilePatientInfoBuilder
   MyProfilePatientInfoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _patientCode = $v.patientCode;
       _fullName = $v.fullName;
       _maskedEmail = $v.maskedEmail;
       _$v = null;
@@ -94,6 +105,7 @@ class MyProfilePatientInfoBuilder
   _$MyProfilePatientInfo _build() {
     final _$result = _$v ??
         _$MyProfilePatientInfo._(
+          patientCode: patientCode,
           fullName: fullName,
           maskedEmail: maskedEmail,
         );

@@ -501,7 +501,11 @@ class PatientsRepository {
 
       return PatientSummary(
         fullName: fullName,
+        patientCode: _blankToNull(result?.patient?.patientCode),
         ibsSubtype: IbsSubtypeOption.fromApi(result?.clinical?.ibsSubtype),
+        // Mismo traductor que el perfil completo: descarta la entrada sin
+        // identificador y conserva el resto.
+        allergies: _toDeclarations(result?.clinical?.allergies),
         pilotStartDate: result?.pilotStartDate?.toDateTime(),
         nutritionistName: result?.assignedNutritionist?.nutritionistFullName,
         ibsSssBaseline: result?.ibsSssBaseline,

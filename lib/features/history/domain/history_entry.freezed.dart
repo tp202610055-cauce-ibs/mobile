@@ -23,7 +23,8 @@ mixin _$HistoryEntry {
   /// Identificador del servidor. `null` mientras no se haya sincronizado.
   String? get serverId => throw _privateConstructorUsedError;
 
-  /// Identificador local, para poder descartar una fila rechazada.
+  /// Identificador local, para poder descartar una fila que no llego al
+  /// servidor.
   String? get clientGuid => throw _privateConstructorUsedError;
 
   /// `errorCode` del ultimo rechazo, si lo hubo.
@@ -315,7 +316,8 @@ class _$HistoryEntryImpl extends _HistoryEntry {
   @override
   final String? serverId;
 
-  /// Identificador local, para poder descartar una fila rechazada.
+  /// Identificador local, para poder descartar una fila que no llego al
+  /// servidor.
   @override
   final String? clientGuid;
 
@@ -452,7 +454,8 @@ abstract class _HistoryEntry extends HistoryEntry {
   @override
   String? get serverId;
 
-  /// Identificador local, para poder descartar una fila rechazada.
+  /// Identificador local, para poder descartar una fila que no llego al
+  /// servidor.
   @override
   String? get clientGuid;
 

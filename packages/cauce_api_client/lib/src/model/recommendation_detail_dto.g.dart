@@ -45,6 +45,20 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
   final BuiltList<String>? steps;
   @override
   final RecommendationSupportingDataDto? supportingData;
+  @override
+  final String? title;
+  @override
+  final String? description;
+  @override
+  final RecommendationSource? source_;
+  @override
+  final bool? isActive;
+  @override
+  final DateTime? archivedAt;
+  @override
+  final ArchiveReason? archiveReason;
+  @override
+  final DateTime? validUntil;
 
   factory _$RecommendationDetailDto(
           [void Function(RecommendationDetailDtoBuilder)? updates]) =>
@@ -69,7 +83,14 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
       this.feedback,
       this.reviewedByNutritionistName,
       this.steps,
-      this.supportingData})
+      this.supportingData,
+      this.title,
+      this.description,
+      this.source_,
+      this.isActive,
+      this.archivedAt,
+      this.archiveReason,
+      this.validUntil})
       : super._();
   @override
   RecommendationDetailDto rebuild(
@@ -102,7 +123,14 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
         feedback == other.feedback &&
         reviewedByNutritionistName == other.reviewedByNutritionistName &&
         steps == other.steps &&
-        supportingData == other.supportingData;
+        supportingData == other.supportingData &&
+        title == other.title &&
+        description == other.description &&
+        source_ == other.source_ &&
+        isActive == other.isActive &&
+        archivedAt == other.archivedAt &&
+        archiveReason == other.archiveReason &&
+        validUntil == other.validUntil;
   }
 
   @override
@@ -127,6 +155,13 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
     _$hash = $jc(_$hash, reviewedByNutritionistName.hashCode);
     _$hash = $jc(_$hash, steps.hashCode);
     _$hash = $jc(_$hash, supportingData.hashCode);
+    _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, source_.hashCode);
+    _$hash = $jc(_$hash, isActive.hashCode);
+    _$hash = $jc(_$hash, archivedAt.hashCode);
+    _$hash = $jc(_$hash, archiveReason.hashCode);
+    _$hash = $jc(_$hash, validUntil.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -152,7 +187,14 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
           ..add('feedback', feedback)
           ..add('reviewedByNutritionistName', reviewedByNutritionistName)
           ..add('steps', steps)
-          ..add('supportingData', supportingData))
+          ..add('supportingData', supportingData)
+          ..add('title', title)
+          ..add('description', description)
+          ..add('source_', source_)
+          ..add('isActive', isActive)
+          ..add('archivedAt', archivedAt)
+          ..add('archiveReason', archiveReason)
+          ..add('validUntil', validUntil))
         .toString();
   }
 }
@@ -251,6 +293,35 @@ class RecommendationDetailDtoBuilder
   set supportingData(RecommendationSupportingDataDtoBuilder? supportingData) =>
       _$this._supportingData = supportingData;
 
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
+  RecommendationSource? _source_;
+  RecommendationSource? get source_ => _$this._source_;
+  set source_(RecommendationSource? source_) => _$this._source_ = source_;
+
+  bool? _isActive;
+  bool? get isActive => _$this._isActive;
+  set isActive(bool? isActive) => _$this._isActive = isActive;
+
+  DateTime? _archivedAt;
+  DateTime? get archivedAt => _$this._archivedAt;
+  set archivedAt(DateTime? archivedAt) => _$this._archivedAt = archivedAt;
+
+  ArchiveReason? _archiveReason;
+  ArchiveReason? get archiveReason => _$this._archiveReason;
+  set archiveReason(ArchiveReason? archiveReason) =>
+      _$this._archiveReason = archiveReason;
+
+  DateTime? _validUntil;
+  DateTime? get validUntil => _$this._validUntil;
+  set validUntil(DateTime? validUntil) => _$this._validUntil = validUntil;
+
   RecommendationDetailDtoBuilder() {
     RecommendationDetailDto._defaults(this);
   }
@@ -277,6 +348,13 @@ class RecommendationDetailDtoBuilder
       _reviewedByNutritionistName = $v.reviewedByNutritionistName;
       _steps = $v.steps?.toBuilder();
       _supportingData = $v.supportingData?.toBuilder();
+      _title = $v.title;
+      _description = $v.description;
+      _source_ = $v.source_;
+      _isActive = $v.isActive;
+      _archivedAt = $v.archivedAt;
+      _archiveReason = $v.archiveReason;
+      _validUntil = $v.validUntil;
       _$v = null;
     }
     return this;
@@ -319,6 +397,13 @@ class RecommendationDetailDtoBuilder
             reviewedByNutritionistName: reviewedByNutritionistName,
             steps: _steps?.build(),
             supportingData: _supportingData?.build(),
+            title: title,
+            description: description,
+            source_: source_,
+            isActive: isActive,
+            archivedAt: archivedAt,
+            archiveReason: archiveReason,
+            validUntil: validUntil,
           );
     } catch (_) {
       late String _$failedField;

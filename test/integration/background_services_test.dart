@@ -128,6 +128,7 @@ Future<_Harness> _pumpApp(
         final dio = buildDio(
           tokenStorage: storage,
           baseUrl: 'http://localhost:5074',
+          onSessionExpired: sessionExpiryCallback(ref),
         );
         dio.httpClientAdapter = adapter;
         return dio;

@@ -57,6 +57,48 @@ void main() {
 
       expect(repository.deliveredIds, isEmpty);
     });
+
+    test('al cerrar sesion no vuelve a pedir el detalle (acta M49)', () async {
+      // Lo encontro el recorrido en el celular: al cerrar sesion la memoria
+      // de origen se renovaba y cada detalle en pantalla salia a pedirse ya
+      // sin token, con su 401 y su renovacion fallida.
+      final repository =
+          FakeRecommendationsRepository(details: [approvedDetail]);
+      final container = await _container(repository);
+      _keepAlive(container, approvedDetail.id);
+      await container
+          .read(recommendationDetailProvider(approvedDetail.id).future);
+      final callsWithSession = repository.detailCalls;
+
+      await container.read(sessionNotifierProvider.notifier).logout();
+      await Future<void>.delayed(Duration.zero);
+
+      expect(repository.detailCalls, callsWithSession);
+      expect(
+        container.read(recommendationDetailProvider(approvedDetail.id)),
+        isA<AsyncLoading<RecommendationDetail>>(),
+      );
+    });
+
+    test('sin sesion no pide nada', () async {
+      final repository =
+          FakeRecommendationsRepository(details: [approvedDetail]);
+      final container = ProviderContainer(
+        overrides: <Override>[
+          authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
+          tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+          recommendationsRepositoryProvider.overrideWithValue(repository),
+          recommendationRequestStoreProvider.overrideWithValue(
+            InMemoryRecommendationRequestStore(),
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      _keepAlive(container, approvedDetail.id);
+      await Future<void>.delayed(Duration.zero);
+
+      expect(repository.detailCalls, 0);
+    });
   });
 
   group('RecommendationOriginMemory · decision 10', () {

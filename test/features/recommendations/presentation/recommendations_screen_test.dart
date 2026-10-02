@@ -171,6 +171,32 @@ void main() {
       expect(find.text(manualDetail.note!), findsOneWidget);
     });
 
+    testWidgets('la tarjeta usa el titulo y la descripcion del servidor',
+        (tester) async {
+      // Acta M49: una manual muestra lo que escribio el nutricionista, y una
+      // modificada con textos propios tambien, en vez de los compuestos.
+      final repository = FakeRecommendationsRepository(
+        details: [writtenManualDetail, rewrittenModifiedDetail],
+      );
+
+      await pumpRecommendations(tester, repository: repository);
+
+      expect(find.text('Hidratación en ayunas'), findsOneWidget);
+      expect(find.text(writtenManualDetail.descriptionText!), findsOneWidget);
+      expect(find.text('Reduce la cebolla en los almuerzos'), findsOneWidget);
+      expect(
+        find.text(rewrittenModifiedDetail.descriptionText!),
+        findsOneWidget,
+      );
+      expect(find.text(l10n.recommendationManualTitle), findsNothing);
+      expect(
+        find.text(
+          'Evitar 2 alimentos, sustituir 1 alimento, incorporar 1 alimento',
+        ),
+        findsNothing,
+      );
+    });
+
     testWidgets('sin nombre del revisor, "tu nutricionista" de respaldo',
         (tester) async {
       final repository = FakeRecommendationsRepository(

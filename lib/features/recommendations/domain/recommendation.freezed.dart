@@ -1180,6 +1180,17 @@ mixin _$RecommendationDetail {
   String? get explanation => throw _privateConstructorUsedError;
   ExplanationOrigin? get explanationSource =>
       throw _privateConstructorUsedError;
+
+  /// Titulo y descripcion que escribio el nutricionista (contrato v1.6.0).
+  ///
+  /// Una manual los trae siempre; una del motor, en `null`, y una
+  /// modificada solo si el nutricionista los cambio. Cuando faltan, la
+  /// pantalla compone los suyos a partir de los items (acta M47).
+  String? get title => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+
+  /// `null` solo si el servidor no lo informo: se cae a la inferencia de M47.
+  RecommendationSourceOption? get source => throw _privateConstructorUsedError;
   DateTime? get reviewedAt => throw _privateConstructorUsedError;
   DateTime? get deliveredAt => throw _privateConstructorUsedError;
   DateTime? get expiresAt => throw _privateConstructorUsedError;
@@ -1219,6 +1230,9 @@ abstract class $RecommendationDetailCopyWith<$Res> {
       String? nutritionistNote,
       String? explanation,
       ExplanationOrigin? explanationSource,
+      String? title,
+      String? description,
+      RecommendationSourceOption? source,
       DateTime? reviewedAt,
       DateTime? deliveredAt,
       DateTime? expiresAt,
@@ -1258,6 +1272,9 @@ class _$RecommendationDetailCopyWithImpl<$Res,
     Object? nutritionistNote = freezed,
     Object? explanation = freezed,
     Object? explanationSource = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? source = freezed,
     Object? reviewedAt = freezed,
     Object? deliveredAt = freezed,
     Object? expiresAt = freezed,
@@ -1308,6 +1325,18 @@ class _$RecommendationDetailCopyWithImpl<$Res,
           ? _value.explanationSource
           : explanationSource // ignore: cast_nullable_to_non_nullable
               as ExplanationOrigin?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      source: freezed == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as RecommendationSourceOption?,
       reviewedAt: freezed == reviewedAt
           ? _value.reviewedAt
           : reviewedAt // ignore: cast_nullable_to_non_nullable
@@ -1392,6 +1421,9 @@ abstract class _$$RecommendationDetailImplCopyWith<$Res>
       String? nutritionistNote,
       String? explanation,
       ExplanationOrigin? explanationSource,
+      String? title,
+      String? description,
+      RecommendationSourceOption? source,
       DateTime? reviewedAt,
       DateTime? deliveredAt,
       DateTime? expiresAt,
@@ -1430,6 +1462,9 @@ class __$$RecommendationDetailImplCopyWithImpl<$Res>
     Object? nutritionistNote = freezed,
     Object? explanation = freezed,
     Object? explanationSource = freezed,
+    Object? title = freezed,
+    Object? description = freezed,
+    Object? source = freezed,
     Object? reviewedAt = freezed,
     Object? deliveredAt = freezed,
     Object? expiresAt = freezed,
@@ -1480,6 +1515,18 @@ class __$$RecommendationDetailImplCopyWithImpl<$Res>
           ? _value.explanationSource
           : explanationSource // ignore: cast_nullable_to_non_nullable
               as ExplanationOrigin?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      source: freezed == source
+          ? _value.source
+          : source // ignore: cast_nullable_to_non_nullable
+              as RecommendationSourceOption?,
       reviewedAt: freezed == reviewedAt
           ? _value.reviewedAt
           : reviewedAt // ignore: cast_nullable_to_non_nullable
@@ -1530,6 +1577,9 @@ class _$RecommendationDetailImpl extends _RecommendationDetail {
       this.nutritionistNote,
       this.explanation,
       this.explanationSource,
+      this.title,
+      this.description,
+      this.source,
       this.reviewedAt,
       this.deliveredAt,
       this.expiresAt,
@@ -1563,6 +1613,20 @@ class _$RecommendationDetailImpl extends _RecommendationDetail {
   final String? explanation;
   @override
   final ExplanationOrigin? explanationSource;
+
+  /// Titulo y descripcion que escribio el nutricionista (contrato v1.6.0).
+  ///
+  /// Una manual los trae siempre; una del motor, en `null`, y una
+  /// modificada solo si el nutricionista los cambio. Cuando faltan, la
+  /// pantalla compone los suyos a partir de los items (acta M47).
+  @override
+  final String? title;
+  @override
+  final String? description;
+
+  /// `null` solo si el servidor no lo informo: se cae a la inferencia de M47.
+  @override
+  final RecommendationSourceOption? source;
   @override
   final DateTime? reviewedAt;
   @override
@@ -1601,7 +1665,7 @@ class _$RecommendationDetailImpl extends _RecommendationDetail {
 
   @override
   String toString() {
-    return 'RecommendationDetail(id: $id, status: $status, confidenceScore: $confidenceScore, generatedAt: $generatedAt, autoApproved: $autoApproved, reviewerId: $reviewerId, reviewerName: $reviewerName, nutritionistNote: $nutritionistNote, explanation: $explanation, explanationSource: $explanationSource, reviewedAt: $reviewedAt, deliveredAt: $deliveredAt, expiresAt: $expiresAt, items: $items, steps: $steps, supportingData: $supportingData, feedback: $feedback, knownOrigin: $knownOrigin)';
+    return 'RecommendationDetail(id: $id, status: $status, confidenceScore: $confidenceScore, generatedAt: $generatedAt, autoApproved: $autoApproved, reviewerId: $reviewerId, reviewerName: $reviewerName, nutritionistNote: $nutritionistNote, explanation: $explanation, explanationSource: $explanationSource, title: $title, description: $description, source: $source, reviewedAt: $reviewedAt, deliveredAt: $deliveredAt, expiresAt: $expiresAt, items: $items, steps: $steps, supportingData: $supportingData, feedback: $feedback, knownOrigin: $knownOrigin)';
   }
 
   @override
@@ -1627,6 +1691,10 @@ class _$RecommendationDetailImpl extends _RecommendationDetail {
                 other.explanation == explanation) &&
             (identical(other.explanationSource, explanationSource) ||
                 other.explanationSource == explanationSource) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.source, source) || other.source == source) &&
             (identical(other.reviewedAt, reviewedAt) ||
                 other.reviewedAt == reviewedAt) &&
             (identical(other.deliveredAt, deliveredAt) ||
@@ -1644,26 +1712,30 @@ class _$RecommendationDetailImpl extends _RecommendationDetail {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      status,
-      confidenceScore,
-      generatedAt,
-      autoApproved,
-      reviewerId,
-      reviewerName,
-      nutritionistNote,
-      explanation,
-      explanationSource,
-      reviewedAt,
-      deliveredAt,
-      expiresAt,
-      const DeepCollectionEquality().hash(_items),
-      const DeepCollectionEquality().hash(_steps),
-      supportingData,
-      feedback,
-      knownOrigin);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        status,
+        confidenceScore,
+        generatedAt,
+        autoApproved,
+        reviewerId,
+        reviewerName,
+        nutritionistNote,
+        explanation,
+        explanationSource,
+        title,
+        description,
+        source,
+        reviewedAt,
+        deliveredAt,
+        expiresAt,
+        const DeepCollectionEquality().hash(_items),
+        const DeepCollectionEquality().hash(_steps),
+        supportingData,
+        feedback,
+        knownOrigin
+      ]);
 
   /// Create a copy of RecommendationDetail
   /// with the given fields replaced by the non-null parameter values.
@@ -1688,6 +1760,9 @@ abstract class _RecommendationDetail extends RecommendationDetail {
       final String? nutritionistNote,
       final String? explanation,
       final ExplanationOrigin? explanationSource,
+      final String? title,
+      final String? description,
+      final RecommendationSourceOption? source,
       final DateTime? reviewedAt,
       final DateTime? deliveredAt,
       final DateTime? expiresAt,
@@ -1718,6 +1793,20 @@ abstract class _RecommendationDetail extends RecommendationDetail {
   String? get explanation;
   @override
   ExplanationOrigin? get explanationSource;
+
+  /// Titulo y descripcion que escribio el nutricionista (contrato v1.6.0).
+  ///
+  /// Una manual los trae siempre; una del motor, en `null`, y una
+  /// modificada solo si el nutricionista los cambio. Cuando faltan, la
+  /// pantalla compone los suyos a partir de los items (acta M47).
+  @override
+  String? get title;
+  @override
+  String? get description;
+
+  /// `null` solo si el servidor no lo informo: se cae a la inferencia de M47.
+  @override
+  RecommendationSourceOption? get source;
   @override
   DateTime? get reviewedAt;
   @override

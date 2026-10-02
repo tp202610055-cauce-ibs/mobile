@@ -17,13 +17,18 @@ abstract final class RecommendationTexts {
   /// Alimentos que se nombran en la descripcion antes de resumir el resto.
   static const int namedFoods = 3;
 
-  /// Titulo compuesto (decision 3): "Evitar 2 alimentos, sustituir 1
-  /// alimento". Sin items, el de una indicacion manual o uno generico.
+  /// El titulo del servidor si lo hay (acta M49). Si no, el compuesto
+  /// (decision 3): "Evitar 2 alimentos, sustituir 1 alimento". Sin items, el
+  /// de una indicacion manual o uno generico.
   static String title(
     AppLocalizations l10n,
     RecommendationHeadline headline, {
     required RecommendationOrigin origin,
   }) {
+    final serverTitle = headline.title;
+    if (serverTitle != null) {
+      return serverTitle;
+    }
     if (headline.hasItems) {
       final parts = <String>[
         for (final (action, count) in headline.tally)
@@ -36,13 +41,18 @@ abstract final class RecommendationTexts {
         : l10n.recommendationFallbackTitle;
   }
 
-  /// Descripcion compuesta: los alimentos nombrados, o la nota del
-  /// nutricionista en una indicacion manual sin items (decision 3). La
-  /// pantalla la recorta a dos lineas.
+  /// La descripcion del servidor si la hay (acta M49). Si no, la compuesta:
+  /// los alimentos nombrados, o la nota del nutricionista en una indicacion
+  /// manual sin items (decision 3). La tarjeta la recorta a dos lineas; el
+  /// detalle muestra entera la del servidor.
   static String? description(
     AppLocalizations l10n,
     RecommendationHeadline headline,
   ) {
+    final serverDescription = headline.description;
+    if (serverDescription != null) {
+      return serverDescription;
+    }
     if (!headline.hasItems) {
       return headline.note;
     }

@@ -60,6 +60,35 @@ void main() {
     });
   });
 
+  group('CauceApiErrorMessage · user_local_missing (acta M50)', () {
+    // El backend lo lanza cuando Keycloak autentica y la cuenta local no
+    // existe, al iniciar sesion o al renovarla. Reintentar no lo resuelve, y
+    // el texto anterior mandaba a un "soporte" que no existe.
+    const error = CauceApiError.userLocalMissing();
+
+    test('dice que reintentar no sirve y a quien avisar, en es y en en', () {
+      final spanish = error.localizedMessage(es);
+      final english = error.localizedMessage(en);
+
+      expect(spanish, es.errorUserLocalMissing);
+      expect(spanish, contains('Volver a intentarlo no lo resuelve'));
+      expect(spanish, contains('equipo del piloto o a tu nutricionista'));
+      expect(english, en.errorUserLocalMissing);
+      expect(english, contains("Trying again won't fix it"));
+    });
+
+    test('no deriva a un canal que no existe', () {
+      expect(
+        error.localizedMessage(es).toLowerCase(),
+        isNot(contains('soporte')),
+      );
+      expect(
+        error.localizedMessage(en).toLowerCase(),
+        isNot(contains('support')),
+      );
+    });
+  });
+
   group('CauceApiErrorMessage · patient_already_assigned', () {
     test('avisa que ya hay un nutricionista vinculado', () {
       const error = CauceApiError.patientAlreadyAssigned();
@@ -303,6 +332,24 @@ void main() {
         expect(message, isNot(contains('!')));
         expect(message.toLowerCase(), isNot(contains('peligro')));
       }
+    });
+  });
+
+  group('CauceApiErrorMessage · baja de cuenta (CP067)', () {
+    const error = CauceApiError.activePilotRetention();
+
+    test('active_pilot_retention tiene mensaje propio en es y en en', () {
+      expect(error.localizedMessage(es), es.errorActivePilotRetention);
+      expect(error.localizedMessage(en), en.errorActivePilotRetention);
+      expect(error.localizedMessage(es), isNot(es.errorUnknown));
+    });
+
+    test('dice que la cuenta sigue y que falta confirmar el aviso', () {
+      final message = error.localizedMessage(es);
+
+      expect(message, contains('sigue activa'));
+      expect(message, contains('piloto'));
+      expect(message, isNot(contains('!')));
     });
   });
 }

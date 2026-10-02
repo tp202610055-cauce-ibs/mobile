@@ -183,7 +183,7 @@ class NutritionistsApi {
     );
   }
 
-  /// Devuelve el detalle clínico de un paciente asignado. Requiere una asignación  activa con el paciente; de lo contrario responde 403.
+  /// Devuelve el detalle clínico de un paciente asignado. Requiere una asignación  activa con el paciente; de lo contrario responde 403. Si el paciente todavía no completó  su perfil, responde 200 con &#x60;onboardingCompleted: false&#x60; y los campos clínicos en null  (acta A69).
   /// 
   ///
   /// Parameters:

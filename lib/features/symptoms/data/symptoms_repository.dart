@@ -24,9 +24,14 @@ class SymptomsRepository {
   /// Detalle del servidor que conviene tener presente al leer el resultado: la
   /// ventana se ancla en `clientCreatedAt`, no en `occurredAt`. Un sintoma de
   /// ayer registrado hoy se asocia contra el momento del registro.
+  ///
+  /// [clientCreatedAt] llega del formulario por la misma razon que en
+  /// `MealsRepository.create`: el backend deduplica por el hash del comando
+  /// entero, y un reintento con otra fecha recibe 409 en vez de 200.
   Future<CreatedSymptom> create(
     SymptomDraft draft, {
     required String clientGuid,
+    required DateTime clientCreatedAt,
   }) {
     final symptomType = draft.symptomType;
     final intensity = draft.intensity;
@@ -36,15 +41,17 @@ class SymptomsRepository {
 
     return guardApiCall(
       () async {
-        final now = DateTime.now().toUtc();
+        final createdAt = clientCreatedAt.toUtc();
         final response = await _api.apiV1SymptomsPost(
           createSymptomRequest: CreateSymptomRequest(
             (b) => b
               ..clientGuid = clientGuid
               ..symptomType = symptomType.toApi()
               ..intensity = intensity
-              ..occurredAt = (draft.occurredAt ?? now).toUtc()
-              ..clientCreatedAt = now,
+              // Mismo valor por defecto que la fila local
+              // (`SymptomsLocalStore.enqueue`).
+              ..occurredAt = (draft.occurredAt ?? createdAt).toUtc()
+              ..clientCreatedAt = createdAt,
           ),
         );
 

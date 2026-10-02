@@ -94,6 +94,25 @@ enum RecommendationAction {
   ];
 }
 
+/// Quien creo la recomendacion: el motor o el nutricionista a mano.
+///
+/// Llega desde el contrato v1.6.0 y es la senal fiable para decidir si es una
+/// indicacion manual (acta M49). **No distingue una aprobada de una
+/// modificada**: las dos son `EngineGenerated`, y eso lo sigue resolviendo el
+/// estado o la memoria de origen de M47.
+enum RecommendationSourceOption {
+  engineGenerated,
+  manual;
+
+  static RecommendationSourceOption? fromApi(api.RecommendationSource? value) {
+    return switch (value) {
+      api.RecommendationSource.engineGenerated => engineGenerated,
+      api.RecommendationSource.manual => manual,
+      _ => null,
+    };
+  }
+}
+
 /// Origen del texto de la explicacion.
 enum ExplanationOrigin {
   llmGenerated,
@@ -227,6 +246,17 @@ abstract class RecommendationDetail with _$RecommendationDetail {
     String? nutritionistNote,
     String? explanation,
     ExplanationOrigin? explanationSource,
+
+    /// Titulo y descripcion que escribio el nutricionista (contrato v1.6.0).
+    ///
+    /// Una manual los trae siempre; una del motor, en `null`, y una
+    /// modificada solo si el nutricionista los cambio. Cuando faltan, la
+    /// pantalla compone los suyos a partir de los items (acta M47).
+    String? title,
+    String? description,
+
+    /// `null` solo si el servidor no lo informo: se cae a la inferencia de M47.
+    RecommendationSourceOption? source,
     DateTime? reviewedAt,
     DateTime? deliveredAt,
     DateTime? expiresAt,
@@ -245,7 +275,16 @@ abstract class RecommendationDetail with _$RecommendationDetail {
   const RecommendationDetail._();
 
   /// Creada a mano por el nutricionista (HU0029), sin motor de por medio.
-  bool get isManual => explanationSource == ExplanationOrigin.manual;
+  ///
+  /// Manda [source]. Una modificada trae titulo y descripcion propios pero
+  /// sigue siendo del motor, y no deja de serlo por eso (acta M49). Sin
+  /// [source] se usa `explanationSource`, que el backend fija en `Manual`
+  /// solo al crear una indicacion a mano.
+  bool get isManual => switch (source) {
+        RecommendationSourceOption.manual => true,
+        RecommendationSourceOption.engineGenerated => false,
+        null => explanationSource == ExplanationOrigin.manual,
+      };
 
   /// Pildora de origen (decision 10): la observada antes de la entrega si se
   /// conoce, o la inferida del contrato. Ver [RecommendationOrigin.resolve].
@@ -253,9 +292,22 @@ abstract class RecommendationDetail with _$RecommendationDetail {
       knownOrigin ??
       RecommendationOrigin.resolve(
         status: status,
+        source: source,
         explanationSource: explanationSource,
         itemsCount: items.length,
       );
+
+  /// Titulo del servidor, sin espacios sobrantes, o `null` si no hay.
+  String? get titleText {
+    final text = title?.trim();
+    return text == null || text.isEmpty ? null : text;
+  }
+
+  /// Descripcion del servidor, sin espacios sobrantes, o `null` si no hay.
+  String? get descriptionText {
+    final text = description?.trim();
+    return text == null || text.isEmpty ? null : text;
+  }
 
   /// Nivel de confianza, o `null` si no corresponde mostrarlo.
   ///

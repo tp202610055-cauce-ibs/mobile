@@ -9,6 +9,7 @@ import '../../../core/utils/validators.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../application/password_reset_notifier.dart';
+import 'widgets/password_requirements.dart';
 
 /// US07 CA02. Restablecimiento con el token del deep link.
 class PasswordResetScreen extends ConsumerStatefulWidget {
@@ -117,13 +118,13 @@ class _PasswordResetScreenState extends ConsumerState<PasswordResetScreen> {
               key: const Key('reset_password'),
               controller: _passwordController,
               label: l10n.passwordResetNewPasswordLabel,
-              hint: l10n.registerPasswordHint,
               errorText: fieldErrors['newPassword']?.first,
               textInputAction: TextInputAction.next,
               enabled: !state.isSubmitting,
               validator: (value) => Validators.newPassword(value, l10n),
               onChanged: clearError,
             ),
+            PasswordRequirements(controller: _passwordController),
             const SizedBox(height: CauceSpacing.space4),
             CauceTextField.password(
               key: const Key('reset_password_confirmation'),

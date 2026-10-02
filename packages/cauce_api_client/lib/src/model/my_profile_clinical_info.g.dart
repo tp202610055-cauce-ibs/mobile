@@ -13,12 +13,15 @@ class _$MyProfileClinicalInfo extends MyProfileClinicalInfo {
   final Date? diagnosisDate;
   @override
   final int? age;
+  @override
+  final BuiltList<PatientAllergySummary>? allergies;
 
   factory _$MyProfileClinicalInfo(
           [void Function(MyProfileClinicalInfoBuilder)? updates]) =>
       (MyProfileClinicalInfoBuilder()..update(updates))._build();
 
-  _$MyProfileClinicalInfo._({this.ibsSubtype, this.diagnosisDate, this.age})
+  _$MyProfileClinicalInfo._(
+      {this.ibsSubtype, this.diagnosisDate, this.age, this.allergies})
       : super._();
   @override
   MyProfileClinicalInfo rebuild(
@@ -35,7 +38,8 @@ class _$MyProfileClinicalInfo extends MyProfileClinicalInfo {
     return other is MyProfileClinicalInfo &&
         ibsSubtype == other.ibsSubtype &&
         diagnosisDate == other.diagnosisDate &&
-        age == other.age;
+        age == other.age &&
+        allergies == other.allergies;
   }
 
   @override
@@ -44,6 +48,7 @@ class _$MyProfileClinicalInfo extends MyProfileClinicalInfo {
     _$hash = $jc(_$hash, ibsSubtype.hashCode);
     _$hash = $jc(_$hash, diagnosisDate.hashCode);
     _$hash = $jc(_$hash, age.hashCode);
+    _$hash = $jc(_$hash, allergies.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,7 +58,8 @@ class _$MyProfileClinicalInfo extends MyProfileClinicalInfo {
     return (newBuiltValueToStringHelper(r'MyProfileClinicalInfo')
           ..add('ibsSubtype', ibsSubtype)
           ..add('diagnosisDate', diagnosisDate)
-          ..add('age', age))
+          ..add('age', age)
+          ..add('allergies', allergies))
         .toString();
   }
 }
@@ -75,6 +81,12 @@ class MyProfileClinicalInfoBuilder
   int? get age => _$this._age;
   set age(int? age) => _$this._age = age;
 
+  ListBuilder<PatientAllergySummary>? _allergies;
+  ListBuilder<PatientAllergySummary> get allergies =>
+      _$this._allergies ??= ListBuilder<PatientAllergySummary>();
+  set allergies(ListBuilder<PatientAllergySummary>? allergies) =>
+      _$this._allergies = allergies;
+
   MyProfileClinicalInfoBuilder() {
     MyProfileClinicalInfo._defaults(this);
   }
@@ -85,6 +97,7 @@ class MyProfileClinicalInfoBuilder
       _ibsSubtype = $v.ibsSubtype;
       _diagnosisDate = $v.diagnosisDate;
       _age = $v.age;
+      _allergies = $v.allergies?.toBuilder();
       _$v = null;
     }
     return this;
@@ -104,12 +117,26 @@ class MyProfileClinicalInfoBuilder
   MyProfileClinicalInfo build() => _build();
 
   _$MyProfileClinicalInfo _build() {
-    final _$result = _$v ??
-        _$MyProfileClinicalInfo._(
-          ibsSubtype: ibsSubtype,
-          diagnosisDate: diagnosisDate,
-          age: age,
-        );
+    _$MyProfileClinicalInfo _$result;
+    try {
+      _$result = _$v ??
+          _$MyProfileClinicalInfo._(
+            ibsSubtype: ibsSubtype,
+            diagnosisDate: diagnosisDate,
+            age: age,
+            allergies: _allergies?.build(),
+          );
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'allergies';
+        _allergies?.build();
+      } catch (e) {
+        throw BuiltValueNestedFieldError(
+            r'MyProfileClinicalInfo', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

@@ -6,6 +6,8 @@
 import 'package:cauce_api_client/src/model/patient_allergy_summary.dart';
 import 'package:cauce_api_client/src/model/ibs_subtype.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:cauce_api_client/src/model/biological_sex.dart';
+import 'package:cauce_api_client/src/model/date.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -22,6 +24,9 @@ part 'get_assigned_patient_detail_result.g.dart';
 /// * [ibsSubtype] 
 /// * [onboardingCompleted] 
 /// * [allergies] 
+/// * [biologicalSex] 
+/// * [diagnosisDate] 
+/// * [medications] 
 @BuiltValue()
 abstract class GetAssignedPatientDetailResult implements Built<GetAssignedPatientDetailResult, GetAssignedPatientDetailResultBuilder> {
   @BuiltValueField(wireName: r'patientUserId')
@@ -48,6 +53,16 @@ abstract class GetAssignedPatientDetailResult implements Built<GetAssignedPatien
 
   @BuiltValueField(wireName: r'allergies')
   BuiltList<PatientAllergySummary>? get allergies;
+
+  @BuiltValueField(wireName: r'biologicalSex')
+  BiologicalSex? get biologicalSex;
+  // enum biologicalSexEnum {  Male,  Female,  Other,  };
+
+  @BuiltValueField(wireName: r'diagnosisDate')
+  Date? get diagnosisDate;
+
+  @BuiltValueField(wireName: r'medications')
+  String? get medications;
 
   GetAssignedPatientDetailResult._();
 
@@ -90,14 +105,14 @@ class _$GetAssignedPatientDetailResultSerializer implements PrimitiveSerializer<
       yield r'age';
       yield serializers.serialize(
         object.age,
-        specifiedType: const FullType(int),
+        specifiedType: const FullType.nullable(int),
       );
     }
     if (object.bmi != null) {
       yield r'bmi';
       yield serializers.serialize(
         object.bmi,
-        specifiedType: const FullType(double),
+        specifiedType: const FullType.nullable(double),
       );
     }
     if (object.bmiCategory != null) {
@@ -126,6 +141,27 @@ class _$GetAssignedPatientDetailResultSerializer implements PrimitiveSerializer<
       yield serializers.serialize(
         object.allergies,
         specifiedType: const FullType.nullable(BuiltList, [FullType(PatientAllergySummary)]),
+      );
+    }
+    if (object.biologicalSex != null) {
+      yield r'biologicalSex';
+      yield serializers.serialize(
+        object.biologicalSex,
+        specifiedType: const FullType(BiologicalSex),
+      );
+    }
+    if (object.diagnosisDate != null) {
+      yield r'diagnosisDate';
+      yield serializers.serialize(
+        object.diagnosisDate,
+        specifiedType: const FullType.nullable(Date),
+      );
+    }
+    if (object.medications != null) {
+      yield r'medications';
+      yield serializers.serialize(
+        object.medications,
+        specifiedType: const FullType.nullable(String),
       );
     }
   }
@@ -169,15 +205,17 @@ class _$GetAssignedPatientDetailResultSerializer implements PrimitiveSerializer<
         case r'age':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
+            specifiedType: const FullType.nullable(int),
+          ) as int?;
+          if (valueDes == null) continue;
           result.age = valueDes;
           break;
         case r'bmi':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(double),
-          ) as double;
+            specifiedType: const FullType.nullable(double),
+          ) as double?;
+          if (valueDes == null) continue;
           result.bmi = valueDes;
           break;
         case r'bmiCategory':
@@ -209,6 +247,29 @@ class _$GetAssignedPatientDetailResultSerializer implements PrimitiveSerializer<
           ) as BuiltList<PatientAllergySummary>?;
           if (valueDes == null) continue;
           result.allergies.replace(valueDes);
+          break;
+        case r'biologicalSex':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BiologicalSex),
+          ) as BiologicalSex;
+          result.biologicalSex = valueDes;
+          break;
+        case r'diagnosisDate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(Date),
+          ) as Date?;
+          if (valueDes == null) continue;
+          result.diagnosisDate = valueDes;
+          break;
+        case r'medications':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.medications = valueDes;
           break;
         default:
           unhandled.add(key);

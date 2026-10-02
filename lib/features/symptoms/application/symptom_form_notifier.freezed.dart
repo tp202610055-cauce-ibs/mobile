@@ -25,6 +25,13 @@ mixin _$SymptomFormState {
   CreatedSymptom? get result => throw _privateConstructorUsedError;
   CauceApiError? get error => throw _privateConstructorUsedError;
 
+  /// `client_guid` de este sintoma, fijado en el primer envio y repetido en
+  /// cada reintento (acta M50). Ver `MealFormState.clientGuid`.
+  String? get clientGuid => throw _privateConstructorUsedError;
+
+  /// Momento del registro, fijado junto con [clientGuid].
+  DateTime? get clientCreatedAt => throw _privateConstructorUsedError;
+
   /// Create a copy of SymptomFormState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -43,7 +50,9 @@ abstract class $SymptomFormStateCopyWith<$Res> {
       bool submitting,
       SymptomSubmitOutcome? outcome,
       CreatedSymptom? result,
-      CauceApiError? error});
+      CauceApiError? error,
+      String? clientGuid,
+      DateTime? clientCreatedAt});
 
   $SymptomDraftCopyWith<$Res> get draft;
   $CreatedSymptomCopyWith<$Res>? get result;
@@ -70,6 +79,8 @@ class _$SymptomFormStateCopyWithImpl<$Res, $Val extends SymptomFormState>
     Object? outcome = freezed,
     Object? result = freezed,
     Object? error = freezed,
+    Object? clientGuid = freezed,
+    Object? clientCreatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       draft: null == draft
@@ -92,6 +103,14 @@ class _$SymptomFormStateCopyWithImpl<$Res, $Val extends SymptomFormState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as CauceApiError?,
+      clientGuid: freezed == clientGuid
+          ? _value.clientGuid
+          : clientGuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientCreatedAt: freezed == clientCreatedAt
+          ? _value.clientCreatedAt
+          : clientCreatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 
@@ -147,7 +166,9 @@ abstract class _$$SymptomFormStateImplCopyWith<$Res>
       bool submitting,
       SymptomSubmitOutcome? outcome,
       CreatedSymptom? result,
-      CauceApiError? error});
+      CauceApiError? error,
+      String? clientGuid,
+      DateTime? clientCreatedAt});
 
   @override
   $SymptomDraftCopyWith<$Res> get draft;
@@ -175,6 +196,8 @@ class __$$SymptomFormStateImplCopyWithImpl<$Res>
     Object? outcome = freezed,
     Object? result = freezed,
     Object? error = freezed,
+    Object? clientGuid = freezed,
+    Object? clientCreatedAt = freezed,
   }) {
     return _then(_$SymptomFormStateImpl(
       draft: null == draft
@@ -197,6 +220,14 @@ class __$$SymptomFormStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as CauceApiError?,
+      clientGuid: freezed == clientGuid
+          ? _value.clientGuid
+          : clientGuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientCreatedAt: freezed == clientCreatedAt
+          ? _value.clientCreatedAt
+          : clientCreatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -209,7 +240,9 @@ class _$SymptomFormStateImpl extends _SymptomFormState {
       this.submitting = false,
       this.outcome,
       this.result,
-      this.error})
+      this.error,
+      this.clientGuid,
+      this.clientCreatedAt})
       : super._();
 
   @override
@@ -228,9 +261,18 @@ class _$SymptomFormStateImpl extends _SymptomFormState {
   @override
   final CauceApiError? error;
 
+  /// `client_guid` de este sintoma, fijado en el primer envio y repetido en
+  /// cada reintento (acta M50). Ver `MealFormState.clientGuid`.
+  @override
+  final String? clientGuid;
+
+  /// Momento del registro, fijado junto con [clientGuid].
+  @override
+  final DateTime? clientCreatedAt;
+
   @override
   String toString() {
-    return 'SymptomFormState(draft: $draft, submitting: $submitting, outcome: $outcome, result: $result, error: $error)';
+    return 'SymptomFormState(draft: $draft, submitting: $submitting, outcome: $outcome, result: $result, error: $error, clientGuid: $clientGuid, clientCreatedAt: $clientCreatedAt)';
   }
 
   @override
@@ -243,12 +285,16 @@ class _$SymptomFormStateImpl extends _SymptomFormState {
                 other.submitting == submitting) &&
             (identical(other.outcome, outcome) || other.outcome == outcome) &&
             (identical(other.result, result) || other.result == result) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.clientGuid, clientGuid) ||
+                other.clientGuid == clientGuid) &&
+            (identical(other.clientCreatedAt, clientCreatedAt) ||
+                other.clientCreatedAt == clientCreatedAt));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, draft, submitting, outcome, result, error);
+  int get hashCode => Object.hash(runtimeType, draft, submitting, outcome,
+      result, error, clientGuid, clientCreatedAt);
 
   /// Create a copy of SymptomFormState
   /// with the given fields replaced by the non-null parameter values.
@@ -266,7 +312,9 @@ abstract class _SymptomFormState extends SymptomFormState {
       final bool submitting,
       final SymptomSubmitOutcome? outcome,
       final CreatedSymptom? result,
-      final CauceApiError? error}) = _$SymptomFormStateImpl;
+      final CauceApiError? error,
+      final String? clientGuid,
+      final DateTime? clientCreatedAt}) = _$SymptomFormStateImpl;
   const _SymptomFormState._() : super._();
 
   @override
@@ -282,6 +330,15 @@ abstract class _SymptomFormState extends SymptomFormState {
   CreatedSymptom? get result;
   @override
   CauceApiError? get error;
+
+  /// `client_guid` de este sintoma, fijado en el primer envio y repetido en
+  /// cada reintento (acta M50). Ver `MealFormState.clientGuid`.
+  @override
+  String? get clientGuid;
+
+  /// Momento del registro, fijado junto con [clientGuid].
+  @override
+  DateTime? get clientCreatedAt;
 
   /// Create a copy of SymptomFormState
   /// with the given fields replaced by the non-null parameter values.

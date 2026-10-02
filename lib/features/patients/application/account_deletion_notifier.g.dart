@@ -7,13 +7,14 @@ part of 'account_deletion_notifier.dart';
 // **************************************************************************
 
 String _$accountDeletionNotifierHash() =>
-    r'8114ee94c84dbb90d9ce0133697ffb69bf2f2466';
+    r'f860080e6744adb6e29eaab918fd7ee28ce23cea';
 
 /// Gobierna la baja de cuenta, una vez que el paciente ya confirmo.
 ///
-/// **No decide si hace falta la segunda confirmacion.** Esa es la pantalla,
-/// que es quien la muestra y quien sabe si el paciente la otorgo. Aca llega el
-/// resultado de esa decision, ya tomada.
+/// **No muestra la segunda confirmacion.** Informa si hace falta
+/// ([requiresPilotAcknowledgement]), y la pantalla es quien la muestra y quien
+/// sabe si el paciente la otorgo. Aca llega el resultado de esa decision, ya
+/// tomada.
 ///
 /// Copied from [AccountDeletionNotifier].
 @ProviderFor(AccountDeletionNotifier)

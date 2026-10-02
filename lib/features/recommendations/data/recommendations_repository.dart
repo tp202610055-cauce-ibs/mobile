@@ -102,6 +102,11 @@ class RecommendationsRepository {
         nutritionistNote: dto.nutritionistNote,
         explanation: dto.aiExplanation,
         explanationSource: ExplanationOrigin.fromApi(dto.explanationSource),
+        title: _nonBlank(dto.title),
+        description: _nonBlank(dto.description),
+        // `source_` y no `source`: el generador dart-dio le agrega el guion
+        // bajo al nombre, que el template reserva. En el cable es `source`.
+        source: RecommendationSourceOption.fromApi(dto.source_),
         reviewedAt: dto.reviewedAt,
         deliveredAt: dto.deliveredAt,
         expiresAt: dto.expiresAt,

@@ -16,7 +16,7 @@ part 'create_manual_recommendation_request.g.dart';
 /// * [title] - Título de la recomendación.
 /// * [description] - Descripción de la recomendación.
 /// * [steps] - Pasos accionables, opcional.
-/// * [clinicalNote] - Nota clínica del nutricionista.
+/// * [clinicalNote] - Nota clínica del nutricionista (entre 10 y 2000 caracteres, US29).
 /// * [validUntil] - Fecha de vigencia, o null si no caduca.
 @BuiltValue()
 abstract class CreateManualRecommendationRequest implements Built<CreateManualRecommendationRequest, CreateManualRecommendationRequestBuilder> {
@@ -36,7 +36,7 @@ abstract class CreateManualRecommendationRequest implements Built<CreateManualRe
   @BuiltValueField(wireName: r'steps')
   BuiltList<String>? get steps;
 
-  /// Nota clínica del nutricionista.
+  /// Nota clínica del nutricionista (entre 10 y 2000 caracteres, US29).
   @BuiltValueField(wireName: r'clinicalNote')
   String? get clinicalNote;
 

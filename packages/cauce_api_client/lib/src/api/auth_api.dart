@@ -27,7 +27,7 @@ class AuthApi {
 
   const AuthApi(this._dio, this._serializers);
 
-  /// Inicia sesión haciendo passthrough a Keycloak y devuelve los tokens emitidos. Ante  credenciales inválidas responde 401 con un mensaje genérico (no revela si la cuenta existe).
+  /// Inicia sesión haciendo passthrough a Keycloak y devuelve los tokens emitidos. Ante  credenciales inválidas responde 401 con un mensaje genérico (no revela si la cuenta existe).  Es la ruta del móvil: solo admite el cliente &#x60;cauce-mobile&#x60;, y cualquier otro responde 400  &#x60;unsupported_client&#x60;. El portal usa &#x60;/auth/portal/login&#x60; (acta A68).
   /// 
   ///
   /// Parameters:
@@ -128,7 +128,7 @@ class AuthApi {
     );
   }
 
-  /// Cierra sesión revocando el refresh token en Keycloak.
+  /// Cierra sesión revocando el refresh token en Keycloak. Solo admite el cliente &#x60;cauce-mobile&#x60;  (acta A68).
   /// 
   ///
   /// Parameters:
@@ -347,7 +347,7 @@ class AuthApi {
     return _response;
   }
 
-  /// Renueva la sesión a partir de un refresh token vigente. Devuelve un juego de tokens nuevo,  incluida la identidad del usuario. El realm rota los refresh tokens: el enviado aquí queda  revocado y el cliente debe persistir el que recibe.
+  /// Renueva la sesión a partir de un refresh token vigente. Devuelve un juego de tokens nuevo,  incluida la identidad del usuario. El realm rota los refresh tokens: el enviado aquí queda  revocado y el cliente debe persistir el que recibe. Solo admite el cliente &#x60;cauce-mobile&#x60;  (acta A68).
   /// 
   ///
   /// Parameters:

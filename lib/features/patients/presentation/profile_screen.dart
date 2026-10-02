@@ -12,6 +12,7 @@ import '../../auth/application/session_notifier.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
 import '../../onboarding/presentation/widgets/onboarding_labels.dart';
 import '../data/patients_repository.dart';
+import '../domain/allergy.dart';
 import '../domain/patient_summary.dart';
 
 /// Diametro del avatar del hero, que el mockup fija en 72 px.
@@ -23,11 +24,9 @@ const double _avatarSize = 72;
 /// `GET /patients/me/summary`, que resuelve en una sola consulta lo que antes
 /// habria exigido cuatro.
 ///
-/// **Dos datos del mockup no se dibujan todavia y no es un olvido.** El codigo
-/// de paciente (`PAC-0042`, acta A59) no viaja en ninguna respuesta de la API,
-/// y las alergias no estan en `MyProfileClinicalInfo`. Los dos quedan
-/// reportados y esperando al backend; completarlos desde otra llamada habria
-/// sido resolver por cuenta propia un hueco de contrato.
+/// El codigo de paciente (acta A59 del backend) y las alergias declaradas
+/// llegan en el mismo resumen desde el contrato v1.4.0 (CP070). Antes no
+/// viajaban en ninguna respuesta y la pantalla los omitia.
 ///
 /// **El cierre de sesion se queda aca**, aunque el mockup lo dibuje en P12-B:
 /// CP020 paso 3 describe el recorrido como "acceder a la seccion Perfil y
@@ -156,11 +155,13 @@ class _Summary extends StatelessWidget {
   }
 }
 
-/// Identidad: avatar con iniciales y nombre completo.
+/// Identidad: avatar con iniciales, nombre completo y codigo de paciente.
 ///
 /// Sin foto: el contrato no expone ninguna, asi que la variante "con foto" del
 /// mockup no tiene de donde salir todavia. Las iniciales no son un placeholder
 /// generico, son la variante por defecto que el propio mockup declara.
+///
+/// El codigo se omite si no llega: una cuenta fuera del piloto no tiene.
 class _Hero extends StatelessWidget {
   const _Hero({required this.summary});
 
@@ -169,6 +170,7 @@ class _Hero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final code = summary.patientCode;
 
     return Container(
       key: const Key('profile_hero'),
@@ -213,6 +215,20 @@ class _Hero extends StatelessWidget {
             style: textTheme.titleMedium,
             textAlign: TextAlign.center,
           ),
+          if (code != null) ...<Widget>[
+            const SizedBox(height: CauceSpacing.space1),
+            // `.patient-code` del mockup 12: mono 12 px, tono terciario.
+            Text(
+              code,
+              key: const Key('profile_patient_code'),
+              style: CauceTypography.mono.copyWith(
+                fontSize: 12,
+                letterSpacing: 0.3,
+                color: CauceColors.textTertiary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ],
       ),
     );
@@ -263,10 +279,7 @@ class _TrackingCard extends StatelessWidget {
   }
 }
 
-/// "Mi perfil clinico": por ahora, solo el subtipo.
-///
-/// El mockup suma las alergias declaradas, que `MyProfileClinicalInfo` no
-/// trae. Quedan pendientes del backend.
+/// "Mi perfil clinico": subtipo y alergias declaradas.
 class _ClinicalCard extends StatelessWidget {
   const _ClinicalCard({required this.summary});
 
@@ -291,9 +304,98 @@ class _ClinicalCard extends StatelessWidget {
               ? null
               : OnboardingLabels.ibsSubtypeDescription(l10n, subtype),
         ),
+        _AllergiesRow(allergies: summary.allergies),
       ],
     );
   }
+}
+
+/// Fila de alergias declaradas, con las tres variantes del mockup 12.
+///
+/// - Ninguna: "Ninguna" en tono terciario. Es un estado normal, no un hueco.
+/// - Una: texto plano con tipo y severidad entre parentesis.
+/// - Dos o mas: etiqueta arriba y un chip por alergia debajo.
+class _AllergiesRow extends StatelessWidget {
+  const _AllergiesRow({required this.allergies});
+
+  final List<AllergyDeclaration> allergies;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    if (allergies.length < 2) {
+      return _InfoRow(
+        key: const Key('profile_allergies'),
+        label: l10n.profileClinicalAllergies,
+        value: allergies.isEmpty
+            ? l10n.profileClinicalAllergiesNone
+            : allergyLabel(l10n, allergies.single),
+        muted: allergies.isEmpty,
+      );
+    }
+
+    return Padding(
+      key: const Key('profile_allergies'),
+      padding: const EdgeInsets.only(bottom: CauceSpacing.space3),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Text(
+            l10n.profileClinicalAllergies,
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+          const SizedBox(height: CauceSpacing.space2),
+          Wrap(
+            spacing: CauceSpacing.space2,
+            runSpacing: CauceSpacing.space2,
+            children: <Widget>[
+              for (final allergy in allergies)
+                CauceBadge(
+                  key: Key('profile_allergy_${allergy.patientAllergyId}'),
+                  label: allergyLabel(l10n, allergy),
+                  icon: TablerIcons.alert_circle,
+                  tone: CauceBadgeTone.neutral,
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Texto de una alergia declarada: "Lactosa (intolerancia leve)".
+///
+/// Lo que falte se omite en vez de inventarse. Sin nombre, el tipo toma su
+/// lugar: una declaracion corrupta sigue diciendo que hay una alergia, y
+/// descartarla podria terminar mostrando "Ninguna", que seria falso.
+@visibleForTesting
+String allergyLabel(AppLocalizations l10n, AllergyDeclaration allergy) {
+  final type = allergy.type;
+  final severity = allergy.severity;
+  final typeLabel =
+      type == null ? null : OnboardingLabels.allergyType(l10n, type);
+  final severityLabel = severity == null
+      ? null
+      : OnboardingLabels.allergySeverity(l10n, severity);
+
+  final name = allergy.allergyName.trim();
+  if (name.isEmpty) {
+    final base = typeLabel ?? l10n.allergyTypeAllergy;
+    return severityLabel == null
+        ? base
+        : l10n.profileAllergyDetail(base, severityLabel.toLowerCase());
+  }
+
+  final qualifier = switch ((typeLabel, severityLabel)) {
+    (final String t, final String s) =>
+      l10n.profileAllergyQualifier(t.toLowerCase(), s.toLowerCase()),
+    (final String t, null) => t.toLowerCase(),
+    (null, final String s) => s.toLowerCase(),
+    (null, null) => null,
+  };
+  return qualifier == null ? name : l10n.profileAllergyDetail(name, qualifier);
 }
 
 /// "Mi evolucion IBS-SSS": los tres numeros y la pildora de logro.

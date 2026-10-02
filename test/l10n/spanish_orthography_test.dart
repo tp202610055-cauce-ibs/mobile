@@ -114,6 +114,62 @@ const List<String> _alwaysAccented = <String>[
   'ningun',
   'algun',
   'tamano',
+  // Las dos que encontro el recorrido en el celular del bloque de cierre
+  // (acta M49), en la pantalla de la nota clinica. `vera` existe como
+  // sustantivo ("a la vera del camino"), pero no en el vocabulario de esta
+  // app: aca siempre es el futuro de "ver".
+  'comi',
+  'vera',
+  // Las que salieron al verificar los arreglos en el celular, con el servidor
+  // caido y en el registro: los mensajes de error y la validacion de la
+  // contrasena.
+  'ocurrio',
+  'registrate',
+  'mayuscula',
+  'minuscula',
+  'digito',
+  'aceptalo',
+];
+
+/// Formas del voseo. La app le habla al paciente de tu (es_PE).
+///
+/// Solo formas agudas propias del voseo, que no existen en el tuteo: `proba`
+/// o `toca` sin tilde son otra cosa y no se listan. `Probá` se colo en
+/// Evolucion y lo encontro el recorrido en el celular (acta M49).
+const List<String> _voseo = <String>[
+  'probá',
+  'tocá',
+  'elegí',
+  'revisá',
+  'mirá',
+  'hacé',
+  'poné',
+  'escribí',
+  'registrá',
+  'volvé',
+  'contá',
+  'usá',
+  'abrí',
+  'buscá',
+  'seguí',
+  'esperá',
+  'pedí',
+  'guardá',
+  'respondé',
+  'completá',
+  'ingresá',
+  'intentá',
+  'descargá',
+  'generá',
+  'compartí',
+  'consultá',
+  'confirmá',
+  'tenés',
+  'podés',
+  'querés',
+  'sabés',
+  'sos',
+  'vos',
 ];
 
 void main() {
@@ -167,6 +223,30 @@ void main() {
       fallas,
       isEmpty,
       reason: 'Estas cadenas van sin tilde o sin enie:\n${fallas.join('\n')}',
+    );
+  });
+
+  test('el paciente se trata de tu, no de vos', () {
+    final fallas = <String>[];
+
+    for (final entry in textos.entries) {
+      final palabras = entry.value
+          .replaceAll(RegExp(r'\{[a-zA-Z][a-zA-Z0-9_]*\}'), ' ')
+          .toLowerCase()
+          .split(RegExp(r'[^0-9a-záéíóúüñ]+'))
+          .where((word) => word.isNotEmpty);
+
+      for (final palabra in palabras) {
+        if (_voseo.contains(palabra)) {
+          fallas.add('${entry.key}: "${entry.value}" usa "$palabra"');
+        }
+      }
+    }
+
+    expect(
+      fallas,
+      isEmpty,
+      reason: 'Estas cadenas usan voseo:\n${fallas.join('\n')}',
     );
   });
 

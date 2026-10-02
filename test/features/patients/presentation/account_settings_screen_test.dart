@@ -63,8 +63,14 @@ Future<({_FakeLauncher launcher, FakePatientsRepository repository})> _pump(
   FakePatientsRepository? repository,
   _FakeLauncher? launcher,
   bool inPilot = false,
+  bool? storedInPilot,
 }) async {
   final h = _harness(repository: repository, launcher: launcher);
+  final storage = FakeTokenStorage(
+    accessToken: 'access-1',
+    refreshToken: 'refresh-1',
+    userSnapshot: _user(inPilot: inPilot),
+  );
 
   final container = ProviderContainer(
     overrides: <Override>[
@@ -72,21 +78,20 @@ Future<({_FakeLauncher launcher, FakePatientsRepository repository})> _pump(
       dataExportLauncherProvider.overrideWithValue(h.launcher),
       appPackageInfoProvider.overrideWith((ref) async => _packageInfo),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
-      tokenStorageProvider.overrideWithValue(
-        FakeTokenStorage(
-          accessToken: 'access-1',
-          refreshToken: 'refresh-1',
-          userSnapshot: _user(inPilot: inPilot),
-        ),
-      ),
+      tokenStorageProvider.overrideWithValue(storage),
     ],
   );
   addTearDown(container.dispose);
 
-  // La pantalla lee `isInActivePilot` del snapshot de sesion, y el notifier
-  // arranca en `unknown` hasta que alguien resuelve el almacenamiento. En la
-  // app lo hace el splash; aca se hace a mano.
+  // El notifier de sesion arranca en `unknown` hasta que alguien resuelve el
+  // almacenamiento. En la app lo hace el splash; aca se hace a mano.
   await container.read(sessionNotifierProvider.notifier).bootstrap();
+
+  // [storedInPilot] simula un refresh posterior al login: reescribe el
+  // snapshot guardado y deja el de memoria como estaba (acta M49).
+  if (storedInPilot != null) {
+    storage.userSnapshot = _user(inPilot: storedInPilot);
+  }
 
   await tester.pumpWidget(
     UncontrolledProviderScope(
@@ -402,6 +407,98 @@ void main() {
 
       expect(find.byKey(const Key('settings_error')), findsOneWidget);
       expect(find.text(l10n.settingsDeleteDone), findsNothing);
+      // Solo el 409 del piloto reabre el aviso; un fallo de red, no.
+      expect(find.text(l10n.settingsDeletePilotTitle), findsNothing);
+      expect(repository.deleteAttempts, <bool>[false]);
+    });
+  });
+
+  group('AccountSettingsScreen · piloto con snapshot viejo (CP067, M49)', () {
+    Future<void> confirmFirst(WidgetTester tester) async {
+      await _tapRow(tester, 'settings_delete');
+      await tester.tap(find.text(l10n.settingsDeleteConfirmAction));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('lee el snapshot guardado, no el de memoria', (tester) async {
+      // Login fuera del piloto; un refresh posterior guardo que ahora si.
+      final h = await _pump(tester, storedInPilot: true);
+
+      await confirmFirst(tester);
+
+      expect(find.text(l10n.settingsDeletePilotTitle), findsOneWidget);
+      await tester.tap(find.text(l10n.settingsDeletePilotAction));
+      await tester.pumpAndSettle();
+
+      expect(h.repository.deleteAttempts, <bool>[true]);
+      expect(h.repository.deleteAcknowledgements, <bool>[true]);
+    });
+
+    testWidgets('el guardado manda tambien cuando dice que ya no hay piloto',
+        (tester) async {
+      final h = await _pump(tester, inPilot: true, storedInPilot: false);
+
+      await confirmFirst(tester);
+
+      expect(find.text(l10n.settingsDeletePilotTitle), findsNothing);
+      expect(h.repository.deleteAttempts, <bool>[false]);
+    });
+
+    testWidgets('el 409 reabre el aviso y reintenta con el acuse',
+        (tester) async {
+      // El servidor sabe del piloto y el dispositivo todavia no.
+      final repository = FakePatientsRepository()..serverInActivePilot = true;
+      await _pump(tester, repository: repository);
+
+      await confirmFirst(tester);
+
+      expect(find.text(l10n.settingsDeletePilotTitle), findsOneWidget);
+      await tester.tap(find.text(l10n.settingsDeletePilotAction));
+      await tester.pumpAndSettle();
+
+      expect(repository.deleteAttempts, <bool>[false, true]);
+      expect(repository.deleteAcknowledgements, <bool>[true]);
+      expect(find.text(l10n.settingsDeleteDone), findsOneWidget);
+    });
+
+    testWidgets('cerrar el aviso reabierto deja la cuenta y explica por que',
+        (tester) async {
+      final repository = FakePatientsRepository()..serverInActivePilot = true;
+      await _pump(tester, repository: repository);
+
+      await confirmFirst(tester);
+      await tester.tap(find.text(l10n.commonCancel));
+      await tester.pumpAndSettle();
+
+      expect(repository.deleteAttempts, <bool>[false]);
+      expect(repository.deleteAcknowledgements, isEmpty);
+      final banner = find.byKey(const Key('settings_error'));
+      expect(banner, findsOneWidget);
+      expect(
+        find.descendant(
+          of: banner,
+          matching: find.text(l10n.errorActivePilotRetention),
+        ),
+        findsOneWidget,
+      );
+      expect(find.text(l10n.settingsDeleteDone), findsNothing);
+    });
+
+    testWidgets('con el acuse ya enviado, un 409 no vuelve a preguntar',
+        (tester) async {
+      // Reabrir el aviso despues de un acuse que ya viajo seria un bucle: se
+      // muestra el error y se detiene.
+      final repository = FakePatientsRepository()
+        ..deleteAccountError = const CauceApiError.activePilotRetention();
+      await _pump(tester, repository: repository, inPilot: true);
+
+      await confirmFirst(tester);
+      await tester.tap(find.text(l10n.settingsDeletePilotAction));
+      await tester.pumpAndSettle();
+
+      expect(repository.deleteAttempts, <bool>[true]);
+      expect(find.text(l10n.settingsDeletePilotTitle), findsNothing);
+      expect(find.byKey(const Key('settings_error')), findsOneWidget);
     });
   });
 

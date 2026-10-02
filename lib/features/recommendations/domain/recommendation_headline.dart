@@ -3,10 +3,13 @@ import 'recommendation.dart';
 /// Material con el que se arman el titulo, la descripcion y el icono de una
 /// recomendacion (decisiones 3 y 5).
 ///
-/// **El contrato no trae titulo ni descripcion**, ni siquiera en el detalle:
-/// el backend no implementa las plantillas clinicas que describe el mockup 11.
-/// Se componen aca a partir de los items, con el mismo criterio agregador que
-/// usa `FallbackExplanationProvider` del backend: contar por accion.
+/// **El titulo y la descripcion del servidor mandan cuando llegan** (contrato
+/// v1.6.0, acta M49). Los escribe el nutricionista: siempre en una manual, y
+/// en una modificada si decidio cambiarlos. Las del motor los traen en `null`,
+/// porque el backend no implementa las plantillas clinicas del mockup 11, y
+/// para ellas se componen aca a partir de los items, con el mismo criterio
+/// agregador que usa `FallbackExplanationProvider` del backend: contar por
+/// accion.
 ///
 /// Esta clase no arma texto. Devuelve los conteos y los nombres, y la pantalla
 /// los pasa por el sistema de localizacion (R8).
@@ -16,6 +19,8 @@ class RecommendationHeadline {
     required this.leadAction,
     required this.foodNames,
     required this.note,
+    required this.title,
+    required this.description,
   });
 
   factory RecommendationHeadline.of(RecommendationDetail detail) {
@@ -38,8 +43,16 @@ class RecommendationHeadline {
       leadAction: _dominant(tally),
       foodNames: names,
       note: detail.note,
+      title: detail.titleText,
+      description: detail.descriptionText,
     );
   }
+
+  /// Titulo que escribio el nutricionista, o `null` para componer uno.
+  final String? title;
+
+  /// Descripcion que escribio el nutricionista, o `null` para componer una.
+  final String? description;
 
   /// Cantidad de items por accion, en [RecommendationAction.displayOrder] y
   /// sin las acciones que no aparecen.
@@ -53,7 +66,7 @@ class RecommendationHeadline {
   final List<String> foodNames;
 
   /// Nota del nutricionista. Es la descripcion de una indicacion manual sin
-  /// items (decision 3).
+  /// items cuando el servidor no trae [description] (decision 3).
   final String? note;
 
   bool get hasItems => tally.isNotEmpty;

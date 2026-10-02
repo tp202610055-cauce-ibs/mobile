@@ -26,6 +26,17 @@ mixin _$MealFormState {
   FodmapLoad? get aggregatedFodmap => throw _privateConstructorUsedError;
   CauceApiError? get error => throw _privateConstructorUsedError;
 
+  /// `client_guid` de esta comida: se genera en el primer envio y se repite
+  /// en cada reintento (acta M50, que extiende M48). El notifier es
+  /// `autoDispose` y [MealFormNotifier.reset] lo vacia, asi que la clave dura
+  /// lo que dura una comida.
+  String? get clientGuid => throw _privateConstructorUsedError;
+
+  /// Momento del registro, fijado junto con [clientGuid]. Viaja en la carga,
+  /// y el backend compara la carga entera: un reintento con otro momento
+  /// recibiria 409 en vez de 200.
+  DateTime? get clientCreatedAt => throw _privateConstructorUsedError;
+
   /// Create a copy of MealFormState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -44,7 +55,9 @@ abstract class $MealFormStateCopyWith<$Res> {
       bool submitting,
       MealSubmitOutcome? outcome,
       FodmapLoad? aggregatedFodmap,
-      CauceApiError? error});
+      CauceApiError? error,
+      String? clientGuid,
+      DateTime? clientCreatedAt});
 
   $MealDraftCopyWith<$Res> get draft;
   $CauceApiErrorCopyWith<$Res>? get error;
@@ -70,6 +83,8 @@ class _$MealFormStateCopyWithImpl<$Res, $Val extends MealFormState>
     Object? outcome = freezed,
     Object? aggregatedFodmap = freezed,
     Object? error = freezed,
+    Object? clientGuid = freezed,
+    Object? clientCreatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       draft: null == draft
@@ -92,6 +107,14 @@ class _$MealFormStateCopyWithImpl<$Res, $Val extends MealFormState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as CauceApiError?,
+      clientGuid: freezed == clientGuid
+          ? _value.clientGuid
+          : clientGuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientCreatedAt: freezed == clientCreatedAt
+          ? _value.clientCreatedAt
+          : clientCreatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 
@@ -133,7 +156,9 @@ abstract class _$$MealFormStateImplCopyWith<$Res>
       bool submitting,
       MealSubmitOutcome? outcome,
       FodmapLoad? aggregatedFodmap,
-      CauceApiError? error});
+      CauceApiError? error,
+      String? clientGuid,
+      DateTime? clientCreatedAt});
 
   @override
   $MealDraftCopyWith<$Res> get draft;
@@ -159,6 +184,8 @@ class __$$MealFormStateImplCopyWithImpl<$Res>
     Object? outcome = freezed,
     Object? aggregatedFodmap = freezed,
     Object? error = freezed,
+    Object? clientGuid = freezed,
+    Object? clientCreatedAt = freezed,
   }) {
     return _then(_$MealFormStateImpl(
       draft: null == draft
@@ -181,6 +208,14 @@ class __$$MealFormStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as CauceApiError?,
+      clientGuid: freezed == clientGuid
+          ? _value.clientGuid
+          : clientGuid // ignore: cast_nullable_to_non_nullable
+              as String?,
+      clientCreatedAt: freezed == clientCreatedAt
+          ? _value.clientCreatedAt
+          : clientCreatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -193,7 +228,9 @@ class _$MealFormStateImpl extends _MealFormState {
       this.submitting = false,
       this.outcome,
       this.aggregatedFodmap,
-      this.error})
+      this.error,
+      this.clientGuid,
+      this.clientCreatedAt})
       : super._();
 
   @override
@@ -213,9 +250,22 @@ class _$MealFormStateImpl extends _MealFormState {
   @override
   final CauceApiError? error;
 
+  /// `client_guid` de esta comida: se genera en el primer envio y se repite
+  /// en cada reintento (acta M50, que extiende M48). El notifier es
+  /// `autoDispose` y [MealFormNotifier.reset] lo vacia, asi que la clave dura
+  /// lo que dura una comida.
+  @override
+  final String? clientGuid;
+
+  /// Momento del registro, fijado junto con [clientGuid]. Viaja en la carga,
+  /// y el backend compara la carga entera: un reintento con otro momento
+  /// recibiria 409 en vez de 200.
+  @override
+  final DateTime? clientCreatedAt;
+
   @override
   String toString() {
-    return 'MealFormState(draft: $draft, submitting: $submitting, outcome: $outcome, aggregatedFodmap: $aggregatedFodmap, error: $error)';
+    return 'MealFormState(draft: $draft, submitting: $submitting, outcome: $outcome, aggregatedFodmap: $aggregatedFodmap, error: $error, clientGuid: $clientGuid, clientCreatedAt: $clientCreatedAt)';
   }
 
   @override
@@ -229,12 +279,16 @@ class _$MealFormStateImpl extends _MealFormState {
             (identical(other.outcome, outcome) || other.outcome == outcome) &&
             (identical(other.aggregatedFodmap, aggregatedFodmap) ||
                 other.aggregatedFodmap == aggregatedFodmap) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.clientGuid, clientGuid) ||
+                other.clientGuid == clientGuid) &&
+            (identical(other.clientCreatedAt, clientCreatedAt) ||
+                other.clientCreatedAt == clientCreatedAt));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, draft, submitting, outcome, aggregatedFodmap, error);
+  int get hashCode => Object.hash(runtimeType, draft, submitting, outcome,
+      aggregatedFodmap, error, clientGuid, clientCreatedAt);
 
   /// Create a copy of MealFormState
   /// with the given fields replaced by the non-null parameter values.
@@ -251,7 +305,9 @@ abstract class _MealFormState extends MealFormState {
       final bool submitting,
       final MealSubmitOutcome? outcome,
       final FodmapLoad? aggregatedFodmap,
-      final CauceApiError? error}) = _$MealFormStateImpl;
+      final CauceApiError? error,
+      final String? clientGuid,
+      final DateTime? clientCreatedAt}) = _$MealFormStateImpl;
   const _MealFormState._() : super._();
 
   @override
@@ -268,6 +324,19 @@ abstract class _MealFormState extends MealFormState {
   FodmapLoad? get aggregatedFodmap;
   @override
   CauceApiError? get error;
+
+  /// `client_guid` de esta comida: se genera en el primer envio y se repite
+  /// en cada reintento (acta M50, que extiende M48). El notifier es
+  /// `autoDispose` y [MealFormNotifier.reset] lo vacia, asi que la clave dura
+  /// lo que dura una comida.
+  @override
+  String? get clientGuid;
+
+  /// Momento del registro, fijado junto con [clientGuid]. Viaja en la carga,
+  /// y el backend compara la carga entera: un reintento con otro momento
+  /// recibiria 409 en vez de 200.
+  @override
+  DateTime? get clientCreatedAt;
 
   /// Create a copy of MealFormState
   /// with the given fields replaced by the non-null parameter values.

@@ -23,15 +23,28 @@ class MealsLocalStore {
 
   /// Guarda la comida como pendiente y devuelve su `client_guid`.
   ///
-  /// **El UUID v4 se genera aca, en el dispositivo, y una sola vez.** Es la
-  /// clave con la que el backend deduplica: un reintento tiene que repetirla
-  /// intacta, y reusarla con otra carga da 409 `idempotency_mismatch`.
+  /// **La clave la decide el formulario, una sola vez por comida** (acta M50,
+  /// que extiende M48). El backend deduplica por ella: un reintento tiene que
+  /// repetirla intacta, y reusarla con otra carga da 409
+  /// `idempotency_mismatch`. Antes se generaba aca en cada llamada, y cada
+  /// toque de "Registrar" tras un corte de red dejaba una comida nueva que el
+  /// servidor no podia reconocer como la misma. Sin [clientGuid] se genera
+  /// una.
+  ///
+  /// **Con una clave que ya existe, reemplaza la fila** en vez de insertar
+  /// otra: el paciente pudo corregir el formulario entre un intento y el
+  /// siguiente, y la cola tiene que subir lo ultimo que confirmo. Una fila que
+  /// ya llego al servidor no se toca.
   ///
   /// La comida y sus items se escriben en una transaccion. Sin eso, un corte a
   /// mitad dejaria una comida sin items, que el backend rechaza por la
   /// invariante de 1 a 50, y la fila quedaria trabada en la cola.
-  Future<String> enqueue(MealDraft draft, {DateTime? now}) async {
-    final clientGuid = _uuid.v4();
+  Future<String> enqueue(
+    MealDraft draft, {
+    String? clientGuid,
+    DateTime? now,
+  }) async {
+    final key = clientGuid ?? _uuid.v4();
     final createdAt = (now ?? DateTime.now()).toUtc();
     final mealTime = draft.mealTime;
 
@@ -43,9 +56,22 @@ class MealsLocalStore {
     }
 
     await _db.transaction(() async {
+      final existing = await (_db.select(_db.mealsLocal)
+            ..where((row) => row.clientGuid.equals(key)))
+          .getSingleOrNull();
+      if (existing != null) {
+        if (existing.syncStatus == LocalSyncStatus.completed) {
+          return;
+        }
+        // Los items se van con la comida por la clave foranea en cascada.
+        await (_db.delete(_db.mealsLocal)
+              ..where((row) => row.clientGuid.equals(key)))
+            .go();
+      }
+
       await _db.into(_db.mealsLocal).insert(
             MealsLocalCompanion.insert(
-              clientGuid: clientGuid,
+              clientGuid: key,
               mealTime: mealTime.wireValue,
               consumedAt: (draft.consumedAt ?? createdAt).toUtc(),
               clientCreatedAt: createdAt,
@@ -56,7 +82,7 @@ class MealsLocalStore {
       for (final item in draft.items) {
         await _db.into(_db.mealItemsLocal).insert(
               MealItemsLocalCompanion.insert(
-                mealClientGuid: clientGuid,
+                mealClientGuid: key,
                 quantity: item.quantity,
                 unit: item.unit.wireValue,
                 foodId: Value<String?>(item.foodId),
@@ -66,7 +92,7 @@ class MealsLocalStore {
       }
     });
 
-    return clientGuid;
+    return key;
   }
 
   /// Cierra una fila local que el servidor ya acepto en el momento.

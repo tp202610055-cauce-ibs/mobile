@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/auth/authenticated_user_snapshot.dart';
+import '../../../core/auth/session_expiry.dart';
 import '../../../core/auth/token_storage.dart';
 import '../../../core/auth/token_storage_provider.dart';
 import '../../../core/errors/cauce_api_error.dart';
@@ -16,7 +17,14 @@ part 'session_notifier.g.dart';
 @Riverpod(keepAlive: true)
 class SessionNotifier extends _$SessionNotifier {
   @override
-  SessionState build() => const SessionState.unknown();
+  SessionState build() {
+    // La red avisa cuando la renovacion fallo sin remedio y ya borro el
+    // almacenamiento (acta M49). Pasar a no autenticado es lo que hace que el
+    // router lleve al login en vez de dejar al paciente en una pantalla que
+    // ya no puede cargar nada.
+    ref.listen<int>(sessionExpiryProvider, (_, __) => expire());
+    return const SessionState.unknown();
+  }
 
   TokenStorage get _storage => ref.read(tokenStorageProvider);
 
@@ -105,9 +113,10 @@ class SessionNotifier extends _$SessionNotifier {
 
   /// Marca la sesion como expirada sin tocar el almacenamiento.
   ///
-  /// Lo invoca quien atrapa un `SessionExpiredException`. El
-  /// `RefreshInterceptor` ya limpio las tres keys antes de lanzarlo, de modo
-  /// que volver a borrar seria trabajo redundante sobre el Keystore.
+  /// Lo dispara [sessionExpiryProvider], que levanta el `RefreshInterceptor`
+  /// despues de limpiar las tres keys: volver a borrar seria trabajo
+  /// redundante sobre el Keystore. Sobre una sesion ya cerrada no cambia
+  /// nada, porque el estado es la misma constante.
   void expire() {
     state = const SessionState.unauthenticated();
   }

@@ -11,10 +11,14 @@ part 'my_profile_patient_info.g.dart';
 /// MyProfilePatientInfo
 ///
 /// Properties:
+/// * [patientCode] 
 /// * [fullName] 
 /// * [maskedEmail] 
 @BuiltValue()
 abstract class MyProfilePatientInfo implements Built<MyProfilePatientInfo, MyProfilePatientInfoBuilder> {
+  @BuiltValueField(wireName: r'patientCode')
+  String? get patientCode;
+
   @BuiltValueField(wireName: r'fullName')
   String? get fullName;
 
@@ -44,6 +48,13 @@ class _$MyProfilePatientInfoSerializer implements PrimitiveSerializer<MyProfileP
     MyProfilePatientInfo object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    if (object.patientCode != null) {
+      yield r'patientCode';
+      yield serializers.serialize(
+        object.patientCode,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.fullName != null) {
       yield r'fullName';
       yield serializers.serialize(
@@ -81,6 +92,14 @@ class _$MyProfilePatientInfoSerializer implements PrimitiveSerializer<MyProfileP
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'patientCode':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.patientCode = valueDes;
+          break;
         case r'fullName':
           final valueDes = serializers.deserialize(
             value,

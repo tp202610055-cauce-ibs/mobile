@@ -60,6 +60,7 @@ abstract final class ErrorMapper {
   static const String _patientHasNoDataInPeriod =
       'patient_has_no_data_in_period';
   static const String _reportPeriodInvalid = 'report_period_invalid';
+  static const String _activePilotRetention = 'active_pilot_retention';
   static const String _domainRuleViolation = 'domain_rule_violation';
   static const String _recommendationNotFound = 'recommendation_not_found';
   static const String _recommendationAccessDenied =
@@ -165,6 +166,7 @@ abstract final class ErrorMapper {
       _patientHasNoDataInPeriod =>
         const CauceApiError.patientHasNoDataInPeriod(),
       _reportPeriodInvalid => const CauceApiError.reportPeriodInvalid(),
+      _activePilotRetention => const CauceApiError.activePilotRetention(),
       _domainRuleViolation => CauceApiError.domainRuleViolation(
           detail: _string(body['detail']),
         ),

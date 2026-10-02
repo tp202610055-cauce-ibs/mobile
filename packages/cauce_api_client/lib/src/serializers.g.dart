@@ -90,11 +90,16 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(NutritionistAssignmentSummary.serializer)
       ..add(PatientAllergySummary.serializer)
       ..add(PatientEvolutionForNutritionistResult.serializer)
+      ..add(PendingReviewRecommendationDto.serializer)
+      ..add(PendingReviewRecommendationDtoPagedResult.serializer)
+      ..add(PortalLoginRequest.serializer)
+      ..add(PortalSessionResult.serializer)
       ..add(PriorityLevel.serializer)
       ..add(ProblemDetails.serializer)
       ..add(RecommendationDetailDto.serializer)
       ..add(RecommendationFeedbackDto.serializer)
       ..add(RecommendationItemDto.serializer)
+      ..add(RecommendationSource.serializer)
       ..add(RecommendationStatus.serializer)
       ..add(RecommendationSummaryDto.serializer)
       ..add(RecommendationSummaryDtoPagedResult.serializer)
@@ -105,6 +110,7 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(RejectRecommendationRequest.serializer)
       ..add(RequestPasswordResetRequest.serializer)
       ..add(ResendVerificationEmailRequest.serializer)
+      ..add(SetSymptomMealAssociationRequest.serializer)
       ..add(SeverityCategory.serializer)
       ..add(SubmitFeedbackRequest.serializer)
       ..add(SymptomBatchItem.serializer)
@@ -188,6 +194,14 @@ Serializers _$serializers = (Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(PatientAllergySummary)]),
           () => ListBuilder<PatientAllergySummary>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(PatientAllergySummary)]),
+          () => ListBuilder<PatientAllergySummary>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
+              const [const FullType(PendingReviewRecommendationDto)]),
+          () => ListBuilder<PendingReviewRecommendationDto>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(RecommendationItemDto)]),

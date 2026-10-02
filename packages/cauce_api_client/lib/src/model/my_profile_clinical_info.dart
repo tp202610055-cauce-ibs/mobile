@@ -3,7 +3,9 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:cauce_api_client/src/model/patient_allergy_summary.dart';
 import 'package:cauce_api_client/src/model/ibs_subtype.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:cauce_api_client/src/model/date.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -16,6 +18,7 @@ part 'my_profile_clinical_info.g.dart';
 /// * [ibsSubtype] 
 /// * [diagnosisDate] 
 /// * [age] 
+/// * [allergies] 
 @BuiltValue()
 abstract class MyProfileClinicalInfo implements Built<MyProfileClinicalInfo, MyProfileClinicalInfoBuilder> {
   @BuiltValueField(wireName: r'ibsSubtype')
@@ -27,6 +30,9 @@ abstract class MyProfileClinicalInfo implements Built<MyProfileClinicalInfo, MyP
 
   @BuiltValueField(wireName: r'age')
   int? get age;
+
+  @BuiltValueField(wireName: r'allergies')
+  BuiltList<PatientAllergySummary>? get allergies;
 
   MyProfileClinicalInfo._();
 
@@ -70,6 +76,13 @@ class _$MyProfileClinicalInfoSerializer implements PrimitiveSerializer<MyProfile
       yield serializers.serialize(
         object.age,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.allergies != null) {
+      yield r'allergies';
+      yield serializers.serialize(
+        object.allergies,
+        specifiedType: const FullType.nullable(BuiltList, [FullType(PatientAllergySummary)]),
       );
     }
   }
@@ -116,6 +129,14 @@ class _$MyProfileClinicalInfoSerializer implements PrimitiveSerializer<MyProfile
             specifiedType: const FullType(int),
           ) as int;
           result.age = valueDes;
+          break;
+        case r'allergies':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(BuiltList, [FullType(PatientAllergySummary)]),
+          ) as BuiltList<PatientAllergySummary>?;
+          if (valueDes == null) continue;
+          result.allergies.replace(valueDes);
           break;
         default:
           unhandled.add(key);

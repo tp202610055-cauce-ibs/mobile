@@ -5,8 +5,9 @@ import 'authenticated_user_snapshot.dart';
 /// El acta M11 fija tres keys separadas en `flutter_secure_storage`:
 /// `auth_access_token`, `auth_refresh_token` y `auth_user_snapshot`. La
 /// separacion importa porque el `RefreshInterceptor` rota los dos tokens en
-/// cada renovacion sin tocar el snapshot del usuario; con un blob unico cada
-/// rotacion obligaria a leer, deserializar, mutar y reescribir todo.
+/// cada renovacion y solo reescribe el snapshot cuando la respuesta trae un
+/// usuario legible (acta M49); con un blob unico cada rotacion obligaria a
+/// leer, deserializar, mutar y reescribir todo.
 ///
 /// La implementacion concreta [SecureTokenStorage] llega en la Fase 4.
 abstract interface class TokenStorage {
@@ -20,7 +21,8 @@ abstract interface class TokenStorage {
   /// Copia local del usuario autenticado, o `null` si no hay sesion.
   Future<AuthenticatedUserSnapshot?> readUserSnapshot();
 
-  /// Persiste la sesion completa. Se invoca tras un login exitoso.
+  /// Persiste la sesion completa. Se invoca tras un login exitoso, y en cada
+  /// renovacion cuya respuesta trae el usuario (acta M49).
   Future<void> saveSession({
     required String accessToken,
     required String refreshToken,
@@ -29,7 +31,8 @@ abstract interface class TokenStorage {
 
   /// Reemplaza solo el par de tokens y conserva el snapshot del usuario.
   ///
-  /// Es la operacion del `RefreshInterceptor`. El realm de Keycloak tiene
+  /// La usa el `RefreshInterceptor` cuando la respuesta no trae un usuario
+  /// legible. El realm de Keycloak tiene
   /// `revokeRefreshToken: true` y `refreshTokenMaxReuse: 0`, de modo que cada
   /// renovacion invalida el refresh anterior: persistir el nuevo no es una
   /// optimizacion, es obligatorio. Reintentar con el viejo devuelve 401

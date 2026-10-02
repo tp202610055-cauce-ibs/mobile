@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'allergy.dart';
 import 'patient_profile.dart';
 
 part 'patient_summary.freezed.dart';
@@ -21,7 +22,15 @@ part 'patient_summary.freezed.dart';
 abstract class PatientSummary with _$PatientSummary {
   const factory PatientSummary({
     required String fullName,
+
+    /// Codigo de paciente del piloto (`P-2026-0042`, acta A59 del backend).
+    ///
+    /// Opcional: una cuenta que todavia no entro al piloto no tiene codigo.
+    String? patientCode,
     IbsSubtypeOption? ibsSubtype,
+
+    /// Alergias declaradas. Vacia es un estado legitimo, no un dato faltante.
+    @Default(<AllergyDeclaration>[]) List<AllergyDeclaration> allergies,
     DateTime? pilotStartDate,
     String? nutritionistName,
     int? ibsSssBaseline,

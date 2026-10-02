@@ -17,7 +17,10 @@ class _MockSymptomsRepository extends Mock implements SymptomsRepository {}
 class _FakeSymptomDraft extends Fake implements SymptomDraft {}
 
 void main() {
-  setUpAll(() => registerFallbackValue(_FakeSymptomDraft()));
+  setUpAll(() {
+    registerFallbackValue(_FakeSymptomDraft());
+    registerFallbackValue(DateTime.utc(2026));
+  });
 
   late AppDatabase database;
   late _MockSymptomsRepository repository;
@@ -55,7 +58,11 @@ void main() {
 
   void stubCreate(CreatedSymptom created) {
     when(
-      () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+      () => repository.create(
+        any(),
+        clientGuid: any(named: 'clientGuid'),
+        clientCreatedAt: any(named: 'clientCreatedAt'),
+      ),
     ).thenAnswer((_) async => created);
   }
 
@@ -141,7 +148,11 @@ void main() {
     test('el clientGuid que viaja es el de la fila local', () async {
       String? enviado;
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenAnswer((invocation) async {
         enviado = invocation.namedArguments[#clientGuid] as String;
         return const CreatedSymptom(symptomId: 'server-1');
@@ -196,7 +207,11 @@ void main() {
 
       expect(state().outcome, SymptomSubmitOutcome.queuedOffline);
       verifyNever(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       );
 
       final row = await database.select(database.symptomsLocal).getSingle();
@@ -221,7 +236,11 @@ void main() {
   group('SymptomFormNotifier · rechazo del servidor', () {
     test('conserva la fila local como pendiente', () async {
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenThrow(const CauceApiError.rateLimited(retryAfterSeconds: 30));
       fillValidDraft();
 
@@ -234,7 +253,11 @@ void main() {
 
     test('el formulario conserva lo cargado', () async {
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenThrow(const CauceApiError.forbidden());
       fillValidDraft();
 
@@ -242,6 +265,116 @@ void main() {
 
       expect(state().draft.symptomType, SymptomTypeOption.bloating);
       expect(state().draft.intensity, 40);
+    });
+  });
+
+  group('SymptomFormNotifier · un sintoma, una clave (acta M50)', () {
+    // La pantalla montada escucha el notifier; sin oyente, el `autoDispose`
+    // lo descartaria entre dos envios.
+    setUp(() => container.listen(symptomFormNotifierProvider, (_, __) {}));
+
+    void answerInOrder(List<Object> outcomes) {
+      var call = 0;
+      when(
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
+      ).thenAnswer((_) async {
+        final outcome = outcomes[call++];
+        if (outcome is CauceApiError) {
+          throw outcome;
+        }
+        return outcome as CreatedSymptom;
+      });
+    }
+
+    List<dynamic> sent() => verify(
+          () => repository.create(
+            any(),
+            clientGuid: captureAny(named: 'clientGuid'),
+            clientCreatedAt: captureAny(named: 'clientCreatedAt'),
+          ),
+        ).captured;
+
+    const created = CreatedSymptom(
+      symptomId: 'symptom-1',
+      hasMealAssociation: false,
+    );
+
+    test('un fallo de red deja la fila pendiente, no rechazada', () async {
+      answerInOrder(<Object>[const CauceApiError.network()]);
+      fillValidDraft();
+
+      expect(await notifier().submit(), isTrue);
+
+      expect(state().outcome, SymptomSubmitOutcome.queuedOffline);
+      expect(state().error, isNull);
+      final symptom = await database.select(database.symptomsLocal).getSingle();
+      expect(symptom.syncStatus, LocalSyncStatus.pending);
+    });
+
+    test('un segundo envio tras un fallo de red repite la clave y la carga',
+        () async {
+      answerInOrder(<Object>[const CauceApiError.network(), created]);
+      fillValidDraft();
+
+      await notifier().submit();
+      await Future<void>.delayed(const Duration(milliseconds: 5));
+      await notifier().submit();
+
+      final captured = sent();
+      expect(captured[2], captured[0]);
+      expect(captured[3], captured[1]);
+
+      final symptoms = await database.select(database.symptomsLocal).get();
+      expect(symptoms, hasLength(1));
+      expect(symptoms.single.clientGuid, captured[0]);
+      expect(symptoms.single.syncStatus, LocalSyncStatus.completed);
+    });
+
+    test(
+        'un rechazo real sigue siendo un rechazo, y el reintento conserva '
+        'la clave', () async {
+      answerInOrder(<Object>[const CauceApiError.forbidden(), created]);
+      fillValidDraft();
+
+      expect(await notifier().submit(), isFalse);
+      expect(state().outcome, SymptomSubmitOutcome.rejected);
+      expect(state().error, isA<ForbiddenError>());
+
+      notifier().setIntensity(70);
+      expect(await notifier().submit(), isTrue);
+
+      final captured = sent();
+      expect(captured[2], captured[0]);
+      final symptoms = await database.select(database.symptomsLocal).get();
+      expect(symptoms, hasLength(1));
+      expect(symptoms.single.intensity, 70);
+    });
+
+    test('dos toques seguidos registran un solo sintoma', () async {
+      when(
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
+      ).thenAnswer((_) async {
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+        return created;
+      });
+      fillValidDraft();
+
+      final results = await Future.wait(<Future<bool>>[
+        notifier().submit(),
+        notifier().submit(),
+      ]);
+
+      expect(results, <bool>[true, false]);
+      expect(sent(), hasLength(2));
+      expect(await database.select(database.symptomsLocal).get(), hasLength(1));
     });
   });
 

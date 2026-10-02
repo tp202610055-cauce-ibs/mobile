@@ -13,14 +13,14 @@ part 'modify_recommendation_request.g.dart';
 /// Cuerpo de la petición de aprobación con modificación de una recomendación (US17 CA03).
 ///
 /// Properties:
-/// * [clinicalNote] - Nota clínica de la modificación.
+/// * [clinicalNote] - Nota clínica de la modificación (entre 10 y 2000 caracteres, US17 CA03).
 /// * [items] - Nuevos ítems que reemplazan a los actuales, o null para conservarlos.
 /// * [title] - Nuevo título, o null para conservarlo.
 /// * [description] - Nueva descripción, o null para conservarla.
 /// * [steps] - Nuevos pasos, o null para conservarlos.
 @BuiltValue()
 abstract class ModifyRecommendationRequest implements Built<ModifyRecommendationRequest, ModifyRecommendationRequestBuilder> {
-  /// Nota clínica de la modificación.
+  /// Nota clínica de la modificación (entre 10 y 2000 caracteres, US17 CA03).
   @BuiltValueField(wireName: r'clinicalNote')
   String? get clinicalNote;
 

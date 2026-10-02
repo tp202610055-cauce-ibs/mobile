@@ -95,6 +95,29 @@ class _Body extends StatelessWidget {
   final Future<void> Function(String clientGuid) onDiscard;
   final VoidCallback onOpenMealForm;
 
+  /// Descarta una fila que no llego al servidor.
+  ///
+  /// **Una pendiente pide confirmacion; una trabada no** (acta M50). La
+  /// trabada ya trae su explicacion y no va a subir nunca. La pendiente si
+  /// subiria sola en la proxima sincronizacion, y un toque suelto sobre un
+  /// registro sano lo borraria para siempre.
+  Future<void> _discard(BuildContext context, HistoryEntry entry) async {
+    if (!entry.isFailed) {
+      final l10n = AppLocalizations.of(context);
+      final confirmed = await CauceConfirmDialog.show(
+        context,
+        title: l10n.historyDiscardPendingTitle,
+        message: l10n.historyDiscardPendingBody,
+        confirmLabel: l10n.historyDiscard,
+        cancelLabel: l10n.commonCancel,
+      );
+      if (!confirmed) {
+        return;
+      }
+    }
+    await onDiscard(entry.clientGuid!);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -155,7 +178,7 @@ class _Body extends StatelessWidget {
                 entry: entry,
                 onDiscard: entry.clientGuid == null
                     ? null
-                    : () => onDiscard(entry.clientGuid!),
+                    : () => _discard(context, entry),
                 onAddNote: () => context.push(
                   AppRoutes.clinicalNoteNew,
                   extra: entry,

@@ -10,6 +10,9 @@ import '../../../helpers/canned_http_adapter.dart';
 
 const String _clientGuid = '11111111-1111-4111-8111-111111111111';
 
+/// Momento del registro con microsegundos, para probar que viaja intacto.
+final DateTime _createdAt = DateTime.utc(2026, 9, 18, 13, 5, 7, 123, 456);
+
 const FoodItem _arroz = FoodItem(
   foodId: 'f1',
   name: 'Arroz blanco cocido',
@@ -49,7 +52,11 @@ void main() {
         const CannedResponse.created(<String, dynamic>{'mealId': 'server-1'}),
       );
 
-      await h.repository.create(_draft, clientGuid: _clientGuid);
+      await h.repository.create(
+        _draft,
+        clientGuid: _clientGuid,
+        clientCreatedAt: _createdAt,
+      );
 
       final body = h.adapter.lastRequest.body;
       expect(body['clientGuid'], _clientGuid);
@@ -65,7 +72,11 @@ void main() {
         const CannedResponse.created(<String, dynamic>{'mealId': 'server-1'}),
       );
 
-      await h.repository.create(_draft, clientGuid: _clientGuid);
+      await h.repository.create(
+        _draft,
+        clientGuid: _clientGuid,
+        clientCreatedAt: _createdAt,
+      );
 
       final items = h.adapter.lastRequest.body['items'] as List<dynamic>;
       expect(items.single, <String, dynamic>{
@@ -80,10 +91,67 @@ void main() {
         const CannedResponse.created(<String, dynamic>{'mealId': 'server-1'}),
       );
 
-      await h.repository.create(_draft, clientGuid: _clientGuid);
+      await h.repository.create(
+        _draft,
+        clientGuid: _clientGuid,
+        clientCreatedAt: _createdAt,
+      );
 
       expect(h.adapter.lastRequest.body['consumedAt'], endsWith('Z'));
       expect(h.adapter.lastRequest.body['clientCreatedAt'], endsWith('Z'));
+    });
+
+    test('dos envios de la misma comida mandan la misma carga (acta M50)',
+        () async {
+      // El backend compara el hash del comando entero. Antes las fechas
+      // salian de `DateTime.now()` en cada intento, y un reintento cuyo
+      // primer envio si habia llegado recibia 409 en vez de 200.
+      final h = _harness(
+        const CannedResponse.created(<String, dynamic>{'mealId': 'server-1'}),
+      );
+      const sinMomento = MealDraft(
+        mealTime: MealTimeOption.lunch,
+        items: <MealItemDraft>[
+          MealItemDraft(
+            quantity: 150,
+            unit: MeasurementUnitOption.grams,
+            food: _arroz,
+          ),
+        ],
+      );
+
+      await h.repository.create(
+        sinMomento,
+        clientGuid: _clientGuid,
+        clientCreatedAt: _createdAt,
+      );
+      final primero = h.adapter.lastRequest.body;
+      await Future<void>.delayed(const Duration(milliseconds: 5));
+      await h.repository.create(
+        sinMomento,
+        clientGuid: _clientGuid,
+        clientCreatedAt: _createdAt,
+      );
+
+      expect(h.adapter.lastRequest.body, primero);
+    });
+
+    test('sin momento elegido, la comida se consumio al registrarla', () async {
+      // Mismo valor por defecto que la fila local, que es lo que manda el
+      // lote de sincronizacion.
+      final h = _harness(
+        const CannedResponse.created(<String, dynamic>{'mealId': 'server-1'}),
+      );
+
+      await h.repository.create(
+        _draft.copyWith(consumedAt: null),
+        clientGuid: _clientGuid,
+        clientCreatedAt: _createdAt,
+      );
+
+      final body = h.adapter.lastRequest.body;
+      expect(body['clientCreatedAt'], _createdAt.toIso8601String());
+      expect(body['consumedAt'], body['clientCreatedAt']);
     });
 
     test('devuelve el mealId y la carga FODMAP que calculo el servidor',
@@ -95,8 +163,11 @@ void main() {
         }),
       );
 
-      final created =
-          await h.repository.create(_draft, clientGuid: _clientGuid);
+      final created = await h.repository.create(
+        _draft,
+        clientGuid: _clientGuid,
+        clientCreatedAt: _createdAt,
+      );
 
       expect(created.mealId, 'server-1');
       expect(created.aggregatedFodmap, FodmapLoad.moderate);
@@ -110,8 +181,11 @@ void main() {
         const CannedResponse.ok(<String, dynamic>{'mealId': 'server-1'}),
       );
 
-      final created =
-          await h.repository.create(_draft, clientGuid: _clientGuid);
+      final created = await h.repository.create(
+        _draft,
+        clientGuid: _clientGuid,
+        clientCreatedAt: _createdAt,
+      );
 
       expect(created.wasReplay, isTrue);
       expect(created.mealId, 'server-1');
@@ -125,7 +199,11 @@ void main() {
       );
 
       await expectLater(
-        h.repository.create(_draft, clientGuid: _clientGuid),
+        h.repository.create(
+          _draft,
+          clientGuid: _clientGuid,
+          clientCreatedAt: _createdAt,
+        ),
         throwsA(
           isA<UnknownError>().having((e) => e.statusCode, 'statusCode', 201),
         ),
@@ -141,7 +219,11 @@ void main() {
       );
 
       await expectLater(
-        h.repository.create(_draft, clientGuid: _clientGuid),
+        h.repository.create(
+          _draft,
+          clientGuid: _clientGuid,
+          clientCreatedAt: _createdAt,
+        ),
         throwsA(isA<FoodItemNotFoundError>()),
       );
     });
@@ -155,7 +237,11 @@ void main() {
       );
 
       await expectLater(
-        h.repository.create(_draft, clientGuid: _clientGuid),
+        h.repository.create(
+          _draft,
+          clientGuid: _clientGuid,
+          clientCreatedAt: _createdAt,
+        ),
         throwsA(isA<IdempotencyMismatchError>()),
       );
     });
@@ -167,6 +253,7 @@ void main() {
         () => h.repository.create(
           const MealDraft(mealTime: MealTimeOption.lunch),
           clientGuid: _clientGuid,
+          clientCreatedAt: _createdAt,
         ),
         throwsA(isA<StateError>()),
       );

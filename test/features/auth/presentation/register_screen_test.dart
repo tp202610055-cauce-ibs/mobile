@@ -10,6 +10,7 @@ import 'package:cauce_mobile/features/auth/presentation/auth_screens.dart';
 import 'package:dio/dio.dart' show BaseOptions, Dio, Interceptor;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/canned_http_adapter.dart';
@@ -74,6 +75,9 @@ Future<void> _fillValidForm(WidgetTester tester) async {
 /// del widget y no lo alterna.
 Future<void> _acceptConsent(WidgetTester tester) async {
   final checkbox = find.byKey(const Key('register_consent_checkbox'));
+  // Un `enterText` recien hecho deja agendado mostrar el cursor en el cuadro
+  // siguiente, y ese desplazamiento desharia el `ensureVisible`.
+  await tester.pumpAndSettle();
   await tester.ensureVisible(checkbox);
   await tester.pumpAndSettle();
   await tester.tap(checkbox);
@@ -188,6 +192,64 @@ void main() {
     });
   });
 
+  group('RegisterScreen · reglas de contrasena visibles', () {
+    // Revision manual del 28-sep: el campo solo tenia el hint "Minimo 8
+    // caracteres", que desaparece al escribir, y las demas reglas recien se
+    // conocian con el primer rechazo.
+    const rules = <String>[
+      'password_rule_length',
+      'password_rule_uppercase',
+      'password_rule_lowercase',
+      'password_rule_digit',
+    ];
+
+    IconData iconOf(WidgetTester tester, String rule) => tester
+        .widget<Icon>(
+          find.descendant(
+            of: find.byKey(Key(rule)),
+            matching: find.byType(Icon),
+          ),
+        )
+        .icon!;
+
+    testWidgets('las cuatro reglas se ven antes de escribir', (tester) async {
+      await _openRegister(tester);
+
+      for (final rule in rules) {
+        expect(find.byKey(Key(rule)), findsOneWidget);
+      }
+      expect(find.text('Al menos 8 caracteres'), findsOneWidget);
+      expect(find.text('Una letra mayúscula'), findsOneWidget);
+      expect(find.text('Una letra minúscula'), findsOneWidget);
+      expect(find.text('Un número'), findsOneWidget);
+    });
+
+    testWidgets('siguen a la vista al escribir, y marcan lo que falta', (
+      tester,
+    ) async {
+      await _openRegister(tester);
+
+      // La primera contrasena que se probo en la revision: sin minuscula.
+      await tester.enterText(
+        find.byKey(const Key('register_password')),
+        '240801_A94#',
+      );
+      await tester.pump();
+
+      for (final rule in rules) {
+        expect(find.byKey(Key(rule)), findsOneWidget);
+      }
+      for (final met in <String>[
+        'password_rule_length',
+        'password_rule_uppercase',
+        'password_rule_digit',
+      ]) {
+        expect(iconOf(tester, met), TablerIcons.circle_check_filled);
+      }
+      expect(iconOf(tester, 'password_rule_lowercase'), TablerIcons.circle);
+    });
+  });
+
   group('RegisterScreen · validacion local (US01 CA02)', () {
     testWidgets('un nombre de un caracter se rechaza', (tester) async {
       final h = await _openRegister(tester);
@@ -224,7 +286,7 @@ void main() {
 
       expect(h.repository.registerCalls, 0);
       expect(
-        find.text('Debe incluir una mayuscula, una minuscula y un digito'),
+        find.text('Debe incluir una mayúscula, una minúscula y un dígito'),
         findsOneWidget,
       );
     });

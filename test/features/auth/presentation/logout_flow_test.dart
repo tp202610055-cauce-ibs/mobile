@@ -139,15 +139,50 @@ void main() {
       );
     });
 
-    testWidgets('deriva a soporte en vez de ofrecer reenvio', (tester) async {
-      // El backend no expone endpoint de reenvio y el contrato lo declara
-      // inexistente. Un boton que no hace nada seria peor que no tenerlo.
+    testWidgets('ya no deriva a un soporte que no existe', (tester) async {
+      // Revision manual del 28-sep: el aviso mandaba a "soporte" y no hay
+      // ningun canal. Ahora remite al boton de reenvio.
       await _pumpApp(tester, user: unverified);
 
+      expect(find.textContaining('soporte'), findsNothing);
       expect(
-        find.textContaining('comunícate con soporte'),
+        find.textContaining('usa el botón para reenviarlo'),
         findsOneWidget,
       );
+    });
+
+    testWidgets('el boton de reenvio pide un correo nuevo al backend', (
+      tester,
+    ) async {
+      // `AuthRepository.resendVerificationEmail` existia desde Mobile-1.5 sin
+      // ningun llamador. Se llega desde la raiz de la app (R10).
+      final h = await _pumpApp(tester, user: unverified);
+
+      await tester.tap(find.byKey(const Key('verify_email_resend')));
+      await tester.pumpAndSettle();
+
+      expect(h.repository.resendVerificationEmailCalls, 1);
+      expect(h.repository.lastEmail, 'paciente.demo@cauce.local');
+      expect(find.byKey(const Key('verify_email_resent')), findsOneWidget);
+    });
+
+    testWidgets('con el limite agotado muestra la espera del backend', (
+      tester,
+    ) async {
+      // Tres por hora por correo. El cuarto vuelve como 429 y la pantalla lo
+      // dice, en vez de duplicar la regla con un temporizador propio.
+      final h = await _pumpApp(tester, user: unverified);
+      h.repository.error = const CauceApiError.rateLimited(
+        retryAfterSeconds: 1200,
+      );
+
+      await tester.tap(find.byKey(const Key('verify_email_resend')));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(CauceErrorBanner), findsOneWidget);
+      expect(find.byKey(const Key('verify_email_resent')), findsNothing);
+      // El paciente sigue en la pantalla y puede cerrar sesion.
+      expect(find.byKey(const Key('verify_email_logout')), findsOneWidget);
     });
 
     testWidgets('permite cerrar sesion y volver al login', (tester) async {

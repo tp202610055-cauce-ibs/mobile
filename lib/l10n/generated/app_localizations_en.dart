@@ -90,7 +90,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerPasswordLabel => 'Password';
 
   @override
-  String get registerPasswordHint => 'At least 8 characters';
+  String get passwordRuleLength => 'At least 8 characters';
+
+  @override
+  String get passwordRuleUppercase => 'One uppercase letter';
+
+  @override
+  String get passwordRuleLowercase => 'One lowercase letter';
+
+  @override
+  String get passwordRuleDigit => 'One number';
+
+  @override
+  String get passwordRuleMet => 'met';
+
+  @override
+  String get passwordRulePending => 'pending';
 
   @override
   String get registerPasswordConfirmLabel => 'Confirm your password';
@@ -179,7 +194,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verifyEmailPendingNoEmailHint =>
-      'If you did not receive the email, contact support.';
+      'If you did not receive the email, use the button to resend it. If the problem continues, try again later.';
+
+  @override
+  String get verifyEmailResend => 'Resend email';
+
+  @override
+  String get verifyEmailResent =>
+      'We sent you a new email. It may take a few minutes to arrive; check your spam folder too.';
 
   @override
   String get verifyEmailPendingLogout => 'Sign out';
@@ -423,6 +445,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get measurementUnitTablespoons => 'Tablespoons';
 
   @override
+  String mealItemAmountGrams(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity grams',
+      one: '$quantity gram',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountCups(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity cups',
+      one: '$quantity cup',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountUnits(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity units',
+      one: '$quantity unit',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountOunces(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity ounces',
+      one: '$quantity ounce',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String mealItemAmountTablespoons(num count, String quantity) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$quantity tablespoons',
+      one: '$quantity tablespoon',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get customFoodTitle => 'Create custom dish';
 
   @override
@@ -656,6 +733,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get historyDiscard => 'Discard';
 
   @override
+  String get historyDiscardPendingTitle => 'Discard this record?';
+
+  @override
+  String get historyDiscardPendingBody =>
+      'It has not reached the server yet. If you discard it, it is deleted from this phone and will not be sent.';
+
+  @override
   String get historyAddNote => 'Add note';
 
   @override
@@ -798,6 +882,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'The requested period is not valid. Choose a range of up to 90 days that does not include future dates.';
 
   @override
+  String get errorActivePilotRetention =>
+      'Your account is still active. You are taking part in the clinical pilot and, to delete it, we need you to confirm the pilot notice.';
+
+  @override
   String get errorRecommendationNotFound =>
       'This recommendation is no longer available.';
 
@@ -856,7 +944,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorUserLocalMissing =>
-      'There is a problem with your account. Contact support.';
+      'We couldn\'t find your complete account in the system. Trying again won\'t fix it. Let the pilot team or your nutritionist know so they can look into it.';
 
   @override
   String get errorInternalServer => 'A server error occurred. Try again.';
@@ -1280,6 +1368,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileClinicalSubtype => 'IBS subtype';
 
   @override
+  String get profileClinicalAllergies => 'Declared allergies';
+
+  @override
+  String get profileClinicalAllergiesNone => 'None';
+
+  @override
+  String profileAllergyDetail(String name, String qualifier) {
+    return '$name ($qualifier)';
+  }
+
+  @override
+  String profileAllergyQualifier(String type, String severity) {
+    return '$severity $type';
+  }
+
+  @override
   String get profileEvolutionSection => 'My IBS-SSS evolution';
 
   @override
@@ -1543,7 +1647,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsCredits =>
-      'Built by Universidad Peruana de Ciencias Aplicadas in partnership with EsSalud, Complejo Hospitalario Guillermo Kaelin de la Fuente';
+      'Developed at Universidad Peruana de Ciencias Aplicadas, as a thesis project aimed at a pilot proposed at Complejo Hospitalario Guillermo Kaelín de la Fuente (EsSalud)';
 
   @override
   String get reportTitle => 'Your clinical report';
@@ -1805,6 +1909,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recommendationDetailTitle => 'Recommendation details';
+
+  @override
+  String get recommendationSectionDescription => 'What it involves';
 
   @override
   String get recommendationSectionWhy => 'Why we recommend it';
@@ -2212,4 +2319,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeTodayOpen => 'Open my journal';
+
+  @override
+  String homeTodaySummary(String meals, String symptoms) {
+    return '$meals, $symptoms';
+  }
 }

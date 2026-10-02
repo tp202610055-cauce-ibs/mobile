@@ -2,15 +2,19 @@ import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart
 import 'package:cauce_mobile/features/recommendations/domain/recommendation_origin.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+/// [source] es `explanationSource`; [createdBy] es el `source` del contrato
+/// v1.6.0. Sin [createdBy] se ejercita la inferencia de respaldo de M47.
 RecommendationOrigin _resolve(
   RecommendationStatusOption status, {
   ExplanationOrigin? source = ExplanationOrigin.llmGenerated,
   int items = 2,
+  RecommendationSourceOption? createdBy,
 }) {
   return RecommendationOrigin.resolve(
     status: status,
     explanationSource: source,
     itemsCount: items,
+    source: createdBy,
   );
 }
 
@@ -81,6 +85,64 @@ void main() {
       expect(RecommendationOrigin.system.namesNutritionist, isFalse);
       expect(RecommendationOrigin.modified.namesNutritionist, isTrue);
       expect(RecommendationOrigin.manual.namesNutritionist, isTrue);
+    });
+  });
+
+  group('RecommendationOrigin.resolve · source del contrato (acta M49)', () {
+    test('Manual es indicacion en cualquier estado, tambien entregada', () {
+      for (final status in <RecommendationStatusOption>[
+        RecommendationStatusOption.manualApproved,
+        RecommendationStatusOption.delivered,
+        RecommendationStatusOption.feedbackReceived,
+      ]) {
+        expect(
+          // Aunque la explicacion y los items dijeran "motor": manda source.
+          _resolve(
+            status,
+            createdBy: RecommendationSourceOption.manual,
+          ),
+          RecommendationOrigin.manual,
+          reason: '$status',
+        );
+      }
+    });
+
+    test('del motor entregada y sin items ya no se lee como manual', () {
+      // Es el caso que la inferencia de M47 resolvia por descarte.
+      expect(
+        _resolve(
+          RecommendationStatusOption.delivered,
+          source: null,
+          items: 0,
+          createdBy: RecommendationSourceOption.engineGenerated,
+        ),
+        RecommendationOrigin.system,
+      );
+    });
+
+    test('del motor, el estado sigue distinguiendo aprobada de modificada', () {
+      // source no dice si se modifico: las dos son EngineGenerated.
+      expect(
+        _resolve(
+          RecommendationStatusOption.approved,
+          createdBy: RecommendationSourceOption.engineGenerated,
+        ),
+        RecommendationOrigin.system,
+      );
+      expect(
+        _resolve(
+          RecommendationStatusOption.modifiedApproved,
+          createdBy: RecommendationSourceOption.engineGenerated,
+        ),
+        RecommendationOrigin.modified,
+      );
+      expect(
+        _resolve(
+          RecommendationStatusOption.delivered,
+          createdBy: RecommendationSourceOption.engineGenerated,
+        ),
+        RecommendationOrigin.system,
+      );
     });
   });
 }

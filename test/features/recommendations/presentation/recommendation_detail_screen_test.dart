@@ -230,6 +230,100 @@ void main() {
       );
     });
 
+    testWidgets(
+        'una manual muestra su titulo y su descripcion entera (acta M49)',
+        (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [writtenManualDetail]),
+        writtenManualDetail.id,
+      );
+
+      expect(
+        tester.widget<Text>(find.byKey(const Key('recommendation_title'))).data,
+        'Hidratación en ayunas',
+      );
+      final description = find.byKey(const Key('recommendation_description'));
+      expect(description, findsOneWidget);
+      // Entera, sin recortar: en la tarjeta va a dos lineas, aca no.
+      expect(
+        find.descendant(
+          of: description,
+          matching: find.text(writtenManualDetail.descriptionText!),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.text(l10n.recommendationSectionDescription.toUpperCase()),
+        findsOneWidget,
+      );
+      // La nota sigue en su bloque, aparte de la descripcion.
+      expect(find.byKey(const Key('recommendation_note')), findsOneWidget);
+      expect(
+        tester.getTopLeft(description).dy,
+        lessThan(
+          tester.getTopLeft(find.byKey(const Key('recommendation_note'))).dy,
+        ),
+      );
+      expect(find.text('Indicación de $demoNutritionistName'), findsOneWidget);
+      expect(find.byKey(const Key('recommendation_confidence')), findsNothing);
+    });
+
+    testWidgets(
+        'una modificada con textos del servidor los muestra y sigue siendo '
+        'del motor', (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [rewrittenModifiedDetail]),
+        rewrittenModifiedDetail.id,
+      );
+
+      expect(
+        tester.widget<Text>(find.byKey(const Key('recommendation_title'))).data,
+        'Reduce la cebolla en los almuerzos',
+      );
+      expect(
+        find.text(
+          'Evitar 2 alimentos, sustituir 1 alimento, incorporar 1 alimento',
+        ),
+        findsNothing,
+      );
+      // La descripcion va antes que la explicacion del sistema.
+      final description = find.byKey(const Key('recommendation_description'));
+      final explanation = find.byKey(const Key('recommendation_explanation'));
+      expect(description, findsOneWidget);
+      expect(explanation, findsOneWidget);
+      expect(
+        tester.getTopLeft(description).dy,
+        lessThan(tester.getTopLeft(explanation).dy),
+      );
+      // Del motor: confianza, atribucion y pildora de modificada intactas.
+      expect(find.text(l10n.recommendationConfidenceMedium), findsOneWidget);
+      expect(find.text('Modificada por $demoNutritionistName'), findsOneWidget);
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_attribution')),
+      );
+      expect(
+        find.byKey(const Key('recommendation_attribution')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('una del motor sin descripcion no dibuja el bloque',
+        (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [approvedDetail]),
+        approvedDetail.id,
+      );
+
+      expect(
+        find.byKey(const Key('recommendation_description')),
+        findsNothing,
+      );
+    });
+
     testWidgets('una no visible responde "ya no esta disponible" (CP038)',
         (tester) async {
       // La lista de Consejos queda debajo y, vacia, pide una recomendacion:

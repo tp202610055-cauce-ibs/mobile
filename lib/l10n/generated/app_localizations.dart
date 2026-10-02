@@ -227,7 +227,7 @@ abstract class AppLocalizations {
   /// No description provided for @registerSubtitle.
   ///
   /// In es, this message translates to:
-  /// **'Registrate para participar en el seguimiento nutricional'**
+  /// **'Regístrate para participar en el seguimiento nutricional'**
   String get registerSubtitle;
 
   /// No description provided for @registerFullNameLabel.
@@ -260,11 +260,41 @@ abstract class AppLocalizations {
   /// **'Contraseña'**
   String get registerPasswordLabel;
 
-  /// No description provided for @registerPasswordHint.
+  /// Regla de contraseña, siempre visible bajo el campo en registro y restablecimiento (mockup 02)
   ///
   /// In es, this message translates to:
-  /// **'Mínimo 8 caracteres'**
-  String get registerPasswordHint;
+  /// **'Al menos 8 caracteres'**
+  String get passwordRuleLength;
+
+  /// No description provided for @passwordRuleUppercase.
+  ///
+  /// In es, this message translates to:
+  /// **'Una letra mayúscula'**
+  String get passwordRuleUppercase;
+
+  /// No description provided for @passwordRuleLowercase.
+  ///
+  /// In es, this message translates to:
+  /// **'Una letra minúscula'**
+  String get passwordRuleLowercase;
+
+  /// No description provided for @passwordRuleDigit.
+  ///
+  /// In es, this message translates to:
+  /// **'Un número'**
+  String get passwordRuleDigit;
+
+  /// Estado de una regla de contraseña para el lector de pantalla
+  ///
+  /// In es, this message translates to:
+  /// **'cumplida'**
+  String get passwordRuleMet;
+
+  /// No description provided for @passwordRulePending.
+  ///
+  /// In es, this message translates to:
+  /// **'pendiente'**
+  String get passwordRulePending;
 
   /// No description provided for @registerPasswordConfirmLabel.
   ///
@@ -425,8 +455,20 @@ abstract class AppLocalizations {
   /// No description provided for @verifyEmailPendingNoEmailHint.
   ///
   /// In es, this message translates to:
-  /// **'Si no recibiste el correo, comunícate con soporte.'**
+  /// **'Si no recibiste el correo, usa el botón para reenviarlo. Si el problema continúa, vuelve a intentarlo más tarde.'**
   String get verifyEmailPendingNoEmailHint;
+
+  /// Botón que pide un correo de verificación nuevo (POST /auth/verification-email/resend)
+  ///
+  /// In es, this message translates to:
+  /// **'Reenviar correo'**
+  String get verifyEmailResend;
+
+  /// Acuse genérico del reenvío. El backend responde 200 en todos los casos para no revelar si la cuenta existe
+  ///
+  /// In es, this message translates to:
+  /// **'Te enviamos un correo nuevo. Puede tardar unos minutos en llegar; revisa también la carpeta de spam.'**
+  String get verifyEmailResent;
 
   /// No description provided for @verifyEmailPendingLogout.
   ///
@@ -479,7 +521,7 @@ abstract class AppLocalizations {
   /// No description provided for @validationPasswordWeak.
   ///
   /// In es, this message translates to:
-  /// **'Debe incluir una mayuscula, una minuscula y un digito'**
+  /// **'Debe incluir una mayúscula, una minúscula y un dígito'**
   String get validationPasswordWeak;
 
   /// No description provided for @validationPasswordMismatch.
@@ -551,7 +593,7 @@ abstract class AppLocalizations {
   /// errorCode consent_text_mismatch (400)
   ///
   /// In es, this message translates to:
-  /// **'El consentimiento informado cambio. Vuelve a leerlo y aceptalo.'**
+  /// **'El consentimiento informado cambió. Vuelve a leerlo y acéptalo.'**
   String get errorConsentTextMismatch;
 
   /// errorCode invalid_invitation_code (400)
@@ -847,6 +889,36 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Cucharadas'**
   String get measurementUnitTablespoons;
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} gramo} other{{quantity} gramos}}'**
+  String mealItemAmountGrams(num count, String quantity);
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} taza} other{{quantity} tazas}}'**
+  String mealItemAmountCups(num count, String quantity);
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} unidad} other{{quantity} unidades}}'**
+  String mealItemAmountUnits(num count, String quantity);
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} onza} other{{quantity} onzas}}'**
+  String mealItemAmountOunces(num count, String quantity);
+
+  /// Cantidad de un alimento con su unidad, en minúscula y con plural. count es la cantidad numérica y quantity la misma ya formateada
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{{quantity} cucharada} other{{quantity} cucharadas}}'**
+  String mealItemAmountTablespoons(num count, String quantity);
 
   /// Titulo de la pantalla del constructor de platos (US10)
   ///
@@ -1244,11 +1316,23 @@ abstract class AppLocalizations {
   /// **'Este registro no se pudo enviar y no va a reintentarse. Puedes descartarlo.'**
   String get historyFailedExplanation;
 
-  /// Accion que borra una fila local rechazada
+  /// Accion que borra una fila local que no llego al servidor, rechazada o pendiente
   ///
   /// In es, this message translates to:
   /// **'Descartar'**
   String get historyDiscard;
+
+  /// Confirmacion antes de descartar una fila pendiente de sincronizar (acta M50)
+  ///
+  /// In es, this message translates to:
+  /// **'¿Descartar este registro?'**
+  String get historyDiscardPendingTitle;
+
+  /// No description provided for @historyDiscardPendingBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no llegó al servidor. Si lo descartas, se borra de este teléfono y no se enviará.'**
+  String get historyDiscardPendingBody;
 
   /// Accion que abre el formulario de nota de contexto (US13)
   ///
@@ -1283,7 +1367,7 @@ abstract class AppLocalizations {
   /// Bajada de la pantalla de nota
   ///
   /// In es, this message translates to:
-  /// **'Anota lo que quieras recordar sobre este registro. Tu nutricionista lo vera junto al dato.'**
+  /// **'Anota lo que quieras recordar sobre este registro. Tu nutricionista lo verá junto al dato.'**
   String get clinicalNoteSubtitle;
 
   /// Campo de texto de la nota
@@ -1295,7 +1379,7 @@ abstract class AppLocalizations {
   /// Placeholder del campo de nota
   ///
   /// In es, this message translates to:
-  /// **'Por ejemplo: comi apurado, en la calle'**
+  /// **'Por ejemplo: comí apurado, en la calle'**
   String get clinicalNoteContentHint;
 
   /// Contador visible de CA02. Se vuelve negativo si el paciente pasa el tope
@@ -1484,6 +1568,12 @@ abstract class AppLocalizations {
   /// **'El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.'**
   String get errorReportPeriodInvalid;
 
+  /// errorCode active_pilot_retention (409), CP067. Se muestra si el paciente cierra sin confirmar el aviso del piloto que se reabre tras el 409
+  ///
+  /// In es, this message translates to:
+  /// **'Tu cuenta sigue activa. Participas en el piloto clínico y, para eliminarla, necesitamos que confirmes el aviso del piloto.'**
+  String get errorActivePilotRetention;
+
   /// errorCode recommendation_not_found (404). Tambien cubre las que existen pero no son visibles para el paciente (acta A24)
   ///
   /// In es, this message translates to:
@@ -1574,16 +1664,16 @@ abstract class AppLocalizations {
   /// **'El enlace de recuperación venció o ya fue usado'**
   String get errorExpiredPasswordResetToken;
 
-  /// errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend
+  /// errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend: sale al iniciar sesión o al renovarla, y ni reintentar ni cerrar sesión la resuelven (acta M50)
   ///
   /// In es, this message translates to:
-  /// **'Hay un problema con tu cuenta. Comunícate con soporte.'**
+  /// **'No encontramos tu cuenta completa en el sistema. Volver a intentarlo no lo resuelve. Avisa al equipo del piloto o a tu nutricionista para que lo revisen.'**
   String get errorUserLocalMissing;
 
   /// errorCode internal_server_error (500)
   ///
   /// In es, this message translates to:
-  /// **'Ocurrio un error en el servidor. Intenta de nuevo.'**
+  /// **'Ocurrió un error en el servidor. Intenta de nuevo.'**
   String get errorInternalServer;
 
   /// errorCode consent_record_not_found (404). Solo aplica a US01 CA04, fuera del alcance de Mobile-1b
@@ -1613,7 +1703,7 @@ abstract class AppLocalizations {
   /// Fallback para cualquier status no contemplado
   ///
   /// In es, this message translates to:
-  /// **'Ocurrio un error inesperado. Intenta de nuevo.'**
+  /// **'Ocurrió un error inesperado. Intenta de nuevo.'**
   String get errorUnknown;
 
   /// Indicador de progreso del wizard de onboarding clinico
@@ -2129,7 +2219,7 @@ abstract class AppLocalizations {
   /// No description provided for @evolutionRangeEmpty.
   ///
   /// In es, this message translates to:
-  /// **'No hay evaluaciones en este período. Probá con uno más amplio.'**
+  /// **'No hay evaluaciones en este período. Prueba con uno más amplio.'**
   String get evolutionRangeEmpty;
 
   /// No description provided for @evolutionPercentLabel.
@@ -2299,6 +2389,30 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Subtipo de SII'**
   String get profileClinicalSubtype;
+
+  /// No description provided for @profileClinicalAllergies.
+  ///
+  /// In es, this message translates to:
+  /// **'Alergias declaradas'**
+  String get profileClinicalAllergies;
+
+  /// Valor de la fila de alergias cuando el paciente no declaró ninguna (CP070)
+  ///
+  /// In es, this message translates to:
+  /// **'Ninguna'**
+  String get profileClinicalAllergiesNone;
+
+  /// Una alergia declarada con su tipo y severidad entre paréntesis, como en el mockup 12: 'Lactosa (intolerancia leve)'
+  ///
+  /// In es, this message translates to:
+  /// **'{name} ({qualifier})'**
+  String profileAllergyDetail(String name, String qualifier);
+
+  /// Tipo y severidad de una alergia, ya en minúscula. El orden depende del idioma
+  ///
+  /// In es, this message translates to:
+  /// **'{type} {severity}'**
+  String profileAllergyQualifier(String type, String severity);
 
   /// No description provided for @profileEvolutionSection.
   ///
@@ -2735,7 +2849,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsCredits.
   ///
   /// In es, this message translates to:
-  /// **'Desarrollado por la Universidad Peruana de Ciencias Aplicadas en convenio con EsSalud · Complejo Hospitalario Guillermo Kaelín de la Fuente'**
+  /// **'Desarrollado en la Universidad Peruana de Ciencias Aplicadas, como proyecto de tesis dirigido a un piloto propuesto en el Complejo Hospitalario Guillermo Kaelín de la Fuente (EsSalud)'**
   String get settingsCredits;
 
   /// No description provided for @reportTitle.
@@ -3127,6 +3241,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Detalle de la recomendación'**
   String get recommendationDetailTitle;
+
+  /// Bloque con la descripción que escribió el nutricionista. No está en el mockup 11: lo agrega el acta M49 para que la de una indicación manual se lea entera
+  ///
+  /// In es, this message translates to:
+  /// **'En qué consiste'**
+  String get recommendationSectionDescription;
 
   /// No description provided for @recommendationSectionWhy.
   ///
@@ -3757,6 +3877,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ver mi diario'**
   String get homeTodayOpen;
+
+  /// Resumen de lo registrado hoy en Inicio: homeTodayMeals y homeTodaySymptoms ya resueltos. Es una frase propia para que la puntuación también pase por l10n
+  ///
+  /// In es, this message translates to:
+  /// **'{meals}, {symptoms}'**
+  String homeTodaySummary(String meals, String symptoms);
 }
 
 class _AppLocalizationsDelegate

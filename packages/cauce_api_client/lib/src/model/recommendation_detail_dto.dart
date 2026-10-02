@@ -3,10 +3,12 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:cauce_api_client/src/model/recommendation_source.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:cauce_api_client/src/model/recommendation_status.dart';
 import 'package:cauce_api_client/src/model/recommendation_supporting_data_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_feedback_dto.dart';
+import 'package:cauce_api_client/src/model/archive_reason.dart';
 import 'package:cauce_api_client/src/model/explanation_source.dart';
 import 'package:cauce_api_client/src/model/recommendation_item_dto.dart';
 import 'package:built_value/built_value.dart';
@@ -36,6 +38,13 @@ part 'recommendation_detail_dto.g.dart';
 /// * [reviewedByNutritionistName] 
 /// * [steps] 
 /// * [supportingData] 
+/// * [title] 
+/// * [description] 
+/// * [source_] 
+/// * [isActive] 
+/// * [archivedAt] 
+/// * [archiveReason] 
+/// * [validUntil] 
 @BuiltValue()
 abstract class RecommendationDetailDto implements Built<RecommendationDetailDto, RecommendationDetailDtoBuilder> {
   @BuiltValueField(wireName: r'recommendationId')
@@ -96,6 +105,29 @@ abstract class RecommendationDetailDto implements Built<RecommendationDetailDto,
 
   @BuiltValueField(wireName: r'supportingData')
   RecommendationSupportingDataDto? get supportingData;
+
+  @BuiltValueField(wireName: r'title')
+  String? get title;
+
+  @BuiltValueField(wireName: r'description')
+  String? get description;
+
+  @BuiltValueField(wireName: r'source')
+  RecommendationSource? get source_;
+  // enum source_Enum {  EngineGenerated,  Manual,  };
+
+  @BuiltValueField(wireName: r'isActive')
+  bool? get isActive;
+
+  @BuiltValueField(wireName: r'archivedAt')
+  DateTime? get archivedAt;
+
+  @BuiltValueField(wireName: r'archiveReason')
+  ArchiveReason? get archiveReason;
+  // enum archiveReasonEnum {  TemporalExpiration,  ManualSubstitution,  ObjectiveMet,  PlanChange,  };
+
+  @BuiltValueField(wireName: r'validUntil')
+  DateTime? get validUntil;
 
   RecommendationDetailDto._();
 
@@ -251,6 +283,55 @@ class _$RecommendationDetailDtoSerializer implements PrimitiveSerializer<Recomme
       yield serializers.serialize(
         object.supportingData,
         specifiedType: const FullType(RecommendationSupportingDataDto),
+      );
+    }
+    if (object.title != null) {
+      yield r'title';
+      yield serializers.serialize(
+        object.title,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.description != null) {
+      yield r'description';
+      yield serializers.serialize(
+        object.description,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.source_ != null) {
+      yield r'source';
+      yield serializers.serialize(
+        object.source_,
+        specifiedType: const FullType(RecommendationSource),
+      );
+    }
+    if (object.isActive != null) {
+      yield r'isActive';
+      yield serializers.serialize(
+        object.isActive,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.archivedAt != null) {
+      yield r'archivedAt';
+      yield serializers.serialize(
+        object.archivedAt,
+        specifiedType: const FullType.nullable(DateTime),
+      );
+    }
+    if (object.archiveReason != null) {
+      yield r'archiveReason';
+      yield serializers.serialize(
+        object.archiveReason,
+        specifiedType: const FullType(ArchiveReason),
+      );
+    }
+    if (object.validUntil != null) {
+      yield r'validUntil';
+      yield serializers.serialize(
+        object.validUntil,
+        specifiedType: const FullType.nullable(DateTime),
       );
     }
   }
@@ -418,6 +499,59 @@ class _$RecommendationDetailDtoSerializer implements PrimitiveSerializer<Recomme
             specifiedType: const FullType(RecommendationSupportingDataDto),
           ) as RecommendationSupportingDataDto;
           result.supportingData.replace(valueDes);
+          break;
+        case r'title':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.title = valueDes;
+          break;
+        case r'description':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.description = valueDes;
+          break;
+        case r'source':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(RecommendationSource),
+          ) as RecommendationSource;
+          result.source_ = valueDes;
+          break;
+        case r'isActive':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isActive = valueDes;
+          break;
+        case r'archivedAt':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(DateTime),
+          ) as DateTime?;
+          if (valueDes == null) continue;
+          result.archivedAt = valueDes;
+          break;
+        case r'archiveReason':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(ArchiveReason),
+          ) as ArchiveReason;
+          result.archiveReason = valueDes;
+          break;
+        case r'validUntil':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(DateTime),
+          ) as DateTime?;
+          if (valueDes == null) continue;
+          result.validUntil = valueDes;
           break;
         default:
           unhandled.add(key);

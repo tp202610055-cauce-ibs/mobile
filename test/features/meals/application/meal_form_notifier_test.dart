@@ -32,7 +32,10 @@ const MealItemDraft _item = MealItemDraft(
 );
 
 void main() {
-  setUpAll(() => registerFallbackValue(_FakeMealDraft()));
+  setUpAll(() {
+    registerFallbackValue(_FakeMealDraft());
+    registerFallbackValue(DateTime.utc(2026));
+  });
 
   late AppDatabase database;
   late _MockMealsRepository repository;
@@ -80,7 +83,11 @@ void main() {
 
       expect(await notifier().submit(), isFalse);
       verifyNever(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       );
       expect(await database.select(database.mealsLocal).get(), isEmpty);
     });
@@ -106,7 +113,11 @@ void main() {
   group('MealFormNotifier · registro con conexion (CA01, CP022)', () {
     test('manda al servidor y cierra la fila local', () async {
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenAnswer(
         (_) async => const CreatedMeal(
           mealId: 'server-1',
@@ -130,7 +141,11 @@ void main() {
       // deduplica en vez de crear una segunda comida.
       String? enviado;
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenAnswer((invocation) async {
         enviado = invocation.namedArguments[#clientGuid] as String;
         return const CreatedMeal(mealId: 'server-1');
@@ -153,7 +168,11 @@ void main() {
 
       expect(state().outcome, MealSubmitOutcome.queuedOffline);
       verifyNever(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       );
 
       final meal = await database.select(database.mealsLocal).getSingle();
@@ -188,7 +207,11 @@ void main() {
       // El paciente ya anoto lo que comio: perder eso por un fallo del servidor
       // seria lo peor que puede pasar en un registro clinico.
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenThrow(const CauceApiError.rateLimited(retryAfterSeconds: 30));
       fillValidDraft();
 
@@ -203,7 +226,11 @@ void main() {
 
     test('el formulario conserva lo cargado', () async {
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenThrow(const CauceApiError.forbidden());
       fillValidDraft();
 
@@ -215,7 +242,11 @@ void main() {
 
     test('elegir otro momento limpia el error anterior', () async {
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenThrow(const CauceApiError.forbidden());
       fillValidDraft();
       await notifier().submit();
@@ -226,10 +257,154 @@ void main() {
     });
   });
 
+  group('MealFormNotifier · una comida, una clave (acta M50)', () {
+    // La revision manual del 28-sep: con el backend inalcanzable y la radio
+    // encendida, tres toques de "Registrar" dejaron tres comidas, cada una con
+    // su propia clave, que el servidor no podia reconocer como la misma.
+
+    // La pantalla montada escucha el notifier. Sin un oyente, el `autoDispose`
+    // lo descartaria entre dos envios y el segundo arrancaria de cero.
+    setUp(() => container.listen(mealFormNotifierProvider, (_, __) {}));
+
+    void answerInOrder(List<Object> outcomes) {
+      var call = 0;
+      when(
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
+      ).thenAnswer((_) async {
+        final outcome = outcomes[call++];
+        if (outcome is CauceApiError) {
+          throw outcome;
+        }
+        return outcome as CreatedMeal;
+      });
+    }
+
+    List<dynamic> sent() => verify(
+          () => repository.create(
+            any(),
+            clientGuid: captureAny(named: 'clientGuid'),
+            clientCreatedAt: captureAny(named: 'clientCreatedAt'),
+          ),
+        ).captured;
+
+    test('un fallo de red deja la fila pendiente, no rechazada', () async {
+      answerInOrder(<Object>[const CauceApiError.network()]);
+      fillValidDraft();
+
+      expect(await notifier().submit(), isTrue);
+
+      expect(state().outcome, MealSubmitOutcome.queuedOffline);
+      expect(state().error, isNull);
+      final meal = await database.select(database.mealsLocal).getSingle();
+      expect(meal.syncStatus, LocalSyncStatus.pending);
+    });
+
+    test('un segundo envio tras un fallo de red repite la clave y la carga',
+        () async {
+      answerInOrder(<Object>[
+        const CauceApiError.network(),
+        const CreatedMeal(mealId: 'server-1'),
+      ]);
+      fillValidDraft();
+
+      await notifier().submit();
+      await Future<void>.delayed(const Duration(milliseconds: 5));
+      await notifier().submit();
+
+      // [clave 1, momento 1, clave 2, momento 2]
+      final captured = sent();
+      expect(captured[2], captured[0]);
+      expect(captured[3], captured[1]);
+
+      final meals = await database.select(database.mealsLocal).get();
+      expect(meals, hasLength(1));
+      expect(meals.single.clientGuid, captured[0]);
+      expect(meals.single.clientCreatedAt, captured[1]);
+      expect(meals.single.syncStatus, LocalSyncStatus.completed);
+    });
+
+    test(
+        'un rechazo real sigue siendo un rechazo, y el reintento conserva '
+        'la clave', () async {
+      answerInOrder(<Object>[
+        const CauceApiError.invalidMealRegistration(),
+        const CreatedMeal(mealId: 'server-1'),
+      ]);
+      fillValidDraft();
+
+      expect(await notifier().submit(), isFalse);
+      expect(state().outcome, MealSubmitOutcome.rejected);
+      expect(state().error, isA<InvalidMealRegistrationError>());
+
+      // El paciente corrige y vuelve a enviar: misma comida, misma clave, y la
+      // fila local pasa a tener lo corregido.
+      notifier().selectMealTime(MealTimeOption.dinner);
+      expect(await notifier().submit(), isTrue);
+
+      final captured = sent();
+      expect(captured[2], captured[0]);
+      final meals = await database.select(database.mealsLocal).get();
+      expect(meals, hasLength(1));
+      expect(meals.single.mealTime, MealTimeOption.dinner.wireValue);
+      expect(
+        await database.select(database.mealItemsLocal).get(),
+        hasLength(1),
+      );
+    });
+
+    test('dos toques seguidos registran una sola comida', () async {
+      when(
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
+      ).thenAnswer((_) async {
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+        return const CreatedMeal(mealId: 'server-1');
+      });
+      fillValidDraft();
+
+      final results = await Future.wait(<Future<bool>>[
+        notifier().submit(),
+        notifier().submit(),
+      ]);
+
+      expect(results, <bool>[true, false]);
+      expect(sent(), hasLength(2));
+      expect(await database.select(database.mealsLocal).get(), hasLength(1));
+    });
+
+    test('registrar otra comida estrena una clave nueva', () async {
+      answerInOrder(<Object>[
+        const CreatedMeal(mealId: 'server-1'),
+        const CreatedMeal(mealId: 'server-2'),
+      ]);
+      fillValidDraft();
+      await notifier().submit();
+
+      notifier().reset();
+      fillValidDraft();
+      await notifier().submit();
+
+      final captured = sent();
+      expect(captured[2], isNot(captured[0]));
+      expect(await database.select(database.mealsLocal).get(), hasLength(2));
+    });
+  });
+
   group('MealFormNotifier · registrar otra', () {
     test('reset vacia el formulario', () async {
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenAnswer((_) async => const CreatedMeal(mealId: 'server-1'));
       fillValidDraft();
       await notifier().submit();
@@ -243,7 +418,11 @@ void main() {
 
     test('lo ya registrado sigue en el historial local', () async {
       when(
-        () => repository.create(any(), clientGuid: any(named: 'clientGuid')),
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
       ).thenAnswer((_) async => const CreatedMeal(mealId: 'server-1'));
       fillValidDraft();
       await notifier().submit();
