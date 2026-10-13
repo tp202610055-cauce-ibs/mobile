@@ -7,7 +7,7 @@ part of 'background_services.dart';
 // **************************************************************************
 
 String _$backgroundServicesHash() =>
-    r'3cf6728fd4529313bf0594d2821c15d3b6d76012';
+    r'd528fda7e78abb177ee6e48f1b08d27c2f53dccb';
 
 /// See also [backgroundServices].
 @ProviderFor(backgroundServices)

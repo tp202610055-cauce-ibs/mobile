@@ -9,6 +9,7 @@ import '../../features/auth/application/session_notifier.dart';
 import '../../features/auth/domain/session_state.dart';
 import '../../features/foods/application/food_catalog_refresher.dart';
 import '../../features/history/application/history_notifier.dart';
+import '../../features/history/application/today_journal_notifier.dart';
 import '../sync/connectivity_monitor.dart';
 import '../sync/sync_worker.dart';
 
@@ -116,10 +117,12 @@ BackgroundServices backgroundServices(Ref ref) {
     syncWorker: ref.watch(syncWorkerProvider),
     catalogRefresher: ref.watch(foodCatalogRefresherProvider),
     connectivity: ref.watch(connectivityMonitorProvider),
-    // `read` y no `watch`: el Diario no es una dependencia del servicio, es
-    // alguien a quien avisarle. Observarlo recrearia los servicios en cada
-    // recarga del historial.
-    onSyncSettled: () => ref.read(historyNotifierProvider.notifier).load(),
+    // `read` y no `watch`: Hoy y el Diario no son dependencias del servicio,
+    // son a quienes avisarle. Recargan sin esperar la ventana de frescura.
+    onSyncSettled: () {
+      unawaited(ref.read(todayJournalNotifierProvider.notifier).load());
+      unawaited(ref.read(historyNotifierProvider.notifier).reloadIfOpen());
+    },
   );
   ref.onDispose(services.stop);
   return services;
