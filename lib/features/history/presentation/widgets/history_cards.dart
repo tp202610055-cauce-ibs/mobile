@@ -216,11 +216,20 @@ class HistoryCard extends StatelessWidget {
 
   List<Widget> _mealBody(AppLocalizations l10n, TextTheme textTheme) {
     final fodmap = entry.aggregatedFodmap;
+    // Un alimento sin nombre conocido en el dispositivo no se muestra.
+    final items = <String>[
+      for (final item in entry.items)
+        if (item.name != null) _itemLabel(l10n, item),
+    ];
 
     return <Widget>[
-      if (entry.itemNames.isNotEmpty) ...<Widget>[
+      if (items.isNotEmpty) ...<Widget>[
         const SizedBox(height: CauceSpacing.space1),
-        Text(entry.itemNames.join(' · '), style: textTheme.bodyMedium),
+        Text(
+          items.join(' · '),
+          key: const Key('history_meal_items'),
+          style: textTheme.bodyMedium,
+        ),
       ],
       if (fodmap != null) ...<Widget>[
         const SizedBox(height: CauceSpacing.space2),
@@ -241,6 +250,15 @@ class HistoryCard extends StatelessWidget {
         ),
       ],
     ];
+  }
+
+  /// Cantidad y unidad pegadas al nombre, como en el formulario: "150 gramos
+  /// Arroz blanco cocido".
+  String _itemLabel(AppLocalizations l10n, HistoryMealItem item) {
+    final unit = item.unit;
+    return unit == null
+        ? item.name!
+        : '${MealLabels.amount(l10n, item.quantity, unit)} ${item.name}';
   }
 
   List<Widget> _symptomBody(AppLocalizations l10n, TextTheme textTheme) {

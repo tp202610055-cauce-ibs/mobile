@@ -90,13 +90,18 @@ class SymptomsLocalStore {
     );
   }
 
-  /// Sintomas locales, del mas reciente al mas viejo.
-  Future<List<SymptomLocal>> recent({int limit = 50}) {
+  /// Sintomas creados desde [from] inclusive, mas toda fila que no llego al
+  /// servidor sin importar su edad, del mas reciente al mas viejo.
+  Future<List<SymptomLocal>> forHistory({required DateTime from}) {
     return (_db.select(_db.symptomsLocal)
+          ..where(
+            (row) =>
+                row.clientCreatedAt.isBiggerOrEqualValue(from.toUtc()) |
+                row.syncStatus.equalsValue(LocalSyncStatus.completed).not(),
+          )
           ..orderBy(<OrderClauseGenerator<$SymptomsLocalTable>>[
             (row) => OrderingTerm.desc(row.clientCreatedAt),
-          ])
-          ..limit(limit))
+          ]))
         .get();
   }
 }

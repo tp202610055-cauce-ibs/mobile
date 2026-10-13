@@ -24,6 +24,18 @@ enum HistoryEntrySyncState {
 /// Que clase de registro es la entrada.
 enum HistoryEntryKind { meal, symptom }
 
+/// Un alimento de una comida del historial, con su cantidad y unidad.
+@freezed
+abstract class HistoryMealItem with _$HistoryMealItem {
+  const factory HistoryMealItem({
+    required double quantity,
+
+    /// Nombre del catalogo local; `null` si el dispositivo no lo conoce.
+    String? name,
+    MeasurementUnitOption? unit,
+  }) = _HistoryMealItem;
+}
+
 /// Una entrada del historial del paciente.
 ///
 /// **No viene de `GET /api/v1/history`.** Ese endpoint existe, pero el contrato
@@ -52,7 +64,7 @@ abstract class HistoryEntry with _$HistoryEntry {
     // Datos de una comida.
     MealTimeOption? mealTime,
     FodmapLoad? aggregatedFodmap,
-    @Default(<String>[]) List<String> itemNames,
+    @Default(<HistoryMealItem>[]) List<HistoryMealItem> items,
 
     // Datos de un sintoma.
     SymptomTypeOption? symptomType,

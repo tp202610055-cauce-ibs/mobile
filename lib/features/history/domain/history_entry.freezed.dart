@@ -15,6 +15,177 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
+mixin _$HistoryMealItem {
+  double get quantity => throw _privateConstructorUsedError;
+
+  /// Nombre del catalogo local; `null` si el dispositivo no lo conoce.
+  String? get name => throw _privateConstructorUsedError;
+  MeasurementUnitOption? get unit => throw _privateConstructorUsedError;
+
+  /// Create a copy of HistoryMealItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $HistoryMealItemCopyWith<HistoryMealItem> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $HistoryMealItemCopyWith<$Res> {
+  factory $HistoryMealItemCopyWith(
+          HistoryMealItem value, $Res Function(HistoryMealItem) then) =
+      _$HistoryMealItemCopyWithImpl<$Res, HistoryMealItem>;
+  @useResult
+  $Res call({double quantity, String? name, MeasurementUnitOption? unit});
+}
+
+/// @nodoc
+class _$HistoryMealItemCopyWithImpl<$Res, $Val extends HistoryMealItem>
+    implements $HistoryMealItemCopyWith<$Res> {
+  _$HistoryMealItemCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of HistoryMealItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quantity = null,
+    Object? name = freezed,
+    Object? unit = freezed,
+  }) {
+    return _then(_value.copyWith(
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as double,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      unit: freezed == unit
+          ? _value.unit
+          : unit // ignore: cast_nullable_to_non_nullable
+              as MeasurementUnitOption?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$HistoryMealItemImplCopyWith<$Res>
+    implements $HistoryMealItemCopyWith<$Res> {
+  factory _$$HistoryMealItemImplCopyWith(_$HistoryMealItemImpl value,
+          $Res Function(_$HistoryMealItemImpl) then) =
+      __$$HistoryMealItemImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({double quantity, String? name, MeasurementUnitOption? unit});
+}
+
+/// @nodoc
+class __$$HistoryMealItemImplCopyWithImpl<$Res>
+    extends _$HistoryMealItemCopyWithImpl<$Res, _$HistoryMealItemImpl>
+    implements _$$HistoryMealItemImplCopyWith<$Res> {
+  __$$HistoryMealItemImplCopyWithImpl(
+      _$HistoryMealItemImpl _value, $Res Function(_$HistoryMealItemImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of HistoryMealItem
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? quantity = null,
+    Object? name = freezed,
+    Object? unit = freezed,
+  }) {
+    return _then(_$HistoryMealItemImpl(
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as double,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      unit: freezed == unit
+          ? _value.unit
+          : unit // ignore: cast_nullable_to_non_nullable
+              as MeasurementUnitOption?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$HistoryMealItemImpl implements _HistoryMealItem {
+  const _$HistoryMealItemImpl({required this.quantity, this.name, this.unit});
+
+  @override
+  final double quantity;
+
+  /// Nombre del catalogo local; `null` si el dispositivo no lo conoce.
+  @override
+  final String? name;
+  @override
+  final MeasurementUnitOption? unit;
+
+  @override
+  String toString() {
+    return 'HistoryMealItem(quantity: $quantity, name: $name, unit: $unit)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$HistoryMealItemImpl &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.unit, unit) || other.unit == unit));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, quantity, name, unit);
+
+  /// Create a copy of HistoryMealItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$HistoryMealItemImplCopyWith<_$HistoryMealItemImpl> get copyWith =>
+      __$$HistoryMealItemImplCopyWithImpl<_$HistoryMealItemImpl>(
+          this, _$identity);
+}
+
+abstract class _HistoryMealItem implements HistoryMealItem {
+  const factory _HistoryMealItem(
+      {required final double quantity,
+      final String? name,
+      final MeasurementUnitOption? unit}) = _$HistoryMealItemImpl;
+
+  @override
+  double get quantity;
+
+  /// Nombre del catalogo local; `null` si el dispositivo no lo conoce.
+  @override
+  String? get name;
+  @override
+  MeasurementUnitOption? get unit;
+
+  /// Create a copy of HistoryMealItem
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$HistoryMealItemImplCopyWith<_$HistoryMealItemImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$HistoryEntry {
   HistoryEntryKind get kind => throw _privateConstructorUsedError;
   DateTime get occurredAt => throw _privateConstructorUsedError;
@@ -32,7 +203,7 @@ mixin _$HistoryEntry {
       throw _privateConstructorUsedError; // Datos de una comida.
   MealTimeOption? get mealTime => throw _privateConstructorUsedError;
   FodmapLoad? get aggregatedFodmap => throw _privateConstructorUsedError;
-  List<String> get itemNames =>
+  List<HistoryMealItem> get items =>
       throw _privateConstructorUsedError; // Datos de un sintoma.
   SymptomTypeOption? get symptomType => throw _privateConstructorUsedError;
   int? get intensity => throw _privateConstructorUsedError;
@@ -71,7 +242,7 @@ abstract class $HistoryEntryCopyWith<$Res> {
       String? lastErrorCode,
       MealTimeOption? mealTime,
       FodmapLoad? aggregatedFodmap,
-      List<String> itemNames,
+      List<HistoryMealItem> items,
       SymptomTypeOption? symptomType,
       int? intensity,
       bool? hasMealAssociation,
@@ -102,7 +273,7 @@ class _$HistoryEntryCopyWithImpl<$Res, $Val extends HistoryEntry>
     Object? lastErrorCode = freezed,
     Object? mealTime = freezed,
     Object? aggregatedFodmap = freezed,
-    Object? itemNames = null,
+    Object? items = null,
     Object? symptomType = freezed,
     Object? intensity = freezed,
     Object? hasMealAssociation = freezed,
@@ -142,10 +313,10 @@ class _$HistoryEntryCopyWithImpl<$Res, $Val extends HistoryEntry>
           ? _value.aggregatedFodmap
           : aggregatedFodmap // ignore: cast_nullable_to_non_nullable
               as FodmapLoad?,
-      itemNames: null == itemNames
-          ? _value.itemNames
-          : itemNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<HistoryMealItem>,
       symptomType: freezed == symptomType
           ? _value.symptomType
           : symptomType // ignore: cast_nullable_to_non_nullable
@@ -187,7 +358,7 @@ abstract class _$$HistoryEntryImplCopyWith<$Res>
       String? lastErrorCode,
       MealTimeOption? mealTime,
       FodmapLoad? aggregatedFodmap,
-      List<String> itemNames,
+      List<HistoryMealItem> items,
       SymptomTypeOption? symptomType,
       int? intensity,
       bool? hasMealAssociation,
@@ -216,7 +387,7 @@ class __$$HistoryEntryImplCopyWithImpl<$Res>
     Object? lastErrorCode = freezed,
     Object? mealTime = freezed,
     Object? aggregatedFodmap = freezed,
-    Object? itemNames = null,
+    Object? items = null,
     Object? symptomType = freezed,
     Object? intensity = freezed,
     Object? hasMealAssociation = freezed,
@@ -256,10 +427,10 @@ class __$$HistoryEntryImplCopyWithImpl<$Res>
           ? _value.aggregatedFodmap
           : aggregatedFodmap // ignore: cast_nullable_to_non_nullable
               as FodmapLoad?,
-      itemNames: null == itemNames
-          ? _value._itemNames
-          : itemNames // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      items: null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<HistoryMealItem>,
       symptomType: freezed == symptomType
           ? _value.symptomType
           : symptomType // ignore: cast_nullable_to_non_nullable
@@ -296,13 +467,13 @@ class _$HistoryEntryImpl extends _HistoryEntry {
       this.lastErrorCode,
       this.mealTime,
       this.aggregatedFodmap,
-      final List<String> itemNames = const <String>[],
+      final List<HistoryMealItem> items = const <HistoryMealItem>[],
       this.symptomType,
       this.intensity,
       this.hasMealAssociation,
       this.associatedMealTime,
       this.associatedMealDelay})
-      : _itemNames = itemNames,
+      : _items = items,
         super._();
 
   @override
@@ -329,13 +500,13 @@ class _$HistoryEntryImpl extends _HistoryEntry {
   final MealTimeOption? mealTime;
   @override
   final FodmapLoad? aggregatedFodmap;
-  final List<String> _itemNames;
+  final List<HistoryMealItem> _items;
   @override
   @JsonKey()
-  List<String> get itemNames {
-    if (_itemNames is EqualUnmodifiableListView) return _itemNames;
+  List<HistoryMealItem> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_itemNames);
+    return EqualUnmodifiableListView(_items);
   }
 
 // Datos de un sintoma.
@@ -361,7 +532,7 @@ class _$HistoryEntryImpl extends _HistoryEntry {
 
   @override
   String toString() {
-    return 'HistoryEntry(kind: $kind, occurredAt: $occurredAt, syncState: $syncState, serverId: $serverId, clientGuid: $clientGuid, lastErrorCode: $lastErrorCode, mealTime: $mealTime, aggregatedFodmap: $aggregatedFodmap, itemNames: $itemNames, symptomType: $symptomType, intensity: $intensity, hasMealAssociation: $hasMealAssociation, associatedMealTime: $associatedMealTime, associatedMealDelay: $associatedMealDelay)';
+    return 'HistoryEntry(kind: $kind, occurredAt: $occurredAt, syncState: $syncState, serverId: $serverId, clientGuid: $clientGuid, lastErrorCode: $lastErrorCode, mealTime: $mealTime, aggregatedFodmap: $aggregatedFodmap, items: $items, symptomType: $symptomType, intensity: $intensity, hasMealAssociation: $hasMealAssociation, associatedMealTime: $associatedMealTime, associatedMealDelay: $associatedMealDelay)';
   }
 
   @override
@@ -384,8 +555,7 @@ class _$HistoryEntryImpl extends _HistoryEntry {
                 other.mealTime == mealTime) &&
             (identical(other.aggregatedFodmap, aggregatedFodmap) ||
                 other.aggregatedFodmap == aggregatedFodmap) &&
-            const DeepCollectionEquality()
-                .equals(other._itemNames, _itemNames) &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.symptomType, symptomType) ||
                 other.symptomType == symptomType) &&
             (identical(other.intensity, intensity) ||
@@ -409,7 +579,7 @@ class _$HistoryEntryImpl extends _HistoryEntry {
       lastErrorCode,
       mealTime,
       aggregatedFodmap,
-      const DeepCollectionEquality().hash(_itemNames),
+      const DeepCollectionEquality().hash(_items),
       symptomType,
       intensity,
       hasMealAssociation,
@@ -435,7 +605,7 @@ abstract class _HistoryEntry extends HistoryEntry {
       final String? lastErrorCode,
       final MealTimeOption? mealTime,
       final FodmapLoad? aggregatedFodmap,
-      final List<String> itemNames,
+      final List<HistoryMealItem> items,
       final SymptomTypeOption? symptomType,
       final int? intensity,
       final bool? hasMealAssociation,
@@ -467,7 +637,7 @@ abstract class _HistoryEntry extends HistoryEntry {
   @override
   FodmapLoad? get aggregatedFodmap;
   @override
-  List<String> get itemNames; // Datos de un sintoma.
+  List<HistoryMealItem> get items; // Datos de un sintoma.
   @override
   SymptomTypeOption? get symptomType;
   @override

@@ -42,18 +42,24 @@ class _FixedHistory extends HistoryNotifier {
   HistoryState build() => HistoryState(entries: _entries);
 
   @override
-  Future<void> load({DateTime? from, DateTime? to}) async {}
+  Future<void> load() async {}
 
   @override
   Future<void> discard(String clientGuid) async => discarded.add(clientGuid);
 }
+
+const HistoryMealItem _arroz = HistoryMealItem(
+  name: 'Arroz blanco cocido',
+  quantity: 150,
+  unit: MeasurementUnitOption.grams,
+);
 
 HistoryEntry _meal({
   required DateTime at,
   HistoryEntrySyncState sync = HistoryEntrySyncState.synced,
   String? serverId = 'meal-1',
   MealTimeOption mealTime = MealTimeOption.lunch,
-  List<String> items = const <String>['Arroz blanco cocido'],
+  List<HistoryMealItem> items = const <HistoryMealItem>[_arroz],
 }) {
   return HistoryEntry(
     kind: HistoryEntryKind.meal,
@@ -62,7 +68,7 @@ HistoryEntry _meal({
     serverId: serverId,
     clientGuid: 'guid-meal',
     mealTime: mealTime,
-    itemNames: items,
+    items: items,
   );
 }
 
@@ -147,7 +153,13 @@ void main() {
           sync: HistoryEntrySyncState.pending,
           serverId: null,
           mealTime: MealTimeOption.dinner,
-          items: <String>['Brócoli cocido'],
+          items: const <HistoryMealItem>[
+            HistoryMealItem(
+              name: 'Brócoli cocido',
+              quantity: 1,
+              unit: MeasurementUnitOption.cups,
+            ),
+          ],
         ),
       ]);
 
@@ -165,8 +177,8 @@ void main() {
       expect(iconos, hasLength(3));
 
       // Y las dos comidas muestran lo que el paciente registro.
-      expect(find.text('Arroz blanco cocido'), findsOneWidget);
-      expect(find.text('Brócoli cocido'), findsOneWidget);
+      expect(find.text('150 gramos Arroz blanco cocido'), findsOneWidget);
+      expect(find.text('1 taza Brócoli cocido'), findsOneWidget);
     });
 
     testWidgets('el sintoma muestra su tipo y su intensidad', (tester) async {
@@ -396,6 +408,84 @@ void main() {
 
       expect(find.byKey(const Key('history_discard')), findsOneWidget);
       expect(find.text(l10n.historyFailedExplanation), findsNothing);
+    });
+  });
+
+  group('Diario · cantidad y unidad en la fila (CP022 paso 10)', () {
+    testWidgets('la fila muestra cantidad y unidad pegadas al nombre',
+        (tester) async {
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(13),
+          items: const <HistoryMealItem>[
+            _arroz,
+            HistoryMealItem(
+              name: 'Leche',
+              quantity: 1,
+              unit: MeasurementUnitOption.cups,
+            ),
+            HistoryMealItem(
+              name: 'Avena',
+              quantity: 0.5,
+              unit: MeasurementUnitOption.cups,
+            ),
+          ],
+        ),
+      ]);
+
+      expect(
+        find.text('150 gramos Arroz blanco cocido · 1 taza Leche · '
+            '0.5 tazas Avena'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'una comida con todos sus alimentos personalizados muestra solo '
+        'el momento, la hora y el estado', (tester) async {
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(13),
+          items: const <HistoryMealItem>[
+            HistoryMealItem(quantity: 1, unit: MeasurementUnitOption.units),
+            HistoryMealItem(quantity: 2, unit: MeasurementUnitOption.units),
+          ],
+        ),
+      ]);
+
+      expect(find.byType(HistoryCard), findsOneWidget);
+      expect(find.text(l10n.mealTimeLunch), findsOneWidget);
+      expect(find.text(l10n.historySyncDone), findsOneWidget);
+      expect(find.byKey(const Key('history_meal_items')), findsNothing);
+      expect(find.textContaining('unidad'), findsNothing);
+    });
+
+    testWidgets('un alimento sin unidad conocida muestra solo el nombre',
+        (tester) async {
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(13),
+          items: const <HistoryMealItem>[
+            HistoryMealItem(name: 'Quinua', quantity: 80),
+          ],
+        ),
+      ]);
+
+      expect(find.text('Quinua'), findsOneWidget);
+    });
+  });
+
+  group('Diario · lista perezosa', () {
+    testWidgets('con 600 filas solo monta las tarjetas visibles',
+        (tester) async {
+      await _pump(tester, <HistoryEntry>[
+        for (var i = 0; i < 600; i++) _meal(at: aLas(i % 24, dias: i ~/ 6)),
+      ]);
+
+      final montadas = find.byType(HistoryCard, skipOffstage: false);
+      expect(montadas, findsWidgets);
+      expect(tester.widgetList(montadas).length, lessThan(40));
     });
   });
 

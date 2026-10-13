@@ -6,6 +6,8 @@ import 'package:cauce_mobile/features/meals/domain/meal_draft.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../helpers/sync_fixtures.dart';
+
 const FoodItem _arroz = FoodItem(
   foodId: 'f1',
   name: 'Arroz blanco cocido',
@@ -150,29 +152,94 @@ void main() {
       final clientGuid = await store.enqueue(_draft);
       await store.markSynced(clientGuid, 'server-1');
 
-      expect(await store.recent(), hasLength(1));
+      expect(
+        await store.forHistory(from: DateTime.utc(2026, 1, 1)),
+        hasLength(1),
+      );
     });
   });
 
   group('MealsLocalStore · historial local', () {
+    final desde = DateTime.utc(2026, 7, 13, 20);
+
     test('ordena de la mas reciente a la mas vieja', () async {
       await store.enqueue(_draft, now: DateTime.utc(2026, 9, 18, 8));
       await store.enqueue(_draft, now: DateTime.utc(2026, 9, 18, 20));
 
-      final recent = await store.recent();
+      final rows = await store.forHistory(from: desde);
 
       expect(
-        recent.first.clientCreatedAt.toUtc(),
+        rows.first.clientCreatedAt.toUtc(),
         DateTime.utc(2026, 9, 18, 20),
       );
     });
 
-    test('respeta el limite', () async {
-      for (var i = 0; i < 5; i++) {
-        await store.enqueue(_draft);
+    test(
+        'forHistory entrega la ventana y toda fila pendiente o fallida '
+        'aunque sea vieja', () async {
+      await insertPendingMeal(
+        database,
+        'en-ventana',
+        clientCreatedAt: desde.add(const Duration(days: 1)),
+        status: LocalSyncStatus.completed,
+      );
+      await insertPendingMeal(
+        database,
+        'sincronizada-vieja',
+        clientCreatedAt: desde.subtract(const Duration(days: 10)),
+        status: LocalSyncStatus.completed,
+      );
+      await insertPendingMeal(
+        database,
+        'pendiente-vieja',
+        clientCreatedAt: desde.subtract(const Duration(days: 100)),
+      );
+      await insertPendingMeal(
+        database,
+        'fallida-vieja',
+        clientCreatedAt: desde.subtract(const Duration(days: 200)),
+        status: LocalSyncStatus.failed,
+      );
+
+      final rows = await store.forHistory(from: desde);
+
+      expect(
+        rows.map((row) => row.clientGuid),
+        <String>['en-ventana', 'pendiente-vieja', 'fallida-vieja'],
+      );
+    });
+
+    test('el borde de la ventana es inclusivo', () async {
+      await insertPendingMeal(
+        database,
+        'en-el-borde',
+        clientCreatedAt: desde,
+        status: LocalSyncStatus.completed,
+      );
+      await insertPendingMeal(
+        database,
+        'un-segundo-antes',
+        clientCreatedAt: desde.subtract(const Duration(seconds: 1)),
+        status: LocalSyncStatus.completed,
+      );
+
+      final rows = await store.forHistory(from: desde);
+
+      expect(rows.map((row) => row.clientGuid), <String>['en-el-borde']);
+    });
+
+    test('itemsOfMany trae los items de 600 comidas', () async {
+      final guids = <String>[
+        for (var i = 0; i < 600; i++) 'comida-$i',
+      ];
+      for (final guid in guids) {
+        await insertPendingMeal(database, guid);
       }
 
-      expect(await store.recent(limit: 3), hasLength(3));
+      final items = await store.itemsOfMany(guids);
+
+      expect(items, hasLength(600));
+      expect(items.map((item) => item.mealClientGuid).toSet(), guids.toSet());
     });
   });
 }
