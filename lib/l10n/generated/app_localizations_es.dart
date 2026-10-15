@@ -734,6 +734,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get historyDiscard => 'Descartar';
 
   @override
+  String get historyCustomFoodItem => 'Plato personalizado';
+
+  @override
   String get historyDiscardPendingTitle => '¿Descartar este registro?';
 
   @override

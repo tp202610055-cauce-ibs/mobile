@@ -216,10 +216,11 @@ class HistoryCard extends StatelessWidget {
 
   List<Widget> _mealBody(AppLocalizations l10n, TextTheme textTheme) {
     final fodmap = entry.aggregatedFodmap;
-    // Un alimento sin nombre conocido en el dispositivo no se muestra.
+    // Un plato personalizado se rotula como tal; un alimento del catalogo sin
+    // nombre conocido en el dispositivo no se muestra.
     final items = <String>[
       for (final item in entry.items)
-        if (item.name != null) _itemLabel(l10n, item),
+        if (item.isCustom || item.name != null) _itemLabel(l10n, item),
     ];
 
     return <Widget>[
@@ -253,12 +254,13 @@ class HistoryCard extends StatelessWidget {
   }
 
   /// Cantidad y unidad pegadas al nombre, como en el formulario: "150 gramos
-  /// Arroz blanco cocido".
+  /// Arroz blanco cocido" o "1 unidad Plato personalizado".
   String _itemLabel(AppLocalizations l10n, HistoryMealItem item) {
+    final name = item.isCustom ? l10n.historyCustomFoodItem : item.name!;
     final unit = item.unit;
     return unit == null
-        ? item.name!
-        : '${MealLabels.amount(l10n, item.quantity, unit)} ${item.name}';
+        ? name
+        : '${MealLabels.amount(l10n, item.quantity, unit)} $name';
   }
 
   List<Widget> _symptomBody(AppLocalizations l10n, TextTheme textTheme) {

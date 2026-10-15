@@ -169,6 +169,7 @@ class HistoryComposer {
             name: names[item.foodId],
             quantity: item.quantity,
             unit: item.unit,
+            isCustom: item.customFoodId != null,
           ),
       ],
     );
@@ -232,6 +233,7 @@ class HistoryComposer {
               name: names[item.foodId],
               quantity: item.quantity,
               unit: MeasurementUnitOption.fromWire(item.unit),
+              isCustom: item.customFoodId != null,
             ),
         ],
       ),

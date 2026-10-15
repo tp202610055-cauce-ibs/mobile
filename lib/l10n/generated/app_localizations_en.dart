@@ -733,6 +733,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get historyDiscard => 'Discard';
 
   @override
+  String get historyCustomFoodItem => 'Custom dish';
+
+  @override
   String get historyDiscardPendingTitle => 'Discard this record?';
 
   @override

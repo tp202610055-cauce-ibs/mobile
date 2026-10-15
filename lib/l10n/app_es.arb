@@ -740,6 +740,10 @@
   "@historyDiscard": {
     "description": "Accion que borra una fila local que no llego al servidor, rechazada o pendiente"
   },
+  "historyCustomFoodItem": "Plato personalizado",
+  "@historyCustomFoodItem": {
+    "description": "Rotulo de un plato personalizado en la fila de una comida del Diario, despues de su cantidad y unidad. El dispositivo no conoce su nombre"
+  },
   "historyDiscardPendingTitle": "¿Descartar este registro?",
   "@historyDiscardPendingTitle": {
     "description": "Confirmacion antes de descartar una fila pendiente de sincronizar (acta M50)"

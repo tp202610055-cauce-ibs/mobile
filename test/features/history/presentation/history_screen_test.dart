@@ -441,24 +441,74 @@ void main() {
     });
 
     testWidgets(
-        'una comida con todos sus alimentos personalizados muestra solo '
-        'el momento, la hora y el estado', (tester) async {
+        'una comida con solo platos personalizados muestra cada uno con su '
+        'cantidad, su unidad y el rotulo', (tester) async {
       final l10n = await AppLocalizations.delegate.load(const Locale('es'));
       await _pump(tester, <HistoryEntry>[
         _meal(
           at: aLas(13),
           items: const <HistoryMealItem>[
-            HistoryMealItem(quantity: 1, unit: MeasurementUnitOption.units),
-            HistoryMealItem(quantity: 2, unit: MeasurementUnitOption.units),
+            HistoryMealItem(
+              quantity: 1,
+              unit: MeasurementUnitOption.units,
+              isCustom: true,
+            ),
+            HistoryMealItem(
+              quantity: 0.5,
+              unit: MeasurementUnitOption.cups,
+              isCustom: true,
+            ),
           ],
         ),
       ]);
 
       expect(find.byType(HistoryCard), findsOneWidget);
       expect(find.text(l10n.mealTimeLunch), findsOneWidget);
+      expect(
+        find.text('1 unidad Plato personalizado · '
+            '0.5 tazas Plato personalizado'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('un plato personalizado va junto a los alimentos del catalogo',
+        (tester) async {
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(13),
+          items: const <HistoryMealItem>[
+            _arroz,
+            HistoryMealItem(
+              quantity: 1,
+              unit: MeasurementUnitOption.units,
+              isCustom: true,
+            ),
+          ],
+        ),
+      ]);
+
+      expect(
+        find.text('150 gramos Arroz blanco cocido · 1 unidad Plato '
+            'personalizado'),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets(
+        'un alimento del catalogo sin nombre conocido no aparece en la fila',
+        (tester) async {
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+      await _pump(tester, <HistoryEntry>[
+        _meal(
+          at: aLas(13),
+          items: const <HistoryMealItem>[
+            HistoryMealItem(quantity: 1, unit: MeasurementUnitOption.units),
+          ],
+        ),
+      ]);
+
       expect(find.text(l10n.historySyncDone), findsOneWidget);
       expect(find.byKey(const Key('history_meal_items')), findsNothing);
-      expect(find.textContaining('unidad'), findsNothing);
     });
 
     testWidgets('un alimento sin unidad conocida muestra solo el nombre',

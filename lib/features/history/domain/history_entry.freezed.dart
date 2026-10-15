@@ -22,6 +22,10 @@ mixin _$HistoryMealItem {
   String? get name => throw _privateConstructorUsedError;
   MeasurementUnitOption? get unit => throw _privateConstructorUsedError;
 
+  /// `true` si es un plato personalizado, cuyo nombre el dispositivo no
+  /// guarda.
+  bool get isCustom => throw _privateConstructorUsedError;
+
   /// Create a copy of HistoryMealItem
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -35,7 +39,11 @@ abstract class $HistoryMealItemCopyWith<$Res> {
           HistoryMealItem value, $Res Function(HistoryMealItem) then) =
       _$HistoryMealItemCopyWithImpl<$Res, HistoryMealItem>;
   @useResult
-  $Res call({double quantity, String? name, MeasurementUnitOption? unit});
+  $Res call(
+      {double quantity,
+      String? name,
+      MeasurementUnitOption? unit,
+      bool isCustom});
 }
 
 /// @nodoc
@@ -56,6 +64,7 @@ class _$HistoryMealItemCopyWithImpl<$Res, $Val extends HistoryMealItem>
     Object? quantity = null,
     Object? name = freezed,
     Object? unit = freezed,
+    Object? isCustom = null,
   }) {
     return _then(_value.copyWith(
       quantity: null == quantity
@@ -70,6 +79,10 @@ class _$HistoryMealItemCopyWithImpl<$Res, $Val extends HistoryMealItem>
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
               as MeasurementUnitOption?,
+      isCustom: null == isCustom
+          ? _value.isCustom
+          : isCustom // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -82,7 +95,11 @@ abstract class _$$HistoryMealItemImplCopyWith<$Res>
       __$$HistoryMealItemImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({double quantity, String? name, MeasurementUnitOption? unit});
+  $Res call(
+      {double quantity,
+      String? name,
+      MeasurementUnitOption? unit,
+      bool isCustom});
 }
 
 /// @nodoc
@@ -101,6 +118,7 @@ class __$$HistoryMealItemImplCopyWithImpl<$Res>
     Object? quantity = null,
     Object? name = freezed,
     Object? unit = freezed,
+    Object? isCustom = null,
   }) {
     return _then(_$HistoryMealItemImpl(
       quantity: null == quantity
@@ -115,6 +133,10 @@ class __$$HistoryMealItemImplCopyWithImpl<$Res>
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
               as MeasurementUnitOption?,
+      isCustom: null == isCustom
+          ? _value.isCustom
+          : isCustom // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -122,7 +144,8 @@ class __$$HistoryMealItemImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$HistoryMealItemImpl implements _HistoryMealItem {
-  const _$HistoryMealItemImpl({required this.quantity, this.name, this.unit});
+  const _$HistoryMealItemImpl(
+      {required this.quantity, this.name, this.unit, this.isCustom = false});
 
   @override
   final double quantity;
@@ -133,9 +156,15 @@ class _$HistoryMealItemImpl implements _HistoryMealItem {
   @override
   final MeasurementUnitOption? unit;
 
+  /// `true` si es un plato personalizado, cuyo nombre el dispositivo no
+  /// guarda.
+  @override
+  @JsonKey()
+  final bool isCustom;
+
   @override
   String toString() {
-    return 'HistoryMealItem(quantity: $quantity, name: $name, unit: $unit)';
+    return 'HistoryMealItem(quantity: $quantity, name: $name, unit: $unit, isCustom: $isCustom)';
   }
 
   @override
@@ -146,11 +175,13 @@ class _$HistoryMealItemImpl implements _HistoryMealItem {
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.unit, unit) || other.unit == unit));
+            (identical(other.unit, unit) || other.unit == unit) &&
+            (identical(other.isCustom, isCustom) ||
+                other.isCustom == isCustom));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, quantity, name, unit);
+  int get hashCode => Object.hash(runtimeType, quantity, name, unit, isCustom);
 
   /// Create a copy of HistoryMealItem
   /// with the given fields replaced by the non-null parameter values.
@@ -166,7 +197,8 @@ abstract class _HistoryMealItem implements HistoryMealItem {
   const factory _HistoryMealItem(
       {required final double quantity,
       final String? name,
-      final MeasurementUnitOption? unit}) = _$HistoryMealItemImpl;
+      final MeasurementUnitOption? unit,
+      final bool isCustom}) = _$HistoryMealItemImpl;
 
   @override
   double get quantity;
@@ -176,6 +208,11 @@ abstract class _HistoryMealItem implements HistoryMealItem {
   String? get name;
   @override
   MeasurementUnitOption? get unit;
+
+  /// `true` si es un plato personalizado, cuyo nombre el dispositivo no
+  /// guarda.
+  @override
+  bool get isCustom;
 
   /// Create a copy of HistoryMealItem
   /// with the given fields replaced by the non-null parameter values.

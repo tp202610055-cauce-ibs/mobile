@@ -33,6 +33,10 @@ abstract class HistoryMealItem with _$HistoryMealItem {
     /// Nombre del catalogo local; `null` si el dispositivo no lo conoce.
     String? name,
     MeasurementUnitOption? unit,
+
+    /// `true` si es un plato personalizado, cuyo nombre el dispositivo no
+    /// guarda.
+    @Default(false) bool isCustom,
   }) = _HistoryMealItem;
 }
 

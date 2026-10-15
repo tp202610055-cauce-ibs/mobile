@@ -15,6 +15,7 @@ import 'package:cauce_mobile/features/meals/domain/meal_draft.dart';
 import 'package:cauce_mobile/features/meals/domain/meal_record.dart';
 import 'package:cauce_mobile/features/symptoms/data/symptoms_repository.dart';
 import 'package:cauce_mobile/features/symptoms/domain/symptom_draft.dart';
+import 'package:drift/drift.dart' show Value;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -633,7 +634,34 @@ void main() {
       );
     });
 
-    test('un plato personalizado queda sin nombre', () async {
+    test('un plato personalizado local se marca como tal, sin nombre',
+        () async {
+      await insertPendingMeal(db, _mealGuid, clientCreatedAt: _now);
+      await db.into(db.mealItemsLocal).insert(
+            MealItemsLocalCompanion.insert(
+              mealClientGuid: _mealGuid,
+              quantity: 1,
+              unit: 'Units',
+              customFoodId: const Value<String?>('custom-1'),
+            ),
+          );
+      final c = _pagedContainer(
+        database: db,
+        meals: PagedMealsRepository(const <MealRecord>[]),
+        symptoms: PagedSymptomsRepository(const <SymptomRecord>[]),
+      );
+
+      await c.read(historyNotifierProvider.notifier).load();
+
+      final items = c.read(historyNotifierProvider).entries.single.items;
+      final propio = items.singleWhere((item) => item.isCustom);
+      expect(propio.name, isNull);
+      expect(propio.unit, MeasurementUnitOption.units);
+      expect(items.where((item) => !item.isCustom), hasLength(1));
+    });
+
+    test('un plato personalizado del servidor se marca como tal, sin nombre',
+        () async {
       final propio = MealRecord(
         mealId: 'meal-propio',
         consumedAt: _now,
@@ -655,6 +683,7 @@ void main() {
       await c.read(historyNotifierProvider.notifier).load();
 
       final items = c.read(historyNotifierProvider).entries.single.items;
+      expect(items.single.isCustom, isTrue);
       expect(items.single.name, isNull);
       expect(items.single.unit, MeasurementUnitOption.units);
     });
