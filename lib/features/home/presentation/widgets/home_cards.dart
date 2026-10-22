@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
@@ -9,7 +11,7 @@ import '../../../../core/theme/design_tokens.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../../history/application/history_notifier.dart';
-import '../../../history/domain/history_entry.dart';
+import '../../../history/application/today_journal_notifier.dart';
 import '../../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../../ibs_sss/domain/ibs_sss_assessment.dart';
 import '../../../recommendations/application/recommendations_feed_notifier.dart';
@@ -117,8 +119,7 @@ class HomeScoreCard extends ConsumerWidget {
 
 /// Resumen de lo registrado hoy, con la puerta al Diario.
 ///
-/// Lee el mismo `HistoryNotifier` que el Diario, de modo que no agrega ni una
-/// peticion: lo que ya esta cargado se cuenta y se muestra.
+/// Lee su propio estado de hoy, de modo que Inicio no carga los 90 dias.
 class HomeTodayCard extends ConsumerWidget {
   const HomeTodayCard({super.key});
 
@@ -126,19 +127,7 @@ class HomeTodayCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
-    final entries = ref.watch(historyNotifierProvider).entries;
-
-    final today = DateTime.now().toLocal();
-    final hoy = entries.where((HistoryEntry entry) {
-      final when = entry.occurredAt.toLocal();
-      return when.year == today.year &&
-          when.month == today.month &&
-          when.day == today.day;
-    }).toList();
-
-    final comidas = hoy.where((e) => e.kind == HistoryEntryKind.meal).length;
-    final sintomas =
-        hoy.where((e) => e.kind == HistoryEntryKind.symptom).length;
+    final hoy = ref.watch(todayJournalNotifierProvider);
 
     return _Card(
       cardKey: const Key('home_today_card'),
@@ -151,8 +140,8 @@ class HomeTodayCard extends ConsumerWidget {
             hoy.isEmpty
                 ? l10n.homeTodayEmpty
                 : l10n.homeTodaySummary(
-                    l10n.homeTodayMeals(comidas),
-                    l10n.homeTodaySymptoms(sintomas),
+                    l10n.homeTodayMeals(hoy.meals),
+                    l10n.homeTodaySymptoms(hoy.symptoms),
                   ),
             key: const Key('home_today_summary'),
             style: textTheme.bodyLarge,
@@ -165,7 +154,14 @@ class HomeTodayCard extends ConsumerWidget {
               label: l10n.homeTodayOpen,
               // `go` y no `push`: el Diario es una pestana, no una pantalla
               // que se apila encima de Inicio.
-              onPressed: () => context.go(AppRoutes.history),
+              onPressed: () {
+                context.go(AppRoutes.history);
+                unawaited(
+                  ref
+                      .read(historyNotifierProvider.notifier)
+                      .reloadIfOpen(onlyIfStale: true),
+                );
+              },
             ),
           ),
         ],

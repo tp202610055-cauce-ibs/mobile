@@ -284,6 +284,7 @@
   "historyStateFailed": "Could not be sent",
   "historyFailedExplanation": "This record could not be sent and will not be retried. You can discard it.",
   "historyDiscard": "Discard",
+  "historyCustomFoodItem": "Custom dish",
   "historyDiscardPendingTitle": "Discard this record?",
   "historyDiscardPendingBody": "It has not reached the server yet. If you discard it, it is deleted from this phone and will not be sent.",
   "historyAddNote": "Add note",

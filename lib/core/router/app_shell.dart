@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../features/history/application/history_notifier.dart';
+import '../../features/history/application/today_journal_notifier.dart';
 import '../../features/ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../features/onboarding/application/onboarding_notifier.dart';
 import '../../features/recommendations/application/recommendations_feed_notifier.dart';
@@ -231,18 +232,16 @@ class AppShell extends ConsumerWidget {
     ];
   }
 
-  /// Abre un formulario de registro y recarga el Diario al volver.
-  ///
-  /// El formulario vive sobre el navigator raiz, asi que la rama del Diario
-  /// no se reconstruye sola cuando se cierra. Esperarlo y recargar es lo que
-  /// hace que el registro recien guardado ya este en la lista.
+  /// Abre un formulario de registro y, al volver, recarga Hoy y el Diario si
+  /// ya se abrio, sin esperar la ventana de frescura.
   Future<void> _openForm(
     BuildContext context,
     WidgetRef ref,
     String route,
   ) async {
     await context.push<void>(route);
-    await ref.read(historyNotifierProvider.notifier).load();
+    await ref.read(todayJournalNotifierProvider.notifier).load();
+    await ref.read(historyNotifierProvider.notifier).reloadIfOpen();
   }
 
   /// Cambia de pestana, o vuelve a la raiz de la actual si ya se esta en ella.
@@ -256,14 +255,19 @@ class AppShell extends ConsumerWidget {
       initialLocation: index == navigationShell.currentIndex,
     );
 
-    // El `IndexedStack` mantiene viva cada rama, de modo que el `initState`
-    // del Diario corre una sola vez, la primera. Sin este disparo, entrar a
-    // la pestana despues de registrar algo muestra la lista de hace un rato
-    // y obliga a tirar para refrescar, que es lo que paso en el celular.
-    // Inicio lee el mismo historial para su tarjeta "Hoy" y tiene el mismo
-    // problema (acta M49).
-    if (index == ShellBranch.journal || index == ShellBranch.home) {
-      unawaited(ref.read(historyNotifierProvider.notifier).load());
+    // El `IndexedStack` conserva cada rama y su `initState` corre una vez.
+    // Al volver a la pestana se recarga solo si paso la ventana de frescura.
+    if (index == ShellBranch.journal) {
+      unawaited(
+        ref
+            .read(historyNotifierProvider.notifier)
+            .reloadIfOpen(onlyIfStale: true),
+      );
+    }
+    if (index == ShellBranch.home) {
+      unawaited(
+        ref.read(todayJournalNotifierProvider.notifier).load(onlyIfStale: true),
+      );
     }
 
     // Mismo motivo para Consejos: una recomendacion que el nutricionista

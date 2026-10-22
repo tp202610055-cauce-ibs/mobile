@@ -2,6 +2,7 @@ import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
+import 'package:cauce_mobile/features/history/application/today_journal_notifier.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
 import 'package:cauce_mobile/features/onboarding/application/onboarding_notifier.dart';
 import 'package:cauce_mobile/core/router/app_router.dart';
@@ -19,6 +20,13 @@ import '../../../helpers/fake_token_storage.dart';
 
 final AppLocalizations l10n = AppLocalizationsEs();
 
+/// Hoy sin red ni base: estas pruebas miran el saludo, los avisos y las
+/// pestanas, y la carga de lo de hoy la cubre `journal_loading_test`.
+class _QuietToday extends TodayJournalNotifier {
+  @override
+  Future<void> load({bool onlyIfStale = false}) async {}
+}
+
 /// Monta la home con la sesion autenticada y el onboarding ya resuelto.
 Future<ProviderContainer> _pump(
   WidgetTester tester, {
@@ -29,6 +37,7 @@ Future<ProviderContainer> _pump(
       patientsRepositoryProvider.overrideWithValue(repository),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+      todayJournalNotifierProvider.overrideWith(_QuietToday.new),
     ],
   );
   addTearDown(container.dispose);
@@ -71,6 +80,7 @@ Future<void> _pumpWithRouter(
       patientsRepositoryProvider.overrideWithValue(repository),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+      todayJournalNotifierProvider.overrideWith(_QuietToday.new),
     ],
   );
   addTearDown(container.dispose);

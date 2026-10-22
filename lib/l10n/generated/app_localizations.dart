@@ -1322,6 +1322,12 @@ abstract class AppLocalizations {
   /// **'Descartar'**
   String get historyDiscard;
 
+  /// Rotulo de un plato personalizado en la fila de una comida del Diario, despues de su cantidad y unidad. El dispositivo no conoce su nombre
+  ///
+  /// In es, this message translates to:
+  /// **'Plato personalizado'**
+  String get historyCustomFoodItem;
+
   /// Confirmacion antes de descartar una fila pendiente de sincronizar (acta M50)
   ///
   /// In es, this message translates to:

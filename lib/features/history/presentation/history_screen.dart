@@ -130,7 +130,60 @@ class _Body extends StatelessWidget {
     final today = _dayOf(DateTime.now().toLocal());
     final hasToday = groups.isNotEmpty && groups.first.day == today;
 
-    return ListView(
+    // Cada fila se arma recien al entrar en pantalla: con 90 dias de
+    // registros no se construyen cientos de tarjetas de una vez.
+    final rows = <WidgetBuilder>[
+      // Un fallo del servidor no vacia la lista: lo registrado en el
+      // dispositivo sigue ahi.
+      if (state.error != null) ...<WidgetBuilder>[
+        (_) => CauceErrorBanner(error: state.error!),
+        (_) => const SizedBox(height: CauceSpacing.space4),
+      ],
+
+      // Sin un solo registro, el estado vacio completo de la seccion I.
+      if (state.entries.isEmpty)
+        (_) => CauceEmptyState(
+              key: const Key('history_empty'),
+              icon: TablerIcons.bowl,
+              title: l10n.historyEmptyTodayTitle,
+              message: l10n.historyEmptyTodayBody,
+              actionLabel: l10n.historyEmptyTodayAction,
+              onAction: onOpenMealForm,
+            )
+      else ...<WidgetBuilder>[
+        // Hoy sin registros pero con dias anteriores: una invitacion corta
+        // con el mismo destino, sin el bloque entero.
+        if (!hasToday) ...<WidgetBuilder>[
+          (_) => _DayHeading(label: l10n.historyToday),
+          (_) => _TodayInvitation(onTap: onOpenMealForm),
+          (_) => const SizedBox(height: CauceSpacing.space4),
+        ],
+        for (final group in groups) ...<WidgetBuilder>[
+          (context) => _DayHeading(
+                label: group.day == today
+                    ? l10n.historyToday
+                    : _formatDay(context, group.day),
+              ),
+          for (final (index, entry) in group.entries.indexed)
+            (context) => HistoryCard(
+                  key: Key(
+                    'history_entry_${group.day.toIso8601String()}_$index',
+                  ),
+                  entry: entry,
+                  onDiscard: entry.clientGuid == null
+                      ? null
+                      : () => _discard(context, entry),
+                  onAddNote: () => context.push(
+                    AppRoutes.clinicalNoteNew,
+                    extra: entry,
+                  ),
+                ),
+          (_) => const SizedBox(height: CauceSpacing.space2),
+        ],
+      ],
+    ];
+
+    return ListView.builder(
       // Siempre desplazable, incluso vacia: sin esto el gesto de refrescar no
       // funciona justamente cuando el paciente mas lo necesita.
       physics: const AlwaysScrollableScrollPhysics(),
@@ -138,56 +191,8 @@ class _Body extends StatelessWidget {
         horizontal: CauceSpacing.space4,
         vertical: CauceSpacing.space4,
       ),
-      children: <Widget>[
-        // Un fallo del servidor no vacia la lista: lo registrado en el
-        // dispositivo sigue ahi, que es lo que el paciente no puede consultar
-        // en ningun otro lado.
-        if (state.error != null) ...<Widget>[
-          CauceErrorBanner(error: state.error!),
-          const SizedBox(height: CauceSpacing.space4),
-        ],
-
-        // Sin un solo registro, el estado vacio completo de la seccion I.
-        if (state.entries.isEmpty)
-          CauceEmptyState(
-            key: const Key('history_empty'),
-            icon: TablerIcons.bowl,
-            title: l10n.historyEmptyTodayTitle,
-            message: l10n.historyEmptyTodayBody,
-            actionLabel: l10n.historyEmptyTodayAction,
-            onAction: onOpenMealForm,
-          )
-        else ...<Widget>[
-          // Hoy sin registros pero con dias anteriores: una invitacion corta
-          // con el mismo destino, sin el bloque entero, que empujaria el
-          // historial fuera de la pantalla.
-          if (!hasToday) ...<Widget>[
-            _DayHeading(label: l10n.historyToday),
-            _TodayInvitation(onTap: onOpenMealForm),
-            const SizedBox(height: CauceSpacing.space4),
-          ],
-          for (final group in groups) ...<Widget>[
-            _DayHeading(
-              label: group.day == today
-                  ? l10n.historyToday
-                  : _formatDay(context, group.day),
-            ),
-            for (final (index, entry) in group.entries.indexed)
-              HistoryCard(
-                key: Key('history_entry_${group.day.toIso8601String()}_$index'),
-                entry: entry,
-                onDiscard: entry.clientGuid == null
-                    ? null
-                    : () => _discard(context, entry),
-                onAddNote: () => context.push(
-                  AppRoutes.clinicalNoteNew,
-                  extra: entry,
-                ),
-              ),
-            const SizedBox(height: CauceSpacing.space2),
-          ],
-        ],
-      ],
+      itemCount: rows.length,
+      itemBuilder: (context, index) => rows[index](context),
     );
   }
 }

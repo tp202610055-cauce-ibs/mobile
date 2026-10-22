@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -117,13 +119,22 @@ class MealsLocalStore {
     );
   }
 
-  /// Comidas locales, de la mas reciente a la mas vieja.
-  Future<List<MealLocal>> recent({int limit = 50}) {
+  /// Claves por consulta: queda bajo el limite de 999 variables de SQLite
+  /// anterior a 3.32.
+  static const int _keysPerQuery = 500;
+
+  /// Comidas creadas desde [from] inclusive, mas toda fila que no llego al
+  /// servidor sin importar su edad, de la mas reciente a la mas vieja.
+  Future<List<MealLocal>> forHistory({required DateTime from}) {
     return (_db.select(_db.mealsLocal)
+          ..where(
+            (row) =>
+                row.clientCreatedAt.isBiggerOrEqualValue(from.toUtc()) |
+                row.syncStatus.equalsValue(LocalSyncStatus.completed).not(),
+          )
           ..orderBy(<OrderClauseGenerator<$MealsLocalTable>>[
             (row) => OrderingTerm.desc(row.clientCreatedAt),
-          ])
-          ..limit(limit))
+          ]))
         .get();
   }
 
@@ -132,6 +143,22 @@ class MealsLocalStore {
     return (_db.select(_db.mealItemsLocal)
           ..where((row) => row.mealClientGuid.equals(clientGuid)))
         .get();
+  }
+
+  /// Items de varias comidas locales, en tandas de [_keysPerQuery] claves.
+  Future<List<MealItemLocal>> itemsOfMany(Iterable<String> clientGuids) async {
+    final guids = clientGuids.toSet().toList();
+    final items = <MealItemLocal>[];
+    for (var start = 0; start < guids.length; start += _keysPerQuery) {
+      final end = math.min(start + _keysPerQuery, guids.length);
+      final batch = guids.sublist(start, end);
+      items.addAll(
+        await (_db.select(_db.mealItemsLocal)
+              ..where((row) => row.mealClientGuid.isIn(batch)))
+            .get(),
+      );
+    }
+    return items;
   }
 }
 
