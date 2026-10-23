@@ -6,7 +6,7 @@
         Desde API 31 allowBackup no frena el traspaso, por eso van también las reglas.
     -->
     <application
-        android:label="cauce_mobile"
+        android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false"
