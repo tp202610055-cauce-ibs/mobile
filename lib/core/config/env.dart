@@ -140,5 +140,19 @@ abstract final class Env {
 
   /// Solo en dev se monta el `LogInterceptor` de dio, que vuelca cuerpos de
   /// request y response. En staging y prod eso filtraria datos del paciente.
-  static bool get isNetworkLoggingEnabled => flavor == Flavor.dev;
+  static bool get isNetworkLoggingEnabled =>
+      resolveNetworkLogging(flavor: flavor, isRelease: kReleaseMode);
+
+  /// Decide si se registra la red, con el modo de compilacion inyectado.
+  ///
+  /// Un build release nunca registra, aunque el flavor sea dev: `FLAVOR` vale
+  /// dev cuando no se pasa el define. `kReleaseMode` no se puede sustituir en
+  /// un test, por eso llega como parametro.
+  @visibleForTesting
+  static bool resolveNetworkLogging({
+    required Flavor flavor,
+    required bool isRelease,
+  }) {
+    return !isRelease && flavor == Flavor.dev;
+  }
 }
