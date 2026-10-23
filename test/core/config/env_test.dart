@@ -120,5 +120,32 @@ void main() {
       Env.loadForTesting(_devValues, flavor: Flavor.prod);
       expect(Env.isNetworkLoggingEnabled, isFalse);
     });
+
+    test('un build release nunca registra la red, aunque el flavor sea dev',
+        () {
+      // FLAVOR vale dev cuando no se pasa el define, tambien en release.
+      for (final flavor in Flavor.values) {
+        expect(
+          Env.resolveNetworkLogging(flavor: flavor, isRelease: true),
+          isFalse,
+          reason: flavor.name,
+        );
+      }
+    });
+
+    test('fuera de release solo dev registra la red', () {
+      expect(
+        Env.resolveNetworkLogging(flavor: Flavor.dev, isRelease: false),
+        isTrue,
+      );
+      expect(
+        Env.resolveNetworkLogging(flavor: Flavor.staging, isRelease: false),
+        isFalse,
+      );
+      expect(
+        Env.resolveNetworkLogging(flavor: Flavor.prod, isRelease: false),
+        isFalse,
+      );
+    });
   });
 }

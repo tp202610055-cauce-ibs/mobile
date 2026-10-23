@@ -859,3 +859,84 @@ Alternativas consideradas.
 - (a) La clave en el borrador (`MealDraft`): descartada por la misma razón que en M48. El borrador es contenido, no identidad, y su valor por defecto es `const`.
 - (b) Tratar también 5xx y 429 como encolados: fuera de lo decidido. El worker ya los reintenta y el formulario los sigue mostrando como rechazo, con su mensaje.
 - (c) Un temporizador que apague "Registrar": innecesario. El candado de `submitting` ya lo hace, y con la clave única un segundo envío es inocuo.
+
+Acta M51: El Diario con sus 90 días completos, páginas acotadas, frescura de 30 segundos y el plato personalizado con nombre genérico
+
+**Estado:** Propuesta. Registro retroactivo de las decisiones de diseño del bloque del Diario, que se cerró sin acta propia
+**Fecha:** 2026-10-23
+
+---
+
+Contexto. El bloque `feature/mobile-history-1` tuvo cuatro commits:
+
+| Commit | Fecha | Mensaje |
+|---|---|---|
+| `c663170` | 2026-10-13 | test(symptoms): cover the symptoms repository history and registration |
+| `b0997a7` | 2026-10-13 | feat(history): load the full 90-day journal and show each food's amount |
+| `c0b7418` | 2026-10-13 | feat(history): refresh today and an open journal after a sync |
+| `84edf0f` | 2026-10-15 | feat(history): label custom dishes with their amount in the journal row |
+
+Se fusionaron en `develop` el 2026-10-22 con el PR #11 (`fdcb713`), bajo el tag `v0.9.0-mobile-history`. No dejaron acta. Esta registra lo que el código decidió, sin agregarle nada.
+
+Decisión.
+
+1. **Ventana de 90 días.** El Diario lee los 90 días completos (`MealsRepository.defaultWindow`) desde `GET /meals` y `GET /symptoms`, siempre con rango explícito, y les suma lo que todavía no llegó al servidor. Sin rango, el backend responde con cero resultados, y eso parece un historial vacío. Sigue sin usar `GET /history`, como dejó M36. Inicio lee solo el día de hoy (`TodayJournalNotifier`) para no cargar los 90 días.
+2. **Páginas de 100 con tope de 10.** `HistoryComposer` pide 100 registros por página, el máximo que acepta el servidor, y como mucho 10 páginas por tipo. Cada fuente remota es independiente: si una página falla se conserva lo que ya llegó, y lo local se muestra siempre.
+3. **Frescura de 30 segundos.** `historyFreshness` vale 30 s. Al volver a la pestaña Diario o a Inicio solo se recarga si pasó ese tiempo desde la última carga sin error y no hay otra en curso. Al volver de un formulario se recarga sin esperar.
+4. **Refresco tras sincronizar.** `BackgroundServices.onSyncSettled` recarga Hoy y el Diario abierto cuando una corrida del `SyncWorker` deja filas resueltas o descartadas. Una fila que sube sola al reconectar deja de decir «pendiente» sin que el paciente tire de la lista.
+5. **Cantidad y «Plato personalizado».** Cada alimento de una comida muestra su cantidad y su unidad pegadas al nombre («150 gramos Arroz blanco cocido»). El dispositivo no guarda el nombre de un plato personalizado, así que la fila dice «1 unidad Plato personalizado» (`historyCustomFoodItem` en los `.arb`).
+
+Consecuencias.
+
+- Pruebas nuevas: el historial y el registro en `symptoms_repository_test.dart`, el recorrido de carga del Diario en `test/integration/journal_loading_test.dart`, y la fila del plato personalizado en `history_notifier_test.dart` e `history_screen_test.dart`.
+- **Límite conocido.** Con el tope de 10 páginas, el Diario muestra hasta 1000 comidas y 1000 síntomas por ventana. Lo que pase de ahí no aparece.
+- **Límite conocido.** El paciente no ve el nombre de su plato personalizado en el Diario, solo el rótulo genérico.
+
+Acta M52: APK release para la certificación QA
+
+**Estado:** Propuesta
+**Fecha:** 2026-10-23
+
+---
+
+Contexto. El equipo de Diseño de Experimentos ejecutará los 90 CP sobre la instalación en la VM de Azure (`https://portal.cauceibs.org`), con un APK release que los evaluadores instalan desde una URL. La Fase 0 de despliegue encontró:
+
+- El APK release salía sin red: `INTERNET` solo estaba en los manifiestos `debug` y `profile`.
+- `allowBackup` y `dataExtractionRules` no estaban definidos, así que `cauce.db` podía viajar a la nube.
+- `FLAVOR` vale `dev` cuando no se pasa el define, también en release, y dev monta `LogInterceptor` con cuerpos y cabeceras.
+- Release firmaba con la llave de debug.
+- El nombre visible era `cauce_mobile` y el ícono, el de la plantilla de Flutter.
+- El bloque del Diario se cerró con el tag `v0.9.0-mobile-history` y el `pubspec.yaml` en `0.8.0+8`, sin subir la versión.
+
+Firebase y las notificaciones push quedan fuera: van en su propio bloque.
+
+Decisión.
+
+1. **Permiso de red.** El manifiesto `main` declara `android.permission.INTERNET`.
+2. **Sin copias de seguridad.** `allowBackup="false"` y `dataExtractionRules` que excluyen todos los dominios (`root`, `file`, `database`, `sharedpref`, `external` y sus variantes `device_*`) tanto en la copia en la nube como en el traspaso entre teléfonos. Desde API 31, `allowBackup` sola no frena el traspaso. `cauce.db` guarda datos clínicos sin cifrar y no debe salir del teléfono (Ley N.° 29733).
+3. **Un build release nunca registra la red.** `Env.isNetworkLoggingEnabled` delega en `Env.resolveNetworkLogging`, que da falso con `kReleaseMode` sin importar el flavor. El script de release además pasa `--dart-define=FLAVOR=prod`.
+4. **Identidad.** El nombre visible es «Cauce», en `res/values/strings.xml`: el nombre del lanzador es un recurso nativo y no pasa por los `.arb`. La versión sube a `0.10.0+10` y sigue el patrón `0.Y.0+Y`; el versionCode 9 no se usó nunca. El applicationId `pe.upc.cauce.cauce_mobile` queda fijo porque Firebase se registra sobre él.
+5. **Firma.** `android/app/build.gradle.kts` lee `android/key.properties` (que git ignora) y arma `signingConfigs.release` con `storeFile`, `storePassword`, `keyAlias` y `keyPassword`. Si falta el archivo o alguna clave, `preReleaseBuild` se detiene y nombra las claves ausentes. **Nunca cae a la llave de debug.** El keystore vive fuera del repo y se respalda fuera de la laptop, como indica `RELEASE.md`.
+6. **Script de release.** `tools/build-release.ps1` hace esto, en orden:
+   - Comprueba que existen `.env.prod`, `.env.dev`, `.env.staging` y `android/key.properties`, sin leerlos.
+   - Exige Flutter 3.44.2.
+   - Toma de `flutter doctor -v` las rutas del SDK de Android y de Java.
+   - Compila el APK universal con `FLAVOR=prod`.
+   - Imprime la ruta, el tamaño y el SHA-256.
+   - Vuelca los permisos con `aapt`.
+   - Verifica la firma con `apksigner`, y falla si el certificado dice «Android Debug».
+7. **R8.** Queda activo, como lo deja Flutter por defecto en release. Si R8 reporta clases faltantes, se agregan reglas `-dontwarn` mínimas en `proguard-rules.pro`.
+8. **Archivos `.env.*` dentro del APK.** `.env.dev` y `.env.staging` viajan dentro del APK release porque el `pubspec.yaml` los declara como assets. Se dejan así: esos archivos nunca llevan secretos.
+9. **Ícono pendiente.** El design system no trae un asset de ícono, y generar los mipmaps exigiría una dependencia nueva. Sigue el de la plantilla.
+
+Consecuencias.
+
+- `flutter run --release` y `flutter build apk --release` exigen `android/key.properties`. Debug, `flutter test` y CI no se enteran: CI no compila Android.
+- Un teléfono con una build de desarrollo tiene que desinstalarla antes de instalar el release, porque la firma es distinta.
+- Pruebas nuevas en `env_test.dart`: release con cualquier flavor no registra la red, y fuera de release solo dev la registra. Se comprobó que la de release falla sin el arreglo.
+- `RELEASE.md` documenta el keystore, la compilación, qué hacer si falta memoria, la verificación, la publicación como Release de GitHub y la instalación.
+
+Alternativas consideradas.
+- (a) Seguir firmando con la llave de debug: descartada. Esa llave es distinta en cada máquina, así que una actualización compilada en otra laptop no se instala encima.
+- (b) Fallar al configurar Gradle si falta `key.properties`: descartada. Rompería los builds de debug y `flutter run`, que también configuran el tipo release.
+- (c) APK por arquitectura (`--split-per-abi`): descartada. Un solo APK universal es más simple de distribuir y de instalar para los evaluadores.

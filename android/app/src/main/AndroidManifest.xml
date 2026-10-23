@@ -1,8 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- El build release solo trae lo que declara este manifiesto; sin esto sale sin red. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!--
+        Sin copias en la nube ni traspaso entre teléfonos: cauce.db guarda datos clínicos.
+        Desde API 31 allowBackup no frena el traspaso, por eso van también las reglas.
+    -->
     <application
-        android:label="cauce_mobile"
+        android:label="@string/app_name"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules">
         <activity
             android:name=".MainActivity"
             android:exported="true"

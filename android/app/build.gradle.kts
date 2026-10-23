@@ -1,8 +1,21 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+
+// Llave de release: sale de android/key.properties, que git ignora.
+// Sin el archivo o sin alguna de sus cuatro claves, el build release se detiene.
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.inputStream().use { load(it) }
+    }
+}
+val missingSigningKeys = listOf("storeFile", "storePassword", "keyAlias", "keyPassword")
+    .filter { keystoreProperties.getProperty(it).isNullOrBlank() }
 
 android {
     namespace = "pe.upc.cauce.cauce_mobile"
@@ -34,11 +47,35 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (missingSigningKeys.isEmpty()) {
+            create("release") {
+                storeFile = file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            // Nunca cae a la llave de debug: sin llave propia no hay APK release.
+            signingConfig = signingConfigs.findByName("release")
+        }
+    }
+}
+
+// Corta assembleRelease y bundleRelease antes de compilar; debug y test no pasan por aquí.
+tasks.matching { it.name == "preReleaseBuild" }.configureEach {
+    val missing = missingSigningKeys
+    doFirst {
+        if (missing.isNotEmpty()) {
+            throw GradleException(
+                "Falta la llave de release. Crea android/key.properties con " +
+                    "storeFile, storePassword, keyAlias y keyPassword (ver RELEASE.md). " +
+                    "Claves ausentes: ${missing.joinToString()}.",
+            )
         }
     }
 }
