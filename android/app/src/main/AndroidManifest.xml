@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- El build release solo trae lo que declara este manifiesto; sin esto sale sin red. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Desde Android 13 los push solo se muestran con este permiso, que se pide tras iniciar sesión. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <!--
         Sin copias en la nube ni traspaso entre teléfonos: cauce.db guarda datos clínicos.
         Desde API 31 allowBackup no frena el traspaso, por eso van también las reglas.
@@ -53,6 +55,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- Canal de FCM cuando un push no nombra el suyo; MainActivity lo crea al abrir la app. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="cauce_default" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
