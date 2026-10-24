@@ -13,6 +13,7 @@ import '../../features/ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../features/onboarding/application/onboarding_notifier.dart';
 import '../../features/recommendations/application/recommendations_feed_notifier.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../push/push_inbox.dart';
 import '../widgets/widgets.dart';
 import 'app_routes.dart';
 
@@ -57,6 +58,26 @@ class AppShell extends ConsumerWidget {
     // desde ese boton, asi que se retira hasta que el teclado se cierra.
     final keyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
 
+    return PushInbox(
+      onForegroundMessage: () => _refreshAfterPush(ref),
+      child: _buildShell(context, ref, l10n, keyboardOpen),
+    );
+  }
+
+  /// Un push en primer plano pudo traer una recomendacion o un cuestionario.
+  void _refreshAfterPush(WidgetRef ref) {
+    ref
+      ..invalidate(recommendationsFeedNotifierProvider)
+      ..invalidate(latestIbsSssAssessmentProvider);
+    unawaited(ref.read(todayJournalNotifierProvider.notifier).load());
+  }
+
+  Widget _buildShell(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations l10n,
+    bool keyboardOpen,
+  ) {
     return PopScope(
       // El retroceso lo resuelve `_handlePop` en los tres casos, asi que nunca
       // se deja que el marco lo haga solo.
