@@ -1,7 +1,7 @@
 name: cauce_mobile
 description: "Cauce Mobile - Cliente Flutter para pacientes con SII"
 publish_to: 'none'
-version: 0.10.0+10
+version: 0.11.0+11
 
 environment:
   sdk: ^3.5.0
@@ -77,6 +77,10 @@ dependencies:
   package_info_plus: ^9.0.1
   flutter_dotenv: ^5.2.1
   connectivity_plus: ^6.0.5
+  # Push de Firebase Cloud Messaging. Se inicializa con FirebaseOptions del
+  # entorno, sin google-services.json ni el plugin de Gradle.
+  firebase_core: ^5.1.0
+  firebase_messaging: ^17.0.1
 
 dev_dependencies:
   flutter_test:
