@@ -108,6 +108,47 @@ void main() {
     });
   });
 
+  group('Env · claves de Firebase', () {
+    const Map<String, String> firebaseValues = <String, String>{
+      'FIREBASE_API_KEY': 'clave',
+      'FIREBASE_APP_ID': '1:123:android:abc',
+      'FIREBASE_MESSAGING_SENDER_ID': '123',
+      'FIREBASE_PROJECT_ID': 'cauce-qa',
+    };
+
+    test('con las cuatro claves arma la configuracion', () {
+      Env.loadForTesting(<String, String>{..._devValues, ...firebaseValues});
+
+      expect(
+        Env.firebaseConfig,
+        (
+          apiKey: 'clave',
+          appId: '1:123:android:abc',
+          messagingSenderId: '123',
+          projectId: 'cauce-qa',
+        ),
+      );
+    });
+
+    test('sin claves de Firebase el push queda apagado', () {
+      Env.loadForTesting(_devValues);
+
+      expect(Env.firebaseConfig, isNull);
+    });
+
+    test('una sola clave ausente o en blanco apaga el push', () {
+      for (final key in firebaseValues.keys) {
+        Env.loadForTesting(<String, String>{
+          ..._devValues,
+          ...firebaseValues,
+          key: '  ',
+        });
+        expect(Env.firebaseConfig, isNull, reason: key);
+        Env.reset();
+      }
+    });
+  });
+
   group('Env · logging de red', () {
     test('solo dev habilita el volcado de cuerpos', () {
       // En el piloto, los cuerpos llevan datos clinicos del paciente.

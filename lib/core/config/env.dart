@@ -22,6 +22,14 @@ enum Flavor {
   }
 }
 
+/// Claves del proyecto Firebase con las que se arma `FirebaseOptions`.
+typedef FirebaseConfig = ({
+  String apiKey,
+  String appId,
+  String messagingSenderId,
+  String projectId,
+});
+
 /// Acceso tipado a la configuracion de entorno.
 ///
 /// Se carga una vez en `main()` antes de `runApp`. Leer cualquier propiedad
@@ -79,6 +87,12 @@ abstract final class Env {
     return value;
   }
 
+  static String? _optional(String key) {
+    final _ = flavor;
+    final value = dotenv.env[key]?.trim();
+    return value == null || value.isEmpty ? null : value;
+  }
+
   /// URL base pasada en tiempo de compilacion, si la hay.
   ///
   /// `flutter run --dart-define=API_BASE_URL=http://localhost:5074` alcanza
@@ -134,6 +148,28 @@ abstract final class Env {
 
   /// Scheme de deep link registrado en Android e iOS.
   static String get deepLinkScheme => _require('DEEP_LINK_SCHEME');
+
+  /// Claves de Firebase, o `null` si falta cualquiera de las cuatro.
+  ///
+  /// Sin ellas el push queda apagado y la app arranca igual.
+  static FirebaseConfig? get firebaseConfig {
+    final apiKey = _optional('FIREBASE_API_KEY');
+    final appId = _optional('FIREBASE_APP_ID');
+    final senderId = _optional('FIREBASE_MESSAGING_SENDER_ID');
+    final projectId = _optional('FIREBASE_PROJECT_ID');
+    if (apiKey == null ||
+        appId == null ||
+        senderId == null ||
+        projectId == null) {
+      return null;
+    }
+    return (
+      apiKey: apiKey,
+      appId: appId,
+      messagingSenderId: senderId,
+      projectId: projectId,
+    );
+  }
 
   /// Nombre del entorno, tal como lo declara el archivo dotenv.
   static String get envName => _require('ENV_NAME');

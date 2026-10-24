@@ -4,13 +4,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
 import 'core/config/env.dart';
+import 'core/push/push_messaging.dart';
 import 'core/theme/design_tokens.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Env.load();
+  final push = await FirebasePushMessaging.initialize(Env.firebaseConfig);
   _configureSystemChrome();
-  runApp(const ProviderScope(child: CauceApp()));
+  runApp(
+    ProviderScope(
+      overrides: <Override>[pushMessagingProvider.overrideWithValue(push)],
+      child: const CauceApp(),
+    ),
+  );
 }
 
 /// Deja que la aplicacion dibuje debajo de las barras del sistema.
