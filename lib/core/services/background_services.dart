@@ -10,6 +10,7 @@ import '../../features/auth/domain/session_state.dart';
 import '../../features/foods/application/food_catalog_refresher.dart';
 import '../../features/history/application/history_notifier.dart';
 import '../../features/history/application/today_journal_notifier.dart';
+import '../push/push_token_registrar.dart';
 import '../sync/connectivity_monitor.dart';
 import '../sync/sync_worker.dart';
 
@@ -33,10 +34,12 @@ class BackgroundServices {
     required SyncWorker syncWorker,
     required FoodCatalogRefresher catalogRefresher,
     required ConnectivityMonitor connectivity,
+    PushTokenRegistrar? pushRegistrar,
     this.onSyncSettled,
   })  : _syncWorker = syncWorker,
         _catalogRefresher = catalogRefresher,
-        _connectivity = connectivity;
+        _connectivity = connectivity,
+        _pushRegistrar = pushRegistrar;
 
   /// Se llama cuando una corrida dejo filas resueltas.
   ///
@@ -47,6 +50,7 @@ class BackgroundServices {
   final SyncWorker _syncWorker;
   final FoodCatalogRefresher _catalogRefresher;
   final ConnectivityMonitor _connectivity;
+  final PushTokenRegistrar? _pushRegistrar;
 
   StreamSubscription<void>? _reconnections;
   StreamSubscription<SyncRunReport>? _syncRuns;
@@ -84,6 +88,9 @@ class BackgroundServices {
     _reconnections = _connectivity.onReconnected().listen((_) {
       unawaited(_refreshCatalog());
     });
+
+    // Liga el token de push a la cuenta en cada arranque con sesion.
+    _pushRegistrar?.start();
   }
 
   /// Apaga todo. Idempotente.
@@ -94,6 +101,7 @@ class BackgroundServices {
     await _syncRuns?.cancel();
     _syncRuns = null;
     await _syncWorker.stop();
+    await _pushRegistrar?.stop();
   }
 
   /// Refresca el catálogo sin propagar fallos.
@@ -117,6 +125,7 @@ BackgroundServices backgroundServices(Ref ref) {
     syncWorker: ref.watch(syncWorkerProvider),
     catalogRefresher: ref.watch(foodCatalogRefresherProvider),
     connectivity: ref.watch(connectivityMonitorProvider),
+    pushRegistrar: ref.watch(pushTokenRegistrarProvider),
     // `read` y no `watch`: Hoy y el Diario no son dependencias del servicio,
     // son a quienes avisarle. Recargan sin esperar la ventana de frescura.
     onSyncSettled: () {
