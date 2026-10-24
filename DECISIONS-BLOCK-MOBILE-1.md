@@ -940,3 +940,68 @@ Alternativas consideradas.
 - (a) Seguir firmando con la llave de debug: descartada. Esa llave es distinta en cada máquina, así que una actualización compilada en otra laptop no se instala encima.
 - (b) Fallar al configurar Gradle si falta `key.properties`: descartada. Rompería los builds de debug y `flutter run`, que también configuran el tipo release.
 - (c) APK por arquitectura (`--split-per-abi`): descartada. Un solo APK universal es más simple de distribuir y de instalar para los evaluadores.
+
+Acta M53: Notificaciones push con Firebase Cloud Messaging
+
+**Estado:** Propuesta
+**Fecha:** 2026-10-24
+
+---
+
+Contexto. Siete CP exigen recibir un push real en el APK de QA: CP031, CP036, CP045, CP072, CP084, CP086 y CP090. El contrato del servidor ya está cerrado:
+
+- `PUT /api/v1/users/me/fcm-token` con `{"fcmToken": "<token>"}`. Con `null` desvincula el teléfono.
+- Cada push trae `notification` con un título y un cuerpo neutros, y `data` con `type`, `entityType` y `entityId`, en el canal `cauce_default`.
+- Un teléfono pertenece a una sola cuenta: si otra cuenta registra el mismo token, el servidor se lo quita a la anterior.
+
+Este bloque es el acta que la regla de privacidad del proyecto exige antes de sumar Firebase.
+
+Decisión.
+
+1. **Dependencias.** Solo `firebase_core` ^5.1.0 y `firebase_messaging` ^17.0.1, con 5.1.0 y 17.0.1 en el lockfile. Resuelven contra Flutter 3.44.2 sin mover ninguna dependencia existente. La versión sube a `0.11.0+11`.
+2. **Inicialización sin plugin de Gradle.** `main()` arma `FirebaseOptions` con cuatro claves del entorno: `FIREBASE_API_KEY`, `FIREBASE_APP_ID`, `FIREBASE_MESSAGING_SENDER_ID` y `FIREBASE_PROJECT_ID`. No hay `google-services.json` en el repo. Si falta una clave o la inicialización falla, el push queda apagado (`DisabledPushMessaging`) y la app arranca igual. `.env.example` lleva las cuatro claves vacías, así que dev y CI corren sin push.
+3. **Un borde, `PushMessaging`.** La app habla con esta interfaz y no con el plugin. Las pruebas la sustituyen por un falso.
+4. **Token de registro de FCM y no FID.** `firebase_messaging` 17 marca como obsoletos `getToken`, `onTokenRefresh` y `deleteToken`, y propone `register()` y `onRegistered`. Esa API entrega el Firebase Installation ID, que es otro identificador. El servidor envía al token de registro, así que se usan los métodos obsoletos, con un `ignore` explicado en cada línea. Pasar al FID es un cambio de contrato.
+5. **Registro del token (R12).** `PushTokenRegistrar` lo encienden y lo apagan `BackgroundServices` con la sesión: registra el token al quedar autenticado, sea por login o por sesión restaurada, y en cada `onTokenRefresh`. Un fallo no bloquea nada ni muestra error, y se reintenta en el próximo arranque con sesión. El token nunca se registra en un log.
+6. **Cierre de sesión.** `SessionNotifier.logout()` desliga el push **antes** del logout del backend, porque el `PUT` necesita la sesión. Primero deja de escuchar los refrescos, después manda `PUT null` y por último `deleteToken`, cada paso con un tope de 5 segundos y en el mejor esfuerzo.
+7. **Permiso y canal.**
+   - `POST_NOTIFICATIONS` se declara en el manifiesto y se pide en la primera sesión autenticada, una sola vez por instalación. La marca es `push_permission_asked` en `flutter_secure_storage`, aparte de las tres claves de la sesión, así que sobrevive al logout. Se marca antes de preguntar.
+   - `MainActivity` crea el canal `cauce_default` (nombre «Cauce», importancia alta) en `onCreate`, sin dependencias.
+   - El manifiesto lo declara como canal predeterminado de FCM.
+8. **Ruteo del toque.** `resolvePushDestination` es una función pura:
+
+   | `entityType` | Destino |
+   |---|---|
+   | `recommendation` con un uuid válido | Detalle de la recomendación |
+   | `recommendation` con `type=info` | Lista de Consejos (una recomendación en revisión no es visible para el paciente) |
+   | `recommendation` sin id válido | Lista de Consejos |
+   | `ibs_sss_schedule` | Cuestionario periódico, apilado sobre el shell |
+   | vacío | Diario |
+   | otro valor | Inicio |
+
+9. **Cuándo se abre.** `pushTaps`, que enciende `CauceApp`, escucha el toque con la app cerrada (`getInitialMessage`) y en segundo plano (`onMessageOpenedApp`). El destino queda pendiente en memoria y lo abre `PushInbox` cuando monta el shell: después del splash y con el onboarding resuelto. Si la sesión se resuelve sin iniciar, el destino se descarta y el paciente va al login y luego a Inicio.
+10. **Primer plano.** FCM no muestra nada. `PushInbox` refresca Inicio (Consejos, el último IBS-SSS y Hoy) y muestra `CauceToast.info` con el título y el cuerpo. No tiene botón «Ver», para no ampliar el átomo.
+11. **Privacidad.** El contenido del push vive solo en memoria: no se guarda en `cauce.db` ni se registra.
+12. **Script de release.** `tools/build-release.ps1` comprueba que `.env.prod` (o el archivo de `-EnvFile`) tenga las cuatro claves con algún valor. Nombra solo las ausentes y nunca imprime un valor ni una línea: es la única excepción a «el script no lee `.env.prod`». También falla si los permisos del APK no son exactamente los esperados.
+
+Consecuencias.
+
+- Pruebas nuevas:
+  - `Env` con las claves completas, ausentes y en blanco.
+  - El borde apagado.
+  - El permiso pedido una sola vez.
+  - El registrador: registro, refresco, fallo silencioso, arranque doble y el orden del desvinculado.
+  - El logout desliga antes de revocar.
+  - El ruteo, con la tabla completa.
+  - `push_session_test.dart` y `push_navigation_test.dart` montan `CauceApp` real con solo los bordes falsos. Se comprobó que se ponen rojas si se quita el encendido del registrador o la escucha de toques.
+- **Límite conocido.** El ícono de la notificación se ve como un cuadrado gris en la barra de estado, porque Android pinta en un solo color el ícono a color de la app. Se arregla junto con el ícono.
+- **Límite conocido.** Si la sesión vence por un refresh fallido no hay sesión para el `PUT null`. El token queda ligado a esa cuenta hasta que otra cuenta inicie sesión en ese teléfono, y entonces el servidor lo traspasa.
+- **Límite conocido.** La autoinicialización de FCM sigue activa, así que el token se genera al arrancar la app, antes del login. Solo se manda al servidor de Cauce con sesión.
+- **Pendiente legal.** El texto del consentimiento todavía no declara Firebase ni la transferencia de datos fuera del país (Ley N.° 29733). El texto vive en el backend.
+- Sin manejador de mensajes en segundo plano: los push traen `notification`, y el sistema los muestra solo.
+
+Alternativas consideradas.
+- (a) `google-services.json` y el plugin de Gradle: descartada. Era el plan B, y el plan A no se bloqueó.
+- (b) `register()` y el FID: descartada. El servidor envía al token de registro.
+- (c) `flutter_local_notifications` para un aviso del sistema en primer plano: descartada. Sería una dependencia más, y el aviso dentro de la app alcanza.
+- (d) Recordar el destino de un toque hecho sin sesión hasta después del login: descartada. Lo pidió así Kiwicha.
