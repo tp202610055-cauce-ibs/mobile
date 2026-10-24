@@ -1,10 +1,29 @@
 # Compila el APK release de Cauce con FLAVOR=prod y muestra lo necesario para verificarlo.
-# Solo comprueba que existen .env.* y android/key.properties: nunca los lee ni los imprime.
+# Nunca imprime un .env ni key.properties; de -EnvFile solo mira que esten las claves FIREBASE_*.
+
+param(
+    [string]$EnvFile = '.env.prod'
+)
 
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $expectedFlutter = '3.44.2'
+$firebaseKeys = @(
+    'FIREBASE_API_KEY',
+    'FIREBASE_APP_ID',
+    'FIREBASE_MESSAGING_SENDER_ID',
+    'FIREBASE_PROJECT_ID'
+)
+# Permisos del APK: los de la app, el de connectivity_plus, los que suma Firebase y el interno de AndroidX.
+$expectedPermissions = @(
+    'android.permission.INTERNET',
+    'android.permission.POST_NOTIFICATIONS',
+    'android.permission.ACCESS_NETWORK_STATE',
+    'android.permission.WAKE_LOCK',
+    'com.google.android.c2dm.permission.RECEIVE',
+    'pe.upc.cauce.cauce_mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
+)
 
 function Stop-Release([string]$message) {
     Write-Host ''
@@ -23,6 +42,23 @@ if ($missing.Count -gt 0) {
     Stop-Release ("Faltan estos archivos: {0}. Ver RELEASE.md." -f ($missing -join ', '))
 }
 Write-Host '   OK: existen .env.prod, .env.dev, .env.staging y android\key.properties'
+
+# 1b. Claves de Firebase. Sin ellas el APK sale con el push apagado y nada lo avisa.
+Write-Host "== 1b. Claves de Firebase en $EnvFile (solo nombres)"
+$envPath = if ([System.IO.Path]::IsPathRooted($EnvFile)) { $EnvFile } else { Join-Path $repoRoot $EnvFile }
+if (-not (Test-Path -LiteralPath $envPath)) {
+    Stop-Release "No existe $EnvFile."
+}
+$envLines = @(Get-Content -LiteralPath $envPath)
+$missingKeys = @($firebaseKeys | Where-Object {
+        $pattern = '^\s*' + [regex]::Escape($_) + '\s*=\s*\S'
+        -not ($envLines | Where-Object { $_ -match $pattern })
+    })
+$envLines = $null
+if ($missingKeys.Count -gt 0) {
+    Stop-Release ("Faltan o estan vacias en {0}: {1}. Ver RELEASE.md." -f $EnvFile, ($missingKeys -join ', '))
+}
+Write-Host '   OK: estan las cuatro claves FIREBASE_*'
 
 # 2. Version de Flutter fijada por el proyecto.
 Write-Host "== 2. Version de Flutter (se espera $expectedFlutter)"
@@ -78,7 +114,15 @@ Write-Host "   SHA-256: $sha256"
 # 6. Permisos reales del APK.
 Write-Host '== 6. Permisos (aapt dump permissions)'
 if (Test-Path -LiteralPath $aapt) {
-    & $aapt dump permissions $apk
+    $dump = & $aapt dump permissions $apk | Out-String
+    Write-Host $dump.Trim()
+    $found = @([regex]::Matches($dump, "uses-permission: name='([^']+)'") | ForEach-Object { $_.Groups[1].Value })
+    $extra = @($found | Where-Object { $expectedPermissions -notcontains $_ })
+    $absent = @($expectedPermissions | Where-Object { $found -notcontains $_ })
+    if ($extra.Count -gt 0 -or $absent.Count -gt 0) {
+        Stop-Release ("Permisos distintos de los esperados. Sobran: [{0}]. Faltan: [{1}]." -f ($extra -join ', '), ($absent -join ', '))
+    }
+    Write-Host '   OK: los permisos son exactamente los esperados'
 } else {
     Write-Host "   AVISO: no hay aapt en $($buildTools.FullName); revisa los permisos a mano."
 }
