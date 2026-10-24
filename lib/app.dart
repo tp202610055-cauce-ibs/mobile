@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/push/push_navigation.dart';
 import 'core/router/app_router.dart';
 import 'core/services/background_services.dart';
 import 'core/theme/app_theme.dart';
@@ -20,6 +21,8 @@ class CauceApp extends ConsumerWidget {
     // verificacion en dispositivo encontro al cierre de Mobile-3.1. No se
     // borra ni se mueve sin leer el acta M39 y la regla R12.
     ref.watch(sessionBackgroundServicesProvider);
+    // Escucha los toques sobre un push desde el arranque, con la app cerrada.
+    ref.watch(pushTapsProvider);
 
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,

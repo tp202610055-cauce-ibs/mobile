@@ -19,11 +19,11 @@ Cómo generar, verificar, publicar e instalar el APK release de Android. Todos l
 | `android/key.properties` | Dónde está la llave de firma y sus contraseñas | Tú, en el paso 2 |
 | El archivo `.jks` | La llave de firma | Tú, en el paso 2, **fuera del repo** |
 
-Los archivos `.env.*` empaquetados viajan dentro del APK. **Nunca llevan secretos**: solo direcciones y nombres públicos.
+Los archivos `.env.*` empaquetados viajan dentro del APK. **Nunca llevan secretos**: solo direcciones, nombres públicos y las claves de cliente de Firebase, que identifican la app y no dan acceso por sí solas. La clave de servicio de Firebase vive solo en el servidor y **nunca** va a un `.env` de la app.
 
 ### Claves de `.env.prod`
 
-Son las mismas que las de `.env.example`, y ninguna es secreta:
+Son las mismas que las de `.env.example`:
 
 | Clave | Valor en producción |
 |---|---|
@@ -31,15 +31,42 @@ Son las mismas que las de `.env.example`, y ninguna es secreta:
 | `ENV_NAME` | `prod` |
 | `CLIENT_ID` | `cauce-mobile` |
 | `DEEP_LINK_SCHEME` | `cauce` |
+| `FIREBASE_API_KEY` | Sale del proyecto Firebase, ver abajo |
+| `FIREBASE_APP_ID` | Sale del proyecto Firebase, ver abajo |
+| `FIREBASE_MESSAGING_SENDER_ID` | Sale del proyecto Firebase, ver abajo |
+| `FIREBASE_PROJECT_ID` | Sale del proyecto Firebase, ver abajo |
 
-El archivo completo, para copiar:
+El archivo completo, para copiar. Completa las cuatro últimas líneas:
 
 ```properties
 API_BASE_URL=https://portal.cauceibs.org
 ENV_NAME=prod
 CLIENT_ID=cauce-mobile
 DEEP_LINK_SCHEME=cauce
+FIREBASE_API_KEY=
+FIREBASE_APP_ID=
+FIREBASE_MESSAGING_SENDER_ID=
+FIREBASE_PROJECT_ID=
 ```
+
+Si falta una de las cuatro claves `FIREBASE_*`, la app arranca igual pero **sin push**. Por eso el script se detiene si no están.
+
+### De dónde salen las claves de Firebase
+
+**A.** En la consola de Firebase, abre el proyecto de Cauce y entra a **Configuración del proyecto**, pestaña **General**.
+
+**B.** En **Tus apps**, elige la app Android `pe.upc.cauce.cauce_mobile`. Si no existe, agrégala con ese nombre de paquete exacto; los demás datos del asistente no hacen falta.
+
+**C.** Descarga `google-services.json` **a una carpeta fuera del repo**, por ejemplo el Escritorio. Ábrelo con el Bloc de notas y copia cada valor en `.env.prod`:
+
+| Clave de `.env.prod` | Dónde está en `google-services.json` |
+|---|---|
+| `FIREBASE_API_KEY` | `client` > `api_key` > `current_key` |
+| `FIREBASE_APP_ID` | `client` > `client_info` > `mobilesdk_app_id` (empieza con `1:` y contiene `:android:`) |
+| `FIREBASE_MESSAGING_SENDER_ID` | `project_info` > `project_number` |
+| `FIREBASE_PROJECT_ID` | `project_info` > `project_id` |
+
+**D.** Borra `google-services.json` del Escritorio cuando termines. La app no lo usa, y git lo ignora si alguien lo copia al repo por error.
 
 ## 2. Generar la llave de firma (una sola vez)
 
@@ -135,12 +162,13 @@ powershell -ExecutionPolicy Bypass -File tools\build-release.ps1
 
 El script hace esto, en orden, y se detiene en el primer problema:
 
-1. Comprueba que existen `.env.prod`, `.env.dev`, `.env.staging` y `android\key.properties`. No los lee.
+1. Comprueba que existen `.env.prod`, `.env.dev`, `.env.staging` y `android\key.properties`.
+   - 1b. Comprueba que `.env.prod` tenga las cuatro claves `FIREBASE_*` con algún valor. Solo nombra las que faltan: nunca imprime un valor ni una línea del archivo.
 2. Comprueba que Flutter sea la 3.44.2.
 3. Toma de `flutter doctor -v` la ruta del SDK de Android y la de Java.
 4. Corre `flutter build apk --release --dart-define=FLAVOR=prod`.
 5. Imprime la ruta, el tamaño y el SHA-256 del APK.
-6. Vuelca los permisos con `aapt`.
+6. Vuelca los permisos con `aapt` y **falla si sobra o falta alguno** respecto de la lista de la sección 4.
 7. Verifica la firma con `apksigner` y **falla si el certificado dice `Android Debug`**.
 
 El APK queda en `build\app\outputs\flutter-apk\app-release.apk`. La primera compilación tarda varios minutos.
@@ -178,7 +206,7 @@ El script ya hace lo principal. Revisa su salida:
 
 | Qué | Debe decir |
 |---|---|
-| Permisos (paso 6) | Incluye `android.permission.INTERNET`. Cualquier permiso que no esperes se reporta antes de publicar |
+| Permisos (paso 6) | `OK: los permisos son exactamente los esperados`. La lista está en el script: red (`INTERNET`, `ACCESS_NETWORK_STATE`), notificaciones (`POST_NOTIFICATIONS`), los dos que suma Firebase (`WAKE_LOCK`, `com.google.android.c2dm.permission.RECEIVE`) y uno interno de AndroidX propio de la app |
 | Firma (paso 7) | El nombre que pusiste en el paso 2.5, nunca `CN=Android Debug`. La huella SHA-256 del certificado coincide con la del paso 2.6 |
 | SHA-256 (paso 5) | Se copia tal cual en la Release |
 
@@ -197,29 +225,29 @@ El repo `tp202610055-cauce-ibs/mobile` es público, así que el enlace de descar
 1. Copia el APK con un nombre que diga la versión. El contenido y el SHA-256 no cambian:
 
    ```powershell
-   Copy-Item build\app\outputs\flutter-apk\app-release.apk "$env:USERPROFILE\Desktop\cauce-0.10.0-10.apk"
+   Copy-Item build\app\outputs\flutter-apk\app-release.apk "$env:USERPROFILE\Desktop\cauce-0.11.0-11.apk"
    ```
 
    Usa `-` y no `+` en el nombre: el `+` se rompe en las URL.
 2. En GitHub, entra a `tp202610055-cauce-ibs/mobile`, luego a **Releases** y a **Draft a new release**.
 3. En **Choose a tag** elige el tag del cierre del bloque.
-4. Título: `Cauce 0.10.0 (build 10)`.
+4. Título: `Cauce 0.11.0 (build 11)`.
 5. Notas, con el SHA-256 que imprimió el script:
 
    ```
    APK release para Android 8.0 o superior. Backend: https://portal.cauceibs.org
 
-   SHA-256 de cauce-0.10.0-10.apk:
+   SHA-256 de cauce-0.11.0-11.apk:
    <pega aquí el SHA-256>
    ```
 
-6. Arrastra `cauce-0.10.0-10.apk` desde el Escritorio a la caja de archivos adjuntos.
+6. Arrastra `cauce-0.11.0-11.apk` desde el Escritorio a la caja de archivos adjuntos.
 7. Pulsa **Publish release**.
 
 El enlace directo para los evaluadores queda así:
 
 ```
-https://github.com/tp202610055-cauce-ibs/mobile/releases/download/<tag>/cauce-0.10.0-10.apk
+https://github.com/tp202610055-cauce-ibs/mobile/releases/download/<tag>/cauce-0.11.0-11.apk
 ```
 
 ## 6. Instalar en un teléfono Android
@@ -236,10 +264,13 @@ https://github.com/tp202610055-cauce-ibs/mobile/releases/download/<tag>/cauce-0.
 
 - Activa **Inicio automático**.
 - En **Ahorro de batería**, elige **Sin restricciones**.
+- En **Notificaciones**, deja activadas las notificaciones de la app y, dentro del canal **Cauce**, la **pantalla de bloqueo** y los **avisos flotantes**.
 
-Sin esto, MIUI cierra la app en segundo plano y la sincronización se corta.
+Sin esto, MIUI cierra la app en segundo plano: la sincronización se corta y los push llegan tarde o no llegan.
+
+**6.6. Acepta las notificaciones.** Después del primer inicio de sesión, Android 13 o superior pregunta si Cauce puede enviar notificaciones. La app lo pregunta **una sola vez por instalación**. Si se rechazó, se activa a mano en **Ajustes > Aplicaciones > Cauce > Notificaciones**.
 
 ## 7. Pendientes conocidos de esta versión
 
 - **Ícono:** usa el genérico de Flutter. El design system todavía no trae un asset de ícono.
-- **Notificaciones push:** esta versión no las recibe.
+- **Ícono de la notificación:** en la barra de estado se ve como un cuadrado gris, porque Android pinta en un solo color el ícono a color de la app. Se arregla junto con el ícono.

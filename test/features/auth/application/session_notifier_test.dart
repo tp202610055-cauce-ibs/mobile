@@ -8,7 +8,12 @@ import 'package:cauce_mobile/features/auth/domain/session_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:cauce_mobile/core/push/push_messaging.dart';
+import 'package:cauce_mobile/core/push/push_permission.dart';
+import 'package:cauce_mobile/core/push/push_token_registrar.dart';
+
 import '../../../helpers/fake_auth_repository.dart';
+import '../../../helpers/fake_push_messaging.dart';
 import '../../../helpers/fake_token_storage.dart';
 
 const AuthenticatedUserSnapshot _verified = AuthenticatedUserSnapshot(
@@ -31,6 +36,16 @@ const AuthenticatedUserSnapshot _unverified = AuthenticatedUserSnapshot(
   isInActivePilot: true,
 );
 
+/// API de push que avisa cuando llega cada `PUT`.
+class _UnlinkProbe implements PushTokenApi {
+  _UnlinkProbe(this.onUpdate);
+
+  final void Function(String? token) onUpdate;
+
+  @override
+  Future<void> update(String? token) async => onUpdate(token);
+}
+
 /// Contenedor con el almacenamiento y el repositorio sustituidos.
 ({
   ProviderContainer container,
@@ -41,6 +56,7 @@ const AuthenticatedUserSnapshot _unverified = AuthenticatedUserSnapshot(
   String? refreshToken,
   AuthenticatedUserSnapshot? user,
   CauceApiError? logoutError,
+  List<Override> extra = const <Override>[],
 }) {
   final storage = FakeTokenStorage(
     accessToken: accessToken,
@@ -52,6 +68,7 @@ const AuthenticatedUserSnapshot _unverified = AuthenticatedUserSnapshot(
     overrides: <Override>[
       tokenStorageProvider.overrideWithValue(storage),
       authRepositoryProvider.overrideWithValue(repository),
+      ...extra,
     ],
   );
   addTearDown(container.dispose);
@@ -245,6 +262,42 @@ void main() {
         h.container.read(sessionNotifierProvider),
         isA<SessionUnauthenticated>(),
       );
+    });
+
+    test('logout desliga el push antes de revocar la sesion', () async {
+      final push = FakePushMessaging();
+      addTearDown(push.dispose);
+      final logoutsAtUnlink = <int>[];
+      late final FakeAuthRepository repository;
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _verified,
+        extra: <Override>[
+          pushTokenRegistrarProvider.overrideWithValue(
+            PushTokenRegistrar(
+              messaging: push,
+              api: _UnlinkProbe(
+                (token) => logoutsAtUnlink.add(repository.logoutCalls),
+              ),
+              permission: PushPermissionPrompter(
+                messaging: const DisabledPushMessaging(),
+                store: SecurePushPermissionStore(),
+              ),
+            ),
+          ),
+        ],
+      );
+      repository = h.repository;
+      final container = h.container;
+      await container.read(sessionNotifierProvider.notifier).bootstrap();
+
+      await container.read(sessionNotifierProvider.notifier).logout();
+
+      // El PUT null salio con el backend todavia sin revocar la sesion.
+      expect(logoutsAtUnlink, <int>[0]);
+      expect(h.repository.logoutCalls, 1);
+      expect(push.calls, <String>['deleteToken']);
     });
 
     test('expire no vuelve a tocar el Keystore', () async {
