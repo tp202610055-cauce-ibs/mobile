@@ -52,7 +52,25 @@
   "registerInvitationCodeLabel": "Código de invitación",
   "registerInvitationCodeHint": "Opcional",
   "registerConsentSectionTitle": "Consentimiento informado",
-  "registerConsentCheckbox": "He leido y acepto el consentimiento informado",
+  "registerConsentVersion": "Versión {version}",
+  "@registerConsentVersion": {
+    "description": "Versión del consentimiento vigente que se va a aceptar",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0"
+      }
+    }
+  },
+  "registerConsentReadFull": "Leer el texto completo",
+  "@registerConsentReadFull": {
+    "description": "Enlace que abre el consentimiento completo"
+  },
+  "registerConsentClose": "Cerrar",
+  "@registerConsentClose": {
+    "description": "Cierra la vista del consentimiento completo"
+  },
+  "registerConsentCheckbox": "He leído y acepto el consentimiento informado",
   "registerConsentLoading": "Cargando el consentimiento vigente",
   "registerConsentUpdated": "El consentimiento fue actualizado. Revisa los cambios antes de continuar.",
   "@registerConsentUpdated": {
@@ -75,6 +93,10 @@
   "passwordResetSuccessTitle": "Contraseña actualizada",
   "passwordResetSuccessBody": "Ya puedes iniciar sesión con tu nueva contraseña.",
   "passwordResetRequestNewLink": "Solicitar un enlace nuevo",
+  "passwordResetLinkInvalid": "Este enlace ya no es válido. Pide uno nuevo para cambiar tu contraseña.",
+  "@passwordResetLinkInvalid": {
+    "description": "Enlace de recuperación inexistente, vencido o ya usado: un solo mensaje para los tres casos"
+  },
   "verifyEmailPendingTitle": "Verifica tu correo",
   "verifyEmailPendingBody": "Registramos tu cuenta. Te enviamos un correo de verificación a {email}. Sigue el enlace para activarla.",
   "@verifyEmailPendingBody": {
@@ -133,7 +155,7 @@
     }
   },
   "validationDiagnosisDateFuture": "La fecha de diagnóstico no puede ser futura",
-  "validationWeightOutOfRange": "Ingresa un peso mayor que 0 y menor que 500 kg",
+  "validationWeightOutOfRange": "Ingresa un peso mayor que 0 y menor que 300 kg",
   "validationHeightOutOfRange": "Ingresa una estatura mayor que 0 y menor que 250 cm",
   "validationTextTooLong": "No puede superar los {max} caracteres",
   "@validationTextTooLong": {
@@ -646,7 +668,7 @@
   "@symptomsMealAssociated": {
     "description": "CA01: el servidor encontro una comida en la ventana de 4 horas"
   },
-  "symptomsMealNotAssociated": "No habia una comida registrada en las 4 horas previas.",
+  "symptomsMealNotAssociated": "No había una comida registrada en las 4 horas previas.",
   "@symptomsMealNotAssociated": {
     "description": "CA02: el servidor respondio hasMealAssociation en false. No es un error"
   },
@@ -791,6 +813,20 @@
       }
     }
   },
+  "clinicalNoteCounter": "{count}/{max}",
+  "@clinicalNoteCounter": {
+    "description": "Contador de la nota: caracteres escritos sobre el tope (CP034, CP035)",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "35"
+      },
+      "max": {
+        "type": "int",
+        "example": "500"
+      }
+    }
+  },
   "clinicalNoteTooLong": "La nota no puede superar los 500 caracteres",
   "@clinicalNoteTooLong": {
     "description": "CA02: el texto supera el tope de ClinicalNote.Create"
@@ -819,7 +855,11 @@
   "@ibsSssEvolutionTitle": {
     "description": "Encabezado del grafico de evolucion (CA03)"
   },
-  "ibsSssEvolutionEmpty": "Con una sola evaluación todavía no hay evolución que mostrar.",
+  "ibsSssEvolutionSignificant": "Respuesta clínica significativa",
+  "@ibsSssEvolutionSignificant": {
+    "description": "Rótulo cuando la reducción respecto de la línea base es de 50 puntos o más (CP032)"
+  },
+  "ibsSssEvolutionEmpty": "El gráfico aparece desde tu tercera evaluación.",
   "@ibsSssEvolutionEmpty": {
     "description": "Menos de dos puntos: no hay linea que trazar"
   },
@@ -989,14 +1029,6 @@
   "@errorInvalidRefreshToken": {
     "description": "errorCode invalid_refresh_token (401)"
   },
-  "errorInvalidPasswordResetToken": "El enlace de recuperación no es válido",
-  "@errorInvalidPasswordResetToken": {
-    "description": "errorCode invalid_password_reset_token (400)"
-  },
-  "errorExpiredPasswordResetToken": "El enlace de recuperación venció o ya fue usado",
-  "@errorExpiredPasswordResetToken": {
-    "description": "errorCode expired_password_reset_token (400)"
-  },
   "errorUserLocalMissing": "No encontramos tu cuenta completa en el sistema. Volver a intentarlo no lo resuelve. Avisa al equipo del piloto o a tu nutricionista para que lo revisen.",
   "@errorUserLocalMissing": {
     "description": "errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend: sale al iniciar sesión o al renovarla, y ni reintentar ni cerrar sesión la resuelven (acta M50)"
@@ -1090,7 +1122,7 @@
     }
   },
   "bmiCategoryUnderweight": "Bajo peso",
-  "bmiCategoryNormal": "Peso normal",
+  "bmiCategoryNormal": "Normal",
   "bmiCategoryOverweight": "Sobrepeso",
   "bmiCategoryObese": "Obesidad",
   "bmiNote": "Referencia de la OMS. Tu nutricionista lo interpreta junto al resto de tu historia clínica.",
@@ -1099,7 +1131,15 @@
   },
   "bmiPending": "Completa peso y estatura para verlo.",
   "allergiesTitle": "Alergias e intolerancias",
-  "allergiesSubtitle": "Marca las que tengas. Puedes dejarlo vacío si no aplica.",
+  "allergiesSubtitle": "Marca las que tengas o elige «Ninguna conocida».",
+  "allergiesNoneKnown": "Ninguna conocida",
+  "@allergiesNoneKnown": {
+    "description": "Opción del perfil clínico para declarar que no tiene alergias ni intolerancias"
+  },
+  "validationAllergiesRequired": "Indica tus alergias e intolerancias o marca «Ninguna conocida».",
+  "@validationAllergiesRequired": {
+    "description": "Perfil clínico enviado sin alergias y sin marcar Ninguna conocida"
+  },
   "allergiesLoading": "Cargando el catálogo",
   "allergiesEmpty": "No hay alergias en el catálogo.",
   "allergySeverityLabel": "Severidad",
@@ -1233,7 +1273,19 @@
     }
   },
   "evolutionBaselineOnlyTitle": "Tu línea base",
-  "evolutionBaselineOnlyBody": "Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.",
+  "evolutionBaselineOnlyBody": "Tu gráfico completo aparecerá aquí después de tu primera evaluación periódica.",
+  "evolutionLockedTitle": "Disponible al completar tu perfil",
+  "@evolutionLockedTitle": {
+    "description": "Pestaña Evolución con el perfil clínico o la línea base pendientes (CP011)"
+  },
+  "evolutionLockedBody": "Tu evolución se arma con tu perfil clínico y tu primera evaluación. Completa esos dos pasos para verla.",
+  "@evolutionLockedBody": {
+    "description": "Cuerpo del estado bloqueado de Evolución"
+  },
+  "evolutionLockedAction": "Continuar donde quedé",
+  "@evolutionLockedAction": {
+    "description": "Retoma el asistente desde la pestaña Evolución"
+  },
   "evolutionNextAssessment": "Próxima evaluación: {date}",
   "@evolutionNextAssessment": {
     "description": "Fecha que agenda el backend a catorce dias de la ultima evaluacion (CP061)",
@@ -1297,7 +1349,7 @@
   "profileTrackingNutritionistPending": "Pendiente de asignación",
   "profileClinicalSubtype": "Subtipo de SII",
   "profileClinicalAllergies": "Alergias declaradas",
-  "profileClinicalAllergiesNone": "Ninguna",
+  "profileClinicalAllergiesNone": "Ninguna conocida",
   "@profileClinicalAllergiesNone": {
     "description": "Valor de la fila de alergias cuando el paciente no declaró ninguna (CP070)"
   },
@@ -1366,7 +1418,7 @@
   "profileEvolutionChangeSame": "Igual que tu línea base",
   "profileEvolutionAchievement": "Respuesta clínica significativa",
   "profileEvolutionOngoing": "Sigues en tu proceso de seguimiento",
-  "profileEvolutionEmpty": "Completa tu primera evaluación para ver tu evolución acá.",
+  "profileEvolutionEmpty": "Completa tu primera evaluación para ver tu evolución aquí.",
   "profileEvolutionEmptyAction": "Responder el cuestionario",
   "profileEdit": "Editar mi información",
   "profileEditUnavailable": "La edición de tus datos llega en una próxima versión.",
@@ -1531,6 +1583,7 @@
       "description": "Etiqueta del primer destino de la barra inferior (design system, seccion H)"
   },
   "navJournal": "Diario",
+  "navEvolution": "Evolución",
   "navAdvice": "Consejos",
   "navProfile": "Perfil",
   "fabQuickAction": "Acción rápida",

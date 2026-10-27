@@ -120,6 +120,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerConsentSectionTitle => 'Informed consent';
 
   @override
+  String registerConsentVersion(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get registerConsentReadFull => 'Read the full text';
+
+  @override
+  String get registerConsentClose => 'Close';
+
+  @override
   String get registerConsentCheckbox =>
       'I have read and accept the informed consent';
 
@@ -183,6 +194,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordResetRequestNewLink => 'Request a new link';
+
+  @override
+  String get passwordResetLinkInvalid =>
+      'This link is no longer valid. Request a new one to change your password.';
 
   @override
   String get verifyEmailPendingTitle => 'Verify your email';
@@ -264,7 +279,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validationWeightOutOfRange =>
-      'Enter a weight greater than 0 and less than 500 kg';
+      'Enter a weight greater than 0 and less than 300 kg';
 
   @override
   String get validationHeightOutOfRange =>
@@ -774,6 +789,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String clinicalNoteCounter(int count, int max) {
+    return '$count/$max';
+  }
+
+  @override
   String get clinicalNoteTooLong => 'The note cannot exceed 500 characters';
 
   @override
@@ -796,8 +816,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ibsSssEvolutionTitle => 'Your evolution';
 
   @override
+  String get ibsSssEvolutionSignificant => 'Significant clinical response';
+
+  @override
   String get ibsSssEvolutionEmpty =>
-      'With a single assessment there is no evolution to show yet.';
+      'The chart appears from your third assessment.';
 
   @override
   String ibsSssEvolutionRange(int first, int last) {
@@ -937,13 +960,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorInvalidRefreshToken => 'Your session expired. Sign in again.';
-
-  @override
-  String get errorInvalidPasswordResetToken => 'The recovery link is not valid';
-
-  @override
-  String get errorExpiredPasswordResetToken =>
-      'The recovery link expired or was already used';
 
   @override
   String get errorUserLocalMissing =>
@@ -1105,7 +1121,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get allergiesSubtitle =>
-      'Select the ones you have. You can leave it empty if none apply.';
+      'Check the ones you have or choose \"None known\".';
+
+  @override
+  String get allergiesNoneKnown => 'None known';
+
+  @override
+  String get validationAllergiesRequired =>
+      'Declare your allergies and intolerances or check \"None known\".';
 
   @override
   String get allergiesLoading => 'Loading the catalog';
@@ -1290,6 +1313,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your full chart will show up here after your first periodic assessment.';
 
   @override
+  String get evolutionLockedTitle => 'Available once your profile is complete';
+
+  @override
+  String get evolutionLockedBody =>
+      'Your progress is built from your clinical profile and your first assessment. Complete both steps to see it.';
+
+  @override
+  String get evolutionLockedAction => 'Continue where I left off';
+
+  @override
   String evolutionNextAssessment(String date) {
     return 'Next assessment: $date';
   }
@@ -1374,7 +1407,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileClinicalAllergies => 'Declared allergies';
 
   @override
-  String get profileClinicalAllergiesNone => 'None';
+  String get profileClinicalAllergiesNone => 'None known';
 
   @override
   String profileAllergyDetail(String name, String qualifier) {
@@ -1755,6 +1788,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navJournal => 'Journal';
+
+  @override
+  String get navEvolution => 'Evolution';
 
   @override
   String get navAdvice => 'Advice';

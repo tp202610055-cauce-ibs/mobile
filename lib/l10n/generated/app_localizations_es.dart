@@ -122,8 +122,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String get registerConsentSectionTitle => 'Consentimiento informado';
 
   @override
+  String registerConsentVersion(String version) {
+    return 'Versión $version';
+  }
+
+  @override
+  String get registerConsentReadFull => 'Leer el texto completo';
+
+  @override
+  String get registerConsentClose => 'Cerrar';
+
+  @override
   String get registerConsentCheckbox =>
-      'He leido y acepto el consentimiento informado';
+      'He leído y acepto el consentimiento informado';
 
   @override
   String get registerConsentLoading => 'Cargando el consentimiento vigente';
@@ -186,6 +197,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get passwordResetRequestNewLink => 'Solicitar un enlace nuevo';
+
+  @override
+  String get passwordResetLinkInvalid =>
+      'Este enlace ya no es válido. Pide uno nuevo para cambiar tu contraseña.';
 
   @override
   String get verifyEmailPendingTitle => 'Verifica tu correo';
@@ -268,7 +283,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validationWeightOutOfRange =>
-      'Ingresa un peso mayor que 0 y menor que 500 kg';
+      'Ingresa un peso mayor que 0 y menor que 300 kg';
 
   @override
   String get validationHeightOutOfRange =>
@@ -663,7 +678,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get symptomsMealNotAssociated =>
-      'No habia una comida registrada en las 4 horas previas.';
+      'No había una comida registrada en las 4 horas previas.';
 
   @override
   String get symptomsMealPending =>
@@ -775,6 +790,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String clinicalNoteCounter(int count, int max) {
+    return '$count/$max';
+  }
+
+  @override
   String get clinicalNoteTooLong =>
       'La nota no puede superar los 500 caracteres';
 
@@ -798,8 +818,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get ibsSssEvolutionTitle => 'Tu evolución';
 
   @override
+  String get ibsSssEvolutionSignificant => 'Respuesta clínica significativa';
+
+  @override
   String get ibsSssEvolutionEmpty =>
-      'Con una sola evaluación todavía no hay evolución que mostrar.';
+      'El gráfico aparece desde tu tercera evaluación.';
 
   @override
   String ibsSssEvolutionRange(int first, int last) {
@@ -938,14 +961,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get errorInvalidRefreshToken =>
       'Tu sesión expiró. Inicia sesión de nuevo.';
-
-  @override
-  String get errorInvalidPasswordResetToken =>
-      'El enlace de recuperación no es válido';
-
-  @override
-  String get errorExpiredPasswordResetToken =>
-      'El enlace de recuperación venció o ya fue usado';
 
   @override
   String get errorUserLocalMissing =>
@@ -1087,7 +1102,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get bmiCategoryUnderweight => 'Bajo peso';
 
   @override
-  String get bmiCategoryNormal => 'Peso normal';
+  String get bmiCategoryNormal => 'Normal';
 
   @override
   String get bmiCategoryOverweight => 'Sobrepeso';
@@ -1107,7 +1122,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get allergiesSubtitle =>
-      'Marca las que tengas. Puedes dejarlo vacío si no aplica.';
+      'Marca las que tengas o elige «Ninguna conocida».';
+
+  @override
+  String get allergiesNoneKnown => 'Ninguna conocida';
+
+  @override
+  String get validationAllergiesRequired =>
+      'Indica tus alergias e intolerancias o marca «Ninguna conocida».';
 
   @override
   String get allergiesLoading => 'Cargando el catálogo';
@@ -1289,7 +1311,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get evolutionBaselineOnlyBody =>
-      'Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.';
+      'Tu gráfico completo aparecerá aquí después de tu primera evaluación periódica.';
+
+  @override
+  String get evolutionLockedTitle => 'Disponible al completar tu perfil';
+
+  @override
+  String get evolutionLockedBody =>
+      'Tu evolución se arma con tu perfil clínico y tu primera evaluación. Completa esos dos pasos para verla.';
+
+  @override
+  String get evolutionLockedAction => 'Continuar donde quedé';
 
   @override
   String evolutionNextAssessment(String date) {
@@ -1376,7 +1408,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profileClinicalAllergies => 'Alergias declaradas';
 
   @override
-  String get profileClinicalAllergiesNone => 'Ninguna';
+  String get profileClinicalAllergiesNone => 'Ninguna conocida';
 
   @override
   String profileAllergyDetail(String name, String qualifier) {
@@ -1438,7 +1470,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profileEvolutionEmpty =>
-      'Completa tu primera evaluación para ver tu evolución acá.';
+      'Completa tu primera evaluación para ver tu evolución aquí.';
 
   @override
   String get profileEvolutionEmptyAction => 'Responder el cuestionario';
@@ -1757,6 +1789,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get navJournal => 'Diario';
+
+  @override
+  String get navEvolution => 'Evolución';
 
   @override
   String get navAdvice => 'Consejos';

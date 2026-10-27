@@ -78,12 +78,8 @@ extension CauceApiErrorMessage on CauceApiError {
           now ?? DateTime.now().toUtc(),
         ),
       InvalidRefreshTokenError() => l10n.errorInvalidRefreshToken,
-      PasswordResetTokenError(:final reason) => switch (reason) {
-          PasswordResetTokenReason.invalid =>
-            l10n.errorInvalidPasswordResetToken,
-          PasswordResetTokenReason.expired =>
-            l10n.errorExpiredPasswordResetToken,
-        },
+      // Vencido, usado o inexistente se informan igual: no se dan pistas.
+      PasswordResetTokenError() => l10n.passwordResetLinkInvalid,
       RateLimitedError(:final retryAfterSeconds) => l10n.errorRateLimited(
           retryAfterSeconds,
         ),

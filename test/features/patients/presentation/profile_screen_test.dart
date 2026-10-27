@@ -241,7 +241,8 @@ void main() {
 
     Finder allergiesRow() => find.byKey(const Key('profile_allergies'));
 
-    testWidgets('sin alergias dice "Ninguna" dentro de la tarjeta clinica',
+    testWidgets(
+        'sin alergias dice "Ninguna conocida" dentro de la tarjeta clinica',
         (tester) async {
       await _pump(tester);
 
@@ -253,7 +254,10 @@ void main() {
         findsOneWidget,
       );
       expect(
-        find.descendant(of: allergiesRow(), matching: find.text('Ninguna')),
+        find.descendant(
+          of: allergiesRow(),
+          matching: find.text('Ninguna conocida'),
+        ),
         findsOneWidget,
       );
       expect(
@@ -298,7 +302,7 @@ void main() {
       expect(find.text('Lactosa (intolerancia leve)'), findsOneWidget);
       expect(find.text('Maní (alergia severa)'), findsOneWidget);
       expect(find.text('Gluten (sensibilidad moderada)'), findsOneWidget);
-      expect(find.text('Ninguna'), findsNothing);
+      expect(find.text('Ninguna conocida'), findsNothing);
     });
   });
 

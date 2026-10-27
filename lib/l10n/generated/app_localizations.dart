@@ -320,10 +320,28 @@ abstract class AppLocalizations {
   /// **'Consentimiento informado'**
   String get registerConsentSectionTitle;
 
+  /// Versión del consentimiento vigente que se va a aceptar
+  ///
+  /// In es, this message translates to:
+  /// **'Versión {version}'**
+  String registerConsentVersion(String version);
+
+  /// Enlace que abre el consentimiento completo
+  ///
+  /// In es, this message translates to:
+  /// **'Leer el texto completo'**
+  String get registerConsentReadFull;
+
+  /// Cierra la vista del consentimiento completo
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar'**
+  String get registerConsentClose;
+
   /// No description provided for @registerConsentCheckbox.
   ///
   /// In es, this message translates to:
-  /// **'He leido y acepto el consentimiento informado'**
+  /// **'He leído y acepto el consentimiento informado'**
   String get registerConsentCheckbox;
 
   /// No description provided for @registerConsentLoading.
@@ -439,6 +457,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Solicitar un enlace nuevo'**
   String get passwordResetRequestNewLink;
+
+  /// Enlace de recuperación inexistente, vencido o ya usado: un solo mensaje para los tres casos
+  ///
+  /// In es, this message translates to:
+  /// **'Este enlace ya no es válido. Pide uno nuevo para cambiar tu contraseña.'**
+  String get passwordResetLinkInvalid;
 
   /// No description provided for @verifyEmailPendingTitle.
   ///
@@ -569,7 +593,7 @@ abstract class AppLocalizations {
   /// No description provided for @validationWeightOutOfRange.
   ///
   /// In es, this message translates to:
-  /// **'Ingresa un peso mayor que 0 y menor que 500 kg'**
+  /// **'Ingresa un peso mayor que 0 y menor que 300 kg'**
   String get validationWeightOutOfRange;
 
   /// No description provided for @validationHeightOutOfRange.
@@ -1193,7 +1217,7 @@ abstract class AppLocalizations {
   /// CA02: el servidor respondio hasMealAssociation en false. No es un error
   ///
   /// In es, this message translates to:
-  /// **'No habia una comida registrada en las 4 horas previas.'**
+  /// **'No había una comida registrada en las 4 horas previas.'**
   String get symptomsMealNotAssociated;
 
   /// Sin conexion: la ventana de 4 horas la resuelve el servidor, no el cliente
@@ -1394,6 +1418,12 @@ abstract class AppLocalizations {
   /// **'Quedan {count} caracteres'**
   String clinicalNoteRemaining(int count);
 
+  /// Contador de la nota: caracteres escritos sobre el tope (CP034, CP035)
+  ///
+  /// In es, this message translates to:
+  /// **'{count}/{max}'**
+  String clinicalNoteCounter(int count, int max);
+
   /// CA02: el texto supera el tope de ClinicalNote.Create
   ///
   /// In es, this message translates to:
@@ -1436,10 +1466,16 @@ abstract class AppLocalizations {
   /// **'Tu evolución'**
   String get ibsSssEvolutionTitle;
 
+  /// Rótulo cuando la reducción respecto de la línea base es de 50 puntos o más (CP032)
+  ///
+  /// In es, this message translates to:
+  /// **'Respuesta clínica significativa'**
+  String get ibsSssEvolutionSignificant;
+
   /// Menos de dos puntos: no hay linea que trazar
   ///
   /// In es, this message translates to:
-  /// **'Con una sola evaluación todavía no hay evolución que mostrar.'**
+  /// **'El gráfico aparece desde tu tercera evaluación.'**
   String get ibsSssEvolutionEmpty;
 
   /// Extremos de la serie, en texto, porque el grafico no dibuja escala
@@ -1657,18 +1693,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Tu sesión expiró. Inicia sesión de nuevo.'**
   String get errorInvalidRefreshToken;
-
-  /// errorCode invalid_password_reset_token (400)
-  ///
-  /// In es, this message translates to:
-  /// **'El enlace de recuperación no es válido'**
-  String get errorInvalidPasswordResetToken;
-
-  /// errorCode expired_password_reset_token (400)
-  ///
-  /// In es, this message translates to:
-  /// **'El enlace de recuperación venció o ya fue usado'**
-  String get errorExpiredPasswordResetToken;
 
   /// errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend: sale al iniciar sesión o al renovarla, y ni reintentar ni cerrar sesión la resuelven (acta M50)
   ///
@@ -1919,7 +1943,7 @@ abstract class AppLocalizations {
   /// No description provided for @bmiCategoryNormal.
   ///
   /// In es, this message translates to:
-  /// **'Peso normal'**
+  /// **'Normal'**
   String get bmiCategoryNormal;
 
   /// No description provided for @bmiCategoryOverweight.
@@ -1955,8 +1979,20 @@ abstract class AppLocalizations {
   /// No description provided for @allergiesSubtitle.
   ///
   /// In es, this message translates to:
-  /// **'Marca las que tengas. Puedes dejarlo vacío si no aplica.'**
+  /// **'Marca las que tengas o elige «Ninguna conocida».'**
   String get allergiesSubtitle;
+
+  /// Opción del perfil clínico para declarar que no tiene alergias ni intolerancias
+  ///
+  /// In es, this message translates to:
+  /// **'Ninguna conocida'**
+  String get allergiesNoneKnown;
+
+  /// Perfil clínico enviado sin alergias y sin marcar Ninguna conocida
+  ///
+  /// In es, this message translates to:
+  /// **'Indica tus alergias e intolerancias o marca «Ninguna conocida».'**
+  String get validationAllergiesRequired;
 
   /// No description provided for @allergiesLoading.
   ///
@@ -2273,8 +2309,26 @@ abstract class AppLocalizations {
   /// No description provided for @evolutionBaselineOnlyBody.
   ///
   /// In es, this message translates to:
-  /// **'Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.'**
+  /// **'Tu gráfico completo aparecerá aquí después de tu primera evaluación periódica.'**
   String get evolutionBaselineOnlyBody;
+
+  /// Pestaña Evolución con el perfil clínico o la línea base pendientes (CP011)
+  ///
+  /// In es, this message translates to:
+  /// **'Disponible al completar tu perfil'**
+  String get evolutionLockedTitle;
+
+  /// Cuerpo del estado bloqueado de Evolución
+  ///
+  /// In es, this message translates to:
+  /// **'Tu evolución se arma con tu perfil clínico y tu primera evaluación. Completa esos dos pasos para verla.'**
+  String get evolutionLockedBody;
+
+  /// Retoma el asistente desde la pestaña Evolución
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar donde quedé'**
+  String get evolutionLockedAction;
 
   /// Fecha que agenda el backend a catorce dias de la ultima evaluacion (CP061)
   ///
@@ -2405,7 +2459,7 @@ abstract class AppLocalizations {
   /// Valor de la fila de alergias cuando el paciente no declaró ninguna (CP070)
   ///
   /// In es, this message translates to:
-  /// **'Ninguna'**
+  /// **'Ninguna conocida'**
   String get profileClinicalAllergiesNone;
 
   /// Una alergia declarada con su tipo y severidad entre paréntesis, como en el mockup 12: 'Lactosa (intolerancia leve)'
@@ -2483,7 +2537,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileEvolutionEmpty.
   ///
   /// In es, this message translates to:
-  /// **'Completa tu primera evaluación para ver tu evolución acá.'**
+  /// **'Completa tu primera evaluación para ver tu evolución aquí.'**
   String get profileEvolutionEmpty;
 
   /// No description provided for @profileEvolutionEmptyAction.
@@ -3049,6 +3103,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Diario'**
   String get navJournal;
+
+  /// No description provided for @navEvolution.
+  ///
+  /// In es, this message translates to:
+  /// **'Evolución'**
+  String get navEvolution;
 
   /// No description provided for @navAdvice.
   ///
