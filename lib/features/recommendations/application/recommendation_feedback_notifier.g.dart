@@ -43,9 +43,8 @@ abstract class _$RecommendationFeedbackForm
 ///
 /// **Solo en linea** (decision 8). Sin conexion el envio falla con
 /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-/// migracion del esquema drift en este bloque. **Sin compuerta de 24 h**
-/// (decision 9): el backend no la exige, las 24 h son solo la hora de su
-/// recordatorio push.
+/// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
+/// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
 ///
 /// Copied from [RecommendationFeedbackForm].
 @ProviderFor(RecommendationFeedbackForm)
@@ -55,9 +54,8 @@ const recommendationFeedbackFormProvider = RecommendationFeedbackFormFamily();
 ///
 /// **Solo en linea** (decision 8). Sin conexion el envio falla con
 /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-/// migracion del esquema drift en este bloque. **Sin compuerta de 24 h**
-/// (decision 9): el backend no la exige, las 24 h son solo la hora de su
-/// recordatorio push.
+/// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
+/// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
 ///
 /// Copied from [RecommendationFeedbackForm].
 class RecommendationFeedbackFormFamily
@@ -66,9 +64,8 @@ class RecommendationFeedbackFormFamily
   ///
   /// **Solo en linea** (decision 8). Sin conexion el envio falla con
   /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-  /// migracion del esquema drift en este bloque. **Sin compuerta de 24 h**
-  /// (decision 9): el backend no la exige, las 24 h son solo la hora de su
-  /// recordatorio push.
+  /// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
+  /// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
   ///
   /// Copied from [RecommendationFeedbackForm].
   const RecommendationFeedbackFormFamily();
@@ -77,9 +74,8 @@ class RecommendationFeedbackFormFamily
   ///
   /// **Solo en linea** (decision 8). Sin conexion el envio falla con
   /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-  /// migracion del esquema drift en este bloque. **Sin compuerta de 24 h**
-  /// (decision 9): el backend no la exige, las 24 h son solo la hora de su
-  /// recordatorio push.
+  /// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
+  /// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
   ///
   /// Copied from [RecommendationFeedbackForm].
   RecommendationFeedbackFormProvider call(
@@ -118,9 +114,8 @@ class RecommendationFeedbackFormFamily
 ///
 /// **Solo en linea** (decision 8). Sin conexion el envio falla con
 /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-/// migracion del esquema drift en este bloque. **Sin compuerta de 24 h**
-/// (decision 9): el backend no la exige, las 24 h son solo la hora de su
-/// recordatorio push.
+/// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
+/// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
 ///
 /// Copied from [RecommendationFeedbackForm].
 class RecommendationFeedbackFormProvider
@@ -130,9 +125,8 @@ class RecommendationFeedbackFormProvider
   ///
   /// **Solo en linea** (decision 8). Sin conexion el envio falla con
   /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-  /// migracion del esquema drift en este bloque. **Sin compuerta de 24 h**
-  /// (decision 9): el backend no la exige, las 24 h son solo la hora de su
-  /// recordatorio push.
+  /// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
+  /// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
   ///
   /// Copied from [RecommendationFeedbackForm].
   RecommendationFeedbackFormProvider(

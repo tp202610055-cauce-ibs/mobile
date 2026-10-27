@@ -7,6 +7,7 @@ import '../../../../core/theme/design_tokens.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../application/recommendation_feedback_notifier.dart';
+import '../../application/recommendations_feed_notifier.dart';
 import '../../domain/recommendation.dart';
 
 /// Retroalimentacion del paciente sobre una recomendacion (HU0016 CA1,
@@ -17,26 +18,66 @@ import '../../domain/recommendation.dart';
 /// que el mockup 10 justifica: marcarla sin haber leido seria una
 /// microaccion sin contexto.
 ///
-/// Tres estados, segun el detalle:
+/// Cuatro estados, segun el detalle:
 /// - **ya respondida**: el resumen de lo que conto;
-/// - **entregada, sin respuesta**: el formulario;
+/// - **entregada, con 24 horas desde que la recibio**: el formulario;
+/// - **entregada, antes de las 24 horas**: cuando podra responder (CP043);
 /// - **cualquier otro**: nada. El backend solo acepta feedback desde
 ///   `Delivered`, y la entrega ocurre al abrir el detalle.
-class RecommendationFeedbackSection extends StatelessWidget {
+class RecommendationFeedbackSection extends ConsumerWidget {
   const RecommendationFeedbackSection({required this.detail, super.key});
 
   final RecommendationDetail detail;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final feedback = detail.feedback;
     if (feedback != null) {
       return _FeedbackSummary(feedback: feedback);
     }
-    if (detail.status.acceptsFeedback) {
+    if (!detail.status.acceptsFeedback) {
+      return const SizedBox.shrink();
+    }
+    if (detail.invitesFeedback(ref.watch(recommendationsClockProvider)())) {
       return _FeedbackForm(recommendationId: detail.id);
     }
-    return const SizedBox.shrink();
+    return const _FeedbackNotYet();
+  }
+}
+
+/// Antes de las 24 horas no se pide respuesta, y se dice por que.
+class _FeedbackNotYet extends StatelessWidget {
+  const _FeedbackNotYet();
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return Container(
+      key: const Key('recommendation_feedback_not_yet'),
+      margin: const EdgeInsets.only(top: CauceSpacing.space6),
+      padding: const EdgeInsets.all(CauceSpacing.space4),
+      decoration: const BoxDecoration(
+        color: CauceColors.bgSubtle,
+        borderRadius: CauceRadii.borderLg,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Icon(
+            TablerIcons.clock,
+            size: 18,
+            color: CauceColors.textSecondary,
+          ),
+          const SizedBox(width: CauceSpacing.space2),
+          Expanded(
+            child: Text(
+              AppLocalizations.of(context).recommendationFeedbackNotYet,
+              style: textTheme.bodyMedium,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

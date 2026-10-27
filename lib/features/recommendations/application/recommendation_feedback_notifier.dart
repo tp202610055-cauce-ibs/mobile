@@ -38,9 +38,8 @@ abstract class RecommendationFeedbackFormState
 ///
 /// **Solo en linea** (decision 8). Sin conexion el envio falla con
 /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-/// migracion del esquema drift en este bloque. **Sin compuerta de 24 h**
-/// (decision 9): el backend no la exige, las 24 h son solo la hora de su
-/// recordatorio push.
+/// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
+/// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
 @riverpod
 class RecommendationFeedbackForm extends _$RecommendationFeedbackForm {
   bool _disposed = false;

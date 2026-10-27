@@ -5,6 +5,7 @@ import 'package:cauce_mobile/features/recommendations/presentation/recommendatio
 import 'package:cauce_mobile/features/recommendations/presentation/widgets/recommendation_origin_pill.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_recommendations_repository.dart';
@@ -292,6 +293,70 @@ void main() {
 
       expect(find.byType(RecommendationDetailScreen), findsOneWidget);
       expect(repository.deliveredIds, <String>[approvedDetail.id]);
+    });
+  });
+
+  group('RecommendationsScreen · invitacion a responder (CP043)', () {
+    RecommendationDetail received(String id, Duration ago) =>
+        approvedDetail.copyWith(
+          id: id,
+          reviewedAt: recommendationsNow.subtract(ago),
+        );
+
+    Finder invite(String id) =>
+        find.byKey(Key('recommendation_feedback_invite_$id'));
+
+    testWidgets('A (30 h) y C (3 dias) invitan; B (20 h) todavia no',
+        (tester) async {
+      final repository = FakeRecommendationsRepository(
+        details: [
+          received('rec-a', const Duration(hours: 30)),
+          received('rec-b', const Duration(hours: 20)),
+          received('rec-c', const Duration(days: 3)),
+        ],
+      );
+      await pumpRecommendations(tester, repository: repository);
+
+      expect(invite('rec-a'), findsOneWidget);
+      expect(invite('rec-b'), findsNothing);
+      expect(invite('rec-c'), findsOneWidget);
+      expect(find.text(l10n.recommendationFeedbackInvite), findsNWidgets(2));
+    });
+
+    testWidgets('al responder A deja de invitar y las demas no cambian',
+        (tester) async {
+      final repository = FakeRecommendationsRepository(
+        details: [
+          received('rec-a', const Duration(hours: 30)),
+          received('rec-b', const Duration(hours: 20)),
+          received('rec-c', const Duration(days: 3)),
+        ],
+      );
+      await pumpRecommendations(tester, repository: repository);
+
+      await tester.tap(find.byKey(const Key('recommendation_card_rec-a')));
+      await tester.pumpAndSettle();
+      final submit = find.byKey(const Key('recommendation_feedback_submit'));
+      expect(submit, findsOneWidget);
+      for (final choice in <Finder>[
+        find.text(l10n.recommendationFeedbackAppliedYes),
+        find.text(l10n.recommendationFeedbackOutcomeImprovement),
+        submit,
+      ]) {
+        await tester.ensureVisible(choice);
+        await tester.pumpAndSettle();
+        await tester.tap(choice);
+        await tester.pumpAndSettle();
+      }
+      expect(repository.feedbackDrafts, hasLength(1));
+
+      GoRouter.of(tester.element(find.byType(RecommendationDetailScreen)))
+          .pop();
+      await tester.pumpAndSettle();
+
+      expect(invite('rec-a'), findsNothing);
+      expect(invite('rec-b'), findsNothing);
+      expect(invite('rec-c'), findsOneWidget);
     });
   });
 }

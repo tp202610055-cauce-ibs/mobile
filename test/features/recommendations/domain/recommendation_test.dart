@@ -205,4 +205,84 @@ void main() {
       expect(approvedDetail.supportingData!.windowDays, 14);
     });
   });
+
+  group('Invitacion a contar como le fue (CP043)', () {
+    final now = DateTime.utc(2026, 10, 27, 12);
+    RecommendationDetail receivedAgo(Duration ago) =>
+        approvedDetail.copyWith(reviewedAt: now.subtract(ago));
+
+    test('A (30 h) y C (3 dias) invitan; B (20 h) todavia no', () {
+      expect(
+        receivedAgo(const Duration(hours: 30)).invitesFeedback(now),
+        isTrue,
+      );
+      expect(
+        receivedAgo(const Duration(days: 3)).invitesFeedback(now),
+        isTrue,
+      );
+      expect(
+        receivedAgo(const Duration(hours: 20)).invitesFeedback(now),
+        isFalse,
+      );
+    });
+
+    test('el limite es justo a las 24 horas', () {
+      expect(
+        receivedAgo(const Duration(hours: 24)).invitesFeedback(now),
+        isTrue,
+      );
+      expect(
+        receivedAgo(const Duration(hours: 23, minutes: 59))
+            .invitesFeedback(now),
+        isFalse,
+      );
+    });
+
+    test('cuenta desde la aprobacion y no desde la entrega', () {
+      final opened = receivedAgo(const Duration(hours: 30)).copyWith(
+        status: RecommendationStatusOption.delivered,
+        deliveredAt: now,
+      );
+      expect(
+        opened.invitesFeedback(now),
+        isTrue,
+      );
+    });
+
+    test('sin aprobacion informada cuenta desde la generacion', () {
+      final noReview = approvedDetail.copyWith(
+        reviewedAt: null,
+        generatedAt: now.subtract(const Duration(hours: 25)),
+      );
+      expect(
+        noReview.invitesFeedback(now),
+        isTrue,
+      );
+    });
+
+    test('una ya respondida deja de invitar', () {
+      final answered = receivedAgo(const Duration(hours: 30)).copyWith(
+        status: RecommendationStatusOption.feedbackReceived,
+        feedback: RecommendationFeedback(
+          wasApplied: true,
+          outcome: FeedbackOutcomeOption.improvement,
+          submittedAt: now,
+        ),
+      );
+      expect(
+        answered.invitesFeedback(now),
+        isFalse,
+      );
+    });
+
+    test('una vencida no invita aunque hayan pasado las 24 horas', () {
+      final expired = receivedAgo(const Duration(days: 3)).copyWith(
+        status: RecommendationStatusOption.expired,
+      );
+      expect(
+        expired.invitesFeedback(now),
+        isFalse,
+      );
+    });
+  });
 }
