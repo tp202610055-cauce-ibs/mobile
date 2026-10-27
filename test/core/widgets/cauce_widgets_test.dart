@@ -1066,6 +1066,42 @@ void main() {
     });
   });
 
+  group('CauceBottomNav · cinco destinos', () {
+    testWidgets('dibuja los cinco y cada toque informa su posicion',
+        (tester) async {
+      final tocados = <int>[];
+      await _pump(
+        tester,
+        CauceBottomNav(
+          currentIndex: 0,
+          onSelected: tocados.add,
+          items: const <CauceBottomNavItem>[
+            CauceBottomNavItem(label: 'Inicio', icon: TablerIcons.home),
+            CauceBottomNavItem(label: 'Diario', icon: TablerIcons.notebook),
+            CauceBottomNavItem(
+              label: 'Evolución',
+              icon: TablerIcons.chart_line,
+            ),
+            CauceBottomNavItem(label: 'Consejos', icon: TablerIcons.bulb),
+            CauceBottomNavItem(label: 'Perfil', icon: TablerIcons.user),
+          ],
+        ),
+      );
+
+      for (final label in <String>[
+        'Inicio',
+        'Diario',
+        'Evolución',
+        'Consejos',
+        'Perfil',
+      ]) {
+        await tester.tap(find.text(label));
+      }
+
+      expect(tocados, <int>[0, 1, 2, 3, 4]);
+    });
+  });
+
   group('CauceBottomNav · el blanco llega hasta el borde de la pantalla', () {
     /// Monta la barra con una franja de sistema de [inset] px declarada en
     /// `viewPadding`, y con `padding` ya consumido por un ancestro, que es

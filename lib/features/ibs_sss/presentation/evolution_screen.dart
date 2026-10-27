@@ -6,6 +6,7 @@ import '../../../core/errors/cauce_api_error.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../onboarding/application/onboarding_notifier.dart';
 import '../../onboarding/presentation/widgets/onboarding_labels.dart';
 import '../application/periodic_assessment_notifier.dart';
 import '../domain/ibs_sss_evolution_series.dart';
@@ -25,7 +26,10 @@ import 'widgets/ibs_sss_evolution_chart.dart';
 /// - **CP061**, con solo la linea base: su puntaje, por que todavia no hay
 ///   grafico, y cuando toca la proxima evaluacion.
 class EvolutionScreen extends ConsumerStatefulWidget {
-  const EvolutionScreen({super.key});
+  const EvolutionScreen({this.showBackButton = true, super.key});
+
+  /// `false` en la pestaña de la barra, donde no hay a dónde volver.
+  final bool showBackButton;
 
   @override
   ConsumerState<EvolutionScreen> createState() => _EvolutionScreenState();
@@ -38,12 +42,31 @@ class _EvolutionScreenState extends ConsumerState<EvolutionScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    // Sin perfil clínico o línea base no hay evolución: se invita a completar.
+    if (!ref.watch(resolvedOnboardingProvider).allowsAdvice) {
+      return CauceScaffold(
+        appBar: CauceAppBar(
+          title: l10n.ibsSssEvolutionTitle,
+          showBackButton: widget.showBackButton,
+        ),
+        scrollable: true,
+        body: CauceEmptyState(
+          key: const Key('evolution_locked'),
+          icon: TablerIcons.lock,
+          title: l10n.evolutionLockedTitle,
+          message: l10n.evolutionLockedBody,
+          actionLabel: l10n.evolutionLockedAction,
+          onAction: () =>
+              ref.read(onboardingNotifierProvider.notifier).resume(),
+        ),
+      );
+    }
     final evolution = ref.watch(ibsSssEvolutionProvider);
 
     return CauceScaffold(
       appBar: CauceAppBar(
         title: l10n.ibsSssEvolutionTitle,
-        showBackButton: true,
+        showBackButton: widget.showBackButton,
       ),
       scrollable: true,
       body: evolution.when(

@@ -133,6 +133,17 @@ GoRouter appRouter(Ref ref) {
               ),
             ],
           ),
+          // Va al final para no correr los indices de las otras ramas; la
+          // barra la muestra entre Diario y Consejos.
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                path: AppRoutes.evolution,
+                builder: (_, __) =>
+                    const EvolutionScreen(showBackButton: false),
+              ),
+            ],
+          ),
         ],
       ),
 

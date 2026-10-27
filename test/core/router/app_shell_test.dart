@@ -17,6 +17,7 @@ import 'package:cauce_mobile/features/ibs_sss/presentation/evolution_screen.dart
 import 'package:cauce_mobile/features/ibs_sss/presentation/periodic_assessment_screen.dart';
 import 'package:cauce_mobile/features/meals/presentation/meal_form_screen.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/ibs_sss_baseline_screen.dart';
+import 'package:cauce_mobile/features/onboarding/application/onboarding_notifier.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/patients/presentation/account_settings_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/clinical_report_screen.dart';
@@ -183,6 +184,44 @@ void main() {
       expect(find.byType(ProfileScreen), findsOneWidget);
     });
 
+    testWidgets('Evolución, con la barra a la vista', (tester) async {
+      await _pumpShell(tester);
+
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('nav_evolution')),
+          matching: find.text('Evolución'),
+        ),
+        findsOneWidget,
+      );
+      await _tapTab(tester, 'nav_evolution');
+
+      expect(find.byType(EvolutionScreen), findsOneWidget);
+      expect(find.byType(CauceBottomNav), findsOneWidget);
+    });
+
+    testWidgets('con el perfil incompleto, Evolución invita a completarlo',
+        (tester) async {
+      final container = await _pumpShell(tester, onboardingCompleted: false);
+      // El paciente aplaza el asistente con «Después» (CP011).
+      container.read(onboardingNotifierProvider.notifier).defer();
+      await tester.pumpAndSettle();
+
+      await _tapTab(tester, 'nav_evolution');
+
+      expect(find.byKey(const Key('evolution_locked')), findsOneWidget);
+    });
+
+    testWidgets('el retroceso desde Evolución vuelve a Inicio', (tester) async {
+      await _pumpShell(tester);
+      await _tapTab(tester, 'nav_evolution');
+
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HomeScreen), findsOneWidget);
+    });
+
     testWidgets('cambiar de pestana y volver conserva la rama', (tester) async {
       await _pumpShell(tester);
 
@@ -213,6 +252,21 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(SymptomFormScreen), findsOneWidget);
+    });
+
+    testWidgets('la intensidad va de 1 a 100, de uno en uno (CP028, CP083)',
+        (tester) async {
+      await _pumpShell(tester);
+      await _openFab(tester);
+      await tester.tap(find.byKey(const Key('fab_symptom')));
+      await tester.pumpAndSettle();
+
+      final slider = tester.widget<CauceSlider>(
+        find.byKey(const Key('symptom_intensity_field')),
+      );
+      expect(slider.min, 1);
+      expect(slider.max, 100);
+      expect(slider.step, 1);
     });
 
     testWidgets('los formularios se abren sin la barra inferior',

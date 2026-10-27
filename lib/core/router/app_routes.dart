@@ -88,6 +88,9 @@ abstract final class AppRoutes {
   /// pestana.
   static const String ibsSssEvolution = '/ibs-sss/evolution';
 
+  /// Pestaña Evolución de la barra inferior, con la misma pantalla.
+  static const String evolution = '/evolution';
+
   /// Recomendaciones aprobadas por la nutricionista (EP0003).
   ///
   /// La pestana existe desde Mobile-3.1 y Mobile-5 la llena. La ruta se llama
