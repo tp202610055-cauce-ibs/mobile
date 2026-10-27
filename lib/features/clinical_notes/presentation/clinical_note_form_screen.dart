@@ -5,6 +5,7 @@ import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../history/domain/history_entry.dart';
+import '../domain/clinical_note_draft.dart';
 import '../application/clinical_note_form_notifier.dart';
 
 /// Nota de contexto sobre una comida o un sintoma (US13 CA01 y CA02).
@@ -108,7 +109,10 @@ class _ClinicalNoteFormScreenState
           ),
           const SizedBox(height: CauceSpacing.space2),
           Text(
-            l10n.clinicalNoteRemaining(state.remaining),
+            l10n.clinicalNoteCounter(
+              ClinicalNoteDraft.maxLength - state.remaining,
+              ClinicalNoteDraft.maxLength,
+            ),
             key: const Key('clinical_note_counter'),
             textAlign: TextAlign.right,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
