@@ -40,6 +40,15 @@ abstract class HistoryMealItem with _$HistoryMealItem {
   }) = _HistoryMealItem;
 }
 
+/// Nota de contexto ya guardada en el servidor sobre una entrada (US13).
+@freezed
+abstract class HistoryNote with _$HistoryNote {
+  const factory HistoryNote({
+    required String content,
+    required DateTime createdAt,
+  }) = _HistoryNote;
+}
+
 /// Una entrada del historial del paciente.
 ///
 /// **No viene de `GET /api/v1/history`.** Ese endpoint existe, pero el contrato
@@ -69,6 +78,9 @@ abstract class HistoryEntry with _$HistoryEntry {
     MealTimeOption? mealTime,
     FodmapLoad? aggregatedFodmap,
     @Default(<HistoryMealItem>[]) List<HistoryMealItem> items,
+
+    /// Notas de contexto del registro, de la más antigua a la más reciente.
+    @Default(<HistoryNote>[]) List<HistoryNote> notes,
 
     // Datos de un sintoma.
     SymptomTypeOption? symptomType,

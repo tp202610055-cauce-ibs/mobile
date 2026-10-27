@@ -6,7 +6,7 @@ part of 'history_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$historyNotifierHash() => r'd15810fc7e94d5a097333a8466442bd0f83de82e';
+String _$historyNotifierHash() => r'65941897e9e6467c168f55f9e0878dfde2a5f2b0';
 
 /// Historial del Diario: los 90 dias completos, mas lo que no llego al
 /// servidor. Se compone desde `/meals` y `/symptoms`, no desde `/history`.

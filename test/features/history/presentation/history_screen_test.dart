@@ -181,6 +181,28 @@ void main() {
       expect(find.text('1 taza Brócoli cocido'), findsOneWidget);
     });
 
+    testWidgets('CP034: la nota guardada se ve junto al registro con su hora',
+        (tester) async {
+      await _pump(tester, <HistoryEntry>[
+        _meal(at: aLas(13)).copyWith(
+          notes: <HistoryNote>[
+            HistoryNote(
+              content: 'Tuve un día de mucho estrés laboral',
+              createdAt: aLas(14).toUtc(),
+            ),
+          ],
+        ),
+      ]);
+
+      expect(find.byKey(const Key('history_note')), findsOneWidget);
+      expect(find.text('Tuve un día de mucho estrés laboral'), findsOneWidget);
+      final stamp = tester
+          .widget<Text>(find.byKey(const Key('history_note_stamp')))
+          .data!;
+      expect(stamp, startsWith('Nota guardada el '));
+      expect(stamp, endsWith('14:30'));
+    });
+
     testWidgets('el sintoma muestra su tipo y su intensidad', (tester) async {
       final l10n = await AppLocalizations.delegate.load(const Locale('es'));
       await _pump(

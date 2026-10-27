@@ -78,6 +78,7 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
           state: state,
           onDiscard: notifier.discard,
           onOpenMealForm: _openMealForm,
+          onReload: notifier.load,
         ),
       ),
     );
@@ -89,11 +90,15 @@ class _Body extends StatelessWidget {
     required this.state,
     required this.onDiscard,
     required this.onOpenMealForm,
+    required this.onReload,
   });
 
   final HistoryState state;
   final Future<void> Function(String clientGuid) onDiscard;
   final VoidCallback onOpenMealForm;
+
+  /// Relee el Diario al volver de la nota, para mostrarla junto al registro.
+  final Future<void> Function() onReload;
 
   /// Descarta una fila que no llego al servidor.
   ///
@@ -173,10 +178,13 @@ class _Body extends StatelessWidget {
                   onDiscard: entry.clientGuid == null
                       ? null
                       : () => _discard(context, entry),
-                  onAddNote: () => context.push(
-                    AppRoutes.clinicalNoteNew,
-                    extra: entry,
-                  ),
+                  onAddNote: () async {
+                    await context.push(
+                      AppRoutes.clinicalNoteNew,
+                      extra: entry,
+                    );
+                    await onReload();
+                  },
                 ),
           (_) => const SizedBox(height: CauceSpacing.space2),
         ],

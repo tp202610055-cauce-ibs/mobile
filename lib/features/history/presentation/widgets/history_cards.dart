@@ -347,6 +347,7 @@ class HistoryCard extends StatelessWidget {
           ),
         ),
       ],
+      for (final note in entry.notes) _NoteRow(note: note),
       const SizedBox(height: CauceSpacing.space1),
       // US13 exige un mealId o symptomId **del servidor**. Sin sincronizar no
       // existe, y dejar el boton activo llevaria a un 404 despues de escribir
@@ -369,6 +370,47 @@ class HistoryCard extends StatelessWidget {
           ),
         ),
     ];
+  }
+}
+
+/// Nota de contexto con su fecha y hora, bajo el registro que comenta.
+class _NoteRow extends StatelessWidget {
+  const _NoteRow({required this.note});
+
+  final HistoryNote note;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final at = note.createdAt.toLocal();
+    final stamp = '${DateFormat.yMd(locale).format(at)} '
+        '${DateFormat.jm(locale).format(at)}';
+
+    return Container(
+      key: const Key('history_note'),
+      margin: const EdgeInsets.only(top: CauceSpacing.space2),
+      padding: const EdgeInsets.all(CauceSpacing.space3),
+      decoration: const BoxDecoration(
+        color: CauceColors.bgSubtle,
+        borderRadius: CauceRadii.borderMd,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(note.content, style: textTheme.bodyMedium),
+          const SizedBox(height: CauceSpacing.space1),
+          Text(
+            l10n.historyNoteSavedAt(stamp),
+            key: const Key('history_note_stamp'),
+            style: textTheme.labelSmall?.copyWith(
+              color: CauceColors.textTertiary,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
