@@ -144,7 +144,7 @@ abstract final class Validators {
 
   /// Limites de peso, exclusivos en los dos extremos.
   static const double minWeightKg = 0;
-  static const double maxWeightKg = 500;
+  static const double maxWeightKg = 300;
 
   /// Limites de estatura, exclusivos en los dos extremos.
   static const double minHeightCm = 0;
@@ -196,7 +196,7 @@ abstract final class Validators {
     return null;
   }
 
-  /// Peso en kilogramos. Mayor que 0 y menor que 500, sin incluir los bordes.
+  /// Peso en kilogramos. Mayor que 0 y menor que 300, sin incluir los bordes.
   static String? weightKg(String? value, AppLocalizations l10n) {
     return _biometric(
       value,

@@ -154,6 +154,7 @@ Future<void> _completeProfileStep(WidgetTester tester) async {
   await _type(tester, find.byKey(const Key('profile_height')), '162');
   await _tap(tester, find.text(l10n.biologicalSexFemale));
   await _tap(tester, find.text(l10n.ibsSubtypeD));
+  await _tap(tester, find.byKey(const Key('allergies_none_known')));
   await _tap(tester, find.byKey(const Key('profile_submit')));
 }
 

@@ -75,12 +75,13 @@ Future<void> _type(WidgetTester tester, Finder finder, String text) async {
   await tester.pumpAndSettle();
 }
 
-/// Completa los cinco campos obligatorios.
+/// Completa los campos obligatorios, con «Ninguna conocida» en alergias.
 Future<void> _fillRequired(WidgetTester tester) async {
   await _type(tester, find.byKey(const Key('profile_weight')), '62.5');
   await _type(tester, find.byKey(const Key('profile_height')), '162');
   await _tap(tester, find.text(l10n.biologicalSexFemale));
   await _tap(tester, find.text(l10n.ibsSubtypeD));
+  await _tap(tester, find.byKey(const Key('allergies_none_known')));
 }
 
 /// Elige una fecha de nacimiento valida desde el calendario.
@@ -162,6 +163,19 @@ void main() {
       );
     });
 
+    testWidgets('la clasificacion dice «Normal», como en CP007 y CP010',
+        (tester) async {
+      await _pump(tester);
+
+      await _type(tester, find.byKey(const Key('profile_weight')), '62');
+      await _type(tester, find.byKey(const Key('profile_height')), '165');
+
+      expect(
+        tester.widget<Text>(find.byKey(const Key('bmi_category'))).data,
+        'Normal',
+      );
+    });
+
     testWidgets('se recalcula al cambiar el peso', (tester) async {
       await _pump(tester);
 
@@ -206,7 +220,7 @@ void main() {
 
       await _pickDateOfBirth(tester);
       await _fillRequired(tester);
-      await _type(tester, find.byKey(const Key('profile_weight')), '500');
+      await _type(tester, find.byKey(const Key('profile_weight')), '400');
       await _tap(tester, find.byKey(const Key('profile_submit')));
 
       expect(find.text(l10n.validationWeightOutOfRange), findsOneWidget);
@@ -290,6 +304,39 @@ void main() {
       await _tap(tester, find.byKey(const Key('profile_submit')));
 
       expect(repository.declaredAllergies, isEmpty);
+    });
+
+    testWidgets('sin alergias ni «Ninguna conocida» no guarda (CP008)',
+        (tester) async {
+      final repository = await _pump(tester);
+
+      await _pickDateOfBirth(tester);
+      await _fillRequired(tester);
+      await _tap(tester, find.byKey(const Key('allergies_none_known')));
+      await _tap(tester, find.byKey(const Key('profile_submit')));
+
+      expect(repository.createdProfiles, isEmpty);
+      expect(
+        find.text(
+          'Indica tus alergias e intolerancias o marca «Ninguna conocida».',
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('marcar una alergia quita «Ninguna conocida»', (tester) async {
+      final repository = await _pump(tester);
+
+      await _pickDateOfBirth(tester);
+      await _fillRequired(tester);
+      await _tap(tester, find.text('Gluten'));
+
+      final noneKnown = tester.widget<CheckboxListTile>(
+        find.byKey(const Key('allergies_none_known')),
+      );
+      expect(noneKnown.value, isFalse);
+      await _tap(tester, find.byKey(const Key('profile_submit')));
+      expect(repository.declaredAllergies, hasLength(1));
     });
 
     testWidgets('un error del backend se muestra en el banner', (tester) async {

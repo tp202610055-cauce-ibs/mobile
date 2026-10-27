@@ -118,13 +118,13 @@ void main() {
       expect(Validators.weightKg('0', l10n), l10n.validationWeightOutOfRange);
     });
 
-    test('500 se rechaza: el borde superior tambien es exclusivo', () {
-      expect(Validators.weightKg('500', l10n), l10n.validationWeightOutOfRange);
+    test('300 se rechaza: el borde superior tambien es exclusivo', () {
+      expect(Validators.weightKg('300', l10n), l10n.validationWeightOutOfRange);
     });
 
     test('justo dentro de los bordes se acepta', () {
       expect(Validators.weightKg('0.1', l10n), isNull);
-      expect(Validators.weightKg('499.9', l10n), isNull);
+      expect(Validators.weightKg('299.9', l10n), isNull);
     });
 
     test('un negativo se rechaza', () {

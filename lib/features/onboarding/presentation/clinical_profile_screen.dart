@@ -41,11 +41,15 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
   final Map<String, AllergyDeclarationDraft> _allergies =
       <String, AllergyDeclarationDraft>{};
 
+  /// «Ninguna conocida»: excluye a las alergias marcadas y viceversa.
+  bool _noneKnown = false;
+
   /// Errores de los controles que no son `TextFormField` y que por eso no
   /// participan del `validate()` del formulario.
   String? _dateOfBirthError;
   String? _biologicalSexError;
   String? _ibsSubtypeError;
+  String? _allergiesError;
 
   @override
   void dispose() {
@@ -92,16 +96,21 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
         _biologicalSex == null ? l10n.validationRequired : null;
     final ibsSubtypeError =
         _ibsSubtype == null ? l10n.validationRequired : null;
+    final allergiesError = _allergies.isEmpty && !_noneKnown
+        ? l10n.validationAllergiesRequired
+        : null;
 
     setState(() {
       _dateOfBirthError = dateOfBirthError;
       _biologicalSexError = biologicalSexError;
       _ibsSubtypeError = ibsSubtypeError;
+      _allergiesError = allergiesError;
     });
 
     return dateOfBirthError == null &&
         biologicalSexError == null &&
-        ibsSubtypeError == null;
+        ibsSubtypeError == null &&
+        allergiesError == null;
   }
 
   Future<void> _submit(AppLocalizations l10n) async {
@@ -282,7 +291,21 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
         _AllergiesSection(
           selected: _allergies,
           enabled: !busy,
-          onChanged: () => setState(() {}),
+          noneKnown: _noneKnown,
+          error: _allergiesError,
+          onNoneKnownChanged: (value) => setState(() {
+            _noneKnown = value;
+            if (value) {
+              _allergies.clear();
+            }
+            _allergiesError = null;
+          }),
+          onChanged: () => setState(() {
+            if (_allergies.isNotEmpty) {
+              _noneKnown = false;
+            }
+            _allergiesError = null;
+          }),
         ),
         const SizedBox(height: CauceSpacing.space6),
         CauceButton(
@@ -382,11 +405,17 @@ class _AllergiesSection extends ConsumerWidget {
   const _AllergiesSection({
     required this.selected,
     required this.enabled,
+    required this.noneKnown,
+    required this.error,
+    required this.onNoneKnownChanged,
     required this.onChanged,
   });
 
   final Map<String, AllergyDeclarationDraft> selected;
   final bool enabled;
+  final bool noneKnown;
+  final String? error;
+  final ValueChanged<bool> onNoneKnownChanged;
   final VoidCallback onChanged;
 
   @override
@@ -397,58 +426,92 @@ class _AllergiesSection extends ConsumerWidget {
     return OnboardingSection(
       title: l10n.allergiesTitle,
       subtitle: l10n.allergiesSubtitle,
-      child: catalog.when(
-        loading: () => CauceLoadingIndicator.fullscreen(
-          message: l10n.allergiesLoading,
-        ),
-        // El catalogo no bloquea el paso: declarar alergias es opcional, asi
-        // que un fallo aca ofrece reintentar sin impedir el envio del perfil.
-        error: (error, _) => Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            if (error is CauceApiError)
-              CauceErrorBanner(error: error)
-            else
-              Text(l10n.errorUnknown),
-            const SizedBox(height: CauceSpacing.space3),
-            CauceButton.secondary(
-              key: const Key('allergies_retry'),
-              label: l10n.commonRetry,
-              onPressed: () => ref.invalidate(allergyCatalogProvider),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          // Fuera del catalogo: se puede marcar aunque el catalogo no cargue.
+          CheckboxListTile(
+            key: const Key('allergies_none_known'),
+            value: noneKnown,
+            onChanged:
+                enabled ? (value) => onNoneKnownChanged(value ?? false) : null,
+            title: Text(l10n.allergiesNoneKnown),
+            controlAffinity: ListTileControlAffinity.leading,
+            contentPadding: EdgeInsets.zero,
+          ),
+          if (error != null)
+            Text(
+              error!,
+              key: const Key('allergies_error'),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Theme.of(context).colorScheme.error),
             ),
-          ],
-        ),
-        data: (entries) => AllergyPicker(
-          catalog: entries,
-          selected: selected,
-          enabled: enabled,
-          onToggle: (entry, value) {
-            if (value) {
-              selected[entry.allergyId] = AllergyDeclarationDraft(
-                allergyId: entry.allergyId,
-                // Moderada es el punto medio de los tres niveles. Arrancar en
-                // leve o severa sesgaria la declaracion hacia un extremo.
-                severity: AllergySeverityLevel.moderate,
-              );
-            } else {
-              selected.remove(entry.allergyId);
-            }
+          const SizedBox(height: CauceSpacing.space2),
+          _catalog(context, ref, l10n, catalog),
+        ],
+      ),
+    );
+  }
+
+  Widget _catalog(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations l10n,
+    AsyncValue<List<AllergyCatalogEntry>> catalog,
+  ) {
+    return catalog.when(
+      loading: () => CauceLoadingIndicator.fullscreen(
+        message: l10n.allergiesLoading,
+      ),
+      // El catalogo no bloquea el paso: declarar alergias es opcional, asi
+      // que un fallo aca ofrece reintentar sin impedir el envio del perfil.
+      error: (error, _) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          if (error is CauceApiError)
+            CauceErrorBanner(error: error)
+          else
+            Text(l10n.errorUnknown),
+          const SizedBox(height: CauceSpacing.space3),
+          CauceButton.secondary(
+            key: const Key('allergies_retry'),
+            label: l10n.commonRetry,
+            onPressed: () => ref.invalidate(allergyCatalogProvider),
+          ),
+        ],
+      ),
+      data: (entries) => AllergyPicker(
+        catalog: entries,
+        selected: selected,
+        enabled: enabled,
+        onToggle: (entry, value) {
+          if (value) {
+            selected[entry.allergyId] = AllergyDeclarationDraft(
+              allergyId: entry.allergyId,
+              // Moderada es el punto medio de los tres niveles. Arrancar en
+              // leve o severa sesgaria la declaracion hacia un extremo.
+              severity: AllergySeverityLevel.moderate,
+            );
+          } else {
+            selected.remove(entry.allergyId);
+          }
+          onChanged();
+        },
+        onSeverityChanged: (allergyId, value) {
+          final current = selected[allergyId];
+          if (current != null) {
+            selected[allergyId] = current.copyWith(severity: value);
             onChanged();
-          },
-          onSeverityChanged: (allergyId, value) {
-            final current = selected[allergyId];
-            if (current != null) {
-              selected[allergyId] = current.copyWith(severity: value);
-              onChanged();
-            }
-          },
-          onNotesChanged: (allergyId, value) {
-            final current = selected[allergyId];
-            if (current != null) {
-              selected[allergyId] = current.copyWith(notes: value);
-            }
-          },
-        ),
+          }
+        },
+        onNotesChanged: (allergyId, value) {
+          final current = selected[allergyId];
+          if (current != null) {
+            selected[allergyId] = current.copyWith(notes: value);
+          }
+        },
       ),
     );
   }
