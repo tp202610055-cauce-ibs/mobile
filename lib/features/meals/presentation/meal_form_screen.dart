@@ -188,6 +188,10 @@ class _MealQuantitySheetState extends State<MealQuantitySheet> {
     return value;
   }
 
+  /// Lo escrito no es un numero, como «cien» (CP076 variante C).
+  bool get _isNotANumber =>
+      double.tryParse(_quantity.text.trim().replaceAll(',', '.')) == null;
+
   /// Al cambiar de unidad, la cantidad vuelve a un valor razonable.
   ///
   /// Arrastrarla era lo que producia "100 tazas" al pasar de gramos a tazas
@@ -228,16 +232,19 @@ class _MealQuantitySheetState extends State<MealQuantitySheet> {
                 key: const Key('meal_quantity_field'),
                 controller: _quantity,
                 label: l10n.mealsQuantityLabel,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
+                // Teclado de texto: tambien acepta letras y el signo menos, que
+                // se rechazan con su aviso en vez de no poder escribirse.
+                keyboardType: TextInputType.text,
                 errorText: _parsed != null
                     ? null
-                    : unit == null
-                        ? l10n.mealsIssueInvalidQuantity
-                        : l10n.mealsIssueQuantityOutOfRange(
-                            MealLabels.unit(l10n, unit).toLowerCase(),
-                            MealLabels.quantity(unit.maxQuantity),
-                          ),
+                    : _isNotANumber
+                        ? l10n.mealsIssueQuantityNotANumber
+                        : unit == null
+                            ? l10n.mealsIssueInvalidQuantity
+                            : l10n.mealsIssueQuantityOutOfRange(
+                                MealLabels.unit(l10n, unit).toLowerCase(),
+                                MealLabels.quantity(unit.maxQuantity),
+                              ),
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: CauceSpacing.space4),

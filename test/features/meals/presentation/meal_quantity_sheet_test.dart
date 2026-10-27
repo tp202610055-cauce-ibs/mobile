@@ -86,4 +86,52 @@ void main() {
       expect(_canConfirm(tester), isTrue);
     });
   });
+
+  group('MealQuantitySheet · cantidad escrita con letras (CP076 variante C)',
+      () {
+    Finder field() => find.descendant(
+          of: find.byKey(const Key('meal_quantity_field')),
+          matching: find.byType(EditableText),
+        );
+
+    testWidgets('el campo usa un teclado que permite escribir letras',
+        (tester) async {
+      await _pump(tester);
+
+      expect(
+        tester.widget<EditableText>(field()).keyboardType,
+        TextInputType.text,
+      );
+    });
+
+    testWidgets('«cien» se señala como no valida y conserva los demas datos',
+        (tester) async {
+      await _pump(tester);
+
+      await tester.enterText(field(), 'cien');
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.mealsIssueQuantityNotANumber), findsOneWidget);
+      expect(_canConfirm(tester), isFalse);
+      expect(find.text('cien'), findsOneWidget);
+      expect(find.text(l10n.mealsIssueMissingUnit), findsNothing);
+    });
+
+    testWidgets('cero y negativos siguen marcados como fuera de rango',
+        (tester) async {
+      await _pump(tester);
+
+      for (final value in <String>['0', '-50']) {
+        await tester.enterText(field(), value);
+        await tester.pumpAndSettle();
+
+        expect(_canConfirm(tester), isFalse, reason: value);
+        expect(
+          find.text(l10n.mealsIssueQuantityNotANumber),
+          findsNothing,
+          reason: value,
+        );
+      }
+    });
+  });
 }
