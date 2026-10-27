@@ -61,11 +61,14 @@ class ClinicalNotesRepository {
   }
 
   /// `GET /api/v1/clinical-notes`. Notas del paciente en un rango de fechas.
-  Future<List<ClinicalNoteSummary>> list({DateTime? from, DateTime? to}) {
+  Future<List<ClinicalNoteSummary>> list({
+    required DateTime from,
+    required DateTime to,
+  }) {
     return guardApiCall(() async {
       final response = await _api.apiV1ClinicalNotesGet(
-        from: from?.toUtc(),
-        to: to?.toUtc(),
+        from: from.toUtc(),
+        to: to.toUtc(),
       );
 
       return response.data?.toList() ?? const <ClinicalNoteSummary>[];

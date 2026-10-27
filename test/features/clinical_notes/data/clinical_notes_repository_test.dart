@@ -124,4 +124,30 @@ void main() {
       expect(h.adapter.requests, isEmpty);
     });
   });
+
+  group('ClinicalNotesRepository · GET /clinical-notes', () {
+    test('envía el rango obligatorio en UTC', () async {
+      final adapter = CannedHttpAdapter(
+        const CannedListResponse(<Map<String, dynamic>>[]),
+      );
+      final dio = Dio(BaseOptions(baseUrl: 'http://localhost:5074'))
+        ..httpClientAdapter = adapter;
+      final client = CauceApiClient(
+        dio: dio,
+        interceptors: const <Interceptor>[],
+      );
+      final repository = ClinicalNotesRepository(
+        client.getClinicalNotesApi(),
+      );
+
+      await repository.list(
+        from: DateTime.utc(2026, 10, 1),
+        to: DateTime.utc(2026, 10, 2),
+      );
+
+      final query = adapter.lastRequest.queryParameters;
+      expect(query['from'].toString(), contains('2026-10-01'));
+      expect(query['to'].toString(), contains('2026-10-02'));
+    });
+  });
 }
