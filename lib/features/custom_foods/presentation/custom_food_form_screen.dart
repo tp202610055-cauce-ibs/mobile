@@ -21,7 +21,6 @@ class CustomFoodFormScreen extends ConsumerStatefulWidget {
 
 class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
   final TextEditingController _name = TextEditingController();
-  final TextEditingController _portion = TextEditingController();
 
   @override
   void initState() {
@@ -36,7 +35,6 @@ class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
   @override
   void dispose() {
     _name.dispose();
-    _portion.dispose();
     super.dispose();
   }
 
@@ -118,17 +116,6 @@ class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
             enabled: !state.submitting,
             onChanged: notifier.setName,
           ),
-          const SizedBox(height: CauceSpacing.space4),
-          CauceTextField(
-            key: const Key('custom_food_portion'),
-            controller: _portion,
-            label: l10n.customFoodPortionLabel,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            enabled: !state.submitting,
-            onChanged: (value) => notifier.setPortion(
-              double.tryParse(value.replaceAll(',', '.')) ?? 0,
-            ),
-          ),
           const SizedBox(height: CauceSpacing.space6),
           Text(
             l10n.customFoodIngredientsLabel,
@@ -148,7 +135,12 @@ class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
               key: Key('custom_food_ingredient_$index'),
               contentPadding: EdgeInsets.zero,
               title: Text(item.food.name),
-              subtitle: Text('${item.proportionGrams.toStringAsFixed(0)} g'),
+              // La porción es de 100 g: los gramos del ingrediente son su %.
+              subtitle: Text(
+                l10n.customFoodProportionPercent(
+                  _percent(item.proportionGrams),
+                ),
+              ),
               trailing: TextButton(
                 onPressed: state.submitting
                     ? null
@@ -156,6 +148,33 @@ class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
                 child: Text(l10n.mealsRemoveItem),
               ),
             ),
+          if (state.draft.ingredients.isNotEmpty)
+            Text(
+              l10n.customFoodProportionTotal(
+                _percent(state.draft.ingredientsWeight),
+              ),
+              key: const Key('custom_food_proportion_total'),
+              style: Theme.of(context).textTheme.labelSmall,
+            ),
+          if (state.detectedAllergens.isNotEmpty) ...<Widget>[
+            const SizedBox(height: CauceSpacing.space3),
+            Container(
+              key: const Key('custom_food_allergen_warning'),
+              padding: const EdgeInsets.all(CauceSpacing.space3),
+              decoration: const BoxDecoration(
+                color: CauceColors.warningBg,
+                borderRadius: CauceRadii.borderMd,
+              ),
+              child: Text(
+                l10n.customFoodAllergenWarning(
+                  state.detectedAllergens.join(', '),
+                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: CauceColors.warningText,
+                    ),
+              ),
+            ),
+          ],
           const SizedBox(height: CauceSpacing.space3),
           CauceButton.secondary(
             key: const Key('custom_food_add_ingredient'),
@@ -191,7 +210,12 @@ class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
   }
 }
 
-/// Cantidad en gramos que aporta el ingrediente recien elegido.
+/// Porcentaje sin decimales sobrantes: 40 y no 40.0.
+String _percent(double value) => value == value.roundToDouble()
+    ? value.toInt().toString()
+    : value.toStringAsFixed(1).replaceAll('.', ',');
+
+/// Proporción en % que aporta el ingrediente recién elegido.
 class _ProportionSheet extends StatefulWidget {
   const _ProportionSheet({required this.foodName});
 
@@ -212,7 +236,7 @@ class _ProportionSheetState extends State<_ProportionSheet> {
 
   double? get _parsed {
     final value = double.tryParse(_grams.text.replaceAll(',', '.'));
-    return (value == null || value <= 0) ? null : value;
+    return (value == null || value <= 0 || value > 100) ? null : value;
   }
 
   @override

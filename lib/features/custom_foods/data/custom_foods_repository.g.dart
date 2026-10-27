@@ -7,7 +7,7 @@ part of 'custom_foods_repository.dart';
 // **************************************************************************
 
 String _$customFoodsRepositoryHash() =>
-    r'f32de5fc59cd13526ef07fb5da8985ace3926bb3';
+    r'95366697c56b41d9ac9fe343ac449e33969fcd54';
 
 /// See also [customFoodsRepository].
 @ProviderFor(customFoodsRepository)
