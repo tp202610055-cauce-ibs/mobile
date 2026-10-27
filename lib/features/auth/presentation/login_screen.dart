@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/auth/inactivity_monitor.dart';
 import '../../../core/errors/error_messages.dart';
 import '../../../core/router/app_routes.dart';
 import '../../../core/theme/design_tokens.dart';
@@ -69,6 +71,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             Text(l10n.loginSubtitle, style: textTheme.bodyMedium),
             const SizedBox(height: CauceSpacing.space6),
 
+            if (ref.watch(inactivityNoticeProvider)) ...<Widget>[
+              const _InactivityNotice(),
+              const SizedBox(height: CauceSpacing.space4),
+            ],
+
             if (error != null) ...<Widget>[
               CauceErrorBanner(error: error),
               const SizedBox(height: CauceSpacing.space4),
@@ -135,6 +142,57 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Aviso de que la sesion anterior se cerro por inactividad (CP021 paso 6).
+class _InactivityNotice extends StatelessWidget {
+  const _InactivityNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      key: const Key('login_inactivity_notice'),
+      padding: const EdgeInsets.all(CauceSpacing.space3),
+      decoration: const BoxDecoration(
+        color: CauceColors.infoBg,
+        borderRadius: CauceRadii.borderMd,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Icon(
+            TablerIcons.clock,
+            size: 18,
+            color: CauceColors.infoText,
+          ),
+          const SizedBox(width: CauceSpacing.space2),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  l10n.sessionInactivityTitle,
+                  style: textTheme.labelLarge?.copyWith(
+                    color: CauceColors.infoText,
+                  ),
+                ),
+                const SizedBox(height: CauceSpacing.space1),
+                Text(
+                  l10n.sessionInactivityBody,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: CauceColors.infoText,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

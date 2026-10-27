@@ -300,6 +300,40 @@ void main() {
       expect(push.calls, <String>['deleteToken']);
     });
 
+    test('por inactividad desautentica al instante y despues revoca y limpia',
+        () async {
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _verified,
+      );
+      final notifier = h.container.read(sessionNotifierProvider.notifier);
+      await notifier.bootstrap();
+
+      final closing = notifier.endForInactivity();
+      // Antes de esperar la red: el toque que lo detecto no abre nada.
+      expect(
+        h.container.read(sessionNotifierProvider),
+        isA<SessionUnauthenticated>(),
+      );
+      await closing;
+
+      expect(h.repository.logoutCalls, 1);
+      expect(h.storage.clearSessionCalls, 1);
+      expect(h.storage.refreshToken, isNull);
+    });
+
+    test('por inactividad sobre una sesion cerrada no hace nada', () async {
+      final h = _harness();
+      final notifier = h.container.read(sessionNotifierProvider.notifier);
+      await notifier.bootstrap();
+
+      await notifier.endForInactivity();
+
+      expect(h.repository.logoutCalls, 0);
+      expect(h.storage.clearSessionCalls, 0);
+    });
+
     test('expire no vuelve a tocar el Keystore', () async {
       // El RefreshInterceptor ya limpio las tres keys antes de lanzar
       // SessionExpiredException; repetirlo seria trabajo redundante.

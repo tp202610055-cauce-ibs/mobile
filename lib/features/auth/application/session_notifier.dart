@@ -96,6 +96,23 @@ class SessionNotifier extends _$SessionNotifier {
   /// El unico costo de que el aviso falle es que ese refresh sigue vivo en
   /// Keycloak hasta vencer, y ya no esta en ningun dispositivo.
   Future<void> logout() async {
+    await _revokeAndClear();
+    state = const SessionState.unauthenticated();
+  }
+
+  /// Cierra la sesion por inactividad (HU0008, CP021).
+  ///
+  /// Desautentica antes de esperar la red, para que el toque que lo detecto
+  /// no llegue a abrir nada; despues revoca y limpia igual que [logout].
+  Future<void> endForInactivity() async {
+    if (state is! SessionAuthenticated) {
+      return;
+    }
+    state = const SessionState.unauthenticated();
+    await _revokeAndClear();
+  }
+
+  Future<void> _revokeAndClear() async {
     // Desliga el push antes de revocar: ese PUT todavia necesita la sesion.
     await ref.read(pushTokenRegistrarProvider).unregister();
 
@@ -112,7 +129,6 @@ class SessionNotifier extends _$SessionNotifier {
     }
 
     await _storage.clearSession();
-    state = const SessionState.unauthenticated();
   }
 
   /// Marca la sesion como expirada sin tocar el almacenamiento.
