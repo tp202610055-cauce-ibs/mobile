@@ -49,6 +49,16 @@ class HomeScoreCard extends ConsumerWidget {
     final delta =
         evolution?.isEmpty ?? true ? null : evolution!.last.deltaFromBaseline;
     final due = latest.nextAssessmentDate;
+    final series = evolution ?? const <IbsSssEvolutionPoint>[];
+    final baseline = series
+        .where((p) => p.assessmentType == IbsSssAssessmentType.baseline)
+        .firstOrNull;
+    final goal = baseline == null
+        ? null
+        : baseline.totalScore -
+            IbsSssEvolutionPoint.minimalClinicallyImportantDifference;
+    final celebrate =
+        series.isNotEmpty && series.last.isClinicallySignificantImprovement;
 
     return _Card(
       cardKey: const Key('home_score_card'),
@@ -81,6 +91,38 @@ class HomeScoreCard extends ConsumerWidget {
                 : l10n.homeScoreDelta(_signed(delta)),
             style: textTheme.bodyMedium,
           ),
+          // El gráfico resumido aparece desde el tercer resultado.
+          if (series.length >= 3) ...<Widget>[
+            const SizedBox(height: CauceSpacing.space3),
+            CauceSparkline(
+              key: const Key('home_score_sparkline'),
+              points: <CauceSparklinePoint>[
+                for (final point in series)
+                  CauceSparklinePoint(
+                    value: point.totalScore.toDouble(),
+                    label: '${point.totalScore}',
+                    highlighted:
+                        point.assessmentType == IbsSssAssessmentType.baseline,
+                  ),
+              ],
+              minValue: IbsSssScale.totalMin.toDouble(),
+              maxValue: IbsSssScale.totalMax.toDouble(),
+              referenceValue: goal?.toDouble(),
+              semanticLabel: l10n.ibsSssEvolutionRange(
+                series.first.totalScore,
+                series.last.totalScore,
+              ),
+            ),
+            if (goal != null)
+              Text(
+                l10n.homeScoreThresholdLegend(goal),
+                style: textTheme.labelSmall,
+              ),
+          ],
+          if (celebrate) ...<Widget>[
+            const SizedBox(height: CauceSpacing.space3),
+            const _Celebration(),
+          ],
           if (due != null) ...<Widget>[
             const SizedBox(height: CauceSpacing.space3),
             Row(
@@ -115,6 +157,33 @@ class HomeScoreCard extends ConsumerWidget {
   static String _date(BuildContext context, DateTime value) => DateFormat.yMMMd(
         Localizations.localeOf(context).toLanguageTag(),
       ).format(value.toLocal());
+}
+
+/// Marca breve y sobria al alcanzar el umbral: aparece una vez, sin sonido.
+class _Celebration extends StatelessWidget {
+  const _Celebration();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return TweenAnimationBuilder<double>(
+      key: const Key('home_score_celebration'),
+      tween: Tween<double>(begin: 0.85, end: 1),
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeOutBack,
+      builder: (context, scale, child) => Transform.scale(
+        scale: scale,
+        alignment: Alignment.centerLeft,
+        child: child,
+      ),
+      child: CauceBadge(
+        label: l10n.homeScoreCelebration,
+        icon: TablerIcons.circle_check,
+        tone: CauceBadgeTone.success,
+      ),
+    );
+  }
 }
 
 /// Resumen de lo registrado hoy, con la puerta al Diario.
