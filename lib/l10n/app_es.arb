@@ -2144,5 +2144,19 @@
       }
     }
   },
-  "mealsIssueMissingUnit": "Elige la unidad de medida"
+  "mealsIssueMissingUnit": "Elige la unidad de medida",
+  "recommendationFeedbackInvite": "Cuéntanos cómo te fue",
+  "recommendationFeedbackNotYet": "Podrás contarnos cómo te fue cuando pasen 24 horas desde que la recibiste.",
+  "recommendationGlossaryTermSemantics": "{term}, término del glosario. Toca para ver su definición.",
+  "@recommendationGlossaryTermSemantics": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "mealsIssueQuantityNotANumber": "Escribe la cantidad con números, por ejemplo 150",
+  "clinicalNoteEmpty": "Escribe la nota antes de guardarla",
+  "sessionInactivityTitle": "Tu sesión se cerró por inactividad",
+  "sessionInactivityBody": "Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado."
 }

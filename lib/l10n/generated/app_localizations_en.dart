@@ -2516,4 +2516,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mealsIssueMissingUnit => 'Choose the unit of measure';
+
+  @override
+  String get recommendationFeedbackInvite => 'Tell us how it went';
+
+  @override
+  String get recommendationFeedbackNotYet =>
+      'You can tell us how it went once 24 hours have passed since you received it.';
+
+  @override
+  String recommendationGlossaryTermSemantics(String term) {
+    return '$term, glossary term. Tap to see its definition.';
+  }
+
+  @override
+  String get mealsIssueQuantityNotANumber =>
+      'Write the quantity in digits, for example 150';
+
+  @override
+  String get clinicalNoteEmpty => 'Write the note before saving it';
+
+  @override
+  String get sessionInactivityTitle => 'Your session ended due to inactivity';
+
+  @override
+  String get sessionInactivityBody =>
+      '10 minutes passed without you using the app. Sign in again: what you recorded is still saved.';
 }

@@ -4183,6 +4183,48 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Elige la unidad de medida'**
   String get mealsIssueMissingUnit;
+
+  /// No description provided for @recommendationFeedbackInvite.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuéntanos cómo te fue'**
+  String get recommendationFeedbackInvite;
+
+  /// No description provided for @recommendationFeedbackNotYet.
+  ///
+  /// In es, this message translates to:
+  /// **'Podrás contarnos cómo te fue cuando pasen 24 horas desde que la recibiste.'**
+  String get recommendationFeedbackNotYet;
+
+  /// No description provided for @recommendationGlossaryTermSemantics.
+  ///
+  /// In es, this message translates to:
+  /// **'{term}, término del glosario. Toca para ver su definición.'**
+  String recommendationGlossaryTermSemantics(String term);
+
+  /// No description provided for @mealsIssueQuantityNotANumber.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe la cantidad con números, por ejemplo 150'**
+  String get mealsIssueQuantityNotANumber;
+
+  /// No description provided for @clinicalNoteEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe la nota antes de guardarla'**
+  String get clinicalNoteEmpty;
+
+  /// No description provided for @sessionInactivityTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu sesión se cerró por inactividad'**
+  String get sessionInactivityTitle;
+
+  /// No description provided for @sessionInactivityBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado.'**
+  String get sessionInactivityBody;
 }
 
 class _AppLocalizationsDelegate

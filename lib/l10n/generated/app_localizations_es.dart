@@ -2519,4 +2519,30 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get mealsIssueMissingUnit => 'Elige la unidad de medida';
+
+  @override
+  String get recommendationFeedbackInvite => 'Cuéntanos cómo te fue';
+
+  @override
+  String get recommendationFeedbackNotYet =>
+      'Podrás contarnos cómo te fue cuando pasen 24 horas desde que la recibiste.';
+
+  @override
+  String recommendationGlossaryTermSemantics(String term) {
+    return '$term, término del glosario. Toca para ver su definición.';
+  }
+
+  @override
+  String get mealsIssueQuantityNotANumber =>
+      'Escribe la cantidad con números, por ejemplo 150';
+
+  @override
+  String get clinicalNoteEmpty => 'Escribe la nota antes de guardarla';
+
+  @override
+  String get sessionInactivityTitle => 'Tu sesión se cerró por inactividad';
+
+  @override
+  String get sessionInactivityBody =>
+      'Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado.';
 }

@@ -950,5 +950,12 @@
   "homeScoreThresholdLegend": "Dotted line: clinical goal ({score} points)",
   "evolutionPickDates": "Choose a date range",
   "evolutionCustomRange": "From {from} to {to}",
-  "mealsIssueMissingUnit": "Choose the unit of measure"
+  "mealsIssueMissingUnit": "Choose the unit of measure",
+  "recommendationFeedbackInvite": "Tell us how it went",
+  "recommendationFeedbackNotYet": "You can tell us how it went once 24 hours have passed since you received it.",
+  "recommendationGlossaryTermSemantics": "{term}, glossary term. Tap to see its definition.",
+  "mealsIssueQuantityNotANumber": "Write the quantity in digits, for example 150",
+  "clinicalNoteEmpty": "Write the note before saving it",
+  "sessionInactivityTitle": "Your session ended due to inactivity",
+  "sessionInactivityBody": "10 minutes passed without you using the app. Sign in again: what you recorded is still saved."
 }
