@@ -21,6 +21,9 @@ sealed class IbsSssBaselineState with _$IbsSssBaselineState {
     @Default(IbsSssAnswers()) IbsSssAnswers answers,
     @Default(false) bool submitting,
 
+    /// Se enciende al intentar enviar incompleto: señala las que faltan.
+    @Default(false) bool showMissing,
+
     /// Resultado devuelto por el servidor, disponible recien tras el envio.
     IbsSssResult? result,
     CauceApiError? error,
@@ -56,6 +59,9 @@ class IbsSssBaselineNotifier extends _$IbsSssBaselineNotifier {
   /// evaluacion incompleta gastaria la unica que el paciente puede registrar.
   Future<bool> submit() async {
     if (!state.canSubmit) {
+      if (!state.submitting && !state.answers.isComplete) {
+        state = state.copyWith(showMissing: true);
+      }
       return false;
     }
     state = state.copyWith(submitting: true, error: null);

@@ -68,6 +68,16 @@ void main() {
       expect(repository.submitted, isEmpty);
     });
 
+    test('un intento incompleto enciende la marca de pendientes', () async {
+      expect(state().showMissing, isFalse);
+      notifier().answer(IbsSssDimension.painSeverity, 60);
+
+      await notifier().submit();
+
+      expect(state().showMissing, isTrue);
+      expect(state().answers.missing, hasLength(4));
+    });
+
     test('exige las cinco dimensiones', () {
       for (final dimension in IbsSssDimension.values.take(4)) {
         notifier().answer(dimension, 40);

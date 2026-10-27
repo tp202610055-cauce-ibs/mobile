@@ -18,6 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PeriodicAssessmentState {
   IbsSssAnswers get answers => throw _privateConstructorUsedError;
   bool get submitting => throw _privateConstructorUsedError;
+
+  /// Se enciende al intentar enviar incompleto: señala las que faltan.
+  bool get showMissing => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
 
   /// Resultado del envio. **Solo existe despues de enviar** (CA04).
@@ -44,6 +47,7 @@ abstract class $PeriodicAssessmentStateCopyWith<$Res> {
   $Res call(
       {IbsSssAnswers answers,
       bool submitting,
+      bool showMissing,
       bool loading,
       IbsSssResult? result,
       List<IbsSssEvolutionPoint> evolution,
@@ -72,6 +76,7 @@ class _$PeriodicAssessmentStateCopyWithImpl<$Res,
   $Res call({
     Object? answers = null,
     Object? submitting = null,
+    Object? showMissing = null,
     Object? loading = null,
     Object? result = freezed,
     Object? evolution = null,
@@ -85,6 +90,10 @@ class _$PeriodicAssessmentStateCopyWithImpl<$Res,
       submitting: null == submitting
           ? _value.submitting
           : submitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showMissing: null == showMissing
+          ? _value.showMissing
+          : showMissing // ignore: cast_nullable_to_non_nullable
               as bool,
       loading: null == loading
           ? _value.loading
@@ -156,6 +165,7 @@ abstract class _$$PeriodicAssessmentStateImplCopyWith<$Res>
   $Res call(
       {IbsSssAnswers answers,
       bool submitting,
+      bool showMissing,
       bool loading,
       IbsSssResult? result,
       List<IbsSssEvolutionPoint> evolution,
@@ -186,6 +196,7 @@ class __$$PeriodicAssessmentStateImplCopyWithImpl<$Res>
   $Res call({
     Object? answers = null,
     Object? submitting = null,
+    Object? showMissing = null,
     Object? loading = null,
     Object? result = freezed,
     Object? evolution = null,
@@ -199,6 +210,10 @@ class __$$PeriodicAssessmentStateImplCopyWithImpl<$Res>
       submitting: null == submitting
           ? _value.submitting
           : submitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showMissing: null == showMissing
+          ? _value.showMissing
+          : showMissing // ignore: cast_nullable_to_non_nullable
               as bool,
       loading: null == loading
           ? _value.loading
@@ -226,6 +241,7 @@ class _$PeriodicAssessmentStateImpl extends _PeriodicAssessmentState {
   const _$PeriodicAssessmentStateImpl(
       {this.answers = const IbsSssAnswers(),
       this.submitting = false,
+      this.showMissing = false,
       this.loading = false,
       this.result,
       final List<IbsSssEvolutionPoint> evolution =
@@ -240,6 +256,11 @@ class _$PeriodicAssessmentStateImpl extends _PeriodicAssessmentState {
   @override
   @JsonKey()
   final bool submitting;
+
+  /// Se enciende al intentar enviar incompleto: señala las que faltan.
+  @override
+  @JsonKey()
+  final bool showMissing;
   @override
   @JsonKey()
   final bool loading;
@@ -265,7 +286,7 @@ class _$PeriodicAssessmentStateImpl extends _PeriodicAssessmentState {
 
   @override
   String toString() {
-    return 'PeriodicAssessmentState(answers: $answers, submitting: $submitting, loading: $loading, result: $result, evolution: $evolution, error: $error)';
+    return 'PeriodicAssessmentState(answers: $answers, submitting: $submitting, showMissing: $showMissing, loading: $loading, result: $result, evolution: $evolution, error: $error)';
   }
 
   @override
@@ -276,6 +297,8 @@ class _$PeriodicAssessmentStateImpl extends _PeriodicAssessmentState {
             (identical(other.answers, answers) || other.answers == answers) &&
             (identical(other.submitting, submitting) ||
                 other.submitting == submitting) &&
+            (identical(other.showMissing, showMissing) ||
+                other.showMissing == showMissing) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.result, result) || other.result == result) &&
             const DeepCollectionEquality()
@@ -284,8 +307,8 @@ class _$PeriodicAssessmentStateImpl extends _PeriodicAssessmentState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, answers, submitting, loading,
-      result, const DeepCollectionEquality().hash(_evolution), error);
+  int get hashCode => Object.hash(runtimeType, answers, submitting, showMissing,
+      loading, result, const DeepCollectionEquality().hash(_evolution), error);
 
   /// Create a copy of PeriodicAssessmentState
   /// with the given fields replaced by the non-null parameter values.
@@ -301,6 +324,7 @@ abstract class _PeriodicAssessmentState extends PeriodicAssessmentState {
   const factory _PeriodicAssessmentState(
       {final IbsSssAnswers answers,
       final bool submitting,
+      final bool showMissing,
       final bool loading,
       final IbsSssResult? result,
       final List<IbsSssEvolutionPoint> evolution,
@@ -311,6 +335,10 @@ abstract class _PeriodicAssessmentState extends PeriodicAssessmentState {
   IbsSssAnswers get answers;
   @override
   bool get submitting;
+
+  /// Se enciende al intentar enviar incompleto: señala las que faltan.
+  @override
+  bool get showMissing;
   @override
   bool get loading;
 

@@ -15,6 +15,9 @@ abstract class PeriodicAssessmentState with _$PeriodicAssessmentState {
   const factory PeriodicAssessmentState({
     @Default(IbsSssAnswers()) IbsSssAnswers answers,
     @Default(false) bool submitting,
+
+    /// Se enciende al intentar enviar incompleto: señala las que faltan.
+    @Default(false) bool showMissing,
     @Default(false) bool loading,
 
     /// Resultado del envio. **Solo existe despues de enviar** (CA04).
@@ -86,6 +89,9 @@ class PeriodicAssessmentNotifier extends _$PeriodicAssessmentNotifier {
   /// se intenta, con el mismo criterio que la linea base.
   Future<bool> submit() async {
     if (!state.canSubmit) {
+      if (!state.submitting && !state.answers.isComplete) {
+        state = state.copyWith(showMissing: true);
+      }
       return false;
     }
     state = state.copyWith(submitting: true, error: null);
