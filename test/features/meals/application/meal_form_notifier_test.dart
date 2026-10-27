@@ -92,6 +92,16 @@ void main() {
       expect(await database.select(database.mealsLocal).get(), isEmpty);
     });
 
+    test('CP076 E: tocar el momento elegido lo quita y bloquea', () {
+      fillValidDraft();
+      expect(state().canSubmit, isTrue);
+
+      notifier().selectMealTime(MealTimeOption.lunch);
+
+      expect(state().draft.mealTime, isNull);
+      expect(state().canSubmit, isFalse);
+    });
+
     test('quitar un alimento conserva el momento del dia', () async {
       fillValidDraft();
 

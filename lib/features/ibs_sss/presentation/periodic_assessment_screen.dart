@@ -69,6 +69,7 @@ class _PeriodicAssessmentScreenState
           const SizedBox(height: CauceSpacing.space6),
           IbsSssQuestionnaire(
             answers: state.answers,
+            highlightMissing: state.showMissing,
             enabled: !state.submitting,
             onAnswer: notifier.answer,
           ),
@@ -85,7 +86,7 @@ class _PeriodicAssessmentScreenState
             key: const Key('ibs_sss_periodic_submit'),
             label: l10n.ibsSssPeriodicSubmit,
             loading: state.submitting,
-            onPressed: state.canSubmit ? notifier.submit : null,
+            onPressed: state.submitting ? null : notifier.submit,
           ),
         ],
       ),

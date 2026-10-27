@@ -121,7 +121,7 @@ class MealFormScreen extends ConsumerWidget {
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
-      builder: (_) => _QuantitySheet(selection: selection),
+      builder: (_) => MealQuantitySheet(selection: selection),
     );
 
     if (item != null) {
@@ -131,20 +131,23 @@ class MealFormScreen extends ConsumerWidget {
 }
 
 /// Cantidad y unidad del alimento recien elegido.
-class _QuantitySheet extends StatefulWidget {
-  const _QuantitySheet({required this.selection});
+@visibleForTesting
+class MealQuantitySheet extends StatefulWidget {
+  const MealQuantitySheet({required this.selection, super.key});
 
   /// Lo elegido en la hoja de busqueda: un alimento del catalogo o un plato
   /// propio. La cantidad y la unidad se preguntan igual para los dos.
   final FoodPickerSelection selection;
 
   @override
-  State<_QuantitySheet> createState() => _QuantitySheetState();
+  State<MealQuantitySheet> createState() => _MealQuantitySheetState();
 }
 
-class _QuantitySheetState extends State<_QuantitySheet> {
+class _MealQuantitySheetState extends State<MealQuantitySheet> {
   final TextEditingController _quantity = TextEditingController(text: '100');
-  MeasurementUnitOption _unit = MeasurementUnitOption.grams;
+
+  /// Arranca en gramos; tocar la unidad elegida la quita (queda por elegir).
+  MeasurementUnitOption? _unit = MeasurementUnitOption.grams;
 
   @override
   void dispose() {
@@ -160,12 +163,12 @@ class _QuantitySheetState extends State<_QuantitySheet> {
     return switch (widget.selection) {
       CatalogSelection(:final item) => MealItemDraft(
           quantity: _parsed!,
-          unit: _unit,
+          unit: _unit!,
           food: item,
         ),
       CustomDishSelection(:final record) => MealItemDraft(
           quantity: _parsed!,
-          unit: _unit,
+          unit: _unit!,
           customFoodId: record.customFoodId,
           customFoodName: record.name,
         ),
@@ -178,7 +181,8 @@ class _QuantitySheetState extends State<_QuantitySheet> {
   /// Validarlo aca le da al paciente la respuesta al instante en vez de un 400.
   double? get _parsed {
     final value = double.tryParse(_quantity.text.replaceAll(',', '.'));
-    if (value == null || value <= 0 || value > _unit.maxQuantity) {
+    final max = _unit?.maxQuantity ?? double.infinity;
+    if (value == null || value <= 0 || value > max) {
       return null;
     }
     return value;
@@ -190,6 +194,10 @@ class _QuantitySheetState extends State<_QuantitySheet> {
   /// sin tocar el numero (acta M40).
   void _changeUnit(MeasurementUnitOption unit) {
     setState(() {
+      if (unit == _unit) {
+        _unit = null;
+        return;
+      }
       _unit = unit;
       _quantity.text = MealLabels.quantity(unit.defaultQuantity);
     });
@@ -198,6 +206,7 @@ class _QuantitySheetState extends State<_QuantitySheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final unit = _unit;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -221,12 +230,14 @@ class _QuantitySheetState extends State<_QuantitySheet> {
                 label: l10n.mealsQuantityLabel,
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
-                errorText: _parsed == null
-                    ? l10n.mealsIssueQuantityOutOfRange(
-                        MealLabels.unit(l10n, _unit).toLowerCase(),
-                        MealLabels.quantity(_unit.maxQuantity),
-                      )
-                    : null,
+                errorText: _parsed != null
+                    ? null
+                    : unit == null
+                        ? l10n.mealsIssueInvalidQuantity
+                        : l10n.mealsIssueQuantityOutOfRange(
+                            MealLabels.unit(l10n, unit).toLowerCase(),
+                            MealLabels.quantity(unit.maxQuantity),
+                          ),
                 onChanged: (_) => setState(() {}),
               ),
               const SizedBox(height: CauceSpacing.space4),
@@ -234,6 +245,7 @@ class _QuantitySheetState extends State<_QuantitySheet> {
                 key: const Key('meal_unit_field'),
                 label: l10n.mealsUnitLabel,
                 value: _unit,
+                errorText: unit == null ? l10n.mealsIssueMissingUnit : null,
                 onChanged: _changeUnit,
                 choices: <CauceChoice<MeasurementUnitOption>>[
                   for (final option in MeasurementUnitOption.values)
@@ -247,7 +259,7 @@ class _QuantitySheetState extends State<_QuantitySheet> {
               CauceButton(
                 key: const Key('meal_quantity_confirm'),
                 label: l10n.commonAccept,
-                onPressed: _parsed == null
+                onPressed: _parsed == null || unit == null
                     ? null
                     : () => Navigator.of(context).pop(_draft()),
               ),
