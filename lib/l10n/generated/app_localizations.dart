@@ -623,19 +623,19 @@ abstract class AppLocalizations {
   /// errorCode invalid_invitation_code (400)
   ///
   /// In es, this message translates to:
-  /// **'El código de invitación no existe'**
+  /// **'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.'**
   String get errorInvalidInvitationCode;
 
   /// errorCode expired_invitation_code (400)
   ///
   /// In es, this message translates to:
-  /// **'El código de invitación venció'**
+  /// **'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.'**
   String get errorExpiredInvitationCode;
 
   /// errorCode invitation_code_already_used (400)
   ///
   /// In es, this message translates to:
-  /// **'El código de invitación ya fue usado'**
+  /// **'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.'**
   String get errorInvitationCodeAlreadyUsed;
 
   /// errorCode nutritionist_not_available (409) con la extension reason en pending_activation. El codigo no se consume, asi que reintentar con el mismo es valido
@@ -989,7 +989,7 @@ abstract class AppLocalizations {
   /// Campo de proportionGrams de un ingrediente
   ///
   /// In es, this message translates to:
-  /// **'Cantidad en el plato (g)'**
+  /// **'Proporción aproximada en el plato (%)'**
   String get customFoodProportionLabel;
 
   /// Boton de envio
@@ -1091,7 +1091,7 @@ abstract class AppLocalizations {
   /// Invariante de CustomFoodIngredient
   ///
   /// In es, this message translates to:
-  /// **'Cada ingrediente debe tener una cantidad mayor que cero'**
+  /// **'Cada ingrediente debe tener una proporción mayor que 0 % y de hasta 100 %'**
   String get customFoodIssueInvalidProportion;
 
   /// Invariante de CustomFood.AddIngredient
@@ -1235,13 +1235,13 @@ abstract class AppLocalizations {
   /// Falta mover la escala
   ///
   /// In es, this message translates to:
-  /// **'Indica la intensidad'**
+  /// **'La intensidad debe estar entre 1 y 100'**
   String get symptomsIssueMissingIntensity;
 
   /// Invariante Symptom.MinIntensity del backend
   ///
   /// In es, this message translates to:
-  /// **'La intensidad va de 1 a 100'**
+  /// **'La intensidad debe estar entre 1 y 100'**
   String get symptomsIssueIntensityOutOfRange;
 
   /// Invariante de fecha de Symptom.Report
@@ -2087,7 +2087,7 @@ abstract class AppLocalizations {
   /// No description provided for @ibsSssQuestionPainFrequency.
   ///
   /// In es, this message translates to:
-  /// **'¿Con qué frecuencia tuviste dolor abdominal?'**
+  /// **'En los últimos 10 días, ¿cuántos días tuviste dolor abdominal?'**
   String get ibsSssQuestionPainFrequency;
 
   /// No description provided for @ibsSssPainFrequencyMin.
@@ -2441,7 +2441,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileTrackingNutritionistPending.
   ///
   /// In es, this message translates to:
-  /// **'Pendiente de asignación'**
+  /// **'Sin nutricionista asignado'**
   String get profileTrackingNutritionistPending;
 
   /// No description provided for @profileClinicalSubtype.
@@ -3949,6 +3949,240 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'{meals}, {symptoms}'**
   String homeTodaySummary(String meals, String symptoms);
+
+  /// Fecha en que el paciente quedó vinculado a su nutricionista
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio del seguimiento'**
+  String get profileTrackingAssignedAt;
+
+  /// No description provided for @profileNoNutritionistHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Para recibir recomendaciones, ingresa el código de invitación que te dé tu nutricionista.'**
+  String get profileNoNutritionistHint;
+
+  /// No description provided for @profileInvitationCodeAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresar código de invitación'**
+  String get profileInvitationCodeAction;
+
+  /// No description provided for @profileInvitationCodeTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Código de invitación'**
+  String get profileInvitationCodeTitle;
+
+  /// No description provided for @profileInvitationCodeBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe el código que te dio tu nutricionista.'**
+  String get profileInvitationCodeBody;
+
+  /// No description provided for @profileInvitationCodeSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Vincular'**
+  String get profileInvitationCodeSubmit;
+
+  /// No description provided for @profileInvitationCodeLinked.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya estás vinculado con {name}'**
+  String profileInvitationCodeLinked(String name);
+
+  /// No description provided for @profileClinicalWeight.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso'**
+  String get profileClinicalWeight;
+
+  /// No description provided for @profileClinicalHeight.
+  ///
+  /// In es, this message translates to:
+  /// **'Estatura'**
+  String get profileClinicalHeight;
+
+  /// No description provided for @profileClinicalWeightValue.
+  ///
+  /// In es, this message translates to:
+  /// **'{kg} kg'**
+  String profileClinicalWeightValue(String kg);
+
+  /// No description provided for @profileClinicalHeightValue.
+  ///
+  /// In es, this message translates to:
+  /// **'{cm} cm'**
+  String profileClinicalHeightValue(String cm);
+
+  /// No description provided for @profileEditTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar mi información'**
+  String get profileEditTitle;
+
+  /// No description provided for @profileEditSave.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar cambios'**
+  String get profileEditSave;
+
+  /// No description provided for @profileEditSaved.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu información se actualizó'**
+  String get profileEditSaved;
+
+  /// No description provided for @validationWeightNegative.
+  ///
+  /// In es, this message translates to:
+  /// **'El peso no puede ser negativo'**
+  String get validationWeightNegative;
+
+  /// No description provided for @validationHeightNegative.
+  ///
+  /// In es, this message translates to:
+  /// **'La estatura no puede ser negativa'**
+  String get validationHeightNegative;
+
+  /// No description provided for @validationWeightNotNumber.
+  ///
+  /// In es, this message translates to:
+  /// **'El peso debe ser un número'**
+  String get validationWeightNotNumber;
+
+  /// No description provided for @validationHeightNotNumber.
+  ///
+  /// In es, this message translates to:
+  /// **'La estatura debe ser un número'**
+  String get validationHeightNotNumber;
+
+  /// No description provided for @validationWeightRequired.
+  ///
+  /// In es, this message translates to:
+  /// **'El peso es obligatorio'**
+  String get validationWeightRequired;
+
+  /// No description provided for @validationHeightRequired.
+  ///
+  /// In es, this message translates to:
+  /// **'La estatura es obligatoria'**
+  String get validationHeightRequired;
+
+  /// No description provided for @recommendationsNoNutritionistTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no tienes nutricionista'**
+  String get recommendationsNoNutritionistTitle;
+
+  /// No description provided for @recommendationsNoNutritionistBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Para recibir recomendaciones necesitas estar vinculado a un nutricionista. Ingresa desde tu perfil el código de invitación que tu nutricionista te proporcione.'**
+  String get recommendationsNoNutritionistBody;
+
+  /// No description provided for @recommendationsNoNutritionistAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Ir a mi perfil'**
+  String get recommendationsNoNutritionistAction;
+
+  /// Respuesta de la pregunta 2 del IBS-SSS, en días de los últimos 10
+  ///
+  /// In es, this message translates to:
+  /// **'{days, plural, =1{1 día} other{{days} días}}'**
+  String ibsSssPainFrequencyDays(int days);
+
+  /// No description provided for @ibsSssQuestionMissing.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente: responde esta pregunta'**
+  String get ibsSssQuestionMissing;
+
+  /// Fecha y hora de una nota de contexto
+  ///
+  /// In es, this message translates to:
+  /// **'Nota guardada el {stamp}'**
+  String historyNoteSavedAt(String stamp);
+
+  /// No description provided for @customFoodProportionPercent.
+  ///
+  /// In es, this message translates to:
+  /// **'{percent} %'**
+  String customFoodProportionPercent(String percent);
+
+  /// No description provided for @customFoodProportionTotal.
+  ///
+  /// In es, this message translates to:
+  /// **'Las proporciones suman {percent} %'**
+  String customFoodProportionTotal(String percent);
+
+  /// No description provided for @customFoodAllergenWarning.
+  ///
+  /// In es, this message translates to:
+  /// **'Atención: este plato incluye un alérgeno que declaraste ({allergens}). Puedes guardarlo igual y te pediremos confirmarlo.'**
+  String customFoodAllergenWarning(String allergens);
+
+  /// No description provided for @privacyConsentView.
+  ///
+  /// In es, this message translates to:
+  /// **'Consultar el consentimiento'**
+  String get privacyConsentView;
+
+  /// No description provided for @consentTextTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Consentimiento informado'**
+  String get consentTextTitle;
+
+  /// No description provided for @consentTextVersion.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión {version}'**
+  String consentTextVersion(String version);
+
+  /// No description provided for @consentTextLoadError.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar el texto del consentimiento.'**
+  String get consentTextLoadError;
+
+  /// No description provided for @symptomsIntensityInputLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Intensidad (de 1 a 100)'**
+  String get symptomsIntensityInputLabel;
+
+  /// No description provided for @homeScoreCelebration.
+  ///
+  /// In es, this message translates to:
+  /// **'Respuesta clínica significativa'**
+  String get homeScoreCelebration;
+
+  /// No description provided for @homeScoreThresholdLegend.
+  ///
+  /// In es, this message translates to:
+  /// **'Línea punteada: meta clínica ({score} puntos)'**
+  String homeScoreThresholdLegend(int score);
+
+  /// No description provided for @evolutionPickDates.
+  ///
+  /// In es, this message translates to:
+  /// **'Elegir un rango de fechas'**
+  String get evolutionPickDates;
+
+  /// No description provided for @evolutionCustomRange.
+  ///
+  /// In es, this message translates to:
+  /// **'Del {from} al {to}'**
+  String evolutionCustomRange(String from, String to);
+
+  /// No description provided for @mealsIssueMissingUnit.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige la unidad de medida'**
+  String get mealsIssueMissingUnit;
 }
 
 class _AppLocalizationsDelegate

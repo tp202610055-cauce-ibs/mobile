@@ -175,15 +175,15 @@
   "@errorConsentTextMismatch": {
     "description": "errorCode consent_text_mismatch (400)"
   },
-  "errorInvalidInvitationCode": "El código de invitación no existe",
+  "errorInvalidInvitationCode": "El código de invitación no es válido. Pide uno nuevo a tu nutricionista.",
   "@errorInvalidInvitationCode": {
     "description": "errorCode invalid_invitation_code (400)"
   },
-  "errorExpiredInvitationCode": "El código de invitación venció",
+  "errorExpiredInvitationCode": "El código de invitación no es válido. Pide uno nuevo a tu nutricionista.",
   "@errorExpiredInvitationCode": {
     "description": "errorCode expired_invitation_code (400)"
   },
-  "errorInvitationCodeAlreadyUsed": "El código de invitación ya fue usado",
+  "errorInvitationCodeAlreadyUsed": "El código de invitación no es válido. Pide uno nuevo a tu nutricionista.",
   "@errorInvitationCodeAlreadyUsed": {
     "description": "errorCode invitation_code_already_used (400)"
   },
@@ -464,7 +464,7 @@
   "@customFoodAddIngredient": {
     "description": "Accion que abre el buscador del catalogo"
   },
-  "customFoodProportionLabel": "Cantidad en el plato (g)",
+  "customFoodProportionLabel": "Proporción aproximada en el plato (%)",
   "@customFoodProportionLabel": {
     "description": "Campo de proportionGrams de un ingrediente"
   },
@@ -574,7 +574,7 @@
   "@customFoodIssueNoIngredients": {
     "description": "Plato sin ingredientes"
   },
-  "customFoodIssueInvalidProportion": "Cada ingrediente debe tener una cantidad mayor que cero",
+  "customFoodIssueInvalidProportion": "Cada ingrediente debe tener una proporción mayor que 0 % y de hasta 100 %",
   "@customFoodIssueInvalidProportion": {
     "description": "Invariante de CustomFoodIngredient"
   },
@@ -680,11 +680,11 @@
   "@symptomsIssueMissingType": {
     "description": "Falta SymptomType"
   },
-  "symptomsIssueMissingIntensity": "Indica la intensidad",
+  "symptomsIssueMissingIntensity": "La intensidad debe estar entre 1 y 100",
   "@symptomsIssueMissingIntensity": {
     "description": "Falta mover la escala"
   },
-  "symptomsIssueIntensityOutOfRange": "La intensidad va de 1 a 100",
+  "symptomsIssueIntensityOutOfRange": "La intensidad debe estar entre 1 y 100",
   "@symptomsIssueIntensityOutOfRange": {
     "description": "Invariante Symptom.MinIntensity del backend"
   },
@@ -1155,7 +1155,7 @@
   "ibsSssQuestionPainSeverity": "¿Qué tan intenso fue tu dolor abdominal?",
   "ibsSssPainSeverityMin": "Sin dolor",
   "ibsSssPainSeverityMax": "Muy intenso",
-  "ibsSssQuestionPainFrequency": "¿Con qué frecuencia tuviste dolor abdominal?",
+  "ibsSssQuestionPainFrequency": "En los últimos 10 días, ¿cuántos días tuviste dolor abdominal?",
   "ibsSssPainFrequencyMin": "Ningún día",
   "ibsSssPainFrequencyMax": "Todos los días",
   "ibsSssQuestionBloatingSeverity": "¿Qué tan intensa fue la distensión o hinchazón?",
@@ -1346,7 +1346,7 @@
   },
   "profileTrackingElapsedFresh": "Menos de una semana",
   "profileTrackingNutritionist": "Mi nutricionista",
-  "profileTrackingNutritionistPending": "Pendiente de asignación",
+  "profileTrackingNutritionistPending": "Sin nutricionista asignado",
   "profileClinicalSubtype": "Subtipo de SII",
   "profileClinicalAllergies": "Alergias declaradas",
   "profileClinicalAllergiesNone": "Ninguna conocida",
@@ -2020,5 +2020,129 @@
         "example": "sin síntomas"
       }
     }
-  }
+  },
+  "profileTrackingAssignedAt": "Inicio del seguimiento",
+  "@profileTrackingAssignedAt": {
+    "description": "Fecha en que el paciente quedó vinculado a su nutricionista"
+  },
+  "profileNoNutritionistHint": "Para recibir recomendaciones, ingresa el código de invitación que te dé tu nutricionista.",
+  "profileInvitationCodeAction": "Ingresar código de invitación",
+  "profileInvitationCodeTitle": "Código de invitación",
+  "profileInvitationCodeBody": "Escribe el código que te dio tu nutricionista.",
+  "profileInvitationCodeSubmit": "Vincular",
+  "profileInvitationCodeLinked": "Ya estás vinculado con {name}",
+  "@profileInvitationCodeLinked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "profileClinicalWeight": "Peso",
+  "profileClinicalHeight": "Estatura",
+  "profileClinicalWeightValue": "{kg} kg",
+  "@profileClinicalWeightValue": {
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      }
+    }
+  },
+  "profileClinicalHeightValue": "{cm} cm",
+  "@profileClinicalHeightValue": {
+    "placeholders": {
+      "cm": {
+        "type": "String"
+      }
+    }
+  },
+  "profileEditTitle": "Editar mi información",
+  "profileEditSave": "Guardar cambios",
+  "profileEditSaved": "Tu información se actualizó",
+  "validationWeightNegative": "El peso no puede ser negativo",
+  "validationHeightNegative": "La estatura no puede ser negativa",
+  "validationWeightNotNumber": "El peso debe ser un número",
+  "validationHeightNotNumber": "La estatura debe ser un número",
+  "validationWeightRequired": "El peso es obligatorio",
+  "validationHeightRequired": "La estatura es obligatoria",
+  "recommendationsNoNutritionistTitle": "Aún no tienes nutricionista",
+  "recommendationsNoNutritionistBody": "Para recibir recomendaciones necesitas estar vinculado a un nutricionista. Ingresa desde tu perfil el código de invitación que tu nutricionista te proporcione.",
+  "recommendationsNoNutritionistAction": "Ir a mi perfil",
+  "ibsSssPainFrequencyDays": "{days, plural, =1{1 día} other{{days} días}}",
+  "@ibsSssPainFrequencyDays": {
+    "description": "Respuesta de la pregunta 2 del IBS-SSS, en días de los últimos 10",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "ibsSssQuestionMissing": "Pendiente: responde esta pregunta",
+  "historyNoteSavedAt": "Nota guardada el {stamp}",
+  "@historyNoteSavedAt": {
+    "description": "Fecha y hora de una nota de contexto",
+    "placeholders": {
+      "stamp": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodProportionPercent": "{percent} %",
+  "@customFoodProportionPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodProportionTotal": "Las proporciones suman {percent} %",
+  "@customFoodProportionTotal": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodAllergenWarning": "Atención: este plato incluye un alérgeno que declaraste ({allergens}). Puedes guardarlo igual y te pediremos confirmarlo.",
+  "@customFoodAllergenWarning": {
+    "placeholders": {
+      "allergens": {
+        "type": "String"
+      }
+    }
+  },
+  "privacyConsentView": "Consultar el consentimiento",
+  "consentTextTitle": "Consentimiento informado",
+  "consentTextVersion": "Versión {version}",
+  "@consentTextVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "consentTextLoadError": "No pudimos cargar el texto del consentimiento.",
+  "symptomsIntensityInputLabel": "Intensidad (de 1 a 100)",
+  "homeScoreCelebration": "Respuesta clínica significativa",
+  "homeScoreThresholdLegend": "Línea punteada: meta clínica ({score} puntos)",
+  "@homeScoreThresholdLegend": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "evolutionPickDates": "Elegir un rango de fechas",
+  "evolutionCustomRange": "Del {from} al {to}",
+  "@evolutionCustomRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "mealsIssueMissingUnit": "Elige la unidad de medida"
 }
