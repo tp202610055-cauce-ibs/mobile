@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/auth/inactivity_listener.dart';
 import 'core/push/push_navigation.dart';
 import 'core/router/app_router.dart';
 import 'core/services/background_services.dart';
@@ -24,6 +25,11 @@ class CauceApp extends ConsumerWidget {
     // Escucha los toques sobre un push desde el arranque, con la app cerrada.
     ref.watch(pushTapsProvider);
 
+    // Enciende el cierre por inactividad con la sesion y le pasa los toques.
+    return InactivityListener(child: _app(ref));
+  }
+
+  Widget _app(WidgetRef ref) {
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       theme: AppTheme.light(),
