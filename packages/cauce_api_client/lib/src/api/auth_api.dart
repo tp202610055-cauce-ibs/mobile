@@ -18,6 +18,7 @@ import 'package:cauce_api_client/src/model/register_patient_request.dart';
 import 'package:cauce_api_client/src/model/register_patient_result.dart';
 import 'package:cauce_api_client/src/model/request_password_reset_request.dart';
 import 'package:cauce_api_client/src/model/resend_verification_email_request.dart';
+import 'package:cauce_api_client/src/model/validate_password_reset_request.dart';
 
 class AuthApi {
 
@@ -322,6 +323,79 @@ class AuthApi {
     try {
       const _type = FullType(RequestPasswordResetRequest);
       _bodyData = requestPasswordResetRequest == null ? null : _serializers.serialize(requestPasswordResetRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioException(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    return _response;
+  }
+
+  /// Comprueba si un enlace de restablecimiento todavía sirve, sin consumirlo. Responde lo mismo  para un token inexistente, vencido o ya usado.
+  /// 
+  ///
+  /// Parameters:
+  /// * [validatePasswordResetRequest] - Token recibido por correo.
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future]
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<void>> apiV1AuthPasswordResetValidatePost({ 
+    ValidatePasswordResetRequest? validatePasswordResetRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v1/auth/password-reset/validate';
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'Bearer',
+          },
+        ],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(ValidatePasswordResetRequest);
+      _bodyData = validatePasswordResetRequest == null ? null : _serializers.serialize(validatePasswordResetRequest, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(

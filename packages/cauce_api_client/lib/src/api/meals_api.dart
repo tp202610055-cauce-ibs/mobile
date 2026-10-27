@@ -26,8 +26,8 @@ class MealsApi {
   /// 
   ///
   /// Parameters:
-  /// * [from] - Inicio del rango (UTC).
-  /// * [to] - Fin del rango (UTC).
+  /// * [from] - Inicio del rango, obligatorio e inclusivo, sobre `clientCreatedAt`. Debe llevar zona horaria (`Z` u offset, como `2026-10-01T00:00:00-05:00`).
+  /// * [to] - Fin del rango, obligatorio e inclusivo, sobre `clientCreatedAt`. Debe llevar zona horaria y no ser anterior a `from`.
   /// * [page] - Número de página.
   /// * [pageSize] - Tamaño de página.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -40,8 +40,8 @@ class MealsApi {
   /// Returns a [Future] containing a [Response] with a [MealHistoryItemPagedResult] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<MealHistoryItemPagedResult>> apiV1MealsGet({ 
-    DateTime? from,
-    DateTime? to,
+    required DateTime from,
+    required DateTime to,
     int? page = 1,
     int? pageSize = 50,
     CancelToken? cancelToken,
@@ -71,8 +71,8 @@ class MealsApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (from != null) r'from': encodeQueryParameter(_serializers, from, const FullType(DateTime)),
-      if (to != null) r'to': encodeQueryParameter(_serializers, to, const FullType(DateTime)),
+      r'from': encodeQueryParameter(_serializers, from, const FullType(DateTime)),
+      r'to': encodeQueryParameter(_serializers, to, const FullType(DateTime)),
       if (page != null) r'page': encodeQueryParameter(_serializers, page, const FullType(int)),
       if (pageSize != null) r'pageSize': encodeQueryParameter(_serializers, pageSize, const FullType(int)),
     };

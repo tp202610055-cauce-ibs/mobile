@@ -27,8 +27,8 @@ class ClinicalNotesApi {
   /// 
   ///
   /// Parameters:
-  /// * [from] - Inicio del rango (UTC).
-  /// * [to] - Fin del rango (UTC).
+  /// * [from] - Inicio del rango, obligatorio e inclusivo, sobre `createdAt`. Debe llevar zona horaria (`Z` u offset, como `2026-10-01T00:00:00-05:00`).
+  /// * [to] - Fin del rango, obligatorio e inclusivo, sobre `createdAt`. Debe llevar zona horaria y no ser anterior a `from`.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -39,8 +39,8 @@ class ClinicalNotesApi {
   /// Returns a [Future] containing a [Response] with a [BuiltList<ClinicalNoteSummary>] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<ClinicalNoteSummary>>> apiV1ClinicalNotesGet({ 
-    DateTime? from,
-    DateTime? to,
+    required DateTime from,
+    required DateTime to,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -68,8 +68,8 @@ class ClinicalNotesApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (from != null) r'from': encodeQueryParameter(_serializers, from, const FullType(DateTime)),
-      if (to != null) r'to': encodeQueryParameter(_serializers, to, const FullType(DateTime)),
+      r'from': encodeQueryParameter(_serializers, from, const FullType(DateTime)),
+      r'to': encodeQueryParameter(_serializers, to, const FullType(DateTime)),
     };
 
     final _response = await _dio.request<Object>(

@@ -202,10 +202,10 @@ class FoodsApi {
   }
 
   /// Busca alimentos del catálogo por coincidencia de nombre.
-  /// 
+  /// Devuelve como máximo 20 alimentos.
   ///
   /// Parameters:
-  /// * [q] - Texto a buscar.
+  /// * [q] - Texto a buscar en el nombre, obligatorio y no vacío.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -216,7 +216,7 @@ class FoodsApi {
   /// Returns a [Future] containing a [Response] with a [BuiltList<FoodItemSummary>] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<FoodItemSummary>>> apiV1FoodsSearchGet({ 
-    String? q,
+    required String q,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -244,7 +244,7 @@ class FoodsApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (q != null) r'q': encodeQueryParameter(_serializers, q, const FullType(String)),
+      r'q': encodeQueryParameter(_serializers, q, const FullType(String)),
     };
 
     final _response = await _dio.request<Object>(

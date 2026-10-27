@@ -1,4 +1,5 @@
-import 'package:cauce_api_client/cauce_api_client.dart';
+import 'package:cauce_api_client/cauce_api_client.dart'
+    hide RecommendationAction;
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/recommendations/data/recommendations_repository.dart';
 import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart';

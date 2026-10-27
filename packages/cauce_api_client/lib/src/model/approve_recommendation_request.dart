@@ -11,10 +11,10 @@ part 'approve_recommendation_request.g.dart';
 /// Cuerpo de la petición para aprobar una recomendación.
 ///
 /// Properties:
-/// * [note] - Nota clínica de aprobación (entre 20 y 2000 caracteres, US17 CA01).
+/// * [note] - Nota clínica de aprobación (entre 10 y 2000 caracteres sin contar los espacios de los extremos, US17 CA01).
 @BuiltValue()
 abstract class ApproveRecommendationRequest implements Built<ApproveRecommendationRequest, ApproveRecommendationRequestBuilder> {
-  /// Nota clínica de aprobación (entre 20 y 2000 caracteres, US17 CA01).
+  /// Nota clínica de aprobación (entre 10 y 2000 caracteres sin contar los espacios de los extremos, US17 CA01).
   @BuiltValueField(wireName: r'note')
   String? get note;
 

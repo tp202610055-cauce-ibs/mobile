@@ -12,15 +12,15 @@ part 'generate_clinical_report_request.g.dart';
 /// Solicitud de generación de un reporte clínico para un paciente en un período.
 ///
 /// Properties:
-/// * [periodStart] - Inicio del período.
-/// * [periodEnd] - Fin del período.
+/// * [periodStart] - Inicio del período; puede ser igual al fin y la duración no tiene tope.
+/// * [periodEnd] - Fin del período, incluido; no puede ser futuro.
 @BuiltValue()
 abstract class GenerateClinicalReportRequest implements Built<GenerateClinicalReportRequest, GenerateClinicalReportRequestBuilder> {
-  /// Inicio del período.
+  /// Inicio del período; puede ser igual al fin y la duración no tiene tope.
   @BuiltValueField(wireName: r'periodStart')
   Date? get periodStart;
 
-  /// Fin del período.
+  /// Fin del período, incluido; no puede ser futuro.
   @BuiltValueField(wireName: r'periodEnd')
   Date? get periodEnd;
 

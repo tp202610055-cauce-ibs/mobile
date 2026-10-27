@@ -1208,6 +1208,99 @@
         }
       }
     },
+    "/api/v1/auth/password-reset/validate": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Comprueba si un enlace de restablecimiento todavía sirve, sin consumirlo. Responde lo mismo\r\npara un token inexistente, vencido o ya usado.",
+        "requestBody": {
+          "description": "Token recibido por correo.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidatePasswordResetRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidatePasswordResetRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidatePasswordResetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/auth/verification-email/resend": {
       "post": {
         "tags": [
@@ -1519,7 +1612,8 @@
           {
             "name": "from",
             "in": "query",
-            "description": "Inicio del rango (UTC).",
+            "description": "Inicio del rango, obligatorio e inclusivo, sobre `createdAt`. Debe llevar zona horaria (`Z` u offset, como `2026-10-01T00:00:00-05:00`).",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -1528,7 +1622,8 @@
           {
             "name": "to",
             "in": "query",
-            "description": "Fin del rango (UTC).",
+            "description": "Fin del rango, obligatorio e inclusivo, sobre `createdAt`. Debe llevar zona horaria y no ser anterior a `from`.",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -2544,11 +2639,13 @@
           "Foods"
         ],
         "summary": "Busca alimentos del catálogo por coincidencia de nombre.",
+        "description": "Devuelve como máximo 20 alimentos.",
         "parameters": [
           {
             "name": "q",
             "in": "query",
-            "description": "Texto a buscar.",
+            "description": "Texto a buscar en el nombre, obligatorio y no vacío.",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -2999,7 +3096,8 @@
           {
             "name": "q",
             "in": "query",
-            "description": "Texto a buscar.",
+            "description": "Texto a buscar, obligatorio y no vacío.",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -3148,11 +3246,13 @@
           "History"
         ],
         "summary": "Devuelve el historial unificado del paciente autenticado en un rango de fechas,\r\nordenado cronológicamente de forma descendente.",
+        "description": "Devuelve como máximo 500 comidas y 500 síntomas del rango; las notas clínicas no tienen tope.",
         "parameters": [
           {
             "name": "from",
             "in": "query",
-            "description": "Inicio del rango (UTC).",
+            "description": "Inicio del rango, obligatorio e inclusivo, con zona horaria (`Z` u offset). Filtra comidas y síntomas por `clientCreatedAt` y notas por `createdAt`.",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -3161,7 +3261,8 @@
           {
             "name": "to",
             "in": "query",
-            "description": "Fin del rango (UTC).",
+            "description": "Fin del rango, obligatorio e inclusivo, con zona horaria y no anterior a `from`.",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -4058,7 +4159,8 @@
           {
             "name": "from",
             "in": "query",
-            "description": "Inicio del rango (UTC).",
+            "description": "Inicio del rango, obligatorio e inclusivo, sobre `clientCreatedAt`. Debe llevar zona horaria (`Z` u offset, como `2026-10-01T00:00:00-05:00`).",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -4067,7 +4169,8 @@
           {
             "name": "to",
             "in": "query",
-            "description": "Fin del rango (UTC).",
+            "description": "Fin del rango, obligatorio e inclusivo, sobre `clientCreatedAt`. Debe llevar zona horaria y no ser anterior a `from`.",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -5610,6 +5713,432 @@
         }
       }
     },
+    "/api/v1/nutritionists/me/patients/{patientId}/history": {
+      "get": {
+        "tags": [
+          "Nutritionists"
+        ],
+        "summary": "Devuelve el diario de un paciente asignado (comidas, síntomas y notas clínicas) en un rango de\r\nfechas, del más reciente al más antiguo. Requiere una asignación activa y queda auditado.",
+        "description": "Devuelve como máximo 500 comidas y 500 síntomas del rango; las notas clínicas no tienen tope.",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "Identificador de la cuenta del paciente.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Inicio del rango, obligatorio e inclusivo, con zona horaria (`Z` u offset). Filtra comidas y síntomas por `clientCreatedAt` y notas por `createdAt`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Fin del rango, obligatorio e inclusivo, con zona horaria y no anterior a `from`.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/MealHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SymptomHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ClinicalNoteHistoryEvent"
+                      }
+                    ]
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/MealHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SymptomHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ClinicalNoteHistoryEvent"
+                      }
+                    ]
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/MealHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/SymptomHistoryEvent"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ClinicalNoteHistoryEvent"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/nutritionists/me/patients/{patientId}/recommendations": {
+      "get": {
+        "tags": [
+          "Nutritionists"
+        ],
+        "summary": "Lista, paginadas, todas las recomendaciones de un paciente asignado: vigentes, en revisión, con\r\ndecisión final y archivadas. Requiere una asignación activa y queda auditado.",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "Identificador de la cuenta del paciente.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número de página.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Tamaño de página, de 1 a 100.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientRecommendationForNutritionistDtoPagedResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientRecommendationForNutritionistDtoPagedResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientRecommendationForNutritionistDtoPagedResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/nutritionists/me/patients/{patientId}/ibs-sss-cycle": {
+      "get": {
+        "tags": [
+          "Nutritionists"
+        ],
+        "summary": "Devuelve el estado del ciclo vigente del cuestionario IBS-SSS de un paciente asignado. Requiere\r\nuna asignación activa y queda auditado.",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "Identificador de la cuenta del paciente.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IbsSssCycleStatusDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IbsSssCycleStatusDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IbsSssCycleStatusDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/symptoms/{id}/meal-association": {
       "put": {
         "tags": [
@@ -6178,6 +6707,116 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/recommendations/me/review-status": {
+      "get": {
+        "tags": [
+          "PatientRecommendations"
+        ],
+        "summary": "Indica si el paciente autenticado tiene una recomendación en revisión por su nutricionista, sin\r\nmostrar su contenido.",
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationReviewStatusDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationReviewStatusDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationReviewStatusDto"
                 }
               }
             }
@@ -9011,7 +9650,8 @@
           {
             "name": "from",
             "in": "query",
-            "description": "Inicio del rango (UTC).",
+            "description": "Inicio del rango, obligatorio e inclusivo, sobre `clientCreatedAt`. Debe llevar zona horaria (`Z` u offset, como `2026-10-01T00:00:00-05:00`).",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -9020,7 +9660,8 @@
           {
             "name": "to",
             "in": "query",
-            "description": "Fin del rango (UTC).",
+            "description": "Fin del rango, obligatorio e inclusivo, sobre `clientCreatedAt`. Debe llevar zona horaria y no ser anterior a `from`.",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -9488,7 +10129,7 @@
         "properties": {
           "note": {
             "type": "string",
-            "description": "Nota clínica de aprobación (entre 20 y 2000 caracteres, US17 CA01).",
+            "description": "Nota clínica de aprobación (entre 10 y 2000 caracteres sin contar los espacios de los extremos, US17 CA01).",
             "nullable": true
           }
         },
@@ -9868,7 +10509,7 @@
           },
           "clinicalNote": {
             "type": "string",
-            "description": "Nota clínica del nutricionista (entre 10 y 2000 caracteres, US29).",
+            "description": "Nota clínica del nutricionista (entre 10 y 2000 caracteres sin contar los espacios de los extremos, US29).",
             "nullable": true
           },
           "validUntil": {
@@ -10371,12 +11012,12 @@
         "properties": {
           "periodStart": {
             "type": "string",
-            "description": "Inicio del período.",
+            "description": "Inicio del período; puede ser igual al fin y la duración no tiene tope.",
             "format": "date"
           },
           "periodEnd": {
             "type": "string",
-            "description": "Fin del período.",
+            "description": "Fin del período, incluido; no puede ser futuro.",
             "format": "date"
           }
         },
@@ -10526,6 +11167,10 @@
           "medications": {
             "type": "string",
             "nullable": true
+          },
+          "assignedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
@@ -10731,6 +11376,39 @@
           "nextAssessmentDate": {
             "type": "string",
             "format": "date",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IbsSssCycleStatus": {
+        "enum": [
+          "None",
+          "Pending",
+          "Missed",
+          "Completed"
+        ],
+        "type": "string"
+      },
+      "IbsSssCycleStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/IbsSssCycleStatus"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "reminderSentAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -11026,7 +11704,7 @@
         "properties": {
           "clinicalNote": {
             "type": "string",
-            "description": "Nota clínica de la modificación (entre 10 y 2000 caracteres, US17 CA03).",
+            "description": "Nota clínica de la modificación (entre 10 y 2000 caracteres sin contar los espacios de los extremos, US17 CA03).",
             "nullable": true
           },
           "items": {
@@ -11249,6 +11927,85 @@
         },
         "additionalProperties": false
       },
+      "PatientRecommendationForNutritionistDto": {
+        "type": "object",
+        "properties": {
+          "recommendationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "$ref": "#/components/schemas/RecommendationStatus"
+          },
+          "source": {
+            "$ref": "#/components/schemas/RecommendationSource"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "itemsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "generatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "archivedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "archiveReason": {
+            "$ref": "#/components/schemas/ArchiveReason"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PatientRecommendationForNutritionistDtoPagedResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PatientRecommendationForNutritionistDto"
+            },
+            "nullable": true
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "PendingReviewRecommendationDto": {
         "type": "object",
         "properties": {
@@ -11390,6 +12147,15 @@
         },
         "additionalProperties": { }
       },
+      "RecommendationAction": {
+        "enum": [
+          "Approve",
+          "Modify",
+          "Reject",
+          "Archive"
+        ],
+        "type": "string"
+      },
       "RecommendationDetailDto": {
         "type": "object",
         "properties": {
@@ -11500,6 +12266,13 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          },
+          "allowedActions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecommendationAction"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -11562,6 +12335,15 @@
           "reasoning": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RecommendationReviewStatusDto": {
+        "type": "object",
+        "properties": {
+          "hasRecommendationInReview": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -11754,7 +12536,7 @@
         "properties": {
           "reason": {
             "type": "string",
-            "description": "Motivo del rechazo (entre 10 y 2000 caracteres).",
+            "description": "Motivo del rechazo (entre 10 y 2000 caracteres sin contar los espacios de los extremos).",
             "nullable": true
           }
         },
@@ -12163,6 +12945,18 @@
           "Suspended"
         ],
         "type": "string"
+      },
+      "ValidatePasswordResetRequest": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token de restablecimiento recibido por correo.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Cuerpo de la petición que comprueba si un enlace de restablecimiento todavía sirve."
       }
     },
     "securitySchemes": {

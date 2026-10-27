@@ -103,7 +103,7 @@ class GlossaryApi {
   /// 
   ///
   /// Parameters:
-  /// * [q] - Texto a buscar.
+  /// * [q] - Texto a buscar, obligatorio y no vacío.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -114,7 +114,7 @@ class GlossaryApi {
   /// Returns a [Future] containing a [Response] with a [GlossaryResult] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<GlossaryResult>> apiV1GlossarySearchGet({ 
-    String? q,
+    required String q,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -142,7 +142,7 @@ class GlossaryApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (q != null) r'q': encodeQueryParameter(_serializers, q, const FullType(String)),
+      r'q': encodeQueryParameter(_serializers, q, const FullType(String)),
     };
 
     final _response = await _dio.request<Object>(

@@ -27,6 +27,7 @@ part 'get_assigned_patient_detail_result.g.dart';
 /// * [biologicalSex] 
 /// * [diagnosisDate] 
 /// * [medications] 
+/// * [assignedAt] 
 @BuiltValue()
 abstract class GetAssignedPatientDetailResult implements Built<GetAssignedPatientDetailResult, GetAssignedPatientDetailResultBuilder> {
   @BuiltValueField(wireName: r'patientUserId')
@@ -63,6 +64,9 @@ abstract class GetAssignedPatientDetailResult implements Built<GetAssignedPatien
 
   @BuiltValueField(wireName: r'medications')
   String? get medications;
+
+  @BuiltValueField(wireName: r'assignedAt')
+  DateTime? get assignedAt;
 
   GetAssignedPatientDetailResult._();
 
@@ -162,6 +166,13 @@ class _$GetAssignedPatientDetailResultSerializer implements PrimitiveSerializer<
       yield serializers.serialize(
         object.medications,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.assignedAt != null) {
+      yield r'assignedAt';
+      yield serializers.serialize(
+        object.assignedAt,
+        specifiedType: const FullType(DateTime),
       );
     }
   }
@@ -270,6 +281,13 @@ class _$GetAssignedPatientDetailResultSerializer implements PrimitiveSerializer<
           ) as String?;
           if (valueDes == null) continue;
           result.medications = valueDes;
+          break;
+        case r'assignedAt':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.assignedAt = valueDes;
           break;
         default:
           unhandled.add(key);

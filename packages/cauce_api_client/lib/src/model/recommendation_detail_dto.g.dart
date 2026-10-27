@@ -59,6 +59,8 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
   final ArchiveReason? archiveReason;
   @override
   final DateTime? validUntil;
+  @override
+  final BuiltList<RecommendationAction>? allowedActions;
 
   factory _$RecommendationDetailDto(
           [void Function(RecommendationDetailDtoBuilder)? updates]) =>
@@ -90,7 +92,8 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
       this.isActive,
       this.archivedAt,
       this.archiveReason,
-      this.validUntil})
+      this.validUntil,
+      this.allowedActions})
       : super._();
   @override
   RecommendationDetailDto rebuild(
@@ -130,7 +133,8 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
         isActive == other.isActive &&
         archivedAt == other.archivedAt &&
         archiveReason == other.archiveReason &&
-        validUntil == other.validUntil;
+        validUntil == other.validUntil &&
+        allowedActions == other.allowedActions;
   }
 
   @override
@@ -162,6 +166,7 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
     _$hash = $jc(_$hash, archivedAt.hashCode);
     _$hash = $jc(_$hash, archiveReason.hashCode);
     _$hash = $jc(_$hash, validUntil.hashCode);
+    _$hash = $jc(_$hash, allowedActions.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -194,7 +199,8 @@ class _$RecommendationDetailDto extends RecommendationDetailDto {
           ..add('isActive', isActive)
           ..add('archivedAt', archivedAt)
           ..add('archiveReason', archiveReason)
-          ..add('validUntil', validUntil))
+          ..add('validUntil', validUntil)
+          ..add('allowedActions', allowedActions))
         .toString();
   }
 }
@@ -322,6 +328,12 @@ class RecommendationDetailDtoBuilder
   DateTime? get validUntil => _$this._validUntil;
   set validUntil(DateTime? validUntil) => _$this._validUntil = validUntil;
 
+  ListBuilder<RecommendationAction>? _allowedActions;
+  ListBuilder<RecommendationAction> get allowedActions =>
+      _$this._allowedActions ??= ListBuilder<RecommendationAction>();
+  set allowedActions(ListBuilder<RecommendationAction>? allowedActions) =>
+      _$this._allowedActions = allowedActions;
+
   RecommendationDetailDtoBuilder() {
     RecommendationDetailDto._defaults(this);
   }
@@ -355,6 +367,7 @@ class RecommendationDetailDtoBuilder
       _archivedAt = $v.archivedAt;
       _archiveReason = $v.archiveReason;
       _validUntil = $v.validUntil;
+      _allowedActions = $v.allowedActions?.toBuilder();
       _$v = null;
     }
     return this;
@@ -404,6 +417,7 @@ class RecommendationDetailDtoBuilder
             archivedAt: archivedAt,
             archiveReason: archiveReason,
             validUntil: validUntil,
+            allowedActions: _allowedActions?.build(),
           );
     } catch (_) {
       late String _$failedField;
@@ -417,6 +431,9 @@ class RecommendationDetailDtoBuilder
         _steps?.build();
         _$failedField = 'supportingData';
         _supportingData?.build();
+
+        _$failedField = 'allowedActions';
+        _allowedActions?.build();
       } catch (e) {
         throw BuiltValueNestedFieldError(
             r'RecommendationDetailDto', _$failedField, e.toString());
