@@ -47,6 +47,9 @@ abstract final class AppRoutes {
   /// ruta y su pantalla, y Configuracion la enlaza desde "Sobre la app".
   static const String profileSettings = '/profile/settings';
 
+  /// Edición de peso, estatura y subtipo (HU0028), desde el Perfil.
+  static const String profileEdit = '/profile/edit';
+
   /// Reporte clinico personal en PDF (HU0024).
   ///
   /// Hermana de [profileSettings] bajo Perfil, y no una seccion suya: CP062

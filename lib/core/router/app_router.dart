@@ -20,6 +20,7 @@ import '../../features/onboarding/presentation/ibs_sss_baseline_screen.dart';
 import '../../features/patients/presentation/account_settings_screen.dart';
 import '../../features/patients/presentation/clinical_report_screen.dart';
 import '../../features/patients/presentation/privacy_screen.dart';
+import '../../features/patients/presentation/profile_edit_screen.dart';
 import '../../features/patients/presentation/profile_screen.dart';
 import '../../features/recommendations/presentation/recommendation_detail_screen.dart';
 import '../../features/recommendations/presentation/recommendations_screen.dart';
@@ -120,6 +121,12 @@ GoRouter appRouter(Ref ref) {
                   GoRoute(
                     path: 'settings',
                     builder: (_, __) => const AccountSettingsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'edit',
+                    // Formulario: se apila sobre el navigator raíz, sin barra.
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const ProfileEditScreen(),
                   ),
                   GoRoute(
                     path: 'report',

@@ -14,6 +14,7 @@ import '../../onboarding/presentation/widgets/onboarding_labels.dart';
 import '../data/patients_repository.dart';
 import '../domain/allergy.dart';
 import '../domain/patient_summary.dart';
+import 'widgets/invitation_code_sheet.dart';
 
 /// Diametro del avatar del hero, que el mockup fija en 72 px.
 const double _avatarSize = 72;
@@ -138,17 +139,7 @@ class _Summary extends StatelessWidget {
         CauceButton.secondary(
           key: const Key('profile_edit'),
           label: l10n.profileEdit,
-          // Sin pantalla de edicion todavia (US03 CA03 sigue diferida). Se
-          // deja deshabilitado y explicado en vez de conectado a una ruta
-          // inventada o de desaparecer sin decir por que.
-          onPressed: null,
-        ),
-        const SizedBox(height: CauceSpacing.space2),
-        Text(
-          l10n.profileEditUnavailable,
-          key: const Key('profile_edit_unavailable'),
-          style: Theme.of(context).textTheme.labelSmall,
-          textAlign: TextAlign.center,
+          onPressed: () => context.push(AppRoutes.profileEdit),
         ),
       ],
     );
@@ -246,6 +237,7 @@ class _TrackingCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final start = summary.pilotStartDate;
     final days = summary.daysInPilot(DateTime.now());
+    final assignedAt = summary.nutritionistAssignedAt;
 
     return _InfoCard(
       cardKey: const Key('profile_tracking_card'),
@@ -274,6 +266,24 @@ class _TrackingCard extends StatelessWidget {
           // recien creada. Va en tono terciario y no bloquea la pantalla.
           muted: !summary.hasNutritionist,
         ),
+        if (summary.hasNutritionist && assignedAt != null)
+          _InfoRow(
+            key: const Key('profile_nutritionist_since'),
+            label: l10n.profileTrackingAssignedAt,
+            value: OnboardingLabels.date(assignedAt.toLocal()),
+          ),
+        if (!summary.hasNutritionist) ...<Widget>[
+          Text(
+            l10n.profileNoNutritionistHint,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          const SizedBox(height: CauceSpacing.space3),
+          CauceButton.secondary(
+            key: const Key('profile_invitation_code_open'),
+            label: l10n.profileInvitationCodeAction,
+            onPressed: () => showInvitationCodeSheet(context),
+          ),
+        ],
       ],
     );
   }
@@ -304,10 +314,46 @@ class _ClinicalCard extends StatelessWidget {
               ? null
               : OnboardingLabels.ibsSubtypeDescription(l10n, subtype),
         ),
+        const _BiometricsRows(),
         _AllergiesRow(allergies: summary.allergies),
       ],
     );
   }
+}
+
+/// Peso y estatura del perfil clínico; no se dibujan mientras no llegan.
+class _BiometricsRows extends ConsumerWidget {
+  const _BiometricsRows();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final profile = ref.watch(patientProfileProvider).valueOrNull;
+    if (profile == null) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      children: <Widget>[
+        _InfoRow(
+          key: const Key('profile_weight'),
+          label: l10n.profileClinicalWeight,
+          value: l10n.profileClinicalWeightValue(_number(profile.weightKg)),
+          numeric: true,
+        ),
+        _InfoRow(
+          key: const Key('profile_height'),
+          label: l10n.profileClinicalHeight,
+          value: l10n.profileClinicalHeightValue(_number(profile.heightCm)),
+          numeric: true,
+        ),
+      ],
+    );
+  }
+
+  String _number(double value) => value == value.roundToDouble()
+      ? value.toInt().toString()
+      : value.toString().replaceAll('.', ',');
 }
 
 /// Fila de alergias declaradas, con las tres variantes del mockup 12.

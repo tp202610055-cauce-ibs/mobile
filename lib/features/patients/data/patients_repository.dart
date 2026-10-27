@@ -261,6 +261,27 @@ class PatientsRepository {
     });
   }
 
+  /// HU0028. `PUT /api/v1/patients/profile`.
+  ///
+  /// Envia peso, estatura y subtipo; los campos que no viajan quedan como
+  /// estaban en el servidor.
+  Future<void> updateProfile({
+    required double weightKg,
+    required double heightCm,
+    required IbsSubtypeOption ibsSubtype,
+  }) {
+    return _guard(() async {
+      await _api.apiV1PatientsProfilePut(
+        updatePatientProfileRequest: UpdatePatientProfileRequest(
+          (b) => b
+            ..weightKg = weightKg
+            ..heightCm = heightCm
+            ..ibsSubtype = ibsSubtype.toApi(),
+        ),
+      );
+    });
+  }
+
   /// US03. `GET /api/v1/allergies`.
   ///
   /// Catalogo cerrado: el paciente elige de aca y no puede declarar una
@@ -508,6 +529,8 @@ class PatientsRepository {
         allergies: _toDeclarations(result?.clinical?.allergies),
         pilotStartDate: result?.pilotStartDate?.toDateTime(),
         nutritionistName: result?.assignedNutritionist?.nutritionistFullName,
+        nutritionistAssignedAt:
+            result?.assignedNutritionist?.assignedAt?.toUtc(),
         ibsSssBaseline: result?.ibsSssBaseline,
         ibsSssLatest: result?.ibsSssLatest,
         cumulativeChange: result?.cumulativeChange,

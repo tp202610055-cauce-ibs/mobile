@@ -28,6 +28,9 @@ mixin _$PatientSummary {
   List<AllergyDeclaration> get allergies => throw _privateConstructorUsedError;
   DateTime? get pilotStartDate => throw _privateConstructorUsedError;
   String? get nutritionistName => throw _privateConstructorUsedError;
+
+  /// Momento en que quedo vinculado a su nutricionista, en UTC.
+  DateTime? get nutritionistAssignedAt => throw _privateConstructorUsedError;
   int? get ibsSssBaseline => throw _privateConstructorUsedError;
   int? get ibsSssLatest => throw _privateConstructorUsedError;
 
@@ -66,6 +69,7 @@ abstract class $PatientSummaryCopyWith<$Res> {
       List<AllergyDeclaration> allergies,
       DateTime? pilotStartDate,
       String? nutritionistName,
+      DateTime? nutritionistAssignedAt,
       int? ibsSssBaseline,
       int? ibsSssLatest,
       int? cumulativeChange,
@@ -93,6 +97,7 @@ class _$PatientSummaryCopyWithImpl<$Res, $Val extends PatientSummary>
     Object? allergies = null,
     Object? pilotStartDate = freezed,
     Object? nutritionistName = freezed,
+    Object? nutritionistAssignedAt = freezed,
     Object? ibsSssBaseline = freezed,
     Object? ibsSssLatest = freezed,
     Object? cumulativeChange = freezed,
@@ -123,6 +128,10 @@ class _$PatientSummaryCopyWithImpl<$Res, $Val extends PatientSummary>
           ? _value.nutritionistName
           : nutritionistName // ignore: cast_nullable_to_non_nullable
               as String?,
+      nutritionistAssignedAt: freezed == nutritionistAssignedAt
+          ? _value.nutritionistAssignedAt
+          : nutritionistAssignedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       ibsSssBaseline: freezed == ibsSssBaseline
           ? _value.ibsSssBaseline
           : ibsSssBaseline // ignore: cast_nullable_to_non_nullable
@@ -158,6 +167,7 @@ abstract class _$$PatientSummaryImplCopyWith<$Res>
       List<AllergyDeclaration> allergies,
       DateTime? pilotStartDate,
       String? nutritionistName,
+      DateTime? nutritionistAssignedAt,
       int? ibsSssBaseline,
       int? ibsSssLatest,
       int? cumulativeChange,
@@ -183,6 +193,7 @@ class __$$PatientSummaryImplCopyWithImpl<$Res>
     Object? allergies = null,
     Object? pilotStartDate = freezed,
     Object? nutritionistName = freezed,
+    Object? nutritionistAssignedAt = freezed,
     Object? ibsSssBaseline = freezed,
     Object? ibsSssLatest = freezed,
     Object? cumulativeChange = freezed,
@@ -213,6 +224,10 @@ class __$$PatientSummaryImplCopyWithImpl<$Res>
           ? _value.nutritionistName
           : nutritionistName // ignore: cast_nullable_to_non_nullable
               as String?,
+      nutritionistAssignedAt: freezed == nutritionistAssignedAt
+          ? _value.nutritionistAssignedAt
+          : nutritionistAssignedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       ibsSssBaseline: freezed == ibsSssBaseline
           ? _value.ibsSssBaseline
           : ibsSssBaseline // ignore: cast_nullable_to_non_nullable
@@ -243,6 +258,7 @@ class _$PatientSummaryImpl extends _PatientSummary {
       final List<AllergyDeclaration> allergies = const <AllergyDeclaration>[],
       this.pilotStartDate,
       this.nutritionistName,
+      this.nutritionistAssignedAt,
       this.ibsSssBaseline,
       this.ibsSssLatest,
       this.cumulativeChange,
@@ -277,6 +293,10 @@ class _$PatientSummaryImpl extends _PatientSummary {
   final DateTime? pilotStartDate;
   @override
   final String? nutritionistName;
+
+  /// Momento en que quedo vinculado a su nutricionista, en UTC.
+  @override
+  final DateTime? nutritionistAssignedAt;
   @override
   final int? ibsSssBaseline;
   @override
@@ -302,7 +322,7 @@ class _$PatientSummaryImpl extends _PatientSummary {
 
   @override
   String toString() {
-    return 'PatientSummary(fullName: $fullName, patientCode: $patientCode, ibsSubtype: $ibsSubtype, allergies: $allergies, pilotStartDate: $pilotStartDate, nutritionistName: $nutritionistName, ibsSssBaseline: $ibsSssBaseline, ibsSssLatest: $ibsSssLatest, cumulativeChange: $cumulativeChange, significantClinicalResponse: $significantClinicalResponse)';
+    return 'PatientSummary(fullName: $fullName, patientCode: $patientCode, ibsSubtype: $ibsSubtype, allergies: $allergies, pilotStartDate: $pilotStartDate, nutritionistName: $nutritionistName, nutritionistAssignedAt: $nutritionistAssignedAt, ibsSssBaseline: $ibsSssBaseline, ibsSssLatest: $ibsSssLatest, cumulativeChange: $cumulativeChange, significantClinicalResponse: $significantClinicalResponse)';
   }
 
   @override
@@ -322,6 +342,8 @@ class _$PatientSummaryImpl extends _PatientSummary {
                 other.pilotStartDate == pilotStartDate) &&
             (identical(other.nutritionistName, nutritionistName) ||
                 other.nutritionistName == nutritionistName) &&
+            (identical(other.nutritionistAssignedAt, nutritionistAssignedAt) ||
+                other.nutritionistAssignedAt == nutritionistAssignedAt) &&
             (identical(other.ibsSssBaseline, ibsSssBaseline) ||
                 other.ibsSssBaseline == ibsSssBaseline) &&
             (identical(other.ibsSssLatest, ibsSssLatest) ||
@@ -343,6 +365,7 @@ class _$PatientSummaryImpl extends _PatientSummary {
       const DeepCollectionEquality().hash(_allergies),
       pilotStartDate,
       nutritionistName,
+      nutritionistAssignedAt,
       ibsSssBaseline,
       ibsSssLatest,
       cumulativeChange,
@@ -366,6 +389,7 @@ abstract class _PatientSummary extends PatientSummary {
       final List<AllergyDeclaration> allergies,
       final DateTime? pilotStartDate,
       final String? nutritionistName,
+      final DateTime? nutritionistAssignedAt,
       final int? ibsSssBaseline,
       final int? ibsSssLatest,
       final int? cumulativeChange,
@@ -390,6 +414,10 @@ abstract class _PatientSummary extends PatientSummary {
   DateTime? get pilotStartDate;
   @override
   String? get nutritionistName;
+
+  /// Momento en que quedo vinculado a su nutricionista, en UTC.
+  @override
+  DateTime? get nutritionistAssignedAt;
   @override
   int? get ibsSssBaseline;
   @override

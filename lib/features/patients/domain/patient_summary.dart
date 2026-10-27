@@ -33,6 +33,9 @@ abstract class PatientSummary with _$PatientSummary {
     @Default(<AllergyDeclaration>[]) List<AllergyDeclaration> allergies,
     DateTime? pilotStartDate,
     String? nutritionistName,
+
+    /// Momento en que quedo vinculado a su nutricionista, en UTC.
+    DateTime? nutritionistAssignedAt,
     int? ibsSssBaseline,
     int? ibsSssLatest,
 
