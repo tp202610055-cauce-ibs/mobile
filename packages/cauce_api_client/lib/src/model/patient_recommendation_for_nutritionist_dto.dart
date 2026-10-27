@@ -3,7 +3,9 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:cauce_api_client/src/model/recommendation_food_preview_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_source.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:cauce_api_client/src/model/recommendation_status.dart';
 import 'package:cauce_api_client/src/model/archive_reason.dart';
 import 'package:built_value/built_value.dart';
@@ -26,6 +28,7 @@ part 'patient_recommendation_for_nutritionist_dto.g.dart';
 /// * [isActive] 
 /// * [archivedAt] 
 /// * [archiveReason] 
+/// * [foods] 
 @BuiltValue()
 abstract class PatientRecommendationForNutritionistDto implements Built<PatientRecommendationForNutritionistDto, PatientRecommendationForNutritionistDtoBuilder> {
   @BuiltValueField(wireName: r'recommendationId')
@@ -66,6 +69,9 @@ abstract class PatientRecommendationForNutritionistDto implements Built<PatientR
   @BuiltValueField(wireName: r'archiveReason')
   ArchiveReason? get archiveReason;
   // enum archiveReasonEnum {  TemporalExpiration,  ManualSubstitution,  ObjectiveMet,  PlanChange,  };
+
+  @BuiltValueField(wireName: r'foods')
+  BuiltList<RecommendationFoodPreviewDto>? get foods;
 
   PatientRecommendationForNutritionistDto._();
 
@@ -172,6 +178,13 @@ class _$PatientRecommendationForNutritionistDtoSerializer implements PrimitiveSe
       yield serializers.serialize(
         object.archiveReason,
         specifiedType: const FullType(ArchiveReason),
+      );
+    }
+    if (object.foods != null) {
+      yield r'foods';
+      yield serializers.serialize(
+        object.foods,
+        specifiedType: const FullType.nullable(BuiltList, [FullType(RecommendationFoodPreviewDto)]),
       );
     }
   }
@@ -285,6 +298,14 @@ class _$PatientRecommendationForNutritionistDtoSerializer implements PrimitiveSe
             specifiedType: const FullType(ArchiveReason),
           ) as ArchiveReason;
           result.archiveReason = valueDes;
+          break;
+        case r'foods':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(BuiltList, [FullType(RecommendationFoodPreviewDto)]),
+          ) as BuiltList<RecommendationFoodPreviewDto>?;
+          if (valueDes == null) continue;
+          result.foods.replace(valueDes);
           break;
         default:
           unhandled.add(key);

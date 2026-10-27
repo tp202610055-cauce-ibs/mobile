@@ -32,6 +32,8 @@ class _$PatientRecommendationForNutritionistDto
   final DateTime? archivedAt;
   @override
   final ArchiveReason? archiveReason;
+  @override
+  final BuiltList<RecommendationFoodPreviewDto>? foods;
 
   factory _$PatientRecommendationForNutritionistDto(
           [void Function(PatientRecommendationForNutritionistDtoBuilder)?
@@ -51,7 +53,8 @@ class _$PatientRecommendationForNutritionistDto
       this.validUntil,
       this.isActive,
       this.archivedAt,
-      this.archiveReason})
+      this.archiveReason,
+      this.foods})
       : super._();
   @override
   PatientRecommendationForNutritionistDto rebuild(
@@ -78,7 +81,8 @@ class _$PatientRecommendationForNutritionistDto
         validUntil == other.validUntil &&
         isActive == other.isActive &&
         archivedAt == other.archivedAt &&
-        archiveReason == other.archiveReason;
+        archiveReason == other.archiveReason &&
+        foods == other.foods;
   }
 
   @override
@@ -96,6 +100,7 @@ class _$PatientRecommendationForNutritionistDto
     _$hash = $jc(_$hash, isActive.hashCode);
     _$hash = $jc(_$hash, archivedAt.hashCode);
     _$hash = $jc(_$hash, archiveReason.hashCode);
+    _$hash = $jc(_$hash, foods.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -115,7 +120,8 @@ class _$PatientRecommendationForNutritionistDto
           ..add('validUntil', validUntil)
           ..add('isActive', isActive)
           ..add('archivedAt', archivedAt)
-          ..add('archiveReason', archiveReason))
+          ..add('archiveReason', archiveReason)
+          ..add('foods', foods))
         .toString();
   }
 }
@@ -176,6 +182,12 @@ class PatientRecommendationForNutritionistDtoBuilder
   set archiveReason(ArchiveReason? archiveReason) =>
       _$this._archiveReason = archiveReason;
 
+  ListBuilder<RecommendationFoodPreviewDto>? _foods;
+  ListBuilder<RecommendationFoodPreviewDto> get foods =>
+      _$this._foods ??= ListBuilder<RecommendationFoodPreviewDto>();
+  set foods(ListBuilder<RecommendationFoodPreviewDto>? foods) =>
+      _$this._foods = foods;
+
   PatientRecommendationForNutritionistDtoBuilder() {
     PatientRecommendationForNutritionistDto._defaults(this);
   }
@@ -195,6 +207,7 @@ class PatientRecommendationForNutritionistDtoBuilder
       _isActive = $v.isActive;
       _archivedAt = $v.archivedAt;
       _archiveReason = $v.archiveReason;
+      _foods = $v.foods?.toBuilder();
       _$v = null;
     }
     return this;
@@ -215,21 +228,37 @@ class PatientRecommendationForNutritionistDtoBuilder
   PatientRecommendationForNutritionistDto build() => _build();
 
   _$PatientRecommendationForNutritionistDto _build() {
-    final _$result = _$v ??
-        _$PatientRecommendationForNutritionistDto._(
-          recommendationId: recommendationId,
-          status: status,
-          source_: source_,
-          title: title,
-          itemsCount: itemsCount,
-          generatedAt: generatedAt,
-          reviewedAt: reviewedAt,
-          expiresAt: expiresAt,
-          validUntil: validUntil,
-          isActive: isActive,
-          archivedAt: archivedAt,
-          archiveReason: archiveReason,
-        );
+    _$PatientRecommendationForNutritionistDto _$result;
+    try {
+      _$result = _$v ??
+          _$PatientRecommendationForNutritionistDto._(
+            recommendationId: recommendationId,
+            status: status,
+            source_: source_,
+            title: title,
+            itemsCount: itemsCount,
+            generatedAt: generatedAt,
+            reviewedAt: reviewedAt,
+            expiresAt: expiresAt,
+            validUntil: validUntil,
+            isActive: isActive,
+            archivedAt: archivedAt,
+            archiveReason: archiveReason,
+            foods: _foods?.build(),
+          );
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'foods';
+        _foods?.build();
+      } catch (e) {
+        throw BuiltValueNestedFieldError(
+            r'PatientRecommendationForNutritionistDto',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

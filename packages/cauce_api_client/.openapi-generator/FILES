@@ -15,6 +15,7 @@ lib/src/api/history_api.dart
 lib/src/api/ibs_sss_api.dart
 lib/src/api/invitations_api.dart
 lib/src/api/meals_api.dart
+lib/src/api/nutritionist_alerts_api.dart
 lib/src/api/nutritionist_recommendations_api.dart
 lib/src/api/nutritionist_symptoms_api.dart
 lib/src/api/nutritionists_api.dart
@@ -77,6 +78,7 @@ lib/src/model/explanation_source.dart
 lib/src/model/export_my_data_result.dart
 lib/src/model/feedback_outcome.dart
 lib/src/model/fodmap_level.dart
+lib/src/model/food_allergen_check_result.dart
 lib/src/model/food_item_detail.dart
 lib/src/model/food_item_summary.dart
 lib/src/model/food_item_summary_paged_result.dart
@@ -93,6 +95,8 @@ lib/src/model/get_patient_profile_result.dart
 lib/src/model/glossary_category.dart
 lib/src/model/glossary_result.dart
 lib/src/model/glossary_term_dto.dart
+lib/src/model/glossary_term_request_result.dart
+lib/src/model/glossary_term_request_status.dart
 lib/src/model/history_event.dart
 lib/src/model/ibs_sss_assessment_summary.dart
 lib/src/model/ibs_sss_cycle_status.dart
@@ -116,6 +120,9 @@ lib/src/model/my_consent_result.dart
 lib/src/model/my_profile_clinical_info.dart
 lib/src/model/my_profile_patient_info.dart
 lib/src/model/my_profile_summary_result.dart
+lib/src/model/nutritionist_alert_dto.dart
+lib/src/model/nutritionist_alert_list_result.dart
+lib/src/model/nutritionist_alert_type.dart
 lib/src/model/nutritionist_assignment_summary.dart
 lib/src/model/patient_allergy_summary.dart
 lib/src/model/patient_evolution_for_nutritionist_result.dart
@@ -130,6 +137,7 @@ lib/src/model/problem_details.dart
 lib/src/model/recommendation_action.dart
 lib/src/model/recommendation_detail_dto.dart
 lib/src/model/recommendation_feedback_dto.dart
+lib/src/model/recommendation_food_preview_dto.dart
 lib/src/model/recommendation_item_dto.dart
 lib/src/model/recommendation_review_status_dto.dart
 lib/src/model/recommendation_source.dart
@@ -141,6 +149,7 @@ lib/src/model/refresh_token_request.dart
 lib/src/model/register_patient_request.dart
 lib/src/model/register_patient_result.dart
 lib/src/model/reject_recommendation_request.dart
+lib/src/model/request_glossary_term_request.dart
 lib/src/model/request_password_reset_request.dart
 lib/src/model/resend_verification_email_request.dart
 lib/src/model/set_symptom_meal_association_request.dart
