@@ -72,14 +72,24 @@ class RecommendationsFeedNotifier extends _$RecommendationsFeedNotifier {
       return const RecommendationsFeed();
     }
 
-    final summaries =
-        await ref.watch(recommendationsRepositoryProvider).listMine();
+    final repository = ref.watch(recommendationsRepositoryProvider);
+    final summaries = await repository.listMine();
     final request = await _reconcile(userId, summaries);
+    final inReview = await _serverSaysInReview(repository);
     return RecommendationsFeed(
       summaries: summaries,
       request: request,
-      awaitingReview: request?.isAwaitingReview(_now()) ?? false,
+      awaitingReview: inReview || (request?.isAwaitingReview(_now()) ?? false),
     );
+  }
+
+  /// Indicador del servidor; si no responde, queda el marcador local.
+  Future<bool> _serverSaysInReview(RecommendationsRepository repository) async {
+    try {
+      return await repository.hasRecommendationInReview();
+    } on CauceApiError {
+      return false;
+    }
   }
 
   /// Entrada a la pestana de Consejos.
@@ -114,7 +124,7 @@ class RecommendationsFeedNotifier extends _$RecommendationsFeedNotifier {
 
   Future<void> _requestIfNeeded(RecommendationsFeed feed) async {
     final userId = ref.read(sessionNotifierProvider).user?.userId;
-    if (userId == null) {
+    if (userId == null || feed.awaitingReview) {
       return;
     }
 
