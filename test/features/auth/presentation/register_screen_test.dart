@@ -127,7 +127,66 @@ void main() {
     });
   });
 
+  group('RegisterScreen · consentimiento visible (CP001)', () {
+    testWidgets('muestra la version del consentimiento vigente',
+        (tester) async {
+      await _openRegister(tester);
+
+      expect(find.text('Versión 1.0.0'), findsOneWidget);
+    });
+
+    testWidgets('el enlace muestra el texto completo con su version',
+        (tester) async {
+      await _openRegister(tester);
+      final link = find.byKey(const Key('register_consent_read_full'));
+      await tester.ensureVisible(link);
+      await tester.pumpAndSettle();
+
+      await tester.tap(link);
+      await tester.pumpAndSettle();
+
+      final dialog = find.byKey(const Key('register_consent_full'));
+      expect(dialog, findsOneWidget);
+      expect(
+        find.descendant(
+          of: dialog,
+          matching: find
+              .text('Texto del consentimiento informado del piloto Kaelin.'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(of: dialog, matching: find.text('Versión 1.0.0')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('la casilla dice «He leído», con tilde', (tester) async {
+      await _openRegister(tester);
+
+      expect(
+        find.text('He leído y acepto el consentimiento informado'),
+        findsOneWidget,
+      );
+    });
+  });
+
   group('RegisterScreen · bloqueo sin aceptacion (US01 CA03)', () {
+    testWidgets('sin marcar, explica que aceptar es obligatorio (CP003)',
+        (tester) async {
+      await _openRegister(tester);
+      await _fillValidForm(tester);
+
+      expect(
+        find.byKey(const Key('register_consent_required')),
+        findsOneWidget,
+      );
+
+      await _acceptConsent(tester);
+
+      expect(find.byKey(const Key('register_consent_required')), findsNothing);
+    });
+
     testWidgets('el boton nace deshabilitado', (tester) async {
       await _openRegister(tester);
 
@@ -337,7 +396,8 @@ void main() {
       expect(find.text('El correo ya esta registrado.'), findsOneWidget);
     });
 
-    testWidgets('el 409 muestra el banner y no avanza', (tester) async {
+    testWidgets('el 409 se indica junto al correo y no avanza (CP002)',
+        (tester) async {
       await _openRegister(
         tester,
         error: const CauceApiError.duplicateEmail(),
@@ -348,9 +408,13 @@ void main() {
       await _tapSubmit(tester);
 
       expect(
-        find.text('Ya existe una cuenta con este correo'),
+        find.descendant(
+          of: find.byKey(const Key('register_email')),
+          matching: find.text('Ya existe una cuenta con este correo'),
+        ),
         findsOneWidget,
       );
+      expect(find.byType(CauceErrorBanner), findsNothing);
       expect(find.byType(VerifyEmailPendingScreen), findsNothing);
     });
 
