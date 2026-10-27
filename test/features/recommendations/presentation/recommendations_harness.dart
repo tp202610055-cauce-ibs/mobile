@@ -38,6 +38,7 @@ Future<ProviderContainer> pumpRecommendations(
   required FakeRecommendationsRepository repository,
   InMemoryRecommendationRequestStore? store,
   bool onboardingCompleted = true,
+  bool hasNutritionist = true,
   String initialLocation = AppRoutes.recommendations,
 }) async {
   final container = ProviderContainer(
@@ -47,7 +48,9 @@ Future<ProviderContainer> pumpRecommendations(
           profile: demoProfile.copyWith(
             onboardingCompleted: onboardingCompleted,
           ),
-        ),
+        )..summaryValue = hasNutritionist
+            ? demoSummary
+            : demoSummary.copyWith(nutritionistName: null),
       ),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),

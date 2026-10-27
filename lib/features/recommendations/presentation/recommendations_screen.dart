@@ -11,6 +11,7 @@ import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
+import '../../patients/application/nutritionist_assignment_notifier.dart';
 import '../application/recommendations_feed_notifier.dart';
 import 'widgets/recommendation_card.dart';
 
@@ -61,7 +62,11 @@ class _RecommendationsScreenState extends ConsumerState<RecommendationsScreen> {
     final l10n = AppLocalizations.of(context);
     final onboarding = ref.watch(resolvedOnboardingProvider);
     final locked = !onboarding.allowsAdvice;
-    if (!locked) {
+    // Un fallo del resumen no bloquea Consejos: solo un "no" confirmado.
+    final assignment = ref.watch(hasAssignedNutritionistProvider);
+    final resolving = !locked && assignment.isLoading && !assignment.hasValue;
+    final unassigned = !locked && assignment.valueOrNull == false;
+    if (!locked && !resolving && !unassigned) {
       _openOnce();
     }
 
@@ -80,7 +85,18 @@ class _RecommendationsScreenState extends ConsumerState<RecommendationsScreen> {
               onAction: () =>
                   ref.read(onboardingNotifierProvider.notifier).resume(),
             )
-          : const _Feed(),
+          : resolving
+              ? CauceLoadingIndicator.fullscreen(message: l10n.commonLoading)
+              : unassigned
+                  ? CauceEmptyState(
+                      key: const Key('recommendations_no_nutritionist'),
+                      icon: TablerIcons.user_plus,
+                      title: l10n.recommendationsNoNutritionistTitle,
+                      message: l10n.recommendationsNoNutritionistBody,
+                      actionLabel: l10n.recommendationsNoNutritionistAction,
+                      onAction: () => context.go(AppRoutes.profile),
+                    )
+                  : const _Feed(),
     );
   }
 }

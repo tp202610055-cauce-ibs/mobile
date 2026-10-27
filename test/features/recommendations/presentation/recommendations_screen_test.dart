@@ -34,6 +34,33 @@ void main() {
       expect(repository.generationKeys, isEmpty);
     });
 
+    testWidgets('CP085: sin nutricionista explica cómo vincularse, sin pedir',
+        (tester) async {
+      final repository =
+          FakeRecommendationsRepository(generationResult: _pendingResult());
+
+      await pumpRecommendations(
+        tester,
+        repository: repository,
+        hasNutritionist: false,
+      );
+
+      expect(
+        find.byKey(const Key('recommendations_no_nutritionist')),
+        findsOneWidget,
+      );
+      expect(
+        find.text(
+          'Para recibir recomendaciones necesitas estar vinculado a un '
+          'nutricionista. Ingresa desde tu perfil el código de invitación que '
+          'tu nutricionista te proporcione.',
+        ),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('recommendations_pending')), findsNothing);
+      expect(repository.generationKeys, isEmpty);
+    });
+
     testWidgets('lista vacia y 422: estado vacio, sin error (decision 2)',
         (tester) async {
       final repository = FakeRecommendationsRepository()
