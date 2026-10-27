@@ -20,8 +20,10 @@ import '../../../helpers/fake_token_storage.dart';
 Future<({ProviderContainer container, FakeAuthRepository repository})> _pumpApp(
   WidgetTester tester, {
   CauceApiError? error,
+  CauceApiError? validateError,
 }) async {
-  final repository = FakeAuthRepository(error: error);
+  final repository = FakeAuthRepository(error: error)
+    ..validateError = validateError;
   final storage = FakeTokenStorage();
   final borders = appBorders(storage: storage);
   final container = ProviderContainer(
@@ -39,6 +41,9 @@ Future<({ProviderContainer container, FakeAuthRepository repository})> _pumpApp(
   await tester.pumpAndSettle();
   return (container: container, repository: repository);
 }
+
+const String _linkInvalidMessage =
+    'Este enlace ya no es válido. Pide uno nuevo para cambiar tu contraseña.';
 
 void main() {
   group('US07 CA01 · solicitud del enlace', () {
@@ -123,8 +128,16 @@ void main() {
 
   group('US07 CA02 · restablecimiento por deep link', () {
     Future<({ProviderContainer container, FakeAuthRepository repository})>
-        openResetLink(WidgetTester tester, {CauceApiError? error}) async {
-      final h = await _pumpApp(tester, error: error);
+        openResetLink(
+      WidgetTester tester, {
+      CauceApiError? error,
+      CauceApiError? validateError,
+    }) async {
+      final h = await _pumpApp(
+        tester,
+        error: error,
+        validateError: validateError,
+      );
       h.container
           .read(appRouterProvider)
           .go('${AppRoutes.passwordReset}?token=abc123');
@@ -250,13 +263,66 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        find.text('El enlace de recuperación venció o ya fue usado'),
+        find.text(_linkInvalidMessage),
         findsOneWidget,
       );
       expect(
         find.byKey(const Key('reset_request_new_link')),
         findsOneWidget,
       );
+    });
+
+    testWidgets(
+        'al abrir un enlace valido se valida y se muestra el formulario',
+        (tester) async {
+      final h = await openResetLink(tester);
+
+      expect(h.repository.validatePasswordResetTokenCalls, 1);
+      expect(h.repository.lastToken, 'abc123');
+      expect(find.byKey(const Key('reset_password')), findsOneWidget);
+    });
+
+    for (final reason in PasswordResetTokenReason.values) {
+      testWidgets(
+          'al abrir un enlace no valido ($reason) se informa y se ofrece '
+          'pedir uno nuevo, sin formulario', (tester) async {
+        await openResetLink(
+          tester,
+          validateError: CauceApiError.passwordResetToken(reason: reason),
+        );
+
+        expect(find.text(_linkInvalidMessage), findsOneWidget);
+        expect(find.byKey(const Key('reset_password')), findsNothing);
+
+        await tester.tap(find.byKey(const Key('reset_request_new_link')));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(PasswordRecoveryScreen), findsOneWidget);
+      });
+    }
+
+    testWidgets(
+        'confirmar con un enlace invalido o vencido da el mismo mensaje',
+        (tester) async {
+      await openResetLink(
+        tester,
+        error: const CauceApiError.passwordResetToken(
+          reason: PasswordResetTokenReason.invalid,
+        ),
+      );
+
+      await tester.enterText(
+        find.byKey(const Key('reset_password')),
+        'NuevaClave1',
+      );
+      await tester.enterText(
+        find.byKey(const Key('reset_password_confirmation')),
+        'NuevaClave1',
+      );
+      await tester.tap(find.byKey(const Key('reset_submit')));
+      await tester.pumpAndSettle();
+
+      expect(find.text(_linkInvalidMessage), findsOneWidget);
     });
 
     testWidgets('el atajo lleva de vuelta a la solicitud', (tester) async {

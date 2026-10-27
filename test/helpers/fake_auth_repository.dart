@@ -54,9 +54,14 @@ class FakeAuthRepository implements AuthRepository {
   /// rechazado.
   CauceApiError? consentError;
 
+  /// Error especifico para validar el enlace. Separado de [error] para que
+  /// las pruebas de la confirmacion sigan viendo el formulario.
+  CauceApiError? validateError;
+
   int loginCalls = 0;
   int requestPasswordResetCalls = 0;
   int confirmPasswordResetCalls = 0;
+  int validatePasswordResetTokenCalls = 0;
   int currentConsentCalls = 0;
   int registerCalls = 0;
   int logoutCalls = 0;
@@ -110,6 +115,16 @@ class FakeAuthRepository implements AuthRepository {
     lastToken = token;
     lastNewPassword = newPassword;
     await _run();
+  }
+
+  @override
+  Future<void> validatePasswordResetToken({required String token}) async {
+    validatePasswordResetTokenCalls++;
+    lastToken = token;
+    final failure = validateError;
+    if (failure != null) {
+      throw failure;
+    }
   }
 
   @override
