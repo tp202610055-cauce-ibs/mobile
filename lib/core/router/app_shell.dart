@@ -69,7 +69,7 @@ class AppShell extends ConsumerWidget {
     final keyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
 
     return PushInbox(
-      onForegroundMessage: () => _refreshAfterPush(ref),
+      onPush: () => _refreshAfterPush(ref),
       child: _buildShell(context, ref, l10n, keyboardOpen),
     );
   }
