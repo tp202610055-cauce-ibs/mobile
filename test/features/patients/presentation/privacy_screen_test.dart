@@ -280,4 +280,21 @@ void main() {
       expect(find.byKey(const Key('privacy_consent_done')), findsNothing);
     });
   });
+
+  group('PrivacyScreen · texto del consentimiento (CP004)', () {
+    testWidgets('consultar el consentimiento muestra su texto completo',
+        (tester) async {
+      await _pump(tester);
+
+      await tester.ensureVisible(find.byKey(const Key('privacy_consent_view')));
+      await tester.tap(find.byKey(const Key('privacy_consent_view')));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text('Texto del consentimiento informado del piloto Kaelin.'),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('consent_text_version')), findsOneWidget);
+    });
+  });
 }

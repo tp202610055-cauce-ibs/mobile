@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/errors/cauce_api_error.dart';
+import '../../auth/data/auth_repository.dart';
 import '../data/patients_repository.dart';
 
 part 'consent_download_notifier.freezed.dart';
@@ -112,3 +113,8 @@ class ConsentDownloadNotifier extends _$ConsentDownloadNotifier {
     }
   }
 }
+
+/// Texto vigente del consentimiento, para leerlo completo en pantalla (CP004).
+@riverpod
+Future<CurrentConsent> consentDocument(Ref ref) =>
+    ref.watch(currentConsentProvider.future);

@@ -23,6 +23,26 @@ final consentPdfSharerProvider = Provider<ConsentPdfSharer>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ConsentPdfSharerRef = ProviderRef<ConsentPdfSharer>;
+String _$consentDocumentHash() => r'a83b189dcbe0e457ff46157fb8ac789970671305';
+
+/// Texto vigente del consentimiento, para leerlo completo en pantalla (CP004).
+///
+/// Copied from [consentDocument].
+@ProviderFor(consentDocument)
+final consentDocumentProvider =
+    AutoDisposeFutureProvider<CurrentConsent>.internal(
+  consentDocument,
+  name: r'consentDocumentProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$consentDocumentHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef ConsentDocumentRef = AutoDisposeFutureProviderRef<CurrentConsent>;
 String _$consentDownloadNotifierHash() =>
     r'b485649eb11ecb93f71b80c62b7132e86e82ab05';
 

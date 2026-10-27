@@ -8,6 +8,7 @@ import '../../../l10n/generated/app_localizations.dart';
 import '../../onboarding/presentation/widgets/onboarding_labels.dart';
 import '../application/consent_download_notifier.dart';
 import '../data/patients_repository.dart';
+import 'widgets/consent_text_sheet.dart';
 
 /// Privacidad y derechos del paciente (HU0001 escenario 4, CP004 paso 2).
 ///
@@ -145,6 +146,12 @@ class _ConsentCard extends ConsumerWidget {
             ),
           ],
           const SizedBox(height: CauceSpacing.space4),
+          CauceButton.secondary(
+            key: const Key('privacy_consent_view'),
+            label: l10n.privacyConsentView,
+            onPressed: () => showConsentTextSheet(context),
+          ),
+          const SizedBox(height: CauceSpacing.space2),
           CauceButton(
             key: const Key('privacy_consent_download'),
             label: l10n.privacyConsentDownload,
