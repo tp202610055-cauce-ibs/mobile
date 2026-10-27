@@ -6,6 +6,7 @@ import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../application/symptom_form_notifier.dart';
 import '../domain/symptom_draft.dart';
+import 'widgets/symptom_intensity_input.dart';
 import 'widgets/symptom_labels.dart';
 
 /// Registro de un sintoma (US11 CA01 y CA02).
@@ -53,20 +54,19 @@ class SymptomFormScreen extends ConsumerWidget {
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: CauceSpacing.space2),
-          // `min: 1` y no el default de 0: el backend rechaza la intensidad
-          // cero (`Symptom.MinIntensity`), y ofrecerla seria ofrecer un valor
-          // que termina en un 400.
-          CauceSlider(
-            key: const Key('symptom_intensity_field'),
+          SymptomIntensityInput(
             value: state.draft.intensity,
-            min: SymptomDraft.minIntensity,
-            max: SymptomDraft.maxIntensity,
-            step: SymptomDraft.intensityStep,
             enabled: !state.submitting,
-            onChanged: notifier.setIntensity,
-            minLabel: l10n.symptomsIntensityMin,
-            maxLabel: l10n.symptomsIntensityMax,
-            semanticLabel: l10n.symptomsIntensityLabel,
+            onSlide: notifier.setIntensity,
+            onTyped: notifier.setIntensityInput,
+            errorText: state.draft.symptomType != null &&
+                    (state.issues.contains(
+                          SymptomDraftIssue.missingIntensity,
+                        ) ||
+                        state.issues
+                            .contains(SymptomDraftIssue.intensityOutOfRange))
+                ? l10n.symptomsIssueIntensityOutOfRange
+                : null,
           ),
           const SizedBox(height: CauceSpacing.space6),
           for (final issue in state.issues)
