@@ -1,11 +1,11 @@
 import 'package:cauce_api_client/cauce_api_client.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
-import 'package:cauce_mobile/features/glossary/data/glossary_repository.dart';
-import 'package:cauce_mobile/features/glossary/domain/glossary_catalog.dart';
+import 'package:cauce_mobile/core/glossary/glossary_repository.dart';
+import 'package:cauce_mobile/core/glossary/glossary_catalog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../helpers/canned_http_adapter.dart';
+import '../../helpers/canned_http_adapter.dart';
 
 /// Arma el repositorio sobre el cliente OpenAPI real, con la red sustituida.
 ({GlossaryRepository repository, CannedHttpAdapter adapter}) _harness(

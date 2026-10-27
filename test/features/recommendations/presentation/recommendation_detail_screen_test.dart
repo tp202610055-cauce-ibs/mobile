@@ -174,7 +174,22 @@ void main() {
         fallback.id,
       );
 
-      expect(find.text(fallback.explanation!), findsOneWidget);
+      // El texto se muestra entero; FODMAP queda tocable dentro de el.
+      expect(
+        find.textContaining(
+          'Se sugiere evitar 2 alimento(s) en función del perfil ',
+          findRichText: true,
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const Key('recommendation_term_FODMAP')),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining(' identificado.', findRichText: true),
+        findsOneWidget,
+      );
       expect(
         find.byKey(const Key('recommendation_attribution')),
         findsOneWidget,
@@ -339,6 +354,147 @@ void main() {
         find.byKey(const Key('recommendation_not_available')),
         findsOneWidget,
       );
+    });
+  });
+
+  group('RecommendationDetailScreen · terminos del glosario (CP068)', () {
+    final withTerm = approvedDetail.copyWith(
+      id: 'rec-glossary',
+      explanation: 'Algunos de los alimentos que consumes tienen un '
+          'contenido alto de FODMAP y podrían relacionarse con tus síntomas.',
+    );
+
+    testWidgets('el termino marcado se ve subrayado y se anuncia como tal',
+        (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [withTerm]),
+        withTerm.id,
+      );
+
+      final term = find.byKey(const Key('recommendation_term_FODMAP'));
+      expect(term, findsOneWidget);
+      final text = tester.widget<Text>(term);
+      expect(text.style?.decoration, TextDecoration.underline);
+      expect(
+        find.ancestor(
+          of: term,
+          matching: find.byWidgetPredicate(
+            (w) =>
+                w is Semantics &&
+                (w.properties.button ?? false) &&
+                w.properties.label ==
+                    l10n.recommendationGlossaryTermSemantics('FODMAP'),
+          ),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('tocarlo abre la definicion con su tipo (paso 7)',
+        (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [withTerm]),
+        withTerm.id,
+      );
+
+      await _tapVisible(
+        tester,
+        find.byKey(const Key('recommendation_term_FODMAP')),
+      );
+
+      final sheet = find.byKey(const Key('glossary_term_sheet'));
+      expect(sheet, findsOneWidget);
+      expect(
+        find.descendant(of: sheet, matching: find.text('FODMAP')),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: sheet,
+          matching: find.textContaining('azúcares y fibras'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: sheet,
+          matching: find.text(l10n.glossaryCategoryNutritional),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('sin terminos del glosario el texto queda igual',
+        (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [approvedDetail]),
+        approvedDetail.id,
+      );
+
+      expect(find.textContaining('alimento alto en fructanos'), findsOneWidget);
+      expect(
+        find.byWidgetPredicate(
+          (w) =>
+              w.key is ValueKey<String> &&
+              (w.key! as ValueKey<String>).value.startsWith(
+                    'recommendation_term_',
+                  ),
+        ),
+        findsNothing,
+      );
+    });
+  });
+
+  group('RecommendationDetailScreen · espera de 24 horas (CP043)', () {
+    testWidgets('recibida hace 20 h: no pide respuesta y explica cuando',
+        (tester) async {
+      final recent = approvedDetail.copyWith(
+        reviewedAt: recommendationsNow.subtract(const Duration(hours: 20)),
+      );
+      final repository = FakeRecommendationsRepository(details: [recent]);
+      await _openDetail(tester, repository, recent.id);
+
+      expect(repository.deliveredIds, <String>[recent.id]);
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_not_yet')),
+      );
+      expect(find.text(l10n.recommendationFeedbackNotYet), findsOneWidget);
+      expect(
+        find.byKey(const Key('recommendation_feedback_form')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('la nota vacia es valida al responder (CP043 paso 9)',
+        (tester) async {
+      final repository =
+          FakeRecommendationsRepository(details: [approvedDetail]);
+      await _openDetail(tester, repository, approvedDetail.id);
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_submit')),
+      );
+
+      await _tapVisible(
+        tester,
+        find.text(l10n.recommendationFeedbackAppliedYes),
+      );
+      await _tapVisible(
+        tester,
+        find.text(l10n.recommendationFeedbackOutcomeWorsening),
+      );
+      await _tapVisible(
+        tester,
+        find.byKey(const Key('recommendation_feedback_submit')),
+      );
+
+      expect(repository.feedbackDrafts, hasLength(1));
+      expect(repository.feedbackDrafts.single.commentToSend, isNull);
+      expect(find.text(l10n.recommendationFeedbackSent), findsOneWidget);
     });
   });
 

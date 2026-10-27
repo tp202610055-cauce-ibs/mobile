@@ -16,6 +16,8 @@ import '../domain/recommendation_headline.dart';
 import '../domain/recommendation_origin.dart';
 import 'recommendation_texts.dart';
 import 'widgets/recommendation_confidence_indicator.dart';
+import 'widgets/recommendation_detail_sections.dart';
+import 'widgets/recommendation_explanation_card.dart';
 import 'widgets/recommendation_feedback_section.dart';
 import 'widgets/recommendation_origin_pill.dart';
 
@@ -117,11 +119,11 @@ class _DetailBody extends StatelessWidget {
         // leeria completa la de una indicacion manual. Solo si el servidor la
         // trae: la compuesta de una del motor ya esta en la lista de items.
         if (description != null) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.file_description,
             title: l10n.recommendationSectionDescription,
           ),
-          _SectionCard(
+          RecommendationSectionCard(
             key: const Key('recommendation_description'),
             child: Text(description, style: _bodyStyle(context)),
           ),
@@ -130,23 +132,17 @@ class _DetailBody extends StatelessWidget {
         // tiene. Si el LLM fallo, llega la plantilla de respaldo y se muestra
         // igual, sin marcarla como error (HU0015 CA4, CP077).
         if (explanation != null) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.sparkles,
             title: l10n.recommendationSectionWhy,
           ),
-          _SectionCard(
-            key: const Key('recommendation_explanation'),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(explanation, style: _bodyStyle(context)),
-                if (detail.showsAttribution) const _Attribution(),
-              ],
-            ),
+          RecommendationExplanationCard(
+            explanation: explanation,
+            showsAttribution: detail.showsAttribution,
           ),
         ],
         if (detail.items.isNotEmpty) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.salad,
             title: l10n.recommendationSectionItems,
           ),
@@ -156,7 +152,7 @@ class _DetailBody extends StatelessWidget {
         // (acta M47). HU0015 CA2 y CP041 la piden aunque el mockup 11 la omita
         // en `Approved`.
         if (note != null) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.stethoscope,
             title: l10n.recommendationSectionNote,
           ),
@@ -164,7 +160,7 @@ class _DetailBody extends StatelessWidget {
         ],
         // Bloque 3: pasos, solo si los hay (mockup 11, variante B).
         if (detail.steps.isNotEmpty) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.list_check,
             title: l10n.recommendationSectionSteps,
           ),
@@ -174,7 +170,7 @@ class _DetailBody extends StatelessWidget {
         // que no salio de estos datos (mockup 11, "estado vacio sin datos de
         // sustento").
         if (data != null && !detail.isManual) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.chart_dots,
             title: l10n.recommendationSectionData,
           ),
@@ -299,99 +295,6 @@ class _Hero extends StatelessWidget {
   }
 }
 
-/// Encabezado de seccion del mockup 11 (`.section-head`).
-class _SectionHead extends StatelessWidget {
-  const _SectionHead({required this.icon, required this.title});
-
-  final IconData icon;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: CauceSpacing.space4,
-        bottom: CauceSpacing.space2,
-      ),
-      child: Row(
-        children: <Widget>[
-          Icon(icon, size: 14, color: CauceColors.brandBase),
-          const SizedBox(width: CauceSpacing.space1),
-          Expanded(
-            child: Text(
-              title.toUpperCase(),
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: CauceColors.textTertiary,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.6,
-                  ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Contenedor de seccion del mockup 11 (`.detail-section`).
-class _SectionCard extends StatelessWidget {
-  const _SectionCard({required this.child, super.key});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: CauceSpacing.space4,
-        vertical: CauceSpacing.space3,
-      ),
-      decoration: BoxDecoration(
-        color: CauceColors.bgCard,
-        borderRadius: CauceRadii.borderMd,
-        border: Border.all(
-          color: CauceColors.bgDivider,
-          width: CauceBorders.subtle,
-        ),
-      ),
-      child: child,
-    );
-  }
-}
-
-/// Atribucion FODMAP fija al pie de la explicacion (decision 6).
-///
-/// Texto literal del mockup 11, no generado. Se muestra siempre que la
-/// explicacion no sea manual: el contrato no dice si el texto del LLM nombra
-/// una clasificacion FODMAP, y una recomendacion del motor siempre sale de
-/// ella.
-class _Attribution extends StatelessWidget {
-  const _Attribution();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: CauceSpacing.space3),
-      padding: const EdgeInsets.only(top: CauceSpacing.space2),
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: CauceColors.bgDivider,
-            width: CauceBorders.subtle,
-          ),
-        ),
-      ),
-      child: Text(
-        AppLocalizations.of(context).recommendationAttribution,
-        key: const Key('recommendation_attribution'),
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: CauceColors.textTertiary,
-            ),
-      ),
-    );
-  }
-}
-
 /// Items agrupados por accion (HU0014 CA1): lo que se incorpora, lo que se
 /// reduce o evita, y los sustitutos con su justificacion.
 class _ItemsCard extends StatelessWidget {
@@ -409,7 +312,7 @@ class _ItemsCard extends StatelessWidget {
           (action, items.where((item) => item.action == action).toList()),
     ];
 
-    return _SectionCard(
+    return RecommendationSectionCard(
       key: const Key('recommendation_items'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -570,7 +473,7 @@ class _StepsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return _SectionCard(
+    return RecommendationSectionCard(
       key: const Key('recommendation_steps'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -645,7 +548,7 @@ class _SupportingDataCard extends StatelessWidget {
       );
     }
 
-    return _SectionCard(
+    return RecommendationSectionCard(
       key: const Key('recommendation_supporting_data'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

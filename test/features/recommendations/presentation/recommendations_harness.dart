@@ -1,4 +1,5 @@
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
+import 'package:cauce_mobile/core/glossary/glossary_repository.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
+import '../../../helpers/fake_glossary_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_recommendations_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
@@ -55,6 +57,7 @@ Future<ProviderContainer> pumpRecommendations(
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
       recommendationsRepositoryProvider.overrideWithValue(repository),
+      glossaryRepositoryProvider.overrideWithValue(FakeGlossaryRepository()),
       recommendationRequestStoreProvider.overrideWithValue(
         store ?? InMemoryRecommendationRequestStore(),
       ),

@@ -10,7 +10,7 @@ import 'package:cauce_mobile/core/network/dio_provider.dart';
 import 'package:cauce_mobile/core/sync/connectivity_monitor.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
-import 'package:cauce_mobile/features/glossary/data/glossary_repository.dart';
+import 'package:cauce_mobile/core/glossary/glossary_repository.dart';
 import 'package:cauce_mobile/features/history/application/history_composer.dart';
 import 'package:cauce_mobile/features/history/presentation/widgets/history_cards.dart';
 import 'package:cauce_mobile/features/ibs_sss/data/ibs_sss_repository.dart';

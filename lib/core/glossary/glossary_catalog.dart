@@ -1,6 +1,6 @@
 import 'package:cauce_api_client/cauce_api_client.dart' as api;
 
-import '../../../core/utils/text_normalizer.dart';
+import '../utils/text_normalizer.dart';
 
 /// Categoria de un termino del glosario (HU0027 CA1, CP068 paso 6).
 ///
@@ -47,6 +47,19 @@ class GlossaryEntry {
 
   final String normalizedTerm;
   final String normalizedDefinition;
+}
+
+/// Un termino del glosario encontrado en un texto, con su rango.
+class GlossaryTermMatch {
+  const GlossaryTermMatch({
+    required this.entry,
+    required this.start,
+    required this.end,
+  });
+
+  final GlossaryEntry entry;
+  final int start;
+  final int end;
 }
 
 /// Glosario completo, con su busqueda local (HU0027).
@@ -127,6 +140,43 @@ class GlossaryCatalog {
       ..sort((a, b) => a.normalizedTerm.compareTo(b.normalizedTerm));
 
     return matches.take(maxSuggestions).toList();
+  }
+
+  /// Primera aparicion de cada termino dentro de [text], como palabra entera
+  /// y sin distinguir mayusculas, ordenadas por posicion.
+  ///
+  /// Si dos se superponen gana el nombre mas largo. Sirve para marcar los
+  /// terminos en el texto de una recomendacion, que llega sin marcas.
+  List<GlossaryTermMatch> termsIn(String text) {
+    final byLength = <GlossaryEntry>[...terms]
+      ..sort((a, b) => b.term.length.compareTo(a.term.length));
+    final matches = <GlossaryTermMatch>[];
+
+    for (final entry in byLength) {
+      final pattern = RegExp(
+        '(?<![\\p{L}\\p{N}])${RegExp.escape(entry.term.trim())}'
+        '(?![\\p{L}\\p{N}])',
+        caseSensitive: false,
+        unicode: true,
+      );
+      for (final found in pattern.allMatches(text)) {
+        final overlaps = matches.any(
+          (taken) => found.start < taken.end && taken.start < found.end,
+        );
+        if (!overlaps) {
+          matches.add(
+            GlossaryTermMatch(
+              entry: entry,
+              start: found.start,
+              end: found.end,
+            ),
+          );
+          break;
+        }
+      }
+    }
+
+    return matches..sort((a, b) => a.start.compareTo(b.start));
   }
 
   static int _commonPrefixLength(String a, String b) {

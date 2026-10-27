@@ -1,7 +1,7 @@
-import 'package:cauce_mobile/features/glossary/domain/glossary_catalog.dart';
+import 'package:cauce_mobile/core/glossary/glossary_catalog.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../helpers/fake_glossary_repository.dart';
+import '../../helpers/fake_glossary_repository.dart';
 
 List<String> _names(List<GlossaryEntry> entries) =>
     entries.map((entry) => entry.term).toList();
@@ -93,6 +93,49 @@ void main() {
           'Fase de mantenimiento',
         ],
       );
+    });
+  });
+
+  group('GlossaryCatalog · terminos dentro de un texto (CP068 paso 7)', () {
+    const text = 'Algunos alimentos tienen un contenido alto de FODMAP y '
+        'podrian relacionarse con tus sintomas. Las clasificaciones FODMAP '
+        'de esos alimentos y la lactosa importan.';
+
+    test('marca la primera aparicion de cada termino, en orden', () {
+      final matches = demoGlossary.termsIn(text);
+
+      expect(matches.map((m) => m.entry.term), <String>['FODMAP', 'Lactosa']);
+      final first = matches.first;
+      expect(text.substring(first.start, first.end), 'FODMAP');
+      expect(first.start, text.indexOf('FODMAP'));
+      expect(text.substring(matches.last.start, matches.last.end), 'lactosa');
+    });
+
+    test('solo palabras completas: SII no se marca dentro de otra', () {
+      expect(demoGlossary.termsIn('ASIIGNADO y SIIX'), isEmpty);
+      expect(
+        demoGlossary.termsIn('Tienes SII.').single.entry.term,
+        'SII',
+      );
+    });
+
+    test('prefiere el termino mas largo cuando se superponen', () {
+      final catalog = GlossaryCatalog(
+        isDraft: false,
+        terms: <GlossaryEntry>[
+          GlossaryEntry(term: 'Distensión', definition: 'a'),
+          GlossaryEntry(term: 'Distensión abdominal', definition: 'b'),
+        ],
+      );
+
+      final matches = catalog.termsIn('Hubo distensión abdominal hoy.');
+
+      expect(matches.single.entry.term, 'Distensión abdominal');
+    });
+
+    test('sin terminos en el texto no marca nada', () {
+      expect(demoGlossary.termsIn('Toma agua tibia.'), isEmpty);
+      expect(demoGlossary.termsIn(''), isEmpty);
     });
   });
 }

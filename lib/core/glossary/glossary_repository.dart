@@ -2,9 +2,9 @@ import 'package:cauce_api_client/cauce_api_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../core/network/api_guard.dart';
-import '../../../core/network/dio_provider.dart';
-import '../domain/glossary_catalog.dart';
+import '../network/api_guard.dart';
+import '../network/dio_provider.dart';
+import 'glossary_catalog.dart';
 
 part 'glossary_repository.g.dart';
 
