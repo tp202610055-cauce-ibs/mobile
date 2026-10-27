@@ -244,4 +244,54 @@ void main() {
       expect(series.nextAssessmentDate, DateTime.utc(2026, 8, 24));
     });
   });
+
+  group('IbsSssEvolutionSeries.between · rango elegido (CP060)', () {
+    final today = DateTime(2026, 10, 27, 10);
+    final series = IbsSssEvolutionSeries.from(<IbsSssEvolutionPoint>[
+      _point(
+        totalScore: 320,
+        cycleNumber: 0,
+        completedAt: today.subtract(const Duration(days: 42)),
+        type: IbsSssAssessmentType.baseline,
+      ),
+      _point(
+        totalScore: 280,
+        cycleNumber: 1,
+        completedAt: today.subtract(const Duration(days: 28)),
+      ),
+      _point(
+        totalScore: 260,
+        cycleNumber: 2,
+        completedAt: today.subtract(const Duration(days: 14)),
+      ),
+      _point(totalScore: 245, cycleNumber: 3, completedAt: today),
+    ]);
+
+    test('los últimos 20 días dejan solo 260 y 245', () {
+      final visible = series.between(
+        today.subtract(const Duration(days: 20)),
+        today,
+      );
+
+      expect(visible.map((p) => p.totalScore), <int>[260, 245]);
+    });
+
+    test('los últimos 60 días vuelven a mostrar los cuatro', () {
+      final visible = series.between(
+        today.subtract(const Duration(days: 60)),
+        today,
+      );
+
+      expect(visible.map((p) => p.totalScore), <int>[320, 280, 260, 245]);
+    });
+
+    test('incluye el día final completo', () {
+      final visible = series.between(
+        today.subtract(const Duration(days: 1)),
+        DateTime(2026, 10, 27),
+      );
+
+      expect(visible.map((p) => p.totalScore), <int>[245]);
+    });
+  });
 }

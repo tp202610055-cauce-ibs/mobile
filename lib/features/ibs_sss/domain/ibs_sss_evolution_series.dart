@@ -132,4 +132,17 @@ class IbsSssEvolutionSeries {
       return completedAt != null && !completedAt.isBefore(from);
     }).toList();
   }
+
+  /// Los puntos completados entre los días de [from] y [to], ambos incluidos,
+  /// en la hora local del dispositivo.
+  List<IbsSssEvolutionPoint> between(DateTime from, DateTime to) {
+    final start = DateTime(from.year, from.month, from.day);
+    final end = DateTime(to.year, to.month, to.day + 1);
+    return points.where((point) {
+      final completedAt = point.completedAt?.toLocal();
+      return completedAt != null &&
+          !completedAt.isBefore(start) &&
+          completedAt.isBefore(end);
+    }).toList();
+  }
 }
