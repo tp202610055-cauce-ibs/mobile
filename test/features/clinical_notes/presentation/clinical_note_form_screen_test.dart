@@ -1,12 +1,16 @@
 import 'package:cauce_mobile/core/theme/app_theme.dart';
+import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/clinical_notes/presentation/clinical_note_form_screen.dart';
 import 'package:cauce_mobile/features/history/domain/history_entry.dart';
 import 'package:cauce_mobile/features/meals/domain/meal_draft.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
+import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+final AppLocalizations l10n = AppLocalizationsEs();
 
 Future<void> _pump(WidgetTester tester) {
   return tester.pumpWidget(
@@ -70,6 +74,51 @@ void main() {
       );
       await tester.pump();
 
+      expect(_counter(tester), '501/500');
+      expect(
+        tester.widget<EditableText>(find.byType(EditableText)).controller.text,
+        texto,
+      );
+    });
+  });
+
+  group('ClinicalNoteFormScreen · pulsar guardar sin poder (CP035)', () {
+    Finder submit() => find.byKey(const Key('clinical_note_submit'));
+
+    testWidgets('el boton queda habilitado aunque la nota este vacia',
+        (tester) async {
+      await _pump(tester);
+
+      expect(tester.widget<CauceButton>(submit()).onPressed, isNotNull);
+    });
+
+    testWidgets('vacia: no guarda, avisa y el contador sigue en 0/500',
+        (tester) async {
+      await _pump(tester);
+
+      await tester.tap(submit());
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('clinical_note_saved')), findsNothing);
+      expect(find.text(l10n.clinicalNoteEmpty), findsOneWidget);
+      expect(_counter(tester), '0/500');
+    });
+
+    testWidgets('501 caracteres: no guarda y conserva el texto completo',
+        (tester) async {
+      await _pump(tester);
+      final texto = '${'0123456789' * 50}a';
+      await tester.enterText(
+        find.byKey(const Key('clinical_note_content')),
+        texto,
+      );
+      await tester.pump();
+
+      await tester.tap(submit());
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('clinical_note_saved')), findsNothing);
+      expect(find.text(l10n.clinicalNoteTooLong), findsOneWidget);
       expect(_counter(tester), '501/500');
       expect(
         tester.widget<EditableText>(find.byType(EditableText)).controller.text,
