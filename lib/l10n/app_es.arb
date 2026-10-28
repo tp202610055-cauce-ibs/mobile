@@ -1813,11 +1813,24 @@
   },
   "recommendationFeedbackTooLong": "El comentario supera los 500 caracteres.",
   "recommendationFeedbackSubmit": "Enviar mi respuesta",
-  "recommendationFeedbackNetworkError": "No pudimos enviar tu respuesta",
-  "@recommendationFeedbackNetworkError": {
-      "description": "Decision 8: el feedback es solo online. Sin conexion se avisa con un toast de error y reintento, sin cola local"
+  "recommendationFeedbackQueued": "Tu respuesta quedó registrada",
+  "@recommendationFeedbackQueued": {
+      "description": "Toast al guardar la respuesta en el telefono sin conexion (CP044)"
   },
-  "recommendationFeedbackNetworkErrorBody": "Revisa tu conexión e inténtalo otra vez.",
+  "recommendationFeedbackQueuedBody": "Se enviará cuando vuelva la conexión.",
+  "@recommendationFeedbackQueuedBody": {
+      "description": "Cuerpo del toast y linea bajo la marca de pendiente en el detalle (CP044)"
+  },
+  "recommendationFeedbackPendingBadge": "Pendiente de envío",
+  "@recommendationFeedbackPendingBadge": {
+      "description": "Marca de una respuesta guardada sin conexion, en el detalle y en la tarjeta (CP044)"
+  },
+  "recommendationFeedbackRejectedTitle": "No pudimos enviar tu respuesta",
+  "@recommendationFeedbackRejectedTitle": {
+      "description": "Respuesta guardada que el servidor rechazo por un motivo que no mejora reintentando"
+  },
+  "recommendationFeedbackRejectedBody": "No se aceptó tal como estaba. Puedes responder de nuevo.",
+  "recommendationFeedbackAnswerAgain": "Responder de nuevo",
   "recommendationFeedbackSent": "Gracias por contarnos cómo te fue",
   "recommendationFeedbackSummaryTitle": "Ya nos contaste cómo te fue",
   "recommendationFeedbackSummaryApplied": "Aplicaste la recomendación",

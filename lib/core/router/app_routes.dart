@@ -107,7 +107,17 @@ abstract final class AppRoutes {
   /// raiz: es una vista de consulta y conservar la barra deja al paciente
   /// saltar a otra pestana y volver donde estaba. Se llega tocando una
   /// tarjeta, en Consejos o en Inicio.
-  static String recommendationDetailPath(String id) => '$recommendations/$id';
+  static String recommendationDetailPath(
+    String id, {
+    bool focusFeedback = false,
+  }) =>
+      focusFeedback
+          ? '$recommendations/$id?$focusQueryParam=$feedbackFocus'
+          : '$recommendations/$id';
+
+  /// Parametro del detalle que lo abre desplazado hasta la respuesta.
+  static const String focusQueryParam = 'focus';
+  static const String feedbackFocus = 'feedback';
 
   /// Nombre del parametro de consulta que trae el token de recuperacion.
   static const String tokenQueryParam = 'token';

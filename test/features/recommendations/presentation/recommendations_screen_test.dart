@@ -1,4 +1,7 @@
+import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/features/recommendations/data/recommendation_feedback_outbox_store.dart';
+import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_feedback.dart';
 import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_request.dart';
 import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendation_detail_screen.dart';
@@ -357,6 +360,69 @@ void main() {
       expect(invite('rec-a'), findsNothing);
       expect(invite('rec-b'), findsNothing);
       expect(invite('rec-c'), findsOneWidget);
+    });
+
+    testWidgets('con la respuesta pendiente de envio no invita (CP044)',
+        (tester) async {
+      final database = AppDatabase.memory();
+      addTearDown(database.close);
+      await RecommendationFeedbackOutboxStore(database).save(
+        PendingRecommendationFeedback(
+          recommendationId: 'rec-a',
+          idempotencyKey: 'clave-a',
+          wasApplied: true,
+          outcome: FeedbackOutcomeOption.noChange,
+          createdAt: recommendationsNow,
+        ),
+        userId: demoUser.userId,
+      );
+      final repository = FakeRecommendationsRepository(
+        details: [
+          received('rec-a', const Duration(hours: 30)),
+          received('rec-c', const Duration(days: 3)),
+        ],
+      );
+      await pumpRecommendations(
+        tester,
+        repository: repository,
+        database: database,
+      );
+
+      expect(invite('rec-a'), findsNothing);
+      expect(
+        find.byKey(const Key('recommendation_feedback_pending_rec-a')),
+        findsOneWidget,
+      );
+      expect(invite('rec-c'), findsOneWidget);
+      expect(
+        find.byKey(const Key('recommendation_feedback_pending_rec-c')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('una respuesta pendiente de otra cuenta no cambia la tarjeta',
+        (tester) async {
+      final database = AppDatabase.memory();
+      addTearDown(database.close);
+      await RecommendationFeedbackOutboxStore(database).save(
+        PendingRecommendationFeedback(
+          recommendationId: 'rec-a',
+          idempotencyKey: 'clave-a',
+          wasApplied: true,
+          outcome: FeedbackOutcomeOption.noChange,
+          createdAt: recommendationsNow,
+        ),
+        userId: 'e1f2a3b4-0000-0000-0000-000000000000',
+      );
+      await pumpRecommendations(
+        tester,
+        repository: FakeRecommendationsRepository(
+          details: [received('rec-a', const Duration(hours: 30))],
+        ),
+        database: database,
+      );
+
+      expect(invite('rec-a'), findsOneWidget);
     });
   });
 }

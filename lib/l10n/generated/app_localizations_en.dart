@@ -2105,12 +2105,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recommendationFeedbackSubmit => 'Send my answer';
 
   @override
-  String get recommendationFeedbackNetworkError =>
+  String get recommendationFeedbackQueued => 'Your answer was saved';
+
+  @override
+  String get recommendationFeedbackQueuedBody =>
+      'It will be sent when you are back online.';
+
+  @override
+  String get recommendationFeedbackPendingBadge => 'Waiting to send';
+
+  @override
+  String get recommendationFeedbackRejectedTitle =>
       'We could not send your answer';
 
   @override
-  String get recommendationFeedbackNetworkErrorBody =>
-      'Check your connection and try again.';
+  String get recommendationFeedbackRejectedBody =>
+      'It was not accepted as it was. You can answer again.';
+
+  @override
+  String get recommendationFeedbackAnswerAgain => 'Answer again';
 
   @override
   String get recommendationFeedbackSent => 'Thanks for telling us how it went';

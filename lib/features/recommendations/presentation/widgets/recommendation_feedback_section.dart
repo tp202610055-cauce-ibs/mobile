@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
-import '../../../../core/errors/cauce_api_error.dart';
 import '../../../../core/theme/design_tokens.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../application/recommendation_feedback_notifier.dart';
 import '../../application/recommendations_feed_notifier.dart';
 import '../../domain/recommendation.dart';
+import 'recommendation_feedback_summary.dart';
 
 /// Retroalimentacion del paciente sobre una recomendacion (HU0016 CA1,
 /// CP043).
@@ -18,8 +18,10 @@ import '../../domain/recommendation.dart';
 /// que el mockup 10 justifica: marcarla sin haber leido seria una
 /// microaccion sin contexto.
 ///
-/// Cuatro estados, segun el detalle:
+/// Estados, segun el detalle y la respuesta guardada en el telefono:
 /// - **ya respondida**: el resumen de lo que conto;
+/// - **guardada sin conexion**: el mismo resumen, pendiente de envio, o
+///   rechazado con la opcion de responder de nuevo (HU0016 CA2, CP044);
 /// - **entregada, con 24 horas desde que la recibio**: el formulario;
 /// - **entregada, antes de las 24 horas**: cuando podra responder (CP043);
 /// - **cualquier otro**: nada. El backend solo acepta feedback desde
@@ -33,7 +35,26 @@ class RecommendationFeedbackSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final feedback = detail.feedback;
     if (feedback != null) {
-      return _FeedbackSummary(feedback: feedback);
+      return RecommendationFeedbackSummary(
+        wasApplied: feedback.wasApplied,
+        outcome: feedback.outcome,
+        comment: feedback.comment,
+      );
+    }
+    final local =
+        ref.watch(pendingRecommendationFeedbackProvider(detail.id)).valueOrNull;
+    if (local != null) {
+      return RecommendationFeedbackSummary(
+        wasApplied: local.wasApplied,
+        outcome: local.outcome,
+        comment: local.comment,
+        state: local.rejected
+            ? FeedbackSummaryState.rejected
+            : FeedbackSummaryState.pending,
+        onAnswerAgain: () => ref
+            .read(recommendationFeedbackFormProvider(detail.id).notifier)
+            .answerAgain(),
+      );
     }
     if (!detail.status.acceptsFeedback) {
       return const SizedBox.shrink();
@@ -108,24 +129,21 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
     if (!mounted) {
       return;
     }
-    if (ok) {
-      CauceToast.success(context, title: l10n.recommendationFeedbackSent);
+    if (!ok) {
       return;
     }
-    final error = ref
+    final queued = ref
         .read(recommendationFeedbackFormProvider(widget.recommendationId))
-        .error;
-    // Decision 8: solo en linea. Sin conexion no se encola: se avisa y se
-    // ofrece reintentar con la misma clave y lo mismo escrito.
-    if (error is NetworkError) {
-      CauceToast.error(
+        .queued;
+    if (queued) {
+      CauceToast.success(
         context,
-        title: l10n.recommendationFeedbackNetworkError,
-        message: l10n.recommendationFeedbackNetworkErrorBody,
-        actionLabel: l10n.commonRetry,
-        onAction: _submit,
+        title: l10n.recommendationFeedbackQueued,
+        message: l10n.recommendationFeedbackQueuedBody,
       );
+      return;
     }
+    CauceToast.success(context, title: l10n.recommendationFeedbackSent);
   }
 
   @override
@@ -158,7 +176,7 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
           Text(l10n.recommendationFeedbackTitle, style: textTheme.titleMedium),
           const SizedBox(height: CauceSpacing.space1),
           Text(l10n.recommendationFeedbackIntro, style: textTheme.bodyMedium),
-          if (error != null && error is! NetworkError) ...<Widget>[
+          if (error != null) ...<Widget>[
             const SizedBox(height: CauceSpacing.space4),
             CauceErrorBanner(
               key: const Key('recommendation_feedback_error'),
@@ -237,79 +255,6 @@ class _FeedbackFormState extends ConsumerState<_FeedbackForm> {
             loading: state.submitting,
             onPressed: state.canSubmit ? _submit : null,
           ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Lo que el paciente ya conto. El backend no admite una segunda respuesta.
-class _FeedbackSummary extends StatelessWidget {
-  const _FeedbackSummary({required this.feedback});
-
-  final RecommendationFeedback feedback;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final comment = feedback.comment;
-
-    return Container(
-      key: const Key('recommendation_feedback_summary'),
-      margin: const EdgeInsets.only(top: CauceSpacing.space6),
-      padding: const EdgeInsets.all(CauceSpacing.space4),
-      decoration: const BoxDecoration(
-        color: CauceColors.bgSubtle,
-        borderRadius: CauceRadii.borderLg,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              const Icon(
-                TablerIcons.message_circle,
-                size: 18,
-                color: CauceColors.brandBase,
-              ),
-              const SizedBox(width: CauceSpacing.space2),
-              Expanded(
-                child: Text(
-                  l10n.recommendationFeedbackSummaryTitle,
-                  style: textTheme.titleMedium,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: CauceSpacing.space2),
-          Text(
-            feedback.wasApplied
-                ? l10n.recommendationFeedbackSummaryApplied
-                : l10n.recommendationFeedbackSummaryNotApplied,
-            style: textTheme.bodyMedium,
-          ),
-          Text(
-            switch (feedback.outcome) {
-              FeedbackOutcomeOption.improvement =>
-                l10n.recommendationFeedbackSummaryImprovement,
-              FeedbackOutcomeOption.noChange =>
-                l10n.recommendationFeedbackSummaryNoChange,
-              FeedbackOutcomeOption.worsening =>
-                l10n.recommendationFeedbackSummaryWorsening,
-            },
-            style: textTheme.bodyMedium,
-          ),
-          if (comment != null) ...<Widget>[
-            const SizedBox(height: CauceSpacing.space2),
-            Text(
-              comment,
-              style: textTheme.bodyMedium?.copyWith(
-                fontStyle: FontStyle.italic,
-                color: CauceColors.textSecondary,
-              ),
-            ),
-          ],
         ],
       ),
     );

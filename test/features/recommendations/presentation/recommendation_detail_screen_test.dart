@@ -1,10 +1,15 @@
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
+import 'package:cauce_mobile/features/recommendations/data/recommendation_feedback_outbox_store.dart';
+import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_feedback.dart';
 import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_recommendations_repository.dart';
+import '../../../helpers/sync_fixtures.dart';
 import 'recommendations_harness.dart';
 
 Future<void> _openDetail(
@@ -558,14 +563,21 @@ void main() {
       );
     });
 
-    testWidgets('sin red: toast de error con reintento, sin cola (decision 8)',
+    testWidgets('sin red: queda registrada y pendiente de envio (CP044)',
         (tester) async {
       final repository = FakeRecommendationsRepository(
         details: [
           approvedDetail.copyWith(status: RecommendationStatusOption.delivered),
         ],
-      )..feedbackError = const CauceApiError.network();
-      await _openDetail(tester, repository, approvedDetail.id);
+      );
+      final connectivity = FakeConnectivityMonitor(online: false);
+      addTearDown(connectivity.dispose);
+      await pumpRecommendations(
+        tester,
+        repository: repository,
+        initialLocation: AppRoutes.recommendationDetailPath(approvedDetail.id),
+        connectivity: connectivity,
+      );
       await _scrollTo(
         tester,
         find.byKey(const Key('recommendation_feedback_submit')),
@@ -573,7 +585,7 @@ void main() {
 
       await _tapVisible(
         tester,
-        find.text(l10n.recommendationFeedbackAppliedNo),
+        find.text(l10n.recommendationFeedbackAppliedYes),
       );
       await _tapVisible(
         tester,
@@ -584,18 +596,118 @@ void main() {
         find.byKey(const Key('recommendation_feedback_submit')),
       );
 
+      expect(repository.feedbackKeys, isEmpty);
+      expect(find.text(l10n.recommendationFeedbackQueued), findsOneWidget);
       expect(
-        find.text(l10n.recommendationFeedbackNetworkError),
+        find.byKey(const Key('recommendation_feedback_form')),
+        findsNothing,
+      );
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_pending')),
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('recommendation_feedback_summary')),
+          matching: find.text(l10n.recommendationFeedbackQueuedBody),
+        ),
         findsOneWidget,
       );
+      expect(
+        find.text(l10n.recommendationFeedbackSummaryNoChange),
+        findsOneWidget,
+      );
+    });
 
-      repository.feedbackError = null;
-      await tester.tap(find.text(l10n.commonRetry));
-      await tester.pumpAndSettle();
+    testWidgets('con una respuesta guardada muestra su resumen pendiente',
+        (tester) async {
+      final delivered =
+          approvedDetail.copyWith(status: RecommendationStatusOption.delivered);
+      final database = AppDatabase.memory();
+      addTearDown(database.close);
+      await RecommendationFeedbackOutboxStore(database).save(
+        PendingRecommendationFeedback(
+          recommendationId: delivered.id,
+          idempotencyKey: 'clave-1',
+          wasApplied: false,
+          outcome: FeedbackOutcomeOption.worsening,
+          comment: 'Más hinchazón',
+          createdAt: recommendationsNow,
+        ),
+        userId: demoUser.userId,
+      );
+      await pumpRecommendations(
+        tester,
+        repository: FakeRecommendationsRepository(details: [delivered]),
+        initialLocation: AppRoutes.recommendationDetailPath(delivered.id),
+        database: database,
+      );
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_pending')),
+      );
 
-      expect(repository.feedbackKeys, hasLength(2));
-      expect(repository.feedbackKeys.last, repository.feedbackKeys.first);
-      expect(find.text(l10n.recommendationFeedbackSent), findsOneWidget);
+      expect(find.text('Más hinchazón'), findsOneWidget);
+      expect(
+        find.text(l10n.recommendationFeedbackSummaryNotApplied),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const Key('recommendation_feedback_form')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('rechazada: avisa y permite responder de nuevo',
+        (tester) async {
+      final delivered =
+          approvedDetail.copyWith(status: RecommendationStatusOption.delivered);
+      final database = AppDatabase.memory();
+      addTearDown(database.close);
+      final outbox = RecommendationFeedbackOutboxStore(database);
+      await outbox.save(
+        PendingRecommendationFeedback(
+          recommendationId: delivered.id,
+          idempotencyKey: 'clave-1',
+          wasApplied: true,
+          outcome: FeedbackOutcomeOption.improvement,
+          createdAt: recommendationsNow,
+        ),
+        userId: demoUser.userId,
+      );
+      await outbox.markRejected(
+        delivered.id,
+        userId: demoUser.userId,
+        errorCode: 'validation_error',
+      );
+      await pumpRecommendations(
+        tester,
+        repository: FakeRecommendationsRepository(details: [delivered]),
+        initialLocation: AppRoutes.recommendationDetailPath(delivered.id),
+        database: database,
+      );
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_answer_again')),
+      );
+
+      expect(
+        find.text(l10n.recommendationFeedbackRejectedTitle),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const Key('recommendation_feedback_pending')),
+        findsNothing,
+      );
+      await _tapVisible(
+        tester,
+        find.byKey(const Key('recommendation_feedback_answer_again')),
+      );
+
+      expect(
+        find.byKey(const Key('recommendation_feedback_form')),
+        findsOneWidget,
+      );
     });
 
     testWidgets('con respuesta previa muestra el resumen y no el formulario',

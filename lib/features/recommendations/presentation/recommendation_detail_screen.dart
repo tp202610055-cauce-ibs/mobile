@@ -20,6 +20,7 @@ import 'widgets/recommendation_detail_sections.dart';
 import 'widgets/recommendation_explanation_card.dart';
 import 'widgets/recommendation_feedback_section.dart';
 import 'widgets/recommendation_origin_pill.dart';
+import 'widgets/reveal_on_open.dart';
 
 /// Detalle de una recomendacion (mockup 11 v2, HU0014 CA1, HU0015, HU0016).
 ///
@@ -36,9 +37,16 @@ import 'widgets/recommendation_origin_pill.dart';
 /// [RecommendationDelivery], una sola vez. Es la unica via que entrega; la
 /// tarjeta de la lista lee el mismo detalle sin entregarlo.
 class RecommendationDetailScreen extends ConsumerStatefulWidget {
-  const RecommendationDetailScreen({required this.recommendationId, super.key});
+  const RecommendationDetailScreen({
+    required this.recommendationId,
+    this.focusFeedback = false,
+    super.key,
+  });
 
   final String recommendationId;
+
+  /// Abierta desde la invitacion: se desplaza hasta la respuesta.
+  final bool focusFeedback;
 
   @override
   ConsumerState<RecommendationDetailScreen> createState() =>
@@ -90,16 +98,20 @@ class _RecommendationDetailScreenState
               onRetry: () => ref.invalidate(recommendationDetailProvider(id)),
             ),
         },
-        data: (value) => _DetailBody(detail: value),
+        data: (value) => _DetailBody(
+          detail: value,
+          focusFeedback: widget.focusFeedback,
+        ),
       ),
     );
   }
 }
 
 class _DetailBody extends StatelessWidget {
-  const _DetailBody({required this.detail});
+  const _DetailBody({required this.detail, required this.focusFeedback});
 
   final RecommendationDetail detail;
+  final bool focusFeedback;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +188,10 @@ class _DetailBody extends StatelessWidget {
           ),
           _SupportingDataCard(data: data),
         ],
-        RecommendationFeedbackSection(detail: detail),
+        RevealOnOpen(
+          enabled: focusFeedback,
+          child: RecommendationFeedbackSection(detail: detail),
+        ),
         const _InfoBanner(),
       ],
     );

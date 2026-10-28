@@ -98,6 +98,9 @@ GoRouter appRouter(Ref ref) {
                     builder: (_, GoRouterState state) =>
                         RecommendationDetailScreen(
                       recommendationId: state.pathParameters['id']!,
+                      focusFeedback: state
+                              .uri.queryParameters[AppRoutes.focusQueryParam] ==
+                          AppRoutes.feedbackFocus,
                     ),
                   ),
                 ],

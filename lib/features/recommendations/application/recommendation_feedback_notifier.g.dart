@@ -6,8 +6,8 @@ part of 'recommendation_feedback_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$recommendationFeedbackFormHash() =>
-    r'36b645982ae439c50f94d2ef3358f6e30860d802';
+String _$pendingRecommendationFeedbackHash() =>
+    r'fc6f250871abccebd035fe5f671c2bf980dbad51';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,6 +30,163 @@ class _SystemHash {
   }
 }
 
+/// Respuesta guardada en el telefono para una recomendacion, de la cuenta de
+/// la sesion. `null` si no hay.
+///
+/// Copied from [pendingRecommendationFeedback].
+@ProviderFor(pendingRecommendationFeedback)
+const pendingRecommendationFeedbackProvider =
+    PendingRecommendationFeedbackFamily();
+
+/// Respuesta guardada en el telefono para una recomendacion, de la cuenta de
+/// la sesion. `null` si no hay.
+///
+/// Copied from [pendingRecommendationFeedback].
+class PendingRecommendationFeedbackFamily
+    extends Family<AsyncValue<PendingRecommendationFeedback?>> {
+  /// Respuesta guardada en el telefono para una recomendacion, de la cuenta de
+  /// la sesion. `null` si no hay.
+  ///
+  /// Copied from [pendingRecommendationFeedback].
+  const PendingRecommendationFeedbackFamily();
+
+  /// Respuesta guardada en el telefono para una recomendacion, de la cuenta de
+  /// la sesion. `null` si no hay.
+  ///
+  /// Copied from [pendingRecommendationFeedback].
+  PendingRecommendationFeedbackProvider call(
+    String id,
+  ) {
+    return PendingRecommendationFeedbackProvider(
+      id,
+    );
+  }
+
+  @override
+  PendingRecommendationFeedbackProvider getProviderOverride(
+    covariant PendingRecommendationFeedbackProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'pendingRecommendationFeedbackProvider';
+}
+
+/// Respuesta guardada en el telefono para una recomendacion, de la cuenta de
+/// la sesion. `null` si no hay.
+///
+/// Copied from [pendingRecommendationFeedback].
+class PendingRecommendationFeedbackProvider
+    extends AutoDisposeStreamProvider<PendingRecommendationFeedback?> {
+  /// Respuesta guardada en el telefono para una recomendacion, de la cuenta de
+  /// la sesion. `null` si no hay.
+  ///
+  /// Copied from [pendingRecommendationFeedback].
+  PendingRecommendationFeedbackProvider(
+    String id,
+  ) : this._internal(
+          (ref) => pendingRecommendationFeedback(
+            ref as PendingRecommendationFeedbackRef,
+            id,
+          ),
+          from: pendingRecommendationFeedbackProvider,
+          name: r'pendingRecommendationFeedbackProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$pendingRecommendationFeedbackHash,
+          dependencies: PendingRecommendationFeedbackFamily._dependencies,
+          allTransitiveDependencies:
+              PendingRecommendationFeedbackFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  PendingRecommendationFeedbackProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final String id;
+
+  @override
+  Override overrideWith(
+    Stream<PendingRecommendationFeedback?> Function(
+            PendingRecommendationFeedbackRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: PendingRecommendationFeedbackProvider._internal(
+        (ref) => create(ref as PendingRecommendationFeedbackRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<PendingRecommendationFeedback?>
+      createElement() {
+    return _PendingRecommendationFeedbackProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is PendingRecommendationFeedbackProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin PendingRecommendationFeedbackRef
+    on AutoDisposeStreamProviderRef<PendingRecommendationFeedback?> {
+  /// The parameter `id` of this provider.
+  String get id;
+}
+
+class _PendingRecommendationFeedbackProviderElement
+    extends AutoDisposeStreamProviderElement<PendingRecommendationFeedback?>
+    with PendingRecommendationFeedbackRef {
+  _PendingRecommendationFeedbackProviderElement(super.provider);
+
+  @override
+  String get id => (origin as PendingRecommendationFeedbackProvider).id;
+}
+
+String _$recommendationFeedbackFormHash() =>
+    r'c9e83fe3fc1a8002c72353fc9ddb2215a95daed7';
+
 abstract class _$RecommendationFeedbackForm
     extends BuildlessAutoDisposeNotifier<RecommendationFeedbackFormState> {
   late final String id;
@@ -41,10 +198,8 @@ abstract class _$RecommendationFeedbackForm
 
 /// Gobierna la respuesta del paciente sobre una recomendacion entregada.
 ///
-/// **Solo en linea** (decision 8). Sin conexion el envio falla con
-/// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-/// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
-/// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
+/// Sin red la respuesta se guarda en el telefono con su clave y la envia
+/// `RecommendationFeedbackSender` al volver la conexion (HU0016 CA2).
 ///
 /// Copied from [RecommendationFeedbackForm].
 @ProviderFor(RecommendationFeedbackForm)
@@ -52,30 +207,24 @@ const recommendationFeedbackFormProvider = RecommendationFeedbackFormFamily();
 
 /// Gobierna la respuesta del paciente sobre una recomendacion entregada.
 ///
-/// **Solo en linea** (decision 8). Sin conexion el envio falla con
-/// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-/// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
-/// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
+/// Sin red la respuesta se guarda en el telefono con su clave y la envia
+/// `RecommendationFeedbackSender` al volver la conexion (HU0016 CA2).
 ///
 /// Copied from [RecommendationFeedbackForm].
 class RecommendationFeedbackFormFamily
     extends Family<RecommendationFeedbackFormState> {
   /// Gobierna la respuesta del paciente sobre una recomendacion entregada.
   ///
-  /// **Solo en linea** (decision 8). Sin conexion el envio falla con
-  /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-  /// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
-  /// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
+  /// Sin red la respuesta se guarda en el telefono con su clave y la envia
+  /// `RecommendationFeedbackSender` al volver la conexion (HU0016 CA2).
   ///
   /// Copied from [RecommendationFeedbackForm].
   const RecommendationFeedbackFormFamily();
 
   /// Gobierna la respuesta del paciente sobre una recomendacion entregada.
   ///
-  /// **Solo en linea** (decision 8). Sin conexion el envio falla con
-  /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-  /// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
-  /// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
+  /// Sin red la respuesta se guarda en el telefono con su clave y la envia
+  /// `RecommendationFeedbackSender` al volver la conexion (HU0016 CA2).
   ///
   /// Copied from [RecommendationFeedbackForm].
   RecommendationFeedbackFormProvider call(
@@ -112,10 +261,8 @@ class RecommendationFeedbackFormFamily
 
 /// Gobierna la respuesta del paciente sobre una recomendacion entregada.
 ///
-/// **Solo en linea** (decision 8). Sin conexion el envio falla con
-/// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-/// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
-/// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
+/// Sin red la respuesta se guarda en el telefono con su clave y la envia
+/// `RecommendationFeedbackSender` al volver la conexion (HU0016 CA2).
 ///
 /// Copied from [RecommendationFeedbackForm].
 class RecommendationFeedbackFormProvider
@@ -123,10 +270,8 @@ class RecommendationFeedbackFormProvider
         RecommendationFeedbackFormState> {
   /// Gobierna la respuesta del paciente sobre una recomendacion entregada.
   ///
-  /// **Solo en linea** (decision 8). Sin conexion el envio falla con
-  /// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-  /// migracion del esquema drift en este bloque. La espera de 24 h la aplica la
-  /// pantalla con [RecommendationDetail.invitesFeedback]: el backend no la exige.
+  /// Sin red la respuesta se guarda en el telefono con su clave y la envia
+  /// `RecommendationFeedbackSender` al volver la conexion (HU0016 CA2).
   ///
   /// Copied from [RecommendationFeedbackForm].
   RecommendationFeedbackFormProvider(

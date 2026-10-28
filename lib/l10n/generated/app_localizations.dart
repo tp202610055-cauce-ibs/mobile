@@ -3542,17 +3542,41 @@ abstract class AppLocalizations {
   /// **'Enviar mi respuesta'**
   String get recommendationFeedbackSubmit;
 
-  /// Decision 8: el feedback es solo online. Sin conexion se avisa con un toast de error y reintento, sin cola local
+  /// Toast al guardar la respuesta en el telefono sin conexion (CP044)
+  ///
+  /// In es, this message translates to:
+  /// **'Tu respuesta quedó registrada'**
+  String get recommendationFeedbackQueued;
+
+  /// Cuerpo del toast y linea bajo la marca de pendiente en el detalle (CP044)
+  ///
+  /// In es, this message translates to:
+  /// **'Se enviará cuando vuelva la conexión.'**
+  String get recommendationFeedbackQueuedBody;
+
+  /// Marca de una respuesta guardada sin conexion, en el detalle y en la tarjeta (CP044)
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente de envío'**
+  String get recommendationFeedbackPendingBadge;
+
+  /// Respuesta guardada que el servidor rechazo por un motivo que no mejora reintentando
   ///
   /// In es, this message translates to:
   /// **'No pudimos enviar tu respuesta'**
-  String get recommendationFeedbackNetworkError;
+  String get recommendationFeedbackRejectedTitle;
 
-  /// No description provided for @recommendationFeedbackNetworkErrorBody.
+  /// No description provided for @recommendationFeedbackRejectedBody.
   ///
   /// In es, this message translates to:
-  /// **'Revisa tu conexión e inténtalo otra vez.'**
-  String get recommendationFeedbackNetworkErrorBody;
+  /// **'No se aceptó tal como estaba. Puedes responder de nuevo.'**
+  String get recommendationFeedbackRejectedBody;
+
+  /// No description provided for @recommendationFeedbackAnswerAgain.
+  ///
+  /// In es, this message translates to:
+  /// **'Responder de nuevo'**
+  String get recommendationFeedbackAnswerAgain;
 
   /// No description provided for @recommendationFeedbackSent.
   ///

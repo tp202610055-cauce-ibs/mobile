@@ -148,6 +148,9 @@ class FakeRecommendationsRepository implements RecommendationsRepository {
   CauceApiError? deliveryError;
   CauceApiError? feedbackError;
 
+  /// Errores de los proximos envios, en orden; vacia, manda [feedbackError].
+  final List<CauceApiError> feedbackErrorQueue = <CauceApiError>[];
+
   /// Lo que responde el servidor a `review-status`.
   bool inReview = false;
   CauceApiError? reviewStatusError;
@@ -245,7 +248,9 @@ class FakeRecommendationsRepository implements RecommendationsRepository {
   }) async {
     feedbackKeys.add(idempotencyKey);
     feedbackDrafts.add(draft);
-    final error = feedbackError;
+    final error = feedbackErrorQueue.isNotEmpty
+        ? feedbackErrorQueue.removeAt(0)
+        : feedbackError;
     if (error != null) {
       throw error;
     }

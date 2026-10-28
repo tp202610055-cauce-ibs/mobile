@@ -2106,12 +2106,25 @@ class AppLocalizationsEs extends AppLocalizations {
   String get recommendationFeedbackSubmit => 'Enviar mi respuesta';
 
   @override
-  String get recommendationFeedbackNetworkError =>
+  String get recommendationFeedbackQueued => 'Tu respuesta quedó registrada';
+
+  @override
+  String get recommendationFeedbackQueuedBody =>
+      'Se enviará cuando vuelva la conexión.';
+
+  @override
+  String get recommendationFeedbackPendingBadge => 'Pendiente de envío';
+
+  @override
+  String get recommendationFeedbackRejectedTitle =>
       'No pudimos enviar tu respuesta';
 
   @override
-  String get recommendationFeedbackNetworkErrorBody =>
-      'Revisa tu conexión e inténtalo otra vez.';
+  String get recommendationFeedbackRejectedBody =>
+      'No se aceptó tal como estaba. Puedes responder de nuevo.';
+
+  @override
+  String get recommendationFeedbackAnswerAgain => 'Responder de nuevo';
 
   @override
   String get recommendationFeedbackSent => 'Gracias por contarnos cómo te fue';

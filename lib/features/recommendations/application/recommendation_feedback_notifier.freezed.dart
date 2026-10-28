@@ -20,10 +20,11 @@ mixin _$RecommendationFeedbackFormState {
   bool get submitting => throw _privateConstructorUsedError;
   bool get sent => throw _privateConstructorUsedError;
 
+  /// La respuesta quedo en el telefono y se enviara al volver la red.
+  bool get queued => throw _privateConstructorUsedError;
+
   /// `Idempotency-Key` del intento en curso. Se conserva ante un fallo para
-  /// que el reintento de la misma respuesta la repita, y se descarta en
-  /// cuanto el paciente cambia algo: la misma clave con otra carga daria
-  /// 409 `idempotency_mismatch`.
+  /// que el reintento la repita, y se descarta si el paciente cambia algo.
   String? get pendingKey => throw _privateConstructorUsedError;
   CauceApiError? get error => throw _privateConstructorUsedError;
 
@@ -46,6 +47,7 @@ abstract class $RecommendationFeedbackFormStateCopyWith<$Res> {
       {RecommendationFeedbackDraft draft,
       bool submitting,
       bool sent,
+      bool queued,
       String? pendingKey,
       CauceApiError? error});
 
@@ -72,6 +74,7 @@ class _$RecommendationFeedbackFormStateCopyWithImpl<$Res,
     Object? draft = null,
     Object? submitting = null,
     Object? sent = null,
+    Object? queued = null,
     Object? pendingKey = freezed,
     Object? error = freezed,
   }) {
@@ -87,6 +90,10 @@ class _$RecommendationFeedbackFormStateCopyWithImpl<$Res,
       sent: null == sent
           ? _value.sent
           : sent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      queued: null == queued
+          ? _value.queued
+          : queued // ignore: cast_nullable_to_non_nullable
               as bool,
       pendingKey: freezed == pendingKey
           ? _value.pendingKey
@@ -137,6 +144,7 @@ abstract class _$$RecommendationFeedbackFormStateImplCopyWith<$Res>
       {RecommendationFeedbackDraft draft,
       bool submitting,
       bool sent,
+      bool queued,
       String? pendingKey,
       CauceApiError? error});
 
@@ -164,6 +172,7 @@ class __$$RecommendationFeedbackFormStateImplCopyWithImpl<$Res>
     Object? draft = null,
     Object? submitting = null,
     Object? sent = null,
+    Object? queued = null,
     Object? pendingKey = freezed,
     Object? error = freezed,
   }) {
@@ -179,6 +188,10 @@ class __$$RecommendationFeedbackFormStateImplCopyWithImpl<$Res>
       sent: null == sent
           ? _value.sent
           : sent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      queued: null == queued
+          ? _value.queued
+          : queued // ignore: cast_nullable_to_non_nullable
               as bool,
       pendingKey: freezed == pendingKey
           ? _value.pendingKey
@@ -200,6 +213,7 @@ class _$RecommendationFeedbackFormStateImpl
       {this.draft = const RecommendationFeedbackDraft(),
       this.submitting = false,
       this.sent = false,
+      this.queued = false,
       this.pendingKey,
       this.error})
       : super._();
@@ -214,10 +228,13 @@ class _$RecommendationFeedbackFormStateImpl
   @JsonKey()
   final bool sent;
 
+  /// La respuesta quedo en el telefono y se enviara al volver la red.
+  @override
+  @JsonKey()
+  final bool queued;
+
   /// `Idempotency-Key` del intento en curso. Se conserva ante un fallo para
-  /// que el reintento de la misma respuesta la repita, y se descarta en
-  /// cuanto el paciente cambia algo: la misma clave con otra carga daria
-  /// 409 `idempotency_mismatch`.
+  /// que el reintento la repita, y se descarta si el paciente cambia algo.
   @override
   final String? pendingKey;
   @override
@@ -225,7 +242,7 @@ class _$RecommendationFeedbackFormStateImpl
 
   @override
   String toString() {
-    return 'RecommendationFeedbackFormState(draft: $draft, submitting: $submitting, sent: $sent, pendingKey: $pendingKey, error: $error)';
+    return 'RecommendationFeedbackFormState(draft: $draft, submitting: $submitting, sent: $sent, queued: $queued, pendingKey: $pendingKey, error: $error)';
   }
 
   @override
@@ -237,14 +254,15 @@ class _$RecommendationFeedbackFormStateImpl
             (identical(other.submitting, submitting) ||
                 other.submitting == submitting) &&
             (identical(other.sent, sent) || other.sent == sent) &&
+            (identical(other.queued, queued) || other.queued == queued) &&
             (identical(other.pendingKey, pendingKey) ||
                 other.pendingKey == pendingKey) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, draft, submitting, sent, pendingKey, error);
+  int get hashCode => Object.hash(
+      runtimeType, draft, submitting, sent, queued, pendingKey, error);
 
   /// Create a copy of RecommendationFeedbackFormState
   /// with the given fields replaced by the non-null parameter values.
@@ -263,6 +281,7 @@ abstract class _RecommendationFeedbackFormState
       {final RecommendationFeedbackDraft draft,
       final bool submitting,
       final bool sent,
+      final bool queued,
       final String? pendingKey,
       final CauceApiError? error}) = _$RecommendationFeedbackFormStateImpl;
   const _RecommendationFeedbackFormState._() : super._();
@@ -274,10 +293,12 @@ abstract class _RecommendationFeedbackFormState
   @override
   bool get sent;
 
+  /// La respuesta quedo en el telefono y se enviara al volver la red.
+  @override
+  bool get queued;
+
   /// `Idempotency-Key` del intento en curso. Se conserva ante un fallo para
-  /// que el reintento de la misma respuesta la repita, y se descarta en
-  /// cuanto el paciente cambia algo: la misma clave con otra carga daria
-  /// 409 `idempotency_mismatch`.
+  /// que el reintento la repita, y se descarta si el paciente cambia algo.
   @override
   String? get pendingKey;
   @override
