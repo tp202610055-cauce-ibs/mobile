@@ -56,6 +56,10 @@ class MealsLocal extends Table {
   /// Ultimo `errorCode` que devolvio el lote para esta fila.
   TextColumn get lastErrorCode => text().nullable()();
 
+  /// Cuenta que registro la fila. Solo esa cuenta la ve y la sube; `null` es
+  /// una fila anterior a v3, que no se sube ni se muestra.
+  TextColumn get userId => text().nullable()();
+
   @override
   Set<Column<Object>> get primaryKey => <Column<Object>>{clientGuid};
 }
@@ -122,6 +126,9 @@ class SymptomsLocal extends Table {
   BoolColumn get hasMealAssociation => boolean().nullable()();
 
   TextColumn get lastErrorCode => text().nullable()();
+
+  /// Cuenta que registro la fila, con la misma regla que `MealsLocal.userId`.
+  TextColumn get userId => text().nullable()();
 
   @override
   Set<Column<Object>> get primaryKey => <Column<Object>>{clientGuid};

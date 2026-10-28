@@ -1,6 +1,6 @@
 import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/local_sync_status.dart';
-import 'package:drift/drift.dart';
+import 'package:drift/drift.dart' hide isNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -14,6 +14,78 @@ AppDatabase _atSchemaV1() {
   );
 }
 
+/// Esquema v2 tal como quedo instalado, con una comida y un sintoma pendientes
+/// y una comida ya sincronizada.
+const String _schemaV2WithRows = '''
+CREATE TABLE "meals_local" ("client_guid" TEXT NOT NULL,
+  "meal_time" TEXT NOT NULL, "consumed_at" TEXT NOT NULL,
+  "client_created_at" TEXT NOT NULL, "sync_status" TEXT NOT NULL,
+  "server_id" TEXT NULL, "last_error_code" TEXT NULL,
+  PRIMARY KEY ("client_guid"));
+CREATE TABLE "meal_items_local" (
+  "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "meal_client_guid" TEXT NOT NULL
+    REFERENCES meals_local (client_guid) ON DELETE CASCADE,
+  "food_id" TEXT NULL, "custom_food_id" TEXT NULL,
+  "quantity" REAL NOT NULL, "unit" TEXT NOT NULL);
+CREATE TABLE "symptoms_local" ("client_guid" TEXT NOT NULL,
+  "symptom_type" TEXT NOT NULL, "intensity" INTEGER NOT NULL,
+  "occurred_at" TEXT NOT NULL, "client_created_at" TEXT NOT NULL,
+  "sync_status" TEXT NOT NULL, "server_id" TEXT NULL,
+  "associated_meal_id" TEXT NULL,
+  "has_meal_association" INTEGER NULL
+    CHECK ("has_meal_association" IN (0, 1)),
+  "last_error_code" TEXT NULL, PRIMARY KEY ("client_guid"));
+CREATE TABLE "food_catalog_cache" ("food_id" TEXT NOT NULL,
+  "name" TEXT NOT NULL, "name_normalized" TEXT NOT NULL,
+  "category" TEXT NOT NULL, "fodmap_level" TEXT NOT NULL,
+  "is_peruvian" INTEGER NOT NULL CHECK ("is_peruvian" IN (0, 1)),
+  "calories_per100g" REAL NULL, "protein_g_per100g" REAL NULL,
+  "carbs_g_per100g" REAL NULL, "fat_g_per100g" REAL NULL,
+  "fiber_g_per100g" REAL NULL, "fodmap_tags" TEXT NULL,
+  PRIMARY KEY ("food_id"));
+CREATE INDEX idx_food_catalog_name_normalized
+  ON food_catalog_cache (name_normalized);
+CREATE INDEX idx_meals_local_sync_status ON meals_local (sync_status);
+CREATE INDEX idx_symptoms_local_sync_status ON symptoms_local (sync_status);
+CREATE INDEX idx_meal_items_local_meal ON meal_items_local (meal_client_guid);
+INSERT INTO meals_local VALUES ('11111111-1111-4111-8111-111111111111',
+  'Lunch', '2026-09-18T13:30:00.000Z', '2026-09-18T13:35:00.000Z',
+  'pending', NULL, NULL);
+INSERT INTO meals_local VALUES ('22222222-2222-4222-8222-222222222222',
+  'Dinner', '2026-09-18T20:00:00.000Z', '2026-09-18T20:05:00.000Z',
+  'completed', 'server-meal-1', NULL);
+INSERT INTO meal_items_local (meal_client_guid, food_id, quantity, unit)
+  VALUES ('11111111-1111-4111-8111-111111111111',
+  'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', 150, 'Grams');
+INSERT INTO symptoms_local VALUES ('33333333-3333-4333-8333-333333333333',
+  'Bloating', 40, '2026-09-18T15:00:00.000Z', '2026-09-18T15:05:00.000Z',
+  'pending', NULL, NULL, NULL, NULL);
+PRAGMA user_version = 2;
+''';
+
+AppDatabase _atSchemaV2() {
+  return AppDatabase(
+    NativeDatabase.memory(setup: (raw) => raw.execute(_schemaV2WithRows)),
+  );
+}
+
+/// Columnas de cada tabla, comparables entre una base migrada y una nueva.
+Future<Map<String, List<String>>> _columnsOf(AppDatabase db) async {
+  final columns = <String, List<String>>{};
+  for (final table in db.allTables) {
+    final name = table.actualTableName;
+    final rows = await db.customSelect('PRAGMA table_info("$name")').get();
+    columns[name] = rows
+        .map(
+          (row) => '${row.data['name']}|${row.data['type']}|'
+              '${row.data['notnull']}|${row.data['pk']}',
+        )
+        .toList();
+  }
+  return columns;
+}
+
 void main() {
   group('AppDatabase · esquema', () {
     late AppDatabase database;
@@ -21,8 +93,8 @@ void main() {
     setUp(() => database = AppDatabase.memory());
     tearDown(() => database.close());
 
-    test('declara el esquema v2', () {
-      expect(database.schemaVersion, 2);
+    test('declara el esquema v3', () {
+      expect(database.schemaVersion, 3);
     });
 
     test('abre conexion y responde una consulta', () async {
@@ -34,7 +106,7 @@ void main() {
       expect(result.data['value'], 1);
     });
 
-    test('declara las cuatro tablas del registro clinico diario', () {
+    test('declara las tablas del registro clinico y la cola de respuestas', () {
       // Reemplaza al test de Mobile-1b que exigia `allTables` vacio. Aquel era
       // la tripwire que detenia a quien agregara una tabla sin escribir la
       // migracion; este bloque escribio la migracion, asi que ahora se verifica
@@ -46,13 +118,14 @@ void main() {
           'meal_items_local',
           'symptoms_local',
           'food_catalog_cache',
+          'recommendation_feedback_outbox',
         },
       );
     });
   });
 
-  group('AppDatabase · migracion de v1 a v2', () {
-    test('crea las cuatro tablas desde el esquema vacio', () async {
+  group('AppDatabase · migracion de v1 a v3', () {
+    test('crea todas las tablas desde el esquema vacio', () async {
       // v1 no tenia tablas, asi que el salto solo crea y no hay dato que
       // preservar ni columna que reescribir.
       final database = _atSchemaV1();
@@ -72,18 +145,19 @@ void main() {
           'meal_items_local',
           'symptoms_local',
           'food_catalog_cache',
+          'recommendation_feedback_outbox',
         ]),
       );
     });
 
-    test('deja el user_version en 2', () async {
+    test('deja el user_version en 3', () async {
       final database = _atSchemaV1();
       addTearDown(database.close);
 
       final row =
           await database.customSelect('PRAGMA user_version').getSingle();
 
-      expect(row.data.values.first, 2);
+      expect(row.data.values.first, 3);
     });
 
     test('crea los indices de busqueda y de sincronizacion', () async {
@@ -139,6 +213,73 @@ void main() {
       addTearDown(fresh.close);
 
       expect(await schemaOf(migrated), await schemaOf(fresh));
+    });
+  });
+
+  group('AppDatabase · migracion de v2 a v3', () {
+    setUp(() => driftRuntimeOptions.dontWarnAboutMultipleDatabases = true);
+    tearDown(() => driftRuntimeOptions.dontWarnAboutMultipleDatabases = false);
+
+    test('conserva las comidas, los items y los sintomas de v2', () async {
+      final database = _atSchemaV2();
+      addTearDown(database.close);
+
+      final meals = await database.select(database.mealsLocal).get();
+      final items = await database.select(database.mealItemsLocal).get();
+      final symptoms = await database.select(database.symptomsLocal).get();
+
+      expect(
+        meals.map((m) => (m.clientGuid, m.syncStatus, m.serverId)).toSet(),
+        <(String, LocalSyncStatus, String?)>{
+          (
+            '11111111-1111-4111-8111-111111111111',
+            LocalSyncStatus.pending,
+            null,
+          ),
+          (
+            '22222222-2222-4222-8222-222222222222',
+            LocalSyncStatus.completed,
+            'server-meal-1',
+          ),
+        },
+      );
+      expect(items.single.quantity, 150);
+      expect(symptoms.single.intensity, 40);
+      expect(symptoms.single.syncStatus, LocalSyncStatus.pending);
+    });
+
+    test('deja las filas de v2 sin titular', () async {
+      final database = _atSchemaV2();
+      addTearDown(database.close);
+
+      final meals = await database.select(database.mealsLocal).get();
+      final symptoms = await database.select(database.symptomsLocal).get();
+
+      expect(meals.map((m) => m.userId), everyElement(isNull));
+      expect(symptoms.single.userId, isNull);
+    });
+
+    test('crea la cola de respuestas vacia y sube el user_version a 3',
+        () async {
+      final database = _atSchemaV2();
+      addTearDown(database.close);
+
+      expect(
+        await database.select(database.recommendationFeedbackOutbox).get(),
+        isEmpty,
+      );
+      final row =
+          await database.customSelect('PRAGMA user_version').getSingle();
+      expect(row.data.values.first, 3);
+    });
+
+    test('produce las mismas columnas que una instalacion nueva', () async {
+      final migrated = _atSchemaV2();
+      addTearDown(migrated.close);
+      final fresh = AppDatabase.memory();
+      addTearDown(fresh.close);
+
+      expect(await _columnsOf(migrated), await _columnsOf(fresh));
     });
   });
 

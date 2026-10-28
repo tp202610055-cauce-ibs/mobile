@@ -51,6 +51,11 @@ class $MealsLocalTable extends MealsLocal
   late final GeneratedColumn<String> lastErrorCode = GeneratedColumn<String>(
       'last_error_code', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         clientGuid,
@@ -59,7 +64,8 @@ class $MealsLocalTable extends MealsLocal
         clientCreatedAt,
         syncStatus,
         serverId,
-        lastErrorCode
+        lastErrorCode,
+        userId
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -111,6 +117,10 @@ class $MealsLocalTable extends MealsLocal
           lastErrorCode.isAcceptableOrUnknown(
               data['last_error_code']!, _lastErrorCodeMeta));
     }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    }
     return context;
   }
 
@@ -135,6 +145,8 @@ class $MealsLocalTable extends MealsLocal
           .read(DriftSqlType.string, data['${effectivePrefix}server_id']),
       lastErrorCode: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}last_error_code']),
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id']),
     );
   }
 
@@ -176,6 +188,10 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
 
   /// Ultimo `errorCode` que devolvio el lote para esta fila.
   final String? lastErrorCode;
+
+  /// Cuenta que registro la fila. Solo esa cuenta la ve y la sube; `null` es
+  /// una fila anterior a v3, que no se sube ni se muestra.
+  final String? userId;
   const MealLocal(
       {required this.clientGuid,
       required this.mealTime,
@@ -183,7 +199,8 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
       required this.clientCreatedAt,
       required this.syncStatus,
       this.serverId,
-      this.lastErrorCode});
+      this.lastErrorCode,
+      this.userId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -201,6 +218,9 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
     if (!nullToAbsent || lastErrorCode != null) {
       map['last_error_code'] = Variable<String>(lastErrorCode);
     }
+    if (!nullToAbsent || userId != null) {
+      map['user_id'] = Variable<String>(userId);
+    }
     return map;
   }
 
@@ -217,6 +237,8 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
       lastErrorCode: lastErrorCode == null && nullToAbsent
           ? const Value.absent()
           : Value(lastErrorCode),
+      userId:
+          userId == null && nullToAbsent ? const Value.absent() : Value(userId),
     );
   }
 
@@ -232,6 +254,7 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
           .fromJson(serializer.fromJson<String>(json['syncStatus'])),
       serverId: serializer.fromJson<String?>(json['serverId']),
       lastErrorCode: serializer.fromJson<String?>(json['lastErrorCode']),
+      userId: serializer.fromJson<String?>(json['userId']),
     );
   }
   @override
@@ -246,6 +269,7 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
           $MealsLocalTable.$convertersyncStatus.toJson(syncStatus)),
       'serverId': serializer.toJson<String?>(serverId),
       'lastErrorCode': serializer.toJson<String?>(lastErrorCode),
+      'userId': serializer.toJson<String?>(userId),
     };
   }
 
@@ -256,7 +280,8 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
           DateTime? clientCreatedAt,
           LocalSyncStatus? syncStatus,
           Value<String?> serverId = const Value.absent(),
-          Value<String?> lastErrorCode = const Value.absent()}) =>
+          Value<String?> lastErrorCode = const Value.absent(),
+          Value<String?> userId = const Value.absent()}) =>
       MealLocal(
         clientGuid: clientGuid ?? this.clientGuid,
         mealTime: mealTime ?? this.mealTime,
@@ -266,6 +291,7 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
         serverId: serverId.present ? serverId.value : this.serverId,
         lastErrorCode:
             lastErrorCode.present ? lastErrorCode.value : this.lastErrorCode,
+        userId: userId.present ? userId.value : this.userId,
       );
   MealLocal copyWithCompanion(MealsLocalCompanion data) {
     return MealLocal(
@@ -283,6 +309,7 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
       lastErrorCode: data.lastErrorCode.present
           ? data.lastErrorCode.value
           : this.lastErrorCode,
+      userId: data.userId.present ? data.userId.value : this.userId,
     );
   }
 
@@ -295,14 +322,15 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
           ..write('clientCreatedAt: $clientCreatedAt, ')
           ..write('syncStatus: $syncStatus, ')
           ..write('serverId: $serverId, ')
-          ..write('lastErrorCode: $lastErrorCode')
+          ..write('lastErrorCode: $lastErrorCode, ')
+          ..write('userId: $userId')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(clientGuid, mealTime, consumedAt,
-      clientCreatedAt, syncStatus, serverId, lastErrorCode);
+      clientCreatedAt, syncStatus, serverId, lastErrorCode, userId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -313,7 +341,8 @@ class MealLocal extends DataClass implements Insertable<MealLocal> {
           other.clientCreatedAt == this.clientCreatedAt &&
           other.syncStatus == this.syncStatus &&
           other.serverId == this.serverId &&
-          other.lastErrorCode == this.lastErrorCode);
+          other.lastErrorCode == this.lastErrorCode &&
+          other.userId == this.userId);
 }
 
 class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
@@ -324,6 +353,7 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
   final Value<LocalSyncStatus> syncStatus;
   final Value<String?> serverId;
   final Value<String?> lastErrorCode;
+  final Value<String?> userId;
   final Value<int> rowid;
   const MealsLocalCompanion({
     this.clientGuid = const Value.absent(),
@@ -333,6 +363,7 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
     this.syncStatus = const Value.absent(),
     this.serverId = const Value.absent(),
     this.lastErrorCode = const Value.absent(),
+    this.userId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   MealsLocalCompanion.insert({
@@ -343,6 +374,7 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
     required LocalSyncStatus syncStatus,
     this.serverId = const Value.absent(),
     this.lastErrorCode = const Value.absent(),
+    this.userId = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : clientGuid = Value(clientGuid),
         mealTime = Value(mealTime),
@@ -357,6 +389,7 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
     Expression<String>? syncStatus,
     Expression<String>? serverId,
     Expression<String>? lastErrorCode,
+    Expression<String>? userId,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -367,6 +400,7 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
       if (syncStatus != null) 'sync_status': syncStatus,
       if (serverId != null) 'server_id': serverId,
       if (lastErrorCode != null) 'last_error_code': lastErrorCode,
+      if (userId != null) 'user_id': userId,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -379,6 +413,7 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
       Value<LocalSyncStatus>? syncStatus,
       Value<String?>? serverId,
       Value<String?>? lastErrorCode,
+      Value<String?>? userId,
       Value<int>? rowid}) {
     return MealsLocalCompanion(
       clientGuid: clientGuid ?? this.clientGuid,
@@ -388,6 +423,7 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
       syncStatus: syncStatus ?? this.syncStatus,
       serverId: serverId ?? this.serverId,
       lastErrorCode: lastErrorCode ?? this.lastErrorCode,
+      userId: userId ?? this.userId,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -417,6 +453,9 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
     if (lastErrorCode.present) {
       map['last_error_code'] = Variable<String>(lastErrorCode.value);
     }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -433,6 +472,7 @@ class MealsLocalCompanion extends UpdateCompanion<MealLocal> {
           ..write('syncStatus: $syncStatus, ')
           ..write('serverId: $serverId, ')
           ..write('lastErrorCode: $lastErrorCode, ')
+          ..write('userId: $userId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -867,6 +907,11 @@ class $SymptomsLocalTable extends SymptomsLocal
   late final GeneratedColumn<String> lastErrorCode = GeneratedColumn<String>(
       'last_error_code', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         clientGuid,
@@ -878,7 +923,8 @@ class $SymptomsLocalTable extends SymptomsLocal
         serverId,
         associatedMealId,
         hasMealAssociation,
-        lastErrorCode
+        lastErrorCode,
+        userId
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -950,6 +996,10 @@ class $SymptomsLocalTable extends SymptomsLocal
           lastErrorCode.isAcceptableOrUnknown(
               data['last_error_code']!, _lastErrorCodeMeta));
     }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    }
     return context;
   }
 
@@ -980,6 +1030,8 @@ class $SymptomsLocalTable extends SymptomsLocal
           DriftSqlType.bool, data['${effectivePrefix}has_meal_association']),
       lastErrorCode: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}last_error_code']),
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id']),
     );
   }
 
@@ -1018,6 +1070,9 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
   /// que no haber preguntado todavia.
   final bool? hasMealAssociation;
   final String? lastErrorCode;
+
+  /// Cuenta que registro la fila, con la misma regla que `MealsLocal.userId`.
+  final String? userId;
   const SymptomLocal(
       {required this.clientGuid,
       required this.symptomType,
@@ -1028,7 +1083,8 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
       this.serverId,
       this.associatedMealId,
       this.hasMealAssociation,
-      this.lastErrorCode});
+      this.lastErrorCode,
+      this.userId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1053,6 +1109,9 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
     if (!nullToAbsent || lastErrorCode != null) {
       map['last_error_code'] = Variable<String>(lastErrorCode);
     }
+    if (!nullToAbsent || userId != null) {
+      map['user_id'] = Variable<String>(userId);
+    }
     return map;
   }
 
@@ -1076,6 +1135,8 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
       lastErrorCode: lastErrorCode == null && nullToAbsent
           ? const Value.absent()
           : Value(lastErrorCode),
+      userId:
+          userId == null && nullToAbsent ? const Value.absent() : Value(userId),
     );
   }
 
@@ -1095,6 +1156,7 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
       hasMealAssociation:
           serializer.fromJson<bool?>(json['hasMealAssociation']),
       lastErrorCode: serializer.fromJson<String?>(json['lastErrorCode']),
+      userId: serializer.fromJson<String?>(json['userId']),
     );
   }
   @override
@@ -1112,6 +1174,7 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
       'associatedMealId': serializer.toJson<String?>(associatedMealId),
       'hasMealAssociation': serializer.toJson<bool?>(hasMealAssociation),
       'lastErrorCode': serializer.toJson<String?>(lastErrorCode),
+      'userId': serializer.toJson<String?>(userId),
     };
   }
 
@@ -1125,7 +1188,8 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
           Value<String?> serverId = const Value.absent(),
           Value<String?> associatedMealId = const Value.absent(),
           Value<bool?> hasMealAssociation = const Value.absent(),
-          Value<String?> lastErrorCode = const Value.absent()}) =>
+          Value<String?> lastErrorCode = const Value.absent(),
+          Value<String?> userId = const Value.absent()}) =>
       SymptomLocal(
         clientGuid: clientGuid ?? this.clientGuid,
         symptomType: symptomType ?? this.symptomType,
@@ -1142,6 +1206,7 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
             : this.hasMealAssociation,
         lastErrorCode:
             lastErrorCode.present ? lastErrorCode.value : this.lastErrorCode,
+        userId: userId.present ? userId.value : this.userId,
       );
   SymptomLocal copyWithCompanion(SymptomsLocalCompanion data) {
     return SymptomLocal(
@@ -1167,6 +1232,7 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
       lastErrorCode: data.lastErrorCode.present
           ? data.lastErrorCode.value
           : this.lastErrorCode,
+      userId: data.userId.present ? data.userId.value : this.userId,
     );
   }
 
@@ -1182,7 +1248,8 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
           ..write('serverId: $serverId, ')
           ..write('associatedMealId: $associatedMealId, ')
           ..write('hasMealAssociation: $hasMealAssociation, ')
-          ..write('lastErrorCode: $lastErrorCode')
+          ..write('lastErrorCode: $lastErrorCode, ')
+          ..write('userId: $userId')
           ..write(')'))
         .toString();
   }
@@ -1198,7 +1265,8 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
       serverId,
       associatedMealId,
       hasMealAssociation,
-      lastErrorCode);
+      lastErrorCode,
+      userId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1212,7 +1280,8 @@ class SymptomLocal extends DataClass implements Insertable<SymptomLocal> {
           other.serverId == this.serverId &&
           other.associatedMealId == this.associatedMealId &&
           other.hasMealAssociation == this.hasMealAssociation &&
-          other.lastErrorCode == this.lastErrorCode);
+          other.lastErrorCode == this.lastErrorCode &&
+          other.userId == this.userId);
 }
 
 class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
@@ -1226,6 +1295,7 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
   final Value<String?> associatedMealId;
   final Value<bool?> hasMealAssociation;
   final Value<String?> lastErrorCode;
+  final Value<String?> userId;
   final Value<int> rowid;
   const SymptomsLocalCompanion({
     this.clientGuid = const Value.absent(),
@@ -1238,6 +1308,7 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
     this.associatedMealId = const Value.absent(),
     this.hasMealAssociation = const Value.absent(),
     this.lastErrorCode = const Value.absent(),
+    this.userId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   SymptomsLocalCompanion.insert({
@@ -1251,6 +1322,7 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
     this.associatedMealId = const Value.absent(),
     this.hasMealAssociation = const Value.absent(),
     this.lastErrorCode = const Value.absent(),
+    this.userId = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : clientGuid = Value(clientGuid),
         symptomType = Value(symptomType),
@@ -1269,6 +1341,7 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
     Expression<String>? associatedMealId,
     Expression<bool>? hasMealAssociation,
     Expression<String>? lastErrorCode,
+    Expression<String>? userId,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1283,6 +1356,7 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
       if (hasMealAssociation != null)
         'has_meal_association': hasMealAssociation,
       if (lastErrorCode != null) 'last_error_code': lastErrorCode,
+      if (userId != null) 'user_id': userId,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -1298,6 +1372,7 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
       Value<String?>? associatedMealId,
       Value<bool?>? hasMealAssociation,
       Value<String?>? lastErrorCode,
+      Value<String?>? userId,
       Value<int>? rowid}) {
     return SymptomsLocalCompanion(
       clientGuid: clientGuid ?? this.clientGuid,
@@ -1310,6 +1385,7 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
       associatedMealId: associatedMealId ?? this.associatedMealId,
       hasMealAssociation: hasMealAssociation ?? this.hasMealAssociation,
       lastErrorCode: lastErrorCode ?? this.lastErrorCode,
+      userId: userId ?? this.userId,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1348,6 +1424,9 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
     if (lastErrorCode.present) {
       map['last_error_code'] = Variable<String>(lastErrorCode.value);
     }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1367,6 +1446,7 @@ class SymptomsLocalCompanion extends UpdateCompanion<SymptomLocal> {
           ..write('associatedMealId: $associatedMealId, ')
           ..write('hasMealAssociation: $hasMealAssociation, ')
           ..write('lastErrorCode: $lastErrorCode, ')
+          ..write('userId: $userId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -2029,6 +2109,519 @@ class FoodCatalogCacheCompanion extends UpdateCompanion<FoodCatalogEntry> {
   }
 }
 
+class $RecommendationFeedbackOutboxTable extends RecommendationFeedbackOutbox
+    with
+        TableInfo<$RecommendationFeedbackOutboxTable,
+            RecommendationFeedbackOutboxRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $RecommendationFeedbackOutboxTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _recommendationIdMeta =
+      const VerificationMeta('recommendationId');
+  @override
+  late final GeneratedColumn<String> recommendationId = GeneratedColumn<String>(
+      'recommendation_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<String> userId = GeneratedColumn<String>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _idempotencyKeyMeta =
+      const VerificationMeta('idempotencyKey');
+  @override
+  late final GeneratedColumn<String> idempotencyKey = GeneratedColumn<String>(
+      'idempotency_key', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _wasAppliedMeta =
+      const VerificationMeta('wasApplied');
+  @override
+  late final GeneratedColumn<bool> wasApplied = GeneratedColumn<bool>(
+      'was_applied', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("was_applied" IN (0, 1))'));
+  static const VerificationMeta _outcomeMeta =
+      const VerificationMeta('outcome');
+  @override
+  late final GeneratedColumn<String> outcome = GeneratedColumn<String>(
+      'outcome', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _commentMeta =
+      const VerificationMeta('comment');
+  @override
+  late final GeneratedColumn<String> comment = GeneratedColumn<String>(
+      'comment', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  @override
+  late final GeneratedColumnWithTypeConverter<LocalSyncStatus, String> status =
+      GeneratedColumn<String>('status', aliasedName, false,
+              type: DriftSqlType.string, requiredDuringInsert: true)
+          .withConverter<LocalSyncStatus>(
+              $RecommendationFeedbackOutboxTable.$converterstatus);
+  static const VerificationMeta _lastErrorCodeMeta =
+      const VerificationMeta('lastErrorCode');
+  @override
+  late final GeneratedColumn<String> lastErrorCode = GeneratedColumn<String>(
+      'last_error_code', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        recommendationId,
+        userId,
+        idempotencyKey,
+        wasApplied,
+        outcome,
+        comment,
+        createdAt,
+        status,
+        lastErrorCode
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'recommendation_feedback_outbox';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<RecommendationFeedbackOutboxRow> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('recommendation_id')) {
+      context.handle(
+          _recommendationIdMeta,
+          recommendationId.isAcceptableOrUnknown(
+              data['recommendation_id']!, _recommendationIdMeta));
+    } else if (isInserting) {
+      context.missing(_recommendationIdMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('idempotency_key')) {
+      context.handle(
+          _idempotencyKeyMeta,
+          idempotencyKey.isAcceptableOrUnknown(
+              data['idempotency_key']!, _idempotencyKeyMeta));
+    } else if (isInserting) {
+      context.missing(_idempotencyKeyMeta);
+    }
+    if (data.containsKey('was_applied')) {
+      context.handle(
+          _wasAppliedMeta,
+          wasApplied.isAcceptableOrUnknown(
+              data['was_applied']!, _wasAppliedMeta));
+    } else if (isInserting) {
+      context.missing(_wasAppliedMeta);
+    }
+    if (data.containsKey('outcome')) {
+      context.handle(_outcomeMeta,
+          outcome.isAcceptableOrUnknown(data['outcome']!, _outcomeMeta));
+    } else if (isInserting) {
+      context.missing(_outcomeMeta);
+    }
+    if (data.containsKey('comment')) {
+      context.handle(_commentMeta,
+          comment.isAcceptableOrUnknown(data['comment']!, _commentMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('last_error_code')) {
+      context.handle(
+          _lastErrorCodeMeta,
+          lastErrorCode.isAcceptableOrUnknown(
+              data['last_error_code']!, _lastErrorCodeMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {recommendationId};
+  @override
+  RecommendationFeedbackOutboxRow map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RecommendationFeedbackOutboxRow(
+      recommendationId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}recommendation_id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_id'])!,
+      idempotencyKey: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}idempotency_key'])!,
+      wasApplied: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}was_applied'])!,
+      outcome: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}outcome'])!,
+      comment: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}comment']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      status: $RecommendationFeedbackOutboxTable.$converterstatus.fromSql(
+          attachedDatabase.typeMapping
+              .read(DriftSqlType.string, data['${effectivePrefix}status'])!),
+      lastErrorCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}last_error_code']),
+    );
+  }
+
+  @override
+  $RecommendationFeedbackOutboxTable createAlias(String alias) {
+    return $RecommendationFeedbackOutboxTable(attachedDatabase, alias);
+  }
+
+  static JsonTypeConverter2<LocalSyncStatus, String, String> $converterstatus =
+      const EnumNameConverter<LocalSyncStatus>(LocalSyncStatus.values);
+}
+
+class RecommendationFeedbackOutboxRow extends DataClass
+    implements Insertable<RecommendationFeedbackOutboxRow> {
+  /// El backend admite una sola respuesta por recomendacion.
+  final String recommendationId;
+
+  /// Cuenta que respondio. Otra cuenta en el mismo telefono no la ve.
+  final String userId;
+
+  /// Se genera una vez y se repite intacta en cada reintento.
+  final String idempotencyKey;
+  final bool wasApplied;
+
+  /// Valor de contrato de `FeedbackOutcome`: `Improvement`, `NoChange`,
+  /// `Worsening`.
+  final String outcome;
+
+  /// Ya recortado, o `null` si quedo vacio.
+  final String? comment;
+  final DateTime createdAt;
+  final LocalSyncStatus status;
+
+  /// Codigo del ultimo rechazo, para explicar una fila `failed`.
+  final String? lastErrorCode;
+  const RecommendationFeedbackOutboxRow(
+      {required this.recommendationId,
+      required this.userId,
+      required this.idempotencyKey,
+      required this.wasApplied,
+      required this.outcome,
+      this.comment,
+      required this.createdAt,
+      required this.status,
+      this.lastErrorCode});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['recommendation_id'] = Variable<String>(recommendationId);
+    map['user_id'] = Variable<String>(userId);
+    map['idempotency_key'] = Variable<String>(idempotencyKey);
+    map['was_applied'] = Variable<bool>(wasApplied);
+    map['outcome'] = Variable<String>(outcome);
+    if (!nullToAbsent || comment != null) {
+      map['comment'] = Variable<String>(comment);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    {
+      map['status'] = Variable<String>(
+          $RecommendationFeedbackOutboxTable.$converterstatus.toSql(status));
+    }
+    if (!nullToAbsent || lastErrorCode != null) {
+      map['last_error_code'] = Variable<String>(lastErrorCode);
+    }
+    return map;
+  }
+
+  RecommendationFeedbackOutboxCompanion toCompanion(bool nullToAbsent) {
+    return RecommendationFeedbackOutboxCompanion(
+      recommendationId: Value(recommendationId),
+      userId: Value(userId),
+      idempotencyKey: Value(idempotencyKey),
+      wasApplied: Value(wasApplied),
+      outcome: Value(outcome),
+      comment: comment == null && nullToAbsent
+          ? const Value.absent()
+          : Value(comment),
+      createdAt: Value(createdAt),
+      status: Value(status),
+      lastErrorCode: lastErrorCode == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastErrorCode),
+    );
+  }
+
+  factory RecommendationFeedbackOutboxRow.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RecommendationFeedbackOutboxRow(
+      recommendationId: serializer.fromJson<String>(json['recommendationId']),
+      userId: serializer.fromJson<String>(json['userId']),
+      idempotencyKey: serializer.fromJson<String>(json['idempotencyKey']),
+      wasApplied: serializer.fromJson<bool>(json['wasApplied']),
+      outcome: serializer.fromJson<String>(json['outcome']),
+      comment: serializer.fromJson<String?>(json['comment']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      status: $RecommendationFeedbackOutboxTable.$converterstatus
+          .fromJson(serializer.fromJson<String>(json['status'])),
+      lastErrorCode: serializer.fromJson<String?>(json['lastErrorCode']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'recommendationId': serializer.toJson<String>(recommendationId),
+      'userId': serializer.toJson<String>(userId),
+      'idempotencyKey': serializer.toJson<String>(idempotencyKey),
+      'wasApplied': serializer.toJson<bool>(wasApplied),
+      'outcome': serializer.toJson<String>(outcome),
+      'comment': serializer.toJson<String?>(comment),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'status': serializer.toJson<String>(
+          $RecommendationFeedbackOutboxTable.$converterstatus.toJson(status)),
+      'lastErrorCode': serializer.toJson<String?>(lastErrorCode),
+    };
+  }
+
+  RecommendationFeedbackOutboxRow copyWith(
+          {String? recommendationId,
+          String? userId,
+          String? idempotencyKey,
+          bool? wasApplied,
+          String? outcome,
+          Value<String?> comment = const Value.absent(),
+          DateTime? createdAt,
+          LocalSyncStatus? status,
+          Value<String?> lastErrorCode = const Value.absent()}) =>
+      RecommendationFeedbackOutboxRow(
+        recommendationId: recommendationId ?? this.recommendationId,
+        userId: userId ?? this.userId,
+        idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+        wasApplied: wasApplied ?? this.wasApplied,
+        outcome: outcome ?? this.outcome,
+        comment: comment.present ? comment.value : this.comment,
+        createdAt: createdAt ?? this.createdAt,
+        status: status ?? this.status,
+        lastErrorCode:
+            lastErrorCode.present ? lastErrorCode.value : this.lastErrorCode,
+      );
+  RecommendationFeedbackOutboxRow copyWithCompanion(
+      RecommendationFeedbackOutboxCompanion data) {
+    return RecommendationFeedbackOutboxRow(
+      recommendationId: data.recommendationId.present
+          ? data.recommendationId.value
+          : this.recommendationId,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      idempotencyKey: data.idempotencyKey.present
+          ? data.idempotencyKey.value
+          : this.idempotencyKey,
+      wasApplied:
+          data.wasApplied.present ? data.wasApplied.value : this.wasApplied,
+      outcome: data.outcome.present ? data.outcome.value : this.outcome,
+      comment: data.comment.present ? data.comment.value : this.comment,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      status: data.status.present ? data.status.value : this.status,
+      lastErrorCode: data.lastErrorCode.present
+          ? data.lastErrorCode.value
+          : this.lastErrorCode,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecommendationFeedbackOutboxRow(')
+          ..write('recommendationId: $recommendationId, ')
+          ..write('userId: $userId, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('wasApplied: $wasApplied, ')
+          ..write('outcome: $outcome, ')
+          ..write('comment: $comment, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('status: $status, ')
+          ..write('lastErrorCode: $lastErrorCode')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(recommendationId, userId, idempotencyKey,
+      wasApplied, outcome, comment, createdAt, status, lastErrorCode);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RecommendationFeedbackOutboxRow &&
+          other.recommendationId == this.recommendationId &&
+          other.userId == this.userId &&
+          other.idempotencyKey == this.idempotencyKey &&
+          other.wasApplied == this.wasApplied &&
+          other.outcome == this.outcome &&
+          other.comment == this.comment &&
+          other.createdAt == this.createdAt &&
+          other.status == this.status &&
+          other.lastErrorCode == this.lastErrorCode);
+}
+
+class RecommendationFeedbackOutboxCompanion
+    extends UpdateCompanion<RecommendationFeedbackOutboxRow> {
+  final Value<String> recommendationId;
+  final Value<String> userId;
+  final Value<String> idempotencyKey;
+  final Value<bool> wasApplied;
+  final Value<String> outcome;
+  final Value<String?> comment;
+  final Value<DateTime> createdAt;
+  final Value<LocalSyncStatus> status;
+  final Value<String?> lastErrorCode;
+  final Value<int> rowid;
+  const RecommendationFeedbackOutboxCompanion({
+    this.recommendationId = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.idempotencyKey = const Value.absent(),
+    this.wasApplied = const Value.absent(),
+    this.outcome = const Value.absent(),
+    this.comment = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.status = const Value.absent(),
+    this.lastErrorCode = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RecommendationFeedbackOutboxCompanion.insert({
+    required String recommendationId,
+    required String userId,
+    required String idempotencyKey,
+    required bool wasApplied,
+    required String outcome,
+    this.comment = const Value.absent(),
+    required DateTime createdAt,
+    required LocalSyncStatus status,
+    this.lastErrorCode = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : recommendationId = Value(recommendationId),
+        userId = Value(userId),
+        idempotencyKey = Value(idempotencyKey),
+        wasApplied = Value(wasApplied),
+        outcome = Value(outcome),
+        createdAt = Value(createdAt),
+        status = Value(status);
+  static Insertable<RecommendationFeedbackOutboxRow> custom({
+    Expression<String>? recommendationId,
+    Expression<String>? userId,
+    Expression<String>? idempotencyKey,
+    Expression<bool>? wasApplied,
+    Expression<String>? outcome,
+    Expression<String>? comment,
+    Expression<DateTime>? createdAt,
+    Expression<String>? status,
+    Expression<String>? lastErrorCode,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (recommendationId != null) 'recommendation_id': recommendationId,
+      if (userId != null) 'user_id': userId,
+      if (idempotencyKey != null) 'idempotency_key': idempotencyKey,
+      if (wasApplied != null) 'was_applied': wasApplied,
+      if (outcome != null) 'outcome': outcome,
+      if (comment != null) 'comment': comment,
+      if (createdAt != null) 'created_at': createdAt,
+      if (status != null) 'status': status,
+      if (lastErrorCode != null) 'last_error_code': lastErrorCode,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RecommendationFeedbackOutboxCompanion copyWith(
+      {Value<String>? recommendationId,
+      Value<String>? userId,
+      Value<String>? idempotencyKey,
+      Value<bool>? wasApplied,
+      Value<String>? outcome,
+      Value<String?>? comment,
+      Value<DateTime>? createdAt,
+      Value<LocalSyncStatus>? status,
+      Value<String?>? lastErrorCode,
+      Value<int>? rowid}) {
+    return RecommendationFeedbackOutboxCompanion(
+      recommendationId: recommendationId ?? this.recommendationId,
+      userId: userId ?? this.userId,
+      idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+      wasApplied: wasApplied ?? this.wasApplied,
+      outcome: outcome ?? this.outcome,
+      comment: comment ?? this.comment,
+      createdAt: createdAt ?? this.createdAt,
+      status: status ?? this.status,
+      lastErrorCode: lastErrorCode ?? this.lastErrorCode,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (recommendationId.present) {
+      map['recommendation_id'] = Variable<String>(recommendationId.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<String>(userId.value);
+    }
+    if (idempotencyKey.present) {
+      map['idempotency_key'] = Variable<String>(idempotencyKey.value);
+    }
+    if (wasApplied.present) {
+      map['was_applied'] = Variable<bool>(wasApplied.value);
+    }
+    if (outcome.present) {
+      map['outcome'] = Variable<String>(outcome.value);
+    }
+    if (comment.present) {
+      map['comment'] = Variable<String>(comment.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>($RecommendationFeedbackOutboxTable
+          .$converterstatus
+          .toSql(status.value));
+    }
+    if (lastErrorCode.present) {
+      map['last_error_code'] = Variable<String>(lastErrorCode.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RecommendationFeedbackOutboxCompanion(')
+          ..write('recommendationId: $recommendationId, ')
+          ..write('userId: $userId, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('wasApplied: $wasApplied, ')
+          ..write('outcome: $outcome, ')
+          ..write('comment: $comment, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('status: $status, ')
+          ..write('lastErrorCode: $lastErrorCode, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -2037,12 +2630,19 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $SymptomsLocalTable symptomsLocal = $SymptomsLocalTable(this);
   late final $FoodCatalogCacheTable foodCatalogCache =
       $FoodCatalogCacheTable(this);
+  late final $RecommendationFeedbackOutboxTable recommendationFeedbackOutbox =
+      $RecommendationFeedbackOutboxTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [mealsLocal, mealItemsLocal, symptomsLocal, foodCatalogCache];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        mealsLocal,
+        mealItemsLocal,
+        symptomsLocal,
+        foodCatalogCache,
+        recommendationFeedbackOutbox
+      ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
         [
@@ -2068,6 +2668,7 @@ typedef $$MealsLocalTableCreateCompanionBuilder = MealsLocalCompanion Function({
   required LocalSyncStatus syncStatus,
   Value<String?> serverId,
   Value<String?> lastErrorCode,
+  Value<String?> userId,
   Value<int> rowid,
 });
 typedef $$MealsLocalTableUpdateCompanionBuilder = MealsLocalCompanion Function({
@@ -2078,6 +2679,7 @@ typedef $$MealsLocalTableUpdateCompanionBuilder = MealsLocalCompanion Function({
   Value<LocalSyncStatus> syncStatus,
   Value<String?> serverId,
   Value<String?> lastErrorCode,
+  Value<String?> userId,
   Value<int> rowid,
 });
 
@@ -2135,6 +2737,9 @@ class $$MealsLocalTableFilterComposer
   ColumnFilters<String> get lastErrorCode => $composableBuilder(
       column: $table.lastErrorCode, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
   Expression<bool> mealItemsLocalRefs(
       Expression<bool> Function($$MealItemsLocalTableFilterComposer f) f) {
     final $$MealItemsLocalTableFilterComposer composer = $composerBuilder(
@@ -2188,6 +2793,9 @@ class $$MealsLocalTableOrderingComposer
   ColumnOrderings<String> get lastErrorCode => $composableBuilder(
       column: $table.lastErrorCode,
       builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
 }
 
 class $$MealsLocalTableAnnotationComposer
@@ -2220,6 +2828,9 @@ class $$MealsLocalTableAnnotationComposer
 
   GeneratedColumn<String> get lastErrorCode => $composableBuilder(
       column: $table.lastErrorCode, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
 
   Expression<T> mealItemsLocalRefs<T extends Object>(
       Expression<T> Function($$MealItemsLocalTableAnnotationComposer a) f) {
@@ -2273,6 +2884,7 @@ class $$MealsLocalTableTableManager extends RootTableManager<
             Value<LocalSyncStatus> syncStatus = const Value.absent(),
             Value<String?> serverId = const Value.absent(),
             Value<String?> lastErrorCode = const Value.absent(),
+            Value<String?> userId = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               MealsLocalCompanion(
@@ -2283,6 +2895,7 @@ class $$MealsLocalTableTableManager extends RootTableManager<
             syncStatus: syncStatus,
             serverId: serverId,
             lastErrorCode: lastErrorCode,
+            userId: userId,
             rowid: rowid,
           ),
           createCompanionCallback: ({
@@ -2293,6 +2906,7 @@ class $$MealsLocalTableTableManager extends RootTableManager<
             required LocalSyncStatus syncStatus,
             Value<String?> serverId = const Value.absent(),
             Value<String?> lastErrorCode = const Value.absent(),
+            Value<String?> userId = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               MealsLocalCompanion.insert(
@@ -2303,6 +2917,7 @@ class $$MealsLocalTableTableManager extends RootTableManager<
             syncStatus: syncStatus,
             serverId: serverId,
             lastErrorCode: lastErrorCode,
+            userId: userId,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
@@ -2652,6 +3267,7 @@ typedef $$SymptomsLocalTableCreateCompanionBuilder = SymptomsLocalCompanion
   Value<String?> associatedMealId,
   Value<bool?> hasMealAssociation,
   Value<String?> lastErrorCode,
+  Value<String?> userId,
   Value<int> rowid,
 });
 typedef $$SymptomsLocalTableUpdateCompanionBuilder = SymptomsLocalCompanion
@@ -2666,6 +3282,7 @@ typedef $$SymptomsLocalTableUpdateCompanionBuilder = SymptomsLocalCompanion
   Value<String?> associatedMealId,
   Value<bool?> hasMealAssociation,
   Value<String?> lastErrorCode,
+  Value<String?> userId,
   Value<int> rowid,
 });
 
@@ -2712,6 +3329,9 @@ class $$SymptomsLocalTableFilterComposer
 
   ColumnFilters<String> get lastErrorCode => $composableBuilder(
       column: $table.lastErrorCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
 }
 
 class $$SymptomsLocalTableOrderingComposer
@@ -2756,6 +3376,9 @@ class $$SymptomsLocalTableOrderingComposer
   ColumnOrderings<String> get lastErrorCode => $composableBuilder(
       column: $table.lastErrorCode,
       builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
 }
 
 class $$SymptomsLocalTableAnnotationComposer
@@ -2797,6 +3420,9 @@ class $$SymptomsLocalTableAnnotationComposer
 
   GeneratedColumn<String> get lastErrorCode => $composableBuilder(
       column: $table.lastErrorCode, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
 }
 
 class $$SymptomsLocalTableTableManager extends RootTableManager<
@@ -2835,6 +3461,7 @@ class $$SymptomsLocalTableTableManager extends RootTableManager<
             Value<String?> associatedMealId = const Value.absent(),
             Value<bool?> hasMealAssociation = const Value.absent(),
             Value<String?> lastErrorCode = const Value.absent(),
+            Value<String?> userId = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               SymptomsLocalCompanion(
@@ -2848,6 +3475,7 @@ class $$SymptomsLocalTableTableManager extends RootTableManager<
             associatedMealId: associatedMealId,
             hasMealAssociation: hasMealAssociation,
             lastErrorCode: lastErrorCode,
+            userId: userId,
             rowid: rowid,
           ),
           createCompanionCallback: ({
@@ -2861,6 +3489,7 @@ class $$SymptomsLocalTableTableManager extends RootTableManager<
             Value<String?> associatedMealId = const Value.absent(),
             Value<bool?> hasMealAssociation = const Value.absent(),
             Value<String?> lastErrorCode = const Value.absent(),
+            Value<String?> userId = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               SymptomsLocalCompanion.insert(
@@ -2874,6 +3503,7 @@ class $$SymptomsLocalTableTableManager extends RootTableManager<
             associatedMealId: associatedMealId,
             hasMealAssociation: hasMealAssociation,
             lastErrorCode: lastErrorCode,
+            userId: userId,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
@@ -3185,6 +3815,253 @@ typedef $$FoodCatalogCacheTableProcessedTableManager = ProcessedTableManager<
     ),
     FoodCatalogEntry,
     PrefetchHooks Function()>;
+typedef $$RecommendationFeedbackOutboxTableCreateCompanionBuilder
+    = RecommendationFeedbackOutboxCompanion Function({
+  required String recommendationId,
+  required String userId,
+  required String idempotencyKey,
+  required bool wasApplied,
+  required String outcome,
+  Value<String?> comment,
+  required DateTime createdAt,
+  required LocalSyncStatus status,
+  Value<String?> lastErrorCode,
+  Value<int> rowid,
+});
+typedef $$RecommendationFeedbackOutboxTableUpdateCompanionBuilder
+    = RecommendationFeedbackOutboxCompanion Function({
+  Value<String> recommendationId,
+  Value<String> userId,
+  Value<String> idempotencyKey,
+  Value<bool> wasApplied,
+  Value<String> outcome,
+  Value<String?> comment,
+  Value<DateTime> createdAt,
+  Value<LocalSyncStatus> status,
+  Value<String?> lastErrorCode,
+  Value<int> rowid,
+});
+
+class $$RecommendationFeedbackOutboxTableFilterComposer
+    extends Composer<_$AppDatabase, $RecommendationFeedbackOutboxTable> {
+  $$RecommendationFeedbackOutboxTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get recommendationId => $composableBuilder(
+      column: $table.recommendationId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get idempotencyKey => $composableBuilder(
+      column: $table.idempotencyKey,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get wasApplied => $composableBuilder(
+      column: $table.wasApplied, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get outcome => $composableBuilder(
+      column: $table.outcome, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get comment => $composableBuilder(
+      column: $table.comment, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnWithTypeConverterFilters<LocalSyncStatus, LocalSyncStatus, String>
+      get status => $composableBuilder(
+          column: $table.status,
+          builder: (column) => ColumnWithTypeConverterFilters(column));
+
+  ColumnFilters<String> get lastErrorCode => $composableBuilder(
+      column: $table.lastErrorCode, builder: (column) => ColumnFilters(column));
+}
+
+class $$RecommendationFeedbackOutboxTableOrderingComposer
+    extends Composer<_$AppDatabase, $RecommendationFeedbackOutboxTable> {
+  $$RecommendationFeedbackOutboxTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get recommendationId => $composableBuilder(
+      column: $table.recommendationId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get idempotencyKey => $composableBuilder(
+      column: $table.idempotencyKey,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get wasApplied => $composableBuilder(
+      column: $table.wasApplied, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get outcome => $composableBuilder(
+      column: $table.outcome, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get comment => $composableBuilder(
+      column: $table.comment, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get status => $composableBuilder(
+      column: $table.status, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get lastErrorCode => $composableBuilder(
+      column: $table.lastErrorCode,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$RecommendationFeedbackOutboxTableAnnotationComposer
+    extends Composer<_$AppDatabase, $RecommendationFeedbackOutboxTable> {
+  $$RecommendationFeedbackOutboxTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get recommendationId => $composableBuilder(
+      column: $table.recommendationId, builder: (column) => column);
+
+  GeneratedColumn<String> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get idempotencyKey => $composableBuilder(
+      column: $table.idempotencyKey, builder: (column) => column);
+
+  GeneratedColumn<bool> get wasApplied => $composableBuilder(
+      column: $table.wasApplied, builder: (column) => column);
+
+  GeneratedColumn<String> get outcome =>
+      $composableBuilder(column: $table.outcome, builder: (column) => column);
+
+  GeneratedColumn<String> get comment =>
+      $composableBuilder(column: $table.comment, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumnWithTypeConverter<LocalSyncStatus, String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get lastErrorCode => $composableBuilder(
+      column: $table.lastErrorCode, builder: (column) => column);
+}
+
+class $$RecommendationFeedbackOutboxTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $RecommendationFeedbackOutboxTable,
+    RecommendationFeedbackOutboxRow,
+    $$RecommendationFeedbackOutboxTableFilterComposer,
+    $$RecommendationFeedbackOutboxTableOrderingComposer,
+    $$RecommendationFeedbackOutboxTableAnnotationComposer,
+    $$RecommendationFeedbackOutboxTableCreateCompanionBuilder,
+    $$RecommendationFeedbackOutboxTableUpdateCompanionBuilder,
+    (
+      RecommendationFeedbackOutboxRow,
+      BaseReferences<_$AppDatabase, $RecommendationFeedbackOutboxTable,
+          RecommendationFeedbackOutboxRow>
+    ),
+    RecommendationFeedbackOutboxRow,
+    PrefetchHooks Function()> {
+  $$RecommendationFeedbackOutboxTableTableManager(
+      _$AppDatabase db, $RecommendationFeedbackOutboxTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$RecommendationFeedbackOutboxTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$RecommendationFeedbackOutboxTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$RecommendationFeedbackOutboxTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> recommendationId = const Value.absent(),
+            Value<String> userId = const Value.absent(),
+            Value<String> idempotencyKey = const Value.absent(),
+            Value<bool> wasApplied = const Value.absent(),
+            Value<String> outcome = const Value.absent(),
+            Value<String?> comment = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<LocalSyncStatus> status = const Value.absent(),
+            Value<String?> lastErrorCode = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              RecommendationFeedbackOutboxCompanion(
+            recommendationId: recommendationId,
+            userId: userId,
+            idempotencyKey: idempotencyKey,
+            wasApplied: wasApplied,
+            outcome: outcome,
+            comment: comment,
+            createdAt: createdAt,
+            status: status,
+            lastErrorCode: lastErrorCode,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String recommendationId,
+            required String userId,
+            required String idempotencyKey,
+            required bool wasApplied,
+            required String outcome,
+            Value<String?> comment = const Value.absent(),
+            required DateTime createdAt,
+            required LocalSyncStatus status,
+            Value<String?> lastErrorCode = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              RecommendationFeedbackOutboxCompanion.insert(
+            recommendationId: recommendationId,
+            userId: userId,
+            idempotencyKey: idempotencyKey,
+            wasApplied: wasApplied,
+            outcome: outcome,
+            comment: comment,
+            createdAt: createdAt,
+            status: status,
+            lastErrorCode: lastErrorCode,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$RecommendationFeedbackOutboxTableProcessedTableManager
+    = ProcessedTableManager<
+        _$AppDatabase,
+        $RecommendationFeedbackOutboxTable,
+        RecommendationFeedbackOutboxRow,
+        $$RecommendationFeedbackOutboxTableFilterComposer,
+        $$RecommendationFeedbackOutboxTableOrderingComposer,
+        $$RecommendationFeedbackOutboxTableAnnotationComposer,
+        $$RecommendationFeedbackOutboxTableCreateCompanionBuilder,
+        $$RecommendationFeedbackOutboxTableUpdateCompanionBuilder,
+        (
+          RecommendationFeedbackOutboxRow,
+          BaseReferences<_$AppDatabase, $RecommendationFeedbackOutboxTable,
+              RecommendationFeedbackOutboxRow>
+        ),
+        RecommendationFeedbackOutboxRow,
+        PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3197,4 +4074,8 @@ class $AppDatabaseManager {
       $$SymptomsLocalTableTableManager(_db, _db.symptomsLocal);
   $$FoodCatalogCacheTableTableManager get foodCatalogCache =>
       $$FoodCatalogCacheTableTableManager(_db, _db.foodCatalogCache);
+  $$RecommendationFeedbackOutboxTableTableManager
+      get recommendationFeedbackOutbox =>
+          $$RecommendationFeedbackOutboxTableTableManager(
+              _db, _db.recommendationFeedbackOutbox);
 }
