@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/sync/local_record_owner.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
 import 'package:cauce_mobile/core/database/local_sync_status.dart';
@@ -49,6 +50,7 @@ void main() {
     container = ProviderContainer(
       overrides: <Override>[
         appDatabaseProvider.overrideWithValue(database),
+        localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
         mealsRepositoryProvider.overrideWithValue(repository),
         connectivityMonitorProvider.overrideWithValue(connectivity),
       ],

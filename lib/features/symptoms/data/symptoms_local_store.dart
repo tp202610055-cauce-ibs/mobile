@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/database/app_database_provider.dart';
 import '../../../core/database/local_sync_status.dart';
+import '../../../core/sync/local_record_owner.dart';
 import '../domain/symptom_draft.dart';
 
 part 'symptoms_local_store.g.dart';
@@ -13,10 +14,13 @@ part 'symptoms_local_store.g.dart';
 /// Escribe en el dispositivo los sintomas que el paciente registra sin conexion
 /// (US11, mismo patron que las comidas de HU0009 CA02).
 class SymptomsLocalStore {
-  const SymptomsLocalStore(this._db, this._uuid);
+  const SymptomsLocalStore(this._db, this._uuid, this._owner);
 
   final AppDatabase _db;
   final Uuid _uuid;
+
+  /// Cuenta de la sesion. Cada fila se guarda a su nombre y solo ella la ve.
+  final String? Function() _owner;
 
   /// Guarda el sintoma como pendiente y devuelve su `client_guid`.
   ///
@@ -29,6 +33,10 @@ class SymptomsLocalStore {
     String? clientGuid,
     DateTime? now,
   }) async {
+    final owner = _owner();
+    if (owner == null) {
+      throw StateError('Registrar exige una sesion con cuenta.');
+    }
     final key = clientGuid ?? _uuid.v4();
     final createdAt = (now ?? DateTime.now()).toUtc();
     final symptomType = draft.symptomType;
@@ -62,6 +70,7 @@ class SymptomsLocalStore {
               occurredAt: (draft.occurredAt ?? createdAt).toUtc(),
               clientCreatedAt: createdAt,
               syncStatus: LocalSyncStatus.pending,
+              userId: Value<String?>(owner),
             ),
           );
     });
@@ -92,12 +101,19 @@ class SymptomsLocalStore {
 
   /// Sintomas creados desde [from] inclusive, mas toda fila que no llego al
   /// servidor sin importar su edad, del mas reciente al mas viejo.
-  Future<List<SymptomLocal>> forHistory({required DateTime from}) {
+  Future<List<SymptomLocal>> forHistory({required DateTime from}) async {
+    final owner = _owner();
+    if (owner == null) {
+      return const <SymptomLocal>[];
+    }
     return (_db.select(_db.symptomsLocal)
           ..where(
             (row) =>
-                row.clientCreatedAt.isBiggerOrEqualValue(from.toUtc()) |
-                row.syncStatus.equalsValue(LocalSyncStatus.completed).not(),
+                row.userId.equals(owner) &
+                (row.clientCreatedAt.isBiggerOrEqualValue(from.toUtc()) |
+                    row.syncStatus
+                        .equalsValue(LocalSyncStatus.completed)
+                        .not()),
           )
           ..orderBy(<OrderClauseGenerator<$SymptomsLocalTable>>[
             (row) => OrderingTerm.desc(row.clientCreatedAt),
@@ -108,5 +124,9 @@ class SymptomsLocalStore {
 
 @Riverpod(keepAlive: true)
 SymptomsLocalStore symptomsLocalStore(Ref ref) {
-  return SymptomsLocalStore(ref.watch(appDatabaseProvider), const Uuid());
+  return SymptomsLocalStore(
+    ref.watch(appDatabaseProvider),
+    const Uuid(),
+    ref.watch(localRecordOwnerProvider),
+  );
 }

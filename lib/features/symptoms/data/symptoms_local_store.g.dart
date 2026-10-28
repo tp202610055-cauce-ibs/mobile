@@ -7,7 +7,7 @@ part of 'symptoms_local_store.dart';
 // **************************************************************************
 
 String _$symptomsLocalStoreHash() =>
-    r'aeef1e5d5a4c23c68094458514650a6347e3db32';
+    r'8fa65a5e4dbd3cbc26e8d70f1b550f5584355c10';
 
 /// See also [symptomsLocalStore].
 @ProviderFor(symptomsLocalStore)

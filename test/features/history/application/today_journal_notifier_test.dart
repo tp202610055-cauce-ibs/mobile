@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cauce_mobile/core/sync/local_record_owner.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
 import 'package:cauce_mobile/features/history/application/history_composer.dart';
@@ -47,6 +48,7 @@ void main() {
     container = ProviderContainer(
       overrides: <Override>[
         appDatabaseProvider.overrideWithValue(db),
+        localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
         mealsRepositoryProvider.overrideWithValue(meals),
         symptomsRepositoryProvider.overrideWithValue(symptoms),
         historyClockProvider.overrideWithValue(() => now),

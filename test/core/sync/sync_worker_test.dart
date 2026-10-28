@@ -21,10 +21,12 @@ void main() {
   late _MockSyncRepository repository;
   late FakeConnectivityMonitor connectivity;
   late SyncWorker worker;
+  String? owner;
 
   setUp(() {
     database = AppDatabase.memory();
-    queue = SyncQueueStore(database);
+    owner = localOwnerId;
+    queue = SyncQueueStore(database, () => owner);
     repository = _MockSyncRepository();
     connectivity = FakeConnectivityMonitor();
     worker = SyncWorker(
@@ -55,6 +57,61 @@ void main() {
         .getSingleOrNull();
     return row?.syncStatus;
   }
+
+  group('SyncWorker · cuentas distintas en el mismo telefono', () {
+    const String guidB = '33333333-3333-4333-8333-333333333333';
+
+    List<String> pushedMeals() {
+      final captured = verify(
+        () => repository.push(
+          meals: captureAny(named: 'meals'),
+          symptoms: any(named: 'symptoms'),
+        ),
+      ).captured;
+      return captured
+          .expand((batch) => batch as List<PendingMeal>)
+          .map((pending) => pending.meal.clientGuid)
+          .toList();
+    }
+
+    test('con la sesion de B no sube nada de A; al volver A, si', () async {
+      // A deja una comida y un sintoma pendientes y cierra sesion.
+      await insertPendingMeal(database, _mealGuid);
+      await insertPendingSymptom(database, _symptomGuid);
+      stubPush(const SyncBatchReport());
+
+      // Entra B en el mismo telefono.
+      owner = otherOwnerId;
+      final asB = await worker.run();
+
+      expect(asB.outcome, SyncRunOutcome.idle);
+      verifyNever(
+        () => repository.push(
+          meals: any(named: 'meals'),
+          symptoms: any(named: 'symptoms'),
+        ),
+      );
+
+      // B registra lo suyo: solo eso sale con su token.
+      await insertPendingMeal(database, guidB, userId: otherOwnerId);
+      await worker.run();
+      expect(pushedMeals(), <String>[guidB]);
+
+      // A vuelve a entrar y sus filas salen.
+      owner = localOwnerId;
+      await worker.run();
+      expect(pushedMeals(), <String>[_mealGuid]);
+    });
+
+    test('las filas sin titular de v2 no suben con ninguna sesion', () async {
+      await insertPendingMeal(database, _mealGuid, userId: null);
+      await insertPendingSymptom(database, _symptomGuid, userId: null);
+
+      expect((await worker.run()).outcome, SyncRunOutcome.idle);
+      owner = otherOwnerId;
+      expect((await worker.run()).outcome, SyncRunOutcome.idle);
+    });
+  });
 
   group('SyncWorker · cola vacia y sin conexion', () {
     test('sin nada pendiente no llama al servidor', () async {

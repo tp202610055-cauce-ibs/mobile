@@ -36,12 +36,43 @@ final MealDraft _draft = MealDraft(
 void main() {
   late AppDatabase database;
   late MealsLocalStore store;
+  String? owner;
 
   setUp(() {
     database = AppDatabase.memory();
-    store = MealsLocalStore(database, const Uuid());
+    owner = localOwnerId;
+    store = MealsLocalStore(database, const Uuid(), () => owner);
   });
   tearDown(() => database.close());
+
+  group('MealsLocalStore · titular de la fila', () {
+    test('guarda la comida a nombre de la cuenta de la sesion', () async {
+      final clientGuid = await store.enqueue(_draft);
+
+      final meal = await (database.select(database.mealsLocal)
+            ..where((r) => r.clientGuid.equals(clientGuid)))
+          .getSingle();
+      expect(meal.userId, localOwnerId);
+    });
+
+    test('sin sesion no guarda nada', () async {
+      owner = null;
+
+      await expectLater(store.enqueue(_draft), throwsStateError);
+      expect(await database.select(database.mealsLocal).get(), isEmpty);
+    });
+
+    test('el historial no muestra filas de otra cuenta ni sin titular',
+        () async {
+      await insertPendingMeal(database, 'propia');
+      await insertPendingMeal(database, 'ajena', userId: otherOwnerId);
+      await insertPendingMeal(database, 'sin-titular', userId: null);
+
+      final rows = await store.forHistory(from: DateTime.utc(2026, 1, 1));
+
+      expect(rows.map((row) => row.clientGuid), <String>['propia']);
+    });
+  });
 
   group('MealsLocalStore · registro sin conexion (CA02, CP023)', () {
     test('guarda la comida con sus items y queda pendiente', () async {

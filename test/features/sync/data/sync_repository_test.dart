@@ -28,7 +28,7 @@ void main() {
 
   setUp(() {
     database = AppDatabase.memory();
-    queue = SyncQueueStore(database);
+    queue = SyncQueueStore(database, () => localOwnerId);
   });
   tearDown(() => database.close());
 

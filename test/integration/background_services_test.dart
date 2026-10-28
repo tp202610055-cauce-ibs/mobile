@@ -5,7 +5,11 @@ import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
 import 'package:cauce_mobile/core/network/dio_provider.dart';
 import 'package:cauce_mobile/core/sync/connectivity_monitor.dart';
+import 'package:cauce_mobile/features/recommendations/data/recommendation_feedback_outbox_store.dart';
+import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_feedback.dart';
+import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -36,6 +40,22 @@ const AuthenticatedUserSnapshot _verified = AuthenticatedUserSnapshot(
 );
 
 const String _pendingGuid = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
+
+const String _recommendationId = 'dddddddd-dddd-4ddd-8ddd-dddddddddddd';
+
+/// Respuesta guardada sin red por la cuenta de la sesion.
+Future<void> _queueFeedback(AppDatabase database) {
+  return RecommendationFeedbackOutboxStore(database).save(
+    PendingRecommendationFeedback(
+      recommendationId: _recommendationId,
+      idempotencyKey: 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
+      wasApplied: true,
+      outcome: FeedbackOutcomeOption.noChange,
+      createdAt: DateTime.utc(2026, 9, 22, 10),
+    ),
+    userId: _verified.userId,
+  );
+}
 
 /// Adaptador que responde por sufijo de ruta y deja pasar el resto.
 ///
@@ -98,11 +118,13 @@ Future<_Harness> _pumpApp(
   WidgetTester tester, {
   required bool online,
   AuthenticatedUserSnapshot? session = _verified,
+  Future<void> Function(AppDatabase database)? seed,
 }) async {
   final adapter = _RoutedAdapter(<String, CannedResponse>{
     '/sync/batch': _batchAccepted,
     '/foods': _emptyCatalogPage,
     '/auth/logout': const CannedResponse.noContent(),
+    '/feedback': const CannedResponse.noContent(),
   });
   final connectivity = FakeConnectivityMonitor(online: online);
   final database = AppDatabase.memory();
@@ -116,6 +138,7 @@ Future<_Harness> _pumpApp(
 
   addTearDown(connectivity.dispose);
   addTearDown(database.close);
+  await seed?.call(database);
 
   final container = ProviderContainer(
     overrides: <Override>[
@@ -204,6 +227,82 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(h.adapter.requestsFor('POST', '/sync/batch'), isEmpty);
+    });
+  });
+
+  group('R12 · cada cuenta sube solo lo suyo', () {
+    testWidgets('lo pendiente de otra cuenta no sale con esta sesion',
+        (tester) async {
+      const otherGuid = 'aaaaaaaa-0000-4000-8000-0000000000bb';
+      final h = await _pumpApp(tester, online: false);
+      await insertPendingMeal(h.database, otherGuid, userId: otherOwnerId);
+      await insertPendingMeal(h.database, _pendingGuid);
+
+      h.connectivity.emitReconnection();
+      await tester.pumpAndSettle();
+
+      final batch = h.adapter.requestsFor('POST', '/sync/batch').single;
+      expect(batch.body.toString(), contains(_pendingGuid));
+      expect(batch.body.toString(), isNot(contains(otherGuid)));
+    });
+
+    testWidgets('las filas sin titular no salen', (tester) async {
+      final h = await _pumpApp(tester, online: false);
+      await insertPendingMeal(h.database, _pendingGuid, userId: null);
+
+      h.connectivity.emitReconnection();
+      await tester.pumpAndSettle();
+
+      expect(h.adapter.requestsFor('POST', '/sync/batch'), isEmpty);
+    });
+  });
+
+  group('R12 · las respuestas guardadas sin red (CP044)', () {
+    testWidgets('salen solas al volver la conexion', (tester) async {
+      final h = await _pumpApp(tester, online: false);
+      await _queueFeedback(h.database);
+
+      h.connectivity.emitReconnection();
+      await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+
+      final sent = h.adapter.requestsFor('POST', '/feedback').single;
+      expect(sent.path, contains(_recommendationId));
+      expect(
+        sent.headers['Idempotency-Key'],
+        'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
+      );
+    });
+
+    testWidgets('salen al volver la app a primer plano', (tester) async {
+      final h = await _pumpApp(tester, online: false);
+      await _queueFeedback(h.database);
+      h.connectivity.online = true;
+
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
+
+      expect(h.adapter.requestsFor('POST', '/feedback'), hasLength(1));
+    });
+
+    testWidgets('salen al arrancar con sesion y red', (tester) async {
+      final h = await _pumpApp(tester, online: true, seed: _queueFeedback);
+
+      expect(h.adapter.requestsFor('POST', '/feedback'), hasLength(1));
+    });
+
+    testWidgets('sin sesion no sale nada', (tester) async {
+      final h = await _pumpApp(tester, online: true, session: null);
+      await _queueFeedback(h.database);
+
+      h.connectivity.emitReconnection();
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
+
+      expect(h.adapter.requestsFor('POST', '/feedback'), isEmpty);
     });
   });
 }

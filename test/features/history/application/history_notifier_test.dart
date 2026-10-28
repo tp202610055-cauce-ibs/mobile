@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cauce_mobile/core/sync/local_record_owner.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
 import 'package:cauce_mobile/core/database/local_sync_status.dart';
@@ -52,7 +53,8 @@ class _CountingCatalog extends FoodCatalogStore {
 
 /// Cuenta las lecturas de items de comidas locales.
 class _CountingMealsStore extends MealsLocalStore {
-  _CountingMealsStore(AppDatabase db) : super(db, const Uuid());
+  _CountingMealsStore(AppDatabase db)
+      : super(db, const Uuid(), () => localOwnerId);
 
   int itemReads = 0;
 
@@ -71,7 +73,8 @@ class _CountingMealsStore extends MealsLocalStore {
 
 /// Almacen local que falla al leer, como un disco que no responde.
 class _BrokenMealsStore extends MealsLocalStore {
-  _BrokenMealsStore(AppDatabase db) : super(db, const Uuid());
+  _BrokenMealsStore(AppDatabase db)
+      : super(db, const Uuid(), () => localOwnerId);
 
   @override
   Future<List<MealLocal>> forHistory({required DateTime from}) async {
@@ -129,6 +132,7 @@ ProviderContainer _pagedContainer({
   final container = ProviderContainer(
     overrides: <Override>[
       appDatabaseProvider.overrideWithValue(database),
+      localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
       mealsRepositoryProvider.overrideWithValue(meals),
       symptomsRepositoryProvider.overrideWithValue(symptoms),
       clinicalNotesRepositoryProvider.overrideWithValue(_FakeNotes()),
@@ -156,6 +160,7 @@ void main() {
     container = ProviderContainer(
       overrides: <Override>[
         appDatabaseProvider.overrideWithValue(database),
+        localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
         mealsRepositoryProvider.overrideWithValue(meals),
         symptomsRepositoryProvider.overrideWithValue(symptoms),
         clinicalNotesRepositoryProvider.overrideWithValue(notes),
@@ -806,6 +811,7 @@ void main() {
       final c = ProviderContainer(
         overrides: <Override>[
           appDatabaseProvider.overrideWithValue(db),
+          localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
           mealsRepositoryProvider.overrideWithValue(meals),
           symptomsRepositoryProvider.overrideWithValue(
             PagedSymptomsRepository(const <SymptomRecord>[]),

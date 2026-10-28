@@ -6,7 +6,7 @@ part of 'sync_queue_store.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$syncQueueStoreHash() => r'ff76a608baff7d6310d558e5d2eb0f2b325e684f';
+String _$syncQueueStoreHash() => r'689d727b396b64535f5638a75a5336348a734f50';
 
 /// See also [syncQueueStore].
 @ProviderFor(syncQueueStore)
