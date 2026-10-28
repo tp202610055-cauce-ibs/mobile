@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../auth/session_expiry.dart';
+import '../auth/session_generation.dart';
 import '../auth/token_storage.dart';
 import '../auth/token_storage_provider.dart';
 import '../config/env.dart';
@@ -25,6 +26,7 @@ Dio dio(Ref ref) {
     tokenStorage: tokenStorage,
     baseUrl: Env.apiBaseUrl,
     onSessionExpired: sessionExpiryCallback(ref),
+    sessionGeneration: ref.watch(sessionGenerationProvider),
   );
 }
 
@@ -47,6 +49,7 @@ Dio buildDio({
   bool enableLogging = false,
   Dio? refreshClient,
   void Function()? onSessionExpired,
+  SessionGeneration? sessionGeneration,
 }) {
   final dio = Dio(
     BaseOptions(
@@ -69,6 +72,7 @@ Dio buildDio({
       baseUrl: baseUrl,
       refreshClient: refreshClient,
       onSessionExpired: onSessionExpired,
+      sessionGeneration: sessionGeneration,
     ),
     if (enableLogging)
       LogInterceptor(requestBody: true, responseBody: true, error: true),

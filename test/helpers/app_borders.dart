@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/auth/session_generation.dart';
 import 'package:cauce_mobile/core/auth/token_storage.dart';
 import 'package:cauce_mobile/core/config/env.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
@@ -71,6 +72,7 @@ AppBorders appBorders({
           baseUrl: 'http://localhost:5074',
           refreshClient: refreshClient,
           onSessionExpired: sessionExpiryCallback(ref),
+          sessionGeneration: ref.watch(sessionGenerationProvider),
         );
         dio.httpClientAdapter = transport;
         return dio;

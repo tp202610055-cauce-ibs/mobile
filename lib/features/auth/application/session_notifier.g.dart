@@ -6,7 +6,7 @@ part of 'session_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sessionNotifierHash() => r'a0c638978857fc538c4f9ba4ec5d3df958f72d7a';
+String _$sessionNotifierHash() => r'd6d8b59a8913c7d26f385e02db7ef58b17692641';
 
 /// Gobierna la sesion del paciente y alimenta el guard del router.
 ///

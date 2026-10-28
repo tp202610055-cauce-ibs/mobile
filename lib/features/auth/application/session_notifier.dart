@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/auth/authenticated_user_snapshot.dart';
 import '../../../core/auth/session_expiry.dart';
+import '../../../core/auth/session_generation.dart';
 import '../../../core/auth/token_storage.dart';
 import '../../../core/auth/token_storage_provider.dart';
 import '../../../core/errors/cauce_api_error.dart';
@@ -96,6 +97,7 @@ class SessionNotifier extends _$SessionNotifier {
   /// El unico costo de que el aviso falle es que ese refresh sigue vivo en
   /// Keycloak hasta vencer, y ya no esta en ningun dispositivo.
   Future<void> logout() async {
+    ref.read(sessionGenerationProvider).advance();
     await _revokeAndClear();
     state = const SessionState.unauthenticated();
   }
@@ -108,6 +110,7 @@ class SessionNotifier extends _$SessionNotifier {
     if (state is! SessionAuthenticated) {
       return;
     }
+    ref.read(sessionGenerationProvider).advance();
     state = const SessionState.unauthenticated();
     await _revokeAndClear();
   }
