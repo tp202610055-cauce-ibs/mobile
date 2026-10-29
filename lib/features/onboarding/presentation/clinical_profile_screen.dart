@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
+import '../../../core/auth/registration_without_invitation.dart';
 import '../../../core/errors/error_messages.dart';
 import '../../../core/onboarding/onboarding_draft_store.dart';
 import '../../../core/theme/design_tokens.dart';
@@ -246,6 +248,8 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
             .read(clinicalProfileNotifierProvider.notifier)
             .defer(page: _page, fields: _fields()),
         children: <Widget>[
+          if (_page == 0 && ref.watch(showsNoInvitationNoticeProvider))
+            const _NoInvitationNotice(),
           if (error != null) ...<Widget>[
             CauceErrorBanner(error: error),
             const SizedBox(height: CauceSpacing.space4),
@@ -438,6 +442,42 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
           onPressed: busy ? null : () => setState(() => _page = 0),
         ),
       ],
+    );
+  }
+}
+
+/// Aviso fijo del registro sin codigo de invitacion (CP055 paso 5).
+class _NoInvitationNotice extends StatelessWidget {
+  const _NoInvitationNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Container(
+      key: const Key('profile_no_invitation_notice'),
+      margin: const EdgeInsets.only(bottom: CauceSpacing.space4),
+      padding: const EdgeInsets.all(CauceSpacing.space4),
+      decoration: const BoxDecoration(
+        color: CauceColors.infoBg,
+        borderRadius: CauceRadii.borderMd,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const Icon(
+            TablerIcons.info_circle,
+            size: 20,
+            color: CauceColors.infoText,
+          ),
+          const SizedBox(width: CauceSpacing.space2),
+          Expanded(
+            child: Text(
+              l10n.clinicalProfileNoInvitationNotice,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
