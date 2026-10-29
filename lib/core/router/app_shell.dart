@@ -203,7 +203,7 @@ class AppShell extends ConsumerWidget {
       String? ibsSssHint,
       VoidCallback? ibsSssBlocked,
     ) = switch (latest) {
-      _ when !onboarding.allowsAdvice && !canLog => (
+      _ when onboarding.step == OnboardingStep.clinicalProfile => (
           resumeOnboarding,
           l10n.fabHintCompleteProfile,
           null,

@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
+import '../helpers/fake_onboarding_draft_store.dart';
 import '../helpers/app_borders.dart';
 import '../helpers/fake_auth_repository.dart';
 import '../helpers/fake_ibs_sss_repository.dart';
@@ -64,6 +66,8 @@ Future<_Harness> _pumpApp(
       pushMessagingProvider.overrideWithValue(push),
       pushPermissionStoreProvider
           .overrideWithValue(MemoryPushPermissionStore()),
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(
         FakePatientsRepository(
           profile: demoProfile.copyWith(onboardingCompleted: true),

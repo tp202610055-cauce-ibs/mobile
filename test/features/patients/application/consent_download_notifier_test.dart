@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
@@ -8,6 +9,7 @@ import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
@@ -37,6 +39,8 @@ class _FakeSharer implements ConsentPdfSharer {
   final fakeSharer = sharer ?? _FakeSharer();
   final container = ProviderContainer(
     overrides: <Override>[
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(repo),
       consentPdfSharerProvider.overrideWithValue(fakeSharer),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),

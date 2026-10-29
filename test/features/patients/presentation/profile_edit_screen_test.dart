@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/patients/domain/patient_profile.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_patients_repository.dart';
 
 final AppLocalizations l10n = AppLocalizationsEs();
@@ -21,6 +23,8 @@ Future<FakePatientsRepository> _pump(WidgetTester tester) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: <Override>[
+        onboardingDraftStoreProvider
+            .overrideWithValue(FakeOnboardingDraftStore()),
         patientsRepositoryProvider.overrideWithValue(repository),
       ],
       child: MaterialApp.router(

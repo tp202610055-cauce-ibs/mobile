@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/app_borders.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
@@ -39,6 +41,8 @@ Future<({FakeAuthRepository repository, FakeTokenStorage storage})> _pumpApp(
   final container = ProviderContainer(
     overrides: <Override>[
       ...borders.overrides,
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       authRepositoryProvider.overrideWithValue(repository),
       tokenStorageProvider.overrideWithValue(storage),
     ],

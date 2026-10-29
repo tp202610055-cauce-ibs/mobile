@@ -6,6 +6,7 @@ import '../../../core/auth/session_generation.dart';
 import '../../../core/auth/token_storage.dart';
 import '../../../core/auth/token_storage_provider.dart';
 import '../../../core/errors/cauce_api_error.dart';
+import '../../../core/onboarding/onboarding_draft_store.dart';
 import '../../../core/push/push_token_registrar.dart';
 import '../data/auth_repository.dart';
 import '../domain/session_state.dart';
@@ -98,6 +99,8 @@ class SessionNotifier extends _$SessionNotifier {
   /// Keycloak hasta vencer, y ya no esta en ningun dispositivo.
   Future<void> logout() async {
     ref.read(sessionGenerationProvider).advance();
+    // Solo el cierre manual borra el perfil aplazado; la inactividad lo deja.
+    await ref.read(onboardingDraftStoreProvider).clear();
     await _revokeAndClear();
     state = const SessionState.unauthenticated();
   }

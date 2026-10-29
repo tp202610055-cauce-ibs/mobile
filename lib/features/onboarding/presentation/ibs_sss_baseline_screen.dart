@@ -37,7 +37,7 @@ class IbsSssBaselineScreen extends ConsumerWidget {
     final missing = state.answers.missing.length;
 
     return OnboardingStepScaffold(
-      step: 2,
+      step: 3,
       title: l10n.ibsSssTitle,
       subtitle: l10n.ibsSssSubtitle,
       busy: state.submitting,

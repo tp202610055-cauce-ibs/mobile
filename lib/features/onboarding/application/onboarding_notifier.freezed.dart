@@ -19,7 +19,7 @@ mixin _$OnboardingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(OnboardingStep step) pending,
-    required TResult Function(OnboardingStep step) deferred,
+    required TResult Function(OnboardingStep step, int completedSteps) deferred,
     required TResult Function() completed,
     required TResult Function() unavailable,
   }) =>
@@ -27,7 +27,7 @@ mixin _$OnboardingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(OnboardingStep step)? pending,
-    TResult? Function(OnboardingStep step)? deferred,
+    TResult? Function(OnboardingStep step, int completedSteps)? deferred,
     TResult? Function()? completed,
     TResult? Function()? unavailable,
   }) =>
@@ -35,7 +35,7 @@ mixin _$OnboardingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(OnboardingStep step)? pending,
-    TResult Function(OnboardingStep step)? deferred,
+    TResult Function(OnboardingStep step, int completedSteps)? deferred,
     TResult Function()? completed,
     TResult Function()? unavailable,
     required TResult orElse(),
@@ -159,7 +159,7 @@ class _$OnboardingPendingImpl extends OnboardingPending {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(OnboardingStep step) pending,
-    required TResult Function(OnboardingStep step) deferred,
+    required TResult Function(OnboardingStep step, int completedSteps) deferred,
     required TResult Function() completed,
     required TResult Function() unavailable,
   }) {
@@ -170,7 +170,7 @@ class _$OnboardingPendingImpl extends OnboardingPending {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(OnboardingStep step)? pending,
-    TResult? Function(OnboardingStep step)? deferred,
+    TResult? Function(OnboardingStep step, int completedSteps)? deferred,
     TResult? Function()? completed,
     TResult? Function()? unavailable,
   }) {
@@ -181,7 +181,7 @@ class _$OnboardingPendingImpl extends OnboardingPending {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(OnboardingStep step)? pending,
-    TResult Function(OnboardingStep step)? deferred,
+    TResult Function(OnboardingStep step, int completedSteps)? deferred,
     TResult Function()? completed,
     TResult Function()? unavailable,
     required TResult orElse(),
@@ -250,7 +250,7 @@ abstract class _$$OnboardingDeferredImplCopyWith<$Res> {
           $Res Function(_$OnboardingDeferredImpl) then) =
       __$$OnboardingDeferredImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({OnboardingStep step});
+  $Res call({OnboardingStep step, int completedSteps});
 }
 
 /// @nodoc
@@ -267,12 +267,17 @@ class __$$OnboardingDeferredImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? step = null,
+    Object? completedSteps = null,
   }) {
     return _then(_$OnboardingDeferredImpl(
       null == step
           ? _value.step
           : step // ignore: cast_nullable_to_non_nullable
               as OnboardingStep,
+      completedSteps: null == completedSteps
+          ? _value.completedSteps
+          : completedSteps // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -280,14 +285,20 @@ class __$$OnboardingDeferredImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$OnboardingDeferredImpl extends OnboardingDeferred {
-  const _$OnboardingDeferredImpl(this.step) : super._();
+  const _$OnboardingDeferredImpl(this.step, {this.completedSteps = 0})
+      : super._();
 
   @override
   final OnboardingStep step;
 
+  /// Pasos del asistente ya hechos, de [totalSteps].
+  @override
+  @JsonKey()
+  final int completedSteps;
+
   @override
   String toString() {
-    return 'OnboardingState.deferred(step: $step)';
+    return 'OnboardingState.deferred(step: $step, completedSteps: $completedSteps)';
   }
 
   @override
@@ -295,11 +306,13 @@ class _$OnboardingDeferredImpl extends OnboardingDeferred {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OnboardingDeferredImpl &&
-            (identical(other.step, step) || other.step == step));
+            (identical(other.step, step) || other.step == step) &&
+            (identical(other.completedSteps, completedSteps) ||
+                other.completedSteps == completedSteps));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, step);
+  int get hashCode => Object.hash(runtimeType, step, completedSteps);
 
   /// Create a copy of OnboardingState
   /// with the given fields replaced by the non-null parameter values.
@@ -314,35 +327,35 @@ class _$OnboardingDeferredImpl extends OnboardingDeferred {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(OnboardingStep step) pending,
-    required TResult Function(OnboardingStep step) deferred,
+    required TResult Function(OnboardingStep step, int completedSteps) deferred,
     required TResult Function() completed,
     required TResult Function() unavailable,
   }) {
-    return deferred(step);
+    return deferred(step, completedSteps);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(OnboardingStep step)? pending,
-    TResult? Function(OnboardingStep step)? deferred,
+    TResult? Function(OnboardingStep step, int completedSteps)? deferred,
     TResult? Function()? completed,
     TResult? Function()? unavailable,
   }) {
-    return deferred?.call(step);
+    return deferred?.call(step, completedSteps);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(OnboardingStep step)? pending,
-    TResult Function(OnboardingStep step)? deferred,
+    TResult Function(OnboardingStep step, int completedSteps)? deferred,
     TResult Function()? completed,
     TResult Function()? unavailable,
     required TResult orElse(),
   }) {
     if (deferred != null) {
-      return deferred(step);
+      return deferred(step, completedSteps);
     }
     return orElse();
   }
@@ -386,11 +399,14 @@ class _$OnboardingDeferredImpl extends OnboardingDeferred {
 }
 
 abstract class OnboardingDeferred extends OnboardingState {
-  const factory OnboardingDeferred(final OnboardingStep step) =
-      _$OnboardingDeferredImpl;
+  const factory OnboardingDeferred(final OnboardingStep step,
+      {final int completedSteps}) = _$OnboardingDeferredImpl;
   const OnboardingDeferred._() : super._();
 
   OnboardingStep get step;
+
+  /// Pasos del asistente ya hechos, de [totalSteps].
+  int get completedSteps;
 
   /// Create a copy of OnboardingState
   /// with the given fields replaced by the non-null parameter values.
@@ -442,7 +458,7 @@ class _$OnboardingCompletedImpl extends OnboardingCompleted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(OnboardingStep step) pending,
-    required TResult Function(OnboardingStep step) deferred,
+    required TResult Function(OnboardingStep step, int completedSteps) deferred,
     required TResult Function() completed,
     required TResult Function() unavailable,
   }) {
@@ -453,7 +469,7 @@ class _$OnboardingCompletedImpl extends OnboardingCompleted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(OnboardingStep step)? pending,
-    TResult? Function(OnboardingStep step)? deferred,
+    TResult? Function(OnboardingStep step, int completedSteps)? deferred,
     TResult? Function()? completed,
     TResult? Function()? unavailable,
   }) {
@@ -464,7 +480,7 @@ class _$OnboardingCompletedImpl extends OnboardingCompleted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(OnboardingStep step)? pending,
-    TResult Function(OnboardingStep step)? deferred,
+    TResult Function(OnboardingStep step, int completedSteps)? deferred,
     TResult Function()? completed,
     TResult Function()? unavailable,
     required TResult orElse(),
@@ -562,7 +578,7 @@ class _$OnboardingUnavailableImpl extends OnboardingUnavailable {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(OnboardingStep step) pending,
-    required TResult Function(OnboardingStep step) deferred,
+    required TResult Function(OnboardingStep step, int completedSteps) deferred,
     required TResult Function() completed,
     required TResult Function() unavailable,
   }) {
@@ -573,7 +589,7 @@ class _$OnboardingUnavailableImpl extends OnboardingUnavailable {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(OnboardingStep step)? pending,
-    TResult? Function(OnboardingStep step)? deferred,
+    TResult? Function(OnboardingStep step, int completedSteps)? deferred,
     TResult? Function()? completed,
     TResult? Function()? unavailable,
   }) {
@@ -584,7 +600,7 @@ class _$OnboardingUnavailableImpl extends OnboardingUnavailable {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(OnboardingStep step)? pending,
-    TResult Function(OnboardingStep step)? deferred,
+    TResult Function(OnboardingStep step, int completedSteps)? deferred,
     TResult Function()? completed,
     TResult Function()? unavailable,
     required TResult orElse(),

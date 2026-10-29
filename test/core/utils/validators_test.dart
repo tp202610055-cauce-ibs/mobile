@@ -127,8 +127,16 @@ void main() {
       expect(Validators.weightKg('299.9', l10n), isNull);
     });
 
-    test('un negativo se rechaza', () {
-      expect(Validators.weightKg('-5', l10n), l10n.validationWeightOutOfRange);
+    test('una fecha escrita dd/mm/aaaa se lee y una que no existe no', () {
+      expect(Validators.parseDayMonthYear('14/03/1991'), DateTime(1991, 3, 14));
+      expect(Validators.parseDayMonthYear(' 1/1/2030 '), DateTime(2030));
+      expect(Validators.parseDayMonthYear('31/02/1991'), isNull);
+      expect(Validators.parseDayMonthYear('1991-03-14'), isNull);
+      expect(Validators.parseDayMonthYear(''), isNull);
+    });
+
+    test('un negativo no es un peso valido (CP008 variante B)', () {
+      expect(Validators.weightKg('-68', l10n), l10n.validationWeightInvalid);
     });
   });
 

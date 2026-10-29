@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/fake_onboarding_draft_store.dart';
 import '../helpers/canned_http_adapter.dart';
 import '../helpers/fake_token_storage.dart';
 
@@ -79,6 +81,8 @@ Future<({ProviderContainer container, _RoutedAdapter adapter})> _pumpApp(
   final container = ProviderContainer(
     overrides: <Override>[
       tokenStorageProvider.overrideWithValue(tokenStorage),
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       // Se sustituye solo el transporte: interceptors, cliente generado y
       // mapeo de errores son los de produccion.
       dioProvider.overrideWith((ref) {

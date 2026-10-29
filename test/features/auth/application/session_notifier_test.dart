@@ -2,6 +2,7 @@ import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/session_expiry.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/domain/session_state.dart';
@@ -13,6 +14,7 @@ import 'package:cauce_mobile/core/push/push_permission.dart';
 import 'package:cauce_mobile/core/push/push_token_registrar.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_push_messaging.dart';
 import '../../../helpers/fake_token_storage.dart';
 
@@ -67,6 +69,8 @@ class _UnlinkProbe implements PushTokenApi {
   final container = ProviderContainer(
     overrides: <Override>[
       tokenStorageProvider.overrideWithValue(storage),
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       authRepositoryProvider.overrideWithValue(repository),
       ...extra,
     ],
@@ -321,6 +325,47 @@ void main() {
       expect(h.repository.logoutCalls, 1);
       expect(h.storage.clearSessionCalls, 1);
       expect(h.storage.refreshToken, isNull);
+    });
+
+    test('logout borra el borrador del perfil clinico', () async {
+      final drafts = FakeOnboardingDraftStore(
+        OnboardingDraft(ownerUserId: _verified.userId, page: 1),
+      );
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _verified,
+        extra: <Override>[
+          onboardingDraftStoreProvider.overrideWithValue(drafts),
+        ],
+      );
+      await h.container.read(sessionNotifierProvider.notifier).bootstrap();
+
+      await h.container.read(sessionNotifierProvider.notifier).logout();
+
+      expect(drafts.draft, isNull);
+    });
+
+    test('por inactividad el borrador del perfil clinico se conserva',
+        () async {
+      final drafts = FakeOnboardingDraftStore(
+        OnboardingDraft(ownerUserId: _verified.userId, page: 1),
+      );
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _verified,
+        extra: <Override>[
+          onboardingDraftStoreProvider.overrideWithValue(drafts),
+        ],
+      );
+      final notifier = h.container.read(sessionNotifierProvider.notifier);
+      await notifier.bootstrap();
+
+      await notifier.endForInactivity();
+
+      expect(drafts.draft, isNotNull);
+      expect(drafts.clears, 0);
     });
 
     test('por inactividad sobre una sesion cerrada no hace nada', () async {

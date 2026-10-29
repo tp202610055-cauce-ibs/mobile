@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
@@ -22,6 +23,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_glossary_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
@@ -61,6 +63,8 @@ Future<ProviderContainer> pumpRecommendations(
     overrides: <Override>[
       appDatabaseProvider.overrideWithValue(db),
       connectivityMonitorProvider.overrideWithValue(monitor),
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(
         FakePatientsRepository(
           profile: demoProfile.copyWith(

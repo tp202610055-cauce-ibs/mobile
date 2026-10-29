@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/errors/cauce_api_error.dart';
+import '../../../core/onboarding/onboarding_draft_store.dart';
+import '../../../core/sync/local_record_owner.dart';
 import '../../patients/data/patients_repository.dart';
 import '../../patients/domain/allergy.dart';
 import '../../patients/domain/patient_profile.dart';
@@ -69,9 +71,34 @@ class ClinicalProfileNotifier extends _$ClinicalProfileNotifier {
       return false;
     }
 
+    await ref.read(onboardingDraftStoreProvider).clear();
     ref.read(onboardingNotifierProvider.notifier).profileCreated();
     state = const ClinicalProfileState.success();
     return true;
+  }
+
+  /// Borrador aplazado de la cuenta de la sesion, o `null`.
+  Future<OnboardingDraft?> loadDraft() async {
+    final draft = await ref.read(onboardingDraftStoreProvider).read();
+    final owner = ref.read(localRecordOwnerProvider)();
+    return draft != null && draft.ownerUserId == owner ? draft : null;
+  }
+
+  /// «Después»: guarda el avance de la cuenta de la sesion y aplaza (CA05).
+  ///
+  /// Es el unico punto que escribe el borrador: escribir o un intento
+  /// rechazado no guardan nada (CP008).
+  Future<void> defer({
+    required int page,
+    required Map<String, Object?> fields,
+  }) async {
+    final owner = ref.read(localRecordOwnerProvider)();
+    if (owner != null) {
+      await ref.read(onboardingDraftStoreProvider).write(
+            OnboardingDraft(ownerUserId: owner, page: page, fields: fields),
+          );
+    }
+    ref.read(onboardingNotifierProvider.notifier).defer(completedSteps: page);
   }
 
   /// Crea el perfil, tolerando que ya estuviera creado.

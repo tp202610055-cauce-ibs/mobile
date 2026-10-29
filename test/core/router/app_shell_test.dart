@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/config/env.dart';
@@ -29,12 +30,15 @@ import 'package:cauce_mobile/features/recommendations/domain/pending_recommendat
 import 'package:cauce_mobile/features/recommendations/presentation/recommendation_detail_screen.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendations_screen.dart';
 import 'package:cauce_mobile/features/symptoms/presentation/symptom_form_screen.dart';
+import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
+import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../helpers/fake_onboarding_draft_store.dart';
 import '../../helpers/canned_http_adapter.dart';
 import '../../helpers/fake_auth_repository.dart';
 import '../../helpers/fake_glossary_repository.dart';
@@ -48,9 +52,13 @@ import '../../helpers/sync_fixtures.dart';
 ///
 /// Todo lo que toca la red va con dobles: lo que se ejercita aca es la
 /// **navegacion**, y una peticion real la volveria lenta y no determinista.
+final AppLocalizations l10n = AppLocalizationsEs();
+
 Future<ProviderContainer> _pumpShell(
   WidgetTester tester, {
   bool onboardingCompleted = true,
+  bool hasProfile = true,
+  FakeOnboardingDraftStore? drafts,
   IbsSssAssessmentSummaryData? latestAssessment,
   List<IbsSssEvolutionPoint> evolutionPoints = const <IbsSssEvolutionPoint>[],
   FakeRecommendationsRepository? recommendations,
@@ -95,11 +103,13 @@ Future<ProviderContainer> _pumpShell(
       }),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(storage),
+      onboardingDraftStoreProvider
+          .overrideWithValue(drafts ?? FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(
         FakePatientsRepository(
-          profile: demoProfile.copyWith(
-            onboardingCompleted: onboardingCompleted,
-          ),
+          profile: hasProfile
+              ? demoProfile.copyWith(onboardingCompleted: onboardingCompleted)
+              : null,
         ),
       ),
       glossaryRepositoryProvider.overrideWithValue(FakeGlossaryRepository()),
@@ -242,6 +252,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(MealFormScreen), findsOneWidget);
+      // CP022 paso 3: registrar una comida abre el buscador de alimentos.
+      expect(find.byKey(const Key('food_picker_query')), findsOneWidget);
     });
 
     testWidgets('registrar sintoma', (tester) async {
@@ -293,6 +305,26 @@ void main() {
 
       expect(find.byKey(const Key('fab_meal')), findsNothing);
       expect(find.byType(HomeScreen), findsOneWidget);
+    });
+  });
+
+  group('AppShell · perfil aplazado con «Después» (CP011, CP055)', () {
+    testWidgets(
+        'el registro rapido sigue abierto y el cuestionario pide el perfil',
+        (tester) async {
+      await _pumpShell(
+        tester,
+        hasProfile: false,
+        drafts: FakeOnboardingDraftStore(
+          OnboardingDraft(ownerUserId: demoUser.userId, page: 0),
+        ),
+      );
+      expect(find.byType(HomeScreen), findsOneWidget);
+
+      await _openFab(tester);
+
+      expect(find.text(l10n.fabHintCompleteProfile), findsOneWidget);
+      expect(find.text(l10n.fabHintBaselinePending), findsNothing);
     });
   });
 
@@ -515,8 +547,7 @@ void main() {
   group('AppShell · Glosario (HU0027)', () {
     testWidgets('se llega desde Configuracion, en la seccion Sobre la app',
         (tester) async {
-      // R10. El "menu de ayuda" de CP068 paso 2 no existe en la app; el acceso
-      // vive en Configuracion de cuenta, que se abre desde el engranaje.
+      // R10. Acceso secundario: Configuracion de cuenta, desde el engranaje.
       await _pumpShell(tester);
 
       await _tapTab(tester, 'nav_profile');
@@ -531,6 +562,25 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(GlossaryScreen), findsOneWidget);
+    });
+
+    testWidgets(
+        'desde Inicio, el menu de ayuda abre el glosario en dos toques '
+        'sin quitar la barra inferior (CP068 paso 2)', (tester) async {
+      await _pumpShell(tester);
+
+      await tester.tap(find.byKey(const Key('home_help_menu')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('help_menu_glossary')));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(GlossaryScreen), findsOneWidget);
+      expect(find.byType(CauceBottomNav), findsOneWidget);
+
+      // El retroceso vuelve a Inicio, no a Perfil.
+      await tester.tap(find.byIcon(TablerIcons.arrow_left));
+      await tester.pumpAndSettle();
+      expect(find.byType(HomeScreen), findsOneWidget);
     });
   });
 

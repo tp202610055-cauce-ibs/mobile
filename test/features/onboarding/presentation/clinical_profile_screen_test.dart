@@ -1,5 +1,7 @@
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
+import 'package:cauce_mobile/core/sync/local_record_owner.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/clinical_profile_screen.dart';
@@ -14,26 +16,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
 
 final AppLocalizations l10n = AppLocalizationsEs();
 
-/// Monta el paso 1 con los repositorios sustituidos.
+/// Monta el asistente con los repositorios sustituidos.
 ///
-/// Sin router: la pantalla no navega por su cuenta, el guard lo hace, de modo
-/// que montarla suelta prueba exactamente lo que le corresponde.
-Future<FakePatientsRepository> _pump(
+/// Sin router: la pantalla no navega por su cuenta, el guard lo hace.
+Future<({FakePatientsRepository patients, FakeOnboardingDraftStore drafts})>
+    _pump(
   WidgetTester tester, {
   FakePatientsRepository? repository,
+  FakeOnboardingDraftStore? drafts,
 }) async {
   final patients = repository ?? FakePatientsRepository();
+  final store = drafts ?? FakeOnboardingDraftStore();
   await tester.pumpWidget(
     ProviderScope(
       overrides: <Override>[
         patientsRepositoryProvider.overrideWithValue(patients),
         authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
         tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
+        onboardingDraftStoreProvider.overrideWithValue(store),
+        localRecordOwnerProvider.overrideWithValue(() => 'patient-1'),
       ],
       child: MaterialApp(
         theme: AppTheme.light(),
@@ -50,13 +57,9 @@ Future<FakePatientsRepository> _pump(
     ),
   );
   await tester.pumpAndSettle();
-  return patients;
+  return (patients: patients, drafts: store);
 }
 
-/// Toca un widget asegurandose de que este a la vista.
-///
-/// El paso 1 es mas alto que el viewport de 800x600 de los widget tests, de
-/// modo que el boton de envio y las ultimas opciones nacen fuera de pantalla.
 Future<void> _tap(WidgetTester tester, Finder finder) async {
   await tester.ensureVisible(finder);
   await tester.pumpAndSettle();
@@ -64,10 +67,6 @@ Future<void> _tap(WidgetTester tester, Finder finder) async {
   await tester.pumpAndSettle();
 }
 
-/// Escribe en un campo asegurandose de que este a la vista.
-///
-/// `enterText` enfoca el campo tocandolo, asi que sobre un campo desplazado
-/// fuera de pantalla el toque no aterriza y el texto nunca entra.
 Future<void> _type(WidgetTester tester, Finder finder, String text) async {
   await tester.ensureVisible(finder);
   await tester.pumpAndSettle();
@@ -75,70 +74,128 @@ Future<void> _type(WidgetTester tester, Finder finder, String text) async {
   await tester.pumpAndSettle();
 }
 
-/// Completa los campos obligatorios, con «Ninguna conocida» en alergias.
-Future<void> _fillRequired(WidgetTester tester) async {
-  await _type(tester, find.byKey(const Key('profile_weight')), '62.5');
-  await _type(tester, find.byKey(const Key('profile_height')), '162');
+String? _text(WidgetTester tester, String key) => tester
+    .widget<TextField>(
+      find.descendant(
+        of: find.byKey(Key(key)),
+        matching: find.byType(TextField),
+      ),
+    )
+    .controller
+    ?.text;
+
+String _stepLabel(WidgetTester tester) =>
+    tester.widget<Text>(find.byKey(const Key('onboarding_step_label'))).data!;
+
+/// CP007 pasos 2 a 5.
+Future<void> _fillPhysical(
+  WidgetTester tester, {
+  String dateOfBirth = '14/03/1991',
+  String weight = '62',
+  String height = '165',
+}) async {
+  await _type(
+    tester,
+    find.byKey(const Key('profile_date_of_birth')),
+    dateOfBirth,
+  );
   await _tap(tester, find.text(l10n.biologicalSexFemale));
+  await _type(tester, find.byKey(const Key('profile_weight')), weight);
+  await _type(tester, find.byKey(const Key('profile_height')), height);
+}
+
+Future<void> _continue(WidgetTester tester) =>
+    _tap(tester, find.byKey(const Key('profile_continue')));
+
+/// CP007 pasos 7 y 8.
+Future<void> _fillHistory(WidgetTester tester) async {
   await _tap(tester, find.text(l10n.ibsSubtypeD));
   await _tap(tester, find.byKey(const Key('allergies_none_known')));
 }
 
-/// Elige una fecha de nacimiento valida desde el calendario.
-Future<void> _pickDateOfBirth(WidgetTester tester) async {
-  await _tap(tester, find.byKey(const Key('profile_date_of_birth')));
-  // El calendario abre en el ano actual menos 30, que cae dentro del rango
-  // admitido. Se acepta el dia que ofrece por defecto. El rotulo del boton lo
-  // pone GlobalMaterialLocalizations en espanol, asi que se busca por tipo.
-  await tester.tap(find.byType(TextButton).last);
-  await tester.pumpAndSettle();
-}
-
 void main() {
-  group('ClinicalProfileScreen · composicion', () {
-    testWidgets('muestra el indicador de paso 1 de 2', (tester) async {
+  group('ClinicalProfileScreen · paso 1, datos fisicos', () {
+    testWidgets('es el paso 1 de 3 y no muestra los antecedentes',
+        (tester) async {
       await _pump(tester);
 
-      expect(
-        tester
-            .widget<Text>(find.byKey(const Key('onboarding_step_label')))
-            .data,
-        l10n.onboardingStepLabel(1, 2),
-      );
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      expect(find.byKey(const Key('profile_weight')), findsOneWidget);
+      expect(find.byKey(const Key('profile_ibs_subtype')), findsNothing);
+      expect(find.byKey(const Key('profile_continue')), findsOneWidget);
     });
 
-    testWidgets('ofrece las tres opciones de sexo y las cuatro de subtipo',
-        (tester) async {
+    testWidgets('ofrece las tres opciones de sexo', (tester) async {
       await _pump(tester);
 
       expect(find.text(l10n.biologicalSexFemale), findsOneWidget);
       expect(find.text(l10n.biologicalSexMale), findsOneWidget);
       expect(find.text(l10n.biologicalSexOther), findsOneWidget);
+    });
+
+    testWidgets('la fecha se escribe como dd/mm/aaaa (CP007 paso 2)',
+        (tester) async {
+      await _pump(tester);
+
+      await _type(
+        tester,
+        find.byKey(const Key('profile_date_of_birth')),
+        '14/03/1991',
+      );
+
+      expect(_text(tester, 'profile_date_of_birth'), '14/03/1991');
+      expect(find.text(l10n.validationDateFormat), findsNothing);
+    });
+
+    testWidgets('el teclado del peso permite el signo menos y decimales',
+        (tester) async {
+      await _pump(tester);
+
+      final field = tester.widget<EditableText>(
+        find.descendant(
+          of: find.byKey(const Key('profile_weight')),
+          matching: find.byType(EditableText),
+        ),
+      );
+      expect(
+        field.keyboardType,
+        const TextInputType.numberWithOptions(signed: true, decimal: true),
+      );
+    });
+
+    testWidgets('con datos validos avanza al paso de antecedentes (CP007)',
+        (tester) async {
+      await _pump(tester);
+
+      await _fillPhysical(tester);
+      expect(
+        tester.widget<Text>(find.byKey(const Key('bmi_category'))).data,
+        'Normal',
+      );
+      await _continue(tester);
+
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(2, 3));
+      expect(find.byKey(const Key('profile_ibs_subtype')), findsOneWidget);
       for (final option in IbsSubtypeOption.values) {
         expect(find.text(_subtypeLabel(option)), findsOneWidget);
       }
-    });
-
-    testWidgets('pinta el catalogo de alergias', (tester) async {
-      await _pump(tester);
-
       expect(find.text('Gluten'), findsOneWidget);
-      expect(find.text('Mariscos'), findsOneWidget);
-      expect(find.text('Sulfitos'), findsOneWidget);
     });
 
-    testWidgets('un fallo del catalogo no bloquea el paso', (tester) async {
-      // Declarar alergias es opcional: el perfil debe poder enviarse igual.
-      final repository = FakePatientsRepository()
-        ..catalogError = const CauceApiError.network();
-      await _pump(tester, repository: repository);
+    testWidgets('volver al paso 1 conserva lo escrito', (tester) async {
+      await _pump(tester);
+      await _fillPhysical(tester);
+      await _continue(tester);
 
-      expect(find.byKey(const Key('allergies_retry')), findsOneWidget);
-      expect(find.byKey(const Key('profile_submit')), findsOneWidget);
+      await _tap(tester, find.byKey(const Key('profile_back')));
+
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      expect(_text(tester, 'profile_weight'), '62');
+      expect(_text(tester, 'profile_date_of_birth'), '14/03/1991');
     });
   });
 
-  group('ClinicalProfileScreen · IMC en vivo (CA04)', () {
+  group('ClinicalProfileScreen · IMC en vivo (CA04, CP010)', () {
     testWidgets('sin peso ni estatura no muestra numero', (tester) async {
       await _pump(tester);
 
@@ -156,23 +213,6 @@ void main() {
       expect(
         tester.widget<Text>(find.byKey(const Key('bmi_value'))).data,
         l10n.bmiValue('23.81'),
-      );
-      expect(
-        tester.widget<Text>(find.byKey(const Key('bmi_category'))).data,
-        l10n.bmiCategoryNormal,
-      );
-    });
-
-    testWidgets('la clasificacion dice «Normal», como en CP007 y CP010',
-        (tester) async {
-      await _pump(tester);
-
-      await _type(tester, find.byKey(const Key('profile_weight')), '62');
-      await _type(tester, find.byKey(const Key('profile_height')), '165');
-
-      expect(
-        tester.widget<Text>(find.byKey(const Key('bmi_category'))).data,
-        'Normal',
       );
     });
 
@@ -195,148 +235,130 @@ void main() {
       await _type(tester, find.byKey(const Key('profile_weight')), '95');
       await _type(tester, find.byKey(const Key('profile_height')), '162');
 
-      // Es un dato informativo, no un veredicto.
       expect(find.text(l10n.bmiNote), findsOneWidget);
-      expect(l10n.bmiNote.toLowerCase(), contains('nutricionista'));
       expect(l10n.bmiNote, isNot(contains('!')));
     });
   });
 
-  group('ClinicalProfileScreen · validacion local (CA02)', () {
-    testWidgets('un envio vacio marca todos los campos a la vez',
+  group('ClinicalProfileScreen · CP008, el asistente no avanza', () {
+    testWidgets('A: sin peso señala que es obligatorio y conserva lo demas',
         (tester) async {
-      // CA02 pide senalar cada campo especifico, no uno por vez.
-      final repository = await _pump(tester);
+      final h = await _pump(tester);
 
-      await _tap(tester, find.byKey(const Key('profile_submit')));
+      await _fillPhysical(tester, weight: '');
+      await _continue(tester);
 
-      expect(find.text(l10n.validationRequired), findsWidgets);
-      expect(repository.createdProfiles, isEmpty);
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      expect(find.text(l10n.validationRequired), findsOneWidget);
+      expect(_text(tester, 'profile_height'), '165');
+      expect(_text(tester, 'profile_date_of_birth'), '14/03/1991');
+      expect(h.drafts.writes, 0);
     });
 
-    testWidgets('un peso fuera de rango se rechaza sin ir al servidor',
-        (tester) async {
-      final repository = await _pump(tester);
-
-      await _pickDateOfBirth(tester);
-      await _fillRequired(tester);
-      await _type(tester, find.byKey(const Key('profile_weight')), '400');
-      await _tap(tester, find.byKey(const Key('profile_submit')));
-
-      expect(find.text(l10n.validationWeightOutOfRange), findsOneWidget);
-      expect(repository.createdProfiles, isEmpty);
-    });
-
-    testWidgets('una estatura fuera de rango se rechaza', (tester) async {
-      final repository = await _pump(tester);
-
-      await _pickDateOfBirth(tester);
-      await _fillRequired(tester);
-      await _type(tester, find.byKey(const Key('profile_height')), '250');
-      await _tap(tester, find.byKey(const Key('profile_submit')));
-
-      expect(find.text(l10n.validationHeightOutOfRange), findsOneWidget);
-      expect(repository.createdProfiles, isEmpty);
-    });
-
-    testWidgets('corregir un campo no borra lo que ya era valido',
-        (tester) async {
-      // CA02 al pie de la letra.
+    testWidgets('B: un peso negativo no es valido', (tester) async {
       await _pump(tester);
 
-      await _fillRequired(tester);
+      await _fillPhysical(tester, weight: '-68');
+      await _continue(tester);
+
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      expect(find.text(l10n.validationWeightInvalid), findsOneWidget);
+      expect(_text(tester, 'profile_weight'), '-68');
+    });
+
+    testWidgets('C: 400 kg esta fuera del rango permitido', (tester) async {
+      await _pump(tester);
+
+      await _fillPhysical(tester, weight: '400');
+      await _continue(tester);
+
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      expect(find.text(l10n.validationWeightOutOfRange), findsOneWidget);
+    });
+
+    testWidgets('D: una fecha futura escrita no es valida', (tester) async {
+      await _pump(tester);
+
+      await _fillPhysical(tester, dateOfBirth: '01/01/2030');
+      await _continue(tester);
+
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      expect(find.text(l10n.validationDateOfBirthFuture), findsOneWidget);
+      expect(_text(tester, 'profile_weight'), '62');
+    });
+
+    testWidgets('una fecha que no existe se señala', (tester) async {
+      await _pump(tester);
+
+      await _fillPhysical(tester, dateOfBirth: '31/02/1991');
+      await _continue(tester);
+
+      expect(find.text(l10n.validationDateFormat), findsOneWidget);
+    });
+
+    testWidgets('E: sin alergias ni «Ninguna conocida» no guarda',
+        (tester) async {
+      final h = await _pump(tester);
+
+      await _fillPhysical(tester);
+      await _continue(tester);
+      await _tap(tester, find.text(l10n.ibsSubtypeD));
       await _tap(tester, find.byKey(const Key('profile_submit')));
 
-      // Falta la fecha, pero peso, estatura y las dos selecciones siguen ahi.
-      expect(
-        tester
-            .widget<TextField>(
-              find.descendant(
-                of: find.byKey(const Key('profile_weight')),
-                matching: find.byType(TextField),
-              ),
-            )
-            .controller
-            ?.text,
-        '62.5',
-      );
+      expect(h.patients.createdProfiles, isEmpty);
+      expect(find.text(l10n.validationAllergiesRequired), findsOneWidget);
+      expect(h.drafts.writes, 0);
     });
   });
 
-  group('ClinicalProfileScreen · envio', () {
-    testWidgets('un formulario completo llega al repositorio', (tester) async {
-      final repository = await _pump(tester);
+  group('ClinicalProfileScreen · guardar (CP007)', () {
+    testWidgets('un perfil completo llega al repositorio', (tester) async {
+      final h = await _pump(tester);
 
-      await _pickDateOfBirth(tester);
-      await _fillRequired(tester);
+      await _fillPhysical(tester);
+      await _continue(tester);
+      await _fillHistory(tester);
       await _tap(tester, find.byKey(const Key('profile_submit')));
 
-      expect(repository.createdProfiles, hasLength(1));
-      final draft = repository.createdProfiles.single;
-      expect(draft.weightKg, 62.5);
-      expect(draft.heightCm, 162);
+      final draft = h.patients.createdProfiles.single;
+      expect(draft.dateOfBirth, DateTime(1991, 3, 14));
+      expect(draft.weightKg, 62);
+      expect(draft.heightCm, 165);
       expect(draft.biologicalSex, BiologicalSexOption.female);
       expect(draft.ibsSubtype, IbsSubtypeOption.ibsD);
+      expect(h.patients.declaredAllergies, isEmpty);
     });
 
     testWidgets('las alergias marcadas viajan con severidad por defecto',
         (tester) async {
-      final repository = await _pump(tester);
+      final h = await _pump(tester);
 
-      await _pickDateOfBirth(tester);
-      await _fillRequired(tester);
+      await _fillPhysical(tester);
+      await _continue(tester);
+      await _tap(tester, find.text(l10n.ibsSubtypeD));
       await _tap(tester, find.text('Gluten'));
       await _tap(tester, find.byKey(const Key('profile_submit')));
 
-      expect(repository.declaredAllergies, hasLength(1));
-      // Moderada es el punto medio: arrancar en un extremo sesgaria el dato.
       expect(
-        repository.declaredAllergies.single.severity,
+        h.patients.declaredAllergies.single.severity,
         AllergySeverityLevel.moderate,
       );
     });
 
-    testWidgets('sin alergias marcadas no se declara ninguna', (tester) async {
-      final repository = await _pump(tester);
-
-      await _pickDateOfBirth(tester);
-      await _fillRequired(tester);
-      await _tap(tester, find.byKey(const Key('profile_submit')));
-
-      expect(repository.declaredAllergies, isEmpty);
-    });
-
-    testWidgets('sin alergias ni «Ninguna conocida» no guarda (CP008)',
-        (tester) async {
-      final repository = await _pump(tester);
-
-      await _pickDateOfBirth(tester);
-      await _fillRequired(tester);
-      await _tap(tester, find.byKey(const Key('allergies_none_known')));
-      await _tap(tester, find.byKey(const Key('profile_submit')));
-
-      expect(repository.createdProfiles, isEmpty);
-      expect(
-        find.text(
-          'Indica tus alergias e intolerancias o marca «Ninguna conocida».',
+    testWidgets('guardar borra el borrador aplazado', (tester) async {
+      final h = await _pump(
+        tester,
+        drafts: FakeOnboardingDraftStore(
+          const OnboardingDraft(ownerUserId: 'patient-1', page: 0),
         ),
-        findsOneWidget,
       );
-    });
 
-    testWidgets('marcar una alergia quita «Ninguna conocida»', (tester) async {
-      final repository = await _pump(tester);
-
-      await _pickDateOfBirth(tester);
-      await _fillRequired(tester);
-      await _tap(tester, find.text('Gluten'));
-
-      final noneKnown = tester.widget<CheckboxListTile>(
-        find.byKey(const Key('allergies_none_known')),
-      );
-      expect(noneKnown.value, isFalse);
+      await _fillPhysical(tester);
+      await _continue(tester);
+      await _fillHistory(tester);
       await _tap(tester, find.byKey(const Key('profile_submit')));
-      expect(repository.declaredAllergies, hasLength(1));
+
+      expect(h.drafts.draft, isNull);
     });
 
     testWidgets('un error del backend se muestra en el banner', (tester) async {
@@ -344,20 +366,89 @@ void main() {
         ..createProfileError = const CauceApiError.invalidBiometricValue();
       await _pump(tester, repository: repository);
 
-      await _pickDateOfBirth(tester);
-      await _fillRequired(tester);
+      await _fillPhysical(tester);
+      await _continue(tester);
+      await _fillHistory(tester);
       await _tap(tester, find.byKey(const Key('profile_submit')));
 
       expect(find.text(l10n.errorInvalidBiometricValue), findsOneWidget);
     });
   });
 
-  group('ClinicalProfileScreen · aplazar (CA05)', () {
-    testWidgets('ofrece el boton de completar mas tarde', (tester) async {
+  group('ClinicalProfileScreen · «Después» (CA05, CP011)', () {
+    testWidgets('el boton dice «Después»', (tester) async {
       await _pump(tester);
 
       expect(find.byKey(const Key('onboarding_defer')), findsOneWidget);
-      expect(find.text(l10n.onboardingDefer), findsOneWidget);
+      expect(l10n.onboardingDefer, 'Después');
+    });
+
+    testWidgets('desde el paso 2 guarda el avance con el paso y los datos',
+        (tester) async {
+      final h = await _pump(tester);
+
+      await _fillPhysical(tester);
+      await _continue(tester);
+      await _tap(tester, find.text(l10n.ibsSubtypeD));
+      await _tap(tester, find.byKey(const Key('onboarding_defer')));
+
+      final draft = h.drafts.draft!;
+      expect(draft.ownerUserId, 'patient-1');
+      expect(draft.page, 1);
+      expect(draft.fields['weightKg'], '62');
+      expect(draft.fields['dateOfBirth'], '14/03/1991');
+      expect(draft.fields['ibsSubtype'], IbsSubtypeOption.ibsD.name);
+    });
+
+    testWidgets('desde el paso 1 tambien funciona', (tester) async {
+      final h = await _pump(tester);
+
+      await _type(tester, find.byKey(const Key('profile_weight')), '62');
+      await _tap(tester, find.byKey(const Key('onboarding_defer')));
+
+      expect(h.drafts.draft!.page, 0);
+      expect(h.drafts.draft!.fields['weightKg'], '62');
+    });
+
+    testWidgets('al reanudar abre en el paso guardado con sus datos',
+        (tester) async {
+      await _pump(
+        tester,
+        drafts: FakeOnboardingDraftStore(
+          OnboardingDraft(
+            ownerUserId: 'patient-1',
+            page: 1,
+            fields: <String, Object?>{
+              'dateOfBirth': '14/03/1991',
+              'biologicalSex': BiologicalSexOption.female.name,
+              'weightKg': '62',
+              'heightCm': '165',
+              'ibsSubtype': IbsSubtypeOption.ibsD.name,
+            },
+          ),
+        ),
+      );
+
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(2, 3));
+      await _tap(tester, find.byKey(const Key('profile_back')));
+      expect(_text(tester, 'profile_weight'), '62');
+      expect(_text(tester, 'profile_height'), '165');
+    });
+
+    testWidgets('el borrador de otra cuenta no se carga', (tester) async {
+      await _pump(
+        tester,
+        drafts: FakeOnboardingDraftStore(
+          const OnboardingDraft(
+            ownerUserId: 'otra-cuenta',
+            page: 1,
+            fields: <String, Object?>{'weightKg': '80'},
+          ),
+        ),
+      );
+
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      expect(_text(tester, 'profile_weight'), '');
     });
   });
 }

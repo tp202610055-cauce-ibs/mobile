@@ -83,14 +83,14 @@ Future<void> _tap(WidgetTester tester, Finder finder) async {
 
 void main() {
   group('IbsSssBaselineScreen · composicion', () {
-    testWidgets('muestra el indicador de paso 2 de 2', (tester) async {
+    testWidgets('muestra el indicador de paso 3 de 3', (tester) async {
       await _pump(tester);
 
       expect(
         tester
             .widget<Text>(find.byKey(const Key('onboarding_step_label')))
             .data,
-        l10n.onboardingStepLabel(2, 2),
+        l10n.onboardingStepLabel(3, 3),
       );
     });
 

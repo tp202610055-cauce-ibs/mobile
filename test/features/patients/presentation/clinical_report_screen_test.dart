@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/patients/application/data_export_notifier.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_patients_repository.dart';
 
 final AppLocalizations l10n = AppLocalizationsEs();
@@ -42,6 +44,8 @@ Future<({_FakeLauncher launcher, FakePatientsRepository repository})> _pump(
   await tester.pumpWidget(
     ProviderScope(
       overrides: <Override>[
+        onboardingDraftStoreProvider
+            .overrideWithValue(FakeOnboardingDraftStore()),
         patientsRepositoryProvider.overrideWithValue(h.repository),
         dataExportLauncherProvider.overrideWithValue(h.launcher),
       ],

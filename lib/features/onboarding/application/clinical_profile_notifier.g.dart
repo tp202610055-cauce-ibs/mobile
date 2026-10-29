@@ -7,7 +7,7 @@ part of 'clinical_profile_notifier.dart';
 // **************************************************************************
 
 String _$clinicalProfileNotifierHash() =>
-    r'3bf1fa38bbaf0024a4422172ead2490912812887';
+    r'e1c4c7af9cd8f7c606285015c7de580360745c6f';
 
 /// Gobierna el envio del perfil clinico y sus alergias.
 ///

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/design_tokens.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/generated/app_localizations.dart';
+import '../../application/onboarding_notifier.dart';
 
 /// Encabezado y pie comunes a los dos pasos del wizard.
 ///
@@ -33,7 +34,7 @@ class OnboardingStepScaffold extends StatelessWidget {
   /// mitad de un envio dejaria al paciente sin saber si se guardo.
   final bool busy;
 
-  static const int totalSteps = 2;
+  static const int totalSteps = OnboardingState.totalSteps;
 
   @override
   Widget build(BuildContext context) {

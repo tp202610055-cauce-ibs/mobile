@@ -196,8 +196,29 @@ abstract final class Validators {
     return null;
   }
 
+  /// Lee una fecha escrita como dd/mm/aaaa, o `null` si el formato no sirve o
+  /// el dia no existe (31/02).
+  static DateTime? parseDayMonthYear(String? value) {
+    final match = RegExp(r'^(\d{1,2})/(\d{1,2})/(\d{4})$')
+        .firstMatch(value?.trim() ?? '');
+    if (match == null) {
+      return null;
+    }
+    final day = int.parse(match.group(1)!);
+    final month = int.parse(match.group(2)!);
+    final year = int.parse(match.group(3)!);
+    final date = DateTime(year, month, day);
+    final exists = date.year == year && date.month == month && date.day == day;
+    return exists ? date : null;
+  }
+
   /// Peso en kilogramos. Mayor que 0 y menor que 300, sin incluir los bordes.
   static String? weightKg(String? value, AppLocalizations l10n) {
+    // Un negativo no es un peso, ni siquiera fuera de rango (CP008).
+    final parsed = double.tryParse(value?.trim().replaceAll(',', '.') ?? '');
+    if (parsed != null && parsed < 0) {
+      return l10n.validationWeightInvalid;
+    }
     return _biometric(
       value,
       l10n,

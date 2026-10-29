@@ -3,8 +3,10 @@ import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/config/env.dart';
 import 'package:cauce_mobile/core/network/dio_provider.dart';
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/router/app_router.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
+import 'package:cauce_mobile/features/history/presentation/history_screen.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/clinical_profile_screen.dart';
 import 'package:cauce_mobile/features/onboarding/presentation/ibs_sss_baseline_screen.dart';
@@ -15,6 +17,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helpers/canned_http_adapter.dart';
+import '../helpers/fake_onboarding_draft_store.dart';
 import '../helpers/fake_token_storage.dart';
 
 /// Onboarding clinico de punta a punta (US03 y US04).
@@ -98,8 +101,9 @@ const CannedListResponse _catalog = CannedListResponse(<Map<String, dynamic>>[
 /// identidad. Lo que importa aca es lo que pasa despues.
 Future<({ProviderContainer container, CannedHttpAdapter adapter})> _pumpApp(
   WidgetTester tester,
-  Map<String, Object> routes,
-) async {
+  Map<String, Object> routes, {
+  FakeOnboardingDraftStore? drafts,
+}) async {
   final adapter = CannedHttpAdapter.routed(routes);
   final storage = FakeTokenStorage();
   await storage.saveSession(
@@ -111,6 +115,8 @@ Future<({ProviderContainer container, CannedHttpAdapter adapter})> _pumpApp(
   final container = ProviderContainer(
     overrides: <Override>[
       tokenStorageProvider.overrideWithValue(storage),
+      onboardingDraftStoreProvider
+          .overrideWithValue(drafts ?? FakeOnboardingDraftStore()),
       // Solo el transporte se sustituye: interceptors, cliente generado y
       // mapeo de errores son los de produccion.
       dioProvider.overrideWith((ref) {
@@ -146,13 +152,22 @@ Future<void> _type(WidgetTester tester, Finder finder, String text) async {
   await tester.pumpAndSettle();
 }
 
-/// Completa el paso 1 y lo envia.
-Future<void> _completeProfileStep(WidgetTester tester) async {
-  await _tap(tester, find.byKey(const Key('profile_date_of_birth')));
-  await _tap(tester, find.byType(TextButton).last);
-  await _type(tester, find.byKey(const Key('profile_weight')), '62.5');
-  await _type(tester, find.byKey(const Key('profile_height')), '162');
+/// CP007 pasos 2 a 6: datos fisicos y continuar.
+Future<void> _completePhysicalStep(WidgetTester tester) async {
+  await _type(
+    tester,
+    find.byKey(const Key('profile_date_of_birth')),
+    '14/03/1991',
+  );
   await _tap(tester, find.text(l10n.biologicalSexFemale));
+  await _type(tester, find.byKey(const Key('profile_weight')), '62');
+  await _type(tester, find.byKey(const Key('profile_height')), '165');
+  await _tap(tester, find.byKey(const Key('profile_continue')));
+}
+
+/// CP007 pasos 2 a 9: los dos pasos del perfil y guardar.
+Future<void> _completeProfileStep(WidgetTester tester) async {
+  await _completePhysicalStep(tester);
   await _tap(tester, find.text(l10n.ibsSubtypeD));
   await _tap(tester, find.byKey(const Key('allergies_none_known')));
   await _tap(tester, find.byKey(const Key('profile_submit')));
@@ -220,12 +235,30 @@ void main() {
 
       await _completeProfileStep(tester);
 
-      // El paso 1 quedo guardado y el guard avanza al paso 2.
-      expect(find.byType(IbsSssBaselineScreen), findsOneWidget);
+      // CP007 paso 9: Inicio con el avance de configuracion actualizado.
+      expect(find.byType(HomeScreen), findsOneWidget);
+      expect(
+        find.text(l10n.onboardingReminderProgress(2, 3)),
+        findsOneWidget,
+      );
+      expect(find.text(l10n.onboardingReminderBodyBaseline), findsOneWidget);
       expect(
         h.adapter.requestsFor('POST', '/api/v1/patients/profile'),
         hasLength(1),
       );
+
+      // CP007 paso 10: el Diario queda habilitado. Su carga no se asienta
+      // contra este transporte, asi que se avanza el reloj a mano.
+      await tester.tap(find.byKey(const Key('nav_journal')));
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.byType(HistoryScreen), findsOneWidget);
+      expect(find.byKey(const Key('history_locked')), findsNothing);
+
+      // El cuestionario inicial sigue a un toque desde el recordatorio.
+      await tester.tap(find.byKey(const Key('nav_home')));
+      await tester.pump(const Duration(milliseconds: 500));
+      await _tap(tester, find.byKey(const Key('home_onboarding_resume')));
+      expect(find.byType(IbsSssBaselineScreen), findsOneWidget);
 
       await _completeBaselineStep(tester);
 
@@ -285,6 +318,45 @@ void main() {
       expect(find.byType(HomeScreen), findsOneWidget);
       expect(find.byKey(const Key('home_onboarding_reminder')), findsOneWidget);
       expect(find.text(l10n.onboardingReminderBodyProfile), findsOneWidget);
+    });
+
+    testWidgets(
+        'CP011: «Después» en antecedentes se conserva al reabrir la app y '
+        'retoma ese paso', (tester) async {
+      final drafts = FakeOnboardingDraftStore();
+      final routes = <String, Object>{
+        'GET /api/v1/patients/profile': CannedResponse.problem(
+          statusCode: 404,
+          errorCode: 'patient_profile_not_found',
+        ),
+        'GET /api/v1/allergies': _catalog,
+      };
+      await _pumpApp(tester, routes, drafts: drafts);
+
+      await _completePhysicalStep(tester);
+      await _tap(tester, find.byKey(const Key('onboarding_defer')));
+
+      expect(find.byType(HomeScreen), findsOneWidget);
+      expect(find.text(l10n.onboardingReminderBodyProfile), findsOneWidget);
+      expect(drafts.draft!.page, 1);
+
+      // Paso 9: cerrar la app por completo y volver a abrirla.
+      await tester.pumpWidget(const SizedBox());
+      await _pumpApp(tester, routes, drafts: drafts);
+
+      expect(find.byType(HomeScreen), findsOneWidget);
+      expect(find.byKey(const Key('home_onboarding_reminder')), findsOneWidget);
+
+      // Paso 10: el asistente se reanuda en antecedentes clinicos.
+      await _tap(tester, find.byKey(const Key('home_onboarding_resume')));
+      expect(find.byType(ClinicalProfileScreen), findsOneWidget);
+      expect(find.text(l10n.onboardingStepLabel(2, 3)), findsOneWidget);
+
+      // Paso 11: volver al paso 1 y elegir «Después» tambien funciona.
+      await _tap(tester, find.byKey(const Key('profile_back')));
+      await _tap(tester, find.byKey(const Key('onboarding_defer')));
+      expect(find.byType(HomeScreen), findsOneWidget);
+      expect(find.byKey(const Key('home_onboarding_reminder')), findsOneWidget);
     });
 
     testWidgets('aplazar el paso 2 deja el recordatorio del cuestionario',
@@ -376,7 +448,8 @@ void main() {
 
       await _completeProfileStep(tester);
 
-      expect(find.byType(IbsSssBaselineScreen), findsOneWidget);
+      expect(find.byType(HomeScreen), findsOneWidget);
+      expect(find.text(l10n.onboardingReminderBodyBaseline), findsOneWidget);
     });
 
     testWidgets('un 409 de linea base duplicada cierra el onboarding',

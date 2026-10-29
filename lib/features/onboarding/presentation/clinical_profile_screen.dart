@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/errors/cauce_api_error.dart';
 import '../../../core/errors/error_messages.dart';
+import '../../../core/onboarding/onboarding_draft_store.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/utils/validators.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../../patients/data/patients_repository.dart';
 import '../../patients/domain/allergy.dart';
 import '../../patients/domain/patient_profile.dart';
 import '../application/clinical_profile_notifier.dart';
-import '../application/onboarding_notifier.dart';
-import 'widgets/allergy_picker.dart';
+import 'widgets/allergies_section.dart';
 import 'widgets/bmi_summary_card.dart';
 import 'widgets/onboarding_labels.dart';
 import 'widgets/onboarding_scaffold.dart';
+import 'widgets/profile_date_field.dart';
 
-/// Paso 1 del wizard: perfil clinico y alergias (US03).
+/// Perfil clinico en dos pasos (US03): datos fisicos y antecedentes clinicos.
+///
+/// «Después» guarda el avance en cualquier paso; escribir o un intento
+/// rechazado no guardan nada (CP008).
 class ClinicalProfileScreen extends ConsumerStatefulWidget {
   const ClinicalProfileScreen({super.key});
 
@@ -28,11 +30,14 @@ class ClinicalProfileScreen extends ConsumerStatefulWidget {
 
 class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _dateOfBirthController = TextEditingController();
   final _weightController = TextEditingController();
   final _heightController = TextEditingController();
   final _medicationsController = TextEditingController();
 
-  DateTime? _dateOfBirth;
+  /// 0: datos fisicos. 1: antecedentes clinicos.
+  int _page = 0;
+
   DateTime? _diagnosisDate;
   BiologicalSexOption? _biologicalSex;
   IbsSubtypeOption? _ibsSubtype;
@@ -44,15 +49,19 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
   /// «Ninguna conocida»: excluye a las alergias marcadas y viceversa.
   bool _noneKnown = false;
 
-  /// Errores de los controles que no son `TextFormField` y que por eso no
-  /// participan del `validate()` del formulario.
-  String? _dateOfBirthError;
   String? _biologicalSexError;
   String? _ibsSubtypeError;
   String? _allergiesError;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _restoreDraft());
+  }
+
+  @override
   void dispose() {
+    _dateOfBirthController.dispose();
     _weightController.dispose();
     _heightController.dispose();
     _medicationsController.dispose();
@@ -68,68 +77,138 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
   double? _parse(String raw) =>
       double.tryParse(raw.trim().replaceAll(',', '.'));
 
-  Future<void> _pickDate({
-    required DateTime? current,
-    required ValueChanged<DateTime> onPicked,
-  }) async {
-    final now = DateTime.now();
-    final picked = await showDatePicker(
-      context: context,
-      initialDate: current ?? DateTime(now.year - 30, now.month, now.day),
-      firstDate: DateTime(now.year - 120),
-      // Ninguna de las dos fechas puede ser futura, asi que el calendario ni
-      // siquiera ofrece esos dias.
-      lastDate: now,
-    );
-    if (picked != null) {
-      onPicked(picked);
+  /// Lo escrito, como texto y nombres de enum, para el borrador.
+  Map<String, Object?> _fields() => <String, Object?>{
+        'dateOfBirth': _dateOfBirthController.text,
+        'biologicalSex': _biologicalSex?.name,
+        'weightKg': _weightController.text,
+        'heightCm': _heightController.text,
+        'ibsSubtype': _ibsSubtype?.name,
+        'diagnosisDate': _diagnosisDate?.toIso8601String(),
+        'medications': _medicationsController.text,
+        'noneKnown': _noneKnown,
+        'allergies': <Map<String, Object?>>[
+          for (final allergy in _allergies.values)
+            <String, Object?>{
+              'allergyId': allergy.allergyId,
+              'severity': allergy.severity.name,
+              'notes': allergy.notes,
+            },
+        ],
+      };
+
+  Future<void> _restoreDraft() async {
+    final draft =
+        await ref.read(clinicalProfileNotifierProvider.notifier).loadDraft();
+    if (draft == null || !mounted) {
+      return;
+    }
+    setState(() => _apply(draft));
+  }
+
+  /// Vuelca el borrador en el formulario; un valor desconocido se ignora.
+  void _apply(OnboardingDraft draft) {
+    final f = draft.fields;
+    String text(String key) => f[key] is String ? f[key]! as String : '';
+
+    _page = draft.page.clamp(0, 1);
+    _dateOfBirthController.text = text('dateOfBirth');
+    _weightController.text = text('weightKg');
+    _heightController.text = text('heightCm');
+    _medicationsController.text = text('medications');
+    _biologicalSex = BiologicalSexOption.values.asNameMap()[f['biologicalSex']];
+    _ibsSubtype = IbsSubtypeOption.values.asNameMap()[f['ibsSubtype']];
+    _diagnosisDate = DateTime.tryParse(text('diagnosisDate'));
+    _noneKnown = f['noneKnown'] == true;
+    final allergies = f['allergies'];
+    if (allergies is List<Object?>) {
+      for (final entry in allergies.whereType<Map<String, Object?>>()) {
+        final id = entry['allergyId'];
+        final severity =
+            AllergySeverityLevel.values.asNameMap()[entry['severity']];
+        if (id is String && severity != null) {
+          _allergies[id] = AllergyDeclarationDraft(
+            allergyId: id,
+            severity: severity,
+            notes: entry['notes'] is String ? entry['notes']! as String : null,
+          );
+        }
+      }
     }
   }
 
-  /// Valida lo que el `Form` no cubre y publica los errores.
-  ///
-  /// Va en un paso propio porque los tres controles de seleccion y fecha no
-  /// son `FormField` y quedan fuera de `validate()`.
-  bool _validateNonFormFields(AppLocalizations l10n) {
-    final dateOfBirthError = Validators.dateOfBirth(_dateOfBirth, l10n);
-    final biologicalSexError =
-        _biologicalSex == null ? l10n.validationRequired : null;
-    final ibsSubtypeError =
-        _ibsSubtype == null ? l10n.validationRequired : null;
+  Future<void> _pickDateOfBirth() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: Validators.parseDayMonthYear(_dateOfBirthController.text) ??
+          DateTime(now.year - 30, now.month, now.day),
+      firstDate: DateTime(now.year - 120),
+      lastDate: now,
+    );
+    if (picked != null) {
+      setState(
+        () => _dateOfBirthController.text = OnboardingLabels.date(picked),
+      );
+    }
+  }
+
+  Future<void> _pickDiagnosisDate() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _diagnosisDate ?? now,
+      firstDate: DateTime(now.year - 120),
+      lastDate: now,
+    );
+    if (picked != null) {
+      setState(() => _diagnosisDate = picked);
+    }
+  }
+
+  String? _validateDateOfBirth(String? value, AppLocalizations l10n) {
+    if (value == null || value.trim().isEmpty) {
+      return l10n.validationRequired;
+    }
+    final date = Validators.parseDayMonthYear(value);
+    if (date == null) {
+      return l10n.validationDateFormat;
+    }
+    return Validators.dateOfBirth(date, l10n);
+  }
+
+  /// Paso 1: avanza solo con todos los datos fisicos validos.
+  void _continue(AppLocalizations l10n) {
+    // Los dos se evaluan siempre, para señalar todos los campos a la vez.
+    final formOk = _formKey.currentState?.validate() ?? false;
+    final sexError = _biologicalSex == null ? l10n.validationRequired : null;
+    setState(() => _biologicalSexError = sexError);
+    if (formOk && sexError == null) {
+      FocusScope.of(context).unfocus();
+      setState(() => _page = 1);
+    }
+  }
+
+  /// Paso 2: guarda el perfil. La navegacion la resuelve el guard.
+  Future<void> _submit(AppLocalizations l10n) async {
+    final formOk = _formKey.currentState?.validate() ?? false;
+    final subtypeError = _ibsSubtype == null ? l10n.validationRequired : null;
     final allergiesError = _allergies.isEmpty && !_noneKnown
         ? l10n.validationAllergiesRequired
         : null;
-
     setState(() {
-      _dateOfBirthError = dateOfBirthError;
-      _biologicalSexError = biologicalSexError;
-      _ibsSubtypeError = ibsSubtypeError;
+      _ibsSubtypeError = subtypeError;
       _allergiesError = allergiesError;
     });
-
-    return dateOfBirthError == null &&
-        biologicalSexError == null &&
-        ibsSubtypeError == null &&
-        allergiesError == null;
-  }
-
-  Future<void> _submit(AppLocalizations l10n) async {
-    // Los dos se evaluan siempre, sin cortocircuito: con `&&` el paciente
-    // veria los errores de a tandas en vez de todos juntos, que es lo que
-    // pide CA02.
-    final formOk = _formKey.currentState?.validate() ?? false;
-    final extrasOk = _validateNonFormFields(l10n);
-    if (!formOk || !extrasOk) {
+    if (!formOk || subtypeError != null || allergiesError != null) {
       return;
     }
 
     FocusScope.of(context).unfocus();
-
-    // La navegacion la resuelve el guard cuando el onboarding avanza de paso.
-    // Esta pantalla no navega por su cuenta.
     await ref.read(clinicalProfileNotifierProvider.notifier).submit(
           draft: PatientProfileDraft(
-            dateOfBirth: _dateOfBirth!,
+            dateOfBirth:
+                Validators.parseDayMonthYear(_dateOfBirthController.text)!,
             biologicalSex: _biologicalSex!,
             weightKg: _parse(_weightController.text)!,
             heightCm: _parse(_heightController.text)!,
@@ -146,149 +225,187 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
     final l10n = AppLocalizations.of(context);
     final state = ref.watch(clinicalProfileNotifierProvider);
     final error = state.error;
-    final fieldErrors = error?.fieldErrors ?? const <String, List<String>>{};
     final busy = state.isSubmitting;
 
+    return PopScope(
+      // En el paso 2, el retroceso vuelve al paso 1.
+      canPop: _page == 0,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) {
+          setState(() => _page = 0);
+        }
+      },
+      child: OnboardingStepScaffold(
+        step: _page + 1,
+        title: l10n.clinicalProfileTitle,
+        subtitle: _page == 0
+            ? l10n.clinicalProfilePhysicalSubtitle
+            : l10n.clinicalProfileHistorySubtitle,
+        busy: busy,
+        onDefer: () => ref
+            .read(clinicalProfileNotifierProvider.notifier)
+            .defer(page: _page, fields: _fields()),
+        children: <Widget>[
+          if (error != null) ...<Widget>[
+            CauceErrorBanner(error: error),
+            const SizedBox(height: CauceSpacing.space4),
+          ],
+          Form(
+            key: _formKey,
+            child: _page == 0
+                ? _physicalStep(l10n, busy, error?.fieldErrors)
+                : _historyStep(l10n, busy, error?.fieldErrors),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _physicalStep(
+    AppLocalizations l10n,
+    bool busy,
+    Map<String, List<String>>? fieldErrors,
+  ) {
     void onEdited(String _) {
       ref.read(clinicalProfileNotifierProvider.notifier).clearError();
-      // El IMC depende de dos campos de texto, asi que se repinta en cada
-      // cambio.
       setState(() {});
     }
 
-    return OnboardingStepScaffold(
-      step: 1,
-      title: l10n.clinicalProfileTitle,
-      subtitle: l10n.clinicalProfileSubtitle,
-      busy: busy,
-      onDefer: () => ref.read(onboardingNotifierProvider.notifier).defer(),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        if (error != null) ...<Widget>[
-          CauceErrorBanner(error: error),
-          const SizedBox(height: CauceSpacing.space4),
-        ],
-        Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _DateField(
-                fieldKey: const Key('profile_date_of_birth'),
-                label: l10n.clinicalProfileDateOfBirthLabel,
-                value: _dateOfBirth,
-                errorText:
-                    _dateOfBirthError ?? fieldErrors['dateOfBirth']?.first,
-                enabled: !busy,
-                onTap: () => _pickDate(
-                  current: _dateOfBirth,
-                  onPicked: (value) => setState(() {
-                    _dateOfBirth = value;
-                    _dateOfBirthError = null;
-                  }),
-                ),
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              CauceChoiceField<BiologicalSexOption>(
-                key: const Key('profile_biological_sex'),
-                label: l10n.clinicalProfileBiologicalSexLabel,
-                value: _biologicalSex,
-                errorText:
-                    _biologicalSexError ?? fieldErrors['biologicalSex']?.first,
-                enabled: !busy,
-                onChanged: (value) => setState(() {
-                  _biologicalSex = value;
-                  _biologicalSexError = null;
-                }),
-                choices: <CauceChoice<BiologicalSexOption>>[
-                  for (final option in BiologicalSexOption.values)
-                    CauceChoice<BiologicalSexOption>(
-                      value: option,
-                      label: OnboardingLabels.biologicalSex(l10n, option),
-                    ),
-                ],
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              CauceTextField(
-                key: const Key('profile_weight'),
-                controller: _weightController,
-                label: l10n.clinicalProfileWeightLabel,
-                hint: l10n.clinicalProfileWeightHint,
-                errorText: fieldErrors['weightKg']?.first,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                textInputAction: TextInputAction.next,
-                enabled: !busy,
-                validator: (value) => Validators.weightKg(value, l10n),
-                onChanged: onEdited,
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              CauceTextField(
-                key: const Key('profile_height'),
-                controller: _heightController,
-                label: l10n.clinicalProfileHeightLabel,
-                hint: l10n.clinicalProfileHeightHint,
-                errorText: fieldErrors['heightCm']?.first,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                textInputAction: TextInputAction.next,
-                enabled: !busy,
-                validator: (value) => Validators.heightCm(value, l10n),
-                onChanged: onEdited,
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              BmiSummaryCard(
-                bmi: _bmi,
-                category: BmiCalculator.categorize(_bmi),
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              CauceChoiceField<IbsSubtypeOption>(
-                key: const Key('profile_ibs_subtype'),
-                label: l10n.clinicalProfileIbsSubtypeLabel,
-                value: _ibsSubtype,
-                errorText: _ibsSubtypeError ?? fieldErrors['ibsSubtype']?.first,
-                enabled: !busy,
-                onChanged: (value) => setState(() {
-                  _ibsSubtype = value;
-                  _ibsSubtypeError = null;
-                }),
-                choices: <CauceChoice<IbsSubtypeOption>>[
-                  for (final option in IbsSubtypeOption.values)
-                    CauceChoice<IbsSubtypeOption>(
-                      value: option,
-                      label: OnboardingLabels.ibsSubtype(l10n, option),
-                      description:
-                          OnboardingLabels.ibsSubtypeDescription(l10n, option),
-                    ),
-                ],
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              _DateField(
-                fieldKey: const Key('profile_diagnosis_date'),
-                label: l10n.clinicalProfileDiagnosisDateLabel,
-                value: _diagnosisDate,
-                errorText: fieldErrors['diagnosisDate']?.first,
-                enabled: !busy,
-                onTap: () => _pickDate(
-                  current: _diagnosisDate,
-                  onPicked: (value) => setState(() => _diagnosisDate = value),
-                ),
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              CauceTextField(
-                key: const Key('profile_medications'),
-                controller: _medicationsController,
-                label: l10n.clinicalProfileMedicationsLabel,
-                hint: l10n.clinicalProfileMedicationsHint,
-                errorText: fieldErrors['medications']?.first,
-                textInputAction: TextInputAction.done,
-                enabled: !busy,
-                validator: (value) => Validators.medications(value, l10n),
-              ),
-            ],
+        CauceTextField(
+          key: const Key('profile_date_of_birth'),
+          controller: _dateOfBirthController,
+          label: l10n.clinicalProfileDateOfBirthLabel,
+          hint: l10n.clinicalProfileDateHint,
+          errorText: fieldErrors?['dateOfBirth']?.first,
+          keyboardType: TextInputType.datetime,
+          textInputAction: TextInputAction.next,
+          enabled: !busy,
+          validator: (value) => _validateDateOfBirth(value, l10n),
+          onChanged: onEdited,
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: CauceButton.tertiary(
+            key: const Key('profile_date_of_birth_picker'),
+            label: l10n.clinicalProfilePickDate,
+            onPressed: busy ? null : _pickDateOfBirth,
           ),
         ),
+        const SizedBox(height: CauceSpacing.space4),
+        CauceChoiceField<BiologicalSexOption>(
+          key: const Key('profile_biological_sex'),
+          label: l10n.clinicalProfileBiologicalSexLabel,
+          value: _biologicalSex,
+          errorText:
+              _biologicalSexError ?? fieldErrors?['biologicalSex']?.first,
+          enabled: !busy,
+          onChanged: (value) => setState(() {
+            _biologicalSex = value;
+            _biologicalSexError = null;
+          }),
+          choices: <CauceChoice<BiologicalSexOption>>[
+            for (final option in BiologicalSexOption.values)
+              CauceChoice<BiologicalSexOption>(
+                value: option,
+                label: OnboardingLabels.biologicalSex(l10n, option),
+              ),
+          ],
+        ),
+        const SizedBox(height: CauceSpacing.space4),
+        CauceTextField(
+          key: const Key('profile_weight'),
+          controller: _weightController,
+          label: l10n.clinicalProfileWeightLabel,
+          hint: l10n.clinicalProfileWeightHint,
+          errorText: fieldErrors?['weightKg']?.first,
+          // Con signo: un peso negativo se escribe y se rechaza con su aviso.
+          keyboardType: const TextInputType.numberWithOptions(
+            signed: true,
+            decimal: true,
+          ),
+          textInputAction: TextInputAction.next,
+          enabled: !busy,
+          validator: (value) => Validators.weightKg(value, l10n),
+          onChanged: onEdited,
+        ),
+        const SizedBox(height: CauceSpacing.space4),
+        CauceTextField(
+          key: const Key('profile_height'),
+          controller: _heightController,
+          label: l10n.clinicalProfileHeightLabel,
+          hint: l10n.clinicalProfileHeightHint,
+          errorText: fieldErrors?['heightCm']?.first,
+          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+          textInputAction: TextInputAction.done,
+          enabled: !busy,
+          validator: (value) => Validators.heightCm(value, l10n),
+          onChanged: onEdited,
+        ),
+        const SizedBox(height: CauceSpacing.space4),
+        BmiSummaryCard(bmi: _bmi, category: BmiCalculator.categorize(_bmi)),
         const SizedBox(height: CauceSpacing.space6),
-        _AllergiesSection(
+        CauceButton(
+          key: const Key('profile_continue'),
+          label: l10n.commonContinue,
+          onPressed: busy ? null : () => _continue(l10n),
+        ),
+      ],
+    );
+  }
+
+  Widget _historyStep(
+    AppLocalizations l10n,
+    bool busy,
+    Map<String, List<String>>? fieldErrors,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        CauceChoiceField<IbsSubtypeOption>(
+          key: const Key('profile_ibs_subtype'),
+          label: l10n.clinicalProfileIbsSubtypeLabel,
+          value: _ibsSubtype,
+          errorText: _ibsSubtypeError ?? fieldErrors?['ibsSubtype']?.first,
+          enabled: !busy,
+          onChanged: (value) => setState(() {
+            _ibsSubtype = value;
+            _ibsSubtypeError = null;
+          }),
+          choices: <CauceChoice<IbsSubtypeOption>>[
+            for (final option in IbsSubtypeOption.values)
+              CauceChoice<IbsSubtypeOption>(
+                value: option,
+                label: OnboardingLabels.ibsSubtype(l10n, option),
+                description:
+                    OnboardingLabels.ibsSubtypeDescription(l10n, option),
+              ),
+          ],
+        ),
+        const SizedBox(height: CauceSpacing.space4),
+        ProfileDateField(
+          fieldKey: const Key('profile_diagnosis_date'),
+          label: l10n.clinicalProfileDiagnosisDateLabel,
+          value: _diagnosisDate,
+          errorText: fieldErrors?['diagnosisDate']?.first,
+          enabled: !busy,
+          onTap: _pickDiagnosisDate,
+        ),
+        const SizedBox(height: CauceSpacing.space4),
+        CauceTextField(
+          key: const Key('profile_medications'),
+          controller: _medicationsController,
+          label: l10n.clinicalProfileMedicationsLabel,
+          hint: l10n.clinicalProfileMedicationsHint,
+          errorText: fieldErrors?['medications']?.first,
+          textInputAction: TextInputAction.done,
+          enabled: !busy,
+          validator: (value) => Validators.medications(value, l10n),
+        ),
+        const SizedBox(height: CauceSpacing.space6),
+        AllergiesSection(
           selected: _allergies,
           enabled: !busy,
           noneKnown: _noneKnown,
@@ -314,205 +431,13 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
           loading: busy,
           onPressed: () => _submit(l10n),
         ),
-      ],
-    );
-  }
-}
-
-/// Campo de fecha de solo lectura que abre el calendario al tocarlo.
-///
-/// No se usa un campo editable: una fecha tipeada a mano abre la puerta a
-/// formatos ambiguos, donde 03/04 puede ser marzo o abril, y a errores de
-/// tipeo en un dato del que depende la validacion de edad.
-class _DateField extends StatelessWidget {
-  const _DateField({
-    required this.fieldKey,
-    required this.label,
-    required this.value,
-    required this.onTap,
-    this.errorText,
-    this.enabled = true,
-  });
-
-  final Key fieldKey;
-  final String label;
-  final DateTime? value;
-  final VoidCallback onTap;
-  final String? errorText;
-  final bool enabled;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final current = value;
-    final hasError = errorText != null;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Text(label, style: textTheme.bodyMedium),
-        const SizedBox(height: CauceSpacing.space2),
-        InkWell(
-          key: fieldKey,
-          onTap: enabled ? onTap : null,
-          borderRadius: CauceRadii.borderMd,
-          child: Container(
-            constraints: const BoxConstraints(
-              minHeight: CauceSizes.touchTargetMin,
-            ),
-            padding: CauceSizes.inputPadding,
-            decoration: BoxDecoration(
-              color: CauceColors.bgCard,
-              borderRadius: CauceRadii.borderMd,
-              border: Border.all(
-                color:
-                    hasError ? CauceColors.dangerText : CauceColors.bgDivider,
-                width: CauceBorders.strong,
-              ),
-            ),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                current == null
-                    ? l10n.clinicalProfileDatePlaceholder
-                    : OnboardingLabels.date(current),
-                style: textTheme.bodyLarge?.copyWith(
-                  color: current == null
-                      ? CauceColors.textTertiary
-                      : CauceColors.textPrimary,
-                ),
-              ),
-            ),
-          ),
+        const SizedBox(height: CauceSpacing.space3),
+        CauceButton.secondary(
+          key: const Key('profile_back'),
+          label: l10n.commonBack,
+          onPressed: busy ? null : () => setState(() => _page = 0),
         ),
-        if (hasError) ...<Widget>[
-          const SizedBox(height: CauceSpacing.space1),
-          Text(
-            errorText!,
-            style: textTheme.labelSmall?.copyWith(
-              color: CauceColors.dangerText,
-            ),
-          ),
-        ],
       ],
-    );
-  }
-}
-
-/// Catalogo de alergias con su ciclo de carga, error y reintento.
-class _AllergiesSection extends ConsumerWidget {
-  const _AllergiesSection({
-    required this.selected,
-    required this.enabled,
-    required this.noneKnown,
-    required this.error,
-    required this.onNoneKnownChanged,
-    required this.onChanged,
-  });
-
-  final Map<String, AllergyDeclarationDraft> selected;
-  final bool enabled;
-  final bool noneKnown;
-  final String? error;
-  final ValueChanged<bool> onNoneKnownChanged;
-  final VoidCallback onChanged;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
-    final catalog = ref.watch(allergyCatalogProvider);
-
-    return OnboardingSection(
-      title: l10n.allergiesTitle,
-      subtitle: l10n.allergiesSubtitle,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          // Fuera del catalogo: se puede marcar aunque el catalogo no cargue.
-          CheckboxListTile(
-            key: const Key('allergies_none_known'),
-            value: noneKnown,
-            onChanged:
-                enabled ? (value) => onNoneKnownChanged(value ?? false) : null,
-            title: Text(l10n.allergiesNoneKnown),
-            controlAffinity: ListTileControlAffinity.leading,
-            contentPadding: EdgeInsets.zero,
-          ),
-          if (error != null)
-            Text(
-              error!,
-              key: const Key('allergies_error'),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(color: Theme.of(context).colorScheme.error),
-            ),
-          const SizedBox(height: CauceSpacing.space2),
-          _catalog(context, ref, l10n, catalog),
-        ],
-      ),
-    );
-  }
-
-  Widget _catalog(
-    BuildContext context,
-    WidgetRef ref,
-    AppLocalizations l10n,
-    AsyncValue<List<AllergyCatalogEntry>> catalog,
-  ) {
-    return catalog.when(
-      loading: () => CauceLoadingIndicator.fullscreen(
-        message: l10n.allergiesLoading,
-      ),
-      // El catalogo no bloquea el paso: declarar alergias es opcional, asi
-      // que un fallo aca ofrece reintentar sin impedir el envio del perfil.
-      error: (error, _) => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          if (error is CauceApiError)
-            CauceErrorBanner(error: error)
-          else
-            Text(l10n.errorUnknown),
-          const SizedBox(height: CauceSpacing.space3),
-          CauceButton.secondary(
-            key: const Key('allergies_retry'),
-            label: l10n.commonRetry,
-            onPressed: () => ref.invalidate(allergyCatalogProvider),
-          ),
-        ],
-      ),
-      data: (entries) => AllergyPicker(
-        catalog: entries,
-        selected: selected,
-        enabled: enabled,
-        onToggle: (entry, value) {
-          if (value) {
-            selected[entry.allergyId] = AllergyDeclarationDraft(
-              allergyId: entry.allergyId,
-              // Moderada es el punto medio de los tres niveles. Arrancar en
-              // leve o severa sesgaria la declaracion hacia un extremo.
-              severity: AllergySeverityLevel.moderate,
-            );
-          } else {
-            selected.remove(entry.allergyId);
-          }
-          onChanged();
-        },
-        onSeverityChanged: (allergyId, value) {
-          final current = selected[allergyId];
-          if (current != null) {
-            selected[allergyId] = current.copyWith(severity: value);
-            onChanged();
-          }
-        },
-        onNotesChanged: (allergyId, value) {
-          final current = selected[allergyId];
-          if (current != null) {
-            selected[allergyId] = current.copyWith(notes: value);
-          }
-        },
-      ),
     );
   }
 }
