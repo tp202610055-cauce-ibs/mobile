@@ -33,9 +33,11 @@ class RefreshInterceptor extends Interceptor {
     required String baseUrl,
     Dio? refreshClient,
     void Function()? onSessionExpired,
+    void Function(AuthenticatedUserSnapshot user)? onUserRefreshed,
     SessionGeneration? sessionGeneration,
   })  : _tokenStorage = tokenStorage,
         _sessionGeneration = sessionGeneration,
+        _onUserRefreshed = onUserRefreshed,
         _retryClient = retryClient,
         _refreshClient = refreshClient ?? Dio(BaseOptions(baseUrl: baseUrl)),
         _onSessionExpired = onSessionExpired,
@@ -50,6 +52,9 @@ class RefreshInterceptor extends Interceptor {
   /// M49). Se invoca una vez por renovacion fallida, despues de borrar el
   /// almacenamiento.
   final void Function()? _onSessionExpired;
+
+  /// Aviso del usuario que trajo la renovacion, despues de guardarlo.
+  final void Function(AuthenticatedUserSnapshot user)? _onUserRefreshed;
 
   /// Si cambio mientras la renovacion estaba en vuelo, la sesion se cerro y
   /// el par nuevo no se guarda.
@@ -106,6 +111,13 @@ class RefreshInterceptor extends Interceptor {
     } on DioException catch (retryError) {
       return handler.next(retryError);
     }
+  }
+
+  /// Renueva a pedido, compartiendo la renovacion en vuelo si ya hay una.
+  /// Lanza [DioException] ante un fallo transitorio y [SessionExpiredException]
+  /// si la sesion ya no se puede renovar.
+  Future<void> renewNow() async {
+    await _refreshSession();
   }
 
   bool _shouldAttemptRefresh(DioException err) {
@@ -215,6 +227,7 @@ class RefreshInterceptor extends Interceptor {
         refreshToken: rotatedRefreshToken,
         user: user,
       );
+      _onUserRefreshed?.call(user);
     }
 
     return accessToken;

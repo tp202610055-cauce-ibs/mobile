@@ -6,7 +6,7 @@ part of 'dio_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dioHash() => r'3052a4f1c16d96a7b9cfb14dd1d033d389261ac2';
+String _$dioHash() => r'9c8c67b58bb58e9b4daf48b01281de5561ff03f4';
 
 /// Cliente HTTP compartido, con la cadena de interceptors montada.
 ///

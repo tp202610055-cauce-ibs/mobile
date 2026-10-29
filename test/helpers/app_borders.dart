@@ -76,6 +76,7 @@ AppBorders appBorders({
           baseUrl: 'http://localhost:5074',
           refreshClient: refreshClient,
           onSessionExpired: sessionExpiryCallback(ref),
+          onUserRefreshed: userRefreshedCallback(ref),
           sessionGeneration: ref.watch(sessionGenerationProvider),
         );
         dio.httpClientAdapter = transport;

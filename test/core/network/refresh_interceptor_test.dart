@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/errors/session_expired_exception.dart';
 import 'package:cauce_mobile/core/network/dio_provider.dart';
+import 'package:cauce_mobile/core/network/refresh_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -460,6 +461,122 @@ void main() {
 
       expect(storage.saveTokensCalls, 1);
       expect(storage.userSnapshot, loginSnapshot);
+    });
+
+    test('avisa el usuario guardado, y no avisa si no hubo usuario', () async {
+      for (final (user, expected) in <(String?, int)>[
+        (userJson(emailVerified: 'false'), 1),
+        (null, 0),
+      ]) {
+        final published = <AuthenticatedUserSnapshot>[];
+        final storage = FakeTokenStorage(
+          accessToken: 'access-1',
+          refreshToken: 'refresh-1',
+          userSnapshot: loginSnapshot,
+        );
+        final dio = buildDio(
+          tokenStorage: storage,
+          baseUrl: _baseUrl,
+          refreshClient:
+              _RefreshClientStub(statusCode: 200, userJson: user).build(),
+          onUserRefreshed: published.add,
+        );
+        dio.httpClientAdapter =
+            _ProtectedEndpointAdapter(validAccessToken: 'access-2');
+
+        await dio.get<dynamic>(_protectedPath);
+
+        expect(published, hasLength(expected));
+        if (expected == 1) {
+          expect(published.single, storage.userSnapshot);
+          expect(published.single.emailVerified, isFalse);
+        }
+      }
+    });
+  });
+
+  group('RefreshInterceptor · renovacion a pedido', () {
+    RefreshInterceptor interceptorOf(Dio dio) =>
+        dio.interceptors.whereType<RefreshInterceptor>().single;
+
+    test('renueva sin una peticion fallida y guarda el par rotado', () async {
+      final storage = FakeTokenStorage(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+      );
+      final refreshStub = _RefreshClientStub(statusCode: 200);
+      final dio = buildDio(
+        tokenStorage: storage,
+        baseUrl: _baseUrl,
+        refreshClient: refreshStub.build(),
+      );
+
+      await interceptorOf(dio).renewNow();
+
+      expect(refreshStub.callCount, 1);
+      expect(storage.refreshToken, 'refresh-2');
+    });
+
+    test('comparte la renovacion en vuelo con un 401 simultaneo', () async {
+      final storage = FakeTokenStorage(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+      );
+      final refreshStub = _RefreshClientStub(
+        statusCode: 200,
+        delay: const Duration(milliseconds: 40),
+      );
+      final dio = buildDio(
+        tokenStorage: storage,
+        baseUrl: _baseUrl,
+        refreshClient: refreshStub.build(),
+      );
+      dio.httpClientAdapter =
+          _ProtectedEndpointAdapter(validAccessToken: 'access-2');
+
+      await Future.wait<Object?>(<Future<Object?>>[
+        dio.get<dynamic>(_protectedPath),
+        interceptorOf(dio).renewNow(),
+      ]);
+
+      expect(refreshStub.callCount, 1);
+    });
+
+    test('un 500 sale como error de red sin cerrar la sesion', () async {
+      final storage = FakeTokenStorage(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+      );
+      final dio = buildDio(
+        tokenStorage: storage,
+        baseUrl: _baseUrl,
+        refreshClient: _RefreshClientStub(statusCode: 500).build(),
+      );
+
+      await expectLater(
+        interceptorOf(dio).renewNow(),
+        throwsA(isA<DioException>()),
+      );
+      expect(storage.clearSessionCalls, 0);
+      expect(storage.refreshToken, 'refresh-1');
+    });
+
+    test('un refresh rechazado sale como sesion vencida', () async {
+      final storage = FakeTokenStorage(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+      );
+      final dio = buildDio(
+        tokenStorage: storage,
+        baseUrl: _baseUrl,
+        refreshClient: _RefreshClientStub(statusCode: 401).build(),
+      );
+
+      await expectLater(
+        interceptorOf(dio).renewNow(),
+        throwsA(isA<SessionExpiredException>()),
+      );
+      expect(storage.clearSessionCalls, 1);
     });
   });
 }

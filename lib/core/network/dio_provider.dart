@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../auth/authenticated_user_snapshot.dart';
+import '../auth/refreshed_user.dart';
 import '../auth/session_expiry.dart';
 import '../auth/session_generation.dart';
 import '../auth/token_storage.dart';
@@ -26,9 +28,15 @@ Dio dio(Ref ref) {
     tokenStorage: tokenStorage,
     baseUrl: Env.apiBaseUrl,
     onSessionExpired: sessionExpiryCallback(ref),
+    onUserRefreshed: userRefreshedCallback(ref),
     sessionGeneration: ref.watch(sessionGenerationProvider),
   );
 }
+
+/// Publica el usuario que trajo una renovacion. Se expone, como
+/// [sessionExpiryCallback], para que el override de los tests lo cablee igual.
+void Function(AuthenticatedUserSnapshot user) userRefreshedCallback(Ref ref) =>
+    (user) => ref.read(refreshedUserProvider.notifier).publish(user);
 
 /// Lo que hace la red cuando la sesion ya no se puede renovar: levantar la
 /// senal que escucha `SessionNotifier` (acta M49).
@@ -49,6 +57,7 @@ Dio buildDio({
   bool enableLogging = false,
   Dio? refreshClient,
   void Function()? onSessionExpired,
+  void Function(AuthenticatedUserSnapshot user)? onUserRefreshed,
   SessionGeneration? sessionGeneration,
 }) {
   final dio = Dio(
@@ -72,6 +81,7 @@ Dio buildDio({
       baseUrl: baseUrl,
       refreshClient: refreshClient,
       onSessionExpired: onSessionExpired,
+      onUserRefreshed: onUserRefreshed,
       sessionGeneration: sessionGeneration,
     ),
     if (enableLogging)
