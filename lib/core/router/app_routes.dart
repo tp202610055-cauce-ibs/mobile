@@ -63,6 +63,9 @@ abstract final class AppRoutes {
   /// "Sobre la app" de Configuracion de cuenta.
   static const String profileGlossary = '/profile/glossary';
 
+  /// El mismo glosario, desde el menu de ayuda de Inicio (CP068 paso 2).
+  static const String homeGlossary = '/home/glossary';
+
   /// Registro de una comida (US09).
   static const String mealNew = '/meals/new';
 

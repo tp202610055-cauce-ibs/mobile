@@ -76,6 +76,13 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: AppRoutes.home,
                 builder: (_, __) => const HomeScreen(),
+                routes: <RouteBase>[
+                  // Desde el menu de ayuda de Inicio; vuelve a Inicio.
+                  GoRoute(
+                    path: 'glossary',
+                    builder: (_, __) => const GlossaryScreen(),
+                  ),
+                ],
               ),
             ],
           ),
