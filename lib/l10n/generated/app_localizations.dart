@@ -1616,6 +1616,12 @@ abstract class AppLocalizations {
   /// **'No hay datos registrados en ese período. Elige un rango de fechas diferente.'**
   String get errorPatientHasNoDataInPeriod;
 
+  /// errorCode email_not_verified (422) al pedir el reporte personal, CP062. Distinto de patient_has_no_data_in_period
+  ///
+  /// In es, this message translates to:
+  /// **'Para recibir la contraseña de tu reporte necesitas verificar tu correo. Revisa tu bandeja de entrada y toca el enlace. Si no lo encuentras, puedes reenviarlo desde Inicio.'**
+  String get errorEmailNotVerified;
+
   /// errorCode report_period_invalid (422)
   ///
   /// In es, this message translates to:
@@ -3452,6 +3458,18 @@ abstract class AppLocalizations {
   /// **'{hours} h'**
   String recommendationDataHours(int hours);
 
+  /// Datos de respaldo por tipo de síntoma (CP042, CP077). {symptom} llega en minúscula inicial, por ejemplo «dolor abdominal»
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{registro de {symptom} en los últimos {days} días} other{registros de {symptom} en los últimos {days} días}}'**
+  String recommendationDataSymptomsOfType(int count, String symptom, int days);
+
+  /// Datos de respaldo: los tipos que no entran entre los tres más frecuentes, y el tipo «Otro»
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{registro de otros síntomas en los últimos {days} días} other{registros de otros síntomas en los últimos {days} días}}'**
+  String recommendationDataSymptomsOther(int count, int days);
+
   /// No description provided for @recommendationDataWindow.
   ///
   /// In es, this message translates to:
@@ -4328,10 +4346,10 @@ abstract class AppLocalizations {
   /// **'Ya lo verifiqué'**
   String get emailReminderConfirm;
 
-  /// Respuesta amable cuando el correo aún figura sin verificar
+  /// Respuesta cuando la renovación de sesión trae el correo aún sin verificar
   ///
   /// In es, this message translates to:
-  /// **'Todavía no vemos tu correo verificado. Si ya tocaste el enlace, lo veremos la próxima vez que inicies sesión.'**
+  /// **'Todavía no vemos tu correo verificado. Revisa que tocaste el enlace del último correo que te enviamos.'**
   String get emailReminderStillPending;
 
   /// Aviso fijo en el paso 1 del perfil clínico tras un registro sin código (CP055 paso 5)

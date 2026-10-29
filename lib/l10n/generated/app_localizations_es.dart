@@ -918,6 +918,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'No hay datos registrados en ese período. Elige un rango de fechas diferente.';
 
   @override
+  String get errorEmailNotVerified =>
+      'Para recibir la contraseña de tu reporte necesitas verificar tu correo. Revisa tu bandeja de entrada y toca el enlace. Si no lo encuentras, puedes reenviarlo desde Inicio.';
+
+  @override
   String get errorReportPeriodInvalid =>
       'El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.';
 
@@ -2056,6 +2060,28 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String recommendationDataSymptomsOfType(int count, String symptom, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'registros de $symptom en los últimos $days días',
+      one: 'registro de $symptom en los últimos $days días',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationDataSymptomsOther(int count, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'registros de otros síntomas en los últimos $days días',
+      one: 'registro de otros síntomas en los últimos $days días',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get recommendationDataWindow =>
       'ventana que usa el sistema para relacionar una comida con los síntomas que vienen después';
 
@@ -2613,7 +2639,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get emailReminderStillPending =>
-      'Todavía no vemos tu correo verificado. Si ya tocaste el enlace, lo veremos la próxima vez que inicies sesión.';
+      'Todavía no vemos tu correo verificado. Revisa que tocaste el enlace del último correo que te enviamos.';
 
   @override
   String get clinicalProfileNoInvitationNotice =>

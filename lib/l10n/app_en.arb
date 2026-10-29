@@ -364,6 +364,7 @@
   "errorAllCandidatesFilteredByAllergies": "Because of your declared allergies we could not find foods to recommend. Your nutritionist can help you review this.",
   "errorNoActiveModelVersion": "Recommendations are not available right now. Please try again later.",
   "errorPatientHasNoDataInPeriod": "There are no records in that period. Choose a different date range.",
+  "errorEmailNotVerified": "To receive your report password you need to verify your email. Check your inbox and tap the link. If you cannot find it, you can resend it from Home.",
   "errorReportPeriodInvalid": "The requested period is not valid. Choose a range of up to 90 days that does not include future dates.",
   "errorActivePilotRetention": "Your account is still active. You are taking part in the clinical pilot and, to delete it, we need you to confirm the pilot notice.",
   "errorDuplicateEmail": "An account with this email already exists",
@@ -739,6 +740,8 @@
   "recommendationDataMeals": "{count, plural, =1{meal logged in the last {days} days} other{meals logged in the last {days} days}}",
   "recommendationDataHours": "{hours} h",
   "recommendationDataWindow": "window the system uses to relate a meal to the symptoms that follow it",
+  "recommendationDataSymptomsOfType": "{count, plural, =1{{symptom} record in the last {days} days} other{{symptom} records in the last {days} days}}",
+  "recommendationDataSymptomsOther": "{count, plural, =1{other symptoms record in the last {days} days} other{other symptoms records in the last {days} days}}",
   "recommendationDataTopFoods": "High-FODMAP foods you logged most: {foods}",
   "recommendationInfoBanner": "Any questions about this recommendation? Your nutritionist will review your progress at your next appointment and you can talk about any adjustment.",
   "recommendationConfidenceHigh": "High confidence",
@@ -975,6 +978,6 @@
   "emailReminderBody": "We sent a message to {email}. Open it and tap the link to confirm this account is yours.",
   "emailReminderResent": "We sent you a new email. It may take a few minutes. Check your spam folder too.",
   "emailReminderConfirm": "I already verified it",
-  "emailReminderStillPending": "We don't see your email as verified yet. If you already tapped the link, we will see it the next time you sign in.",
+  "emailReminderStillPending": "We don't see your email as verified yet. Make sure you tapped the link in the latest email we sent you.",
   "clinicalProfileNoInvitationNotice": "You signed up without an invitation code. For now you have no assigned nutritionist and you will not receive recommendations. You can enter the code later from your profile."
 }

@@ -917,6 +917,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'There are no records in that period. Choose a different date range.';
 
   @override
+  String get errorEmailNotVerified =>
+      'To receive your report password you need to verify your email. Check your inbox and tap the link. If you cannot find it, you can resend it from Home.';
+
+  @override
   String get errorReportPeriodInvalid =>
       'The requested period is not valid. Choose a range of up to 90 days that does not include future dates.';
 
@@ -2055,6 +2059,28 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String recommendationDataSymptomsOfType(int count, String symptom, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$symptom records in the last $days days',
+      one: '$symptom record in the last $days days',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationDataSymptomsOther(int count, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'other symptoms records in the last $days days',
+      one: 'other symptoms record in the last $days days',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get recommendationDataWindow =>
       'window the system uses to relate a meal to the symptoms that follow it';
 
@@ -2610,7 +2636,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emailReminderStillPending =>
-      'We don\'t see your email as verified yet. If you already tapped the link, we will see it the next time you sign in.';
+      'We don\'t see your email as verified yet. Make sure you tapped the link in the latest email we sent you.';
 
   @override
   String get clinicalProfileNoInvitationNotice =>
