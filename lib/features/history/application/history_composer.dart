@@ -116,7 +116,7 @@ class HistoryComposer {
         : const <String, List<HistoryNote>>{};
     final remote = <HistoryEntry>[
       ...meals.items.map((meal) => _remoteMeal(meal, names)),
-      ..._remoteSymptoms(symptoms.items, meals.items),
+      ..._remoteSymptoms(symptoms.items, meals.items, names),
     ].map((entry) {
       final attached = notes[entry.serverId];
       return attached == null ? entry : entry.copyWith(notes: attached);
@@ -225,6 +225,7 @@ class HistoryComposer {
   Iterable<HistoryEntry> _remoteSymptoms(
     List<SymptomRecord> symptoms,
     List<MealRecord> meals,
+    Map<String, String> names,
   ) {
     final mealsById = <String, MealRecord>{
       for (final meal in meals) meal.mealId: meal,
@@ -244,11 +245,20 @@ class HistoryComposer {
         intensity: symptom.intensity,
         hasMealAssociation: symptom.hasMealAssociation,
         associatedMealTime: associated?.mealTime,
+        associatedMealName:
+            associated == null ? null : _joinedNames(associated, names),
         associatedMealDelay: associated == null
             ? null
             : symptom.occurredAt.difference(associated.consumedAt),
       );
     });
+  }
+
+  /// Nombres de catalogo de la comida, separados por coma; los platos propios
+  /// no tienen nombre local y se omiten.
+  String? _joinedNames(MealRecord meal, Map<String, String> names) {
+    final known = meal.items.map((item) => names[item.foodId]).nonNulls;
+    return known.isEmpty ? null : known.join(', ');
   }
 
   Iterable<HistoryEntry> _localMeals(

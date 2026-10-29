@@ -287,10 +287,18 @@ class HistoryCard extends StatelessWidget {
             const SizedBox(width: CauceSpacing.space1),
             Flexible(
               child: Text(
-                l10n.historyMealAssociatedWith(
-                  MealLabels.mealTime(l10n, mealTime).toLowerCase(),
-                  formatDelay(l10n, delay),
-                ),
+                // CP028 paso 7: la comida por su nombre, si el catalogo local
+                // lo tiene; si no, por su momento del dia.
+                switch (entry.associatedMealName) {
+                  final String food => l10n.historyMealAssociatedWithFood(
+                      food,
+                      formatDelay(l10n, delay),
+                    ),
+                  null => l10n.historyMealAssociatedWith(
+                      MealLabels.mealTime(l10n, mealTime).toLowerCase(),
+                      formatDelay(l10n, delay),
+                    ),
+                },
                 style: textTheme.bodySmall?.copyWith(
                   color: CauceColors.textSecondary,
                 ),

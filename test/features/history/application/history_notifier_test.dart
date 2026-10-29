@@ -567,6 +567,39 @@ void main() {
       expect(entry.associatedMealDelay, const Duration(minutes: 90));
     });
 
+    test('nombra la comida asociada con sus alimentos (CP028 paso 7)',
+        () async {
+      await FoodCatalogStore(db).replaceAll(<FoodItem>[
+        const FoodItem(
+          foodId: 'food-1',
+          name: 'Causa rellena',
+          category: 'platos',
+          isPeruvian: true,
+        ),
+      ]);
+      final comidas = mealRecords(1, newest: _now);
+      final sintoma = SymptomRecord(
+        symptomId: 'symptom-asociado',
+        occurredAt: comidas.single.consumedAt.add(const Duration(hours: 2)),
+        intensity: 65,
+        associatedMealId: comidas.single.mealId,
+        hasMealAssociation: true,
+      );
+      final c = _pagedContainer(
+        database: db,
+        meals: PagedMealsRepository(comidas),
+        symptoms: PagedSymptomsRepository(<SymptomRecord>[sintoma]),
+      );
+
+      await c.read(historyNotifierProvider.notifier).load();
+
+      final entry = c
+          .read(historyNotifierProvider)
+          .entries
+          .singleWhere((e) => e.serverId == 'symptom-asociado');
+      expect(entry.associatedMealName, 'Causa rellena');
+    });
+
     test(
         'si falla una pagina intermedia de comidas conserva lo llegado, '
         'los sintomas y lo local', () async {

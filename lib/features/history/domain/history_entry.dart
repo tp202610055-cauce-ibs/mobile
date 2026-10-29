@@ -95,6 +95,9 @@ abstract class HistoryEntry with _$HistoryEntry {
     /// vienen en la misma composicion del historial.
     MealTimeOption? associatedMealTime,
 
+    /// Alimentos de la comida asociada, o `null` si ninguno tiene nombre local.
+    String? associatedMealName,
+
     /// Cuanto paso entre la comida asociada y el sintoma.
     Duration? associatedMealDelay,
   }) = _HistoryEntry;
