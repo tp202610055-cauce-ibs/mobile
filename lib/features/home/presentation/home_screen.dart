@@ -12,6 +12,7 @@ import '../../history/application/today_journal_notifier.dart';
 import '../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
 import '../../recommendations/application/recommendations_feed_notifier.dart';
+import 'widgets/email_verification_card.dart';
 import 'widgets/home_cards.dart';
 
 /// Pestana de Inicio.
@@ -101,6 +102,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           // HU0014 CA2 / CP037: la recomendacion propia en revision. Sin push
           // en este bloque, el aviso vive aca, igual que el del cuestionario.
           if (onboarding.allowsAdvice) const _RecommendationPendingReminder(),
+          const EmailVerificationCard(),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
