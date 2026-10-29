@@ -57,6 +57,7 @@ extension CauceApiErrorMessage on CauceApiError {
         l10n.errorInvalidClinicalNoteAssociation,
       IdempotencyMismatchError() => l10n.errorIdempotencyMismatch,
       PatientHasNoDataInPeriodError() => l10n.errorPatientHasNoDataInPeriod,
+      EmailNotVerifiedError() => l10n.errorEmailNotVerified,
       ReportPeriodInvalidError() => l10n.errorReportPeriodInvalid,
       ActivePilotRetentionError() => l10n.errorActivePilotRetention,
       DomainRuleViolationError() => l10n.errorDomainRuleViolation,
