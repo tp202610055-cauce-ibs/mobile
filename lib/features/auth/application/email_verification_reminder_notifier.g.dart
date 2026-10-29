@@ -7,12 +7,12 @@ part of 'email_verification_reminder_notifier.dart';
 // **************************************************************************
 
 String _$emailVerificationReminderHash() =>
-    r'd71bd393f61c21f52ed7198b50d9325eb8ba5957';
+    r'60ea8b09bdc222bd33f6f1900b772980d56408cc';
 
 /// Muestra el recordatorio mientras la sesion tenga el correo sin verificar.
 ///
-/// Comprueba contra el snapshot guardado, que el refresh actualiza sin tocar
-/// la sesion en memoria. Sin contrasena no hay otra fuente.
+/// Se retira solo cuando cualquier renovacion de sesion trae el correo
+/// verificado: la del boton y tambien la automatica de la red.
 ///
 /// Copied from [EmailVerificationReminder].
 @ProviderFor(EmailVerificationReminder)

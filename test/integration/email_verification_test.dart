@@ -1,6 +1,7 @@
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
+import 'package:cauce_mobile/core/network/dio_provider.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/features/auth/presentation/auth_screens.dart';
 import 'package:cauce_mobile/features/history/presentation/history_screen.dart';
@@ -54,6 +55,19 @@ CannedResponse _loginOk({bool emailVerified = false}) =>
       },
     });
 
+/// Renovacion que trae el usuario con el correo como lo ve el servidor.
+CannedResponse _refreshOk({required bool emailVerified}) =>
+    CannedResponse.ok(<String, dynamic>{
+      'accessToken': 'access-renovado',
+      'refreshToken': 'refresh-renovado',
+      'expiresIn': 900,
+      'tokenType': 'Bearer',
+      'user': <String, dynamic>{
+        ..._unverified.toJson(),
+        'emailVerified': emailVerified,
+      },
+    });
+
 final CannedResponse _strictLogin = CannedResponse.problem(
   statusCode: 401,
   errorCode: 'invalid_credentials',
@@ -92,9 +106,32 @@ class _OfflineLoginAdapter extends CannedHttpAdapter {
   }
 }
 
+/// Renovacion sin red mientras [offline] sea verdadero.
+class _FlakyRefreshAdapter extends CannedHttpAdapter {
+  _FlakyRefreshAdapter(super.routes) : super.routed();
+
+  bool offline = true;
+
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<List<int>>? requestStream,
+    Future<void>? cancelFuture,
+  ) {
+    if (offline) {
+      throw DioException.connectionError(
+        requestOptions: options,
+        reason: 'sin red',
+      );
+    }
+    return super.fetch(options, null, cancelFuture);
+  }
+}
+
 typedef _Harness = ({
   ProviderContainer container,
   CannedHttpAdapter adapter,
+  CannedHttpAdapter refresh,
   FakeTokenStorage storage,
 });
 
@@ -104,6 +141,8 @@ Future<_Harness> _pumpApp(
   AuthenticatedUserSnapshot? session,
   bool offlineLogin = false,
   FakePatientsRepository? patients,
+  Object? refresh,
+  bool offlineRefresh = false,
 }) async {
   final routes = <String, Object>{
     'GET /api/v1/consent/current': _consent,
@@ -122,7 +161,18 @@ Future<_Harness> _pumpApp(
           refreshToken: 'refresh-1',
           userSnapshot: session,
         );
-  final borders = appBorders(storage: storage, adapter: adapter);
+  final refreshRoutes = <String, Object>{
+    'POST /api/v1/auth/refresh': refresh ?? _refreshOk(emailVerified: false),
+  };
+  final refreshAdapter = offlineRefresh
+      ? _FlakyRefreshAdapter(refreshRoutes)
+      : CannedHttpAdapter.routed(refreshRoutes);
+  final borders = appBorders(
+    storage: storage,
+    adapter: adapter,
+    refreshClient: Dio(BaseOptions(baseUrl: 'http://localhost:5074'))
+      ..httpClientAdapter = refreshAdapter,
+  );
   final repository = patients ?? FakePatientsRepository();
   repository.summaryValue = _summaryWithoutNutritionist;
 
@@ -139,7 +189,12 @@ Future<_Harness> _pumpApp(
     UncontrolledProviderScope(container: container, child: const CauceApp()),
   );
   await tester.pumpAndSettle();
-  return (container: container, adapter: adapter, storage: storage);
+  return (
+    container: container,
+    adapter: adapter,
+    refresh: refreshAdapter,
+    storage: storage,
+  );
 }
 
 Future<void> _tap(WidgetTester tester, Finder finder) async {
@@ -401,28 +456,96 @@ void main() {
       expect(find.byKey(const Key('home_email_reminder_resent')), findsNothing);
     });
 
-    testWidgets('«Ya lo verifiqué» sin verificar lo dice con calma', (
+    Future<_Harness> pumpWithRefresh(WidgetTester tester, Object refresh) =>
+        _pumpApp(
+          tester,
+          session: _unverified,
+          refresh: refresh,
+          patients: FakePatientsRepository(
+            profile: demoProfile.copyWith(onboardingCompleted: true),
+          ),
+        );
+
+    testWidgets('«Ya lo verifiqué» renueva y, sin verificar, lo dice', (
       tester,
     ) async {
-      await pumpUnverified(tester);
+      final h = await pumpUnverified(tester);
 
       await _tap(tester, find.byKey(const Key('home_email_reminder_confirm')));
 
+      final refresh = h.refresh.requestsFor('POST', '/auth/refresh').single;
+      expect(refresh.body['refreshToken'], 'refresh-1');
+      expect(refresh.body.containsKey('password'), isFalse);
+      expect(h.storage.refreshToken, 'refresh-renovado');
       expect(_reminder, findsOneWidget);
       expect(find.text(l10n.emailReminderStillPending), findsOneWidget);
     });
 
-    testWidgets('«Ya lo verifiqué» con el snapshot al dia la retira', (
-      tester,
-    ) async {
-      final h = await pumpUnverified(tester);
-      // Lo que deja el refresh cuando el servidor ya ve el correo verificado.
-      h.storage.userSnapshot = _unverified.copyWith(emailVerified: true);
+    testWidgets(
+        'CP001 · «Ya lo verifiqué» con el servidor verificado la retira',
+        (tester) async {
+      final h = await pumpWithRefresh(
+        tester,
+        _refreshOk(emailVerified: true),
+      );
 
       await _tap(tester, find.byKey(const Key('home_email_reminder_confirm')));
 
+      expect(h.storage.userSnapshot?.emailVerified, isTrue);
       expect(_reminder, findsNothing);
       expect(find.byType(HomeScreen), findsOneWidget);
+    });
+
+    testWidgets('un fallo de red muestra el error y deja reintentar', (
+      tester,
+    ) async {
+      final h = await _pumpApp(
+        tester,
+        session: _unverified,
+        refresh: _refreshOk(emailVerified: true),
+        offlineRefresh: true,
+        patients: FakePatientsRepository(
+          profile: demoProfile.copyWith(onboardingCompleted: true),
+        ),
+      );
+
+      await _tap(tester, find.byKey(const Key('home_email_reminder_confirm')));
+
+      expect(
+        find.byKey(const Key('home_email_reminder_error')),
+        findsOneWidget,
+      );
+      expect(find.text(l10n.emailReminderStillPending), findsNothing);
+      expect(find.text(l10n.errorNetwork), findsOneWidget);
+      expect(h.storage.refreshToken, 'refresh-1');
+      expect(find.byType(HomeScreen), findsOneWidget);
+
+      (h.refresh as _FlakyRefreshAdapter).offline = false;
+      await _tap(tester, find.byKey(const Key('home_email_reminder_confirm')));
+
+      expect(_reminder, findsNothing);
+    });
+
+    testWidgets('una renovacion automatica que verifica la retira sola', (
+      tester,
+    ) async {
+      final h = await pumpWithRefresh(
+        tester,
+        _refreshOk(emailVerified: true),
+      );
+      h.adapter.stub('GET', '/api/v1/probe', <CannedResponse>[
+        CannedResponse.problem(statusCode: 401, errorCode: 'invalid_token'),
+        const CannedResponse.ok(<String, dynamic>{}),
+      ]);
+      expect(_reminder, findsOneWidget);
+
+      final probe = h.container.read(dioProvider).get<dynamic>('/api/v1/probe');
+      await tester.pumpAndSettle();
+      await probe;
+      await tester.pumpAndSettle();
+
+      expect(h.refresh.requestsFor('POST', '/auth/refresh'), hasLength(1));
+      expect(_reminder, findsNothing);
     });
 
     testWidgets('al volver a primer plano se comprueba en silencio', (

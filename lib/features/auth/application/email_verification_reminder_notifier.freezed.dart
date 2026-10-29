@@ -19,20 +19,25 @@ mixin _$EmailVerificationReminderState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() hidden,
-    required TResult Function(String email, bool checking, bool stillPending)
+    required TResult Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)
         visible,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? hidden,
-    TResult? Function(String email, bool checking, bool stillPending)? visible,
+    TResult? Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)?
+        visible,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? hidden,
-    TResult Function(String email, bool checking, bool stillPending)? visible,
+    TResult Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)?
+        visible,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -128,7 +133,8 @@ class _$EmailVerificationReminderHiddenImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() hidden,
-    required TResult Function(String email, bool checking, bool stillPending)
+    required TResult Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)
         visible,
   }) {
     return hidden();
@@ -138,7 +144,9 @@ class _$EmailVerificationReminderHiddenImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? hidden,
-    TResult? Function(String email, bool checking, bool stillPending)? visible,
+    TResult? Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)?
+        visible,
   }) {
     return hidden?.call();
   }
@@ -147,7 +155,9 @@ class _$EmailVerificationReminderHiddenImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? hidden,
-    TResult Function(String email, bool checking, bool stillPending)? visible,
+    TResult Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)?
+        visible,
     required TResult orElse(),
   }) {
     if (hidden != null) {
@@ -201,7 +211,10 @@ abstract class _$$EmailVerificationReminderVisibleImplCopyWith<$Res> {
           $Res Function(_$EmailVerificationReminderVisibleImpl) then) =
       __$$EmailVerificationReminderVisibleImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, bool checking, bool stillPending});
+  $Res call(
+      {String email, bool checking, bool stillPending, CauceApiError? error});
+
+  $CauceApiErrorCopyWith<$Res>? get error;
 }
 
 /// @nodoc
@@ -222,6 +235,7 @@ class __$$EmailVerificationReminderVisibleImplCopyWithImpl<$Res>
     Object? email = null,
     Object? checking = null,
     Object? stillPending = null,
+    Object? error = freezed,
   }) {
     return _then(_$EmailVerificationReminderVisibleImpl(
       email: null == email
@@ -236,7 +250,25 @@ class __$$EmailVerificationReminderVisibleImplCopyWithImpl<$Res>
           ? _value.stillPending
           : stillPending // ignore: cast_nullable_to_non_nullable
               as bool,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as CauceApiError?,
     ));
+  }
+
+  /// Create a copy of EmailVerificationReminderState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CauceApiErrorCopyWith<$Res>? get error {
+    if (_value.error == null) {
+      return null;
+    }
+
+    return $CauceApiErrorCopyWith<$Res>(_value.error!, (value) {
+      return _then(_value.copyWith(error: value));
+    });
   }
 }
 
@@ -245,7 +277,10 @@ class __$$EmailVerificationReminderVisibleImplCopyWithImpl<$Res>
 class _$EmailVerificationReminderVisibleImpl
     implements EmailVerificationReminderVisible {
   const _$EmailVerificationReminderVisibleImpl(
-      {required this.email, this.checking = false, this.stillPending = false});
+      {required this.email,
+      this.checking = false,
+      this.stillPending = false,
+      this.error});
 
   @override
   final String email;
@@ -255,10 +290,12 @@ class _$EmailVerificationReminderVisibleImpl
   @override
   @JsonKey()
   final bool stillPending;
+  @override
+  final CauceApiError? error;
 
   @override
   String toString() {
-    return 'EmailVerificationReminderState.visible(email: $email, checking: $checking, stillPending: $stillPending)';
+    return 'EmailVerificationReminderState.visible(email: $email, checking: $checking, stillPending: $stillPending, error: $error)';
   }
 
   @override
@@ -270,11 +307,13 @@ class _$EmailVerificationReminderVisibleImpl
             (identical(other.checking, checking) ||
                 other.checking == checking) &&
             (identical(other.stillPending, stillPending) ||
-                other.stillPending == stillPending));
+                other.stillPending == stillPending) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, checking, stillPending);
+  int get hashCode =>
+      Object.hash(runtimeType, email, checking, stillPending, error);
 
   /// Create a copy of EmailVerificationReminderState
   /// with the given fields replaced by the non-null parameter values.
@@ -290,30 +329,35 @@ class _$EmailVerificationReminderVisibleImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() hidden,
-    required TResult Function(String email, bool checking, bool stillPending)
+    required TResult Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)
         visible,
   }) {
-    return visible(email, checking, stillPending);
+    return visible(email, checking, stillPending, error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? hidden,
-    TResult? Function(String email, bool checking, bool stillPending)? visible,
+    TResult? Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)?
+        visible,
   }) {
-    return visible?.call(email, checking, stillPending);
+    return visible?.call(email, checking, stillPending, error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? hidden,
-    TResult Function(String email, bool checking, bool stillPending)? visible,
+    TResult Function(String email, bool checking, bool stillPending,
+            CauceApiError? error)?
+        visible,
     required TResult orElse(),
   }) {
     if (visible != null) {
-      return visible(email, checking, stillPending);
+      return visible(email, checking, stillPending, error);
     }
     return orElse();
   }
@@ -355,11 +399,13 @@ abstract class EmailVerificationReminderVisible
   const factory EmailVerificationReminderVisible(
       {required final String email,
       final bool checking,
-      final bool stillPending}) = _$EmailVerificationReminderVisibleImpl;
+      final bool stillPending,
+      final CauceApiError? error}) = _$EmailVerificationReminderVisibleImpl;
 
   String get email;
   bool get checking;
   bool get stillPending;
+  CauceApiError? get error;
 
   /// Create a copy of EmailVerificationReminderState
   /// with the given fields replaced by the non-null parameter values.

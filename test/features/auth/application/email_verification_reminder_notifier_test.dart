@@ -1,5 +1,9 @@
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
+import 'package:cauce_mobile/core/auth/refreshed_user.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
+import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/core/errors/session_expired_exception.dart';
+import 'package:cauce_mobile/core/network/session_renewal.dart';
 import 'package:cauce_mobile/features/auth/application/email_verification_reminder_notifier.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,9 +21,38 @@ const AuthenticatedUserSnapshot _unverified = AuthenticatedUserSnapshot(
   isInActivePilot: true,
 );
 
-Future<({ProviderContainer container, FakeTokenStorage storage})> _harness(
-  AuthenticatedUserSnapshot? user,
-) async {
+/// Renovacion falsa: corre [onRenew], que hace lo que haria el interceptor.
+class _FakeRenewal implements SessionRenewal {
+  _FakeRenewal(this.onRenew);
+
+  Future<void> Function() onRenew;
+  int calls = 0;
+
+  @override
+  Future<void> renew() {
+    calls++;
+    return onRenew();
+  }
+}
+
+typedef _Harness = ({
+  ProviderContainer container,
+  FakeTokenStorage storage,
+  _FakeRenewal renewal,
+});
+
+/// Lo que deja una renovacion exitosa: guarda el usuario y lo publica.
+Future<void> Function() _renewsWith(
+  _Harness h,
+  AuthenticatedUserSnapshot user,
+) {
+  return () async {
+    h.storage.userSnapshot = user;
+    h.container.read(refreshedUserProvider.notifier).publish(user);
+  };
+}
+
+Future<_Harness> _harness(AuthenticatedUserSnapshot? user) async {
   final storage = user == null
       ? FakeTokenStorage()
       : FakeTokenStorage(
@@ -27,12 +60,16 @@ Future<({ProviderContainer container, FakeTokenStorage storage})> _harness(
           refreshToken: 'refresh-1',
           userSnapshot: user,
         );
+  final renewal = _FakeRenewal(() async {});
   final container = ProviderContainer(
-    overrides: <Override>[tokenStorageProvider.overrideWithValue(storage)],
+    overrides: <Override>[
+      tokenStorageProvider.overrideWithValue(storage),
+      sessionRenewalProvider.overrideWithValue(renewal),
+    ],
   );
   addTearDown(container.dispose);
   await container.read(sessionNotifierProvider.notifier).bootstrap();
-  return (container: container, storage: storage);
+  return (container: container, storage: storage, renewal: renewal);
 }
 
 void main() {
@@ -63,21 +100,31 @@ void main() {
       );
     });
 
-    test('sigue sin verificar: lo avisa solo si se pidio', () async {
+    test('confirmar renueva y, si el servidor lo da verificado, lo retira',
+        () async {
       final h = await _harness(_unverified);
-      final notifier = h.container.read(
-        emailVerificationReminderProvider.notifier,
-      );
+      h.renewal.onRenew =
+          _renewsWith(h, _unverified.copyWith(emailVerified: true));
 
-      await notifier.check(announce: false);
+      await h.container
+          .read(emailVerificationReminderProvider.notifier)
+          .confirm();
+
+      expect(h.renewal.calls, 1);
       expect(
         h.container.read(emailVerificationReminderProvider),
-        const EmailVerificationReminderState.visible(
-          email: 'nuevo@cauce.local',
-        ),
+        isA<EmailVerificationReminderHidden>(),
       );
+    });
 
-      await notifier.check();
+    test('confirmar sin verificar avisa que sigue pendiente', () async {
+      final h = await _harness(_unverified);
+      h.renewal.onRenew = _renewsWith(h, _unverified);
+
+      await h.container
+          .read(emailVerificationReminderProvider.notifier)
+          .confirm();
+
       expect(
         h.container.read(emailVerificationReminderProvider),
         const EmailVerificationReminderState.visible(
@@ -85,6 +132,97 @@ void main() {
           stillPending: true,
         ),
       );
+    });
+
+    test('un error de red queda en el estado y se puede reintentar', () async {
+      final h = await _harness(_unverified);
+      final notifier =
+          h.container.read(emailVerificationReminderProvider.notifier);
+      h.renewal.onRenew = () async => throw const CauceApiError.network();
+
+      await notifier.confirm();
+      expect(
+        h.container.read(emailVerificationReminderProvider),
+        const EmailVerificationReminderState.visible(
+          email: 'nuevo@cauce.local',
+          error: CauceApiError.network(),
+        ),
+      );
+
+      h.renewal.onRenew =
+          _renewsWith(h, _unverified.copyWith(emailVerified: true));
+      await notifier.confirm();
+      expect(h.renewal.calls, 2);
+      expect(
+        h.container.read(emailVerificationReminderProvider),
+        isA<EmailVerificationReminderHidden>(),
+      );
+    });
+
+    test('una sesion vencida durante la renovacion no deja error', () async {
+      final h = await _harness(_unverified);
+      h.renewal.onRenew = () async {
+        h.container.read(sessionNotifierProvider.notifier).expire();
+        throw const SessionExpiredException();
+      };
+
+      await h.container
+          .read(emailVerificationReminderProvider.notifier)
+          .confirm();
+
+      expect(
+        h.container.read(emailVerificationReminderProvider),
+        isA<EmailVerificationReminderHidden>(),
+      );
+    });
+
+    test('cualquier renovacion que publique el correo verificado lo retira',
+        () async {
+      final h = await _harness(_unverified);
+      expect(
+        h.container.read(emailVerificationReminderProvider),
+        isA<EmailVerificationReminderVisible>(),
+      );
+
+      h.container
+          .read(refreshedUserProvider.notifier)
+          .publish(_unverified.copyWith(emailVerified: true));
+
+      expect(
+        h.container.read(emailVerificationReminderProvider),
+        isA<EmailVerificationReminderHidden>(),
+      );
+      expect(h.renewal.calls, 0);
+    });
+
+    test('una renovacion de otra cuenta o sin verificar no lo retira',
+        () async {
+      final h = await _harness(_unverified);
+
+      h.container.read(refreshedUserProvider.notifier)
+        ..publish(_unverified)
+        ..publish(_unverified.copyWith(userId: 'otra', emailVerified: true));
+
+      expect(
+        h.container.read(emailVerificationReminderProvider),
+        isA<EmailVerificationReminderVisible>(),
+      );
+    });
+
+    test('comprobar en silencio no avisa ni sale a la red', () async {
+      final h = await _harness(_unverified);
+
+      await h.container
+          .read(emailVerificationReminderProvider.notifier)
+          .check();
+
+      expect(
+        h.container.read(emailVerificationReminderProvider),
+        const EmailVerificationReminderState.visible(
+          email: 'nuevo@cauce.local',
+        ),
+      );
+      expect(h.renewal.calls, 0);
     });
 
     test('el snapshot guardado ya verificado lo retira', () async {

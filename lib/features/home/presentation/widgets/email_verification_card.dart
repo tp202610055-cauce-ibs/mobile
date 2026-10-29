@@ -25,9 +25,8 @@ class _EmailVerificationCardState extends ConsumerState<EmailVerificationCard> {
   void initState() {
     super.initState();
     _lifecycle = AppLifecycleListener(
-      onResume: () => ref
-          .read(emailVerificationReminderProvider.notifier)
-          .check(announce: false),
+      onResume: () =>
+          ref.read(emailVerificationReminderProvider.notifier).check(),
     );
   }
 
@@ -84,6 +83,13 @@ class _EmailVerificationCardState extends ConsumerState<EmailVerificationCard> {
                 style: textTheme.bodyMedium,
               ),
             ],
+            if (reminder.error != null) ...<Widget>[
+              const SizedBox(height: CauceSpacing.space3),
+              CauceErrorBanner(
+                key: const Key('home_email_reminder_error'),
+                error: reminder.error!,
+              ),
+            ],
             if (reminder.stillPending) ...<Widget>[
               const SizedBox(height: CauceSpacing.space3),
               Text(
@@ -110,7 +116,7 @@ class _EmailVerificationCardState extends ConsumerState<EmailVerificationCard> {
                   loading: reminder.checking,
                   onPressed: () => ref
                       .read(emailVerificationReminderProvider.notifier)
-                      .check(),
+                      .confirm(),
                 ),
               ],
             ),
