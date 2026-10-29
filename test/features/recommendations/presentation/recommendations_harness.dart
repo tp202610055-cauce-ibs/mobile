@@ -15,6 +15,7 @@ import 'package:cauce_mobile/features/recommendations/data/recommendation_reques
 import 'package:cauce_mobile/features/recommendations/data/recommendations_repository.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendation_detail_screen.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendations_screen.dart';
+import 'package:cauce_mobile/features/symptoms/data/symptoms_repository.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ Future<ProviderContainer> pumpRecommendations(
   String initialLocation = AppRoutes.recommendations,
   AppDatabase? database,
   FakeConnectivityMonitor? connectivity,
+  SymptomsRepository? symptoms,
 }) async {
   final db = database ?? AppDatabase.memory();
   if (database == null) {
@@ -81,6 +83,8 @@ Future<ProviderContainer> pumpRecommendations(
       recommendationRequestStoreProvider.overrideWithValue(
         store ?? InMemoryRecommendationRequestStore(),
       ),
+      if (symptoms != null)
+        symptomsRepositoryProvider.overrideWithValue(symptoms),
       recommendationsClockProvider.overrideWithValue(
         () => recommendationsNow,
       ),

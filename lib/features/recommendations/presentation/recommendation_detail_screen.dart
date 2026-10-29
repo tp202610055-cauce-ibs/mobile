@@ -20,6 +20,7 @@ import 'widgets/recommendation_detail_sections.dart';
 import 'widgets/recommendation_explanation_card.dart';
 import 'widgets/recommendation_feedback_section.dart';
 import 'widgets/recommendation_origin_pill.dart';
+import 'widgets/recommendation_supporting_data_card.dart';
 import 'widgets/reveal_on_open.dart';
 
 /// Detalle de una recomendacion (mockup 11 v2, HU0014 CA1, HU0015, HU0016).
@@ -186,7 +187,10 @@ class _DetailBody extends StatelessWidget {
             icon: TablerIcons.chart_dots,
             title: l10n.recommendationSectionData,
           ),
-          _SupportingDataCard(data: data),
+          RecommendationSupportingDataCard(
+            recommendationId: detail.id,
+            data: data,
+          ),
         ],
         RevealOnOpen(
           enabled: focusFeedback,
@@ -509,88 +513,6 @@ class _StepsCard extends StatelessWidget {
                     child: Text(steps[i], style: textTheme.bodyMedium),
                   ),
                 ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Cifras de respaldo (bloque 4): numero en mono de marca y su contexto.
-class _SupportingDataCard extends StatelessWidget {
-  const _SupportingDataCard({required this.data});
-
-  final RecommendationSupportingData data;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final days = data.windowDays;
-
-    Widget row(String number, String label, {Key? key}) {
-      return Padding(
-        key: key,
-        padding: const EdgeInsets.only(bottom: CauceSpacing.space2),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          textBaseline: TextBaseline.alphabetic,
-          children: <Widget>[
-            SizedBox(
-              width: 44,
-              child: Text(
-                number,
-                textAlign: TextAlign.right,
-                style: CauceTypography.mono.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: CauceColors.brandBase,
-                ),
-              ),
-            ),
-            const SizedBox(width: CauceSpacing.space3),
-            Expanded(
-              child: Text(
-                label,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: CauceColors.textSecondary,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return RecommendationSectionCard(
-      key: const Key('recommendation_supporting_data'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          row(
-            '${data.symptomCount}',
-            l10n.recommendationDataSymptoms(data.symptomCount, days),
-            key: const Key('recommendation_data_symptoms'),
-          ),
-          row(
-            '${data.mealCount}',
-            l10n.recommendationDataMeals(data.mealCount, days),
-            key: const Key('recommendation_data_meals'),
-          ),
-          row(
-            l10n.recommendationDataHours(data.correlationWindowHours),
-            l10n.recommendationDataWindow,
-            key: const Key('recommendation_data_window'),
-          ),
-          if (data.topHighFodmapFoods.isNotEmpty)
-            Text(
-              l10n.recommendationDataTopFoods(
-                data.topHighFodmapFoods.join(', '),
-              ),
-              key: const Key('recommendation_data_top_foods'),
-              style: textTheme.bodySmall?.copyWith(
-                color: CauceColors.textSecondary,
               ),
             ),
         ],

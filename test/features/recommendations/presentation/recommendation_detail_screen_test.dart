@@ -4,11 +4,14 @@ import 'package:cauce_mobile/core/router/app_routes.dart';
 import 'package:cauce_mobile/features/recommendations/data/recommendation_feedback_outbox_store.dart';
 import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_feedback.dart';
 import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart';
+import 'package:cauce_mobile/features/symptoms/data/symptoms_repository.dart';
+import 'package:cauce_mobile/features/symptoms/domain/symptom_draft.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_recommendations_repository.dart';
+import '../../../helpers/paged_history_fakes.dart';
 import '../../../helpers/sync_fixtures.dart';
 import 'recommendations_harness.dart';
 
@@ -163,6 +166,154 @@ void main() {
       );
       expect(find.text(l10n.recommendationDataMeals(9, 14)), findsOneWidget);
       expect(find.text('4 h'), findsOneWidget);
+    });
+
+    group('datos de respaldo por tipo de sintoma (CP042, CP077)', () {
+      final data = approvedDetail.supportingData!;
+
+      SymptomRecord record(int i, SymptomTypeOption type) => SymptomRecord(
+            symptomId: 'symptom-$type-$i',
+            occurredAt: data.windowTo
+                .subtract(Duration(days: i + 1))
+                .add(const Duration(hours: 2)),
+            intensity: 65,
+            symptomType: type,
+          );
+
+      List<SymptomRecord> records(int count, SymptomTypeOption type) =>
+          <SymptomRecord>[for (var i = 0; i < count; i++) record(i, type)];
+
+      Future<void> openWith(
+        WidgetTester tester, {
+        required int symptomCount,
+        SymptomsRepository? symptoms,
+      }) async {
+        final detail = approvedDetail.copyWith(
+          supportingData: data.copyWith(symptomCount: symptomCount),
+        );
+        await pumpRecommendations(
+          tester,
+          repository: FakeRecommendationsRepository(details: [detail]),
+          initialLocation: AppRoutes.recommendationDetailPath(detail.id),
+          symptoms: symptoms,
+        );
+        await _scrollTo(
+          tester,
+          find.byKey(const Key('recommendation_supporting_data')),
+        );
+      }
+
+      testWidgets('el historial sembrado dice 4 registros de dolor abdominal',
+          (tester) async {
+        await openWith(
+          tester,
+          symptomCount: 4,
+          symptoms: PagedSymptomsRepository(
+            records(4, SymptomTypeOption.abdominalPain),
+          ),
+        );
+
+        expect(
+          find.text('registros de dolor abdominal en los últimos 14 días'),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('recommendation_data_symptoms_abdominalPain')),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('recommendation_data_symptoms')),
+          findsNothing,
+        );
+        // Comidas, alimentos y ventana siguen como estaban.
+        expect(find.text(l10n.recommendationDataMeals(9, 14)), findsOneWidget);
+        expect(
+          find.byKey(const Key('recommendation_data_top_foods')),
+          findsOneWidget,
+        );
+        expect(find.text('4 h'), findsOneWidget);
+      });
+
+      testWidgets('un solo registro va en singular', (tester) async {
+        await openWith(
+          tester,
+          symptomCount: 1,
+          symptoms: PagedSymptomsRepository(
+            records(1, SymptomTypeOption.abdominalPain),
+          ),
+        );
+
+        expect(
+          find.text('registro de dolor abdominal en los últimos 14 días'),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('varios tipos: tres nombrados y el resto agrupado',
+          (tester) async {
+        await openWith(
+          tester,
+          symptomCount: 10,
+          symptoms: PagedSymptomsRepository(<SymptomRecord>[
+            ...records(4, SymptomTypeOption.abdominalPain),
+            ...records(3, SymptomTypeOption.bloating),
+            ...records(1, SymptomTypeOption.diarrhea),
+            ...records(1, SymptomTypeOption.nausea),
+            ...records(1, SymptomTypeOption.other),
+          ]),
+        );
+
+        final labels = <String>[
+          'registros de dolor abdominal en los últimos 14 días',
+          'registros de distensión abdominal en los últimos 14 días',
+          'registro de diarrea en los últimos 14 días',
+          l10n.recommendationDataSymptomsOther(2, 14),
+        ];
+        final tops = <double>[
+          for (final label in labels) tester.getTopLeft(find.text(label)).dy,
+        ];
+        expect(tops, orderedEquals(List<double>.of(tops)..sort()));
+        expect(
+          find.text('registros de otros síntomas en los últimos 14 días'),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('recommendation_data_symptoms_nausea')),
+          findsNothing,
+        );
+      });
+
+      testWidgets('sin sintomas queda la linea del total en cero',
+          (tester) async {
+        final symptoms = PagedSymptomsRepository(const <SymptomRecord>[]);
+        await openWith(tester, symptomCount: 0, symptoms: symptoms);
+
+        expect(
+          find.text(l10n.recommendationDataSymptoms(0, 14)),
+          findsOneWidget,
+        );
+        expect(symptoms.calls, isEmpty);
+      });
+
+      testWidgets('si no se pueden contar, la linea del total', (tester) async {
+        await openWith(
+          tester,
+          symptomCount: 4,
+          symptoms: PagedSymptomsRepository(
+            records(4, SymptomTypeOption.abdominalPain),
+            failOnPage: 1,
+          ),
+        );
+
+        expect(
+          find.text(l10n.recommendationDataSymptoms(4, 14)),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('recommendation_data_symptoms_abdominalPain')),
+          findsNothing,
+        );
+      });
     });
 
     testWidgets('la explicacion de respaldo se muestra igual (CP077)',
