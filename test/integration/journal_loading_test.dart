@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/config/env.dart';
@@ -24,6 +25,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/fake_onboarding_draft_store.dart';
 import '../helpers/canned_http_adapter.dart';
 import '../helpers/fake_auth_repository.dart';
 import '../helpers/fake_glossary_repository.dart';
@@ -216,6 +218,8 @@ Future<_Harness> _pumpApp(WidgetTester tester, {bool online = false}) async {
       historyClockProvider.overrideWithValue(clock.call),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(storage),
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(
         FakePatientsRepository(
           profile: demoProfile.copyWith(onboardingCompleted: true),
@@ -279,12 +283,15 @@ Future<void> _openAndCloseMealForm(WidgetTester tester) async {
   await tester.pumpAndSettle();
   expect(find.byType(MealFormScreen), findsOneWidget);
 
-  await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
-    'flutter/navigation',
-    const JSONMethodCodec().encodeMethodCall(const MethodCall('popRoute')),
-    (_) {},
-  );
-  await tester.pumpAndSettle();
+  // El primer retroceso cierra el buscador y el segundo, el formulario.
+  for (var i = 0; i < 2; i++) {
+    await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
+      'flutter/navigation',
+      const JSONMethodCodec().encodeMethodCall(const MethodCall('popRoute')),
+      (_) {},
+    );
+    await tester.pumpAndSettle();
+  }
   expect(find.byType(MealFormScreen), findsNothing);
 }
 

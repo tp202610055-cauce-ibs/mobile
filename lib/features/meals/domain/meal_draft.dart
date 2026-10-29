@@ -65,19 +65,6 @@ enum MeasurementUnitOption {
         MeasurementUnitOption.tablespoons => 'Tablespoons',
       };
 
-  /// Cantidad razonable al elegir esta unidad (acta M40).
-  ///
-  /// Sin esto, el 100 que venia por defecto en gramos se arrastraba al
-  /// cambiar de unidad y el formulario ofrecia **100 tazas de brocoli**. Lo
-  /// encontro la verificacion en dispositivo.
-  double get defaultQuantity => switch (this) {
-        MeasurementUnitOption.grams => 100,
-        MeasurementUnitOption.ounces => 4,
-        MeasurementUnitOption.cups => 1,
-        MeasurementUnitOption.units => 1,
-        MeasurementUnitOption.tablespoons => 2,
-      };
-
   /// Tope plausible para una sola porcion, en esta unidad (acta M40).
   ///
   /// No lo valida el backend: `MealItemRequestValidator` solo exige mayor que
