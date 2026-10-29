@@ -56,9 +56,8 @@ class SessionNotifier extends _$SessionNotifier {
       return;
     }
 
-    state = user.canAccessApp
-        ? SessionState.authenticated(user)
-        : SessionState.pendingEmailVerification(email: user.email, user: user);
+    // El correo sin verificar no restringe: se recuerda desde Inicio.
+    state = SessionState.authenticated(user);
   }
 
   /// Persiste la sesion recien emitida y publica el estado correspondiente.
@@ -72,17 +71,13 @@ class SessionNotifier extends _$SessionNotifier {
       refreshToken: refreshToken,
       user: user,
     );
-    state = user.canAccessApp
-        ? SessionState.authenticated(user)
-        : SessionState.pendingEmailVerification(email: user.email, user: user);
+    state = SessionState.authenticated(user);
   }
 
-  /// Publica el estado posterior a un registro exitoso.
+  /// Publica el aviso de verificacion tras un registro sin login posterior.
   ///
-  /// El registro no emite tokens: el backend responde 201 con el `userId` y
-  /// exige verificar el correo antes del primer login. No se persiste nada, y
-  /// el estado va sin snapshot porque ese 201 no trae `keycloakId` ni el resto
-  /// de los campos: construir uno obligaria a inventarlos.
+  /// El 201 no trae tokens ni `keycloakId`: no hay nada que persistir, y un
+  /// snapshot obligaria a inventar campos.
   void registrationSucceeded({required String email}) {
     state = SessionState.pendingEmailVerification(email: email);
   }

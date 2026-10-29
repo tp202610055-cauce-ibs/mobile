@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/auth/registration_without_invitation.dart';
 import '../../../core/errors/cauce_api_error.dart';
 import '../data/auth_repository.dart';
 import 'session_notifier.dart';
@@ -39,7 +40,7 @@ class RegisterNotifier extends _$RegisterNotifier {
   @override
   RegisterState build() => const RegisterState.idle();
 
-  /// Registra al paciente y lo deja esperando la verificacion del correo.
+  /// Registra al paciente y, con la misma contrasena, abre su sesion.
   ///
   /// [consentDocumentVersion] y [consentTextHash] son los que devolvio
   /// `GET /consent/current`, reenviados sin recalcular.
@@ -69,17 +70,46 @@ class RegisterNotifier extends _$RegisterNotifier {
             invitationCode: invitationCode?.trim(),
           );
 
-      // El registro no emite tokens, asi que no hay sesion que persistir. Solo
-      // se publica el estado para que el guard lleve al aviso.
-      ref
-          .read(sessionNotifierProvider.notifier)
-          .registrationSucceeded(email: result.email);
+      if (invitationCode?.trim().isEmpty ?? true) {
+        ref
+            .read(registeredWithoutInvitationProvider.notifier)
+            .mark(result.userId);
+      }
+      await _openSession(
+        email: trimmedEmail,
+        password: password,
+        registeredEmail: result.email,
+      );
 
       state = const RegisterState.success();
       return true;
     } on CauceApiError catch (error) {
       state = RegisterState.failure(error);
       return false;
+    }
+  }
+
+  /// Inicia sesion tras el 201; si no prospera, deja el aviso de verificacion.
+  ///
+  /// La contrasena solo viaja en esta llamada. La cuenta ya existe, asi que
+  /// ningun fallo vuelve al formulario de registro.
+  Future<void> _openSession({
+    required String email,
+    required String password,
+    required String registeredEmail,
+  }) async {
+    final session = ref.read(sessionNotifierProvider.notifier);
+    try {
+      final login = await ref
+          .read(authRepositoryProvider)
+          .login(email: email, password: password);
+      await session.loginSucceeded(
+        accessToken: login.accessToken,
+        refreshToken: login.refreshToken,
+        user: login.user,
+      );
+    } on Object {
+      session.registrationSucceeded(email: registeredEmail);
     }
   }
 

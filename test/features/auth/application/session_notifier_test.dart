@@ -118,7 +118,7 @@ void main() {
       );
     });
 
-    test('con correo sin verificar va al aviso', () async {
+    test('con correo sin verificar restaura la sesion completa', () async {
       final h = _harness(
         accessToken: 'access-1',
         refreshToken: 'refresh-1',
@@ -129,10 +129,7 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        const SessionState.pendingEmailVerification(
-          email: 'paciente.demo@cauce.local',
-          user: _unverified,
-        ),
+        const SessionState.authenticated(_unverified),
       );
     });
 
@@ -197,7 +194,8 @@ void main() {
       );
     });
 
-    test('un login con correo sin verificar no llega a la home', () async {
+    test('un login con correo sin verificar abre la sesion', () async {
+      // Servidor que ya no exige verificar antes del login.
       final h = _harness();
 
       await h.container.read(sessionNotifierProvider.notifier).loginSucceeded(
@@ -208,11 +206,9 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        const SessionState.pendingEmailVerification(
-          email: 'paciente.demo@cauce.local',
-          user: _unverified,
-        ),
+        const SessionState.authenticated(_unverified),
       );
+      expect(h.storage.saveSessionCalls, 1);
     });
   });
 
@@ -491,12 +487,12 @@ void main() {
   group('SessionState · acceso al usuario', () {
     test('solo los estados con sesion exponen usuario', () {
       expect(const SessionState.authenticated(_verified).user, _verified);
+      expect(const SessionState.authenticated(_unverified).user, _unverified);
       expect(
         const SessionState.pendingEmailVerification(
-          email: 'paciente.demo@cauce.local',
-          user: _unverified,
+          email: 'nuevo@cauce.local',
         ).user,
-        _unverified,
+        isNull,
       );
       expect(const SessionState.unknown().user, isNull);
       expect(const SessionState.unauthenticated().user, isNull);

@@ -6,7 +6,7 @@ part of 'register_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$registerNotifierHash() => r'5b5b0e520b807d6d0214b4a19b5412f5c06ec0f7';
+String _$registerNotifierHash() => r'2837d3af6d6234eed3bcd9c9c964dd56c77a4d20';
 
 /// Gobierna el envio del registro de paciente.
 ///

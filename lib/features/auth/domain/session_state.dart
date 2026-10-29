@@ -17,28 +17,19 @@ sealed class SessionState with _$SessionState {
   /// login a un paciente que si tiene sesion, mientras se lee del Keystore.
   const factory SessionState.unknown() = SessionUnknown;
 
-  /// Hay sesion y el correo esta verificado. Acceso completo.
+  /// Hay sesion, con el correo verificado o no. Acceso completo.
   const factory SessionState.authenticated(AuthenticatedUserSnapshot user) =
       SessionAuthenticated;
 
   /// No hay sesion, o la que habia expiro.
   const factory SessionState.unauthenticated() = SessionUnauthenticated;
 
-  /// El correo sigue sin verificar y el paciente no puede operar.
+  /// Cuenta registrada cuyo primer login no prospero, sin tokens ni snapshot.
   ///
-  /// Se alcanza por dos caminos que aportan informacion distinta:
-  ///
-  /// - Tras un **login**: el backend devolvio el objeto `user` completo, de
-  ///   modo que [user] viene lleno.
-  /// - Tras un **registro**: el backend responde 201 con `userId` y poco mas,
-  ///   sin tokens ni `keycloakId`. No hay snapshot que construir sin inventar
-  ///   campos, asi que [user] queda nulo.
-  ///
-  /// [email] esta siempre presente, porque es lo unico que la pantalla de
-  /// aviso necesita mostrar.
+  /// Lo deja un servidor que exige verificar antes de iniciar sesion, o una
+  /// falla de red justo despues del 201. [email] es lo que muestra el aviso.
   const factory SessionState.pendingEmailVerification({
     required String email,
-    AuthenticatedUserSnapshot? user,
   }) = SessionPendingEmailVerification;
 
   const SessionState._();
@@ -46,8 +37,10 @@ sealed class SessionState with _$SessionState {
   /// Usuario asociado, si el estado lo tiene.
   AuthenticatedUserSnapshot? get user => switch (this) {
         SessionAuthenticated(:final user) => user,
-        SessionPendingEmailVerification(:final user) => user,
-        SessionUnknown() || SessionUnauthenticated() => null,
+        SessionUnknown() ||
+        SessionUnauthenticated() ||
+        SessionPendingEmailVerification() =>
+          null,
       };
 
   /// Correo del paciente, cuando el estado lo conoce.

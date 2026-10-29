@@ -237,10 +237,12 @@ void main() {
       expect(h.repository.lastConsentHash, h.repository.consent.hash);
     });
 
-    testWidgets('un registro aceptado lleva al aviso de verificacion', (
-      tester,
-    ) async {
-      await _openRegister(tester);
+    testWidgets(
+        'con el login posterior rechazado lleva al aviso de verificacion',
+        (tester) async {
+      // Servidor estricto: el login de una cuenta sin verificar da 401.
+      final h = await _openRegister(tester);
+      h.repository.loginError = const CauceApiError.invalidCredentials();
       await _fillValidForm(tester);
       await _acceptConsent(tester);
 

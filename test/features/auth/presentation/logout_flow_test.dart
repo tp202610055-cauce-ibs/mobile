@@ -4,6 +4,7 @@ import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
+import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/auth/presentation/auth_screens.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
@@ -26,17 +27,24 @@ const AuthenticatedUserSnapshot _verified = AuthenticatedUserSnapshot(
   isInActivePilot: true,
 );
 
-Future<({FakeAuthRepository repository, FakeTokenStorage storage})> _pumpApp(
+Future<
+    ({
+      FakeAuthRepository repository,
+      FakeTokenStorage storage,
+      ProviderContainer container,
+    })> _pumpApp(
   WidgetTester tester, {
-  required AuthenticatedUserSnapshot user,
+  AuthenticatedUserSnapshot? user,
   CauceApiError? logoutError,
 }) async {
   final repository = FakeAuthRepository(error: logoutError);
-  final storage = FakeTokenStorage(
-    accessToken: 'access-1',
-    refreshToken: 'refresh-1',
-    userSnapshot: user,
-  );
+  final storage = user == null
+      ? FakeTokenStorage()
+      : FakeTokenStorage(
+          accessToken: 'access-1',
+          refreshToken: 'refresh-1',
+          userSnapshot: user,
+        );
   final borders = appBorders(storage: storage);
   final container = ProviderContainer(
     overrides: <Override>[
@@ -53,7 +61,18 @@ Future<({FakeAuthRepository repository, FakeTokenStorage storage})> _pumpApp(
     UncontrolledProviderScope(container: container, child: const CauceApp()),
   );
   await tester.pumpAndSettle();
-  return (repository: repository, storage: storage);
+  return (repository: repository, storage: storage, container: container);
+}
+
+/// Camino del servidor estricto: el 201 llego y el login posterior no.
+Future<({FakeAuthRepository repository, FakeTokenStorage storage})>
+    _pumpPendingVerification(WidgetTester tester) async {
+  final h = await _pumpApp(tester);
+  h.container
+      .read(sessionNotifierProvider.notifier)
+      .registrationSucceeded(email: 'paciente.demo@cauce.local');
+  await tester.pumpAndSettle();
+  return (repository: h.repository, storage: h.storage);
 }
 
 /// Recorre lo que hace el paciente desde Mobile-3.1: pestana Perfil, la fila
@@ -129,12 +148,10 @@ void main() {
   });
 
   group('VerifyEmailPendingScreen', () {
-    final unverified = _verified.copyWith(emailVerified: false);
-
     testWidgets('muestra el correo al que se envio la verificacion', (
       tester,
     ) async {
-      await _pumpApp(tester, user: unverified);
+      await _pumpPendingVerification(tester);
 
       expect(find.byType(VerifyEmailPendingScreen), findsOneWidget);
       expect(
@@ -146,7 +163,7 @@ void main() {
     testWidgets('ya no deriva a un soporte que no existe', (tester) async {
       // Revision manual del 28-sep: el aviso mandaba a "soporte" y no hay
       // ningun canal. Ahora remite al boton de reenvio.
-      await _pumpApp(tester, user: unverified);
+      await _pumpPendingVerification(tester);
 
       expect(find.textContaining('soporte'), findsNothing);
       expect(
@@ -160,7 +177,7 @@ void main() {
     ) async {
       // `AuthRepository.resendVerificationEmail` existia desde Mobile-1.5 sin
       // ningun llamador. Se llega desde la raiz de la app (R10).
-      final h = await _pumpApp(tester, user: unverified);
+      final h = await _pumpPendingVerification(tester);
 
       await tester.tap(find.byKey(const Key('verify_email_resend')));
       await tester.pumpAndSettle();
@@ -175,7 +192,7 @@ void main() {
     ) async {
       // Tres por hora por correo. El cuarto vuelve como 429 y la pantalla lo
       // dice, en vez de duplicar la regla con un temporizador propio.
-      final h = await _pumpApp(tester, user: unverified);
+      final h = await _pumpPendingVerification(tester);
       h.repository.error = const CauceApiError.rateLimited(
         retryAfterSeconds: 1200,
       );
@@ -190,7 +207,7 @@ void main() {
     });
 
     testWidgets('permite cerrar sesion y volver al login', (tester) async {
-      final h = await _pumpApp(tester, user: unverified);
+      final h = await _pumpPendingVerification(tester);
 
       await tester.tap(find.byKey(const Key('verify_email_logout')));
       await tester.pumpAndSettle();

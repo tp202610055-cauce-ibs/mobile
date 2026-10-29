@@ -61,7 +61,4 @@ abstract class AuthenticatedUserSnapshot with _$AuthenticatedUserSnapshot {
     }
     return value;
   }
-
-  /// El paciente ya verifico su correo y puede operar con normalidad.
-  bool get canAccessApp => emailVerified;
 }

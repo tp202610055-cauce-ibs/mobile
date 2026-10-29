@@ -36,6 +36,9 @@ class FakeAuthRepository implements AuthRepository {
   /// Si esta presente, todos los metodos lanzan este error.
   CauceApiError? error;
 
+  /// Error solo del login: el servidor estricto o la red tras un registro.
+  CauceApiError? loginError;
+
   /// Demora artificial, para observar el estado intermedio de envio.
   Duration delay;
 
@@ -96,6 +99,10 @@ class FakeAuthRepository implements AuthRepository {
     lastEmail = email;
     lastPassword = password;
     await _run();
+    final failure = loginError;
+    if (failure != null) {
+      throw failure;
+    }
     return loginResult ?? demoSession;
   }
 

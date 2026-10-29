@@ -92,16 +92,12 @@ void main() {
     });
   });
 
-  group('AuthenticatedUserSnapshot · reglas de sesion', () {
-    test('canAccessApp sigue a emailVerified', () {
-      expect(
-        AuthenticatedUserSnapshot.fromApi(_apiUser()).canAccessApp,
-        isTrue,
-      );
+  group('AuthenticatedUserSnapshot · correo sin verificar', () {
+    test('se traduce tal cual, sin rechazar el snapshot', () {
       expect(
         AuthenticatedUserSnapshot.fromApi(
           _apiUser(emailVerified: false),
-        ).canAccessApp,
+        ).emailVerified,
         isFalse,
       );
     });

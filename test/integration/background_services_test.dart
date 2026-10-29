@@ -4,6 +4,7 @@ import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
 import 'package:cauce_mobile/core/network/dio_provider.dart';
+import 'package:cauce_mobile/core/services/background_services.dart';
 import 'package:cauce_mobile/core/sync/connectivity_monitor.dart';
 import 'package:cauce_mobile/features/recommendations/data/recommendation_feedback_outbox_store.dart';
 import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_feedback.dart';
@@ -214,6 +215,27 @@ void main() {
         h.adapter.requestsFor('GET', '/foods'),
         isNotEmpty,
         reason: 'el refresher tiene que correr al restaurar la sesion',
+      );
+    });
+
+    testWidgets('con el correo sin verificar tambien se encienden', (
+      tester,
+    ) async {
+      final h = await _pumpApp(
+        tester,
+        online: false,
+        session: _verified.copyWith(emailVerified: false),
+      );
+      await insertPendingMeal(h.database, _pendingGuid);
+
+      h.connectivity.emitReconnection();
+      await tester.pumpAndSettle();
+
+      expect(h.adapter.requestsFor('POST', '/sync/batch'), hasLength(1));
+      expect(h.adapter.requestsFor('GET', '/foods'), isNotEmpty);
+      expect(
+        h.container.read(sessionBackgroundServicesProvider).isRunning,
+        isTrue,
       );
     });
 

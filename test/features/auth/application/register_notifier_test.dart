@@ -1,3 +1,5 @@
+import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
+import 'package:cauce_mobile/core/auth/registration_without_invitation.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/auth/application/register_notifier.dart';
@@ -46,10 +48,50 @@ Future<bool> _submit(
       );
 }
 
+const AuthenticatedUserSnapshot _unverifiedUser = AuthenticatedUserSnapshot(
+  userId: 'e1f2a3b4-0000-0000-0000-000000000000',
+  keycloakId: 'c2d3e4f5-0000-0000-0000-000000000000',
+  email: 'nuevo@cauce.local',
+  role: 'patient',
+  fullName: 'Paciente Nuevo',
+  emailVerified: false,
+  isInActivePilot: true,
+);
+
+const LoginSession _unverifiedSession = LoginSession(
+  accessToken: 'access-nuevo',
+  refreshToken: 'refresh-nuevo',
+  user: _unverifiedUser,
+);
+
 void main() {
   group('RegisterNotifier · exito', () {
-    test('deja al paciente esperando la verificacion del correo', () async {
+    test('con el servidor nuevo abre la sesion sin verificar', () async {
+      // El login tras el 201 funciona aunque emailVerified sea false.
       final h = _harness();
+      h.repository.loginResult = _unverifiedSession;
+
+      final ok = await _submit(h.container);
+
+      expect(ok, isTrue);
+      expect(
+        h.container.read(registerNotifierProvider),
+        isA<RegisterSuccess>(),
+      );
+      expect(
+        h.container.read(sessionNotifierProvider),
+        const SessionState.authenticated(_unverifiedUser),
+      );
+      expect(h.repository.loginCalls, 1);
+      expect(h.repository.lastEmail, 'nuevo@cauce.local');
+      expect(h.repository.lastPassword, 'ClaveSegura1');
+      expect(h.storage.saveSessionCalls, 1);
+    });
+
+    test('con el servidor estricto deja el aviso de verificacion', () async {
+      // Hoy el login de una cuenta sin verificar responde 401.
+      final h = _harness();
+      h.repository.loginError = const CauceApiError.invalidCredentials();
 
       final ok = await _submit(h.container);
 
@@ -64,15 +106,68 @@ void main() {
           email: 'nuevo@cauce.local',
         ),
       );
+      expect(h.storage.saveSessionCalls, 0);
+      expect(h.storage.refreshToken, isNull);
     });
 
-    test('no persiste sesion: el 201 no trae tokens', () async {
+    test('un fallo de red en el login deja el aviso, no el formulario', () {
+      // La cuenta ya existe: volver al registro daria duplicate_email.
       final h = _harness();
+      h.repository.loginError = const CauceApiError.network();
+
+      return _submit(h.container).then((ok) {
+        expect(ok, isTrue);
+        expect(
+          h.container.read(registerNotifierProvider).error,
+          isNull,
+        );
+        expect(
+          h.container.read(sessionNotifierProvider),
+          isA<SessionPendingEmailVerification>(),
+        );
+      });
+    });
+
+    test('la contrasena no llega al almacenamiento seguro', () async {
+      final h = _harness();
+      h.repository.loginResult = _unverifiedSession;
+
+      await _submit(h.container, password: 'ClaveUnica987');
+
+      final stored = <String?>[
+        h.storage.accessToken,
+        h.storage.refreshToken,
+        h.storage.userSnapshot?.toJson().toString(),
+      ];
+      expect(stored.whereType<String>(), hasLength(3));
+      for (final value in stored) {
+        expect(value, isNot(contains('ClaveUnica987')));
+      }
+      expect(h.storage.saveTokensCalls, 0);
+    });
+
+    test('sin codigo marca el aviso de CP055 para esa cuenta', () async {
+      final h = _harness();
+      h.repository.loginResult = _unverifiedSession;
+      h.container.listen(showsNoInvitationNoticeProvider, (_, __) {});
 
       await _submit(h.container);
 
-      expect(h.storage.saveSessionCalls, 0);
-      expect(h.storage.refreshToken, isNull);
+      expect(
+        h.container.read(registeredWithoutInvitationProvider),
+        _unverifiedUser.userId,
+      );
+      expect(h.container.read(showsNoInvitationNoticeProvider), isTrue);
+    });
+
+    test('con codigo no marca el aviso de CP055', () async {
+      final h = _harness();
+      h.repository.loginResult = _unverifiedSession;
+
+      await _submit(h.container, invitationCode: 'KAELIN2026');
+
+      expect(h.container.read(registeredWithoutInvitationProvider), isNull);
+      expect(h.container.read(showsNoInvitationNoticeProvider), isFalse);
     });
 
     test('reenvia version y hash del consentimiento sin tocarlos', () async {
