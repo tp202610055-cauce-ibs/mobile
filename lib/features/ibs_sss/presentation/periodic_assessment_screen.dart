@@ -149,7 +149,10 @@ class _ResultView extends ConsumerWidget {
                   ),
                 ],
                 const SizedBox(height: CauceSpacing.space3),
-                Text(l10n.ibsSssResultNote, style: textTheme.bodyMedium),
+                Text(
+                  l10n.ibsSssPeriodicResultNote,
+                  style: textTheme.bodyMedium,
+                ),
               ],
             ),
           ),
