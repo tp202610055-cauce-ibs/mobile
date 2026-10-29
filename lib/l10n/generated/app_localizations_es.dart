@@ -270,7 +270,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validationDateOfBirthFuture =>
-      'La fecha de nacimiento no puede ser futura';
+      'La fecha de nacimiento no es válida: no puede ser futura';
+
+  @override
+  String get validationDateFormat =>
+      'La fecha no es válida. Escríbela como dd/mm/aaaa';
 
   @override
   String validationAgeOutOfRange(int min, int max) {
@@ -283,7 +287,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validationWeightOutOfRange =>
-      'Ingresa un peso mayor que 0 y menor que 300 kg';
+      'El peso está fuera del rango permitido: más de 0 y menos de 300 kg';
+
+  @override
+  String get validationWeightInvalid =>
+      'El peso no es válido: no puede ser negativo';
 
   @override
   String get validationHeightOutOfRange =>
@@ -367,10 +375,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get mealsSearchNoResults => 'No encontramos alimentos con ese nombre';
 
   @override
-  String get mealsSuggestionsFrequent => 'Los que más registras';
+  String get mealsSuggestionsFrequent =>
+      'Los que más registras en los últimos 30 días';
 
   @override
-  String get mealsSuggestionsRecent => 'Registrados hoy';
+  String get mealsSuggestionsRecent => 'Registrados en las últimas 24 horas';
 
   @override
   String get mealsSuggestionsCatalog => 'Del catálogo';
@@ -1000,7 +1009,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get onboardingDefer => 'Completar más tarde';
+  String get onboardingDefer => 'Después';
 
   @override
   String get onboardingReminderTitle => 'Te falta completar tu perfil';
@@ -1015,6 +1024,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboardingReminderAction => 'Continuar ahora';
+
+  @override
+  String onboardingReminderProgress(int done, int total) {
+    return 'Avance de configuración: $done de $total pasos';
+  }
 
   @override
   String get clinicalProfileTitle => 'Tu perfil clínico';
@@ -1093,7 +1107,21 @@ class AppLocalizationsEs extends AppLocalizations {
       'Nombre y dosis, si tomas algo por el SII';
 
   @override
-  String get clinicalProfileSubmit => 'Continuar';
+  String get clinicalProfileSubmit => 'Guardar perfil';
+
+  @override
+  String get clinicalProfilePhysicalSubtitle =>
+      'Datos físicos: tu fecha de nacimiento, sexo, peso y estatura.';
+
+  @override
+  String get clinicalProfileHistorySubtitle =>
+      'Antecedentes clínicos: subtipo de SII, alergias e intolerancias.';
+
+  @override
+  String get clinicalProfileDateHint => 'dd/mm/aaaa';
+
+  @override
+  String get clinicalProfilePickDate => 'Elegir en el calendario';
 
   @override
   String get bmiTitle => 'Índice de masa corporal';
@@ -1247,6 +1275,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ibsSssSeveritySevere => 'Severidad severa';
+
+  @override
+  String get ibsSssPeriodicResultNote =>
+      'Este resultado se suma a tu evolución. Tu nutricionista lo revisa contigo en consulta.';
 
   @override
   String get ibsSssResultNote =>
@@ -1755,6 +1787,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get glossaryEntryHint => 'Términos médicos y nutricionales explicados';
 
   @override
+  String get helpMenuTooltip => 'Ayuda';
+
+  @override
   String get glossarySearchLabel => 'Buscar un término';
 
   @override
@@ -2236,6 +2271,11 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String historyIntensityBadge(int value) {
     return 'Intensidad $value';
+  }
+
+  @override
+  String historyMealAssociatedWithFood(String food, String delay) {
+    return 'Comida asociada: $food, registrada $delay antes';
   }
 
   @override

@@ -139,7 +139,11 @@
   "validationInvitationCodeFormat": "El código debe tener entre 8 y 20 caracteres, solo letras y números",
   "validationConsentRequired": "Debes aceptar el consentimiento informado para continuar",
   "validationNumberInvalid": "Ingresa un número válido",
-  "validationDateOfBirthFuture": "La fecha de nacimiento no puede ser futura",
+  "validationDateOfBirthFuture": "La fecha de nacimiento no es válida: no puede ser futura",
+  "validationDateFormat": "La fecha no es válida. Escríbela como dd/mm/aaaa",
+  "@validationDateFormat": {
+    "description": "Fecha escrita a mano con un formato o un día que no existe"
+  },
   "validationAgeOutOfRange": "El piloto admite participantes entre {min} y {max} años",
   "@validationAgeOutOfRange": {
     "description": "Rango de edad que acepta PatientProfile del backend. El minimo de 18 es requisito del piloto clinico, no una preferencia de diseno",
@@ -155,7 +159,11 @@
     }
   },
   "validationDiagnosisDateFuture": "La fecha de diagnóstico no puede ser futura",
-  "validationWeightOutOfRange": "Ingresa un peso mayor que 0 y menor que 300 kg",
+  "validationWeightOutOfRange": "El peso está fuera del rango permitido: más de 0 y menos de 300 kg",
+  "validationWeightInvalid": "El peso no es válido: no puede ser negativo",
+  "@validationWeightInvalid": {
+    "description": "Peso escrito con signo menos (CP008)"
+  },
   "validationHeightOutOfRange": "Ingresa una estatura mayor que 0 y menor que 250 cm",
   "validationTextTooLong": "No puede superar los {max} caracteres",
   "@validationTextTooLong": {
@@ -247,11 +255,11 @@
   "@mealsSearchNoResults": {
     "description": "Busqueda local sin coincidencias"
   },
-  "mealsSuggestionsFrequent": "Los que más registras",
+  "mealsSuggestionsFrequent": "Los que más registras en los últimos 30 días",
   "@mealsSuggestionsFrequent": {
     "description": "Seccion frequentLast30Days de GET /foods/suggestions"
   },
-  "mealsSuggestionsRecent": "Registrados hoy",
+  "mealsSuggestionsRecent": "Registrados en las últimas 24 horas",
   "@mealsSuggestionsRecent": {
     "description": "Seccion recentLast24Hours de GET /foods/suggestions"
   },
@@ -1077,7 +1085,7 @@
       }
     }
   },
-  "onboardingDefer": "Completar más tarde",
+  "onboardingDefer": "Después",
   "@onboardingDefer": {
     "description": "US03 CA05 y US04 CA05. Aplaza el paso y deja usar el resto de la app"
   },
@@ -1085,6 +1093,18 @@
   "onboardingReminderBodyProfile": "Tu nutricionista necesita tus datos clínicos para darte recomendaciones.",
   "onboardingReminderBodyBaseline": "Falta el cuestionario inicial. Es el punto de partida para medir tu evolución.",
   "onboardingReminderAction": "Continuar ahora",
+  "onboardingReminderProgress": "Avance de configuración: {done} de {total} pasos",
+  "@onboardingReminderProgress": {
+    "description": "Avance del asistente en el recordatorio de Inicio",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "clinicalProfileTitle": "Tu perfil clínico",
   "clinicalProfileSubtitle": "Estos datos le permiten a tu nutricionista ajustar tus recomendaciones.",
   "clinicalProfileDateOfBirthLabel": "Fecha de nacimiento",
@@ -1109,7 +1129,11 @@
   "clinicalProfileDiagnosisDateLabel": "Fecha de diagnóstico (opcional)",
   "clinicalProfileMedicationsLabel": "Medicación actual (opcional)",
   "clinicalProfileMedicationsHint": "Nombre y dosis, si tomas algo por el SII",
-  "clinicalProfileSubmit": "Continuar",
+  "clinicalProfileSubmit": "Guardar perfil",
+  "clinicalProfilePhysicalSubtitle": "Datos físicos: tu fecha de nacimiento, sexo, peso y estatura.",
+  "clinicalProfileHistorySubtitle": "Antecedentes clínicos: subtipo de SII, alergias e intolerancias.",
+  "clinicalProfileDateHint": "dd/mm/aaaa",
+  "clinicalProfilePickDate": "Elegir en el calendario",
   "bmiTitle": "Índice de masa corporal",
   "bmiValue": "{value} kg/m²",
   "@bmiValue": {
@@ -1192,6 +1216,10 @@
   "ibsSssSeverityMild": "Severidad leve",
   "ibsSssSeverityModerate": "Severidad moderada",
   "ibsSssSeveritySevere": "Severidad severa",
+  "ibsSssPeriodicResultNote": "Este resultado se suma a tu evolución. Tu nutricionista lo revisa contigo en consulta.",
+  "@ibsSssPeriodicResultNote": {
+    "description": "Nota del resultado del cuestionario periódico"
+  },
   "ibsSssResultNote": "Es tu punto de partida para medir la evolución. Tu nutricionista lo revisa contigo en consulta.",
   "@ibsSssResultNote": {
     "description": "Encuadre neutro del resultado. Registro informativo, sin adjetivos de alarma"
@@ -1546,6 +1574,10 @@
   "reportNoDataHint": "Elige un rango de fechas diferente y vuelve a intentarlo.",
   "glossaryTitle": "Glosario",
   "glossaryEntryHint": "Términos médicos y nutricionales explicados",
+  "helpMenuTooltip": "Ayuda",
+  "@helpMenuTooltip": {
+    "description": "Botón de la cabecera de Inicio que abre el menú de ayuda"
+  },
   "glossarySearchLabel": "Buscar un término",
   "glossarySearchHint": "Por ejemplo: FODMAP",
   "glossaryNotFoundTitle": "Ese término no está en el glosario",
@@ -1887,6 +1919,18 @@
               "type": "int"
           }
       }
+  },
+  "historyMealAssociatedWithFood": "Comida asociada: {food}, registrada {delay} antes",
+  "@historyMealAssociatedWithFood": {
+    "description": "Línea de asociación de la tarjeta de síntoma con los alimentos de la comida (CP028)",
+    "placeholders": {
+      "food": {
+        "type": "String"
+      },
+      "delay": {
+        "type": "String"
+      }
+    }
   },
   "historyMealAssociatedWith": "Asociado con {meal}, {delay} después",
   "@historyMealAssociatedWith": {

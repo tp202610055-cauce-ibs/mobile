@@ -575,8 +575,14 @@ abstract class AppLocalizations {
   /// No description provided for @validationDateOfBirthFuture.
   ///
   /// In es, this message translates to:
-  /// **'La fecha de nacimiento no puede ser futura'**
+  /// **'La fecha de nacimiento no es válida: no puede ser futura'**
   String get validationDateOfBirthFuture;
+
+  /// Fecha escrita a mano con un formato o un día que no existe
+  ///
+  /// In es, this message translates to:
+  /// **'La fecha no es válida. Escríbela como dd/mm/aaaa'**
+  String get validationDateFormat;
 
   /// Rango de edad que acepta PatientProfile del backend. El minimo de 18 es requisito del piloto clinico, no una preferencia de diseno
   ///
@@ -593,8 +599,14 @@ abstract class AppLocalizations {
   /// No description provided for @validationWeightOutOfRange.
   ///
   /// In es, this message translates to:
-  /// **'Ingresa un peso mayor que 0 y menor que 300 kg'**
+  /// **'El peso está fuera del rango permitido: más de 0 y menos de 300 kg'**
   String get validationWeightOutOfRange;
+
+  /// Peso escrito con signo menos (CP008)
+  ///
+  /// In es, this message translates to:
+  /// **'El peso no es válido: no puede ser negativo'**
+  String get validationWeightInvalid;
 
   /// No description provided for @validationHeightOutOfRange.
   ///
@@ -731,13 +743,13 @@ abstract class AppLocalizations {
   /// Seccion frequentLast30Days de GET /foods/suggestions
   ///
   /// In es, this message translates to:
-  /// **'Los que más registras'**
+  /// **'Los que más registras en los últimos 30 días'**
   String get mealsSuggestionsFrequent;
 
   /// Seccion recentLast24Hours de GET /foods/suggestions
   ///
   /// In es, this message translates to:
-  /// **'Registrados hoy'**
+  /// **'Registrados en las últimas 24 horas'**
   String get mealsSuggestionsRecent;
 
   /// Seccion catalogSuggestions de GET /foods/suggestions
@@ -1745,7 +1757,7 @@ abstract class AppLocalizations {
   /// US03 CA05 y US04 CA05. Aplaza el paso y deja usar el resto de la app
   ///
   /// In es, this message translates to:
-  /// **'Completar más tarde'**
+  /// **'Después'**
   String get onboardingDefer;
 
   /// No description provided for @onboardingReminderTitle.
@@ -1771,6 +1783,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Continuar ahora'**
   String get onboardingReminderAction;
+
+  /// Avance del asistente en el recordatorio de Inicio
+  ///
+  /// In es, this message translates to:
+  /// **'Avance de configuración: {done} de {total} pasos'**
+  String onboardingReminderProgress(int done, int total);
 
   /// No description provided for @clinicalProfileTitle.
   ///
@@ -1919,8 +1937,32 @@ abstract class AppLocalizations {
   /// No description provided for @clinicalProfileSubmit.
   ///
   /// In es, this message translates to:
-  /// **'Continuar'**
+  /// **'Guardar perfil'**
   String get clinicalProfileSubmit;
+
+  /// No description provided for @clinicalProfilePhysicalSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos físicos: tu fecha de nacimiento, sexo, peso y estatura.'**
+  String get clinicalProfilePhysicalSubtitle;
+
+  /// No description provided for @clinicalProfileHistorySubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Antecedentes clínicos: subtipo de SII, alergias e intolerancias.'**
+  String get clinicalProfileHistorySubtitle;
+
+  /// No description provided for @clinicalProfileDateHint.
+  ///
+  /// In es, this message translates to:
+  /// **'dd/mm/aaaa'**
+  String get clinicalProfileDateHint;
+
+  /// No description provided for @clinicalProfilePickDate.
+  ///
+  /// In es, this message translates to:
+  /// **'Elegir en el calendario'**
+  String get clinicalProfilePickDate;
 
   /// No description provided for @bmiTitle.
   ///
@@ -2197,6 +2239,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Severidad severa'**
   String get ibsSssSeveritySevere;
+
+  /// Nota del resultado del cuestionario periódico
+  ///
+  /// In es, this message translates to:
+  /// **'Este resultado se suma a tu evolución. Tu nutricionista lo revisa contigo en consulta.'**
+  String get ibsSssPeriodicResultNote;
 
   /// Encuadre neutro del resultado. Registro informativo, sin adjetivos de alarma
   ///
@@ -3026,6 +3074,12 @@ abstract class AppLocalizations {
   /// **'Términos médicos y nutricionales explicados'**
   String get glossaryEntryHint;
 
+  /// Botón de la cabecera de Inicio que abre el menú de ayuda
+  ///
+  /// In es, this message translates to:
+  /// **'Ayuda'**
+  String get helpMenuTooltip;
+
   /// No description provided for @glossarySearchLabel.
   ///
   /// In es, this message translates to:
@@ -3769,6 +3823,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Intensidad {value}'**
   String historyIntensityBadge(int value);
+
+  /// Línea de asociación de la tarjeta de síntoma con los alimentos de la comida (CP028)
+  ///
+  /// In es, this message translates to:
+  /// **'Comida asociada: {food}, registrada {delay} antes'**
+  String historyMealAssociatedWithFood(String food, String delay);
 
   /// Linea de asociacion de la tarjeta de sintoma (seccion G). La ventana de 4 horas la resuelve el servidor
   ///

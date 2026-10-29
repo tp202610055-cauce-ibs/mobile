@@ -266,7 +266,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validationDateOfBirthFuture =>
-      'The date of birth cannot be in the future';
+      'The date of birth is not valid: it cannot be in the future';
+
+  @override
+  String get validationDateFormat =>
+      'The date is not valid. Write it as dd/mm/yyyy';
 
   @override
   String validationAgeOutOfRange(int min, int max) {
@@ -279,7 +283,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get validationWeightOutOfRange =>
-      'Enter a weight greater than 0 and less than 300 kg';
+      'The weight is outside the allowed range: more than 0 and less than 300 kg';
+
+  @override
+  String get validationWeightInvalid =>
+      'The weight is not valid: it cannot be negative';
 
   @override
   String get validationHeightOutOfRange =>
@@ -365,10 +373,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mealsSearchNoResults => 'We could not find foods with that name';
 
   @override
-  String get mealsSuggestionsFrequent => 'The ones you log most';
+  String get mealsSuggestionsFrequent =>
+      'The ones you logged most in the last 30 days';
 
   @override
-  String get mealsSuggestionsRecent => 'Logged today';
+  String get mealsSuggestionsRecent => 'Logged in the last 24 hours';
 
   @override
   String get mealsSuggestionsCatalog => 'From the catalog';
@@ -998,7 +1007,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get onboardingDefer => 'Complete later';
+  String get onboardingDefer => 'Later';
 
   @override
   String get onboardingReminderTitle => 'Your profile is incomplete';
@@ -1013,6 +1022,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingReminderAction => 'Continue now';
+
+  @override
+  String onboardingReminderProgress(int done, int total) {
+    return 'Setup progress: $done of $total steps';
+  }
 
   @override
   String get clinicalProfileTitle => 'Your clinical profile';
@@ -1091,7 +1105,21 @@ class AppLocalizationsEn extends AppLocalizations {
       'Name and dose, if you take anything for IBS';
 
   @override
-  String get clinicalProfileSubmit => 'Continue';
+  String get clinicalProfileSubmit => 'Save profile';
+
+  @override
+  String get clinicalProfilePhysicalSubtitle =>
+      'Physical data: your date of birth, sex, weight and height.';
+
+  @override
+  String get clinicalProfileHistorySubtitle =>
+      'Clinical history: IBS subtype, allergies and intolerances.';
+
+  @override
+  String get clinicalProfileDateHint => 'dd/mm/yyyy';
+
+  @override
+  String get clinicalProfilePickDate => 'Pick on the calendar';
 
   @override
   String get bmiTitle => 'Body mass index';
@@ -1245,6 +1273,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ibsSssSeveritySevere => 'Severe severity';
+
+  @override
+  String get ibsSssPeriodicResultNote =>
+      'This result is added to your progress. Your nutritionist reviews it with you.';
 
   @override
   String get ibsSssResultNote =>
@@ -1753,6 +1785,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get glossaryEntryHint => 'Medical and nutrition terms explained';
 
   @override
+  String get helpMenuTooltip => 'Help';
+
+  @override
   String get glossarySearchLabel => 'Search a term';
 
   @override
@@ -2235,6 +2270,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String historyIntensityBadge(int value) {
     return 'Intensity $value';
+  }
+
+  @override
+  String historyMealAssociatedWithFood(String food, String delay) {
+    return 'Linked meal: $food, logged $delay earlier';
   }
 
   @override
