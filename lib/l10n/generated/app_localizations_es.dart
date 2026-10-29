@@ -2598,4 +2598,24 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get sessionInactivityBody =>
       'Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado.';
+
+  @override
+  String emailReminderBody(String email) {
+    return 'Te enviamos un mensaje a $email. Ábrelo y toca el enlace para confirmar que esta cuenta es tuya.';
+  }
+
+  @override
+  String get emailReminderResent =>
+      'Te enviamos un correo nuevo. Puede tardar unos minutos. Revisa también la carpeta de spam.';
+
+  @override
+  String get emailReminderConfirm => 'Ya lo verifiqué';
+
+  @override
+  String get emailReminderStillPending =>
+      'Todavía no vemos tu correo verificado. Si ya tocaste el enlace, lo veremos la próxima vez que inicies sesión.';
+
+  @override
+  String get clinicalProfileNoInvitationNotice =>
+      'Te registraste sin código de invitación. Por ahora no tienes nutricionista asignado y no recibirás recomendaciones. Puedes ingresar el código más adelante desde tu perfil.';
 }

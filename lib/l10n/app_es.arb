@@ -2215,5 +2215,31 @@
   "mealsIssueQuantityNotANumber": "Escribe la cantidad con números, por ejemplo 150",
   "clinicalNoteEmpty": "Escribe la nota antes de guardarla",
   "sessionInactivityTitle": "Tu sesión se cerró por inactividad",
-  "sessionInactivityBody": "Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado."
+  "sessionInactivityBody": "Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado.",
+  "emailReminderBody": "Te enviamos un mensaje a {email}. Ábrelo y toca el enlace para confirmar que esta cuenta es tuya.",
+  "@emailReminderBody": {
+    "description": "Cuerpo del recordatorio de verificación del correo en Inicio",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "paciente.demo@cauce.local"
+      }
+    }
+  },
+  "emailReminderResent": "Te enviamos un correo nuevo. Puede tardar unos minutos. Revisa también la carpeta de spam.",
+  "@emailReminderResent": {
+    "description": "Acuse genérico del reenvío desde el recordatorio de Inicio"
+  },
+  "emailReminderConfirm": "Ya lo verifiqué",
+  "@emailReminderConfirm": {
+    "description": "Botón del recordatorio que vuelve a mirar si el correo quedó verificado"
+  },
+  "emailReminderStillPending": "Todavía no vemos tu correo verificado. Si ya tocaste el enlace, lo veremos la próxima vez que inicies sesión.",
+  "@emailReminderStillPending": {
+    "description": "Respuesta amable cuando el correo aún figura sin verificar"
+  },
+  "clinicalProfileNoInvitationNotice": "Te registraste sin código de invitación. Por ahora no tienes nutricionista asignado y no recibirás recomendaciones. Puedes ingresar el código más adelante desde tu perfil.",
+  "@clinicalProfileNoInvitationNotice": {
+    "description": "Aviso fijo en el paso 1 del perfil clínico tras un registro sin código (CP055 paso 5)"
+  }
 }

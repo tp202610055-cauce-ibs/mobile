@@ -2595,4 +2595,24 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get sessionInactivityBody =>
       '10 minutes passed without you using the app. Sign in again: what you recorded is still saved.';
+
+  @override
+  String emailReminderBody(String email) {
+    return 'We sent a message to $email. Open it and tap the link to confirm this account is yours.';
+  }
+
+  @override
+  String get emailReminderResent =>
+      'We sent you a new email. It may take a few minutes. Check your spam folder too.';
+
+  @override
+  String get emailReminderConfirm => 'I already verified it';
+
+  @override
+  String get emailReminderStillPending =>
+      'We don\'t see your email as verified yet. If you already tapped the link, we will see it the next time you sign in.';
+
+  @override
+  String get clinicalProfileNoInvitationNotice =>
+      'You signed up without an invitation code. For now you have no assigned nutritionist and you will not receive recommendations. You can enter the code later from your profile.';
 }

@@ -4309,6 +4309,36 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado.'**
   String get sessionInactivityBody;
+
+  /// Cuerpo del recordatorio de verificación del correo en Inicio
+  ///
+  /// In es, this message translates to:
+  /// **'Te enviamos un mensaje a {email}. Ábrelo y toca el enlace para confirmar que esta cuenta es tuya.'**
+  String emailReminderBody(String email);
+
+  /// Acuse genérico del reenvío desde el recordatorio de Inicio
+  ///
+  /// In es, this message translates to:
+  /// **'Te enviamos un correo nuevo. Puede tardar unos minutos. Revisa también la carpeta de spam.'**
+  String get emailReminderResent;
+
+  /// Botón del recordatorio que vuelve a mirar si el correo quedó verificado
+  ///
+  /// In es, this message translates to:
+  /// **'Ya lo verifiqué'**
+  String get emailReminderConfirm;
+
+  /// Respuesta amable cuando el correo aún figura sin verificar
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no vemos tu correo verificado. Si ya tocaste el enlace, lo veremos la próxima vez que inicies sesión.'**
+  String get emailReminderStillPending;
+
+  /// Aviso fijo en el paso 1 del perfil clínico tras un registro sin código (CP055 paso 5)
+  ///
+  /// In es, this message translates to:
+  /// **'Te registraste sin código de invitación. Por ahora no tienes nutricionista asignado y no recibirás recomendaciones. Puedes ingresar el código más adelante desde tu perfil.'**
+  String get clinicalProfileNoInvitationNotice;
 }
 
 class _AppLocalizationsDelegate
