@@ -36,8 +36,8 @@
             </intent-filter>
             <!--
                 Deep link del enlace de recuperacion de contrasena (US07 CA02).
-                El correo trae cauce://auth/password-reset?token=xxx y go_router
-                lo enruta solo.
+                El correo trae cauce://auth/password-reset?token=xxx y el
+                redirect del router lo traduce a /auth/password-reset.
 
                 autoVerify queda en false a proposito: es un scheme propio, no
                 un App Link https, asi que no hay dominio que verificar contra

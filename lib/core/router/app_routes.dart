@@ -23,6 +23,17 @@ abstract final class AppRoutes {
   /// Alcanzada por deep link `cauce://auth/password-reset?token=xxx`.
   static const String passwordReset = '/auth/password-reset';
 
+  /// Partes del enlace externo: `auth` llega como host, no como parte del path.
+  static const String deepLinkScheme = 'cauce';
+  static const String passwordResetLinkHost = 'auth';
+  static const String passwordResetLinkPath = '/password-reset';
+
+  /// [passwordReset] con el token del enlace, codificado.
+  static String passwordResetLocation(String token) => Uri(
+        path: passwordReset,
+        queryParameters: <String, String>{tokenQueryParam: token},
+      ).toString();
+
   static const String verifyEmailPending = '/auth/verify-email-pending';
 
   /// Prefijo del wizard de onboarding clinico (US03 y US04).

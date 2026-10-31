@@ -202,7 +202,7 @@ void main() {
     ) async {
       final container = await _pumpApp(tester);
 
-      // Equivale a abrir cauce://auth/password-reset?token=abc123
+      // Usa la ruta interna ya traducida, no la URI externa del enlace.
       container.read(appRouterProvider).go('/auth/password-reset?token=abc123');
       await tester.pumpAndSettle();
 
