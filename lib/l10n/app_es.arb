@@ -2041,7 +2041,7 @@
   },
   "journalLockedBody": "Tu diario se habilita cuando guardas tu perfil clínico. Es un paso corto y lo puedes retomar ahora.",
   "journalLockedAction": "Continuar donde quedé",
-  "mealsIssueQuantityOutOfRange": "Indica una cantidad entre 0 y {max} {unit}",
+  "mealsIssueQuantityOutOfRange": "Indica una cantidad mayor que 0 y hasta {max} {unit}",
   "@mealsIssueQuantityOutOfRange": {
       "placeholders": {
           "unit": {

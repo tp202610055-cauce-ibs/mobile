@@ -227,11 +227,23 @@ void main() {
       await save(tester);
 
       expect(await savedMeals(), 0);
+      expect(find.text(l10n.mealsIssueInvalidQuantity), findsOneWidget);
       expect(
         find.text(l10n.mealsIssueQuantityOutOfRange('gramos', '3000')),
-        findsOneWidget,
+        findsNothing,
       );
       expect(find.text('Causa rellena'), findsOneWidget);
+      expect(find.text('0'), findsOneWidget);
+    });
+
+    testWidgets('A: el aviso de cantidad cero aparece apenas se escribe',
+        (tester) async {
+      await openWithCausa(tester);
+      await tapChoice(tester, l10n.measurementUnitGrams);
+      await tester.enterText(quantityField(), '0');
+      await tester.pumpAndSettle();
+
+      expect(find.text(l10n.mealsIssueInvalidQuantity), findsOneWidget);
       expect(find.text('0'), findsOneWidget);
     });
 
@@ -244,11 +256,57 @@ void main() {
       await save(tester);
 
       expect(await savedMeals(), 0);
+      expect(find.text(l10n.mealsIssueInvalidQuantity), findsOneWidget);
+      expect(
+        find.text(l10n.mealsIssueQuantityOutOfRange('gramos', '3000')),
+        findsNothing,
+      );
+      expect(find.text('-50'), findsOneWidget);
+      expect(find.text('Causa rellena'), findsOneWidget);
+    });
+
+    testWidgets('el máximo exacto de la unidad se guarda', (tester) async {
+      await openWithCausa(tester);
+      await tester.enterText(quantityField(), '3000');
+      await tapChoice(tester, l10n.measurementUnitGrams);
+      await tapChoice(tester, l10n.mealTimeLunch);
+
+      expect(find.text(l10n.mealsIssueInvalidQuantity), findsNothing);
+      expect(
+        find.text(l10n.mealsIssueQuantityOutOfRange('gramos', '3000')),
+        findsNothing,
+      );
+
+      await save(tester);
+
+      expect(find.byKey(const Key('meal_registered')), findsOneWidget);
+      expect(meals.created.single.items.single.quantity, 3000);
+    });
+
+    testWidgets(
+        'el máximo más uno muestra el rango apenas se escribe, no se guarda '
+        'y conserva lo elegido', (tester) async {
+      await openWithCausa(tester);
+      await tapChoice(tester, l10n.measurementUnitGrams);
+      await tapChoice(tester, l10n.mealTimeLunch);
+      await tester.enterText(quantityField(), '3001');
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text('Indica una cantidad mayor que 0 y hasta 3000 gramos'),
+        findsOneWidget,
+      );
+
+      await save(tester);
+
+      expect(await savedMeals(), 0);
       expect(
         find.text(l10n.mealsIssueQuantityOutOfRange('gramos', '3000')),
         findsOneWidget,
       );
-      expect(find.text('-50'), findsOneWidget);
+      expect(find.text(l10n.mealsIssueInvalidQuantity), findsNothing);
+      expect(find.text('3001'), findsOneWidget);
+      expect(find.text('Causa rellena'), findsOneWidget);
     });
 
     testWidgets('C: cantidad con letras no se guarda', (tester) async {

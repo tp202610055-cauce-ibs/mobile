@@ -2384,7 +2384,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String mealsIssueQuantityOutOfRange(String unit, String max) {
-    return 'Indica una cantidad entre 0 y $max $unit';
+    return 'Indica una cantidad mayor que 0 y hasta $max $unit';
   }
 
   @override

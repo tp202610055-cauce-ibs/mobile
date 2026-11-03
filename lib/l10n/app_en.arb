@@ -878,7 +878,7 @@
   "journalLockedTitle": "Available once you complete your profile",
   "journalLockedBody": "Your journal unlocks once you save your clinical profile. It is a short step and you can pick it up now.",
   "journalLockedAction": "Pick up where I left off",
-  "mealsIssueQuantityOutOfRange": "Enter an amount between 0 and {max} {unit}",
+  "mealsIssueQuantityOutOfRange": "Enter an amount greater than 0 and up to {max} {unit}",
   "@mealsIssueQuantityOutOfRange": {
       "placeholders": {
           "unit": {
