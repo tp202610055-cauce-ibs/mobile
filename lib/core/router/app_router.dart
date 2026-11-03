@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../features/auth/application/session_notifier.dart';
+import '../../features/auth/domain/session_state.dart';
 import '../../features/auth/presentation/auth_screens.dart';
 import '../../features/clinical_notes/presentation/clinical_note_form_screen.dart';
 import '../../features/custom_foods/presentation/custom_food_form_screen.dart';
@@ -28,6 +29,7 @@ import '../../features/splash/presentation/splash_screen.dart';
 import '../../features/symptoms/presentation/symptom_form_screen.dart';
 import 'app_routes.dart';
 import 'app_shell.dart';
+import 'pending_password_reset_link.dart';
 import 'session_guard.dart';
 
 part 'app_router.g.dart';
@@ -46,17 +48,32 @@ final GlobalKey<NavigatorState> rootNavigatorKey =
 GoRouter appRouter(Ref ref) {
   final session = ref.watch(sessionNotifierProvider);
   final onboarding = ref.watch(resolvedOnboardingProvider);
+  // `read`: terminar el flujo no debe reconstruir el router, o perderia la
+  // navegacion que sale de la pantalla.
+  final resetToken = ref.read(pendingPasswordResetLinkProvider);
 
   return GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: AppRoutes.splash,
-    // `matchedLocation` y no `uri.path`: es la ruta que el router resolvio,
-    // ya normalizada. La query del deep link se lee aparte, en el builder.
-    redirect: (context, state) => resolveRedirect(
-      session: session,
-      location: state.matchedLocation,
-      onboarding: onboarding,
-    ),
+    // Pasa antes por el splash, que es quien resuelve la sesion.
+    initialLocation: resetToken == null || session is SessionUnknown
+        ? AppRoutes.splash
+        : AppRoutes.passwordResetLocation(resetToken),
+    // Cada router nuevo releeria el enlace de arranque, aunque ya se haya usado.
+    overridePlatformDefaultLocation: openedByPasswordResetLink(),
+    redirect: (context, state) {
+      final linkToken = passwordResetTokenFromUri(state.uri);
+      if (linkToken != null) {
+        ref.read(pendingPasswordResetLinkProvider.notifier).capture(linkToken);
+        return AppRoutes.passwordResetLocation(linkToken);
+      }
+      // `matchedLocation` y no `uri.path`: es la ruta que el router resolvio,
+      // ya normalizada. La query la lee el builder de cada ruta.
+      return resolveRedirect(
+        session: session,
+        location: state.matchedLocation,
+        onboarding: onboarding,
+      );
+    },
     routes: <RouteBase>[
       // Las cuatro pestanas (seccion H del design system).
       //

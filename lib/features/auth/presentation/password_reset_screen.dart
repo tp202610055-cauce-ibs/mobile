@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/errors/error_messages.dart';
 import '../../../core/router/app_routes.dart';
+import '../../../core/router/pending_password_reset_link.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/utils/validators.dart';
 import '../../../core/widgets/widgets.dart';
@@ -46,10 +47,14 @@ class _PasswordResetScreenState extends ConsumerState<PasswordResetScreen> {
     }
     FocusScope.of(context).unfocus();
 
+    final pendingLink = ref.read(pendingPasswordResetLinkProvider.notifier);
     final done = await ref
         .read(passwordResetNotifierProvider.notifier)
         .submit(token: widget.token, newPassword: _passwordController.text);
 
+    if (done) {
+      pendingLink.clear();
+    }
     if (!done || !mounted) {
       return;
     }
@@ -119,7 +124,7 @@ class _PasswordResetScreenState extends ConsumerState<PasswordResetScreen> {
                 CauceButton.secondary(
                   key: const Key('reset_request_new_link'),
                   label: l10n.passwordResetRequestNewLink,
-                  onPressed: () => context.go(AppRoutes.passwordRecovery),
+                  onPressed: () => _requestNewLink(context, ref),
                 ),
               const SizedBox(height: CauceSpacing.space3),
             ],
@@ -161,14 +166,20 @@ class _PasswordResetScreenState extends ConsumerState<PasswordResetScreen> {
   }
 }
 
+/// Abandona el enlace actual y lleva a pedir uno nuevo.
+void _requestNewLink(BuildContext context, WidgetRef ref) {
+  ref.read(pendingPasswordResetLinkProvider.notifier).clear();
+  context.go(AppRoutes.passwordRecovery);
+}
+
 /// El enlace ya no sirve: se informa y se ofrece pedir uno nuevo, sin formulario.
-class _LinkNoLongerValid extends StatelessWidget {
+class _LinkNoLongerValid extends ConsumerWidget {
   const _LinkNoLongerValid({required this.l10n});
 
   final AppLocalizations l10n;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     return CauceScaffold(
       scrollable: true,
@@ -186,7 +197,7 @@ class _LinkNoLongerValid extends StatelessWidget {
           CauceButton(
             key: const Key('reset_request_new_link'),
             label: l10n.passwordResetRequestNewLink,
-            onPressed: () => context.go(AppRoutes.passwordRecovery),
+            onPressed: () => _requestNewLink(context, ref),
           ),
         ],
       ),
