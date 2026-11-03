@@ -52,7 +52,25 @@
   "registerInvitationCodeLabel": "Código de invitación",
   "registerInvitationCodeHint": "Opcional",
   "registerConsentSectionTitle": "Consentimiento informado",
-  "registerConsentCheckbox": "He leido y acepto el consentimiento informado",
+  "registerConsentVersion": "Versión {version}",
+  "@registerConsentVersion": {
+    "description": "Versión del consentimiento vigente que se va a aceptar",
+    "placeholders": {
+      "version": {
+        "type": "String",
+        "example": "1.0"
+      }
+    }
+  },
+  "registerConsentReadFull": "Leer el texto completo",
+  "@registerConsentReadFull": {
+    "description": "Enlace que abre el consentimiento completo"
+  },
+  "registerConsentClose": "Cerrar",
+  "@registerConsentClose": {
+    "description": "Cierra la vista del consentimiento completo"
+  },
+  "registerConsentCheckbox": "He leído y acepto el consentimiento informado",
   "registerConsentLoading": "Cargando el consentimiento vigente",
   "registerConsentUpdated": "El consentimiento fue actualizado. Revisa los cambios antes de continuar.",
   "@registerConsentUpdated": {
@@ -75,6 +93,10 @@
   "passwordResetSuccessTitle": "Contraseña actualizada",
   "passwordResetSuccessBody": "Ya puedes iniciar sesión con tu nueva contraseña.",
   "passwordResetRequestNewLink": "Solicitar un enlace nuevo",
+  "passwordResetLinkInvalid": "Este enlace ya no es válido. Pide uno nuevo para cambiar tu contraseña.",
+  "@passwordResetLinkInvalid": {
+    "description": "Enlace de recuperación inexistente, vencido o ya usado: un solo mensaje para los tres casos"
+  },
   "verifyEmailPendingTitle": "Verifica tu correo",
   "verifyEmailPendingBody": "Registramos tu cuenta. Te enviamos un correo de verificación a {email}. Sigue el enlace para activarla.",
   "@verifyEmailPendingBody": {
@@ -117,7 +139,11 @@
   "validationInvitationCodeFormat": "El código debe tener entre 8 y 20 caracteres, solo letras y números",
   "validationConsentRequired": "Debes aceptar el consentimiento informado para continuar",
   "validationNumberInvalid": "Ingresa un número válido",
-  "validationDateOfBirthFuture": "La fecha de nacimiento no puede ser futura",
+  "validationDateOfBirthFuture": "La fecha de nacimiento no es válida: no puede ser futura",
+  "validationDateFormat": "La fecha no es válida. Escríbela como dd/mm/aaaa",
+  "@validationDateFormat": {
+    "description": "Fecha escrita a mano con un formato o un día que no existe"
+  },
   "validationAgeOutOfRange": "El piloto admite participantes entre {min} y {max} años",
   "@validationAgeOutOfRange": {
     "description": "Rango de edad que acepta PatientProfile del backend. El minimo de 18 es requisito del piloto clinico, no una preferencia de diseno",
@@ -133,7 +159,11 @@
     }
   },
   "validationDiagnosisDateFuture": "La fecha de diagnóstico no puede ser futura",
-  "validationWeightOutOfRange": "Ingresa un peso mayor que 0 y menor que 500 kg",
+  "validationWeightOutOfRange": "El peso está fuera del rango permitido: más de 0 y menos de 300 kg",
+  "validationWeightInvalid": "El peso no es válido: no puede ser negativo",
+  "@validationWeightInvalid": {
+    "description": "Peso escrito con signo menos (CP008)"
+  },
   "validationHeightOutOfRange": "Ingresa una estatura mayor que 0 y menor que 250 cm",
   "validationTextTooLong": "No puede superar los {max} caracteres",
   "@validationTextTooLong": {
@@ -153,15 +183,15 @@
   "@errorConsentTextMismatch": {
     "description": "errorCode consent_text_mismatch (400)"
   },
-  "errorInvalidInvitationCode": "El código de invitación no existe",
+  "errorInvalidInvitationCode": "El código de invitación no es válido. Pide uno nuevo a tu nutricionista.",
   "@errorInvalidInvitationCode": {
     "description": "errorCode invalid_invitation_code (400)"
   },
-  "errorExpiredInvitationCode": "El código de invitación venció",
+  "errorExpiredInvitationCode": "El código de invitación no es válido. Pide uno nuevo a tu nutricionista.",
   "@errorExpiredInvitationCode": {
     "description": "errorCode expired_invitation_code (400)"
   },
-  "errorInvitationCodeAlreadyUsed": "El código de invitación ya fue usado",
+  "errorInvitationCodeAlreadyUsed": "El código de invitación no es válido. Pide uno nuevo a tu nutricionista.",
   "@errorInvitationCodeAlreadyUsed": {
     "description": "errorCode invitation_code_already_used (400)"
   },
@@ -225,11 +255,11 @@
   "@mealsSearchNoResults": {
     "description": "Busqueda local sin coincidencias"
   },
-  "mealsSuggestionsFrequent": "Los que más registras",
+  "mealsSuggestionsFrequent": "Los que más registras en los últimos 30 días",
   "@mealsSuggestionsFrequent": {
     "description": "Seccion frequentLast30Days de GET /foods/suggestions"
   },
-  "mealsSuggestionsRecent": "Registrados hoy",
+  "mealsSuggestionsRecent": "Registrados en las últimas 24 horas",
   "@mealsSuggestionsRecent": {
     "description": "Seccion recentLast24Hours de GET /foods/suggestions"
   },
@@ -442,7 +472,7 @@
   "@customFoodAddIngredient": {
     "description": "Accion que abre el buscador del catalogo"
   },
-  "customFoodProportionLabel": "Cantidad en el plato (g)",
+  "customFoodProportionLabel": "Proporción aproximada en el plato (%)",
   "@customFoodProportionLabel": {
     "description": "Campo de proportionGrams de un ingrediente"
   },
@@ -552,7 +582,7 @@
   "@customFoodIssueNoIngredients": {
     "description": "Plato sin ingredientes"
   },
-  "customFoodIssueInvalidProportion": "Cada ingrediente debe tener una cantidad mayor que cero",
+  "customFoodIssueInvalidProportion": "Cada ingrediente debe tener una proporción mayor que 0 % y de hasta 100 %",
   "@customFoodIssueInvalidProportion": {
     "description": "Invariante de CustomFoodIngredient"
   },
@@ -646,7 +676,7 @@
   "@symptomsMealAssociated": {
     "description": "CA01: el servidor encontro una comida en la ventana de 4 horas"
   },
-  "symptomsMealNotAssociated": "No habia una comida registrada en las 4 horas previas.",
+  "symptomsMealNotAssociated": "No había una comida registrada en las 4 horas previas.",
   "@symptomsMealNotAssociated": {
     "description": "CA02: el servidor respondio hasMealAssociation en false. No es un error"
   },
@@ -658,11 +688,11 @@
   "@symptomsIssueMissingType": {
     "description": "Falta SymptomType"
   },
-  "symptomsIssueMissingIntensity": "Indica la intensidad",
+  "symptomsIssueMissingIntensity": "La intensidad debe estar entre 1 y 100",
   "@symptomsIssueMissingIntensity": {
     "description": "Falta mover la escala"
   },
-  "symptomsIssueIntensityOutOfRange": "La intensidad va de 1 a 100",
+  "symptomsIssueIntensityOutOfRange": "La intensidad debe estar entre 1 y 100",
   "@symptomsIssueIntensityOutOfRange": {
     "description": "Invariante Symptom.MinIntensity del backend"
   },
@@ -791,6 +821,20 @@
       }
     }
   },
+  "clinicalNoteCounter": "{count}/{max}",
+  "@clinicalNoteCounter": {
+    "description": "Contador de la nota: caracteres escritos sobre el tope (CP034, CP035)",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "35"
+      },
+      "max": {
+        "type": "int",
+        "example": "500"
+      }
+    }
+  },
   "clinicalNoteTooLong": "La nota no puede superar los 500 caracteres",
   "@clinicalNoteTooLong": {
     "description": "CA02: el texto supera el tope de ClinicalNote.Create"
@@ -819,7 +863,11 @@
   "@ibsSssEvolutionTitle": {
     "description": "Encabezado del grafico de evolucion (CA03)"
   },
-  "ibsSssEvolutionEmpty": "Con una sola evaluación todavía no hay evolución que mostrar.",
+  "ibsSssEvolutionSignificant": "Respuesta clínica significativa",
+  "@ibsSssEvolutionSignificant": {
+    "description": "Rótulo cuando la reducción respecto de la línea base es de 50 puntos o más (CP032)"
+  },
+  "ibsSssEvolutionEmpty": "El gráfico aparece desde tu tercera evaluación.",
   "@ibsSssEvolutionEmpty": {
     "description": "Menos de dos puntos: no hay linea que trazar"
   },
@@ -920,6 +968,10 @@
   "@errorPatientHasNoDataInPeriod": {
       "description": "errorCode patient_has_no_data_in_period (422). CP063 pasos 4 y 5: avisar y sugerir otro rango"
   },
+  "errorEmailNotVerified": "Para recibir la contraseña de tu reporte necesitas verificar tu correo. Revisa tu bandeja de entrada y toca el enlace. Si no lo encuentras, puedes reenviarlo desde Inicio.",
+  "@errorEmailNotVerified": {
+      "description": "errorCode email_not_verified (422) al pedir el reporte personal, CP062. Distinto de patient_has_no_data_in_period"
+  },
   "errorReportPeriodInvalid": "El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.",
   "@errorReportPeriodInvalid": {
       "description": "errorCode report_period_invalid (422)"
@@ -989,14 +1041,6 @@
   "@errorInvalidRefreshToken": {
     "description": "errorCode invalid_refresh_token (401)"
   },
-  "errorInvalidPasswordResetToken": "El enlace de recuperación no es válido",
-  "@errorInvalidPasswordResetToken": {
-    "description": "errorCode invalid_password_reset_token (400)"
-  },
-  "errorExpiredPasswordResetToken": "El enlace de recuperación venció o ya fue usado",
-  "@errorExpiredPasswordResetToken": {
-    "description": "errorCode expired_password_reset_token (400)"
-  },
   "errorUserLocalMissing": "No encontramos tu cuenta completa en el sistema. Volver a intentarlo no lo resuelve. Avisa al equipo del piloto o a tu nutricionista para que lo revisen.",
   "@errorUserLocalMissing": {
     "description": "errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend: sale al iniciar sesión o al renovarla, y ni reintentar ni cerrar sesión la resuelven (acta M50)"
@@ -1045,7 +1089,7 @@
       }
     }
   },
-  "onboardingDefer": "Completar más tarde",
+  "onboardingDefer": "Después",
   "@onboardingDefer": {
     "description": "US03 CA05 y US04 CA05. Aplaza el paso y deja usar el resto de la app"
   },
@@ -1053,6 +1097,18 @@
   "onboardingReminderBodyProfile": "Tu nutricionista necesita tus datos clínicos para darte recomendaciones.",
   "onboardingReminderBodyBaseline": "Falta el cuestionario inicial. Es el punto de partida para medir tu evolución.",
   "onboardingReminderAction": "Continuar ahora",
+  "onboardingReminderProgress": "Avance de configuración: {done} de {total} pasos",
+  "@onboardingReminderProgress": {
+    "description": "Avance del asistente en el recordatorio de Inicio",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "clinicalProfileTitle": "Tu perfil clínico",
   "clinicalProfileSubtitle": "Estos datos le permiten a tu nutricionista ajustar tus recomendaciones.",
   "clinicalProfileDateOfBirthLabel": "Fecha de nacimiento",
@@ -1077,7 +1133,11 @@
   "clinicalProfileDiagnosisDateLabel": "Fecha de diagnóstico (opcional)",
   "clinicalProfileMedicationsLabel": "Medicación actual (opcional)",
   "clinicalProfileMedicationsHint": "Nombre y dosis, si tomas algo por el SII",
-  "clinicalProfileSubmit": "Continuar",
+  "clinicalProfileSubmit": "Guardar perfil",
+  "clinicalProfilePhysicalSubtitle": "Datos físicos: tu fecha de nacimiento, sexo, peso y estatura.",
+  "clinicalProfileHistorySubtitle": "Antecedentes clínicos: subtipo de SII, alergias e intolerancias.",
+  "clinicalProfileDateHint": "dd/mm/aaaa",
+  "clinicalProfilePickDate": "Elegir en el calendario",
   "bmiTitle": "Índice de masa corporal",
   "bmiValue": "{value} kg/m²",
   "@bmiValue": {
@@ -1090,7 +1150,7 @@
     }
   },
   "bmiCategoryUnderweight": "Bajo peso",
-  "bmiCategoryNormal": "Peso normal",
+  "bmiCategoryNormal": "Normal",
   "bmiCategoryOverweight": "Sobrepeso",
   "bmiCategoryObese": "Obesidad",
   "bmiNote": "Referencia de la OMS. Tu nutricionista lo interpreta junto al resto de tu historia clínica.",
@@ -1099,7 +1159,15 @@
   },
   "bmiPending": "Completa peso y estatura para verlo.",
   "allergiesTitle": "Alergias e intolerancias",
-  "allergiesSubtitle": "Marca las que tengas. Puedes dejarlo vacío si no aplica.",
+  "allergiesSubtitle": "Marca las que tengas o elige «Ninguna conocida».",
+  "allergiesNoneKnown": "Ninguna conocida",
+  "@allergiesNoneKnown": {
+    "description": "Opción del perfil clínico para declarar que no tiene alergias ni intolerancias"
+  },
+  "validationAllergiesRequired": "Indica tus alergias e intolerancias o marca «Ninguna conocida».",
+  "@validationAllergiesRequired": {
+    "description": "Perfil clínico enviado sin alergias y sin marcar Ninguna conocida"
+  },
   "allergiesLoading": "Cargando el catálogo",
   "allergiesEmpty": "No hay alergias en el catálogo.",
   "allergySeverityLabel": "Severidad",
@@ -1115,7 +1183,7 @@
   "ibsSssQuestionPainSeverity": "¿Qué tan intenso fue tu dolor abdominal?",
   "ibsSssPainSeverityMin": "Sin dolor",
   "ibsSssPainSeverityMax": "Muy intenso",
-  "ibsSssQuestionPainFrequency": "¿Con qué frecuencia tuviste dolor abdominal?",
+  "ibsSssQuestionPainFrequency": "En los últimos 10 días, ¿cuántos días tuviste dolor abdominal?",
   "ibsSssPainFrequencyMin": "Ningún día",
   "ibsSssPainFrequencyMax": "Todos los días",
   "ibsSssQuestionBloatingSeverity": "¿Qué tan intensa fue la distensión o hinchazón?",
@@ -1152,6 +1220,10 @@
   "ibsSssSeverityMild": "Severidad leve",
   "ibsSssSeverityModerate": "Severidad moderada",
   "ibsSssSeveritySevere": "Severidad severa",
+  "ibsSssPeriodicResultNote": "Este resultado se suma a tu evolución. Tu nutricionista lo revisa contigo en consulta.",
+  "@ibsSssPeriodicResultNote": {
+    "description": "Nota del resultado del cuestionario periódico"
+  },
   "ibsSssResultNote": "Es tu punto de partida para medir la evolución. Tu nutricionista lo revisa contigo en consulta.",
   "@ibsSssResultNote": {
     "description": "Encuadre neutro del resultado. Registro informativo, sin adjetivos de alarma"
@@ -1233,7 +1305,19 @@
     }
   },
   "evolutionBaselineOnlyTitle": "Tu línea base",
-  "evolutionBaselineOnlyBody": "Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.",
+  "evolutionBaselineOnlyBody": "Tu gráfico completo aparecerá aquí después de tu primera evaluación periódica.",
+  "evolutionLockedTitle": "Disponible al completar tu perfil",
+  "@evolutionLockedTitle": {
+    "description": "Pestaña Evolución con el perfil clínico o la línea base pendientes (CP011)"
+  },
+  "evolutionLockedBody": "Tu evolución se arma con tu perfil clínico y tu primera evaluación. Completa esos dos pasos para verla.",
+  "@evolutionLockedBody": {
+    "description": "Cuerpo del estado bloqueado de Evolución"
+  },
+  "evolutionLockedAction": "Continuar donde quedé",
+  "@evolutionLockedAction": {
+    "description": "Retoma el asistente desde la pestaña Evolución"
+  },
   "evolutionNextAssessment": "Próxima evaluación: {date}",
   "@evolutionNextAssessment": {
     "description": "Fecha que agenda el backend a catorce dias de la ultima evaluacion (CP061)",
@@ -1294,10 +1378,10 @@
   },
   "profileTrackingElapsedFresh": "Menos de una semana",
   "profileTrackingNutritionist": "Mi nutricionista",
-  "profileTrackingNutritionistPending": "Pendiente de asignación",
+  "profileTrackingNutritionistPending": "Sin nutricionista asignado",
   "profileClinicalSubtype": "Subtipo de SII",
   "profileClinicalAllergies": "Alergias declaradas",
-  "profileClinicalAllergiesNone": "Ninguna",
+  "profileClinicalAllergiesNone": "Ninguna conocida",
   "@profileClinicalAllergiesNone": {
     "description": "Valor de la fila de alergias cuando el paciente no declaró ninguna (CP070)"
   },
@@ -1366,7 +1450,7 @@
   "profileEvolutionChangeSame": "Igual que tu línea base",
   "profileEvolutionAchievement": "Respuesta clínica significativa",
   "profileEvolutionOngoing": "Sigues en tu proceso de seguimiento",
-  "profileEvolutionEmpty": "Completa tu primera evaluación para ver tu evolución acá.",
+  "profileEvolutionEmpty": "Completa tu primera evaluación para ver tu evolución aquí.",
   "profileEvolutionEmptyAction": "Responder el cuestionario",
   "profileEdit": "Editar mi información",
   "profileEditUnavailable": "La edición de tus datos llega en una próxima versión.",
@@ -1494,6 +1578,10 @@
   "reportNoDataHint": "Elige un rango de fechas diferente y vuelve a intentarlo.",
   "glossaryTitle": "Glosario",
   "glossaryEntryHint": "Términos médicos y nutricionales explicados",
+  "helpMenuTooltip": "Ayuda",
+  "@helpMenuTooltip": {
+    "description": "Botón de la cabecera de Inicio que abre el menú de ayuda"
+  },
   "glossarySearchLabel": "Buscar un término",
   "glossarySearchHint": "Por ejemplo: FODMAP",
   "glossaryNotFoundTitle": "Ese término no está en el glosario",
@@ -1531,6 +1619,7 @@
       "description": "Etiqueta del primer destino de la barra inferior (design system, seccion H)"
   },
   "navJournal": "Diario",
+  "navEvolution": "Evolución",
   "navAdvice": "Consejos",
   "navProfile": "Perfil",
   "fabQuickAction": "Acción rápida",
@@ -1712,6 +1801,33 @@
           }
       }
   },
+  "recommendationDataSymptomsOfType": "{count, plural, =1{registro de {symptom} en los últimos {days} días} other{registros de {symptom} en los últimos {days} días}}",
+  "@recommendationDataSymptomsOfType": {
+      "description": "Datos de respaldo por tipo de síntoma (CP042, CP077). {symptom} llega en minúscula inicial, por ejemplo «dolor abdominal»",
+      "placeholders": {
+          "count": {
+              "type": "int"
+          },
+          "symptom": {
+              "type": "String"
+          },
+          "days": {
+              "type": "int"
+          }
+      }
+  },
+  "recommendationDataSymptomsOther": "{count, plural, =1{registro de otros síntomas en los últimos {days} días} other{registros de otros síntomas en los últimos {days} días}}",
+  "@recommendationDataSymptomsOther": {
+      "description": "Datos de respaldo: los tipos que no entran entre los tres más frecuentes, y el tipo «Otro»",
+      "placeholders": {
+          "count": {
+              "type": "int"
+          },
+          "days": {
+              "type": "int"
+          }
+      }
+  },
   "recommendationDataWindow": "ventana que usa el sistema para relacionar una comida con los síntomas que vienen después",
   "recommendationDataTopFoods": "Alimentos altos en FODMAP que más registraste: {foods}",
   "@recommendationDataTopFoods": {
@@ -1760,11 +1876,24 @@
   },
   "recommendationFeedbackTooLong": "El comentario supera los 500 caracteres.",
   "recommendationFeedbackSubmit": "Enviar mi respuesta",
-  "recommendationFeedbackNetworkError": "No pudimos enviar tu respuesta",
-  "@recommendationFeedbackNetworkError": {
-      "description": "Decision 8: el feedback es solo online. Sin conexion se avisa con un toast de error y reintento, sin cola local"
+  "recommendationFeedbackQueued": "Tu respuesta quedó registrada",
+  "@recommendationFeedbackQueued": {
+      "description": "Toast al guardar la respuesta en el telefono sin conexion (CP044)"
   },
-  "recommendationFeedbackNetworkErrorBody": "Revisa tu conexión e inténtalo otra vez.",
+  "recommendationFeedbackQueuedBody": "Se enviará cuando vuelva la conexión.",
+  "@recommendationFeedbackQueuedBody": {
+      "description": "Cuerpo del toast y linea bajo la marca de pendiente en el detalle (CP044)"
+  },
+  "recommendationFeedbackPendingBadge": "Pendiente de envío",
+  "@recommendationFeedbackPendingBadge": {
+      "description": "Marca de una respuesta guardada sin conexion, en el detalle y en la tarjeta (CP044)"
+  },
+  "recommendationFeedbackRejectedTitle": "No pudimos enviar tu respuesta",
+  "@recommendationFeedbackRejectedTitle": {
+      "description": "Respuesta guardada que el servidor rechazo por un motivo que no mejora reintentando"
+  },
+  "recommendationFeedbackRejectedBody": "No se aceptó tal como estaba. Puedes responder de nuevo.",
+  "recommendationFeedbackAnswerAgain": "Responder de nuevo",
   "recommendationFeedbackSent": "Gracias por contarnos cómo te fue",
   "recommendationFeedbackSummaryTitle": "Ya nos contaste cómo te fue",
   "recommendationFeedbackSummaryApplied": "Aplicaste la recomendación",
@@ -1821,6 +1950,18 @@
               "type": "int"
           }
       }
+  },
+  "historyMealAssociatedWithFood": "Comida asociada: {food}, registrada {delay} antes",
+  "@historyMealAssociatedWithFood": {
+    "description": "Línea de asociación de la tarjeta de síntoma con los alimentos de la comida (CP028)",
+    "placeholders": {
+      "food": {
+        "type": "String"
+      },
+      "delay": {
+        "type": "String"
+      }
+    }
   },
   "historyMealAssociatedWith": "Asociado con {meal}, {delay} después",
   "@historyMealAssociatedWith": {
@@ -1967,5 +2108,169 @@
         "example": "sin síntomas"
       }
     }
+  },
+  "profileTrackingAssignedAt": "Inicio del seguimiento",
+  "@profileTrackingAssignedAt": {
+    "description": "Fecha en que el paciente quedó vinculado a su nutricionista"
+  },
+  "profileNoNutritionistHint": "Para recibir recomendaciones, ingresa el código de invitación que te dé tu nutricionista.",
+  "profileInvitationCodeAction": "Ingresar código de invitación",
+  "profileInvitationCodeTitle": "Código de invitación",
+  "profileInvitationCodeBody": "Escribe el código que te dio tu nutricionista.",
+  "profileInvitationCodeSubmit": "Vincular",
+  "profileInvitationCodeLinked": "Ya estás vinculado con {name}",
+  "@profileInvitationCodeLinked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "profileClinicalWeight": "Peso",
+  "profileClinicalHeight": "Estatura",
+  "profileClinicalWeightValue": "{kg} kg",
+  "@profileClinicalWeightValue": {
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      }
+    }
+  },
+  "profileClinicalHeightValue": "{cm} cm",
+  "@profileClinicalHeightValue": {
+    "placeholders": {
+      "cm": {
+        "type": "String"
+      }
+    }
+  },
+  "profileEditTitle": "Editar mi información",
+  "profileEditSave": "Guardar cambios",
+  "profileEditSaved": "Tu información se actualizó",
+  "validationWeightNegative": "El peso no puede ser negativo",
+  "validationHeightNegative": "La estatura no puede ser negativa",
+  "validationWeightNotNumber": "El peso debe ser un número",
+  "validationHeightNotNumber": "La estatura debe ser un número",
+  "validationWeightRequired": "El peso es obligatorio",
+  "validationHeightRequired": "La estatura es obligatoria",
+  "recommendationsNoNutritionistTitle": "Aún no tienes nutricionista",
+  "recommendationsNoNutritionistBody": "Para recibir recomendaciones necesitas estar vinculado a un nutricionista. Ingresa desde tu perfil el código de invitación que tu nutricionista te proporcione.",
+  "recommendationsNoNutritionistAction": "Ir a mi perfil",
+  "ibsSssPainFrequencyDays": "{days, plural, =1{1 día} other{{days} días}}",
+  "@ibsSssPainFrequencyDays": {
+    "description": "Respuesta de la pregunta 2 del IBS-SSS, en días de los últimos 10",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "ibsSssQuestionMissing": "Pendiente: responde esta pregunta",
+  "historyNoteSavedAt": "Nota guardada el {stamp}",
+  "@historyNoteSavedAt": {
+    "description": "Fecha y hora de una nota de contexto",
+    "placeholders": {
+      "stamp": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodProportionPercent": "{percent} %",
+  "@customFoodProportionPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodProportionTotal": "Las proporciones suman {percent} %",
+  "@customFoodProportionTotal": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "customFoodAllergenWarning": "Atención: este plato incluye un alérgeno que declaraste ({allergens}). Puedes guardarlo igual y te pediremos confirmarlo.",
+  "@customFoodAllergenWarning": {
+    "placeholders": {
+      "allergens": {
+        "type": "String"
+      }
+    }
+  },
+  "privacyConsentView": "Consultar el consentimiento",
+  "consentTextTitle": "Consentimiento informado",
+  "consentTextVersion": "Versión {version}",
+  "@consentTextVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "consentTextLoadError": "No pudimos cargar el texto del consentimiento.",
+  "symptomsIntensityInputLabel": "Intensidad (de 1 a 100)",
+  "homeScoreCelebration": "Respuesta clínica significativa",
+  "homeScoreThresholdLegend": "Línea punteada: meta clínica ({score} puntos)",
+  "@homeScoreThresholdLegend": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "evolutionPickDates": "Elegir un rango de fechas",
+  "evolutionCustomRange": "Del {from} al {to}",
+  "@evolutionCustomRange": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "mealsIssueMissingUnit": "Elige la unidad de medida",
+  "recommendationFeedbackInvite": "Cuéntanos cómo te fue",
+  "recommendationFeedbackNotYet": "Podrás contarnos cómo te fue cuando pasen 24 horas desde que la recibiste.",
+  "recommendationGlossaryTermSemantics": "{term}, término del glosario. Toca para ver su definición.",
+  "@recommendationGlossaryTermSemantics": {
+    "placeholders": {
+      "term": {
+        "type": "String"
+      }
+    }
+  },
+  "mealsIssueQuantityNotANumber": "Escribe la cantidad con números, por ejemplo 150",
+  "clinicalNoteEmpty": "Escribe la nota antes de guardarla",
+  "sessionInactivityTitle": "Tu sesión se cerró por inactividad",
+  "sessionInactivityBody": "Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado.",
+  "emailReminderBody": "Te enviamos un mensaje a {email}. Ábrelo y toca el enlace para confirmar que esta cuenta es tuya.",
+  "@emailReminderBody": {
+    "description": "Cuerpo del recordatorio de verificación del correo en Inicio",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "paciente.demo@cauce.local"
+      }
+    }
+  },
+  "emailReminderResent": "Te enviamos un correo nuevo. Puede tardar unos minutos. Revisa también la carpeta de spam.",
+  "@emailReminderResent": {
+    "description": "Acuse genérico del reenvío desde el recordatorio de Inicio"
+  },
+  "emailReminderConfirm": "Ya lo verifiqué",
+  "@emailReminderConfirm": {
+    "description": "Botón del recordatorio que vuelve a mirar si el correo quedó verificado"
+  },
+  "emailReminderStillPending": "Todavía no vemos tu correo verificado. Revisa que tocaste el enlace del último correo que te enviamos.",
+  "@emailReminderStillPending": {
+    "description": "Respuesta cuando la renovación de sesión trae el correo aún sin verificar"
+  },
+  "clinicalProfileNoInvitationNotice": "Te registraste sin código de invitación. Por ahora no tienes nutricionista asignado y no recibirás recomendaciones. Puedes ingresar el código más adelante desde tu perfil.",
+  "@clinicalProfileNoInvitationNotice": {
+    "description": "Aviso fijo en el paso 1 del perfil clínico tras un registro sin código (CP055 paso 5)"
   }
 }

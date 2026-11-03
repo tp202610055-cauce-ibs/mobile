@@ -57,6 +57,7 @@ import 'package:cauce_api_client/src/model/explanation_source.dart';
 import 'package:cauce_api_client/src/model/export_my_data_result.dart';
 import 'package:cauce_api_client/src/model/feedback_outcome.dart';
 import 'package:cauce_api_client/src/model/fodmap_level.dart';
+import 'package:cauce_api_client/src/model/food_allergen_check_result.dart';
 import 'package:cauce_api_client/src/model/food_item_detail.dart';
 import 'package:cauce_api_client/src/model/food_item_summary.dart';
 import 'package:cauce_api_client/src/model/food_item_summary_paged_result.dart';
@@ -73,8 +74,12 @@ import 'package:cauce_api_client/src/model/get_patient_profile_result.dart';
 import 'package:cauce_api_client/src/model/glossary_category.dart';
 import 'package:cauce_api_client/src/model/glossary_result.dart';
 import 'package:cauce_api_client/src/model/glossary_term_dto.dart';
+import 'package:cauce_api_client/src/model/glossary_term_request_result.dart';
+import 'package:cauce_api_client/src/model/glossary_term_request_status.dart';
 import 'package:cauce_api_client/src/model/history_event.dart';
 import 'package:cauce_api_client/src/model/ibs_sss_assessment_summary.dart';
+import 'package:cauce_api_client/src/model/ibs_sss_cycle_status.dart';
+import 'package:cauce_api_client/src/model/ibs_sss_cycle_status_dto.dart';
 import 'package:cauce_api_client/src/model/ibs_sss_evolution_entry.dart';
 import 'package:cauce_api_client/src/model/ibs_subtype.dart';
 import 'package:cauce_api_client/src/model/login_request.dart';
@@ -94,18 +99,26 @@ import 'package:cauce_api_client/src/model/my_consent_result.dart';
 import 'package:cauce_api_client/src/model/my_profile_clinical_info.dart';
 import 'package:cauce_api_client/src/model/my_profile_patient_info.dart';
 import 'package:cauce_api_client/src/model/my_profile_summary_result.dart';
+import 'package:cauce_api_client/src/model/nutritionist_alert_dto.dart';
+import 'package:cauce_api_client/src/model/nutritionist_alert_list_result.dart';
+import 'package:cauce_api_client/src/model/nutritionist_alert_type.dart';
 import 'package:cauce_api_client/src/model/nutritionist_assignment_summary.dart';
 import 'package:cauce_api_client/src/model/patient_allergy_summary.dart';
 import 'package:cauce_api_client/src/model/patient_evolution_for_nutritionist_result.dart';
+import 'package:cauce_api_client/src/model/patient_recommendation_for_nutritionist_dto.dart';
+import 'package:cauce_api_client/src/model/patient_recommendation_for_nutritionist_dto_paged_result.dart';
 import 'package:cauce_api_client/src/model/pending_review_recommendation_dto.dart';
 import 'package:cauce_api_client/src/model/pending_review_recommendation_dto_paged_result.dart';
 import 'package:cauce_api_client/src/model/portal_login_request.dart';
 import 'package:cauce_api_client/src/model/portal_session_result.dart';
 import 'package:cauce_api_client/src/model/priority_level.dart';
 import 'package:cauce_api_client/src/model/problem_details.dart';
+import 'package:cauce_api_client/src/model/recommendation_action.dart';
 import 'package:cauce_api_client/src/model/recommendation_detail_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_feedback_dto.dart';
+import 'package:cauce_api_client/src/model/recommendation_food_preview_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_item_dto.dart';
+import 'package:cauce_api_client/src/model/recommendation_review_status_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_source.dart';
 import 'package:cauce_api_client/src/model/recommendation_status.dart';
 import 'package:cauce_api_client/src/model/recommendation_summary_dto.dart';
@@ -115,6 +128,7 @@ import 'package:cauce_api_client/src/model/refresh_token_request.dart';
 import 'package:cauce_api_client/src/model/register_patient_request.dart';
 import 'package:cauce_api_client/src/model/register_patient_result.dart';
 import 'package:cauce_api_client/src/model/reject_recommendation_request.dart';
+import 'package:cauce_api_client/src/model/request_glossary_term_request.dart';
 import 'package:cauce_api_client/src/model/request_password_reset_request.dart';
 import 'package:cauce_api_client/src/model/resend_verification_email_request.dart';
 import 'package:cauce_api_client/src/model/set_symptom_meal_association_request.dart';
@@ -137,6 +151,7 @@ import 'package:cauce_api_client/src/model/update_fcm_token_request.dart';
 import 'package:cauce_api_client/src/model/update_patient_profile_request.dart';
 import 'package:cauce_api_client/src/model/update_patient_profile_result.dart';
 import 'package:cauce_api_client/src/model/user_status.dart';
+import 'package:cauce_api_client/src/model/validate_password_reset_request.dart';
 
 part 'serializers.g.dart';
 
@@ -184,6 +199,7 @@ part 'serializers.g.dart';
   ExportMyDataResult,
   FeedbackOutcome,
   FodmapLevel,
+  FoodAllergenCheckResult,
   FoodItemDetail,
   FoodItemSummary,
   FoodItemSummaryPagedResult,
@@ -200,8 +216,12 @@ part 'serializers.g.dart';
   GlossaryCategory,
   GlossaryResult,
   GlossaryTermDto,
+  GlossaryTermRequestResult,
+  GlossaryTermRequestStatus,
   HistoryEvent,$HistoryEvent,
   IbsSssAssessmentSummary,
+  IbsSssCycleStatus,
+  IbsSssCycleStatusDto,
   IbsSssEvolutionEntry,
   IbsSubtype,
   LoginRequest,
@@ -221,18 +241,26 @@ part 'serializers.g.dart';
   MyProfileClinicalInfo,
   MyProfilePatientInfo,
   MyProfileSummaryResult,
+  NutritionistAlertDto,
+  NutritionistAlertListResult,
+  NutritionistAlertType,
   NutritionistAssignmentSummary,
   PatientAllergySummary,
   PatientEvolutionForNutritionistResult,
+  PatientRecommendationForNutritionistDto,
+  PatientRecommendationForNutritionistDtoPagedResult,
   PendingReviewRecommendationDto,
   PendingReviewRecommendationDtoPagedResult,
   PortalLoginRequest,
   PortalSessionResult,
   PriorityLevel,
   ProblemDetails,
+  RecommendationAction,
   RecommendationDetailDto,
   RecommendationFeedbackDto,
+  RecommendationFoodPreviewDto,
   RecommendationItemDto,
+  RecommendationReviewStatusDto,
   RecommendationSource,
   RecommendationStatus,
   RecommendationSummaryDto,
@@ -242,6 +270,7 @@ part 'serializers.g.dart';
   RegisterPatientRequest,
   RegisterPatientResult,
   RejectRecommendationRequest,
+  RequestGlossaryTermRequest,
   RequestPasswordResetRequest,
   ResendVerificationEmailRequest,
   SetSymptomMealAssociationRequest,
@@ -264,6 +293,7 @@ part 'serializers.g.dart';
   UpdatePatientProfileRequest,
   UpdatePatientProfileResult,
   UserStatus,
+  ValidatePasswordResetRequest,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(

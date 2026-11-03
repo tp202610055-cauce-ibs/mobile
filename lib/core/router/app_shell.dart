@@ -30,6 +30,16 @@ abstract final class ShellBranch {
   static const int journal = 1;
   static const int advice = 2;
   static const int profile = 3;
+  static const int evolution = 4;
+
+  /// Orden en la barra: Evolución se muestra entre Diario y Consejos.
+  static const List<int> displayOrder = <int>[
+    home,
+    journal,
+    evolution,
+    advice,
+    profile,
+  ];
 }
 
 /// Andamio de las cuatro pestanas (seccion H del design system).
@@ -59,7 +69,7 @@ class AppShell extends ConsumerWidget {
     final keyboardOpen = MediaQuery.viewInsetsOf(context).bottom > 0;
 
     return PushInbox(
-      onForegroundMessage: () => _refreshAfterPush(ref),
+      onPush: () => _refreshAfterPush(ref),
       child: _buildShell(context, ref, l10n, keyboardOpen),
     );
   }
@@ -116,8 +126,10 @@ class AppShell extends ConsumerWidget {
               ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: CauceBottomNav(
-          currentIndex: navigationShell.currentIndex,
-          onSelected: (int index) => _select(ref, index),
+          currentIndex:
+              ShellBranch.displayOrder.indexOf(navigationShell.currentIndex),
+          onSelected: (int index) =>
+              _select(ref, ShellBranch.displayOrder[index]),
           items: <CauceBottomNavItem>[
             CauceBottomNavItem(
               label: l10n.navHome,
@@ -128,6 +140,11 @@ class AppShell extends ConsumerWidget {
               label: l10n.navJournal,
               icon: TablerIcons.notebook,
               itemKey: const Key('nav_journal'),
+            ),
+            CauceBottomNavItem(
+              label: l10n.navEvolution,
+              icon: TablerIcons.chart_line,
+              itemKey: const Key('nav_evolution'),
             ),
             CauceBottomNavItem(
               label: l10n.navAdvice,
@@ -186,7 +203,7 @@ class AppShell extends ConsumerWidget {
       String? ibsSssHint,
       VoidCallback? ibsSssBlocked,
     ) = switch (latest) {
-      _ when !onboarding.allowsAdvice && !canLog => (
+      _ when onboarding.step == OnboardingStep.clinicalProfile => (
           resumeOnboarding,
           l10n.fabHintCompleteProfile,
           null,

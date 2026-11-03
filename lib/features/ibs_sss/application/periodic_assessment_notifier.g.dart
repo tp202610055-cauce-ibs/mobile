@@ -58,7 +58,7 @@ final latestIbsSssAssessmentProvider =
 typedef LatestIbsSssAssessmentRef
     = AutoDisposeFutureProviderRef<IbsSssAssessmentSummaryData?>;
 String _$periodicAssessmentNotifierHash() =>
-    r'f3cf5e2644e496daee28f2bb0fc93aa011608a08';
+    r'39b7fbe2e181157eebe60f1f0666ab37afeab6c1';
 
 /// Gobierna las respuestas y el envio de una evaluacion periodica.
 ///

@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/sync/local_record_owner.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
 import 'package:cauce_mobile/core/database/local_sync_status.dart';
@@ -49,6 +50,7 @@ void main() {
     container = ProviderContainer(
       overrides: <Override>[
         appDatabaseProvider.overrideWithValue(database),
+        localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
         mealsRepositoryProvider.overrideWithValue(repository),
         connectivityMonitorProvider.overrideWithValue(connectivity),
       ],
@@ -90,6 +92,16 @@ void main() {
         ),
       );
       expect(await database.select(database.mealsLocal).get(), isEmpty);
+    });
+
+    test('CP076 E: tocar el momento elegido lo quita y bloquea', () {
+      fillValidDraft();
+      expect(state().canSubmit, isTrue);
+
+      notifier().selectMealTime(MealTimeOption.lunch);
+
+      expect(state().draft.mealTime, isNull);
+      expect(state().canSubmit, isFalse);
     });
 
     test('quitar un alimento conserva el momento del dia', () async {

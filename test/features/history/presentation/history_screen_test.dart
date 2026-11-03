@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
@@ -12,6 +13,7 @@ import 'package:cauce_mobile/features/onboarding/application/onboarding_notifier
 import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/symptoms/domain/symptom_draft.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
+import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
@@ -19,6 +21,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/app_fonts.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
@@ -77,6 +80,7 @@ HistoryEntry _symptom({
   int intensity = 60,
   bool associated = false,
   MealTimeOption? associatedMealTime,
+  String? associatedMealName,
   Duration? delay,
   HistoryEntrySyncState sync = HistoryEntrySyncState.synced,
 }) {
@@ -90,6 +94,7 @@ HistoryEntry _symptom({
     intensity: intensity,
     hasMealAssociation: associated,
     associatedMealTime: associatedMealTime,
+    associatedMealName: associatedMealName,
     associatedMealDelay: delay,
   );
 }
@@ -97,6 +102,8 @@ HistoryEntry _symptom({
 Future<void> _pump(WidgetTester tester, List<HistoryEntry> entries) async {
   final container = ProviderContainer(
     overrides: <Override>[
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(
         FakePatientsRepository(
           profile: demoProfile.copyWith(onboardingCompleted: true),
@@ -179,6 +186,28 @@ void main() {
       // Y las dos comidas muestran lo que el paciente registro.
       expect(find.text('150 gramos Arroz blanco cocido'), findsOneWidget);
       expect(find.text('1 taza Brócoli cocido'), findsOneWidget);
+    });
+
+    testWidgets('CP034: la nota guardada se ve junto al registro con su hora',
+        (tester) async {
+      await _pump(tester, <HistoryEntry>[
+        _meal(at: aLas(13)).copyWith(
+          notes: <HistoryNote>[
+            HistoryNote(
+              content: 'Tuve un día de mucho estrés laboral',
+              createdAt: aLas(14).toUtc(),
+            ),
+          ],
+        ),
+      ]);
+
+      expect(find.byKey(const Key('history_note')), findsOneWidget);
+      expect(find.text('Tuve un día de mucho estrés laboral'), findsOneWidget);
+      final stamp = tester
+          .widget<Text>(find.byKey(const Key('history_note_stamp')))
+          .data!;
+      expect(stamp, startsWith('Nota guardada el '));
+      expect(stamp, endsWith('14:30'));
     });
 
     testWidgets('el sintoma muestra su tipo y su intensidad', (tester) async {
@@ -594,6 +623,30 @@ void main() {
 
       expect(find.byKey(const Key('history_meal_associated')), findsOneWidget);
       expect(find.textContaining('1 h 30 min'), findsOneWidget);
+    });
+
+    testWidgets('nombra la comida y cuanto antes se registro (CP028 paso 7)',
+        (tester) async {
+      final l10n = AppLocalizationsEs();
+      await _pump(tester, <HistoryEntry>[
+        _symptom(
+          at: aLas(15),
+          associated: true,
+          associatedMealTime: MealTimeOption.lunch,
+          associatedMealName: 'Causa rellena',
+          delay: const Duration(hours: 2),
+        ),
+      ]);
+
+      expect(
+        find.text(
+          l10n.historyMealAssociatedWithFood(
+            'Causa rellena',
+            l10n.historyDelayHoursMinutes(2, 0),
+          ),
+        ),
+        findsOneWidget,
+      );
     });
 
     testWidgets('sin la comida en el rango, lo dice sin inventar cual',

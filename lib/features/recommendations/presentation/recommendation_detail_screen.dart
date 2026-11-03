@@ -16,8 +16,12 @@ import '../domain/recommendation_headline.dart';
 import '../domain/recommendation_origin.dart';
 import 'recommendation_texts.dart';
 import 'widgets/recommendation_confidence_indicator.dart';
+import 'widgets/recommendation_detail_sections.dart';
+import 'widgets/recommendation_explanation_card.dart';
 import 'widgets/recommendation_feedback_section.dart';
 import 'widgets/recommendation_origin_pill.dart';
+import 'widgets/recommendation_supporting_data_card.dart';
+import 'widgets/reveal_on_open.dart';
 
 /// Detalle de una recomendacion (mockup 11 v2, HU0014 CA1, HU0015, HU0016).
 ///
@@ -34,9 +38,16 @@ import 'widgets/recommendation_origin_pill.dart';
 /// [RecommendationDelivery], una sola vez. Es la unica via que entrega; la
 /// tarjeta de la lista lee el mismo detalle sin entregarlo.
 class RecommendationDetailScreen extends ConsumerStatefulWidget {
-  const RecommendationDetailScreen({required this.recommendationId, super.key});
+  const RecommendationDetailScreen({
+    required this.recommendationId,
+    this.focusFeedback = false,
+    super.key,
+  });
 
   final String recommendationId;
+
+  /// Abierta desde la invitacion: se desplaza hasta la respuesta.
+  final bool focusFeedback;
 
   @override
   ConsumerState<RecommendationDetailScreen> createState() =>
@@ -88,16 +99,20 @@ class _RecommendationDetailScreenState
               onRetry: () => ref.invalidate(recommendationDetailProvider(id)),
             ),
         },
-        data: (value) => _DetailBody(detail: value),
+        data: (value) => _DetailBody(
+          detail: value,
+          focusFeedback: widget.focusFeedback,
+        ),
       ),
     );
   }
 }
 
 class _DetailBody extends StatelessWidget {
-  const _DetailBody({required this.detail});
+  const _DetailBody({required this.detail, required this.focusFeedback});
 
   final RecommendationDetail detail;
+  final bool focusFeedback;
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +132,11 @@ class _DetailBody extends StatelessWidget {
         // leeria completa la de una indicacion manual. Solo si el servidor la
         // trae: la compuesta de una del motor ya esta en la lista de items.
         if (description != null) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.file_description,
             title: l10n.recommendationSectionDescription,
           ),
-          _SectionCard(
+          RecommendationSectionCard(
             key: const Key('recommendation_description'),
             child: Text(description, style: _bodyStyle(context)),
           ),
@@ -130,23 +145,17 @@ class _DetailBody extends StatelessWidget {
         // tiene. Si el LLM fallo, llega la plantilla de respaldo y se muestra
         // igual, sin marcarla como error (HU0015 CA4, CP077).
         if (explanation != null) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.sparkles,
             title: l10n.recommendationSectionWhy,
           ),
-          _SectionCard(
-            key: const Key('recommendation_explanation'),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(explanation, style: _bodyStyle(context)),
-                if (detail.showsAttribution) const _Attribution(),
-              ],
-            ),
+          RecommendationExplanationCard(
+            explanation: explanation,
+            showsAttribution: detail.showsAttribution,
           ),
         ],
         if (detail.items.isNotEmpty) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.salad,
             title: l10n.recommendationSectionItems,
           ),
@@ -156,7 +165,7 @@ class _DetailBody extends StatelessWidget {
         // (acta M47). HU0015 CA2 y CP041 la piden aunque el mockup 11 la omita
         // en `Approved`.
         if (note != null) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.stethoscope,
             title: l10n.recommendationSectionNote,
           ),
@@ -164,7 +173,7 @@ class _DetailBody extends StatelessWidget {
         ],
         // Bloque 3: pasos, solo si los hay (mockup 11, variante B).
         if (detail.steps.isNotEmpty) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.list_check,
             title: l10n.recommendationSectionSteps,
           ),
@@ -174,13 +183,19 @@ class _DetailBody extends StatelessWidget {
         // que no salio de estos datos (mockup 11, "estado vacio sin datos de
         // sustento").
         if (data != null && !detail.isManual) ...<Widget>[
-          _SectionHead(
+          RecommendationSectionHead(
             icon: TablerIcons.chart_dots,
             title: l10n.recommendationSectionData,
           ),
-          _SupportingDataCard(data: data),
+          RecommendationSupportingDataCard(
+            recommendationId: detail.id,
+            data: data,
+          ),
         ],
-        RecommendationFeedbackSection(detail: detail),
+        RevealOnOpen(
+          enabled: focusFeedback,
+          child: RecommendationFeedbackSection(detail: detail),
+        ),
         const _InfoBanner(),
       ],
     );
@@ -299,99 +314,6 @@ class _Hero extends StatelessWidget {
   }
 }
 
-/// Encabezado de seccion del mockup 11 (`.section-head`).
-class _SectionHead extends StatelessWidget {
-  const _SectionHead({required this.icon, required this.title});
-
-  final IconData icon;
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: CauceSpacing.space4,
-        bottom: CauceSpacing.space2,
-      ),
-      child: Row(
-        children: <Widget>[
-          Icon(icon, size: 14, color: CauceColors.brandBase),
-          const SizedBox(width: CauceSpacing.space1),
-          Expanded(
-            child: Text(
-              title.toUpperCase(),
-              style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: CauceColors.textTertiary,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.6,
-                  ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Contenedor de seccion del mockup 11 (`.detail-section`).
-class _SectionCard extends StatelessWidget {
-  const _SectionCard({required this.child, super.key});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: CauceSpacing.space4,
-        vertical: CauceSpacing.space3,
-      ),
-      decoration: BoxDecoration(
-        color: CauceColors.bgCard,
-        borderRadius: CauceRadii.borderMd,
-        border: Border.all(
-          color: CauceColors.bgDivider,
-          width: CauceBorders.subtle,
-        ),
-      ),
-      child: child,
-    );
-  }
-}
-
-/// Atribucion FODMAP fija al pie de la explicacion (decision 6).
-///
-/// Texto literal del mockup 11, no generado. Se muestra siempre que la
-/// explicacion no sea manual: el contrato no dice si el texto del LLM nombra
-/// una clasificacion FODMAP, y una recomendacion del motor siempre sale de
-/// ella.
-class _Attribution extends StatelessWidget {
-  const _Attribution();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: CauceSpacing.space3),
-      padding: const EdgeInsets.only(top: CauceSpacing.space2),
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: CauceColors.bgDivider,
-            width: CauceBorders.subtle,
-          ),
-        ),
-      ),
-      child: Text(
-        AppLocalizations.of(context).recommendationAttribution,
-        key: const Key('recommendation_attribution'),
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: CauceColors.textTertiary,
-            ),
-      ),
-    );
-  }
-}
-
 /// Items agrupados por accion (HU0014 CA1): lo que se incorpora, lo que se
 /// reduce o evita, y los sustitutos con su justificacion.
 class _ItemsCard extends StatelessWidget {
@@ -409,7 +331,7 @@ class _ItemsCard extends StatelessWidget {
           (action, items.where((item) => item.action == action).toList()),
     ];
 
-    return _SectionCard(
+    return RecommendationSectionCard(
       key: const Key('recommendation_items'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -570,7 +492,7 @@ class _StepsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return _SectionCard(
+    return RecommendationSectionCard(
       key: const Key('recommendation_steps'),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -591,88 +513,6 @@ class _StepsCard extends StatelessWidget {
                     child: Text(steps[i], style: textTheme.bodyMedium),
                   ),
                 ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Cifras de respaldo (bloque 4): numero en mono de marca y su contexto.
-class _SupportingDataCard extends StatelessWidget {
-  const _SupportingDataCard({required this.data});
-
-  final RecommendationSupportingData data;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final textTheme = Theme.of(context).textTheme;
-    final days = data.windowDays;
-
-    Widget row(String number, String label, {Key? key}) {
-      return Padding(
-        key: key,
-        padding: const EdgeInsets.only(bottom: CauceSpacing.space2),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          textBaseline: TextBaseline.alphabetic,
-          children: <Widget>[
-            SizedBox(
-              width: 44,
-              child: Text(
-                number,
-                textAlign: TextAlign.right,
-                style: CauceTypography.mono.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: CauceColors.brandBase,
-                ),
-              ),
-            ),
-            const SizedBox(width: CauceSpacing.space3),
-            Expanded(
-              child: Text(
-                label,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: CauceColors.textSecondary,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return _SectionCard(
-      key: const Key('recommendation_supporting_data'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          row(
-            '${data.symptomCount}',
-            l10n.recommendationDataSymptoms(data.symptomCount, days),
-            key: const Key('recommendation_data_symptoms'),
-          ),
-          row(
-            '${data.mealCount}',
-            l10n.recommendationDataMeals(data.mealCount, days),
-            key: const Key('recommendation_data_meals'),
-          ),
-          row(
-            l10n.recommendationDataHours(data.correlationWindowHours),
-            l10n.recommendationDataWindow,
-            key: const Key('recommendation_data_window'),
-          ),
-          if (data.topHighFodmapFoods.isNotEmpty)
-            Text(
-              l10n.recommendationDataTopFoods(
-                data.topHighFodmapFoods.join(', '),
-              ),
-              key: const Key('recommendation_data_top_foods'),
-              style: textTheme.bodySmall?.copyWith(
-                color: CauceColors.textSecondary,
               ),
             ),
         ],

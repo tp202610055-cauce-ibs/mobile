@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 // tablas. Sin esta linea el analyzer no se queja y la compilacion si falla.
 import 'local_sync_status.dart';
 import 'tables/clinical_registry_tables.dart';
+import 'tables/recommendation_feedback_outbox_table.dart';
 
 part 'app_database.g.dart';
 
@@ -25,6 +26,9 @@ part 'app_database.g.dart';
 /// Las cuatro tablas sostienen el registro clinico diario (EP0002): las
 /// comidas y los sintomas que el paciente registra sin conexion, mas la copia
 /// del catalogo de alimentos que hace la busqueda posible en modo avion.
+///
+/// v3 agrega el titular de cada fila pendiente y la cola de respuestas a
+/// recomendaciones guardadas sin conexion.
 ///
 /// La sesion del paciente NO vive aca. Tokens y snapshot de usuario van a
 /// `flutter_secure_storage` (acta M11), porque son datos personales bajo la
@@ -44,6 +48,7 @@ part 'app_database.g.dart';
     MealItemsLocal,
     SymptomsLocal,
     FoodCatalogCache,
+    RecommendationFeedbackOutbox,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -56,7 +61,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.memory() : super(NativeDatabase.memory());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
@@ -73,7 +78,16 @@ class AppDatabase extends _$AppDatabase {
           await m.createTable(mealItemsLocal);
           await m.createTable(symptomsLocal);
           await m.createTable(foodCatalogCache);
+          await m.createTable(recommendationFeedbackOutbox);
           await _createIndexes(m);
+          return;
+        }
+        // Las filas de v2 quedan con `user_id` nulo: no se suben ni se
+        // muestran, y tampoco se borran.
+        if (from < 3) {
+          await m.addColumn(mealsLocal, mealsLocal.userId);
+          await m.addColumn(symptomsLocal, symptomsLocal.userId);
+          await m.createTable(recommendationFeedbackOutbox);
         }
       },
       beforeOpen: (OpeningDetails details) async {

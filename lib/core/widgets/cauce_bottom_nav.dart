@@ -41,7 +41,10 @@ class CauceBottomNav extends StatelessWidget {
     required this.currentIndex,
     required this.onSelected,
     super.key,
-  }) : assert(items.length == 4, 'La barra lleva cuatro destinos');
+  }) : assert(
+          items.length == 4 || items.length == 5,
+          'La barra lleva cuatro o cinco destinos',
+        );
 
   final List<CauceBottomNavItem> items;
 
@@ -86,28 +89,40 @@ class CauceBottomNav extends StatelessWidget {
             CauceSpacing.space4 + systemInset,
           ),
           child: Row(
-            children: <Widget>[
-              _slot(0),
-              _slot(1),
-              // Hueco del FAB. Ocupa una columna completa para que los
-              // cuatro destinos queden repartidos como en el design system
-              // y no apretados contra el centro.
-              const Expanded(child: SizedBox.shrink()),
-              _slot(2),
-              _slot(3),
-            ],
+            children: items.length == 4
+                ? <Widget>[
+                    _slot(0),
+                    _slot(1),
+                    // Hueco del FAB. Ocupa una columna completa para que los
+                    // cuatro destinos queden repartidos como en el design
+                    // system y no apretados contra el centro.
+                    const Expanded(child: SizedBox.shrink()),
+                    _slot(2),
+                    _slot(3),
+                  ]
+                // Dos a la izquierda y tres a la derecha, con anchos 3 y 2
+                // para que el hueco del FAB siga centrado en la pantalla.
+                : <Widget>[
+                    _slot(0, flex: 3),
+                    _slot(1, flex: 3),
+                    const Expanded(child: SizedBox.shrink()),
+                    _slot(2, flex: 2),
+                    _slot(3, flex: 2),
+                    _slot(4, flex: 2),
+                  ],
           ),
         ),
       ),
     );
   }
 
-  Widget _slot(int index) {
+  Widget _slot(int index, {int flex = 1}) {
     final item = items[index];
     final selected = index == currentIndex;
     final color = selected ? CauceColors.brandBase : CauceColors.textTertiary;
 
     return Expanded(
+      flex: flex,
       child: Semantics(
         selected: selected,
         button: true,
@@ -122,14 +137,17 @@ class CauceBottomNav extends StatelessWidget {
               children: <Widget>[
                 Icon(item.icon, size: 22, color: color),
                 const SizedBox(height: CauceSpacing.space1),
-                Text(
-                  item.label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: CauceTypography.labelSmall.copyWith(
-                    fontSize: 11,
-                    letterSpacing: 0,
-                    color: color,
+                // Se achica antes que cortarse cuando la columna es angosta.
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    item.label,
+                    maxLines: 1,
+                    style: CauceTypography.labelSmall.copyWith(
+                      fontSize: 11,
+                      letterSpacing: 0,
+                      color: color,
+                    ),
                   ),
                 ),
               ],

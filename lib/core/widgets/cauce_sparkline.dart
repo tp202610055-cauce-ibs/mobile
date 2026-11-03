@@ -59,6 +59,7 @@ class CauceSparkline extends StatelessWidget {
     this.semanticLabel,
     this.minValue,
     this.maxValue,
+    this.referenceValue,
     super.key,
   });
 
@@ -76,6 +77,9 @@ class CauceSparkline extends StatelessWidget {
   /// clinicamente irrelevante hasta que parece un derrumbe.
   final double? minValue;
   final double? maxValue;
+
+  /// Valor de una línea horizontal punteada de referencia, como una meta.
+  final double? referenceValue;
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +105,7 @@ class CauceSparkline extends StatelessWidget {
             points: points,
             minValue: minValue,
             maxValue: maxValue,
+            referenceValue: referenceValue,
           ),
         ),
       ),
@@ -113,11 +118,13 @@ class _SparklinePainter extends CustomPainter {
     required this.points,
     required this.minValue,
     required this.maxValue,
+    required this.referenceValue,
   });
 
   final List<CauceSparklinePoint> points;
   final double? minValue;
   final double? maxValue;
+  final double? referenceValue;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -138,6 +145,18 @@ class _SparklinePainter extends CustomPainter {
       // El eje vertical se invierte: en pantalla el cero esta abajo.
       final y = padding + usableHeight * (1 - normalized.clamp(0.0, 1.0));
       return Offset(step * index, y);
+    }
+
+    final reference = referenceValue;
+    if (reference != null) {
+      final normalized = ((reference - low) / span).clamp(0.0, 1.0);
+      final y = padding + usableHeight * (1 - normalized);
+      final dash = Paint()
+        ..color = CauceColors.textTertiary
+        ..strokeWidth = 1;
+      for (var x = 0.0; x < size.width; x += 8) {
+        canvas.drawLine(Offset(x, y), Offset(x + 4, y), dash);
+      }
     }
 
     final path = Path()..moveTo(offsetOf(0).dx, offsetOf(0).dy);
@@ -172,6 +191,7 @@ class _SparklinePainter extends CustomPainter {
     // el mismo grafico, y comparar por identidad repintaria en cada build.
     return !listEquals(oldDelegate.points, points) ||
         oldDelegate.minValue != minValue ||
-        oldDelegate.maxValue != maxValue;
+        oldDelegate.maxValue != maxValue ||
+        oldDelegate.referenceValue != referenceValue;
   }
 }

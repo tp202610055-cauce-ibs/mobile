@@ -16,12 +16,43 @@ final SymptomDraft _draft = SymptomDraft(
 void main() {
   late AppDatabase database;
   late SymptomsLocalStore store;
+  String? owner;
 
   setUp(() {
     database = AppDatabase.memory();
-    store = SymptomsLocalStore(database, const Uuid());
+    owner = localOwnerId;
+    store = SymptomsLocalStore(database, const Uuid(), () => owner);
   });
   tearDown(() => database.close());
+
+  group('SymptomsLocalStore · titular de la fila', () {
+    test('guarda el sintoma a nombre de la cuenta de la sesion', () async {
+      final clientGuid = await store.enqueue(_draft);
+
+      final row = await (database.select(database.symptomsLocal)
+            ..where((r) => r.clientGuid.equals(clientGuid)))
+          .getSingle();
+      expect(row.userId, localOwnerId);
+    });
+
+    test('sin sesion no guarda nada', () async {
+      owner = null;
+
+      await expectLater(store.enqueue(_draft), throwsStateError);
+      expect(await database.select(database.symptomsLocal).get(), isEmpty);
+    });
+
+    test('el historial no muestra filas de otra cuenta ni sin titular',
+        () async {
+      await insertPendingSymptom(database, 'propio');
+      await insertPendingSymptom(database, 'ajeno', userId: otherOwnerId);
+      await insertPendingSymptom(database, 'sin-titular', userId: null);
+
+      final rows = await store.forHistory(from: DateTime.utc(2026, 1, 1));
+
+      expect(rows.map((row) => row.clientGuid), <String>['propio']);
+    });
+  });
 
   Future<SymptomLocal> fila(String clientGuid) {
     return (database.select(database.symptomsLocal)

@@ -1,9 +1,14 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../core/errors/cauce_api_error.dart';
+import '../../../core/sync/connectivity_monitor.dart';
+import '../../auth/application/session_notifier.dart';
+import '../data/recommendation_feedback_outbox_store.dart';
 import '../data/recommendations_repository.dart';
+import '../domain/pending_recommendation_feedback.dart';
 import '../domain/recommendation.dart';
 import '../domain/recommendation_feedback_draft.dart';
 import 'recommendation_detail_providers.dart';
@@ -21,26 +26,24 @@ abstract class RecommendationFeedbackFormState
     @Default(false) bool submitting,
     @Default(false) bool sent,
 
+    /// La respuesta quedo en el telefono y se enviara al volver la red.
+    @Default(false) bool queued,
+
     /// `Idempotency-Key` del intento en curso. Se conserva ante un fallo para
-    /// que el reintento de la misma respuesta la repita, y se descarta en
-    /// cuanto el paciente cambia algo: la misma clave con otra carga daria
-    /// 409 `idempotency_mismatch`.
+    /// que el reintento la repita, y se descarta si el paciente cambia algo.
     String? pendingKey,
     CauceApiError? error,
   }) = _RecommendationFeedbackFormState;
 
   const RecommendationFeedbackFormState._();
 
-  bool get canSubmit => draft.canSubmit && !submitting && !sent;
+  bool get canSubmit => draft.canSubmit && !submitting && !sent && !queued;
 }
 
 /// Gobierna la respuesta del paciente sobre una recomendacion entregada.
 ///
-/// **Solo en linea** (decision 8). Sin conexion el envio falla con
-/// [NetworkError] y la pantalla ofrece reintentar; no hay cola local ni
-/// migracion del esquema drift en este bloque. **Sin compuerta de 24 h**
-/// (decision 9): el backend no la exige, las 24 h son solo la hora de su
-/// recordatorio push.
+/// Sin red la respuesta se guarda en el telefono con su clave y la envia
+/// `RecommendationFeedbackSender` al volver la conexion (HU0016 CA2).
 @riverpod
 class RecommendationFeedbackForm extends _$RecommendationFeedbackForm {
   bool _disposed = false;
@@ -62,10 +65,11 @@ class RecommendationFeedbackForm extends _$RecommendationFeedbackForm {
     state = state.copyWith(draft: draft, pendingKey: null, error: null);
   }
 
-  /// Envia la respuesta. Devuelve `true` si el servidor la acepto.
+  /// Envia la respuesta, o la guarda si no hay red. Devuelve `true` si quedo
+  /// registrada de cualquiera de las dos formas; [queued] dice cual.
   ///
-  /// Ante un fallo lo escrito queda intacto, con el mismo criterio que la
-  /// nota de contexto: perderlo obligaria al paciente a responder de nuevo.
+  /// Ante un rechazo lo escrito queda intacto, para no obligar a responder de
+  /// nuevo.
   Future<bool> submit() async {
     if (!state.canSubmit) {
       return false;
@@ -73,19 +77,24 @@ class RecommendationFeedbackForm extends _$RecommendationFeedbackForm {
     final key = state.pendingKey ?? const Uuid().v4();
     state = state.copyWith(submitting: true, error: null, pendingKey: key);
 
+    if (!await ref.read(connectivityMonitorProvider).isOnline()) {
+      return _queue(key);
+    }
+
     try {
       await ref.read(recommendationsRepositoryProvider).submitFeedback(
             id,
             draft: state.draft,
             idempotencyKey: key,
           );
+    } on NetworkError {
+      return _queue(key);
     } on CauceApiError catch (error) {
       if (_disposed) {
         return false;
       }
       state = state.copyWith(submitting: false, error: error);
       // 409 `conflict_state`: ya tenia respuesta, o dejo de estar entregada.
-      // Se refresca el detalle para que la pantalla muestre lo que es.
       if (error is ConflictStateError) {
         ref.invalidate(recommendationDetailProvider(id));
       }
@@ -100,4 +109,63 @@ class RecommendationFeedbackForm extends _$RecommendationFeedbackForm {
     ref.invalidate(recommendationsFeedNotifierProvider);
     return true;
   }
+
+  /// Borra una respuesta que el servidor rechazo y deja el formulario limpio.
+  ///
+  /// La clave rechazada no se reusa: con otra carga daria `idempotency_mismatch`.
+  Future<void> answerAgain() async {
+    final userId = ref.read(sessionNotifierProvider).user?.userId;
+    if (userId != null) {
+      await ref
+          .read(recommendationFeedbackOutboxStoreProvider)
+          .remove(id, userId: userId);
+    }
+    if (!_disposed) {
+      state = const RecommendationFeedbackFormState();
+    }
+  }
+
+  Future<bool> _queue(String key) async {
+    final userId = ref.read(sessionNotifierProvider).user?.userId;
+    if (userId == null) {
+      if (!_disposed) {
+        state = state.copyWith(
+          submitting: false,
+          error: const CauceApiError.network(),
+        );
+      }
+      return false;
+    }
+    await ref.read(recommendationFeedbackOutboxStoreProvider).save(
+          PendingRecommendationFeedback.fromDraft(
+            id,
+            state.draft,
+            idempotencyKey: key,
+            createdAt: ref.read(recommendationsClockProvider)().toUtc(),
+          ),
+          userId: userId,
+        );
+    if (!_disposed) {
+      state = state.copyWith(submitting: false, queued: true);
+    }
+    return true;
+  }
+}
+
+/// Respuesta guardada en el telefono para una recomendacion, de la cuenta de
+/// la sesion. `null` si no hay.
+@riverpod
+Stream<PendingRecommendationFeedback?> pendingRecommendationFeedback(
+  Ref ref,
+  String id,
+) {
+  final userId = ref.watch(
+    sessionNotifierProvider.select((session) => session.user?.userId),
+  );
+  if (userId == null) {
+    return Stream<PendingRecommendationFeedback?>.value(null);
+  }
+  return ref
+      .watch(recommendationFeedbackOutboxStoreProvider)
+      .watch(id, userId: userId);
 }

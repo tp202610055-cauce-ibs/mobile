@@ -1,3 +1,5 @@
+import 'package:cauce_api_client/cauce_api_client.dart';
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/patients/application/data_export_notifier.dart';
@@ -5,12 +7,15 @@ import 'package:cauce_mobile/features/patients/data/patients_repository.dart';
 import 'package:cauce_mobile/features/patients/presentation/clinical_report_screen.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../helpers/canned_http_adapter.dart';
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_patients_repository.dart';
 
 final AppLocalizations l10n = AppLocalizationsEs();
@@ -32,6 +37,7 @@ class _FakeLauncher implements DataExportLauncher {
 Future<({_FakeLauncher launcher, FakePatientsRepository repository})> _pump(
   WidgetTester tester, {
   FakePatientsRepository? repository,
+  PatientsRepository? realRepository,
   _FakeLauncher? launcher,
 }) async {
   final h = (
@@ -42,7 +48,10 @@ Future<({_FakeLauncher launcher, FakePatientsRepository repository})> _pump(
   await tester.pumpWidget(
     ProviderScope(
       overrides: <Override>[
-        patientsRepositoryProvider.overrideWithValue(h.repository),
+        onboardingDraftStoreProvider
+            .overrideWithValue(FakeOnboardingDraftStore()),
+        patientsRepositoryProvider
+            .overrideWithValue(realRepository ?? h.repository),
         dataExportLauncherProvider.overrideWithValue(h.launcher),
       ],
       // Con router minimo: la pantalla lleva boton de retroceso, y ese boton
@@ -203,6 +212,45 @@ void main() {
 
       expect(find.byKey(const Key('report_error')), findsOneWidget);
       expect(find.text(l10n.errorReportPeriodInvalid), findsOneWidget);
+    });
+
+    testWidgets(
+        'CP062 · un 422 email_not_verified pide verificar el correo, '
+        'sin el aviso de periodo vacio', (tester) async {
+      final adapter = CannedHttpAdapter(
+        CannedResponse(
+          statusCode: 422,
+          headers: const <String, List<String>>{
+            'content-type': <String>['application/problem+json'],
+          },
+          body: CannedResponse.problem(
+            statusCode: 422,
+            errorCode: 'email_not_verified',
+          ).body,
+        ),
+      );
+      final client = CauceApiClient(
+        dio: Dio(BaseOptions(baseUrl: 'http://localhost:5074'))
+          ..httpClientAdapter = adapter,
+        interceptors: const <Interceptor>[],
+      );
+      final h = await _pump(
+        tester,
+        realRepository: PatientsRepository(
+          client.getPatientsApi(),
+          client.getAllergiesApi(),
+        ),
+      );
+
+      await _submit(tester);
+
+      expect(adapter.lastRequest.path, endsWith('/patients/me/report'));
+      expect(find.byKey(const Key('report_error')), findsOneWidget);
+      expect(find.text(l10n.errorEmailNotVerified), findsOneWidget);
+      expect(find.byKey(const Key('report_no_data')), findsNothing);
+      expect(find.text(l10n.errorPatientHasNoDataInPeriod), findsNothing);
+      expect(find.byKey(const Key('report_ready')), findsNothing);
+      expect(h.launcher.opened, isEmpty);
     });
 
     testWidgets('un fallo de red se muestra como error', (tester) async {

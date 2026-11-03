@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/app.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
@@ -9,11 +10,13 @@ import 'package:cauce_mobile/core/router/app_router.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
 import 'package:cauce_mobile/features/auth/presentation/auth_screens.dart';
 import 'package:cauce_mobile/features/home/presentation/home_screen.dart';
+import 'package:cauce_mobile/features/onboarding/presentation/clinical_profile_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/fake_onboarding_draft_store.dart';
 import '../helpers/canned_http_adapter.dart';
 import '../helpers/fake_token_storage.dart';
 
@@ -79,6 +82,8 @@ Future<({ProviderContainer container, _RoutedAdapter adapter})> _pumpApp(
   final container = ProviderContainer(
     overrides: <Override>[
       tokenStorageProvider.overrideWithValue(tokenStorage),
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       // Se sustituye solo el transporte: interceptors, cliente generado y
       // mapeo de errores son los de produccion.
       dioProvider.overrideWith((ref) {
@@ -209,11 +214,12 @@ void main() {
       }),
     };
 
-    testWidgets('CA01 · el flujo completo termina en el aviso de correo', (
-      tester,
+    /// Completa y envia el formulario de registro desde la raiz.
+    Future<void> register(
+      WidgetTester tester,
+      ProviderContainer container,
     ) async {
-      final h = await _pumpApp(tester, routes);
-      h.container.read(appRouterProvider).push(AppRoutes.register);
+      container.read(appRouterProvider).push(AppRoutes.register);
       await tester.pumpAndSettle();
 
       expect(
@@ -250,14 +256,64 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(submit);
       await tester.pumpAndSettle();
+    }
+
+    testWidgets('CA01 · con el servidor estricto termina en el aviso', (
+      tester,
+    ) async {
+      final h = await _pumpApp(tester, <String, CannedResponse>{
+        ...routes,
+        '/auth/login': CannedResponse.problem(
+          statusCode: 401,
+          errorCode: 'invalid_credentials',
+        ),
+      });
+
+      await register(tester, h.container);
 
       expect(find.byType(VerifyEmailPendingScreen), findsOneWidget);
       expect(find.textContaining('nuevo@cauce.local'), findsOneWidget);
 
       // El hash viaja tal como lo devolvio el backend, sin recalcular.
-      final body = h.adapter.lastRequest.body;
+      final body = h.adapter.requests
+          .firstWhere((request) => request.path.endsWith('/auth/register'))
+          .body;
       expect(body['consentTextHash'], 'sha256:abc123');
       expect(body['consentDocumentVersion'], '1.2.0');
+    });
+
+    testWidgets('CA01 · con el servidor nuevo abre la sesion y va al perfil', (
+      tester,
+    ) async {
+      final storage = FakeTokenStorage();
+      final h = await _pumpApp(
+        tester,
+        <String, CannedResponse>{
+          ...routes,
+          '/auth/login': CannedResponse.ok(<String, dynamic>{
+            'accessToken': 'access-nuevo',
+            'refreshToken': 'refresh-nuevo',
+            'expiresIn': 900,
+            'tokenType': 'Bearer',
+            'user': Map<String, dynamic>.of(_userJson)
+              ..['email'] = 'nuevo@cauce.local'
+              ..['emailVerified'] = false,
+          }),
+          '/patients/profile': CannedResponse.problem(
+            statusCode: 404,
+            errorCode: 'patient_profile_not_found',
+          ),
+          '/allergies': const CannedListResponse(<Map<String, dynamic>>[]),
+        },
+        storage: storage,
+      );
+
+      await register(tester, h.container);
+
+      expect(find.byType(VerifyEmailPendingScreen), findsNothing);
+      expect(find.byType(ClinicalProfileScreen), findsOneWidget);
+      expect(storage.refreshToken, 'refresh-nuevo');
+      expect(storage.userSnapshot?.emailVerified, isFalse);
     });
   });
 

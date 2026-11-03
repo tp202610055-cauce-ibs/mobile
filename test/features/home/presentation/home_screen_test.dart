@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
@@ -34,6 +36,8 @@ Future<ProviderContainer> _pump(
 }) async {
   final container = ProviderContainer(
     overrides: <Override>[
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(repository),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
@@ -77,6 +81,8 @@ Future<void> _pumpWithRouter(
 }) async {
   final container = ProviderContainer(
     overrides: <Override>[
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(repository),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),

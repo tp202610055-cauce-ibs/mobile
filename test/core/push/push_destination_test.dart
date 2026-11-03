@@ -6,15 +6,18 @@ const String _id = '3f6c1a2e-7b4d-4e1a-9c2b-1a2b3c4d5e6f';
 
 void main() {
   group('resolvePushDestination', () {
-    test('una recomendacion aprobada abre su detalle', () {
-      expect(
-        resolvePushDestination(<String, String>{
-          'type': 'recommendation',
-          'entityType': 'recommendation',
-          'entityId': _id,
-        }),
-        (location: AppRoutes.recommendationDetailPath(_id), stacked: false),
-      );
+    test('una recomendacion nueva abre Inicio, donde esta su tarjeta', () {
+      for (final id in <String>[_id, '', 'no-es-un-uuid']) {
+        expect(
+          resolvePushDestination(<String, String>{
+            'type': 'recommendation',
+            'entityType': 'recommendation',
+            'entityId': id,
+          }),
+          (location: AppRoutes.home, stacked: false),
+          reason: id,
+        );
+      }
     });
 
     test('el recordatorio de feedback tambien abre el detalle', () {
@@ -39,11 +42,11 @@ void main() {
       );
     });
 
-    test('una recomendacion sin id valido va a la lista', () {
+    test('un recordatorio sin id valido va a la lista', () {
       for (final id in <String>['', 'no-es-un-uuid', '../perfil']) {
         expect(
           resolvePushDestination(<String, String>{
-            'type': 'recommendation',
+            'type': 'reminder',
             'entityType': 'recommendation',
             'entityId': id,
           }).location,

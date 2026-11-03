@@ -59,6 +59,7 @@ abstract final class ErrorMapper {
   static const String _idempotencyMismatch = 'idempotency_mismatch';
   static const String _patientHasNoDataInPeriod =
       'patient_has_no_data_in_period';
+  static const String _emailNotVerified = 'email_not_verified';
   static const String _reportPeriodInvalid = 'report_period_invalid';
   static const String _activePilotRetention = 'active_pilot_retention';
   static const String _domainRuleViolation = 'domain_rule_violation';
@@ -165,6 +166,7 @@ abstract final class ErrorMapper {
       _idempotencyMismatch => const CauceApiError.idempotencyMismatch(),
       _patientHasNoDataInPeriod =>
         const CauceApiError.patientHasNoDataInPeriod(),
+      _emailNotVerified => const CauceApiError.emailNotVerified(),
       _reportPeriodInvalid => const CauceApiError.reportPeriodInvalid(),
       _activePilotRetention => const CauceApiError.activePilotRetention(),
       _domainRuleViolation => CauceApiError.domainRuleViolation(

@@ -1,5 +1,10 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
+import 'package:cauce_mobile/core/database/app_database.dart';
+import 'package:cauce_mobile/core/database/app_database_provider.dart';
+import 'package:cauce_mobile/core/glossary/glossary_repository.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
+import 'package:cauce_mobile/core/sync/connectivity_monitor.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
@@ -10,6 +15,7 @@ import 'package:cauce_mobile/features/recommendations/data/recommendation_reques
 import 'package:cauce_mobile/features/recommendations/data/recommendations_repository.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendation_detail_screen.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendations_screen.dart';
+import 'package:cauce_mobile/features/symptoms/data/symptoms_repository.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +24,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_auth_repository.dart';
+import '../../../helpers/fake_glossary_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_recommendations_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
+import '../../../helpers/sync_fixtures.dart';
 
 final AppLocalizations l10n = AppLocalizationsEs();
 
@@ -38,23 +47,44 @@ Future<ProviderContainer> pumpRecommendations(
   required FakeRecommendationsRepository repository,
   InMemoryRecommendationRequestStore? store,
   bool onboardingCompleted = true,
+  bool hasNutritionist = true,
   String initialLocation = AppRoutes.recommendations,
+  AppDatabase? database,
+  FakeConnectivityMonitor? connectivity,
+  SymptomsRepository? symptoms,
 }) async {
+  final db = database ?? AppDatabase.memory();
+  if (database == null) {
+    addTearDown(db.close);
+  }
+  final monitor = connectivity ?? FakeConnectivityMonitor();
+  if (connectivity == null) {
+    addTearDown(monitor.dispose);
+  }
   final container = ProviderContainer(
     overrides: <Override>[
+      appDatabaseProvider.overrideWithValue(db),
+      connectivityMonitorProvider.overrideWithValue(monitor),
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(
         FakePatientsRepository(
           profile: demoProfile.copyWith(
             onboardingCompleted: onboardingCompleted,
           ),
-        ),
+        )..summaryValue = hasNutritionist
+            ? demoSummary
+            : demoSummary.copyWith(nutritionistName: null),
       ),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
       recommendationsRepositoryProvider.overrideWithValue(repository),
+      glossaryRepositoryProvider.overrideWithValue(FakeGlossaryRepository()),
       recommendationRequestStoreProvider.overrideWithValue(
         store ?? InMemoryRecommendationRequestStore(),
       ),
+      if (symptoms != null)
+        symptomsRepositoryProvider.overrideWithValue(symptoms),
       recommendationsClockProvider.overrideWithValue(
         () => recommendationsNow,
       ),

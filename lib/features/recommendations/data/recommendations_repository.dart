@@ -69,6 +69,17 @@ class RecommendationsRepository {
     });
   }
 
+  /// `GET /api/v1/recommendations/me/review-status`.
+  ///
+  /// Solo dice si hay una recomendación propia en revisión, sin contenido.
+  Future<bool> hasRecommendationInReview() {
+    return guardApiCall(() async {
+      final response =
+          await _patientApi.apiV1RecommendationsMeReviewStatusGet();
+      return response.data?.hasRecommendationInReview ?? false;
+    });
+  }
+
   /// `GET /api/v1/recommendations/{id}`.
   ///
   /// Para el paciente, una recomendacion que existe pero no es visible

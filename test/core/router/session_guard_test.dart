@@ -77,6 +77,28 @@ void main() {
         );
       }
     });
+
+    test('con el correo sin verificar tampoco lleva al aviso', () {
+      const unverified = SessionState.authenticated(_unverified);
+      for (final location in <String>[
+        AppRoutes.home,
+        AppRoutes.history,
+        AppRoutes.profile,
+      ]) {
+        expect(
+          resolveRedirect(session: unverified, location: location),
+          isNull,
+          reason: location,
+        );
+      }
+      expect(
+        resolveRedirect(
+          session: unverified,
+          location: AppRoutes.verifyEmailPending,
+        ),
+        AppRoutes.home,
+      );
+    });
   });
 
   group('resolveRedirect · sin sesion', () {
@@ -115,7 +137,6 @@ void main() {
   group('resolveRedirect · correo sin verificar', () {
     const session = SessionState.pendingEmailVerification(
       email: 'nuevo@cauce.local',
-      user: _unverified,
     );
 
     test('deja pasar solo la pantalla de aviso', () {
@@ -157,7 +178,6 @@ void main() {
         'authenticated': const SessionState.authenticated(_verified),
         'pendingEmailVerification': const SessionState.pendingEmailVerification(
           email: 'nuevo@cauce.local',
-          user: _unverified,
         ),
       };
 

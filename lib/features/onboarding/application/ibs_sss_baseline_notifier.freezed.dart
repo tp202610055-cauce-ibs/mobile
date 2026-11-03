@@ -19,6 +19,9 @@ mixin _$IbsSssBaselineState {
   IbsSssAnswers get answers => throw _privateConstructorUsedError;
   bool get submitting => throw _privateConstructorUsedError;
 
+  /// Se enciende al intentar enviar incompleto: señala las que faltan.
+  bool get showMissing => throw _privateConstructorUsedError;
+
   /// Resultado devuelto por el servidor, disponible recien tras el envio.
   IbsSssResult? get result => throw _privateConstructorUsedError;
   CauceApiError? get error => throw _privateConstructorUsedError;
@@ -39,6 +42,7 @@ abstract class $IbsSssBaselineStateCopyWith<$Res> {
   $Res call(
       {IbsSssAnswers answers,
       bool submitting,
+      bool showMissing,
       IbsSssResult? result,
       CauceApiError? error});
 
@@ -64,6 +68,7 @@ class _$IbsSssBaselineStateCopyWithImpl<$Res, $Val extends IbsSssBaselineState>
   $Res call({
     Object? answers = null,
     Object? submitting = null,
+    Object? showMissing = null,
     Object? result = freezed,
     Object? error = freezed,
   }) {
@@ -75,6 +80,10 @@ class _$IbsSssBaselineStateCopyWithImpl<$Res, $Val extends IbsSssBaselineState>
       submitting: null == submitting
           ? _value.submitting
           : submitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showMissing: null == showMissing
+          ? _value.showMissing
+          : showMissing // ignore: cast_nullable_to_non_nullable
               as bool,
       result: freezed == result
           ? _value.result
@@ -137,6 +146,7 @@ abstract class _$$IbsSssBaselineStateImplCopyWith<$Res>
   $Res call(
       {IbsSssAnswers answers,
       bool submitting,
+      bool showMissing,
       IbsSssResult? result,
       CauceApiError? error});
 
@@ -163,6 +173,7 @@ class __$$IbsSssBaselineStateImplCopyWithImpl<$Res>
   $Res call({
     Object? answers = null,
     Object? submitting = null,
+    Object? showMissing = null,
     Object? result = freezed,
     Object? error = freezed,
   }) {
@@ -174,6 +185,10 @@ class __$$IbsSssBaselineStateImplCopyWithImpl<$Res>
       submitting: null == submitting
           ? _value.submitting
           : submitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showMissing: null == showMissing
+          ? _value.showMissing
+          : showMissing // ignore: cast_nullable_to_non_nullable
               as bool,
       result: freezed == result
           ? _value.result
@@ -193,6 +208,7 @@ class _$IbsSssBaselineStateImpl extends _IbsSssBaselineState {
   const _$IbsSssBaselineStateImpl(
       {this.answers = const IbsSssAnswers(),
       this.submitting = false,
+      this.showMissing = false,
       this.result,
       this.error})
       : super._();
@@ -204,6 +220,11 @@ class _$IbsSssBaselineStateImpl extends _IbsSssBaselineState {
   @JsonKey()
   final bool submitting;
 
+  /// Se enciende al intentar enviar incompleto: señala las que faltan.
+  @override
+  @JsonKey()
+  final bool showMissing;
+
   /// Resultado devuelto por el servidor, disponible recien tras el envio.
   @override
   final IbsSssResult? result;
@@ -212,7 +233,7 @@ class _$IbsSssBaselineStateImpl extends _IbsSssBaselineState {
 
   @override
   String toString() {
-    return 'IbsSssBaselineState(answers: $answers, submitting: $submitting, result: $result, error: $error)';
+    return 'IbsSssBaselineState(answers: $answers, submitting: $submitting, showMissing: $showMissing, result: $result, error: $error)';
   }
 
   @override
@@ -223,13 +244,15 @@ class _$IbsSssBaselineStateImpl extends _IbsSssBaselineState {
             (identical(other.answers, answers) || other.answers == answers) &&
             (identical(other.submitting, submitting) ||
                 other.submitting == submitting) &&
+            (identical(other.showMissing, showMissing) ||
+                other.showMissing == showMissing) &&
             (identical(other.result, result) || other.result == result) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, answers, submitting, result, error);
+      Object.hash(runtimeType, answers, submitting, showMissing, result, error);
 
   /// Create a copy of IbsSssBaselineState
   /// with the given fields replaced by the non-null parameter values.
@@ -245,6 +268,7 @@ abstract class _IbsSssBaselineState extends IbsSssBaselineState {
   const factory _IbsSssBaselineState(
       {final IbsSssAnswers answers,
       final bool submitting,
+      final bool showMissing,
       final IbsSssResult? result,
       final CauceApiError? error}) = _$IbsSssBaselineStateImpl;
   const _IbsSssBaselineState._() : super._();
@@ -253,6 +277,10 @@ abstract class _IbsSssBaselineState extends IbsSssBaselineState {
   IbsSssAnswers get answers;
   @override
   bool get submitting;
+
+  /// Se enciende al intentar enviar incompleto: señala las que faltan.
+  @override
+  bool get showMissing;
 
   /// Resultado devuelto por el servidor, disponible recien tras el envio.
   @override

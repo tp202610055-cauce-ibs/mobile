@@ -132,7 +132,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           const SizedBox(height: CauceSpacing.space2),
           Text(l10n.registerSubtitle, style: textTheme.bodyMedium),
           const SizedBox(height: CauceSpacing.space6),
-          if (error != null) ...<Widget>[
+          // El correo duplicado se indica junto a su campo, no arriba.
+          if (error != null && error is! DuplicateEmailError) ...<Widget>[
             CauceErrorBanner(error: error),
             const SizedBox(height: CauceSpacing.space4),
           ],
@@ -154,7 +155,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
             controller: _emailController,
             label: l10n.registerEmailLabel,
             hint: l10n.registerEmailHint,
-            errorText: fieldErrors['email']?.first,
+            errorText: error is DuplicateEmailError
+                ? l10n.errorDuplicateEmail
+                : fieldErrors['email']?.first,
             enabled: !state.isSubmitting,
             validator: (value) => Validators.email(value, l10n),
             onChanged: onEdited,
@@ -212,6 +215,15 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
             // US01 CA03: sin aceptacion, el boton no existe como accion.
             onPressed: _consentAccepted ? () => _submit(consent) : null,
           ),
+          if (!_consentAccepted) ...<Widget>[
+            const SizedBox(height: CauceSpacing.space2),
+            Text(
+              l10n.validationConsentRequired,
+              key: const Key('register_consent_required'),
+              textAlign: TextAlign.center,
+              style: textTheme.bodySmall,
+            ),
+          ],
           const SizedBox(height: CauceSpacing.space4),
           Wrap(
             alignment: WrapAlignment.center,
@@ -266,6 +278,40 @@ class _ConsentSectionState extends State<_ConsentSection> {
     super.dispose();
   }
 
+  /// Texto íntegro con su versión, a pantalla completa para leerlo sin el
+  /// recuadro acotado del formulario.
+  Future<void> _showFullText(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+    return showDialog<void>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        key: const Key('register_consent_full'),
+        title: Text(l10n.registerConsentSectionTitle),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                l10n.registerConsentVersion(widget.consent.version),
+                style: textTheme.bodySmall,
+              ),
+              const SizedBox(height: CauceSpacing.space3),
+              Text(widget.consent.text, style: textTheme.bodyMedium),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(l10n.registerConsentClose),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -277,6 +323,11 @@ class _ConsentSectionState extends State<_ConsentSection> {
         Text(
           l10n.registerConsentSectionTitle,
           style: textTheme.titleMedium,
+        ),
+        Text(
+          l10n.registerConsentVersion(widget.consent.version),
+          key: const Key('register_consent_version'),
+          style: textTheme.bodySmall,
         ),
         const SizedBox(height: CauceSpacing.space3),
         // Altura acotada con scroll propio: el consentimiento del piloto es
@@ -301,7 +352,14 @@ class _ConsentSectionState extends State<_ConsentSection> {
             ),
           ),
         ),
-        const SizedBox(height: CauceSpacing.space2),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton(
+            key: const Key('register_consent_read_full'),
+            onPressed: () => _showFullText(context),
+            child: Text(l10n.registerConsentReadFull),
+          ),
+        ),
         CheckboxListTile(
           key: const Key('register_consent_checkbox'),
           value: widget.accepted,

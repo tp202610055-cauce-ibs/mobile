@@ -299,6 +299,60 @@ void main() {
     });
   });
 
+  group('RecommendationsFeedNotifier · indicador del servidor', () {
+    test('sin marcador local, una en revision muestra el aviso y no pide otra',
+        () async {
+      final repository = FakeRecommendationsRepository(
+        generationResult: _pendingResult(),
+      )..inReview = true;
+      final store = InMemoryRecommendationRequestStore();
+      final container = await _container(repository: repository, store: store);
+
+      final feed = await _open(container);
+
+      expect(feed.awaitingReview, isTrue);
+      expect(repository.generationKeys, isEmpty);
+      expect(repository.reviewStatusCalls, greaterThan(0));
+    });
+
+    test('el aviso convive con la lista de aprobadas', () async {
+      final repository =
+          FakeRecommendationsRepository(details: [approvedDetail])
+            ..inReview = true;
+      final store = InMemoryRecommendationRequestStore();
+      final container = await _container(repository: repository, store: store);
+
+      final feed = await _open(container);
+
+      expect(feed.awaitingReview, isTrue);
+      expect(feed.summaries.map((s) => s.id), <String>[approvedDetail.id]);
+    });
+
+    test('si el servidor dice que no hay ninguna, no hay aviso', () async {
+      final repository =
+          FakeRecommendationsRepository(details: [approvedDetail]);
+      final store = InMemoryRecommendationRequestStore();
+      final container = await _container(repository: repository, store: store);
+
+      final feed = await _open(container);
+
+      expect(feed.awaitingReview, isFalse);
+    });
+
+    test('si el indicador falla, la lista se muestra igual', () async {
+      final repository =
+          FakeRecommendationsRepository(details: [approvedDetail])
+            ..reviewStatusError = const CauceApiError.network();
+      final store = InMemoryRecommendationRequestStore();
+      final container = await _container(repository: repository, store: store);
+
+      final feed = await _open(container);
+
+      expect(feed.summaries, hasLength(1));
+      expect(feed.awaitingReview, isFalse);
+    });
+  });
+
   group('pendingRecommendationRequestProvider · decision 1', () {
     test('expone la recomendacion en revision', () async {
       final repository =

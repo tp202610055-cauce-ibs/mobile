@@ -79,6 +79,15 @@ class SymptomFormNotifier extends _$SymptomFormNotifier {
     );
   }
 
+  /// Intensidad escrita a mano. Vacía o no numérica queda sin valor; fuera de
+  /// rango se conserva para que la validación lo señale.
+  void setIntensityInput(String raw) {
+    state = state.copyWith(
+      draft: state.draft.copyWith(intensity: int.tryParse(raw.trim())),
+      error: null,
+    );
+  }
+
   void setOccurredAt(DateTime occurredAt) {
     state = state.copyWith(
       draft: state.draft.copyWith(occurredAt: occurredAt),

@@ -5,6 +5,7 @@ import 'package:cauce_api_client/cauce_api_client.dart'
 import 'package:dio/dio.dart';
 
 import '../auth/authenticated_user_snapshot.dart';
+import '../auth/session_generation.dart';
 import '../auth/token_storage.dart';
 import '../errors/session_expired_exception.dart';
 import 'auth_interceptor.dart';
@@ -32,7 +33,11 @@ class RefreshInterceptor extends Interceptor {
     required String baseUrl,
     Dio? refreshClient,
     void Function()? onSessionExpired,
+    void Function(AuthenticatedUserSnapshot user)? onUserRefreshed,
+    SessionGeneration? sessionGeneration,
   })  : _tokenStorage = tokenStorage,
+        _sessionGeneration = sessionGeneration,
+        _onUserRefreshed = onUserRefreshed,
         _retryClient = retryClient,
         _refreshClient = refreshClient ?? Dio(BaseOptions(baseUrl: baseUrl)),
         _onSessionExpired = onSessionExpired,
@@ -47,6 +52,13 @@ class RefreshInterceptor extends Interceptor {
   /// M49). Se invoca una vez por renovacion fallida, despues de borrar el
   /// almacenamiento.
   final void Function()? _onSessionExpired;
+
+  /// Aviso del usuario que trajo la renovacion, despues de guardarlo.
+  final void Function(AuthenticatedUserSnapshot user)? _onUserRefreshed;
+
+  /// Si cambio mientras la renovacion estaba en vuelo, la sesion se cerro y
+  /// el par nuevo no se guarda.
+  final SessionGeneration? _sessionGeneration;
 
   /// Cliente con los interceptors montados, para reemitir la peticion original.
   final Dio _retryClient;
@@ -101,6 +113,13 @@ class RefreshInterceptor extends Interceptor {
     }
   }
 
+  /// Renueva a pedido, compartiendo la renovacion en vuelo si ya hay una.
+  /// Lanza [DioException] ante un fallo transitorio y [SessionExpiredException]
+  /// si la sesion ya no se puede renovar.
+  Future<void> renewNow() async {
+    await _refreshSession();
+  }
+
   bool _shouldAttemptRefresh(DioException err) {
     if (err.response?.statusCode != 401) {
       return false;
@@ -148,6 +167,7 @@ class RefreshInterceptor extends Interceptor {
   }
 
   Future<String> _performRefresh() async {
+    final generation = _sessionGeneration?.value;
     final refreshToken = await _tokenStorage.readRefreshToken();
     if (refreshToken == null || refreshToken.isEmpty) {
       return _endSession();
@@ -191,6 +211,11 @@ class RefreshInterceptor extends Interceptor {
     // router y relanzaria el onboarding. Quien necesite el dato fresco lo lee
     // del almacenamiento, como la baja de cuenta.
     final user = _userFrom(body['user']);
+    // Sin `await` entre esta comprobacion y las escrituras: un borrado
+    // posterior queda siempre despues de ellas.
+    if (_sessionGeneration != null && _sessionGeneration.value != generation) {
+      throw const SessionExpiredException();
+    }
     if (user == null) {
       await _tokenStorage.saveTokens(
         accessToken: accessToken,
@@ -202,6 +227,7 @@ class RefreshInterceptor extends Interceptor {
         refreshToken: rotatedRefreshToken,
         user: user,
       );
+      _onUserRefreshed?.call(user);
     }
 
     return accessToken;

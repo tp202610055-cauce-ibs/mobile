@@ -251,6 +251,7 @@ mixin _$CauceApiError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -306,6 +307,7 @@ mixin _$CauceApiError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -361,6 +363,7 @@ mixin _$CauceApiError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -433,6 +436,7 @@ mixin _$CauceApiError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -501,6 +505,7 @@ mixin _$CauceApiError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -562,6 +567,7 @@ mixin _$CauceApiError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -732,6 +738,7 @@ class _$ValidationErrorImpl implements ValidationError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -790,6 +797,7 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -848,6 +856,7 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -926,6 +935,7 @@ class _$ValidationErrorImpl implements ValidationError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -997,6 +1007,7 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -1061,6 +1072,7 @@ class _$ValidationErrorImpl implements ValidationError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -1185,6 +1197,7 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -1243,6 +1256,7 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -1301,6 +1315,7 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -1379,6 +1394,7 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -1450,6 +1466,7 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -1514,6 +1531,7 @@ class _$InvalidCredentialsErrorImpl implements InvalidCredentialsError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -1653,6 +1671,7 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -1711,6 +1730,7 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -1769,6 +1789,7 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -1847,6 +1868,7 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -1918,6 +1940,7 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -1982,6 +2005,7 @@ class _$AccountLockedErrorImpl implements AccountLockedError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -2102,6 +2126,7 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -2160,6 +2185,7 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -2218,6 +2244,7 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -2296,6 +2323,7 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -2367,6 +2395,7 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -2431,6 +2460,7 @@ class _$ConsentMismatchErrorImpl implements ConsentMismatchError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -2542,6 +2572,7 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -2600,6 +2631,7 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -2658,6 +2690,7 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -2736,6 +2769,7 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -2807,6 +2841,7 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -2871,6 +2906,7 @@ class _$DuplicateEmailErrorImpl implements DuplicateEmailError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -3009,6 +3045,7 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -3067,6 +3104,7 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -3125,6 +3163,7 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -3203,6 +3242,7 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -3274,6 +3314,7 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -3338,6 +3379,7 @@ class _$InvitationCodeErrorImpl implements InvitationCodeError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -3487,6 +3529,7 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -3545,6 +3588,7 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -3603,6 +3647,7 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -3681,6 +3726,7 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -3752,6 +3798,7 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -3816,6 +3863,7 @@ class _$PasswordResetTokenErrorImpl implements PasswordResetTokenError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -3969,6 +4017,7 @@ class _$NutritionistNotAvailableErrorImpl
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -4027,6 +4076,7 @@ class _$NutritionistNotAvailableErrorImpl
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -4085,6 +4135,7 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -4163,6 +4214,7 @@ class _$NutritionistNotAvailableErrorImpl
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -4234,6 +4286,7 @@ class _$NutritionistNotAvailableErrorImpl
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -4298,6 +4351,7 @@ class _$NutritionistNotAvailableErrorImpl
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -4422,6 +4476,7 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -4480,6 +4535,7 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -4538,6 +4594,7 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -4616,6 +4673,7 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -4687,6 +4745,7 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -4751,6 +4810,7 @@ class _$PatientAlreadyAssignedErrorImpl implements PatientAlreadyAssignedError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -4865,6 +4925,7 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -4923,6 +4984,7 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -4981,6 +5043,7 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -5059,6 +5122,7 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -5130,6 +5194,7 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -5194,6 +5259,7 @@ class _$PatientProfileNotFoundErrorImpl implements PatientProfileNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -5307,6 +5373,7 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -5365,6 +5432,7 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -5423,6 +5491,7 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -5501,6 +5570,7 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -5572,6 +5642,7 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -5636,6 +5707,7 @@ class _$DuplicateProfileErrorImpl implements DuplicateProfileError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -5749,6 +5821,7 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -5807,6 +5880,7 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -5865,6 +5939,7 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -5943,6 +6018,7 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -6014,6 +6090,7 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -6078,6 +6155,7 @@ class _$InvalidBiometricValueErrorImpl implements InvalidBiometricValueError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -6189,6 +6267,7 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -6247,6 +6326,7 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -6305,6 +6385,7 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -6383,6 +6464,7 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -6454,6 +6536,7 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -6518,6 +6601,7 @@ class _$AllergyNotFoundErrorImpl implements AllergyNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -6630,6 +6714,7 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -6688,6 +6773,7 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -6746,6 +6832,7 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -6824,6 +6911,7 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -6895,6 +6983,7 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -6959,6 +7048,7 @@ class _$DuplicateAllergyErrorImpl implements DuplicateAllergyError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -7072,6 +7162,7 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -7130,6 +7221,7 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -7188,6 +7280,7 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -7266,6 +7359,7 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -7337,6 +7431,7 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -7401,6 +7496,7 @@ class _$InvalidIbsSssDimensionErrorImpl implements InvalidIbsSssDimensionError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -7517,6 +7613,7 @@ class _$DuplicateBaselineAssessmentErrorImpl
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -7575,6 +7672,7 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -7633,6 +7731,7 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -7711,6 +7810,7 @@ class _$DuplicateBaselineAssessmentErrorImpl
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -7782,6 +7882,7 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -7846,6 +7947,7 @@ class _$DuplicateBaselineAssessmentErrorImpl
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -7959,6 +8061,7 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -8017,6 +8120,7 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -8075,6 +8179,7 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -8153,6 +8258,7 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -8224,6 +8330,7 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -8288,6 +8395,7 @@ class _$FoodItemNotFoundErrorImpl implements FoodItemNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -8401,6 +8509,7 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -8459,6 +8568,7 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -8517,6 +8627,7 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -8595,6 +8706,7 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -8666,6 +8778,7 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -8730,6 +8843,7 @@ class _$CustomFoodNotFoundErrorImpl implements CustomFoodNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -8843,6 +8957,7 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -8901,6 +9016,7 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -8959,6 +9075,7 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -9037,6 +9154,7 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -9108,6 +9226,7 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -9172,6 +9291,7 @@ class _$DuplicateCustomFoodErrorImpl implements DuplicateCustomFoodError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -9283,6 +9403,7 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -9341,6 +9462,7 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -9399,6 +9521,7 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -9477,6 +9600,7 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -9548,6 +9672,7 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -9612,6 +9737,7 @@ class _$CustomFoodInUseErrorImpl implements CustomFoodInUseError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -9725,6 +9851,7 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -9783,6 +9910,7 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -9841,6 +9969,7 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -9919,6 +10048,7 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -9990,6 +10120,7 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -10054,6 +10185,7 @@ class _$DuplicateIngredientErrorImpl implements DuplicateIngredientError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -10167,6 +10299,7 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -10225,6 +10358,7 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -10283,6 +10417,7 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -10361,6 +10496,7 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -10432,6 +10568,7 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -10496,6 +10633,7 @@ class _$IngredientNotFoundErrorImpl implements IngredientNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -10645,6 +10783,7 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -10703,6 +10842,7 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -10761,6 +10901,7 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -10839,6 +10980,7 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -10910,6 +11052,7 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -10974,6 +11117,7 @@ class _$UnconfirmedAllergensErrorImpl implements UnconfirmedAllergensError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -11099,6 +11243,7 @@ class _$InvalidMealRegistrationErrorImpl
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -11157,6 +11302,7 @@ class _$InvalidMealRegistrationErrorImpl
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -11215,6 +11361,7 @@ class _$InvalidMealRegistrationErrorImpl
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -11293,6 +11440,7 @@ class _$InvalidMealRegistrationErrorImpl
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -11364,6 +11512,7 @@ class _$InvalidMealRegistrationErrorImpl
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -11428,6 +11577,7 @@ class _$InvalidMealRegistrationErrorImpl
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -11539,6 +11689,7 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -11597,6 +11748,7 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -11655,6 +11807,7 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -11733,6 +11886,7 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -11804,6 +11958,7 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -11868,6 +12023,7 @@ class _$MealNotFoundErrorImpl implements MealNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -11979,6 +12135,7 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -12037,6 +12194,7 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -12095,6 +12253,7 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -12173,6 +12332,7 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -12244,6 +12404,7 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -12308,6 +12469,7 @@ class _$SymptomNotFoundErrorImpl implements SymptomNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -12421,6 +12583,7 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -12479,6 +12642,7 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -12537,6 +12701,7 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -12615,6 +12780,7 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -12686,6 +12852,7 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -12750,6 +12917,7 @@ class _$ClinicalNoteNotFoundErrorImpl implements ClinicalNoteNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -12865,6 +13033,7 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -12923,6 +13092,7 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -12981,6 +13151,7 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -13059,6 +13230,7 @@ class _$InvalidClinicalNoteAssociationErrorImpl
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -13130,6 +13302,7 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -13194,6 +13367,7 @@ class _$InvalidClinicalNoteAssociationErrorImpl
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -13308,6 +13482,7 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -13366,6 +13541,7 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -13424,6 +13600,7 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -13502,6 +13679,7 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -13573,6 +13751,7 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -13637,6 +13816,7 @@ class _$IdempotencyMismatchErrorImpl implements IdempotencyMismatchError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -13777,6 +13957,7 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -13835,6 +14016,7 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -13893,6 +14075,7 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -13971,6 +14154,7 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -14042,6 +14226,7 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -14106,6 +14291,7 @@ class _$DomainRuleViolationErrorImpl implements DomainRuleViolationError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -14228,6 +14414,7 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -14286,6 +14473,7 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -14344,6 +14532,7 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -14422,6 +14611,7 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -14493,6 +14683,7 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -14557,6 +14748,7 @@ class _$InvalidRefreshTokenErrorImpl implements InvalidRefreshTokenError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -14696,6 +14888,7 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -14754,6 +14947,7 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -14812,6 +15006,7 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -14890,6 +15085,7 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -14961,6 +15157,7 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -15025,6 +15222,7 @@ class _$RateLimitedErrorImpl implements RateLimitedError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -15147,6 +15345,7 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -15205,6 +15404,7 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -15263,6 +15463,7 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -15341,6 +15542,7 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -15412,6 +15614,7 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -15476,6 +15679,7 @@ class _$KeycloakIntegrationErrorImpl implements KeycloakIntegrationError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -15588,6 +15792,7 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -15646,6 +15851,7 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -15704,6 +15910,7 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -15782,6 +15989,7 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -15853,6 +16061,7 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -15917,6 +16126,7 @@ class _$UserLocalMissingErrorImpl implements UserLocalMissingError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -16030,6 +16240,7 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -16088,6 +16299,7 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -16146,6 +16358,7 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -16224,6 +16437,7 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -16295,6 +16509,7 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -16359,6 +16574,7 @@ class _$ConsentRecordNotFoundErrorImpl implements ConsentRecordNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -16474,6 +16690,7 @@ class _$PatientHasNoDataInPeriodErrorImpl
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -16532,6 +16749,7 @@ class _$PatientHasNoDataInPeriodErrorImpl
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -16590,6 +16808,7 @@ class _$PatientHasNoDataInPeriodErrorImpl
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -16668,6 +16887,7 @@ class _$PatientHasNoDataInPeriodErrorImpl
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -16739,6 +16959,7 @@ class _$PatientHasNoDataInPeriodErrorImpl
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -16803,6 +17024,7 @@ class _$PatientHasNoDataInPeriodErrorImpl
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -16830,6 +17052,453 @@ class _$PatientHasNoDataInPeriodErrorImpl
 abstract class PatientHasNoDataInPeriodError implements CauceApiError {
   const factory PatientHasNoDataInPeriodError() =
       _$PatientHasNoDataInPeriodErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$EmailNotVerifiedErrorImplCopyWith<$Res> {
+  factory _$$EmailNotVerifiedErrorImplCopyWith(
+          _$EmailNotVerifiedErrorImpl value,
+          $Res Function(_$EmailNotVerifiedErrorImpl) then) =
+      __$$EmailNotVerifiedErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EmailNotVerifiedErrorImplCopyWithImpl<$Res>
+    extends _$CauceApiErrorCopyWithImpl<$Res, _$EmailNotVerifiedErrorImpl>
+    implements _$$EmailNotVerifiedErrorImplCopyWith<$Res> {
+  __$$EmailNotVerifiedErrorImplCopyWithImpl(_$EmailNotVerifiedErrorImpl _value,
+      $Res Function(_$EmailNotVerifiedErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CauceApiError
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$EmailNotVerifiedErrorImpl implements EmailNotVerifiedError {
+  const _$EmailNotVerifiedErrorImpl();
+
+  @override
+  String toString() {
+    return 'CauceApiError.emailNotVerified()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EmailNotVerifiedErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            Map<String, List<String>> fieldErrors, String? errorCode)
+        validation,
+    required TResult Function() invalidCredentials,
+    required TResult Function(DateTime lockedUntil) accountLocked,
+    required TResult Function() consentMismatch,
+    required TResult Function() duplicateEmail,
+    required TResult Function(InvitationCodeReason reason) invitationCode,
+    required TResult Function(PasswordResetTokenReason reason)
+        passwordResetToken,
+    required TResult Function(NutritionistNotAvailableReason reason)
+        nutritionistNotAvailable,
+    required TResult Function() patientAlreadyAssigned,
+    required TResult Function() patientProfileNotFound,
+    required TResult Function() duplicateProfile,
+    required TResult Function() invalidBiometricValue,
+    required TResult Function() allergyNotFound,
+    required TResult Function() duplicateAllergy,
+    required TResult Function() invalidIbsSssDimension,
+    required TResult Function() duplicateBaselineAssessment,
+    required TResult Function() foodItemNotFound,
+    required TResult Function() customFoodNotFound,
+    required TResult Function() duplicateCustomFood,
+    required TResult Function() customFoodInUse,
+    required TResult Function() duplicateIngredient,
+    required TResult Function() ingredientNotFound,
+    required TResult Function(List<DetectedAllergen> allergens)
+        unconfirmedAllergens,
+    required TResult Function() invalidMealRegistration,
+    required TResult Function() mealNotFound,
+    required TResult Function() symptomNotFound,
+    required TResult Function() clinicalNoteNotFound,
+    required TResult Function() invalidClinicalNoteAssociation,
+    required TResult Function() idempotencyMismatch,
+    required TResult Function(String? detail) domainRuleViolation,
+    required TResult Function() invalidRefreshToken,
+    required TResult Function(int retryAfterSeconds) rateLimited,
+    required TResult Function() keycloakIntegration,
+    required TResult Function() userLocalMissing,
+    required TResult Function() consentRecordNotFound,
+    required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
+    required TResult Function() reportPeriodInvalid,
+    required TResult Function() activePilotRetention,
+    required TResult Function() recommendationNotFound,
+    required TResult Function() recommendationAccessDenied,
+    required TResult Function() conflictState,
+    required TResult Function() recommendationExpired,
+    required TResult Function() insufficientClinicalHistory,
+    required TResult Function() allCandidatesFilteredByAllergies,
+    required TResult Function() noActiveModelVersion,
+    required TResult Function() forbidden,
+    required TResult Function() network,
+    required TResult Function(int statusCode, String? errorCode, String? detail)
+        unknown,
+  }) {
+    return emailNotVerified();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult? Function()? invalidCredentials,
+    TResult? Function(DateTime lockedUntil)? accountLocked,
+    TResult? Function()? consentMismatch,
+    TResult? Function()? duplicateEmail,
+    TResult? Function(InvitationCodeReason reason)? invitationCode,
+    TResult? Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult? Function()? patientAlreadyAssigned,
+    TResult? Function()? patientProfileNotFound,
+    TResult? Function()? duplicateProfile,
+    TResult? Function()? invalidBiometricValue,
+    TResult? Function()? allergyNotFound,
+    TResult? Function()? duplicateAllergy,
+    TResult? Function()? invalidIbsSssDimension,
+    TResult? Function()? duplicateBaselineAssessment,
+    TResult? Function()? foodItemNotFound,
+    TResult? Function()? customFoodNotFound,
+    TResult? Function()? duplicateCustomFood,
+    TResult? Function()? customFoodInUse,
+    TResult? Function()? duplicateIngredient,
+    TResult? Function()? ingredientNotFound,
+    TResult? Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult? Function()? invalidMealRegistration,
+    TResult? Function()? mealNotFound,
+    TResult? Function()? symptomNotFound,
+    TResult? Function()? clinicalNoteNotFound,
+    TResult? Function()? invalidClinicalNoteAssociation,
+    TResult? Function()? idempotencyMismatch,
+    TResult? Function(String? detail)? domainRuleViolation,
+    TResult? Function()? invalidRefreshToken,
+    TResult? Function(int retryAfterSeconds)? rateLimited,
+    TResult? Function()? keycloakIntegration,
+    TResult? Function()? userLocalMissing,
+    TResult? Function()? consentRecordNotFound,
+    TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
+    TResult? Function()? reportPeriodInvalid,
+    TResult? Function()? activePilotRetention,
+    TResult? Function()? recommendationNotFound,
+    TResult? Function()? recommendationAccessDenied,
+    TResult? Function()? conflictState,
+    TResult? Function()? recommendationExpired,
+    TResult? Function()? insufficientClinicalHistory,
+    TResult? Function()? allCandidatesFilteredByAllergies,
+    TResult? Function()? noActiveModelVersion,
+    TResult? Function()? forbidden,
+    TResult? Function()? network,
+    TResult? Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+  }) {
+    return emailNotVerified?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<String, List<String>> fieldErrors, String? errorCode)?
+        validation,
+    TResult Function()? invalidCredentials,
+    TResult Function(DateTime lockedUntil)? accountLocked,
+    TResult Function()? consentMismatch,
+    TResult Function()? duplicateEmail,
+    TResult Function(InvitationCodeReason reason)? invitationCode,
+    TResult Function(PasswordResetTokenReason reason)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableReason reason)?
+        nutritionistNotAvailable,
+    TResult Function()? patientAlreadyAssigned,
+    TResult Function()? patientProfileNotFound,
+    TResult Function()? duplicateProfile,
+    TResult Function()? invalidBiometricValue,
+    TResult Function()? allergyNotFound,
+    TResult Function()? duplicateAllergy,
+    TResult Function()? invalidIbsSssDimension,
+    TResult Function()? duplicateBaselineAssessment,
+    TResult Function()? foodItemNotFound,
+    TResult Function()? customFoodNotFound,
+    TResult Function()? duplicateCustomFood,
+    TResult Function()? customFoodInUse,
+    TResult Function()? duplicateIngredient,
+    TResult Function()? ingredientNotFound,
+    TResult Function(List<DetectedAllergen> allergens)? unconfirmedAllergens,
+    TResult Function()? invalidMealRegistration,
+    TResult Function()? mealNotFound,
+    TResult Function()? symptomNotFound,
+    TResult Function()? clinicalNoteNotFound,
+    TResult Function()? invalidClinicalNoteAssociation,
+    TResult Function()? idempotencyMismatch,
+    TResult Function(String? detail)? domainRuleViolation,
+    TResult Function()? invalidRefreshToken,
+    TResult Function(int retryAfterSeconds)? rateLimited,
+    TResult Function()? keycloakIntegration,
+    TResult Function()? userLocalMissing,
+    TResult Function()? consentRecordNotFound,
+    TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
+    TResult Function()? reportPeriodInvalid,
+    TResult Function()? activePilotRetention,
+    TResult Function()? recommendationNotFound,
+    TResult Function()? recommendationAccessDenied,
+    TResult Function()? conflictState,
+    TResult Function()? recommendationExpired,
+    TResult Function()? insufficientClinicalHistory,
+    TResult Function()? allCandidatesFilteredByAllergies,
+    TResult Function()? noActiveModelVersion,
+    TResult Function()? forbidden,
+    TResult Function()? network,
+    TResult Function(int statusCode, String? errorCode, String? detail)?
+        unknown,
+    required TResult orElse(),
+  }) {
+    if (emailNotVerified != null) {
+      return emailNotVerified();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ValidationError value) validation,
+    required TResult Function(InvalidCredentialsError value) invalidCredentials,
+    required TResult Function(AccountLockedError value) accountLocked,
+    required TResult Function(ConsentMismatchError value) consentMismatch,
+    required TResult Function(DuplicateEmailError value) duplicateEmail,
+    required TResult Function(InvitationCodeError value) invitationCode,
+    required TResult Function(PasswordResetTokenError value) passwordResetToken,
+    required TResult Function(NutritionistNotAvailableError value)
+        nutritionistNotAvailable,
+    required TResult Function(PatientAlreadyAssignedError value)
+        patientAlreadyAssigned,
+    required TResult Function(PatientProfileNotFoundError value)
+        patientProfileNotFound,
+    required TResult Function(DuplicateProfileError value) duplicateProfile,
+    required TResult Function(InvalidBiometricValueError value)
+        invalidBiometricValue,
+    required TResult Function(AllergyNotFoundError value) allergyNotFound,
+    required TResult Function(DuplicateAllergyError value) duplicateAllergy,
+    required TResult Function(InvalidIbsSssDimensionError value)
+        invalidIbsSssDimension,
+    required TResult Function(DuplicateBaselineAssessmentError value)
+        duplicateBaselineAssessment,
+    required TResult Function(FoodItemNotFoundError value) foodItemNotFound,
+    required TResult Function(CustomFoodNotFoundError value) customFoodNotFound,
+    required TResult Function(DuplicateCustomFoodError value)
+        duplicateCustomFood,
+    required TResult Function(CustomFoodInUseError value) customFoodInUse,
+    required TResult Function(DuplicateIngredientError value)
+        duplicateIngredient,
+    required TResult Function(IngredientNotFoundError value) ingredientNotFound,
+    required TResult Function(UnconfirmedAllergensError value)
+        unconfirmedAllergens,
+    required TResult Function(InvalidMealRegistrationError value)
+        invalidMealRegistration,
+    required TResult Function(MealNotFoundError value) mealNotFound,
+    required TResult Function(SymptomNotFoundError value) symptomNotFound,
+    required TResult Function(ClinicalNoteNotFoundError value)
+        clinicalNoteNotFound,
+    required TResult Function(InvalidClinicalNoteAssociationError value)
+        invalidClinicalNoteAssociation,
+    required TResult Function(IdempotencyMismatchError value)
+        idempotencyMismatch,
+    required TResult Function(DomainRuleViolationError value)
+        domainRuleViolation,
+    required TResult Function(InvalidRefreshTokenError value)
+        invalidRefreshToken,
+    required TResult Function(RateLimitedError value) rateLimited,
+    required TResult Function(KeycloakIntegrationError value)
+        keycloakIntegration,
+    required TResult Function(UserLocalMissingError value) userLocalMissing,
+    required TResult Function(ConsentRecordNotFoundError value)
+        consentRecordNotFound,
+    required TResult Function(PatientHasNoDataInPeriodError value)
+        patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
+    required TResult Function(ReportPeriodInvalidError value)
+        reportPeriodInvalid,
+    required TResult Function(ActivePilotRetentionError value)
+        activePilotRetention,
+    required TResult Function(RecommendationNotFoundError value)
+        recommendationNotFound,
+    required TResult Function(RecommendationAccessDeniedError value)
+        recommendationAccessDenied,
+    required TResult Function(ConflictStateError value) conflictState,
+    required TResult Function(RecommendationExpiredError value)
+        recommendationExpired,
+    required TResult Function(InsufficientClinicalHistoryError value)
+        insufficientClinicalHistory,
+    required TResult Function(AllCandidatesFilteredByAllergiesError value)
+        allCandidatesFilteredByAllergies,
+    required TResult Function(NoActiveModelVersionError value)
+        noActiveModelVersion,
+    required TResult Function(ForbiddenError value) forbidden,
+    required TResult Function(NetworkError value) network,
+    required TResult Function(UnknownError value) unknown,
+  }) {
+    return emailNotVerified(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ValidationError value)? validation,
+    TResult? Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult? Function(AccountLockedError value)? accountLocked,
+    TResult? Function(ConsentMismatchError value)? consentMismatch,
+    TResult? Function(DuplicateEmailError value)? duplicateEmail,
+    TResult? Function(InvitationCodeError value)? invitationCode,
+    TResult? Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult? Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult? Function(PatientAlreadyAssignedError value)?
+        patientAlreadyAssigned,
+    TResult? Function(PatientProfileNotFoundError value)?
+        patientProfileNotFound,
+    TResult? Function(DuplicateProfileError value)? duplicateProfile,
+    TResult? Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult? Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult? Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult? Function(InvalidIbsSssDimensionError value)?
+        invalidIbsSssDimension,
+    TResult? Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult? Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult? Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult? Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult? Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult? Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult? Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult? Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult? Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult? Function(MealNotFoundError value)? mealNotFound,
+    TResult? Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult? Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult? Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult? Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult? Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult? Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult? Function(RateLimitedError value)? rateLimited,
+    TResult? Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult? Function(UserLocalMissingError value)? userLocalMissing,
+    TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult? Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
+    TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
+    TResult? Function(RecommendationNotFoundError value)?
+        recommendationNotFound,
+    TResult? Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult? Function(ConflictStateError value)? conflictState,
+    TResult? Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult? Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult? Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult? Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult? Function(ForbiddenError value)? forbidden,
+    TResult? Function(NetworkError value)? network,
+    TResult? Function(UnknownError value)? unknown,
+  }) {
+    return emailNotVerified?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ValidationError value)? validation,
+    TResult Function(InvalidCredentialsError value)? invalidCredentials,
+    TResult Function(AccountLockedError value)? accountLocked,
+    TResult Function(ConsentMismatchError value)? consentMismatch,
+    TResult Function(DuplicateEmailError value)? duplicateEmail,
+    TResult Function(InvitationCodeError value)? invitationCode,
+    TResult Function(PasswordResetTokenError value)? passwordResetToken,
+    TResult Function(NutritionistNotAvailableError value)?
+        nutritionistNotAvailable,
+    TResult Function(PatientAlreadyAssignedError value)? patientAlreadyAssigned,
+    TResult Function(PatientProfileNotFoundError value)? patientProfileNotFound,
+    TResult Function(DuplicateProfileError value)? duplicateProfile,
+    TResult Function(InvalidBiometricValueError value)? invalidBiometricValue,
+    TResult Function(AllergyNotFoundError value)? allergyNotFound,
+    TResult Function(DuplicateAllergyError value)? duplicateAllergy,
+    TResult Function(InvalidIbsSssDimensionError value)? invalidIbsSssDimension,
+    TResult Function(DuplicateBaselineAssessmentError value)?
+        duplicateBaselineAssessment,
+    TResult Function(FoodItemNotFoundError value)? foodItemNotFound,
+    TResult Function(CustomFoodNotFoundError value)? customFoodNotFound,
+    TResult Function(DuplicateCustomFoodError value)? duplicateCustomFood,
+    TResult Function(CustomFoodInUseError value)? customFoodInUse,
+    TResult Function(DuplicateIngredientError value)? duplicateIngredient,
+    TResult Function(IngredientNotFoundError value)? ingredientNotFound,
+    TResult Function(UnconfirmedAllergensError value)? unconfirmedAllergens,
+    TResult Function(InvalidMealRegistrationError value)?
+        invalidMealRegistration,
+    TResult Function(MealNotFoundError value)? mealNotFound,
+    TResult Function(SymptomNotFoundError value)? symptomNotFound,
+    TResult Function(ClinicalNoteNotFoundError value)? clinicalNoteNotFound,
+    TResult Function(InvalidClinicalNoteAssociationError value)?
+        invalidClinicalNoteAssociation,
+    TResult Function(IdempotencyMismatchError value)? idempotencyMismatch,
+    TResult Function(DomainRuleViolationError value)? domainRuleViolation,
+    TResult Function(InvalidRefreshTokenError value)? invalidRefreshToken,
+    TResult Function(RateLimitedError value)? rateLimited,
+    TResult Function(KeycloakIntegrationError value)? keycloakIntegration,
+    TResult Function(UserLocalMissingError value)? userLocalMissing,
+    TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
+    TResult Function(PatientHasNoDataInPeriodError value)?
+        patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
+    TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
+    TResult Function(ActivePilotRetentionError value)? activePilotRetention,
+    TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
+    TResult Function(RecommendationAccessDeniedError value)?
+        recommendationAccessDenied,
+    TResult Function(ConflictStateError value)? conflictState,
+    TResult Function(RecommendationExpiredError value)? recommendationExpired,
+    TResult Function(InsufficientClinicalHistoryError value)?
+        insufficientClinicalHistory,
+    TResult Function(AllCandidatesFilteredByAllergiesError value)?
+        allCandidatesFilteredByAllergies,
+    TResult Function(NoActiveModelVersionError value)? noActiveModelVersion,
+    TResult Function(ForbiddenError value)? forbidden,
+    TResult Function(NetworkError value)? network,
+    TResult Function(UnknownError value)? unknown,
+    required TResult orElse(),
+  }) {
+    if (emailNotVerified != null) {
+      return emailNotVerified(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmailNotVerifiedError implements CauceApiError {
+  const factory EmailNotVerifiedError() = _$EmailNotVerifiedErrorImpl;
 }
 
 /// @nodoc
@@ -16917,6 +17586,7 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -16975,6 +17645,7 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -17033,6 +17704,7 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -17111,6 +17783,7 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -17182,6 +17855,7 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -17246,6 +17920,7 @@ class _$ReportPeriodInvalidErrorImpl implements ReportPeriodInvalidError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -17359,6 +18034,7 @@ class _$ActivePilotRetentionErrorImpl implements ActivePilotRetentionError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -17417,6 +18093,7 @@ class _$ActivePilotRetentionErrorImpl implements ActivePilotRetentionError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -17475,6 +18152,7 @@ class _$ActivePilotRetentionErrorImpl implements ActivePilotRetentionError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -17553,6 +18231,7 @@ class _$ActivePilotRetentionErrorImpl implements ActivePilotRetentionError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -17624,6 +18303,7 @@ class _$ActivePilotRetentionErrorImpl implements ActivePilotRetentionError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -17688,6 +18368,7 @@ class _$ActivePilotRetentionErrorImpl implements ActivePilotRetentionError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -17801,6 +18482,7 @@ class _$RecommendationNotFoundErrorImpl implements RecommendationNotFoundError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -17859,6 +18541,7 @@ class _$RecommendationNotFoundErrorImpl implements RecommendationNotFoundError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -17917,6 +18600,7 @@ class _$RecommendationNotFoundErrorImpl implements RecommendationNotFoundError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -17995,6 +18679,7 @@ class _$RecommendationNotFoundErrorImpl implements RecommendationNotFoundError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -18066,6 +18751,7 @@ class _$RecommendationNotFoundErrorImpl implements RecommendationNotFoundError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -18130,6 +18816,7 @@ class _$RecommendationNotFoundErrorImpl implements RecommendationNotFoundError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -18246,6 +18933,7 @@ class _$RecommendationAccessDeniedErrorImpl
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -18304,6 +18992,7 @@ class _$RecommendationAccessDeniedErrorImpl
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -18362,6 +19051,7 @@ class _$RecommendationAccessDeniedErrorImpl
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -18440,6 +19130,7 @@ class _$RecommendationAccessDeniedErrorImpl
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -18511,6 +19202,7 @@ class _$RecommendationAccessDeniedErrorImpl
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -18575,6 +19267,7 @@ class _$RecommendationAccessDeniedErrorImpl
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -18686,6 +19379,7 @@ class _$ConflictStateErrorImpl implements ConflictStateError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -18744,6 +19438,7 @@ class _$ConflictStateErrorImpl implements ConflictStateError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -18802,6 +19497,7 @@ class _$ConflictStateErrorImpl implements ConflictStateError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -18880,6 +19576,7 @@ class _$ConflictStateErrorImpl implements ConflictStateError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -18951,6 +19648,7 @@ class _$ConflictStateErrorImpl implements ConflictStateError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -19015,6 +19713,7 @@ class _$ConflictStateErrorImpl implements ConflictStateError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -19128,6 +19827,7 @@ class _$RecommendationExpiredErrorImpl implements RecommendationExpiredError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -19186,6 +19886,7 @@ class _$RecommendationExpiredErrorImpl implements RecommendationExpiredError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -19244,6 +19945,7 @@ class _$RecommendationExpiredErrorImpl implements RecommendationExpiredError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -19322,6 +20024,7 @@ class _$RecommendationExpiredErrorImpl implements RecommendationExpiredError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -19393,6 +20096,7 @@ class _$RecommendationExpiredErrorImpl implements RecommendationExpiredError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -19457,6 +20161,7 @@ class _$RecommendationExpiredErrorImpl implements RecommendationExpiredError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -19572,6 +20277,7 @@ class _$InsufficientClinicalHistoryErrorImpl
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -19630,6 +20336,7 @@ class _$InsufficientClinicalHistoryErrorImpl
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -19688,6 +20395,7 @@ class _$InsufficientClinicalHistoryErrorImpl
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -19766,6 +20474,7 @@ class _$InsufficientClinicalHistoryErrorImpl
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -19837,6 +20546,7 @@ class _$InsufficientClinicalHistoryErrorImpl
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -19901,6 +20611,7 @@ class _$InsufficientClinicalHistoryErrorImpl
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -20017,6 +20728,7 @@ class _$AllCandidatesFilteredByAllergiesErrorImpl
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -20075,6 +20787,7 @@ class _$AllCandidatesFilteredByAllergiesErrorImpl
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -20133,6 +20846,7 @@ class _$AllCandidatesFilteredByAllergiesErrorImpl
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -20211,6 +20925,7 @@ class _$AllCandidatesFilteredByAllergiesErrorImpl
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -20282,6 +20997,7 @@ class _$AllCandidatesFilteredByAllergiesErrorImpl
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -20346,6 +21062,7 @@ class _$AllCandidatesFilteredByAllergiesErrorImpl
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -20460,6 +21177,7 @@ class _$NoActiveModelVersionErrorImpl implements NoActiveModelVersionError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -20518,6 +21236,7 @@ class _$NoActiveModelVersionErrorImpl implements NoActiveModelVersionError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -20576,6 +21295,7 @@ class _$NoActiveModelVersionErrorImpl implements NoActiveModelVersionError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -20654,6 +21374,7 @@ class _$NoActiveModelVersionErrorImpl implements NoActiveModelVersionError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -20725,6 +21446,7 @@ class _$NoActiveModelVersionErrorImpl implements NoActiveModelVersionError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -20789,6 +21511,7 @@ class _$NoActiveModelVersionErrorImpl implements NoActiveModelVersionError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -20899,6 +21622,7 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -20957,6 +21681,7 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -21015,6 +21740,7 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -21093,6 +21819,7 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -21164,6 +21891,7 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -21228,6 +21956,7 @@ class _$ForbiddenErrorImpl implements ForbiddenError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -21338,6 +22067,7 @@ class _$NetworkErrorImpl implements NetworkError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -21396,6 +22126,7 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -21454,6 +22185,7 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -21532,6 +22264,7 @@ class _$NetworkErrorImpl implements NetworkError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -21603,6 +22336,7 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -21667,6 +22401,7 @@ class _$NetworkErrorImpl implements NetworkError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,
@@ -21823,6 +22558,7 @@ class _$UnknownErrorImpl implements UnknownError {
     required TResult Function() userLocalMissing,
     required TResult Function() consentRecordNotFound,
     required TResult Function() patientHasNoDataInPeriod,
+    required TResult Function() emailNotVerified,
     required TResult Function() reportPeriodInvalid,
     required TResult Function() activePilotRetention,
     required TResult Function() recommendationNotFound,
@@ -21881,6 +22617,7 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function()? userLocalMissing,
     TResult? Function()? consentRecordNotFound,
     TResult? Function()? patientHasNoDataInPeriod,
+    TResult? Function()? emailNotVerified,
     TResult? Function()? reportPeriodInvalid,
     TResult? Function()? activePilotRetention,
     TResult? Function()? recommendationNotFound,
@@ -21939,6 +22676,7 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function()? userLocalMissing,
     TResult Function()? consentRecordNotFound,
     TResult Function()? patientHasNoDataInPeriod,
+    TResult Function()? emailNotVerified,
     TResult Function()? reportPeriodInvalid,
     TResult Function()? activePilotRetention,
     TResult Function()? recommendationNotFound,
@@ -22017,6 +22755,7 @@ class _$UnknownErrorImpl implements UnknownError {
         consentRecordNotFound,
     required TResult Function(PatientHasNoDataInPeriodError value)
         patientHasNoDataInPeriod,
+    required TResult Function(EmailNotVerifiedError value) emailNotVerified,
     required TResult Function(ReportPeriodInvalidError value)
         reportPeriodInvalid,
     required TResult Function(ActivePilotRetentionError value)
@@ -22088,6 +22827,7 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult? Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult? Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult? Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult? Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult? Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult? Function(RecommendationNotFoundError value)?
@@ -22152,6 +22892,7 @@ class _$UnknownErrorImpl implements UnknownError {
     TResult Function(ConsentRecordNotFoundError value)? consentRecordNotFound,
     TResult Function(PatientHasNoDataInPeriodError value)?
         patientHasNoDataInPeriod,
+    TResult Function(EmailNotVerifiedError value)? emailNotVerified,
     TResult Function(ReportPeriodInvalidError value)? reportPeriodInvalid,
     TResult Function(ActivePilotRetentionError value)? activePilotRetention,
     TResult Function(RecommendationNotFoundError value)? recommendationNotFound,

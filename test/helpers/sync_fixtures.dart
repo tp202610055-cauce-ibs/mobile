@@ -32,8 +32,14 @@ class FakeConnectivityMonitor implements ConnectivityMonitor {
   Stream<void> onReconnected() => _reconnections.stream;
 }
 
+/// Titular de las filas locales de los tests: el paciente demo.
+const String localOwnerId = '79974080-cfbb-4ce8-b003-4e80e7e9e84f';
+
+/// Otra cuenta en el mismo telefono.
+const String otherOwnerId = 'e1f2a3b4-0000-0000-0000-000000000000';
+
 /// Inserta una comida pendiente con un item, como la que deja el registro sin
-/// conexion de HU0009 CA02.
+/// conexion de HU0009 CA02. [userId] `null` es una fila de v2, sin titular.
 Future<void> insertPendingMeal(
   AppDatabase db,
   String clientGuid, {
@@ -41,6 +47,7 @@ Future<void> insertPendingMeal(
   String foodId = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
   DateTime? clientCreatedAt,
   LocalSyncStatus status = LocalSyncStatus.pending,
+  String? userId = localOwnerId,
 }) async {
   final createdAt = clientCreatedAt ?? DateTime.utc(2026, 9, 18, 13, 35);
 
@@ -51,6 +58,7 @@ Future<void> insertPendingMeal(
           consumedAt: createdAt.subtract(const Duration(minutes: 5)),
           clientCreatedAt: createdAt,
           syncStatus: status,
+          userId: Value<String?>(userId),
         ),
       );
 
@@ -73,6 +81,7 @@ Future<void> insertPendingSymptom(
   int intensity = 40,
   DateTime? clientCreatedAt,
   LocalSyncStatus status = LocalSyncStatus.pending,
+  String? userId = localOwnerId,
 }) {
   final createdAt = clientCreatedAt ?? DateTime.utc(2026, 9, 18, 15);
 
@@ -84,6 +93,7 @@ Future<void> insertPendingSymptom(
           occurredAt: createdAt.subtract(const Duration(minutes: 10)),
           clientCreatedAt: createdAt,
           syncStatus: status,
+          userId: Value<String?>(userId),
         ),
       );
 }

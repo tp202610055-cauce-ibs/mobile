@@ -6,7 +6,7 @@ part of 'meals_local_store.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mealsLocalStoreHash() => r'78e01738d3cdfb8666f65a449f653ad368d986f9';
+String _$mealsLocalStoreHash() => r'32f5d2eb3647c4c8f7e5a613abc06322a4fff379';
 
 /// See also [mealsLocalStore].
 @ProviderFor(mealsLocalStore)

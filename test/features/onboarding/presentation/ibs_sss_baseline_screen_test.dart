@@ -83,14 +83,14 @@ Future<void> _tap(WidgetTester tester, Finder finder) async {
 
 void main() {
   group('IbsSssBaselineScreen · composicion', () {
-    testWidgets('muestra el indicador de paso 2 de 2', (tester) async {
+    testWidgets('muestra el indicador de paso 3 de 3', (tester) async {
       await _pump(tester);
 
       expect(
         tester
             .widget<Text>(find.byKey(const Key('onboarding_step_label')))
             .data,
-        l10n.onboardingStepLabel(2, 2),
+        l10n.onboardingStepLabel(3, 3),
       );
     });
 
@@ -117,27 +117,68 @@ void main() {
   });
 
   group('IbsSssBaselineScreen · obligatoriedad de las cinco (CA02)', () {
-    testWidgets('el envio nace deshabilitado', (tester) async {
-      await _pump(tester);
+    testWidgets('sin respuestas, enviar señala las cinco como pendientes',
+        (tester) async {
+      final repository = await _pump(tester);
 
-      final button = tester.widget<CauceButton>(
-        find.byKey(const Key('ibs_sss_submit')),
-      );
-      expect(button.onPressed, isNull);
+      await _tap(tester, find.byKey(const Key('ibs_sss_submit')));
+
+      for (final dimension in IbsSssDimension.values) {
+        expect(
+          find.byKey(Key('ibs_sss_missing_${dimension.name}')),
+          findsOneWidget,
+          reason: dimension.name,
+        );
+      }
+      expect(repository.submitted, isEmpty);
     });
 
-    testWidgets('con cuatro de cinco sigue deshabilitado', (tester) async {
+    testWidgets('CP013: con cuatro de cinco señala la quinta y no envía',
+        (tester) async {
       final repository = await _pump(tester);
 
       for (final dimension in IbsSssDimension.values.take(4)) {
         await _answer(tester, dimension);
       }
+      await _tap(tester, find.byKey(const Key('ibs_sss_submit')));
 
-      final button = tester.widget<CauceButton>(
-        find.byKey(const Key('ibs_sss_submit')),
+      expect(
+        find.byKey(const Key('ibs_sss_missing_lifeInterference')),
+        findsOneWidget,
       );
-      expect(button.onPressed, isNull);
+      expect(
+        find.byKey(const Key('ibs_sss_missing_painSeverity')),
+        findsNothing,
+      );
+      expect(find.byKey(const Key('ibs_sss_result_title')), findsNothing);
       expect(repository.submitted, isEmpty);
+    });
+
+    testWidgets('CP012: la pregunta 2 va en días y cada día suma 10 puntos',
+        (tester) async {
+      final repository = await _pump(tester);
+      final frequency = find.descendant(
+        of: find.byKey(const Key('ibs_sss_painFrequency')),
+        matching: find.byType(Slider),
+      );
+      await tester.ensureVisible(frequency);
+
+      expect(tester.widget<Slider>(frequency).max, 10);
+      tester.widget<Slider>(frequency).onChanged!(4);
+      await tester.pumpAndSettle();
+      expect(find.text(l10n.ibsSssPainFrequencyDays(4)), findsOneWidget);
+
+      for (final dimension in IbsSssDimension.values) {
+        if (dimension != IbsSssDimension.painFrequency) {
+          await _answer(tester, dimension);
+        }
+      }
+      await _tap(tester, find.byKey(const Key('ibs_sss_submit')));
+
+      expect(
+        repository.submitted.single.valueFor(IbsSssDimension.painFrequency),
+        40,
+      );
     });
 
     testWidgets('el contador dice cuantas faltan', (tester) async {
@@ -158,10 +199,6 @@ void main() {
       await _answerAll(tester);
 
       expect(find.byKey(const Key('ibs_sss_pending')), findsNothing);
-      final button = tester.widget<CauceButton>(
-        find.byKey(const Key('ibs_sss_submit')),
-      );
-      expect(button.onPressed, isNotNull);
     });
   });
 

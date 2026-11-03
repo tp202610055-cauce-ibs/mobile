@@ -16,13 +16,14 @@ import 'push_navigation.dart';
 /// onboarding resuelto. El contenido del push no se guarda ni se registra.
 class PushInbox extends ConsumerStatefulWidget {
   const PushInbox({
-    required this.onForegroundMessage,
+    required this.onPush,
     required this.child,
     super.key,
   });
 
-  /// Refresca lo que el push pudo cambiar, como las tarjetas de Inicio.
-  final VoidCallback onForegroundMessage;
+  /// Refresca lo que el push pudo cambiar, como las tarjetas de Inicio. Corre
+  /// al llegar en primer plano y al abrir un toque.
+  final VoidCallback onPush;
 
   final Widget child;
 
@@ -64,6 +65,7 @@ class _PushInboxState extends ConsumerState<PushInbox> {
     if (destination == null) {
       return;
     }
+    widget.onPush();
     final router = GoRouter.of(context);
     if (destination.stacked) {
       unawaited(router.push<void>(destination.location));
@@ -76,7 +78,7 @@ class _PushInboxState extends ConsumerState<PushInbox> {
     if (!mounted) {
       return;
     }
-    widget.onForegroundMessage();
+    widget.onPush();
     CauceToast.info(
       context,
       title: message.title ?? AppLocalizations.of(context).appTitle,

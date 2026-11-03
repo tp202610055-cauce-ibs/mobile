@@ -51,6 +51,7 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(ExportMyDataResult.serializer)
       ..add(FeedbackOutcome.serializer)
       ..add(FodmapLevel.serializer)
+      ..add(FoodAllergenCheckResult.serializer)
       ..add(FoodItemDetail.serializer)
       ..add(FoodItemSummary.serializer)
       ..add(FoodItemSummaryPagedResult.serializer)
@@ -67,7 +68,11 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(GlossaryCategory.serializer)
       ..add(GlossaryResult.serializer)
       ..add(GlossaryTermDto.serializer)
+      ..add(GlossaryTermRequestResult.serializer)
+      ..add(GlossaryTermRequestStatus.serializer)
       ..add(IbsSssAssessmentSummary.serializer)
+      ..add(IbsSssCycleStatus.serializer)
+      ..add(IbsSssCycleStatusDto.serializer)
       ..add(IbsSssEvolutionEntry.serializer)
       ..add(IbsSubtype.serializer)
       ..add(LoginRequest.serializer)
@@ -87,18 +92,26 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(MyProfileClinicalInfo.serializer)
       ..add(MyProfilePatientInfo.serializer)
       ..add(MyProfileSummaryResult.serializer)
+      ..add(NutritionistAlertDto.serializer)
+      ..add(NutritionistAlertListResult.serializer)
+      ..add(NutritionistAlertType.serializer)
       ..add(NutritionistAssignmentSummary.serializer)
       ..add(PatientAllergySummary.serializer)
       ..add(PatientEvolutionForNutritionistResult.serializer)
+      ..add(PatientRecommendationForNutritionistDto.serializer)
+      ..add(PatientRecommendationForNutritionistDtoPagedResult.serializer)
       ..add(PendingReviewRecommendationDto.serializer)
       ..add(PendingReviewRecommendationDtoPagedResult.serializer)
       ..add(PortalLoginRequest.serializer)
       ..add(PortalSessionResult.serializer)
       ..add(PriorityLevel.serializer)
       ..add(ProblemDetails.serializer)
+      ..add(RecommendationAction.serializer)
       ..add(RecommendationDetailDto.serializer)
       ..add(RecommendationFeedbackDto.serializer)
+      ..add(RecommendationFoodPreviewDto.serializer)
       ..add(RecommendationItemDto.serializer)
+      ..add(RecommendationReviewStatusDto.serializer)
       ..add(RecommendationSource.serializer)
       ..add(RecommendationStatus.serializer)
       ..add(RecommendationSummaryDto.serializer)
@@ -108,6 +121,7 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(RegisterPatientRequest.serializer)
       ..add(RegisterPatientResult.serializer)
       ..add(RejectRecommendationRequest.serializer)
+      ..add(RequestGlossaryTermRequest.serializer)
       ..add(RequestPasswordResetRequest.serializer)
       ..add(ResendVerificationEmailRequest.serializer)
       ..add(SetSymptomMealAssociationRequest.serializer)
@@ -130,6 +144,7 @@ Serializers _$serializers = (Serializers().toBuilder()
       ..add(UpdatePatientProfileRequest.serializer)
       ..add(UpdatePatientProfileResult.serializer)
       ..add(UserStatus.serializer)
+      ..add(ValidatePasswordResetRequest.serializer)
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(CustomFoodIngredientRequest)]),
@@ -188,6 +203,10 @@ Serializers _$serializers = (Serializers().toBuilder()
           () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(
+              BuiltList, const [const FullType(NutritionistAlertDto)]),
+          () => ListBuilder<NutritionistAlertDto>())
+      ..addBuilderFactory(
+          const FullType(
               BuiltList, const [const FullType(PatientAllergySummary)]),
           () => ListBuilder<PatientAllergySummary>())
       ..addBuilderFactory(
@@ -200,8 +219,16 @@ Serializers _$serializers = (Serializers().toBuilder()
           () => ListBuilder<PatientAllergySummary>())
       ..addBuilderFactory(
           const FullType(BuiltList,
+              const [const FullType(PatientRecommendationForNutritionistDto)]),
+          () => ListBuilder<PatientRecommendationForNutritionistDto>())
+      ..addBuilderFactory(
+          const FullType(BuiltList,
               const [const FullType(PendingReviewRecommendationDto)]),
           () => ListBuilder<PendingReviewRecommendationDto>())
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(RecommendationFoodPreviewDto)]),
+          () => ListBuilder<RecommendationFoodPreviewDto>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(RecommendationItemDto)]),
@@ -211,8 +238,15 @@ Serializers _$serializers = (Serializers().toBuilder()
           () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(
+              BuiltList, const [const FullType(RecommendationAction)]),
+          () => ListBuilder<RecommendationAction>())
+      ..addBuilderFactory(
+          const FullType(
               BuiltList, const [const FullType(RecommendationSummaryDto)]),
           () => ListBuilder<RecommendationSummaryDto>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => ListBuilder<String>())

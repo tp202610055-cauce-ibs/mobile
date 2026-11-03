@@ -420,8 +420,8 @@ class _AboutSection extends ConsumerWidget {
           body: l10n.settingsPrivacyPolicyHint,
           onTap: () => context.push(AppRoutes.profilePrivacy),
         ),
-        // HU0027. CA1 y CP068 paso 2 hablan de un "menu de ayuda" que la app
-        // no tiene y que nadie especifica; esta seccion es lo mas parecido.
+        // HU0027. Segundo acceso al glosario; el principal es el menu de
+        // ayuda de Inicio.
         _SettingsRow(
           rowKey: const Key('settings_glossary'),
           icon: TablerIcons.book_2,

@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
 import '../../../core/errors/cauce_api_error.dart';
+import '../../../core/glossary/glossary_catalog.dart';
+import '../../../core/glossary/glossary_repository.dart';
+import '../../../core/glossary/glossary_term_view.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
-import '../data/glossary_repository.dart';
-import '../domain/glossary_catalog.dart';
 
 /// Glosario clinico-nutricional (HU0027, CP068 y CP069).
 ///
@@ -20,9 +21,8 @@ import '../domain/glossary_catalog.dart';
 /// etiquetas de categoria, que llegan como codigo.
 ///
 /// **Fuera de esta pantalla, a proposito:** la opcion de solicitar que se
-/// agregue un termino, que CP069 paso 6 exige que el paciente ni vea, y el
-/// acceso desde un termino marcado dentro de una recomendacion, que depende de
-/// la pestaña de Consejos de Mobile-5.
+/// agregue un termino, que CP069 paso 6 exige que el paciente ni vea. El
+/// termino marcado en una recomendacion abre `showGlossaryTermSheet`.
 class GlossaryScreen extends ConsumerStatefulWidget {
   const GlossaryScreen({super.key});
 
@@ -240,7 +240,7 @@ class _TermTile extends StatelessWidget {
                     const SizedBox(height: CauceSpacing.space3),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: _CategoryBadge(category: category),
+                      child: GlossaryCategoryBadge(category: category),
                     ),
                   ],
                 ],
@@ -249,44 +249,6 @@ class _TermTile extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-/// Etiqueta de categoria (CP068 paso 6).
-///
-/// Tono neutro para las tres: la categoria clasifica, no juzga, y un ambar o
-/// un rojo sugeririan una gravedad que el termino no tiene. Lo que las
-/// distingue es el texto y el icono, nunca el color solo.
-class _CategoryBadge extends StatelessWidget {
-  const _CategoryBadge({required this.category});
-
-  final GlossaryCategoryOption category;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-
-    final (String label, IconData icon) = switch (category) {
-      GlossaryCategoryOption.nutritional => (
-          l10n.glossaryCategoryNutritional,
-          TablerIcons.salad,
-        ),
-      GlossaryCategoryOption.clinicalIbs => (
-          l10n.glossaryCategoryClinicalIbs,
-          TablerIcons.stethoscope,
-        ),
-      GlossaryCategoryOption.system => (
-          l10n.glossaryCategorySystem,
-          TablerIcons.device_mobile,
-        ),
-    };
-
-    return CauceBadge(
-      key: const Key('glossary_category'),
-      label: label,
-      icon: icon,
-      tone: CauceBadgeTone.neutral,
     );
   }
 }

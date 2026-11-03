@@ -47,6 +47,9 @@ abstract final class AppRoutes {
   /// ruta y su pantalla, y Configuracion la enlaza desde "Sobre la app".
   static const String profileSettings = '/profile/settings';
 
+  /// Edición de peso, estatura y subtipo (HU0028), desde el Perfil.
+  static const String profileEdit = '/profile/edit';
+
   /// Reporte clinico personal en PDF (HU0024).
   ///
   /// Hermana de [profileSettings] bajo Perfil, y no una seccion suya: CP062
@@ -59,6 +62,9 @@ abstract final class AppRoutes {
   /// Hermana de las demas rutas bajo Perfil. Se alcanza desde la seccion
   /// "Sobre la app" de Configuracion de cuenta.
   static const String profileGlossary = '/profile/glossary';
+
+  /// El mismo glosario, desde el menu de ayuda de Inicio (CP068 paso 2).
+  static const String homeGlossary = '/home/glossary';
 
   /// Registro de una comida (US09).
   static const String mealNew = '/meals/new';
@@ -88,6 +94,9 @@ abstract final class AppRoutes {
   /// pestana.
   static const String ibsSssEvolution = '/ibs-sss/evolution';
 
+  /// Pestaña Evolución de la barra inferior, con la misma pantalla.
+  static const String evolution = '/evolution';
+
   /// Recomendaciones aprobadas por la nutricionista (EP0003).
   ///
   /// La pestana existe desde Mobile-3.1 y Mobile-5 la llena. La ruta se llama
@@ -101,7 +110,17 @@ abstract final class AppRoutes {
   /// raiz: es una vista de consulta y conservar la barra deja al paciente
   /// saltar a otra pestana y volver donde estaba. Se llega tocando una
   /// tarjeta, en Consejos o en Inicio.
-  static String recommendationDetailPath(String id) => '$recommendations/$id';
+  static String recommendationDetailPath(
+    String id, {
+    bool focusFeedback = false,
+  }) =>
+      focusFeedback
+          ? '$recommendations/$id?$focusQueryParam=$feedbackFocus'
+          : '$recommendations/$id';
+
+  /// Parametro del detalle que lo abre desplazado hasta la respuesta.
+  static const String focusQueryParam = 'focus';
+  static const String feedbackFocus = 'feedback';
 
   /// Nombre del parametro de consulta que trae el token de recuperacion.
   static const String tokenQueryParam = 'token';

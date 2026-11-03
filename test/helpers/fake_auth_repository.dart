@@ -36,6 +36,9 @@ class FakeAuthRepository implements AuthRepository {
   /// Si esta presente, todos los metodos lanzan este error.
   CauceApiError? error;
 
+  /// Error solo del login: el servidor estricto o la red tras un registro.
+  CauceApiError? loginError;
+
   /// Demora artificial, para observar el estado intermedio de envio.
   Duration delay;
 
@@ -54,9 +57,14 @@ class FakeAuthRepository implements AuthRepository {
   /// rechazado.
   CauceApiError? consentError;
 
+  /// Error especifico para validar el enlace. Separado de [error] para que
+  /// las pruebas de la confirmacion sigan viendo el formulario.
+  CauceApiError? validateError;
+
   int loginCalls = 0;
   int requestPasswordResetCalls = 0;
   int confirmPasswordResetCalls = 0;
+  int validatePasswordResetTokenCalls = 0;
   int currentConsentCalls = 0;
   int registerCalls = 0;
   int logoutCalls = 0;
@@ -91,6 +99,10 @@ class FakeAuthRepository implements AuthRepository {
     lastEmail = email;
     lastPassword = password;
     await _run();
+    final failure = loginError;
+    if (failure != null) {
+      throw failure;
+    }
     return loginResult ?? demoSession;
   }
 
@@ -110,6 +122,16 @@ class FakeAuthRepository implements AuthRepository {
     lastToken = token;
     lastNewPassword = newPassword;
     await _run();
+  }
+
+  @override
+  Future<void> validatePasswordResetToken({required String token}) async {
+    validatePasswordResetTokenCalls++;
+    lastToken = token;
+    final failure = validateError;
+    if (failure != null) {
+      throw failure;
+    }
   }
 
   @override

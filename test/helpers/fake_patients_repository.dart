@@ -282,11 +282,55 @@ class FakePatientsRepository implements PatientsRepository {
     );
   }
 
+  /// Error que devuelve el próximo canje, o `null` para que prospere.
+  CauceApiError? assignNutritionistError;
+  final List<String> redeemedCodes = <String>[];
+
+  /// Error del guardado de la edición, o `null` para que prospere.
+  CauceApiError? updateProfileError;
+  final List<({double weightKg, double heightCm, IbsSubtypeOption subtype})>
+      updatedProfiles =
+      <({double weightKg, double heightCm, IbsSubtypeOption subtype})>[];
+
+  @override
+  Future<void> updateProfile({
+    required double weightKg,
+    required double heightCm,
+    required IbsSubtypeOption ibsSubtype,
+  }) async {
+    await _wait();
+    final error = updateProfileError;
+    if (error != null) {
+      throw error;
+    }
+    updatedProfiles.add(
+      (weightKg: weightKg, heightCm: heightCm, subtype: ibsSubtype),
+    );
+    final current = profile;
+    if (current != null) {
+      profile = current.copyWith(
+        weightKg: weightKg,
+        heightCm: heightCm,
+        ibsSubtype: ibsSubtype,
+      );
+    }
+    summaryValue = summaryValue.copyWith(ibsSubtype: ibsSubtype);
+  }
+
   @override
   Future<NutritionistAssignment> assignNutritionist({
     required String invitationCode,
   }) async {
     await _wait();
+    redeemedCodes.add(invitationCode);
+    final error = assignNutritionistError;
+    if (error != null) {
+      throw error;
+    }
+    summaryValue = summaryValue.copyWith(
+      nutritionistName: 'Ana Quispe',
+      nutritionistAssignedAt: DateTime.utc(2026, 9, 12, 14, 5),
+    );
     return NutritionistAssignment(
       nutritionistId: 'c1d2e3f4-5a6b-7c8d-9e0f-1a2b3c4d5e6f',
       nutritionistFullName: 'Ana Quispe',

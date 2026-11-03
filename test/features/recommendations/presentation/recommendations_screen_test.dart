@@ -1,10 +1,14 @@
+import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/features/recommendations/data/recommendation_feedback_outbox_store.dart';
+import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_feedback.dart';
 import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_request.dart';
 import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/recommendation_detail_screen.dart';
 import 'package:cauce_mobile/features/recommendations/presentation/widgets/recommendation_origin_pill.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_recommendations_repository.dart';
@@ -31,6 +35,33 @@ void main() {
       );
 
       expect(find.byKey(const Key('recommendations_locked')), findsOneWidget);
+      expect(repository.generationKeys, isEmpty);
+    });
+
+    testWidgets('CP085: sin nutricionista explica cómo vincularse, sin pedir',
+        (tester) async {
+      final repository =
+          FakeRecommendationsRepository(generationResult: _pendingResult());
+
+      await pumpRecommendations(
+        tester,
+        repository: repository,
+        hasNutritionist: false,
+      );
+
+      expect(
+        find.byKey(const Key('recommendations_no_nutritionist')),
+        findsOneWidget,
+      );
+      expect(
+        find.text(
+          'Para recibir recomendaciones necesitas estar vinculado a un '
+          'nutricionista. Ingresa desde tu perfil el código de invitación que '
+          'tu nutricionista te proporcione.',
+        ),
+        findsOneWidget,
+      );
+      expect(find.byKey(const Key('recommendations_pending')), findsNothing);
       expect(repository.generationKeys, isEmpty);
     });
 
@@ -265,6 +296,133 @@ void main() {
 
       expect(find.byType(RecommendationDetailScreen), findsOneWidget);
       expect(repository.deliveredIds, <String>[approvedDetail.id]);
+    });
+  });
+
+  group('RecommendationsScreen · invitacion a responder (CP043)', () {
+    RecommendationDetail received(String id, Duration ago) =>
+        approvedDetail.copyWith(
+          id: id,
+          reviewedAt: recommendationsNow.subtract(ago),
+        );
+
+    Finder invite(String id) =>
+        find.byKey(Key('recommendation_feedback_invite_$id'));
+
+    testWidgets('A (30 h) y C (3 dias) invitan; B (20 h) todavia no',
+        (tester) async {
+      final repository = FakeRecommendationsRepository(
+        details: [
+          received('rec-a', const Duration(hours: 30)),
+          received('rec-b', const Duration(hours: 20)),
+          received('rec-c', const Duration(days: 3)),
+        ],
+      );
+      await pumpRecommendations(tester, repository: repository);
+
+      expect(invite('rec-a'), findsOneWidget);
+      expect(invite('rec-b'), findsNothing);
+      expect(invite('rec-c'), findsOneWidget);
+      expect(find.text(l10n.recommendationFeedbackInvite), findsNWidgets(2));
+    });
+
+    testWidgets('al responder A deja de invitar y las demas no cambian',
+        (tester) async {
+      final repository = FakeRecommendationsRepository(
+        details: [
+          received('rec-a', const Duration(hours: 30)),
+          received('rec-b', const Duration(hours: 20)),
+          received('rec-c', const Duration(days: 3)),
+        ],
+      );
+      await pumpRecommendations(tester, repository: repository);
+
+      await tester.tap(find.byKey(const Key('recommendation_card_rec-a')));
+      await tester.pumpAndSettle();
+      final submit = find.byKey(const Key('recommendation_feedback_submit'));
+      expect(submit, findsOneWidget);
+      for (final choice in <Finder>[
+        find.text(l10n.recommendationFeedbackAppliedYes),
+        find.text(l10n.recommendationFeedbackOutcomeImprovement),
+        submit,
+      ]) {
+        await tester.ensureVisible(choice);
+        await tester.pumpAndSettle();
+        await tester.tap(choice);
+        await tester.pumpAndSettle();
+      }
+      expect(repository.feedbackDrafts, hasLength(1));
+
+      GoRouter.of(tester.element(find.byType(RecommendationDetailScreen)))
+          .pop();
+      await tester.pumpAndSettle();
+
+      expect(invite('rec-a'), findsNothing);
+      expect(invite('rec-b'), findsNothing);
+      expect(invite('rec-c'), findsOneWidget);
+    });
+
+    testWidgets('con la respuesta pendiente de envio no invita (CP044)',
+        (tester) async {
+      final database = AppDatabase.memory();
+      addTearDown(database.close);
+      await RecommendationFeedbackOutboxStore(database).save(
+        PendingRecommendationFeedback(
+          recommendationId: 'rec-a',
+          idempotencyKey: 'clave-a',
+          wasApplied: true,
+          outcome: FeedbackOutcomeOption.noChange,
+          createdAt: recommendationsNow,
+        ),
+        userId: demoUser.userId,
+      );
+      final repository = FakeRecommendationsRepository(
+        details: [
+          received('rec-a', const Duration(hours: 30)),
+          received('rec-c', const Duration(days: 3)),
+        ],
+      );
+      await pumpRecommendations(
+        tester,
+        repository: repository,
+        database: database,
+      );
+
+      expect(invite('rec-a'), findsNothing);
+      expect(
+        find.byKey(const Key('recommendation_feedback_pending_rec-a')),
+        findsOneWidget,
+      );
+      expect(invite('rec-c'), findsOneWidget);
+      expect(
+        find.byKey(const Key('recommendation_feedback_pending_rec-c')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('una respuesta pendiente de otra cuenta no cambia la tarjeta',
+        (tester) async {
+      final database = AppDatabase.memory();
+      addTearDown(database.close);
+      await RecommendationFeedbackOutboxStore(database).save(
+        PendingRecommendationFeedback(
+          recommendationId: 'rec-a',
+          idempotencyKey: 'clave-a',
+          wasApplied: true,
+          outcome: FeedbackOutcomeOption.noChange,
+          createdAt: recommendationsNow,
+        ),
+        userId: 'e1f2a3b4-0000-0000-0000-000000000000',
+      );
+      await pumpRecommendations(
+        tester,
+        repository: FakeRecommendationsRepository(
+          details: [received('rec-a', const Duration(hours: 30))],
+        ),
+        database: database,
+      );
+
+      expect(invite('rec-a'), findsOneWidget);
     });
   });
 }

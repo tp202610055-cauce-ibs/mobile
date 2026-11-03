@@ -91,7 +91,7 @@ class HistoryNotifier extends _$HistoryNotifier {
 
     state = state.copyWith(loading: true, error: null);
     try {
-      final composed = await composer.compose(window);
+      final composed = await composer.compose(window, withNotes: true);
       if (_disposed) {
         return;
       }

@@ -1,9 +1,13 @@
 import 'dart:async';
 
+import 'package:cauce_mobile/core/sync/local_record_owner.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/database/app_database_provider.dart';
 import 'package:cauce_mobile/core/database/local_sync_status.dart';
+import 'package:cauce_api_client/cauce_api_client.dart'
+    show ClinicalNoteSummary;
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/features/clinical_notes/data/clinical_notes_repository.dart';
 import 'package:cauce_mobile/features/foods/data/food_catalog_store.dart';
 import 'package:cauce_mobile/features/foods/domain/food_item.dart';
 import 'package:cauce_mobile/features/history/application/history_composer.dart';
@@ -49,7 +53,8 @@ class _CountingCatalog extends FoodCatalogStore {
 
 /// Cuenta las lecturas de items de comidas locales.
 class _CountingMealsStore extends MealsLocalStore {
-  _CountingMealsStore(AppDatabase db) : super(db, const Uuid());
+  _CountingMealsStore(AppDatabase db)
+      : super(db, const Uuid(), () => localOwnerId);
 
   int itemReads = 0;
 
@@ -68,7 +73,8 @@ class _CountingMealsStore extends MealsLocalStore {
 
 /// Almacen local que falla al leer, como un disco que no responde.
 class _BrokenMealsStore extends MealsLocalStore {
-  _BrokenMealsStore(AppDatabase db) : super(db, const Uuid());
+  _BrokenMealsStore(AppDatabase db)
+      : super(db, const Uuid(), () => localOwnerId);
 
   @override
   Future<List<MealLocal>> forHistory({required DateTime from}) async {
@@ -126,8 +132,10 @@ ProviderContainer _pagedContainer({
   final container = ProviderContainer(
     overrides: <Override>[
       appDatabaseProvider.overrideWithValue(database),
+      localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
       mealsRepositoryProvider.overrideWithValue(meals),
       symptomsRepositoryProvider.overrideWithValue(symptoms),
+      clinicalNotesRepositoryProvider.overrideWithValue(_FakeNotes()),
       historyClockProvider.overrideWithValue(clock ?? () => _now),
       ...extra,
     ],
@@ -142,16 +150,20 @@ void main() {
   late _MockMealsRepository meals;
   late _MockSymptomsRepository symptoms;
   late ProviderContainer container;
+  late _FakeNotes notes;
 
   setUp(() {
+    notes = _FakeNotes();
     database = AppDatabase.memory();
     meals = _MockMealsRepository();
     symptoms = _MockSymptomsRepository();
     container = ProviderContainer(
       overrides: <Override>[
         appDatabaseProvider.overrideWithValue(database),
+        localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
         mealsRepositoryProvider.overrideWithValue(meals),
         symptomsRepositoryProvider.overrideWithValue(symptoms),
+        clinicalNotesRepositoryProvider.overrideWithValue(notes),
       ],
     );
 
@@ -227,9 +239,34 @@ void main() {
         ),
       );
 
+      notes.items = <ClinicalNoteSummary>[
+        ClinicalNoteSummary(
+          (b) => b
+            ..noteId = 'n1'
+            ..mealId = 'server-meal'
+            ..content = 'Tuve un día de mucho estrés laboral'
+            ..createdAt = DateTime.utc(2026, 9, 18, 14),
+        ),
+        ClinicalNoteSummary(
+          (b) => b
+            ..noteId = 'n2'
+            ..symptomId = 'server-symptom'
+            ..content = 'Tomé un analgésico en la mañana'
+            ..createdAt = DateTime.utc(2026, 9, 18, 16),
+        ),
+      ];
+
       await notifier().load();
 
       expect(state().entries, hasLength(2));
+      final meal =
+          state().entries.singleWhere((e) => e.kind == HistoryEntryKind.meal);
+      final symptom = state()
+          .entries
+          .singleWhere((e) => e.kind == HistoryEntryKind.symptom);
+      expect(meal.notes.single.content, 'Tuve un día de mucho estrés laboral');
+      expect(meal.notes.single.createdAt, DateTime.utc(2026, 9, 18, 14));
+      expect(symptom.notes.single.content, 'Tomé un analgésico en la mañana');
       expect(
         state().entries.map((e) => e.kind),
         containsAll(<HistoryEntryKind>[
@@ -530,6 +567,39 @@ void main() {
       expect(entry.associatedMealDelay, const Duration(minutes: 90));
     });
 
+    test('nombra la comida asociada con sus alimentos (CP028 paso 7)',
+        () async {
+      await FoodCatalogStore(db).replaceAll(<FoodItem>[
+        const FoodItem(
+          foodId: 'food-1',
+          name: 'Causa rellena',
+          category: 'platos',
+          isPeruvian: true,
+        ),
+      ]);
+      final comidas = mealRecords(1, newest: _now);
+      final sintoma = SymptomRecord(
+        symptomId: 'symptom-asociado',
+        occurredAt: comidas.single.consumedAt.add(const Duration(hours: 2)),
+        intensity: 65,
+        associatedMealId: comidas.single.mealId,
+        hasMealAssociation: true,
+      );
+      final c = _pagedContainer(
+        database: db,
+        meals: PagedMealsRepository(comidas),
+        symptoms: PagedSymptomsRepository(<SymptomRecord>[sintoma]),
+      );
+
+      await c.read(historyNotifierProvider.notifier).load();
+
+      final entry = c
+          .read(historyNotifierProvider)
+          .entries
+          .singleWhere((e) => e.serverId == 'symptom-asociado');
+      expect(entry.associatedMealName, 'Causa rellena');
+    });
+
     test(
         'si falla una pagina intermedia de comidas conserva lo llegado, '
         'los sintomas y lo local', () async {
@@ -774,11 +844,13 @@ void main() {
       final c = ProviderContainer(
         overrides: <Override>[
           appDatabaseProvider.overrideWithValue(db),
+          localRecordOwnerProvider.overrideWithValue(() => localOwnerId),
           mealsRepositoryProvider.overrideWithValue(meals),
           symptomsRepositoryProvider.overrideWithValue(
             PagedSymptomsRepository(const <SymptomRecord>[]),
           ),
           historyClockProvider.overrideWithValue(() => _now),
+          clinicalNotesRepositoryProvider.overrideWithValue(_FakeNotes()),
           historyNotifierProvider.overrideWith(() => spy = _SpyHistory()),
         ],
       );
@@ -893,4 +965,25 @@ void main() {
       expect(meals.calls, hasLength(2));
     });
   });
+}
+
+/// Notas de contexto fijas; con [error] la consulta falla.
+class _FakeNotes implements ClinicalNotesRepository {
+  List<ClinicalNoteSummary> items = <ClinicalNoteSummary>[];
+  Exception? error;
+
+  @override
+  Future<List<ClinicalNoteSummary>> list({
+    required DateTime from,
+    required DateTime to,
+  }) async {
+    final failure = error;
+    if (failure != null) {
+      throw failure;
+    }
+    return items;
+  }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

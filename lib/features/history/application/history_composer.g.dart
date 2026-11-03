@@ -24,7 +24,7 @@ final historyClockProvider = Provider<DateTime Function()>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef HistoryClockRef = ProviderRef<DateTime Function()>;
-String _$historyComposerHash() => r'4bb4c15cc480efc2de3caa1af0e6496de2e89ac6';
+String _$historyComposerHash() => r'0e3f929ee690d557c7bdcd9db119645cb97e3b23';
 
 /// See also [historyComposer].
 @ProviderFor(historyComposer)

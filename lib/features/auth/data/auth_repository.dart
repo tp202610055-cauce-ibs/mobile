@@ -214,6 +214,20 @@ class AuthRepository {
     });
   }
 
+  /// US07. `POST /api/v1/auth/password-reset/validate`.
+  ///
+  /// Comprueba el token al abrir el enlace, sin consumirlo. Un token que no
+  /// existe, vencio o ya se uso llega como [PasswordResetTokenError].
+  Future<void> validatePasswordResetToken({required String token}) {
+    return _guard(() async {
+      await _api.apiV1AuthPasswordResetValidatePost(
+        validatePasswordResetRequest: ValidatePasswordResetRequest(
+          (b) => b..token = token,
+        ),
+      );
+    });
+  }
+
   /// US07 CA02. `POST /api/v1/auth/password-reset/confirm`.
   Future<void> confirmPasswordReset({
     required String token,

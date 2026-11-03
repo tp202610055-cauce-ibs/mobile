@@ -304,6 +304,10 @@ sealed class CauceApiError with _$CauceApiError {
   const factory CauceApiError.patientHasNoDataInPeriod() =
       PatientHasNoDataInPeriodError;
 
+  /// 422 `email_not_verified`. El reporte se pidio con el correo sin verificar
+  /// y el servidor no genero nada. Distinto de [patientHasNoDataInPeriod].
+  const factory CauceApiError.emailNotVerified() = EmailNotVerifiedError;
+
   /// 422 `report_period_invalid`. Invariante de dominio del periodo.
   ///
   /// Las reglas del validador (los dos extremos, orden, tope de 90 dias)

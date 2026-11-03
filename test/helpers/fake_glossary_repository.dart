@@ -1,6 +1,6 @@
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
-import 'package:cauce_mobile/features/glossary/data/glossary_repository.dart';
-import 'package:cauce_mobile/features/glossary/domain/glossary_catalog.dart';
+import 'package:cauce_mobile/core/glossary/glossary_repository.dart';
+import 'package:cauce_mobile/core/glossary/glossary_catalog.dart';
 
 /// Terminos de referencia, copiados del `GlossaryTermsSeeder` del backend con
 /// su definicion para el paciente.

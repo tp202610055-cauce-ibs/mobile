@@ -320,10 +320,28 @@ abstract class AppLocalizations {
   /// **'Consentimiento informado'**
   String get registerConsentSectionTitle;
 
+  /// Versión del consentimiento vigente que se va a aceptar
+  ///
+  /// In es, this message translates to:
+  /// **'Versión {version}'**
+  String registerConsentVersion(String version);
+
+  /// Enlace que abre el consentimiento completo
+  ///
+  /// In es, this message translates to:
+  /// **'Leer el texto completo'**
+  String get registerConsentReadFull;
+
+  /// Cierra la vista del consentimiento completo
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar'**
+  String get registerConsentClose;
+
   /// No description provided for @registerConsentCheckbox.
   ///
   /// In es, this message translates to:
-  /// **'He leido y acepto el consentimiento informado'**
+  /// **'He leído y acepto el consentimiento informado'**
   String get registerConsentCheckbox;
 
   /// No description provided for @registerConsentLoading.
@@ -440,6 +458,12 @@ abstract class AppLocalizations {
   /// **'Solicitar un enlace nuevo'**
   String get passwordResetRequestNewLink;
 
+  /// Enlace de recuperación inexistente, vencido o ya usado: un solo mensaje para los tres casos
+  ///
+  /// In es, this message translates to:
+  /// **'Este enlace ya no es válido. Pide uno nuevo para cambiar tu contraseña.'**
+  String get passwordResetLinkInvalid;
+
   /// No description provided for @verifyEmailPendingTitle.
   ///
   /// In es, this message translates to:
@@ -551,8 +575,14 @@ abstract class AppLocalizations {
   /// No description provided for @validationDateOfBirthFuture.
   ///
   /// In es, this message translates to:
-  /// **'La fecha de nacimiento no puede ser futura'**
+  /// **'La fecha de nacimiento no es válida: no puede ser futura'**
   String get validationDateOfBirthFuture;
+
+  /// Fecha escrita a mano con un formato o un día que no existe
+  ///
+  /// In es, this message translates to:
+  /// **'La fecha no es válida. Escríbela como dd/mm/aaaa'**
+  String get validationDateFormat;
 
   /// Rango de edad que acepta PatientProfile del backend. El minimo de 18 es requisito del piloto clinico, no una preferencia de diseno
   ///
@@ -569,8 +599,14 @@ abstract class AppLocalizations {
   /// No description provided for @validationWeightOutOfRange.
   ///
   /// In es, this message translates to:
-  /// **'Ingresa un peso mayor que 0 y menor que 500 kg'**
+  /// **'El peso está fuera del rango permitido: más de 0 y menos de 300 kg'**
   String get validationWeightOutOfRange;
+
+  /// Peso escrito con signo menos (CP008)
+  ///
+  /// In es, this message translates to:
+  /// **'El peso no es válido: no puede ser negativo'**
+  String get validationWeightInvalid;
 
   /// No description provided for @validationHeightOutOfRange.
   ///
@@ -599,19 +635,19 @@ abstract class AppLocalizations {
   /// errorCode invalid_invitation_code (400)
   ///
   /// In es, this message translates to:
-  /// **'El código de invitación no existe'**
+  /// **'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.'**
   String get errorInvalidInvitationCode;
 
   /// errorCode expired_invitation_code (400)
   ///
   /// In es, this message translates to:
-  /// **'El código de invitación venció'**
+  /// **'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.'**
   String get errorExpiredInvitationCode;
 
   /// errorCode invitation_code_already_used (400)
   ///
   /// In es, this message translates to:
-  /// **'El código de invitación ya fue usado'**
+  /// **'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.'**
   String get errorInvitationCodeAlreadyUsed;
 
   /// errorCode nutritionist_not_available (409) con la extension reason en pending_activation. El codigo no se consume, asi que reintentar con el mismo es valido
@@ -707,13 +743,13 @@ abstract class AppLocalizations {
   /// Seccion frequentLast30Days de GET /foods/suggestions
   ///
   /// In es, this message translates to:
-  /// **'Los que más registras'**
+  /// **'Los que más registras en los últimos 30 días'**
   String get mealsSuggestionsFrequent;
 
   /// Seccion recentLast24Hours de GET /foods/suggestions
   ///
   /// In es, this message translates to:
-  /// **'Registrados hoy'**
+  /// **'Registrados en las últimas 24 horas'**
   String get mealsSuggestionsRecent;
 
   /// Seccion catalogSuggestions de GET /foods/suggestions
@@ -965,7 +1001,7 @@ abstract class AppLocalizations {
   /// Campo de proportionGrams de un ingrediente
   ///
   /// In es, this message translates to:
-  /// **'Cantidad en el plato (g)'**
+  /// **'Proporción aproximada en el plato (%)'**
   String get customFoodProportionLabel;
 
   /// Boton de envio
@@ -1067,7 +1103,7 @@ abstract class AppLocalizations {
   /// Invariante de CustomFoodIngredient
   ///
   /// In es, this message translates to:
-  /// **'Cada ingrediente debe tener una cantidad mayor que cero'**
+  /// **'Cada ingrediente debe tener una proporción mayor que 0 % y de hasta 100 %'**
   String get customFoodIssueInvalidProportion;
 
   /// Invariante de CustomFood.AddIngredient
@@ -1193,7 +1229,7 @@ abstract class AppLocalizations {
   /// CA02: el servidor respondio hasMealAssociation en false. No es un error
   ///
   /// In es, this message translates to:
-  /// **'No habia una comida registrada en las 4 horas previas.'**
+  /// **'No había una comida registrada en las 4 horas previas.'**
   String get symptomsMealNotAssociated;
 
   /// Sin conexion: la ventana de 4 horas la resuelve el servidor, no el cliente
@@ -1211,13 +1247,13 @@ abstract class AppLocalizations {
   /// Falta mover la escala
   ///
   /// In es, this message translates to:
-  /// **'Indica la intensidad'**
+  /// **'La intensidad debe estar entre 1 y 100'**
   String get symptomsIssueMissingIntensity;
 
   /// Invariante Symptom.MinIntensity del backend
   ///
   /// In es, this message translates to:
-  /// **'La intensidad va de 1 a 100'**
+  /// **'La intensidad debe estar entre 1 y 100'**
   String get symptomsIssueIntensityOutOfRange;
 
   /// Invariante de fecha de Symptom.Report
@@ -1394,6 +1430,12 @@ abstract class AppLocalizations {
   /// **'Quedan {count} caracteres'**
   String clinicalNoteRemaining(int count);
 
+  /// Contador de la nota: caracteres escritos sobre el tope (CP034, CP035)
+  ///
+  /// In es, this message translates to:
+  /// **'{count}/{max}'**
+  String clinicalNoteCounter(int count, int max);
+
   /// CA02: el texto supera el tope de ClinicalNote.Create
   ///
   /// In es, this message translates to:
@@ -1436,10 +1478,16 @@ abstract class AppLocalizations {
   /// **'Tu evolución'**
   String get ibsSssEvolutionTitle;
 
+  /// Rótulo cuando la reducción respecto de la línea base es de 50 puntos o más (CP032)
+  ///
+  /// In es, this message translates to:
+  /// **'Respuesta clínica significativa'**
+  String get ibsSssEvolutionSignificant;
+
   /// Menos de dos puntos: no hay linea que trazar
   ///
   /// In es, this message translates to:
-  /// **'Con una sola evaluación todavía no hay evolución que mostrar.'**
+  /// **'El gráfico aparece desde tu tercera evaluación.'**
   String get ibsSssEvolutionEmpty;
 
   /// Extremos de la serie, en texto, porque el grafico no dibuja escala
@@ -1568,6 +1616,12 @@ abstract class AppLocalizations {
   /// **'No hay datos registrados en ese período. Elige un rango de fechas diferente.'**
   String get errorPatientHasNoDataInPeriod;
 
+  /// errorCode email_not_verified (422) al pedir el reporte personal, CP062. Distinto de patient_has_no_data_in_period
+  ///
+  /// In es, this message translates to:
+  /// **'Para recibir la contraseña de tu reporte necesitas verificar tu correo. Revisa tu bandeja de entrada y toca el enlace. Si no lo encuentras, puedes reenviarlo desde Inicio.'**
+  String get errorEmailNotVerified;
+
   /// errorCode report_period_invalid (422)
   ///
   /// In es, this message translates to:
@@ -1658,18 +1712,6 @@ abstract class AppLocalizations {
   /// **'Tu sesión expiró. Inicia sesión de nuevo.'**
   String get errorInvalidRefreshToken;
 
-  /// errorCode invalid_password_reset_token (400)
-  ///
-  /// In es, this message translates to:
-  /// **'El enlace de recuperación no es válido'**
-  String get errorInvalidPasswordResetToken;
-
-  /// errorCode expired_password_reset_token (400)
-  ///
-  /// In es, this message translates to:
-  /// **'El enlace de recuperación venció o ya fue usado'**
-  String get errorExpiredPasswordResetToken;
-
   /// errorCode user_local_missing (500). Inconsistencia de aprovisionamiento entre Keycloak y el backend: sale al iniciar sesión o al renovarla, y ni reintentar ni cerrar sesión la resuelven (acta M50)
   ///
   /// In es, this message translates to:
@@ -1721,7 +1763,7 @@ abstract class AppLocalizations {
   /// US03 CA05 y US04 CA05. Aplaza el paso y deja usar el resto de la app
   ///
   /// In es, this message translates to:
-  /// **'Completar más tarde'**
+  /// **'Después'**
   String get onboardingDefer;
 
   /// No description provided for @onboardingReminderTitle.
@@ -1747,6 +1789,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Continuar ahora'**
   String get onboardingReminderAction;
+
+  /// Avance del asistente en el recordatorio de Inicio
+  ///
+  /// In es, this message translates to:
+  /// **'Avance de configuración: {done} de {total} pasos'**
+  String onboardingReminderProgress(int done, int total);
 
   /// No description provided for @clinicalProfileTitle.
   ///
@@ -1895,8 +1943,32 @@ abstract class AppLocalizations {
   /// No description provided for @clinicalProfileSubmit.
   ///
   /// In es, this message translates to:
-  /// **'Continuar'**
+  /// **'Guardar perfil'**
   String get clinicalProfileSubmit;
+
+  /// No description provided for @clinicalProfilePhysicalSubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos físicos: tu fecha de nacimiento, sexo, peso y estatura.'**
+  String get clinicalProfilePhysicalSubtitle;
+
+  /// No description provided for @clinicalProfileHistorySubtitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Antecedentes clínicos: subtipo de SII, alergias e intolerancias.'**
+  String get clinicalProfileHistorySubtitle;
+
+  /// No description provided for @clinicalProfileDateHint.
+  ///
+  /// In es, this message translates to:
+  /// **'dd/mm/aaaa'**
+  String get clinicalProfileDateHint;
+
+  /// No description provided for @clinicalProfilePickDate.
+  ///
+  /// In es, this message translates to:
+  /// **'Elegir en el calendario'**
+  String get clinicalProfilePickDate;
 
   /// No description provided for @bmiTitle.
   ///
@@ -1919,7 +1991,7 @@ abstract class AppLocalizations {
   /// No description provided for @bmiCategoryNormal.
   ///
   /// In es, this message translates to:
-  /// **'Peso normal'**
+  /// **'Normal'**
   String get bmiCategoryNormal;
 
   /// No description provided for @bmiCategoryOverweight.
@@ -1955,8 +2027,20 @@ abstract class AppLocalizations {
   /// No description provided for @allergiesSubtitle.
   ///
   /// In es, this message translates to:
-  /// **'Marca las que tengas. Puedes dejarlo vacío si no aplica.'**
+  /// **'Marca las que tengas o elige «Ninguna conocida».'**
   String get allergiesSubtitle;
+
+  /// Opción del perfil clínico para declarar que no tiene alergias ni intolerancias
+  ///
+  /// In es, this message translates to:
+  /// **'Ninguna conocida'**
+  String get allergiesNoneKnown;
+
+  /// Perfil clínico enviado sin alergias y sin marcar Ninguna conocida
+  ///
+  /// In es, this message translates to:
+  /// **'Indica tus alergias e intolerancias o marca «Ninguna conocida».'**
+  String get validationAllergiesRequired;
 
   /// No description provided for @allergiesLoading.
   ///
@@ -2051,7 +2135,7 @@ abstract class AppLocalizations {
   /// No description provided for @ibsSssQuestionPainFrequency.
   ///
   /// In es, this message translates to:
-  /// **'¿Con qué frecuencia tuviste dolor abdominal?'**
+  /// **'En los últimos 10 días, ¿cuántos días tuviste dolor abdominal?'**
   String get ibsSssQuestionPainFrequency;
 
   /// No description provided for @ibsSssPainFrequencyMin.
@@ -2161,6 +2245,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Severidad severa'**
   String get ibsSssSeveritySevere;
+
+  /// Nota del resultado del cuestionario periódico
+  ///
+  /// In es, this message translates to:
+  /// **'Este resultado se suma a tu evolución. Tu nutricionista lo revisa contigo en consulta.'**
+  String get ibsSssPeriodicResultNote;
 
   /// Encuadre neutro del resultado. Registro informativo, sin adjetivos de alarma
   ///
@@ -2273,8 +2363,26 @@ abstract class AppLocalizations {
   /// No description provided for @evolutionBaselineOnlyBody.
   ///
   /// In es, this message translates to:
-  /// **'Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.'**
+  /// **'Tu gráfico completo aparecerá aquí después de tu primera evaluación periódica.'**
   String get evolutionBaselineOnlyBody;
+
+  /// Pestaña Evolución con el perfil clínico o la línea base pendientes (CP011)
+  ///
+  /// In es, this message translates to:
+  /// **'Disponible al completar tu perfil'**
+  String get evolutionLockedTitle;
+
+  /// Cuerpo del estado bloqueado de Evolución
+  ///
+  /// In es, this message translates to:
+  /// **'Tu evolución se arma con tu perfil clínico y tu primera evaluación. Completa esos dos pasos para verla.'**
+  String get evolutionLockedBody;
+
+  /// Retoma el asistente desde la pestaña Evolución
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar donde quedé'**
+  String get evolutionLockedAction;
 
   /// Fecha que agenda el backend a catorce dias de la ultima evaluacion (CP061)
   ///
@@ -2387,7 +2495,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileTrackingNutritionistPending.
   ///
   /// In es, this message translates to:
-  /// **'Pendiente de asignación'**
+  /// **'Sin nutricionista asignado'**
   String get profileTrackingNutritionistPending;
 
   /// No description provided for @profileClinicalSubtype.
@@ -2405,7 +2513,7 @@ abstract class AppLocalizations {
   /// Valor de la fila de alergias cuando el paciente no declaró ninguna (CP070)
   ///
   /// In es, this message translates to:
-  /// **'Ninguna'**
+  /// **'Ninguna conocida'**
   String get profileClinicalAllergiesNone;
 
   /// Una alergia declarada con su tipo y severidad entre paréntesis, como en el mockup 12: 'Lactosa (intolerancia leve)'
@@ -2483,7 +2591,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileEvolutionEmpty.
   ///
   /// In es, this message translates to:
-  /// **'Completa tu primera evaluación para ver tu evolución acá.'**
+  /// **'Completa tu primera evaluación para ver tu evolución aquí.'**
   String get profileEvolutionEmpty;
 
   /// No description provided for @profileEvolutionEmptyAction.
@@ -2972,6 +3080,12 @@ abstract class AppLocalizations {
   /// **'Términos médicos y nutricionales explicados'**
   String get glossaryEntryHint;
 
+  /// Botón de la cabecera de Inicio que abre el menú de ayuda
+  ///
+  /// In es, this message translates to:
+  /// **'Ayuda'**
+  String get helpMenuTooltip;
+
   /// No description provided for @glossarySearchLabel.
   ///
   /// In es, this message translates to:
@@ -3049,6 +3163,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Diario'**
   String get navJournal;
+
+  /// No description provided for @navEvolution.
+  ///
+  /// In es, this message translates to:
+  /// **'Evolución'**
+  String get navEvolution;
 
   /// No description provided for @navAdvice.
   ///
@@ -3338,6 +3458,18 @@ abstract class AppLocalizations {
   /// **'{hours} h'**
   String recommendationDataHours(int hours);
 
+  /// Datos de respaldo por tipo de síntoma (CP042, CP077). {symptom} llega en minúscula inicial, por ejemplo «dolor abdominal»
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{registro de {symptom} en los últimos {days} días} other{registros de {symptom} en los últimos {days} días}}'**
+  String recommendationDataSymptomsOfType(int count, String symptom, int days);
+
+  /// Datos de respaldo: los tipos que no entran entre los tres más frecuentes, y el tipo «Otro»
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{registro de otros síntomas en los últimos {days} días} other{registros de otros síntomas en los últimos {days} días}}'**
+  String recommendationDataSymptomsOther(int count, int days);
+
   /// No description provided for @recommendationDataWindow.
   ///
   /// In es, this message translates to:
@@ -3482,17 +3614,41 @@ abstract class AppLocalizations {
   /// **'Enviar mi respuesta'**
   String get recommendationFeedbackSubmit;
 
-  /// Decision 8: el feedback es solo online. Sin conexion se avisa con un toast de error y reintento, sin cola local
+  /// Toast al guardar la respuesta en el telefono sin conexion (CP044)
+  ///
+  /// In es, this message translates to:
+  /// **'Tu respuesta quedó registrada'**
+  String get recommendationFeedbackQueued;
+
+  /// Cuerpo del toast y linea bajo la marca de pendiente en el detalle (CP044)
+  ///
+  /// In es, this message translates to:
+  /// **'Se enviará cuando vuelva la conexión.'**
+  String get recommendationFeedbackQueuedBody;
+
+  /// Marca de una respuesta guardada sin conexion, en el detalle y en la tarjeta (CP044)
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente de envío'**
+  String get recommendationFeedbackPendingBadge;
+
+  /// Respuesta guardada que el servidor rechazo por un motivo que no mejora reintentando
   ///
   /// In es, this message translates to:
   /// **'No pudimos enviar tu respuesta'**
-  String get recommendationFeedbackNetworkError;
+  String get recommendationFeedbackRejectedTitle;
 
-  /// No description provided for @recommendationFeedbackNetworkErrorBody.
+  /// No description provided for @recommendationFeedbackRejectedBody.
   ///
   /// In es, this message translates to:
-  /// **'Revisa tu conexión e inténtalo otra vez.'**
-  String get recommendationFeedbackNetworkErrorBody;
+  /// **'No se aceptó tal como estaba. Puedes responder de nuevo.'**
+  String get recommendationFeedbackRejectedBody;
+
+  /// No description provided for @recommendationFeedbackAnswerAgain.
+  ///
+  /// In es, this message translates to:
+  /// **'Responder de nuevo'**
+  String get recommendationFeedbackAnswerAgain;
 
   /// No description provided for @recommendationFeedbackSent.
   ///
@@ -3685,6 +3841,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Intensidad {value}'**
   String historyIntensityBadge(int value);
+
+  /// Línea de asociación de la tarjeta de síntoma con los alimentos de la comida (CP028)
+  ///
+  /// In es, this message translates to:
+  /// **'Comida asociada: {food}, registrada {delay} antes'**
+  String historyMealAssociatedWithFood(String food, String delay);
 
   /// Linea de asociacion de la tarjeta de sintoma (seccion G). La ventana de 4 horas la resuelve el servidor
   ///
@@ -3889,6 +4051,312 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'{meals}, {symptoms}'**
   String homeTodaySummary(String meals, String symptoms);
+
+  /// Fecha en que el paciente quedó vinculado a su nutricionista
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio del seguimiento'**
+  String get profileTrackingAssignedAt;
+
+  /// No description provided for @profileNoNutritionistHint.
+  ///
+  /// In es, this message translates to:
+  /// **'Para recibir recomendaciones, ingresa el código de invitación que te dé tu nutricionista.'**
+  String get profileNoNutritionistHint;
+
+  /// No description provided for @profileInvitationCodeAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Ingresar código de invitación'**
+  String get profileInvitationCodeAction;
+
+  /// No description provided for @profileInvitationCodeTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Código de invitación'**
+  String get profileInvitationCodeTitle;
+
+  /// No description provided for @profileInvitationCodeBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe el código que te dio tu nutricionista.'**
+  String get profileInvitationCodeBody;
+
+  /// No description provided for @profileInvitationCodeSubmit.
+  ///
+  /// In es, this message translates to:
+  /// **'Vincular'**
+  String get profileInvitationCodeSubmit;
+
+  /// No description provided for @profileInvitationCodeLinked.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya estás vinculado con {name}'**
+  String profileInvitationCodeLinked(String name);
+
+  /// No description provided for @profileClinicalWeight.
+  ///
+  /// In es, this message translates to:
+  /// **'Peso'**
+  String get profileClinicalWeight;
+
+  /// No description provided for @profileClinicalHeight.
+  ///
+  /// In es, this message translates to:
+  /// **'Estatura'**
+  String get profileClinicalHeight;
+
+  /// No description provided for @profileClinicalWeightValue.
+  ///
+  /// In es, this message translates to:
+  /// **'{kg} kg'**
+  String profileClinicalWeightValue(String kg);
+
+  /// No description provided for @profileClinicalHeightValue.
+  ///
+  /// In es, this message translates to:
+  /// **'{cm} cm'**
+  String profileClinicalHeightValue(String cm);
+
+  /// No description provided for @profileEditTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar mi información'**
+  String get profileEditTitle;
+
+  /// No description provided for @profileEditSave.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar cambios'**
+  String get profileEditSave;
+
+  /// No description provided for @profileEditSaved.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu información se actualizó'**
+  String get profileEditSaved;
+
+  /// No description provided for @validationWeightNegative.
+  ///
+  /// In es, this message translates to:
+  /// **'El peso no puede ser negativo'**
+  String get validationWeightNegative;
+
+  /// No description provided for @validationHeightNegative.
+  ///
+  /// In es, this message translates to:
+  /// **'La estatura no puede ser negativa'**
+  String get validationHeightNegative;
+
+  /// No description provided for @validationWeightNotNumber.
+  ///
+  /// In es, this message translates to:
+  /// **'El peso debe ser un número'**
+  String get validationWeightNotNumber;
+
+  /// No description provided for @validationHeightNotNumber.
+  ///
+  /// In es, this message translates to:
+  /// **'La estatura debe ser un número'**
+  String get validationHeightNotNumber;
+
+  /// No description provided for @validationWeightRequired.
+  ///
+  /// In es, this message translates to:
+  /// **'El peso es obligatorio'**
+  String get validationWeightRequired;
+
+  /// No description provided for @validationHeightRequired.
+  ///
+  /// In es, this message translates to:
+  /// **'La estatura es obligatoria'**
+  String get validationHeightRequired;
+
+  /// No description provided for @recommendationsNoNutritionistTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no tienes nutricionista'**
+  String get recommendationsNoNutritionistTitle;
+
+  /// No description provided for @recommendationsNoNutritionistBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Para recibir recomendaciones necesitas estar vinculado a un nutricionista. Ingresa desde tu perfil el código de invitación que tu nutricionista te proporcione.'**
+  String get recommendationsNoNutritionistBody;
+
+  /// No description provided for @recommendationsNoNutritionistAction.
+  ///
+  /// In es, this message translates to:
+  /// **'Ir a mi perfil'**
+  String get recommendationsNoNutritionistAction;
+
+  /// Respuesta de la pregunta 2 del IBS-SSS, en días de los últimos 10
+  ///
+  /// In es, this message translates to:
+  /// **'{days, plural, =1{1 día} other{{days} días}}'**
+  String ibsSssPainFrequencyDays(int days);
+
+  /// No description provided for @ibsSssQuestionMissing.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente: responde esta pregunta'**
+  String get ibsSssQuestionMissing;
+
+  /// Fecha y hora de una nota de contexto
+  ///
+  /// In es, this message translates to:
+  /// **'Nota guardada el {stamp}'**
+  String historyNoteSavedAt(String stamp);
+
+  /// No description provided for @customFoodProportionPercent.
+  ///
+  /// In es, this message translates to:
+  /// **'{percent} %'**
+  String customFoodProportionPercent(String percent);
+
+  /// No description provided for @customFoodProportionTotal.
+  ///
+  /// In es, this message translates to:
+  /// **'Las proporciones suman {percent} %'**
+  String customFoodProportionTotal(String percent);
+
+  /// No description provided for @customFoodAllergenWarning.
+  ///
+  /// In es, this message translates to:
+  /// **'Atención: este plato incluye un alérgeno que declaraste ({allergens}). Puedes guardarlo igual y te pediremos confirmarlo.'**
+  String customFoodAllergenWarning(String allergens);
+
+  /// No description provided for @privacyConsentView.
+  ///
+  /// In es, this message translates to:
+  /// **'Consultar el consentimiento'**
+  String get privacyConsentView;
+
+  /// No description provided for @consentTextTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Consentimiento informado'**
+  String get consentTextTitle;
+
+  /// No description provided for @consentTextVersion.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión {version}'**
+  String consentTextVersion(String version);
+
+  /// No description provided for @consentTextLoadError.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar el texto del consentimiento.'**
+  String get consentTextLoadError;
+
+  /// No description provided for @symptomsIntensityInputLabel.
+  ///
+  /// In es, this message translates to:
+  /// **'Intensidad (de 1 a 100)'**
+  String get symptomsIntensityInputLabel;
+
+  /// No description provided for @homeScoreCelebration.
+  ///
+  /// In es, this message translates to:
+  /// **'Respuesta clínica significativa'**
+  String get homeScoreCelebration;
+
+  /// No description provided for @homeScoreThresholdLegend.
+  ///
+  /// In es, this message translates to:
+  /// **'Línea punteada: meta clínica ({score} puntos)'**
+  String homeScoreThresholdLegend(int score);
+
+  /// No description provided for @evolutionPickDates.
+  ///
+  /// In es, this message translates to:
+  /// **'Elegir un rango de fechas'**
+  String get evolutionPickDates;
+
+  /// No description provided for @evolutionCustomRange.
+  ///
+  /// In es, this message translates to:
+  /// **'Del {from} al {to}'**
+  String evolutionCustomRange(String from, String to);
+
+  /// No description provided for @mealsIssueMissingUnit.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige la unidad de medida'**
+  String get mealsIssueMissingUnit;
+
+  /// No description provided for @recommendationFeedbackInvite.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuéntanos cómo te fue'**
+  String get recommendationFeedbackInvite;
+
+  /// No description provided for @recommendationFeedbackNotYet.
+  ///
+  /// In es, this message translates to:
+  /// **'Podrás contarnos cómo te fue cuando pasen 24 horas desde que la recibiste.'**
+  String get recommendationFeedbackNotYet;
+
+  /// No description provided for @recommendationGlossaryTermSemantics.
+  ///
+  /// In es, this message translates to:
+  /// **'{term}, término del glosario. Toca para ver su definición.'**
+  String recommendationGlossaryTermSemantics(String term);
+
+  /// No description provided for @mealsIssueQuantityNotANumber.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe la cantidad con números, por ejemplo 150'**
+  String get mealsIssueQuantityNotANumber;
+
+  /// No description provided for @clinicalNoteEmpty.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe la nota antes de guardarla'**
+  String get clinicalNoteEmpty;
+
+  /// No description provided for @sessionInactivityTitle.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu sesión se cerró por inactividad'**
+  String get sessionInactivityTitle;
+
+  /// No description provided for @sessionInactivityBody.
+  ///
+  /// In es, this message translates to:
+  /// **'Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado.'**
+  String get sessionInactivityBody;
+
+  /// Cuerpo del recordatorio de verificación del correo en Inicio
+  ///
+  /// In es, this message translates to:
+  /// **'Te enviamos un mensaje a {email}. Ábrelo y toca el enlace para confirmar que esta cuenta es tuya.'**
+  String emailReminderBody(String email);
+
+  /// Acuse genérico del reenvío desde el recordatorio de Inicio
+  ///
+  /// In es, this message translates to:
+  /// **'Te enviamos un correo nuevo. Puede tardar unos minutos. Revisa también la carpeta de spam.'**
+  String get emailReminderResent;
+
+  /// Botón del recordatorio que vuelve a mirar si el correo quedó verificado
+  ///
+  /// In es, this message translates to:
+  /// **'Ya lo verifiqué'**
+  String get emailReminderConfirm;
+
+  /// Respuesta cuando la renovación de sesión trae el correo aún sin verificar
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no vemos tu correo verificado. Revisa que tocaste el enlace del último correo que te enviamos.'**
+  String get emailReminderStillPending;
+
+  /// Aviso fijo en el paso 1 del perfil clínico tras un registro sin código (CP055 paso 5)
+  ///
+  /// In es, this message translates to:
+  /// **'Te registraste sin código de invitación. Por ahora no tienes nutricionista asignado y no recibirás recomendaciones. Puedes ingresar el código más adelante desde tu perfil.'**
+  String get clinicalProfileNoInvitationNotice;
 }
 
 class _AppLocalizationsDelegate

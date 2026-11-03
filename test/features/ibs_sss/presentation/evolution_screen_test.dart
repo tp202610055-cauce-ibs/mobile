@@ -306,6 +306,22 @@ void main() {
       expect(find.byKey(const Key('evolution_percent_change')), findsOneWidget);
     });
 
+    testWidgets('ofrece elegir un rango de fechas propio', (tester) async {
+      await _pump(
+        tester,
+        repository: FakeIbsSssRepository()..evolutionPoints = _twoPoints(),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.ensureVisible(
+        find.byKey(const Key('evolution_pick_dates')),
+      );
+      await tester.tap(find.byKey(const Key('evolution_pick_dates')));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(DateRangePickerDialog), findsOneWidget);
+    });
+
     testWidgets('una mejoria se lee como porcentaje menos', (tester) async {
       // -90 sobre una linea base de 220 es -40,9 %. Si alguien invirtiera el
       // signo, este test lo ve.

@@ -10,19 +10,175 @@ import 'widgets/food_picker_sheet.dart';
 import 'widgets/meal_labels.dart';
 
 /// Registro de una comida (US09 CA01, CA02 y CA04).
-class MealFormScreen extends ConsumerWidget {
+///
+/// Abre con el buscador (CP022 paso 3); el alimento elegido queda en el
+/// formulario con su cantidad y su unidad hasta guardar o agregar otro.
+class MealFormScreen extends ConsumerStatefulWidget {
   const MealFormScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MealFormScreen> createState() => _MealFormScreenState();
+}
+
+class _MealFormScreenState extends ConsumerState<MealFormScreen> {
+  final TextEditingController _quantity = TextEditingController();
+
+  /// Alimento elegido que todavia no esta en la lista de la comida.
+  FoodPickerSelection? _pending;
+
+  /// Arranca sin marcar; tocar la unidad elegida la quita.
+  MeasurementUnitOption? _unit;
+
+  /// Los avisos de cantidad vacia y de unidad aparecen al intentar guardar.
+  bool _attempted = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _pickFood());
+  }
+
+  @override
+  void dispose() {
+    _quantity.dispose();
+    super.dispose();
+  }
+
+  Future<void> _pickFood() async {
+    final selection = await showFoodPickerSheet(context);
+    if (selection == null || !mounted) {
+      return;
+    }
+    setState(() => _pending = selection);
+  }
+
+  /// Cantidad valida, o `null` si lo escrito no sirve.
+  ///
+  /// Mayor que cero como `MealItemRequestValidator`, y bajo el tope por unidad.
+  double? get _parsed {
+    final value = double.tryParse(_quantity.text.trim().replaceAll(',', '.'));
+    final max = _unit?.maxQuantity ?? double.infinity;
+    if (value == null || value <= 0 || value > max) {
+      return null;
+    }
+    return value;
+  }
+
+  /// Lo escrito no es un numero, como «cien» (CP076 variante C).
+  bool get _isNotANumber =>
+      double.tryParse(_quantity.text.trim().replaceAll(',', '.')) == null;
+
+  /// Elegir una unidad nunca cambia la cantidad escrita (CP022, CP076).
+  void _changeUnit(MeasurementUnitOption unit) {
+    setState(() => _unit = unit == _unit ? null : unit);
+  }
+
+  /// Item del alimento pendiente, o `null` si falta cantidad o unidad.
+  ///
+  /// `MealItemDraft` exige exactamente una referencia, como `Meal.Register`.
+  MealItemDraft? _pendingItem() {
+    final quantity = _parsed;
+    final unit = _unit;
+    if (quantity == null || unit == null) {
+      return null;
+    }
+    return switch (_pending) {
+      CatalogSelection(:final item) =>
+        MealItemDraft(quantity: quantity, unit: unit, food: item),
+      CustomDishSelection(:final record) => MealItemDraft(
+          quantity: quantity,
+          unit: unit,
+          customFoodId: record.customFoodId,
+          customFoodName: record.name,
+        ),
+      null => null,
+    };
+  }
+
+  /// Pasa el alimento pendiente a la lista. Devuelve `false` si no es valido.
+  bool _commitPending() {
+    if (_pending == null) {
+      return true;
+    }
+    final item = _pendingItem();
+    if (item == null) {
+      setState(() => _attempted = true);
+      return false;
+    }
+    ref.read(mealFormNotifierProvider.notifier).addItem(item);
+    setState(() {
+      _pending = null;
+      _unit = null;
+      _attempted = false;
+      _quantity.clear();
+    });
+    return true;
+  }
+
+  Future<void> _addAnother() async {
+    if (_commitPending()) {
+      await _pickFood();
+    }
+  }
+
+  void _removePending() {
+    setState(() {
+      _pending = null;
+      _attempted = false;
+    });
+  }
+
+  /// Guarda solo si todo es valido; si no, señala lo que falta y conserva lo
+  /// elegido (CP076).
+  Future<void> _save() async {
+    setState(() => _attempted = true);
+    final pendingItem = _pendingItem();
+    if (_pending != null && pendingItem == null) {
+      return;
+    }
+    final draft = ref.read(mealFormNotifierProvider).draft;
+    final candidate = pendingItem == null ? draft : draft.withItem(pendingItem);
+    if (!candidate.canSubmit()) {
+      return;
+    }
+    _commitPending();
+    await ref.read(mealFormNotifierProvider.notifier).submit();
+  }
+
+  String? _quantityError(AppLocalizations l10n) {
+    final unit = _unit;
+    if (_parsed != null || (_quantity.text.isEmpty && !_attempted)) {
+      return null;
+    }
+    if (_isNotANumber) {
+      return l10n.mealsIssueQuantityNotANumber;
+    }
+    if (unit == null) {
+      return l10n.mealsIssueInvalidQuantity;
+    }
+    return l10n.mealsIssueQuantityOutOfRange(
+      MealLabels.unit(l10n, unit).toLowerCase(),
+      MealLabels.quantity(unit.maxQuantity),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final state = ref.watch(mealFormNotifierProvider);
     final notifier = ref.read(mealFormNotifierProvider.notifier);
+    final pending = _pending;
 
     if (state.outcome == MealSubmitOutcome.registered ||
         state.outcome == MealSubmitOutcome.queuedOffline) {
       return _MealConfirmation(state: state, onAgain: notifier.reset);
     }
+
+    // Con un alimento pendiente, «agrega al menos uno» ya no aplica.
+    final issues = <MealDraftIssue>[
+      for (final issue in state.issues)
+        if (pending == null || issue != MealDraftIssue.noItems) issue,
+    ];
 
     return CauceScaffold(
       appBar: CauceAppBar(title: l10n.mealsTitle),
@@ -54,7 +210,7 @@ class MealFormScreen extends ConsumerWidget {
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: CauceSpacing.space2),
-          if (state.draft.items.isEmpty)
+          if (state.draft.items.isEmpty && pending == null)
             Text(
               l10n.mealsItemsEmpty,
               key: const Key('meal_items_empty'),
@@ -71,18 +227,31 @@ class MealFormScreen extends ConsumerWidget {
               amountLabel: MealLabels.amount(l10n, item.quantity, item.unit),
               removeLabel: l10n.mealsRemoveItem,
             ),
+          if (pending != null)
+            _PendingItemEditor(
+              key: const Key('meal_pending_item'),
+              name: pending.displayName,
+              quantity: _quantity,
+              unit: _unit,
+              quantityError: _quantityError(l10n),
+              unitError: _attempted && _unit == null
+                  ? l10n.mealsIssueMissingUnit
+                  : null,
+              enabled: !state.submitting,
+              onQuantityChanged: () => setState(() {}),
+              onUnitChanged: _changeUnit,
+              onRemove: _removePending,
+            ),
           const SizedBox(height: CauceSpacing.space3),
           CauceButton.secondary(
             key: const Key('meal_add_food'),
             label: l10n.mealsAddFood,
-            onPressed:
-                state.submitting ? null : () => _addFood(context, ref, l10n),
+            onPressed: state.submitting ? null : _addAnother,
           ),
           const SizedBox(height: CauceSpacing.space6),
-          // CA04: mientras algo bloquee el envio se dice **que** lo bloquea, en
-          // vez de dejar un boton apagado sin explicacion.
-          if (state.issues.isNotEmpty) ...<Widget>[
-            for (final issue in state.issues)
+          // CA04: mientras algo bloquee el envio se dice **que** lo bloquea.
+          if (issues.isNotEmpty) ...<Widget>[
+            for (final issue in issues)
               Padding(
                 padding: const EdgeInsets.only(bottom: CauceSpacing.space1),
                 child: Text(
@@ -99,162 +268,82 @@ class MealFormScreen extends ConsumerWidget {
             key: const Key('meal_submit'),
             label: l10n.mealsSubmit,
             loading: state.submitting,
-            onPressed: state.canSubmit ? notifier.submit : null,
+            onPressed: state.submitting ? null : _save,
           ),
         ],
       ),
     );
   }
-
-  /// Abre el buscador y agrega lo elegido con su cantidad.
-  Future<void> _addFood(
-    BuildContext context,
-    WidgetRef ref,
-    AppLocalizations l10n,
-  ) async {
-    final selection = await showFoodPickerSheet(context);
-    if (selection == null || !context.mounted) {
-      return;
-    }
-
-    final item = await showModalBottomSheet<MealItemDraft>(
-      context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
-      builder: (_) => _QuantitySheet(selection: selection),
-    );
-
-    if (item != null) {
-      ref.read(mealFormNotifierProvider.notifier).addItem(item);
-    }
-  }
 }
 
-/// Cantidad y unidad del alimento recien elegido.
-class _QuantitySheet extends StatefulWidget {
-  const _QuantitySheet({required this.selection});
+/// Cantidad y unidad del alimento recien elegido, dentro del formulario.
+class _PendingItemEditor extends StatelessWidget {
+  const _PendingItemEditor({
+    required this.name,
+    required this.quantity,
+    required this.unit,
+    required this.quantityError,
+    required this.unitError,
+    required this.enabled,
+    required this.onQuantityChanged,
+    required this.onUnitChanged,
+    required this.onRemove,
+    super.key,
+  });
 
-  /// Lo elegido en la hoja de busqueda: un alimento del catalogo o un plato
-  /// propio. La cantidad y la unidad se preguntan igual para los dos.
-  final FoodPickerSelection selection;
-
-  @override
-  State<_QuantitySheet> createState() => _QuantitySheetState();
-}
-
-class _QuantitySheetState extends State<_QuantitySheet> {
-  final TextEditingController _quantity = TextEditingController(text: '100');
-  MeasurementUnitOption _unit = MeasurementUnitOption.grams;
-
-  @override
-  void dispose() {
-    _quantity.dispose();
-    super.dispose();
-  }
-
-  /// Arma el item con la referencia que corresponde a la fuente elegida.
-  ///
-  /// `MealItemDraft` exige **exactamente una** de las dos (`referencesExactlyOne`),
-  /// que es la misma invariante XOR que valida `Meal.Register` en el backend.
-  MealItemDraft _draft() {
-    return switch (widget.selection) {
-      CatalogSelection(:final item) => MealItemDraft(
-          quantity: _parsed!,
-          unit: _unit,
-          food: item,
-        ),
-      CustomDishSelection(:final record) => MealItemDraft(
-          quantity: _parsed!,
-          unit: _unit,
-          customFoodId: record.customFoodId,
-          customFoodName: record.name,
-        ),
-    };
-  }
-
-  /// Cantidad valida, o `null` si lo escrito no sirve.
-  ///
-  /// Misma regla que `MealItemRequestValidator` del backend: mayor que cero.
-  /// Validarlo aca le da al paciente la respuesta al instante en vez de un 400.
-  double? get _parsed {
-    final value = double.tryParse(_quantity.text.replaceAll(',', '.'));
-    if (value == null || value <= 0 || value > _unit.maxQuantity) {
-      return null;
-    }
-    return value;
-  }
-
-  /// Al cambiar de unidad, la cantidad vuelve a un valor razonable.
-  ///
-  /// Arrastrarla era lo que producia "100 tazas" al pasar de gramos a tazas
-  /// sin tocar el numero (acta M40).
-  void _changeUnit(MeasurementUnitOption unit) {
-    setState(() {
-      _unit = unit;
-      _quantity.text = MealLabels.quantity(unit.defaultQuantity);
-    });
-  }
+  final String name;
+  final TextEditingController quantity;
+  final MeasurementUnitOption? unit;
+  final String? quantityError;
+  final String? unitError;
+  final bool enabled;
+  final VoidCallback onQuantityChanged;
+  final ValueChanged<MeasurementUnitOption> onUnitChanged;
+  final VoidCallback onRemove;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
 
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(CauceSpacing.space4),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text(
-                widget.selection.displayName,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              CauceTextField(
-                key: const Key('meal_quantity_field'),
-                controller: _quantity,
-                label: l10n.mealsQuantityLabel,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                errorText: _parsed == null
-                    ? l10n.mealsIssueQuantityOutOfRange(
-                        MealLabels.unit(l10n, _unit).toLowerCase(),
-                        MealLabels.quantity(_unit.maxQuantity),
-                      )
-                    : null,
-                onChanged: (_) => setState(() {}),
-              ),
-              const SizedBox(height: CauceSpacing.space4),
-              CauceChoiceField<MeasurementUnitOption>(
-                key: const Key('meal_unit_field'),
-                label: l10n.mealsUnitLabel,
-                value: _unit,
-                onChanged: _changeUnit,
-                choices: <CauceChoice<MeasurementUnitOption>>[
-                  for (final option in MeasurementUnitOption.values)
-                    CauceChoice<MeasurementUnitOption>(
-                      value: option,
-                      label: MealLabels.unit(l10n, option),
-                    ),
-                ],
-              ),
-              const SizedBox(height: CauceSpacing.space6),
-              CauceButton(
-                key: const Key('meal_quantity_confirm'),
-                label: l10n.commonAccept,
-                onPressed: _parsed == null
-                    ? null
-                    : () => Navigator.of(context).pop(_draft()),
-              ),
-            ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        ListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(name, style: Theme.of(context).textTheme.titleLarge),
+          trailing: TextButton(
+            onPressed: enabled ? onRemove : null,
+            child: Text(l10n.mealsRemoveItem),
           ),
         ),
-      ),
+        CauceTextField(
+          key: const Key('meal_quantity_field'),
+          controller: quantity,
+          label: l10n.mealsQuantityLabel,
+          enabled: enabled,
+          // Teclado de texto: tambien acepta letras y el signo menos, que se
+          // rechazan con su aviso en vez de no poder escribirse.
+          keyboardType: TextInputType.text,
+          errorText: quantityError,
+          onChanged: (_) => onQuantityChanged(),
+        ),
+        const SizedBox(height: CauceSpacing.space4),
+        CauceChoiceField<MeasurementUnitOption>(
+          key: const Key('meal_unit_field'),
+          label: l10n.mealsUnitLabel,
+          value: unit,
+          enabled: enabled,
+          errorText: unitError,
+          onChanged: onUnitChanged,
+          choices: <CauceChoice<MeasurementUnitOption>>[
+            for (final option in MeasurementUnitOption.values)
+              CauceChoice<MeasurementUnitOption>(
+                value: option,
+                label: MealLabels.unit(l10n, option),
+              ),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -12,12 +12,63 @@ const String _guidC = 'cccccccc-3333-4333-8333-333333333333';
 void main() {
   late AppDatabase database;
   late SyncQueueStore store;
+  String? owner;
 
   setUp(() {
     database = AppDatabase.memory();
-    store = SyncQueueStore(database);
+    owner = localOwnerId;
+    store = SyncQueueStore(database, () => owner);
   });
   tearDown(() => database.close());
+
+  group('SyncQueueStore · titular de las filas', () {
+    test('solo devuelve las pendientes de la cuenta de la sesion', () async {
+      await insertPendingMeal(database, _guidA);
+      await insertPendingMeal(database, _guidB, userId: otherOwnerId);
+      await insertPendingMeal(database, _guidC, userId: null);
+      await insertPendingSymptom(database, _guidA);
+      await insertPendingSymptom(database, _guidB, userId: otherOwnerId);
+      await insertPendingSymptom(database, _guidC, userId: null);
+
+      expect(
+        (await store.pendingMeals()).map((p) => p.meal.clientGuid),
+        <String>[_guidA],
+      );
+      expect(
+        (await store.pendingSymptoms()).map((s) => s.clientGuid),
+        <String>[_guidA],
+      );
+    });
+
+    test('sin sesion no devuelve nada', () async {
+      await insertPendingMeal(database, _guidA);
+      await insertPendingSymptom(database, _guidB);
+      owner = null;
+
+      expect(await store.pendingMeals(), isEmpty);
+      expect(await store.pendingSymptoms(), isEmpty);
+    });
+
+    test('las filas sin titular quedan en la base', () async {
+      await insertPendingMeal(database, _guidA, userId: null);
+
+      expect(await store.pendingMeals(), isEmpty);
+      expect(await database.select(database.mealsLocal).get(), hasLength(1));
+    });
+
+    test('no descarta ni lista como fallidas las de otra cuenta', () async {
+      await insertPendingMeal(
+        database,
+        _guidA,
+        status: LocalSyncStatus.failed,
+        userId: otherOwnerId,
+      );
+
+      expect(await store.failedMeals(), isEmpty);
+      expect(await store.discard(_guidA), 0);
+      expect(await database.select(database.mealsLocal).get(), hasLength(1));
+    });
+  });
 
   group('SyncQueueStore · lectura de pendientes', () {
     test('devuelve solo las pendientes', () async {

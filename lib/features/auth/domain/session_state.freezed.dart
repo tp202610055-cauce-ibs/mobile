@@ -21,8 +21,7 @@ mixin _$SessionState {
     required TResult Function() unknown,
     required TResult Function(AuthenticatedUserSnapshot user) authenticated,
     required TResult Function() unauthenticated,
-    required TResult Function(String email, AuthenticatedUserSnapshot? user)
-        pendingEmailVerification,
+    required TResult Function(String email) pendingEmailVerification,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,8 +29,7 @@ mixin _$SessionState {
     TResult? Function()? unknown,
     TResult? Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult? Function()? unauthenticated,
-    TResult? Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult? Function(String email)? pendingEmailVerification,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,8 +37,7 @@ mixin _$SessionState {
     TResult Function()? unknown,
     TResult Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult Function()? unauthenticated,
-    TResult Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult Function(String email)? pendingEmailVerification,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -139,8 +136,7 @@ class _$SessionUnknownImpl extends SessionUnknown {
     required TResult Function() unknown,
     required TResult Function(AuthenticatedUserSnapshot user) authenticated,
     required TResult Function() unauthenticated,
-    required TResult Function(String email, AuthenticatedUserSnapshot? user)
-        pendingEmailVerification,
+    required TResult Function(String email) pendingEmailVerification,
   }) {
     return unknown();
   }
@@ -151,8 +147,7 @@ class _$SessionUnknownImpl extends SessionUnknown {
     TResult? Function()? unknown,
     TResult? Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult? Function()? unauthenticated,
-    TResult? Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult? Function(String email)? pendingEmailVerification,
   }) {
     return unknown?.call();
   }
@@ -163,8 +158,7 @@ class _$SessionUnknownImpl extends SessionUnknown {
     TResult Function()? unknown,
     TResult Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult Function()? unauthenticated,
-    TResult Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult Function(String email)? pendingEmailVerification,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -304,8 +298,7 @@ class _$SessionAuthenticatedImpl extends SessionAuthenticated {
     required TResult Function() unknown,
     required TResult Function(AuthenticatedUserSnapshot user) authenticated,
     required TResult Function() unauthenticated,
-    required TResult Function(String email, AuthenticatedUserSnapshot? user)
-        pendingEmailVerification,
+    required TResult Function(String email) pendingEmailVerification,
   }) {
     return authenticated(user);
   }
@@ -316,8 +309,7 @@ class _$SessionAuthenticatedImpl extends SessionAuthenticated {
     TResult? Function()? unknown,
     TResult? Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult? Function()? unauthenticated,
-    TResult? Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult? Function(String email)? pendingEmailVerification,
   }) {
     return authenticated?.call(user);
   }
@@ -328,8 +320,7 @@ class _$SessionAuthenticatedImpl extends SessionAuthenticated {
     TResult Function()? unknown,
     TResult Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult Function()? unauthenticated,
-    TResult Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult Function(String email)? pendingEmailVerification,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -440,8 +431,7 @@ class _$SessionUnauthenticatedImpl extends SessionUnauthenticated {
     required TResult Function() unknown,
     required TResult Function(AuthenticatedUserSnapshot user) authenticated,
     required TResult Function() unauthenticated,
-    required TResult Function(String email, AuthenticatedUserSnapshot? user)
-        pendingEmailVerification,
+    required TResult Function(String email) pendingEmailVerification,
   }) {
     return unauthenticated();
   }
@@ -452,8 +442,7 @@ class _$SessionUnauthenticatedImpl extends SessionUnauthenticated {
     TResult? Function()? unknown,
     TResult? Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult? Function()? unauthenticated,
-    TResult? Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult? Function(String email)? pendingEmailVerification,
   }) {
     return unauthenticated?.call();
   }
@@ -464,8 +453,7 @@ class _$SessionUnauthenticatedImpl extends SessionUnauthenticated {
     TResult Function()? unknown,
     TResult Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult Function()? unauthenticated,
-    TResult Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult Function(String email)? pendingEmailVerification,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -527,9 +515,7 @@ abstract class _$$SessionPendingEmailVerificationImplCopyWith<$Res> {
           $Res Function(_$SessionPendingEmailVerificationImpl) then) =
       __$$SessionPendingEmailVerificationImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, AuthenticatedUserSnapshot? user});
-
-  $AuthenticatedUserSnapshotCopyWith<$Res>? get user;
+  $Res call({String email});
 }
 
 /// @nodoc
@@ -548,32 +534,13 @@ class __$$SessionPendingEmailVerificationImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? email = null,
-    Object? user = freezed,
   }) {
     return _then(_$SessionPendingEmailVerificationImpl(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as AuthenticatedUserSnapshot?,
     ));
-  }
-
-  /// Create a copy of SessionState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $AuthenticatedUserSnapshotCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $AuthenticatedUserSnapshotCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value));
-    });
   }
 }
 
@@ -581,17 +548,15 @@ class __$$SessionPendingEmailVerificationImplCopyWithImpl<$Res>
 
 class _$SessionPendingEmailVerificationImpl
     extends SessionPendingEmailVerification {
-  const _$SessionPendingEmailVerificationImpl({required this.email, this.user})
+  const _$SessionPendingEmailVerificationImpl({required this.email})
       : super._();
 
   @override
   final String email;
-  @override
-  final AuthenticatedUserSnapshot? user;
 
   @override
   String toString() {
-    return 'SessionState.pendingEmailVerification(email: $email, user: $user)';
+    return 'SessionState.pendingEmailVerification(email: $email)';
   }
 
   @override
@@ -599,12 +564,11 @@ class _$SessionPendingEmailVerificationImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SessionPendingEmailVerificationImpl &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.email, email) || other.email == email));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, user);
+  int get hashCode => Object.hash(runtimeType, email);
 
   /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.
@@ -622,10 +586,9 @@ class _$SessionPendingEmailVerificationImpl
     required TResult Function() unknown,
     required TResult Function(AuthenticatedUserSnapshot user) authenticated,
     required TResult Function() unauthenticated,
-    required TResult Function(String email, AuthenticatedUserSnapshot? user)
-        pendingEmailVerification,
+    required TResult Function(String email) pendingEmailVerification,
   }) {
-    return pendingEmailVerification(email, user);
+    return pendingEmailVerification(email);
   }
 
   @override
@@ -634,10 +597,9 @@ class _$SessionPendingEmailVerificationImpl
     TResult? Function()? unknown,
     TResult? Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult? Function()? unauthenticated,
-    TResult? Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult? Function(String email)? pendingEmailVerification,
   }) {
-    return pendingEmailVerification?.call(email, user);
+    return pendingEmailVerification?.call(email);
   }
 
   @override
@@ -646,12 +608,11 @@ class _$SessionPendingEmailVerificationImpl
     TResult Function()? unknown,
     TResult Function(AuthenticatedUserSnapshot user)? authenticated,
     TResult Function()? unauthenticated,
-    TResult Function(String email, AuthenticatedUserSnapshot? user)?
-        pendingEmailVerification,
+    TResult Function(String email)? pendingEmailVerification,
     required TResult orElse(),
   }) {
     if (pendingEmailVerification != null) {
-      return pendingEmailVerification(email, user);
+      return pendingEmailVerification(email);
     }
     return orElse();
   }
@@ -698,14 +659,11 @@ class _$SessionPendingEmailVerificationImpl
 }
 
 abstract class SessionPendingEmailVerification extends SessionState {
-  const factory SessionPendingEmailVerification(
-          {required final String email,
-          final AuthenticatedUserSnapshot? user}) =
+  const factory SessionPendingEmailVerification({required final String email}) =
       _$SessionPendingEmailVerificationImpl;
   const SessionPendingEmailVerification._() : super._();
 
   String get email;
-  AuthenticatedUserSnapshot? get user;
 
   /// Create a copy of SessionState
   /// with the given fields replaced by the non-null parameter values.

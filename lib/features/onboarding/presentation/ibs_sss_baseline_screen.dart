@@ -37,7 +37,7 @@ class IbsSssBaselineScreen extends ConsumerWidget {
     final missing = state.answers.missing.length;
 
     return OnboardingStepScaffold(
-      step: 2,
+      step: 3,
       title: l10n.ibsSssTitle,
       subtitle: l10n.ibsSssSubtitle,
       busy: state.submitting,
@@ -52,6 +52,7 @@ class IbsSssBaselineScreen extends ConsumerWidget {
         // instrumento con otro envoltorio.
         IbsSssQuestionnaire(
           answers: state.answers,
+          highlightMissing: state.showMissing,
           enabled: !state.submitting,
           onAnswer: notifier.answer,
         ),
@@ -70,9 +71,8 @@ class IbsSssBaselineScreen extends ConsumerWidget {
           key: const Key('ibs_sss_submit'),
           label: l10n.ibsSssSubmit,
           loading: state.submitting,
-          // US04 CA02. Sin las cinco, el envio no existe como accion: nada
-          // parcial sale del dispositivo, y la linea base es irrepetible.
-          onPressed: state.canSubmit ? notifier.submit : null,
+          // Enviar incompleto no sale del dispositivo: señala las que faltan.
+          onPressed: state.submitting ? null : notifier.submit,
         ),
       ],
     );

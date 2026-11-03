@@ -1,5 +1,6 @@
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/onboarding/application/onboarding_notifier.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
 
@@ -18,10 +20,13 @@ import '../../../helpers/fake_token_storage.dart';
 /// el bootstrap, que es mas ruido del necesario para lo que se prueba aca.
 ({ProviderContainer container, FakePatientsRepository repository}) _harness({
   required FakePatientsRepository repository,
+  FakeOnboardingDraftStore? drafts,
 }) {
   final container = ProviderContainer(
     overrides: <Override>[
       patientsRepositoryProvider.overrideWithValue(repository),
+      onboardingDraftStoreProvider
+          .overrideWithValue(drafts ?? FakeOnboardingDraftStore()),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
     ],
@@ -183,10 +188,73 @@ void main() {
     });
   });
 
+  group('OnboardingNotifier · borrador aplazado (CP011)', () {
+    test(
+        'tras un arranque en frio, el borrador de la misma cuenta sigue '
+        'aplazado en su paso', () async {
+      final h = _harness(
+        repository: FakePatientsRepository(),
+        drafts: FakeOnboardingDraftStore(
+          OnboardingDraft(ownerUserId: demoUser.userId, page: 1),
+        ),
+      );
+      await _authenticate(h.container);
+
+      final state = await h.container.read(onboardingNotifierProvider.future);
+
+      expect(
+        state,
+        const OnboardingState.deferred(
+          OnboardingStep.clinicalProfile,
+          completedSteps: 1,
+        ),
+      );
+      expect(state.showsReminder, isTrue);
+      expect(state.allowsAdvice, isFalse);
+      expect(state.allowsJournal, isTrue);
+    });
+
+    test('el borrador de otra cuenta no cuenta', () async {
+      final h = _harness(
+        repository: FakePatientsRepository(),
+        drafts: FakeOnboardingDraftStore(
+          const OnboardingDraft(ownerUserId: 'otra-cuenta', page: 1),
+        ),
+      );
+      await _authenticate(h.container);
+
+      final state = await h.container.read(onboardingNotifierProvider.future);
+
+      expect(
+        state,
+        const OnboardingState.pending(OnboardingStep.clinicalProfile),
+      );
+    });
+
+    test('con el perfil ya guardado el borrador se ignora', () async {
+      final h = _harness(
+        repository: FakePatientsRepository(profile: demoProfile),
+        drafts: FakeOnboardingDraftStore(
+          OnboardingDraft(ownerUserId: demoUser.userId, page: 1),
+        ),
+      );
+      await _authenticate(h.container);
+
+      final state = await h.container.read(onboardingNotifierProvider.future);
+
+      expect(
+        state,
+        const OnboardingState.pending(OnboardingStep.ibsSssBaseline),
+      );
+    });
+  });
+
   group('OnboardingNotifier · avance del wizard', () {
-    test('profileCreated mueve al paso 2 sin releer el perfil', () async {
-      // Releer agregaria latencia entre los dos pasos, y la respuesta del POST
-      // ya confirmo que el perfil existe.
+    test(
+        'profileCreated deja la linea base como recordatorio y abre el '
+        'diario (CP007 pasos 9 y 10)', () async {
+      // Releer agregaria latencia, y la respuesta del POST ya confirmo que el
+      // perfil existe.
       final repository = FakePatientsRepository();
       final h = _harness(repository: repository);
       await _authenticate(h.container);
@@ -195,10 +263,17 @@ void main() {
 
       h.container.read(onboardingNotifierProvider.notifier).profileCreated();
 
+      final state = h.container.read(resolvedOnboardingProvider);
       expect(
-        h.container.read(resolvedOnboardingProvider),
-        const OnboardingState.pending(OnboardingStep.ibsSssBaseline),
+        state,
+        const OnboardingState.deferred(
+          OnboardingStep.ibsSssBaseline,
+          completedSteps: 2,
+        ),
       );
+      expect(state.requiresWizard, isFalse);
+      expect(state.allowsJournal, isTrue);
+      expect(state.showsReminder, isTrue);
       expect(repository.fetchProfileCalls, callsBefore);
     });
 

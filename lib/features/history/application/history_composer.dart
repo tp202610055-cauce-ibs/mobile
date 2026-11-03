@@ -6,6 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/database/local_sync_status.dart';
 import '../../../core/errors/cauce_api_error.dart';
+import '../../clinical_notes/data/clinical_notes_repository.dart';
 import '../../foods/data/food_catalog_store.dart';
 import '../../meals/data/meals_local_store.dart';
 import '../../meals/data/meals_repository.dart';
@@ -44,7 +45,9 @@ class HistoryComposer {
     required MealsLocalStore mealsStore,
     required SymptomsLocalStore symptomsStore,
     required FoodCatalogStore catalog,
-  })  : _meals = meals,
+    required ClinicalNotesRepository Function() notes,
+  })  : _notes = notes,
+        _meals = meals,
         _symptoms = symptoms,
         _mealsStore = mealsStore,
         _symptomsStore = symptomsStore,
@@ -63,9 +66,14 @@ class HistoryComposer {
   final MealsLocalStore _mealsStore;
   final SymptomsLocalStore _symptomsStore;
   final FoodCatalogStore _catalog;
+  final ClinicalNotesRepository Function() _notes;
 
   /// Lee la ventana completa. Un fallo local se propaga; uno remoto no.
-  Future<ComposedHistory> compose(HistoryWindow window) async {
+  /// Con [withNotes] adjunta las notas de contexto de cada registro.
+  Future<ComposedHistory> compose(
+    HistoryWindow window, {
+    bool withNotes = false,
+  }) async {
     final localMeals = await _mealsStore.forHistory(from: window.from);
     final localSymptoms = await _symptomsStore.forHistory(from: window.from);
     final localItems = await _mealsStore.itemsOfMany(
@@ -103,10 +111,16 @@ class HistoryComposer {
         ...meal.items.map((item) => item.foodId).nonNulls,
     });
 
+    final notes = withNotes
+        ? await _notesById(window)
+        : const <String, List<HistoryNote>>{};
     final remote = <HistoryEntry>[
       ...meals.items.map((meal) => _remoteMeal(meal, names)),
-      ..._remoteSymptoms(symptoms.items, meals.items),
-    ];
+      ..._remoteSymptoms(symptoms.items, meals.items, names),
+    ].map((entry) {
+      final attached = notes[entry.serverId];
+      return attached == null ? entry : entry.copyWith(notes: attached);
+    }).toList();
     final local = <HistoryEntry>[
       ..._localMeals(localMeals, localItems, names),
       ...localSymptoms.map(_localSymptom),
@@ -139,6 +153,37 @@ class HistoryComposer {
       return (items: byId.values.toList(), error: error);
     }
     return (items: byId.values.toList(), error: null);
+  }
+
+  /// Notas de la ventana agrupadas por el registro al que pertenecen.
+  ///
+  /// Son un complemento: si la consulta falla, el historial sale sin ellas.
+  Future<Map<String, List<HistoryNote>>> _notesById(
+    HistoryWindow window,
+  ) async {
+    final byId = <String, List<HistoryNote>>{};
+    try {
+      final summaries = await _notes().list(from: window.from, to: window.to);
+      for (final note in summaries) {
+        final owner = note.mealId ?? note.symptomId;
+        final content = note.content;
+        final createdAt = note.createdAt;
+        if (owner == null || content == null || createdAt == null) {
+          continue;
+        }
+        (byId[owner] ??= <HistoryNote>[]).add(
+          HistoryNote(content: content, createdAt: createdAt.toUtc()),
+        );
+      }
+    } on CauceApiError {
+      return const <String, List<HistoryNote>>{};
+    } on Exception {
+      return const <String, List<HistoryNote>>{};
+    }
+    for (final list in byId.values) {
+      list.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    }
+    return byId;
   }
 
   /// Nombres del catalogo local para [foodIds], en tandas de 500 claves.
@@ -180,6 +225,7 @@ class HistoryComposer {
   Iterable<HistoryEntry> _remoteSymptoms(
     List<SymptomRecord> symptoms,
     List<MealRecord> meals,
+    Map<String, String> names,
   ) {
     final mealsById = <String, MealRecord>{
       for (final meal in meals) meal.mealId: meal,
@@ -199,11 +245,20 @@ class HistoryComposer {
         intensity: symptom.intensity,
         hasMealAssociation: symptom.hasMealAssociation,
         associatedMealTime: associated?.mealTime,
+        associatedMealName:
+            associated == null ? null : _joinedNames(associated, names),
         associatedMealDelay: associated == null
             ? null
             : symptom.occurredAt.difference(associated.consumedAt),
       );
     });
+  }
+
+  /// Nombres de catalogo de la comida, separados por coma; los platos propios
+  /// no tienen nombre local y se omiten.
+  String? _joinedNames(MealRecord meal, Map<String, String> names) {
+    final known = meal.items.map((item) => names[item.foodId]).nonNulls;
+    return known.isEmpty ? null : known.join(', ');
   }
 
   Iterable<HistoryEntry> _localMeals(
@@ -288,5 +343,6 @@ HistoryComposer historyComposer(Ref ref) {
     mealsStore: ref.watch(mealsLocalStoreProvider),
     symptomsStore: ref.watch(symptomsLocalStoreProvider),
     catalog: ref.watch(foodCatalogStoreProvider),
+    notes: () => ref.read(clinicalNotesRepositoryProvider),
   );
 }

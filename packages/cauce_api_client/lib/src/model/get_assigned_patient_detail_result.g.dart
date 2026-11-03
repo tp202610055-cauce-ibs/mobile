@@ -29,6 +29,8 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
   final Date? diagnosisDate;
   @override
   final String? medications;
+  @override
+  final DateTime? assignedAt;
 
   factory _$GetAssignedPatientDetailResult(
           [void Function(GetAssignedPatientDetailResultBuilder)? updates]) =>
@@ -45,7 +47,8 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
       this.allergies,
       this.biologicalSex,
       this.diagnosisDate,
-      this.medications})
+      this.medications,
+      this.assignedAt})
       : super._();
   @override
   GetAssignedPatientDetailResult rebuild(
@@ -70,7 +73,8 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
         allergies == other.allergies &&
         biologicalSex == other.biologicalSex &&
         diagnosisDate == other.diagnosisDate &&
-        medications == other.medications;
+        medications == other.medications &&
+        assignedAt == other.assignedAt;
   }
 
   @override
@@ -87,6 +91,7 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
     _$hash = $jc(_$hash, biologicalSex.hashCode);
     _$hash = $jc(_$hash, diagnosisDate.hashCode);
     _$hash = $jc(_$hash, medications.hashCode);
+    _$hash = $jc(_$hash, assignedAt.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -104,7 +109,8 @@ class _$GetAssignedPatientDetailResult extends GetAssignedPatientDetailResult {
           ..add('allergies', allergies)
           ..add('biologicalSex', biologicalSex)
           ..add('diagnosisDate', diagnosisDate)
-          ..add('medications', medications))
+          ..add('medications', medications)
+          ..add('assignedAt', assignedAt))
         .toString();
   }
 }
@@ -165,6 +171,10 @@ class GetAssignedPatientDetailResultBuilder
   String? get medications => _$this._medications;
   set medications(String? medications) => _$this._medications = medications;
 
+  DateTime? _assignedAt;
+  DateTime? get assignedAt => _$this._assignedAt;
+  set assignedAt(DateTime? assignedAt) => _$this._assignedAt = assignedAt;
+
   GetAssignedPatientDetailResultBuilder() {
     GetAssignedPatientDetailResult._defaults(this);
   }
@@ -183,6 +193,7 @@ class GetAssignedPatientDetailResultBuilder
       _biologicalSex = $v.biologicalSex;
       _diagnosisDate = $v.diagnosisDate;
       _medications = $v.medications;
+      _assignedAt = $v.assignedAt;
       _$v = null;
     }
     return this;
@@ -217,6 +228,7 @@ class GetAssignedPatientDetailResultBuilder
             biologicalSex: biologicalSex,
             diagnosisDate: diagnosisDate,
             medications: medications,
+            assignedAt: assignedAt,
           );
     } catch (_) {
       late String _$failedField;

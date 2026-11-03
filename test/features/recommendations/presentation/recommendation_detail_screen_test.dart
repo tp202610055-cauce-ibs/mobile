@@ -1,10 +1,18 @@
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/core/database/app_database.dart';
 import 'package:cauce_mobile/core/router/app_routes.dart';
+import 'package:cauce_mobile/features/recommendations/data/recommendation_feedback_outbox_store.dart';
+import 'package:cauce_mobile/features/recommendations/domain/pending_recommendation_feedback.dart';
 import 'package:cauce_mobile/features/recommendations/domain/recommendation.dart';
+import 'package:cauce_mobile/features/symptoms/data/symptoms_repository.dart';
+import 'package:cauce_mobile/features/symptoms/domain/symptom_draft.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_recommendations_repository.dart';
+import '../../../helpers/paged_history_fakes.dart';
+import '../../../helpers/sync_fixtures.dart';
 import 'recommendations_harness.dart';
 
 Future<void> _openDetail(
@@ -160,6 +168,154 @@ void main() {
       expect(find.text('4 h'), findsOneWidget);
     });
 
+    group('datos de respaldo por tipo de sintoma (CP042, CP077)', () {
+      final data = approvedDetail.supportingData!;
+
+      SymptomRecord record(int i, SymptomTypeOption type) => SymptomRecord(
+            symptomId: 'symptom-$type-$i',
+            occurredAt: data.windowTo
+                .subtract(Duration(days: i + 1))
+                .add(const Duration(hours: 2)),
+            intensity: 65,
+            symptomType: type,
+          );
+
+      List<SymptomRecord> records(int count, SymptomTypeOption type) =>
+          <SymptomRecord>[for (var i = 0; i < count; i++) record(i, type)];
+
+      Future<void> openWith(
+        WidgetTester tester, {
+        required int symptomCount,
+        SymptomsRepository? symptoms,
+      }) async {
+        final detail = approvedDetail.copyWith(
+          supportingData: data.copyWith(symptomCount: symptomCount),
+        );
+        await pumpRecommendations(
+          tester,
+          repository: FakeRecommendationsRepository(details: [detail]),
+          initialLocation: AppRoutes.recommendationDetailPath(detail.id),
+          symptoms: symptoms,
+        );
+        await _scrollTo(
+          tester,
+          find.byKey(const Key('recommendation_supporting_data')),
+        );
+      }
+
+      testWidgets('el historial sembrado dice 4 registros de dolor abdominal',
+          (tester) async {
+        await openWith(
+          tester,
+          symptomCount: 4,
+          symptoms: PagedSymptomsRepository(
+            records(4, SymptomTypeOption.abdominalPain),
+          ),
+        );
+
+        expect(
+          find.text('registros de dolor abdominal en los últimos 14 días'),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('recommendation_data_symptoms_abdominalPain')),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('recommendation_data_symptoms')),
+          findsNothing,
+        );
+        // Comidas, alimentos y ventana siguen como estaban.
+        expect(find.text(l10n.recommendationDataMeals(9, 14)), findsOneWidget);
+        expect(
+          find.byKey(const Key('recommendation_data_top_foods')),
+          findsOneWidget,
+        );
+        expect(find.text('4 h'), findsOneWidget);
+      });
+
+      testWidgets('un solo registro va en singular', (tester) async {
+        await openWith(
+          tester,
+          symptomCount: 1,
+          symptoms: PagedSymptomsRepository(
+            records(1, SymptomTypeOption.abdominalPain),
+          ),
+        );
+
+        expect(
+          find.text('registro de dolor abdominal en los últimos 14 días'),
+          findsOneWidget,
+        );
+      });
+
+      testWidgets('varios tipos: tres nombrados y el resto agrupado',
+          (tester) async {
+        await openWith(
+          tester,
+          symptomCount: 10,
+          symptoms: PagedSymptomsRepository(<SymptomRecord>[
+            ...records(4, SymptomTypeOption.abdominalPain),
+            ...records(3, SymptomTypeOption.bloating),
+            ...records(1, SymptomTypeOption.diarrhea),
+            ...records(1, SymptomTypeOption.nausea),
+            ...records(1, SymptomTypeOption.other),
+          ]),
+        );
+
+        final labels = <String>[
+          'registros de dolor abdominal en los últimos 14 días',
+          'registros de distensión abdominal en los últimos 14 días',
+          'registro de diarrea en los últimos 14 días',
+          l10n.recommendationDataSymptomsOther(2, 14),
+        ];
+        final tops = <double>[
+          for (final label in labels) tester.getTopLeft(find.text(label)).dy,
+        ];
+        expect(tops, orderedEquals(List<double>.of(tops)..sort()));
+        expect(
+          find.text('registros de otros síntomas en los últimos 14 días'),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('recommendation_data_symptoms_nausea')),
+          findsNothing,
+        );
+      });
+
+      testWidgets('sin sintomas queda la linea del total en cero',
+          (tester) async {
+        final symptoms = PagedSymptomsRepository(const <SymptomRecord>[]);
+        await openWith(tester, symptomCount: 0, symptoms: symptoms);
+
+        expect(
+          find.text(l10n.recommendationDataSymptoms(0, 14)),
+          findsOneWidget,
+        );
+        expect(symptoms.calls, isEmpty);
+      });
+
+      testWidgets('si no se pueden contar, la linea del total', (tester) async {
+        await openWith(
+          tester,
+          symptomCount: 4,
+          symptoms: PagedSymptomsRepository(
+            records(4, SymptomTypeOption.abdominalPain),
+            failOnPage: 1,
+          ),
+        );
+
+        expect(
+          find.text(l10n.recommendationDataSymptoms(4, 14)),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('recommendation_data_symptoms_abdominalPain')),
+          findsNothing,
+        );
+      });
+    });
+
     testWidgets('la explicacion de respaldo se muestra igual (CP077)',
         (tester) async {
       // HU0015 CA4: el LLM fallo y llego la plantilla. No es un error.
@@ -174,7 +330,22 @@ void main() {
         fallback.id,
       );
 
-      expect(find.text(fallback.explanation!), findsOneWidget);
+      // El texto se muestra entero; FODMAP queda tocable dentro de el.
+      expect(
+        find.textContaining(
+          'Se sugiere evitar 2 alimento(s) en función del perfil ',
+          findRichText: true,
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const Key('recommendation_term_FODMAP')),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining(' identificado.', findRichText: true),
+        findsOneWidget,
+      );
       expect(
         find.byKey(const Key('recommendation_attribution')),
         findsOneWidget,
@@ -342,6 +513,147 @@ void main() {
     });
   });
 
+  group('RecommendationDetailScreen · terminos del glosario (CP068)', () {
+    final withTerm = approvedDetail.copyWith(
+      id: 'rec-glossary',
+      explanation: 'Algunos de los alimentos que consumes tienen un '
+          'contenido alto de FODMAP y podrían relacionarse con tus síntomas.',
+    );
+
+    testWidgets('el termino marcado se ve subrayado y se anuncia como tal',
+        (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [withTerm]),
+        withTerm.id,
+      );
+
+      final term = find.byKey(const Key('recommendation_term_FODMAP'));
+      expect(term, findsOneWidget);
+      final text = tester.widget<Text>(term);
+      expect(text.style?.decoration, TextDecoration.underline);
+      expect(
+        find.ancestor(
+          of: term,
+          matching: find.byWidgetPredicate(
+            (w) =>
+                w is Semantics &&
+                (w.properties.button ?? false) &&
+                w.properties.label ==
+                    l10n.recommendationGlossaryTermSemantics('FODMAP'),
+          ),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('tocarlo abre la definicion con su tipo (paso 7)',
+        (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [withTerm]),
+        withTerm.id,
+      );
+
+      await _tapVisible(
+        tester,
+        find.byKey(const Key('recommendation_term_FODMAP')),
+      );
+
+      final sheet = find.byKey(const Key('glossary_term_sheet'));
+      expect(sheet, findsOneWidget);
+      expect(
+        find.descendant(of: sheet, matching: find.text('FODMAP')),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: sheet,
+          matching: find.textContaining('azúcares y fibras'),
+        ),
+        findsOneWidget,
+      );
+      expect(
+        find.descendant(
+          of: sheet,
+          matching: find.text(l10n.glossaryCategoryNutritional),
+        ),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('sin terminos del glosario el texto queda igual',
+        (tester) async {
+      await _openDetail(
+        tester,
+        FakeRecommendationsRepository(details: [approvedDetail]),
+        approvedDetail.id,
+      );
+
+      expect(find.textContaining('alimento alto en fructanos'), findsOneWidget);
+      expect(
+        find.byWidgetPredicate(
+          (w) =>
+              w.key is ValueKey<String> &&
+              (w.key! as ValueKey<String>).value.startsWith(
+                    'recommendation_term_',
+                  ),
+        ),
+        findsNothing,
+      );
+    });
+  });
+
+  group('RecommendationDetailScreen · espera de 24 horas (CP043)', () {
+    testWidgets('recibida hace 20 h: no pide respuesta y explica cuando',
+        (tester) async {
+      final recent = approvedDetail.copyWith(
+        reviewedAt: recommendationsNow.subtract(const Duration(hours: 20)),
+      );
+      final repository = FakeRecommendationsRepository(details: [recent]);
+      await _openDetail(tester, repository, recent.id);
+
+      expect(repository.deliveredIds, <String>[recent.id]);
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_not_yet')),
+      );
+      expect(find.text(l10n.recommendationFeedbackNotYet), findsOneWidget);
+      expect(
+        find.byKey(const Key('recommendation_feedback_form')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('la nota vacia es valida al responder (CP043 paso 9)',
+        (tester) async {
+      final repository =
+          FakeRecommendationsRepository(details: [approvedDetail]);
+      await _openDetail(tester, repository, approvedDetail.id);
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_submit')),
+      );
+
+      await _tapVisible(
+        tester,
+        find.text(l10n.recommendationFeedbackAppliedYes),
+      );
+      await _tapVisible(
+        tester,
+        find.text(l10n.recommendationFeedbackOutcomeWorsening),
+      );
+      await _tapVisible(
+        tester,
+        find.byKey(const Key('recommendation_feedback_submit')),
+      );
+
+      expect(repository.feedbackDrafts, hasLength(1));
+      expect(repository.feedbackDrafts.single.commentToSend, isNull);
+      expect(find.text(l10n.recommendationFeedbackSent), findsOneWidget);
+    });
+  });
+
   group('RecommendationDetailScreen · entrega y feedback (HU0016)', () {
     testWidgets('abrirla la entrega una vez y habilita la respuesta',
         (tester) async {
@@ -402,14 +714,21 @@ void main() {
       );
     });
 
-    testWidgets('sin red: toast de error con reintento, sin cola (decision 8)',
+    testWidgets('sin red: queda registrada y pendiente de envio (CP044)',
         (tester) async {
       final repository = FakeRecommendationsRepository(
         details: [
           approvedDetail.copyWith(status: RecommendationStatusOption.delivered),
         ],
-      )..feedbackError = const CauceApiError.network();
-      await _openDetail(tester, repository, approvedDetail.id);
+      );
+      final connectivity = FakeConnectivityMonitor(online: false);
+      addTearDown(connectivity.dispose);
+      await pumpRecommendations(
+        tester,
+        repository: repository,
+        initialLocation: AppRoutes.recommendationDetailPath(approvedDetail.id),
+        connectivity: connectivity,
+      );
       await _scrollTo(
         tester,
         find.byKey(const Key('recommendation_feedback_submit')),
@@ -417,7 +736,7 @@ void main() {
 
       await _tapVisible(
         tester,
-        find.text(l10n.recommendationFeedbackAppliedNo),
+        find.text(l10n.recommendationFeedbackAppliedYes),
       );
       await _tapVisible(
         tester,
@@ -428,18 +747,118 @@ void main() {
         find.byKey(const Key('recommendation_feedback_submit')),
       );
 
+      expect(repository.feedbackKeys, isEmpty);
+      expect(find.text(l10n.recommendationFeedbackQueued), findsOneWidget);
       expect(
-        find.text(l10n.recommendationFeedbackNetworkError),
+        find.byKey(const Key('recommendation_feedback_form')),
+        findsNothing,
+      );
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_pending')),
+      );
+      expect(
+        find.descendant(
+          of: find.byKey(const Key('recommendation_feedback_summary')),
+          matching: find.text(l10n.recommendationFeedbackQueuedBody),
+        ),
         findsOneWidget,
       );
+      expect(
+        find.text(l10n.recommendationFeedbackSummaryNoChange),
+        findsOneWidget,
+      );
+    });
 
-      repository.feedbackError = null;
-      await tester.tap(find.text(l10n.commonRetry));
-      await tester.pumpAndSettle();
+    testWidgets('con una respuesta guardada muestra su resumen pendiente',
+        (tester) async {
+      final delivered =
+          approvedDetail.copyWith(status: RecommendationStatusOption.delivered);
+      final database = AppDatabase.memory();
+      addTearDown(database.close);
+      await RecommendationFeedbackOutboxStore(database).save(
+        PendingRecommendationFeedback(
+          recommendationId: delivered.id,
+          idempotencyKey: 'clave-1',
+          wasApplied: false,
+          outcome: FeedbackOutcomeOption.worsening,
+          comment: 'Más hinchazón',
+          createdAt: recommendationsNow,
+        ),
+        userId: demoUser.userId,
+      );
+      await pumpRecommendations(
+        tester,
+        repository: FakeRecommendationsRepository(details: [delivered]),
+        initialLocation: AppRoutes.recommendationDetailPath(delivered.id),
+        database: database,
+      );
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_pending')),
+      );
 
-      expect(repository.feedbackKeys, hasLength(2));
-      expect(repository.feedbackKeys.last, repository.feedbackKeys.first);
-      expect(find.text(l10n.recommendationFeedbackSent), findsOneWidget);
+      expect(find.text('Más hinchazón'), findsOneWidget);
+      expect(
+        find.text(l10n.recommendationFeedbackSummaryNotApplied),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const Key('recommendation_feedback_form')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('rechazada: avisa y permite responder de nuevo',
+        (tester) async {
+      final delivered =
+          approvedDetail.copyWith(status: RecommendationStatusOption.delivered);
+      final database = AppDatabase.memory();
+      addTearDown(database.close);
+      final outbox = RecommendationFeedbackOutboxStore(database);
+      await outbox.save(
+        PendingRecommendationFeedback(
+          recommendationId: delivered.id,
+          idempotencyKey: 'clave-1',
+          wasApplied: true,
+          outcome: FeedbackOutcomeOption.improvement,
+          createdAt: recommendationsNow,
+        ),
+        userId: demoUser.userId,
+      );
+      await outbox.markRejected(
+        delivered.id,
+        userId: demoUser.userId,
+        errorCode: 'validation_error',
+      );
+      await pumpRecommendations(
+        tester,
+        repository: FakeRecommendationsRepository(details: [delivered]),
+        initialLocation: AppRoutes.recommendationDetailPath(delivered.id),
+        database: database,
+      );
+      await _scrollTo(
+        tester,
+        find.byKey(const Key('recommendation_feedback_answer_again')),
+      );
+
+      expect(
+        find.text(l10n.recommendationFeedbackRejectedTitle),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const Key('recommendation_feedback_pending')),
+        findsNothing,
+      );
+      await _tapVisible(
+        tester,
+        find.byKey(const Key('recommendation_feedback_answer_again')),
+      );
+
+      expect(
+        find.byKey(const Key('recommendation_feedback_form')),
+        findsOneWidget,
+      );
     });
 
     testWidgets('con respuesta previa muestra el resumen y no el formulario',

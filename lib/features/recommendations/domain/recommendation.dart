@@ -342,6 +342,19 @@ abstract class RecommendationDetail with _$RecommendationDetail {
   /// Aprobada y todavia sin abrir (HU0014 CA1).
   bool get isNew => status.isDeliverable;
 
+  /// Tiempo desde que la recibe hasta que se le pide contar como le fue.
+  static const Duration feedbackDelay = Duration(hours: 24);
+
+  /// Cuando el paciente la recibio: al aprobarla, no al abrirla.
+  DateTime get receivedAt => reviewedAt ?? generatedAt;
+
+  /// Visible, sin respuesta y con 24 horas desde que la recibio (CP043).
+  bool invitesFeedback(DateTime now) =>
+      feedback == null &&
+      (status.isDeliverable ||
+          status == RecommendationStatusOption.delivered) &&
+      !now.isBefore(receivedAt.add(feedbackDelay));
+
   /// La vio un nutricionista antes de llegar al paciente (HU0015 CA2).
   bool get wasReviewed => reviewerId != null && !autoApproved;
 }

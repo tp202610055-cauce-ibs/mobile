@@ -1,3 +1,5 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
+import 'package:cauce_mobile/core/auth/session_generation.dart';
 import 'package:cauce_mobile/core/auth/token_storage.dart';
 import 'package:cauce_mobile/core/config/env.dart';
 import 'package:cauce_mobile/core/database/app_database.dart';
@@ -8,6 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'fake_onboarding_draft_store.dart';
 import 'canned_http_adapter.dart';
 import 'sync_fixtures.dart';
 
@@ -61,6 +64,8 @@ AppBorders appBorders({
 
   return (
     overrides: <Override>[
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       appDatabaseProvider.overrideWithValue(database),
       connectivityMonitorProvider.overrideWithValue(connectivity),
       // Solo el transporte: interceptors, cliente generado y mapeo de errores
@@ -71,6 +76,8 @@ AppBorders appBorders({
           baseUrl: 'http://localhost:5074',
           refreshClient: refreshClient,
           onSessionExpired: sessionExpiryCallback(ref),
+          onUserRefreshed: userRefreshedCallback(ref),
+          sessionGeneration: ref.watch(sessionGenerationProvider),
         );
         dio.httpClientAdapter = transport;
         return dio;

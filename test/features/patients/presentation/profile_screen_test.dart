@@ -11,6 +11,7 @@ import 'package:cauce_mobile/features/patients/domain/allergy.dart';
 import 'package:cauce_mobile/features/patients/domain/patient_profile.dart';
 import 'package:cauce_mobile/features/patients/presentation/account_settings_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/privacy_screen.dart';
+import 'package:cauce_mobile/features/patients/presentation/profile_edit_screen.dart';
 import 'package:cauce_mobile/features/patients/presentation/profile_screen.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
@@ -74,6 +75,10 @@ Future<void> _pumpWithoutSettle(
                 GoRoute(
                   path: AppRoutes.profileSettings.substring(1),
                   builder: (_, __) => const AccountSettingsScreen(),
+                ),
+                GoRoute(
+                  path: AppRoutes.profileEdit.substring(1),
+                  builder: (_, __) => const ProfileEditScreen(),
                 ),
               ],
             ),
@@ -241,7 +246,8 @@ void main() {
 
     Finder allergiesRow() => find.byKey(const Key('profile_allergies'));
 
-    testWidgets('sin alergias dice "Ninguna" dentro de la tarjeta clinica',
+    testWidgets(
+        'sin alergias dice "Ninguna conocida" dentro de la tarjeta clinica',
         (tester) async {
       await _pump(tester);
 
@@ -253,7 +259,10 @@ void main() {
         findsOneWidget,
       );
       expect(
-        find.descendant(of: allergiesRow(), matching: find.text('Ninguna')),
+        find.descendant(
+          of: allergiesRow(),
+          matching: find.text('Ninguna conocida'),
+        ),
         findsOneWidget,
       );
       expect(
@@ -298,7 +307,7 @@ void main() {
       expect(find.text('Lactosa (intolerancia leve)'), findsOneWidget);
       expect(find.text('Maní (alergia severa)'), findsOneWidget);
       expect(find.text('Gluten (sensibilidad moderada)'), findsOneWidget);
-      expect(find.text('Ninguna'), findsNothing);
+      expect(find.text('Ninguna conocida'), findsNothing);
     });
   });
 
@@ -485,21 +494,113 @@ void main() {
     });
   });
 
-  group('ProfileScreen · edicion', () {
-    testWidgets('el boton queda deshabilitado y explicado', (tester) async {
+  group('ProfileScreen · canje del código (CP085, CP087, CP088)', () {
+    Future<FakePatientsRepository> pumpWithoutNutritionist(
+      WidgetTester tester,
+    ) async {
+      final repository = FakePatientsRepository()
+        ..summaryValue = demoSummary.copyWith(nutritionistName: null);
+      await _pump(tester, repository: repository);
+      return repository;
+    }
+
+    Future<void> redeem(WidgetTester tester, String code) async {
+      await tester.ensureVisible(
+        find.byKey(const Key('profile_invitation_code_open')),
+      );
+      await tester.tap(find.byKey(const Key('profile_invitation_code_open')));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.byKey(const Key('profile_invitation_code_field')),
+        code,
+      );
+      await tester.tap(find.byKey(const Key('profile_invitation_code_submit')));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('sin nutricionista ofrece ingresar un código', (tester) async {
+      await pumpWithoutNutritionist(tester);
+
+      expect(find.text(l10n.profileNoNutritionistHint), findsOneWidget);
+      expect(
+        find.byKey(const Key('profile_invitation_code_open')),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets('con nutricionista no ofrece el canje', (tester) async {
       await _pump(tester);
 
       expect(
-        find.byKey(const Key('profile_edit_unavailable')),
-        findsOneWidget,
+        find.byKey(const Key('profile_invitation_code_open')),
+        findsNothing,
       );
-      final button = tester.widget<OutlinedButton>(
-        find.descendant(
-          of: find.byKey(const Key('profile_edit')),
-          matching: find.byType(OutlinedButton),
+    });
+
+    testWidgets('un código válido muestra al nutricionista y la fecha',
+        (tester) async {
+      final repository = await pumpWithoutNutritionist(tester);
+
+      await redeem(tester, 'ABCD1234');
+
+      expect(repository.redeemedCodes, <String>['ABCD1234']);
+      expect(find.text('Ana Quispe'), findsOneWidget);
+      expect(find.text(l10n.profileTrackingAssignedAt), findsOneWidget);
+      expect(find.text('12/09/2026'), findsOneWidget);
+      expect(
+        find.byKey(const Key('profile_invitation_code_open')),
+        findsNothing,
+      );
+    });
+
+    for (final reason in InvitationCodeReason.values) {
+      testWidgets('un código ${reason.name} da el mismo aviso y no vincula',
+          (tester) async {
+        final repository = await pumpWithoutNutritionist(tester);
+        repository.assignNutritionistError =
+            CauceApiError.invitationCode(reason: reason);
+
+        await redeem(tester, 'ABC123XYZ');
+
+        expect(
+          find.text(
+            'El código de invitación no es válido. Pide uno nuevo a tu '
+            'nutricionista.',
+          ),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const Key('profile_invitation_code_field')),
+          findsOneWidget,
+        );
+      });
+    }
+  });
+
+  group('ProfileScreen · datos clínicos (CP009, CP071)', () {
+    testWidgets('muestra peso y estatura del perfil', (tester) async {
+      await _pump(
+        tester,
+        repository: FakePatientsRepository(
+          profile: demoProfile.copyWith(weightKg: 62, heightCm: 165),
         ),
       );
-      expect(button.onPressed, isNull);
+
+      expect(find.text('62 kg'), findsOneWidget);
+      expect(find.text('165 cm'), findsOneWidget);
+    });
+
+    testWidgets('el botón de edición abre el formulario', (tester) async {
+      await _pump(
+        tester,
+        repository: FakePatientsRepository(profile: demoProfile),
+      );
+
+      await tester.ensureVisible(find.byKey(const Key('profile_edit')));
+      await tester.tap(find.byKey(const Key('profile_edit')));
+      await tester.pumpAndSettle();
+
+      expect(find.byKey(const Key('profile_edit_screen')), findsOneWidget);
     });
   });
 }

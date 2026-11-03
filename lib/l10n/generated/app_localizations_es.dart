@@ -122,8 +122,19 @@ class AppLocalizationsEs extends AppLocalizations {
   String get registerConsentSectionTitle => 'Consentimiento informado';
 
   @override
+  String registerConsentVersion(String version) {
+    return 'Versión $version';
+  }
+
+  @override
+  String get registerConsentReadFull => 'Leer el texto completo';
+
+  @override
+  String get registerConsentClose => 'Cerrar';
+
+  @override
   String get registerConsentCheckbox =>
-      'He leido y acepto el consentimiento informado';
+      'He leído y acepto el consentimiento informado';
 
   @override
   String get registerConsentLoading => 'Cargando el consentimiento vigente';
@@ -186,6 +197,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get passwordResetRequestNewLink => 'Solicitar un enlace nuevo';
+
+  @override
+  String get passwordResetLinkInvalid =>
+      'Este enlace ya no es válido. Pide uno nuevo para cambiar tu contraseña.';
 
   @override
   String get verifyEmailPendingTitle => 'Verifica tu correo';
@@ -255,7 +270,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validationDateOfBirthFuture =>
-      'La fecha de nacimiento no puede ser futura';
+      'La fecha de nacimiento no es válida: no puede ser futura';
+
+  @override
+  String get validationDateFormat =>
+      'La fecha no es válida. Escríbela como dd/mm/aaaa';
 
   @override
   String validationAgeOutOfRange(int min, int max) {
@@ -268,7 +287,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get validationWeightOutOfRange =>
-      'Ingresa un peso mayor que 0 y menor que 500 kg';
+      'El peso está fuera del rango permitido: más de 0 y menos de 300 kg';
+
+  @override
+  String get validationWeightInvalid =>
+      'El peso no es válido: no puede ser negativo';
 
   @override
   String get validationHeightOutOfRange =>
@@ -287,14 +310,16 @@ class AppLocalizationsEs extends AppLocalizations {
       'El consentimiento informado cambió. Vuelve a leerlo y acéptalo.';
 
   @override
-  String get errorInvalidInvitationCode => 'El código de invitación no existe';
+  String get errorInvalidInvitationCode =>
+      'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.';
 
   @override
-  String get errorExpiredInvitationCode => 'El código de invitación venció';
+  String get errorExpiredInvitationCode =>
+      'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.';
 
   @override
   String get errorInvitationCodeAlreadyUsed =>
-      'El código de invitación ya fue usado';
+      'El código de invitación no es válido. Pide uno nuevo a tu nutricionista.';
 
   @override
   String get errorNutritionistPendingActivation =>
@@ -350,10 +375,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get mealsSearchNoResults => 'No encontramos alimentos con ese nombre';
 
   @override
-  String get mealsSuggestionsFrequent => 'Los que más registras';
+  String get mealsSuggestionsFrequent =>
+      'Los que más registras en los últimos 30 días';
 
   @override
-  String get mealsSuggestionsRecent => 'Registrados hoy';
+  String get mealsSuggestionsRecent => 'Registrados en las últimas 24 horas';
 
   @override
   String get mealsSuggestionsCatalog => 'Del catálogo';
@@ -522,7 +548,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get customFoodAddIngredient => 'Agregar ingrediente';
 
   @override
-  String get customFoodProportionLabel => 'Cantidad en el plato (g)';
+  String get customFoodProportionLabel =>
+      'Proporción aproximada en el plato (%)';
 
   @override
   String get customFoodSubmit => 'Guardar plato';
@@ -593,7 +620,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get customFoodIssueInvalidProportion =>
-      'Cada ingrediente debe tener una cantidad mayor que cero';
+      'Cada ingrediente debe tener una proporción mayor que 0 % y de hasta 100 %';
 
   @override
   String get customFoodIssueDuplicateIngredient =>
@@ -663,7 +690,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get symptomsMealNotAssociated =>
-      'No habia una comida registrada en las 4 horas previas.';
+      'No había una comida registrada en las 4 horas previas.';
 
   @override
   String get symptomsMealPending =>
@@ -673,10 +700,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get symptomsIssueMissingType => 'Elige qué sentiste';
 
   @override
-  String get symptomsIssueMissingIntensity => 'Indica la intensidad';
+  String get symptomsIssueMissingIntensity =>
+      'La intensidad debe estar entre 1 y 100';
 
   @override
-  String get symptomsIssueIntensityOutOfRange => 'La intensidad va de 1 a 100';
+  String get symptomsIssueIntensityOutOfRange =>
+      'La intensidad debe estar entre 1 y 100';
 
   @override
   String get symptomsIssueFutureOccurredAt =>
@@ -775,6 +804,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String clinicalNoteCounter(int count, int max) {
+    return '$count/$max';
+  }
+
+  @override
   String get clinicalNoteTooLong =>
       'La nota no puede superar los 500 caracteres';
 
@@ -798,8 +832,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get ibsSssEvolutionTitle => 'Tu evolución';
 
   @override
+  String get ibsSssEvolutionSignificant => 'Respuesta clínica significativa';
+
+  @override
   String get ibsSssEvolutionEmpty =>
-      'Con una sola evaluación todavía no hay evolución que mostrar.';
+      'El gráfico aparece desde tu tercera evaluación.';
 
   @override
   String ibsSssEvolutionRange(int first, int last) {
@@ -881,6 +918,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'No hay datos registrados en ese período. Elige un rango de fechas diferente.';
 
   @override
+  String get errorEmailNotVerified =>
+      'Para recibir la contraseña de tu reporte necesitas verificar tu correo. Revisa tu bandeja de entrada y toca el enlace. Si no lo encuentras, puedes reenviarlo desde Inicio.';
+
+  @override
   String get errorReportPeriodInvalid =>
       'El período solicitado no es válido. Elige un rango de hasta 90 días que no incluya fechas futuras.';
 
@@ -940,14 +981,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'Tu sesión expiró. Inicia sesión de nuevo.';
 
   @override
-  String get errorInvalidPasswordResetToken =>
-      'El enlace de recuperación no es válido';
-
-  @override
-  String get errorExpiredPasswordResetToken =>
-      'El enlace de recuperación venció o ya fue usado';
-
-  @override
   String get errorUserLocalMissing =>
       'No encontramos tu cuenta completa en el sistema. Volver a intentarlo no lo resuelve. Avisa al equipo del piloto o a tu nutricionista para que lo revisen.';
 
@@ -980,7 +1013,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get onboardingDefer => 'Completar más tarde';
+  String get onboardingDefer => 'Después';
 
   @override
   String get onboardingReminderTitle => 'Te falta completar tu perfil';
@@ -995,6 +1028,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboardingReminderAction => 'Continuar ahora';
+
+  @override
+  String onboardingReminderProgress(int done, int total) {
+    return 'Avance de configuración: $done de $total pasos';
+  }
 
   @override
   String get clinicalProfileTitle => 'Tu perfil clínico';
@@ -1073,7 +1111,21 @@ class AppLocalizationsEs extends AppLocalizations {
       'Nombre y dosis, si tomas algo por el SII';
 
   @override
-  String get clinicalProfileSubmit => 'Continuar';
+  String get clinicalProfileSubmit => 'Guardar perfil';
+
+  @override
+  String get clinicalProfilePhysicalSubtitle =>
+      'Datos físicos: tu fecha de nacimiento, sexo, peso y estatura.';
+
+  @override
+  String get clinicalProfileHistorySubtitle =>
+      'Antecedentes clínicos: subtipo de SII, alergias e intolerancias.';
+
+  @override
+  String get clinicalProfileDateHint => 'dd/mm/aaaa';
+
+  @override
+  String get clinicalProfilePickDate => 'Elegir en el calendario';
 
   @override
   String get bmiTitle => 'Índice de masa corporal';
@@ -1087,7 +1139,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get bmiCategoryUnderweight => 'Bajo peso';
 
   @override
-  String get bmiCategoryNormal => 'Peso normal';
+  String get bmiCategoryNormal => 'Normal';
 
   @override
   String get bmiCategoryOverweight => 'Sobrepeso';
@@ -1107,7 +1159,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get allergiesSubtitle =>
-      'Marca las que tengas. Puedes dejarlo vacío si no aplica.';
+      'Marca las que tengas o elige «Ninguna conocida».';
+
+  @override
+  String get allergiesNoneKnown => 'Ninguna conocida';
+
+  @override
+  String get validationAllergiesRequired =>
+      'Indica tus alergias e intolerancias o marca «Ninguna conocida».';
 
   @override
   String get allergiesLoading => 'Cargando el catálogo';
@@ -1158,7 +1217,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ibsSssQuestionPainFrequency =>
-      '¿Con qué frecuencia tuviste dolor abdominal?';
+      'En los últimos 10 días, ¿cuántos días tuviste dolor abdominal?';
 
   @override
   String get ibsSssPainFrequencyMin => 'Ningún día';
@@ -1220,6 +1279,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ibsSssSeveritySevere => 'Severidad severa';
+
+  @override
+  String get ibsSssPeriodicResultNote =>
+      'Este resultado se suma a tu evolución. Tu nutricionista lo revisa contigo en consulta.';
 
   @override
   String get ibsSssResultNote =>
@@ -1289,7 +1352,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get evolutionBaselineOnlyBody =>
-      'Tu gráfico completo va a aparecer acá después de tu primera evaluación periódica.';
+      'Tu gráfico completo aparecerá aquí después de tu primera evaluación periódica.';
+
+  @override
+  String get evolutionLockedTitle => 'Disponible al completar tu perfil';
+
+  @override
+  String get evolutionLockedBody =>
+      'Tu evolución se arma con tu perfil clínico y tu primera evaluación. Completa esos dos pasos para verla.';
+
+  @override
+  String get evolutionLockedAction => 'Continuar donde quedé';
 
   @override
   String evolutionNextAssessment(String date) {
@@ -1367,7 +1440,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profileTrackingNutritionist => 'Mi nutricionista';
 
   @override
-  String get profileTrackingNutritionistPending => 'Pendiente de asignación';
+  String get profileTrackingNutritionistPending => 'Sin nutricionista asignado';
 
   @override
   String get profileClinicalSubtype => 'Subtipo de SII';
@@ -1376,7 +1449,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get profileClinicalAllergies => 'Alergias declaradas';
 
   @override
-  String get profileClinicalAllergiesNone => 'Ninguna';
+  String get profileClinicalAllergiesNone => 'Ninguna conocida';
 
   @override
   String profileAllergyDetail(String name, String qualifier) {
@@ -1438,7 +1511,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profileEvolutionEmpty =>
-      'Completa tu primera evaluación para ver tu evolución acá.';
+      'Completa tu primera evaluación para ver tu evolución aquí.';
 
   @override
   String get profileEvolutionEmptyAction => 'Responder el cuestionario';
@@ -1718,6 +1791,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get glossaryEntryHint => 'Términos médicos y nutricionales explicados';
 
   @override
+  String get helpMenuTooltip => 'Ayuda';
+
+  @override
   String get glossarySearchLabel => 'Buscar un término';
 
   @override
@@ -1757,6 +1833,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get navJournal => 'Diario';
+
+  @override
+  String get navEvolution => 'Evolución';
 
   @override
   String get navAdvice => 'Consejos';
@@ -1981,6 +2060,28 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String recommendationDataSymptomsOfType(int count, String symptom, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'registros de $symptom en los últimos $days días',
+      one: 'registro de $symptom en los últimos $days días',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String recommendationDataSymptomsOther(int count, int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'registros de otros síntomas en los últimos $days días',
+      one: 'registro de otros síntomas en los últimos $days días',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get recommendationDataWindow =>
       'ventana que usa el sistema para relacionar una comida con los síntomas que vienen después';
 
@@ -2066,12 +2167,25 @@ class AppLocalizationsEs extends AppLocalizations {
   String get recommendationFeedbackSubmit => 'Enviar mi respuesta';
 
   @override
-  String get recommendationFeedbackNetworkError =>
+  String get recommendationFeedbackQueued => 'Tu respuesta quedó registrada';
+
+  @override
+  String get recommendationFeedbackQueuedBody =>
+      'Se enviará cuando vuelva la conexión.';
+
+  @override
+  String get recommendationFeedbackPendingBadge => 'Pendiente de envío';
+
+  @override
+  String get recommendationFeedbackRejectedTitle =>
       'No pudimos enviar tu respuesta';
 
   @override
-  String get recommendationFeedbackNetworkErrorBody =>
-      'Revisa tu conexión e inténtalo otra vez.';
+  String get recommendationFeedbackRejectedBody =>
+      'No se aceptó tal como estaba. Puedes responder de nuevo.';
+
+  @override
+  String get recommendationFeedbackAnswerAgain => 'Responder de nuevo';
 
   @override
   String get recommendationFeedbackSent => 'Gracias por contarnos cómo te fue';
@@ -2183,6 +2297,11 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String historyIntensityBadge(int value) {
     return 'Intensidad $value';
+  }
+
+  @override
+  String historyMealAssociatedWithFood(String food, String delay) {
+    return 'Comida asociada: $food, registrada $delay antes';
   }
 
   @override
@@ -2329,4 +2448,200 @@ class AppLocalizationsEs extends AppLocalizations {
   String homeTodaySummary(String meals, String symptoms) {
     return '$meals, $symptoms';
   }
+
+  @override
+  String get profileTrackingAssignedAt => 'Inicio del seguimiento';
+
+  @override
+  String get profileNoNutritionistHint =>
+      'Para recibir recomendaciones, ingresa el código de invitación que te dé tu nutricionista.';
+
+  @override
+  String get profileInvitationCodeAction => 'Ingresar código de invitación';
+
+  @override
+  String get profileInvitationCodeTitle => 'Código de invitación';
+
+  @override
+  String get profileInvitationCodeBody =>
+      'Escribe el código que te dio tu nutricionista.';
+
+  @override
+  String get profileInvitationCodeSubmit => 'Vincular';
+
+  @override
+  String profileInvitationCodeLinked(String name) {
+    return 'Ya estás vinculado con $name';
+  }
+
+  @override
+  String get profileClinicalWeight => 'Peso';
+
+  @override
+  String get profileClinicalHeight => 'Estatura';
+
+  @override
+  String profileClinicalWeightValue(String kg) {
+    return '$kg kg';
+  }
+
+  @override
+  String profileClinicalHeightValue(String cm) {
+    return '$cm cm';
+  }
+
+  @override
+  String get profileEditTitle => 'Editar mi información';
+
+  @override
+  String get profileEditSave => 'Guardar cambios';
+
+  @override
+  String get profileEditSaved => 'Tu información se actualizó';
+
+  @override
+  String get validationWeightNegative => 'El peso no puede ser negativo';
+
+  @override
+  String get validationHeightNegative => 'La estatura no puede ser negativa';
+
+  @override
+  String get validationWeightNotNumber => 'El peso debe ser un número';
+
+  @override
+  String get validationHeightNotNumber => 'La estatura debe ser un número';
+
+  @override
+  String get validationWeightRequired => 'El peso es obligatorio';
+
+  @override
+  String get validationHeightRequired => 'La estatura es obligatoria';
+
+  @override
+  String get recommendationsNoNutritionistTitle =>
+      'Aún no tienes nutricionista';
+
+  @override
+  String get recommendationsNoNutritionistBody =>
+      'Para recibir recomendaciones necesitas estar vinculado a un nutricionista. Ingresa desde tu perfil el código de invitación que tu nutricionista te proporcione.';
+
+  @override
+  String get recommendationsNoNutritionistAction => 'Ir a mi perfil';
+
+  @override
+  String ibsSssPainFrequencyDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days días',
+      one: '1 día',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ibsSssQuestionMissing => 'Pendiente: responde esta pregunta';
+
+  @override
+  String historyNoteSavedAt(String stamp) {
+    return 'Nota guardada el $stamp';
+  }
+
+  @override
+  String customFoodProportionPercent(String percent) {
+    return '$percent %';
+  }
+
+  @override
+  String customFoodProportionTotal(String percent) {
+    return 'Las proporciones suman $percent %';
+  }
+
+  @override
+  String customFoodAllergenWarning(String allergens) {
+    return 'Atención: este plato incluye un alérgeno que declaraste ($allergens). Puedes guardarlo igual y te pediremos confirmarlo.';
+  }
+
+  @override
+  String get privacyConsentView => 'Consultar el consentimiento';
+
+  @override
+  String get consentTextTitle => 'Consentimiento informado';
+
+  @override
+  String consentTextVersion(String version) {
+    return 'Versión $version';
+  }
+
+  @override
+  String get consentTextLoadError =>
+      'No pudimos cargar el texto del consentimiento.';
+
+  @override
+  String get symptomsIntensityInputLabel => 'Intensidad (de 1 a 100)';
+
+  @override
+  String get homeScoreCelebration => 'Respuesta clínica significativa';
+
+  @override
+  String homeScoreThresholdLegend(int score) {
+    return 'Línea punteada: meta clínica ($score puntos)';
+  }
+
+  @override
+  String get evolutionPickDates => 'Elegir un rango de fechas';
+
+  @override
+  String evolutionCustomRange(String from, String to) {
+    return 'Del $from al $to';
+  }
+
+  @override
+  String get mealsIssueMissingUnit => 'Elige la unidad de medida';
+
+  @override
+  String get recommendationFeedbackInvite => 'Cuéntanos cómo te fue';
+
+  @override
+  String get recommendationFeedbackNotYet =>
+      'Podrás contarnos cómo te fue cuando pasen 24 horas desde que la recibiste.';
+
+  @override
+  String recommendationGlossaryTermSemantics(String term) {
+    return '$term, término del glosario. Toca para ver su definición.';
+  }
+
+  @override
+  String get mealsIssueQuantityNotANumber =>
+      'Escribe la cantidad con números, por ejemplo 150';
+
+  @override
+  String get clinicalNoteEmpty => 'Escribe la nota antes de guardarla';
+
+  @override
+  String get sessionInactivityTitle => 'Tu sesión se cerró por inactividad';
+
+  @override
+  String get sessionInactivityBody =>
+      'Pasaron 10 minutos sin que usaras la aplicación. Vuelve a iniciar sesión: lo que registraste sigue guardado.';
+
+  @override
+  String emailReminderBody(String email) {
+    return 'Te enviamos un mensaje a $email. Ábrelo y toca el enlace para confirmar que esta cuenta es tuya.';
+  }
+
+  @override
+  String get emailReminderResent =>
+      'Te enviamos un correo nuevo. Puede tardar unos minutos. Revisa también la carpeta de spam.';
+
+  @override
+  String get emailReminderConfirm => 'Ya lo verifiqué';
+
+  @override
+  String get emailReminderStillPending =>
+      'Todavía no vemos tu correo verificado. Revisa que tocaste el enlace del último correo que te enviamos.';
+
+  @override
+  String get clinicalProfileNoInvitationNotice =>
+      'Te registraste sin código de invitación. Por ahora no tienes nutricionista asignado y no recibirás recomendaciones. Puedes ingresar el código más adelante desde tu perfil.';
 }

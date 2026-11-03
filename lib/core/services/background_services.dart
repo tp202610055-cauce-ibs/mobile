@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,6 +10,7 @@ import '../../features/auth/domain/session_state.dart';
 import '../../features/foods/application/food_catalog_refresher.dart';
 import '../../features/history/application/history_notifier.dart';
 import '../../features/history/application/today_journal_notifier.dart';
+import '../../features/recommendations/application/recommendation_feedback_sender.dart';
 import '../push/push_token_registrar.dart';
 import '../sync/connectivity_monitor.dart';
 import '../sync/sync_worker.dart';
@@ -35,11 +36,13 @@ class BackgroundServices {
     required FoodCatalogRefresher catalogRefresher,
     required ConnectivityMonitor connectivity,
     PushTokenRegistrar? pushRegistrar,
+    RecommendationFeedbackSender? feedbackSender,
     this.onSyncSettled,
   })  : _syncWorker = syncWorker,
         _catalogRefresher = catalogRefresher,
         _connectivity = connectivity,
-        _pushRegistrar = pushRegistrar;
+        _pushRegistrar = pushRegistrar,
+        _feedbackSender = feedbackSender;
 
   /// Se llama cuando una corrida dejo filas resueltas.
   ///
@@ -51,8 +54,10 @@ class BackgroundServices {
   final FoodCatalogRefresher _catalogRefresher;
   final ConnectivityMonitor _connectivity;
   final PushTokenRegistrar? _pushRegistrar;
+  final RecommendationFeedbackSender? _feedbackSender;
 
   StreamSubscription<void>? _reconnections;
+  AppLifecycleListener? _lifecycle;
   StreamSubscription<SyncRunReport>? _syncRuns;
   bool _running = false;
 
@@ -91,6 +96,17 @@ class BackgroundServices {
 
     // Liga el token de push a la cuenta en cada arranque con sesion.
     _pushRegistrar?.start();
+
+    // Respuestas a recomendaciones guardadas sin red: al iniciar sesion, al
+    // reconectar y al volver a primer plano.
+    final feedbackSender = _feedbackSender;
+    if (feedbackSender != null) {
+      feedbackSender.start();
+      unawaited(feedbackSender.run());
+      _lifecycle = AppLifecycleListener(
+        onResume: () => unawaited(feedbackSender.run()),
+      );
+    }
   }
 
   /// Apaga todo. Idempotente.
@@ -102,6 +118,9 @@ class BackgroundServices {
     _syncRuns = null;
     await _syncWorker.stop();
     await _pushRegistrar?.stop();
+    _lifecycle?.dispose();
+    _lifecycle = null;
+    await _feedbackSender?.stop();
   }
 
   /// Refresca el catálogo sin propagar fallos.
@@ -126,6 +145,7 @@ BackgroundServices backgroundServices(Ref ref) {
     catalogRefresher: ref.watch(foodCatalogRefresherProvider),
     connectivity: ref.watch(connectivityMonitorProvider),
     pushRegistrar: ref.watch(pushTokenRegistrarProvider),
+    feedbackSender: ref.watch(recommendationFeedbackSenderProvider),
     // `read` y no `watch`: Hoy y el Diario no son dependencias del servicio,
     // son a quienes avisarle. Recargan sin esperar la ventana de frescura.
     onSyncSettled: () {

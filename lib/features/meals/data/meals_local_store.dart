@@ -8,6 +8,7 @@ import 'package:uuid/uuid.dart';
 import '../../../core/database/app_database.dart';
 import '../../../core/database/app_database_provider.dart';
 import '../../../core/database/local_sync_status.dart';
+import '../../../core/sync/local_record_owner.dart';
 import '../domain/meal_draft.dart';
 
 part 'meals_local_store.g.dart';
@@ -18,10 +19,13 @@ part 'meals_local_store.g.dart';
 /// La cola la lee el worker de sincronizacion desde `core/sync/`; esta clase
 /// solo crea las filas y las lee para mostrarlas en el historial.
 class MealsLocalStore {
-  const MealsLocalStore(this._db, this._uuid);
+  const MealsLocalStore(this._db, this._uuid, this._owner);
 
   final AppDatabase _db;
   final Uuid _uuid;
+
+  /// Cuenta de la sesion. Cada fila se guarda a su nombre y solo ella la ve.
+  final String? Function() _owner;
 
   /// Guarda la comida como pendiente y devuelve su `client_guid`.
   ///
@@ -46,6 +50,10 @@ class MealsLocalStore {
     String? clientGuid,
     DateTime? now,
   }) async {
+    final owner = _owner();
+    if (owner == null) {
+      throw StateError('Registrar exige una sesion con cuenta.');
+    }
     final key = clientGuid ?? _uuid.v4();
     final createdAt = (now ?? DateTime.now()).toUtc();
     final mealTime = draft.mealTime;
@@ -78,6 +86,7 @@ class MealsLocalStore {
               consumedAt: (draft.consumedAt ?? createdAt).toUtc(),
               clientCreatedAt: createdAt,
               syncStatus: LocalSyncStatus.pending,
+              userId: Value<String?>(owner),
             ),
           );
 
@@ -125,12 +134,19 @@ class MealsLocalStore {
 
   /// Comidas creadas desde [from] inclusive, mas toda fila que no llego al
   /// servidor sin importar su edad, de la mas reciente a la mas vieja.
-  Future<List<MealLocal>> forHistory({required DateTime from}) {
+  Future<List<MealLocal>> forHistory({required DateTime from}) async {
+    final owner = _owner();
+    if (owner == null) {
+      return const <MealLocal>[];
+    }
     return (_db.select(_db.mealsLocal)
           ..where(
             (row) =>
-                row.clientCreatedAt.isBiggerOrEqualValue(from.toUtc()) |
-                row.syncStatus.equalsValue(LocalSyncStatus.completed).not(),
+                row.userId.equals(owner) &
+                (row.clientCreatedAt.isBiggerOrEqualValue(from.toUtc()) |
+                    row.syncStatus
+                        .equalsValue(LocalSyncStatus.completed)
+                        .not()),
           )
           ..orderBy(<OrderClauseGenerator<$MealsLocalTable>>[
             (row) => OrderingTerm.desc(row.clientCreatedAt),
@@ -164,5 +180,9 @@ class MealsLocalStore {
 
 @Riverpod(keepAlive: true)
 MealsLocalStore mealsLocalStore(Ref ref) {
-  return MealsLocalStore(ref.watch(appDatabaseProvider), const Uuid());
+  return MealsLocalStore(
+    ref.watch(appDatabaseProvider),
+    const Uuid(),
+    ref.watch(localRecordOwnerProvider),
+  );
 }

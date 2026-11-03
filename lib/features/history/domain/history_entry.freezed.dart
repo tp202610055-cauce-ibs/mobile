@@ -223,6 +223,153 @@ abstract class _HistoryMealItem implements HistoryMealItem {
 }
 
 /// @nodoc
+mixin _$HistoryNote {
+  String get content => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+
+  /// Create a copy of HistoryNote
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $HistoryNoteCopyWith<HistoryNote> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $HistoryNoteCopyWith<$Res> {
+  factory $HistoryNoteCopyWith(
+          HistoryNote value, $Res Function(HistoryNote) then) =
+      _$HistoryNoteCopyWithImpl<$Res, HistoryNote>;
+  @useResult
+  $Res call({String content, DateTime createdAt});
+}
+
+/// @nodoc
+class _$HistoryNoteCopyWithImpl<$Res, $Val extends HistoryNote>
+    implements $HistoryNoteCopyWith<$Res> {
+  _$HistoryNoteCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of HistoryNote
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? createdAt = null,
+  }) {
+    return _then(_value.copyWith(
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$HistoryNoteImplCopyWith<$Res>
+    implements $HistoryNoteCopyWith<$Res> {
+  factory _$$HistoryNoteImplCopyWith(
+          _$HistoryNoteImpl value, $Res Function(_$HistoryNoteImpl) then) =
+      __$$HistoryNoteImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String content, DateTime createdAt});
+}
+
+/// @nodoc
+class __$$HistoryNoteImplCopyWithImpl<$Res>
+    extends _$HistoryNoteCopyWithImpl<$Res, _$HistoryNoteImpl>
+    implements _$$HistoryNoteImplCopyWith<$Res> {
+  __$$HistoryNoteImplCopyWithImpl(
+      _$HistoryNoteImpl _value, $Res Function(_$HistoryNoteImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of HistoryNote
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? content = null,
+    Object? createdAt = null,
+  }) {
+    return _then(_$HistoryNoteImpl(
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$HistoryNoteImpl implements _HistoryNote {
+  const _$HistoryNoteImpl({required this.content, required this.createdAt});
+
+  @override
+  final String content;
+  @override
+  final DateTime createdAt;
+
+  @override
+  String toString() {
+    return 'HistoryNote(content: $content, createdAt: $createdAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$HistoryNoteImpl &&
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, content, createdAt);
+
+  /// Create a copy of HistoryNote
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$HistoryNoteImplCopyWith<_$HistoryNoteImpl> get copyWith =>
+      __$$HistoryNoteImplCopyWithImpl<_$HistoryNoteImpl>(this, _$identity);
+}
+
+abstract class _HistoryNote implements HistoryNote {
+  const factory _HistoryNote(
+      {required final String content,
+      required final DateTime createdAt}) = _$HistoryNoteImpl;
+
+  @override
+  String get content;
+  @override
+  DateTime get createdAt;
+
+  /// Create a copy of HistoryNote
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$HistoryNoteImplCopyWith<_$HistoryNoteImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$HistoryEntry {
   HistoryEntryKind get kind => throw _privateConstructorUsedError;
   DateTime get occurredAt => throw _privateConstructorUsedError;
@@ -240,7 +387,10 @@ mixin _$HistoryEntry {
       throw _privateConstructorUsedError; // Datos de una comida.
   MealTimeOption? get mealTime => throw _privateConstructorUsedError;
   FodmapLoad? get aggregatedFodmap => throw _privateConstructorUsedError;
-  List<HistoryMealItem> get items =>
+  List<HistoryMealItem> get items => throw _privateConstructorUsedError;
+
+  /// Notas de contexto del registro, de la más antigua a la más reciente.
+  List<HistoryNote> get notes =>
       throw _privateConstructorUsedError; // Datos de un sintoma.
   SymptomTypeOption? get symptomType => throw _privateConstructorUsedError;
   int? get intensity => throw _privateConstructorUsedError;
@@ -253,6 +403,9 @@ mixin _$HistoryEntry {
   /// cruzando `associatedMealId` contra las comidas del mismo rango, que ya
   /// vienen en la misma composicion del historial.
   MealTimeOption? get associatedMealTime => throw _privateConstructorUsedError;
+
+  /// Alimentos de la comida asociada, o `null` si ninguno tiene nombre local.
+  String? get associatedMealName => throw _privateConstructorUsedError;
 
   /// Cuanto paso entre la comida asociada y el sintoma.
   Duration? get associatedMealDelay => throw _privateConstructorUsedError;
@@ -280,10 +433,12 @@ abstract class $HistoryEntryCopyWith<$Res> {
       MealTimeOption? mealTime,
       FodmapLoad? aggregatedFodmap,
       List<HistoryMealItem> items,
+      List<HistoryNote> notes,
       SymptomTypeOption? symptomType,
       int? intensity,
       bool? hasMealAssociation,
       MealTimeOption? associatedMealTime,
+      String? associatedMealName,
       Duration? associatedMealDelay});
 }
 
@@ -311,10 +466,12 @@ class _$HistoryEntryCopyWithImpl<$Res, $Val extends HistoryEntry>
     Object? mealTime = freezed,
     Object? aggregatedFodmap = freezed,
     Object? items = null,
+    Object? notes = null,
     Object? symptomType = freezed,
     Object? intensity = freezed,
     Object? hasMealAssociation = freezed,
     Object? associatedMealTime = freezed,
+    Object? associatedMealName = freezed,
     Object? associatedMealDelay = freezed,
   }) {
     return _then(_value.copyWith(
@@ -354,6 +511,10 @@ class _$HistoryEntryCopyWithImpl<$Res, $Val extends HistoryEntry>
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<HistoryMealItem>,
+      notes: null == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as List<HistoryNote>,
       symptomType: freezed == symptomType
           ? _value.symptomType
           : symptomType // ignore: cast_nullable_to_non_nullable
@@ -370,6 +531,10 @@ class _$HistoryEntryCopyWithImpl<$Res, $Val extends HistoryEntry>
           ? _value.associatedMealTime
           : associatedMealTime // ignore: cast_nullable_to_non_nullable
               as MealTimeOption?,
+      associatedMealName: freezed == associatedMealName
+          ? _value.associatedMealName
+          : associatedMealName // ignore: cast_nullable_to_non_nullable
+              as String?,
       associatedMealDelay: freezed == associatedMealDelay
           ? _value.associatedMealDelay
           : associatedMealDelay // ignore: cast_nullable_to_non_nullable
@@ -396,10 +561,12 @@ abstract class _$$HistoryEntryImplCopyWith<$Res>
       MealTimeOption? mealTime,
       FodmapLoad? aggregatedFodmap,
       List<HistoryMealItem> items,
+      List<HistoryNote> notes,
       SymptomTypeOption? symptomType,
       int? intensity,
       bool? hasMealAssociation,
       MealTimeOption? associatedMealTime,
+      String? associatedMealName,
       Duration? associatedMealDelay});
 }
 
@@ -425,10 +592,12 @@ class __$$HistoryEntryImplCopyWithImpl<$Res>
     Object? mealTime = freezed,
     Object? aggregatedFodmap = freezed,
     Object? items = null,
+    Object? notes = null,
     Object? symptomType = freezed,
     Object? intensity = freezed,
     Object? hasMealAssociation = freezed,
     Object? associatedMealTime = freezed,
+    Object? associatedMealName = freezed,
     Object? associatedMealDelay = freezed,
   }) {
     return _then(_$HistoryEntryImpl(
@@ -468,6 +637,10 @@ class __$$HistoryEntryImplCopyWithImpl<$Res>
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<HistoryMealItem>,
+      notes: null == notes
+          ? _value._notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as List<HistoryNote>,
       symptomType: freezed == symptomType
           ? _value.symptomType
           : symptomType // ignore: cast_nullable_to_non_nullable
@@ -484,6 +657,10 @@ class __$$HistoryEntryImplCopyWithImpl<$Res>
           ? _value.associatedMealTime
           : associatedMealTime // ignore: cast_nullable_to_non_nullable
               as MealTimeOption?,
+      associatedMealName: freezed == associatedMealName
+          ? _value.associatedMealName
+          : associatedMealName // ignore: cast_nullable_to_non_nullable
+              as String?,
       associatedMealDelay: freezed == associatedMealDelay
           ? _value.associatedMealDelay
           : associatedMealDelay // ignore: cast_nullable_to_non_nullable
@@ -505,12 +682,15 @@ class _$HistoryEntryImpl extends _HistoryEntry {
       this.mealTime,
       this.aggregatedFodmap,
       final List<HistoryMealItem> items = const <HistoryMealItem>[],
+      final List<HistoryNote> notes = const <HistoryNote>[],
       this.symptomType,
       this.intensity,
       this.hasMealAssociation,
       this.associatedMealTime,
+      this.associatedMealName,
       this.associatedMealDelay})
       : _items = items,
+        _notes = notes,
         super._();
 
   @override
@@ -546,6 +726,18 @@ class _$HistoryEntryImpl extends _HistoryEntry {
     return EqualUnmodifiableListView(_items);
   }
 
+  /// Notas de contexto del registro, de la más antigua a la más reciente.
+  final List<HistoryNote> _notes;
+
+  /// Notas de contexto del registro, de la más antigua a la más reciente.
+  @override
+  @JsonKey()
+  List<HistoryNote> get notes {
+    if (_notes is EqualUnmodifiableListView) return _notes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_notes);
+  }
+
 // Datos de un sintoma.
   @override
   final SymptomTypeOption? symptomType;
@@ -563,13 +755,17 @@ class _$HistoryEntryImpl extends _HistoryEntry {
   @override
   final MealTimeOption? associatedMealTime;
 
+  /// Alimentos de la comida asociada, o `null` si ninguno tiene nombre local.
+  @override
+  final String? associatedMealName;
+
   /// Cuanto paso entre la comida asociada y el sintoma.
   @override
   final Duration? associatedMealDelay;
 
   @override
   String toString() {
-    return 'HistoryEntry(kind: $kind, occurredAt: $occurredAt, syncState: $syncState, serverId: $serverId, clientGuid: $clientGuid, lastErrorCode: $lastErrorCode, mealTime: $mealTime, aggregatedFodmap: $aggregatedFodmap, items: $items, symptomType: $symptomType, intensity: $intensity, hasMealAssociation: $hasMealAssociation, associatedMealTime: $associatedMealTime, associatedMealDelay: $associatedMealDelay)';
+    return 'HistoryEntry(kind: $kind, occurredAt: $occurredAt, syncState: $syncState, serverId: $serverId, clientGuid: $clientGuid, lastErrorCode: $lastErrorCode, mealTime: $mealTime, aggregatedFodmap: $aggregatedFodmap, items: $items, notes: $notes, symptomType: $symptomType, intensity: $intensity, hasMealAssociation: $hasMealAssociation, associatedMealTime: $associatedMealTime, associatedMealName: $associatedMealName, associatedMealDelay: $associatedMealDelay)';
   }
 
   @override
@@ -593,6 +789,7 @@ class _$HistoryEntryImpl extends _HistoryEntry {
             (identical(other.aggregatedFodmap, aggregatedFodmap) ||
                 other.aggregatedFodmap == aggregatedFodmap) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality().equals(other._notes, _notes) &&
             (identical(other.symptomType, symptomType) ||
                 other.symptomType == symptomType) &&
             (identical(other.intensity, intensity) ||
@@ -601,6 +798,8 @@ class _$HistoryEntryImpl extends _HistoryEntry {
                 other.hasMealAssociation == hasMealAssociation) &&
             (identical(other.associatedMealTime, associatedMealTime) ||
                 other.associatedMealTime == associatedMealTime) &&
+            (identical(other.associatedMealName, associatedMealName) ||
+                other.associatedMealName == associatedMealName) &&
             (identical(other.associatedMealDelay, associatedMealDelay) ||
                 other.associatedMealDelay == associatedMealDelay));
   }
@@ -617,10 +816,12 @@ class _$HistoryEntryImpl extends _HistoryEntry {
       mealTime,
       aggregatedFodmap,
       const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(_notes),
       symptomType,
       intensity,
       hasMealAssociation,
       associatedMealTime,
+      associatedMealName,
       associatedMealDelay);
 
   /// Create a copy of HistoryEntry
@@ -643,10 +844,12 @@ abstract class _HistoryEntry extends HistoryEntry {
       final MealTimeOption? mealTime,
       final FodmapLoad? aggregatedFodmap,
       final List<HistoryMealItem> items,
+      final List<HistoryNote> notes,
       final SymptomTypeOption? symptomType,
       final int? intensity,
       final bool? hasMealAssociation,
       final MealTimeOption? associatedMealTime,
+      final String? associatedMealName,
       final Duration? associatedMealDelay}) = _$HistoryEntryImpl;
   const _HistoryEntry._() : super._();
 
@@ -674,7 +877,11 @@ abstract class _HistoryEntry extends HistoryEntry {
   @override
   FodmapLoad? get aggregatedFodmap;
   @override
-  List<HistoryMealItem> get items; // Datos de un sintoma.
+  List<HistoryMealItem> get items;
+
+  /// Notas de contexto del registro, de la más antigua a la más reciente.
+  @override
+  List<HistoryNote> get notes; // Datos de un sintoma.
   @override
   SymptomTypeOption? get symptomType;
   @override
@@ -690,6 +897,10 @@ abstract class _HistoryEntry extends HistoryEntry {
   /// vienen en la misma composicion del historial.
   @override
   MealTimeOption? get associatedMealTime;
+
+  /// Alimentos de la comida asociada, o `null` si ninguno tiene nombre local.
+  @override
+  String? get associatedMealName;
 
   /// Cuanto paso entre la comida asociada y el sintoma.
   @override

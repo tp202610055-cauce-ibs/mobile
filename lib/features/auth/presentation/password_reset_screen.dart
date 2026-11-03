@@ -8,6 +8,7 @@ import '../../../core/theme/design_tokens.dart';
 import '../../../core/utils/validators.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../application/password_reset_link_notifier.dart';
 import '../application/password_reset_notifier.dart';
 import 'widgets/password_requirements.dart';
 
@@ -83,6 +84,14 @@ class _PasswordResetScreenState extends ConsumerState<PasswordResetScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
+    final link = ref.watch(passwordResetLinkProvider(widget.token));
+    if (link.isLoading) {
+      return const CauceScaffold(body: CauceLoadingIndicator.fullscreen());
+    }
+    if (link.valueOrNull == PasswordResetLinkStatus.noLongerValid) {
+      return _LinkNoLongerValid(l10n: l10n);
+    }
+
     final state = ref.watch(passwordResetNotifierProvider);
     final error = state.error;
     final fieldErrors = error?.fieldErrors ?? const <String, List<String>>{};
@@ -147,6 +156,39 @@ class _PasswordResetScreenState extends ConsumerState<PasswordResetScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// El enlace ya no sirve: se informa y se ofrece pedir uno nuevo, sin formulario.
+class _LinkNoLongerValid extends StatelessWidget {
+  const _LinkNoLongerValid({required this.l10n});
+
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    return CauceScaffold(
+      scrollable: true,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Text(l10n.passwordResetTitle, style: textTheme.headlineLarge),
+          const SizedBox(height: CauceSpacing.space4),
+          Text(
+            l10n.passwordResetLinkInvalid,
+            key: const Key('reset_link_invalid'),
+            style: textTheme.bodyLarge,
+          ),
+          const SizedBox(height: CauceSpacing.space6),
+          CauceButton(
+            key: const Key('reset_request_new_link'),
+            label: l10n.passwordResetRequestNewLink,
+            onPressed: () => context.go(AppRoutes.passwordRecovery),
+          ),
+        ],
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,7 +15,8 @@ part 'custom_food_form_notifier.g.dart';
 @freezed
 abstract class CustomFoodFormState with _$CustomFoodFormState {
   const factory CustomFoodFormState({
-    @Default(CustomFoodDraft()) CustomFoodDraft draft,
+    @Default(CustomFoodDraft(portionSizeGrams: CustomFoodFormState.basePortion))
+    CustomFoodDraft draft,
     @Default(false) bool submitting,
 
     /// Platos que el paciente ya tiene. Alimenta el rechazo por nombre
@@ -25,12 +28,25 @@ abstract class CustomFoodFormState with _$CustomFoodFormState {
     /// advertencia en vez del formulario.
     @Default(<DetectedAllergen>[]) List<DetectedAllergen> pendingAllergens,
 
+    /// Alergias declaradas con las que choca cada ingrediente, por `foodId`.
+    @Default(<String, List<String>>{})
+    Map<String, List<String>> ingredientAllergens,
+
     /// Identificador del plato ya creado, tras un envio exitoso.
     String? createdId,
     CauceApiError? error,
   }) = _CustomFoodFormState;
 
   const CustomFoodFormState._();
+
+  /// Porción fija del plato: cada gramo de un ingrediente es un 1 %.
+  static const double basePortion = 100;
+
+  /// Alergias detectadas en los ingredientes elegidos, sin repetir.
+  List<String> get detectedAllergens => <String>{
+        for (final item in draft.ingredients)
+          ...?ingredientAllergens[item.foodId],
+      }.toList();
 
   /// Nombres ya usados, en minusculas, para comparar sin distinguir caja.
   Set<String> get existingNames =>
@@ -93,6 +109,28 @@ class CustomFoodFormNotifier extends _$CustomFoodFormNotifier {
       pendingAllergens: const <DetectedAllergen>[],
       error: null,
     );
+    unawaited(_checkAllergens(ingredient.foodId));
+  }
+
+  /// Consulta si el ingrediente choca con las alergias declaradas.
+  /// Un fallo no avisa: el 409 al guardar sigue pidiendo la confirmación.
+  Future<void> _checkAllergens(String foodId) async {
+    try {
+      final allergens = await ref
+          .read(customFoodsRepositoryProvider)
+          .allergenConflicts(foodId);
+      if (allergens.isEmpty) {
+        return;
+      }
+      state = state.copyWith(
+        ingredientAllergens: <String, List<String>>{
+          ...state.ingredientAllergens,
+          foodId: allergens,
+        },
+      );
+    } on CauceApiError {
+      return;
+    }
   }
 
   void removeIngredientAt(int index) {

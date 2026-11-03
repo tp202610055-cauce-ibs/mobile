@@ -5,6 +5,7 @@ import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/features/custom_foods/data/custom_foods_repository.dart';
 import 'package:cauce_mobile/features/custom_foods/domain/custom_food.dart';
 import 'package:cauce_mobile/features/foods/data/food_catalog_store.dart';
+import 'package:cauce_mobile/features/foods/data/foods_repository.dart';
 import 'package:cauce_mobile/features/foods/domain/food_item.dart';
 import 'package:cauce_mobile/features/meals/presentation/widgets/food_picker_sheet.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
@@ -28,6 +29,26 @@ class _FakeCustomFoodsRepository implements CustomFoodsRepository {
     listCalls++;
     return dishes;
   }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+/// Sugerencias con un alimento en cada grupo (CP024).
+class _SuggestingFoods implements FoodsRepository {
+  static const FoodItem _papa = FoodItem(
+    foodId: 'f-papa',
+    name: 'Papa amarilla cocida',
+    category: 'tuberculos',
+    isPeruvian: true,
+  );
+
+  @override
+  Future<FoodSuggestions> fetchSuggestions() async => const FoodSuggestions(
+        recentLast24Hours: <FoodItem>[_papa],
+        frequentLast30Days: <FoodItem>[_papa],
+        catalogSuggestions: <FoodItem>[_papa],
+      );
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
@@ -68,6 +89,7 @@ void main() {
   Future<ValueNotifier<FoodPickerSelection?>> pumpPicker(
     WidgetTester tester, {
     bool allowCustomDishes = true,
+    List<Override> extra = const <Override>[],
   }) async {
     final selected = ValueNotifier<FoodPickerSelection?>(null);
     final container = ProviderContainer(
@@ -75,6 +97,7 @@ void main() {
         foodCatalogStoreProvider.overrideWithValue(store),
         customFoodsRepositoryProvider.overrideWithValue(customFoods),
         connectivityMonitorProvider.overrideWithValue(connectivity),
+        ...extra,
       ],
     );
     addTearDown(container.dispose);
@@ -142,6 +165,25 @@ void main() {
     await tester.pumpAndSettle();
     return selected;
   }
+
+  group('CP024 · los tres grupos se rotulan con su periodo', () {
+    testWidgets('recientes de 24 horas y frecuentes de 30 dias',
+        (tester) async {
+      final l10n = await AppLocalizations.delegate.load(const Locale('es'));
+      await pumpPicker(
+        tester,
+        extra: <Override>[
+          foodsRepositoryProvider.overrideWithValue(_SuggestingFoods()),
+        ],
+      );
+
+      expect(find.text(l10n.mealsSuggestionsRecent), findsOneWidget);
+      expect(l10n.mealsSuggestionsRecent, contains('24 horas'));
+      expect(find.text(l10n.mealsSuggestionsFrequent), findsOneWidget);
+      expect(l10n.mealsSuggestionsFrequent, contains('30 días'));
+      expect(find.text(l10n.mealsSuggestionsCatalog), findsOneWidget);
+    });
+  });
 
   group('CP025 paso 10 · el plato propio aparece al buscar', () {
     testWidgets('se encuentra escribiendo su nombre', (tester) async {

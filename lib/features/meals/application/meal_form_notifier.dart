@@ -74,9 +74,12 @@ class MealFormNotifier extends _$MealFormNotifier {
   @override
   MealFormState build() => const MealFormState();
 
+  /// Elige el momento del día; tocar el ya elegido lo quita.
   void selectMealTime(MealTimeOption mealTime) {
+    final current = state.draft.mealTime;
     state = state.copyWith(
-      draft: state.draft.copyWith(mealTime: mealTime),
+      draft:
+          state.draft.copyWith(mealTime: current == mealTime ? null : mealTime),
       error: null,
     );
   }

@@ -12,14 +12,18 @@ final RegExp _uuid = RegExp(
 
 /// Traduce los datos del push a un destino. Pura: no lee estado ni navega.
 ///
-/// Un `info` de recomendacion va a la lista: una recomendacion en revision no
-/// es visible para el paciente y su detalle diria que ya no esta.
+/// Una recomendacion nueva abre Inicio, donde aparece marcada como nueva
+/// (CP036). Un `info` de recomendacion va a la lista: en revision no es visible.
 PushDestination resolvePushDestination(Map<String, String> data) {
   final entityType = data['entityType']?.trim() ?? '';
   final entityId = data['entityId']?.trim() ?? '';
   final type = data['type']?.trim() ?? '';
 
   return switch (entityType) {
+    'recommendation' when type == 'recommendation' => (
+        location: AppRoutes.home,
+        stacked: false,
+      ),
     'recommendation' when type != 'info' && _uuid.hasMatch(entityId) => (
         location: AppRoutes.recommendationDetailPath(entityId),
         stacked: false,

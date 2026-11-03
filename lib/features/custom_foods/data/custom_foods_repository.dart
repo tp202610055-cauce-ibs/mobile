@@ -14,9 +14,28 @@ part 'custom_foods_repository.g.dart';
 /// sintomas, asi que crear un plato exige conexion. Una comida registrada sin
 /// red si puede referenciar un plato ya creado.
 class CustomFoodsRepository {
-  const CustomFoodsRepository(this._api);
+  const CustomFoodsRepository(this._api, [this._foodsApi]);
 
   final CustomFoodsApi _api;
+  final FoodsApi? _foodsApi;
+
+  /// `GET /api/v1/foods/{foodId}/allergen-check`. Alergias declaradas con las
+  /// que choca el ingrediente; vacía si no hay conflicto.
+  Future<List<String>> allergenConflicts(String foodId) {
+    final foodsApi = _foodsApi;
+    if (foodsApi == null) {
+      return Future<List<String>>.value(const <String>[]);
+    }
+    return guardApiCall(() async {
+      final response =
+          await foodsApi.apiV1FoodsFoodIdAllergenCheckGet(foodId: foodId);
+      final result = response.data;
+      if (result?.hasAllergenConflict != true) {
+        return const <String>[];
+      }
+      return result?.allergens?.toList() ?? const <String>[];
+    });
+  }
 
   /// `POST /api/v1/custom-foods`.
   ///
@@ -152,5 +171,8 @@ class CustomFoodsRepository {
 
 @Riverpod(keepAlive: true)
 CustomFoodsRepository customFoodsRepository(Ref ref) {
-  return CustomFoodsRepository(ref.watch(customFoodsApiProvider));
+  return CustomFoodsRepository(
+    ref.watch(customFoodsApiProvider),
+    ref.watch(foodsApiProvider),
+  );
 }

@@ -2,6 +2,7 @@ import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/session_expiry.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/features/auth/data/auth_repository.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
 import 'package:cauce_mobile/features/auth/domain/session_state.dart';
@@ -13,6 +14,7 @@ import 'package:cauce_mobile/core/push/push_permission.dart';
 import 'package:cauce_mobile/core/push/push_token_registrar.dart';
 
 import '../../../helpers/fake_auth_repository.dart';
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_push_messaging.dart';
 import '../../../helpers/fake_token_storage.dart';
 
@@ -67,6 +69,8 @@ class _UnlinkProbe implements PushTokenApi {
   final container = ProviderContainer(
     overrides: <Override>[
       tokenStorageProvider.overrideWithValue(storage),
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       authRepositoryProvider.overrideWithValue(repository),
       ...extra,
     ],
@@ -114,7 +118,7 @@ void main() {
       );
     });
 
-    test('con correo sin verificar va al aviso', () async {
+    test('con correo sin verificar restaura la sesion completa', () async {
       final h = _harness(
         accessToken: 'access-1',
         refreshToken: 'refresh-1',
@@ -125,10 +129,7 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        const SessionState.pendingEmailVerification(
-          email: 'paciente.demo@cauce.local',
-          user: _unverified,
-        ),
+        const SessionState.authenticated(_unverified),
       );
     });
 
@@ -193,7 +194,8 @@ void main() {
       );
     });
 
-    test('un login con correo sin verificar no llega a la home', () async {
+    test('un login con correo sin verificar abre la sesion', () async {
+      // Servidor que ya no exige verificar antes del login.
       final h = _harness();
 
       await h.container.read(sessionNotifierProvider.notifier).loginSucceeded(
@@ -204,11 +206,9 @@ void main() {
 
       expect(
         h.container.read(sessionNotifierProvider),
-        const SessionState.pendingEmailVerification(
-          email: 'paciente.demo@cauce.local',
-          user: _unverified,
-        ),
+        const SessionState.authenticated(_unverified),
       );
+      expect(h.storage.saveSessionCalls, 1);
     });
   });
 
@@ -298,6 +298,81 @@ void main() {
       expect(logoutsAtUnlink, <int>[0]);
       expect(h.repository.logoutCalls, 1);
       expect(push.calls, <String>['deleteToken']);
+    });
+
+    test('por inactividad desautentica al instante y despues revoca y limpia',
+        () async {
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _verified,
+      );
+      final notifier = h.container.read(sessionNotifierProvider.notifier);
+      await notifier.bootstrap();
+
+      final closing = notifier.endForInactivity();
+      // Antes de esperar la red: el toque que lo detecto no abre nada.
+      expect(
+        h.container.read(sessionNotifierProvider),
+        isA<SessionUnauthenticated>(),
+      );
+      await closing;
+
+      expect(h.repository.logoutCalls, 1);
+      expect(h.storage.clearSessionCalls, 1);
+      expect(h.storage.refreshToken, isNull);
+    });
+
+    test('logout borra el borrador del perfil clinico', () async {
+      final drafts = FakeOnboardingDraftStore(
+        OnboardingDraft(ownerUserId: _verified.userId, page: 1),
+      );
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _verified,
+        extra: <Override>[
+          onboardingDraftStoreProvider.overrideWithValue(drafts),
+        ],
+      );
+      await h.container.read(sessionNotifierProvider.notifier).bootstrap();
+
+      await h.container.read(sessionNotifierProvider.notifier).logout();
+
+      expect(drafts.draft, isNull);
+    });
+
+    test('por inactividad el borrador del perfil clinico se conserva',
+        () async {
+      final drafts = FakeOnboardingDraftStore(
+        OnboardingDraft(ownerUserId: _verified.userId, page: 1),
+      );
+      final h = _harness(
+        accessToken: 'access-1',
+        refreshToken: 'refresh-1',
+        user: _verified,
+        extra: <Override>[
+          onboardingDraftStoreProvider.overrideWithValue(drafts),
+        ],
+      );
+      final notifier = h.container.read(sessionNotifierProvider.notifier);
+      await notifier.bootstrap();
+
+      await notifier.endForInactivity();
+
+      expect(drafts.draft, isNotNull);
+      expect(drafts.clears, 0);
+    });
+
+    test('por inactividad sobre una sesion cerrada no hace nada', () async {
+      final h = _harness();
+      final notifier = h.container.read(sessionNotifierProvider.notifier);
+      await notifier.bootstrap();
+
+      await notifier.endForInactivity();
+
+      expect(h.repository.logoutCalls, 0);
+      expect(h.storage.clearSessionCalls, 0);
     });
 
     test('expire no vuelve a tocar el Keystore', () async {
@@ -412,12 +487,12 @@ void main() {
   group('SessionState · acceso al usuario', () {
     test('solo los estados con sesion exponen usuario', () {
       expect(const SessionState.authenticated(_verified).user, _verified);
+      expect(const SessionState.authenticated(_unverified).user, _unverified);
       expect(
         const SessionState.pendingEmailVerification(
-          email: 'paciente.demo@cauce.local',
-          user: _unverified,
+          email: 'nuevo@cauce.local',
         ).user,
-        _unverified,
+        isNull,
       );
       expect(const SessionState.unknown().user, isNull);
       expect(const SessionState.unauthenticated().user, isNull);

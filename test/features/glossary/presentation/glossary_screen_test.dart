@@ -1,8 +1,8 @@
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
-import 'package:cauce_mobile/features/glossary/data/glossary_repository.dart';
-import 'package:cauce_mobile/features/glossary/domain/glossary_catalog.dart';
+import 'package:cauce_mobile/core/glossary/glossary_repository.dart';
+import 'package:cauce_mobile/core/glossary/glossary_catalog.dart';
 import 'package:cauce_mobile/features/glossary/presentation/glossary_screen.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';

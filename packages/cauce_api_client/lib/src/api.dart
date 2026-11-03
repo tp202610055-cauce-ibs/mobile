@@ -22,6 +22,7 @@ import 'package:cauce_api_client/src/api/history_api.dart';
 import 'package:cauce_api_client/src/api/ibs_sss_api.dart';
 import 'package:cauce_api_client/src/api/invitations_api.dart';
 import 'package:cauce_api_client/src/api/meals_api.dart';
+import 'package:cauce_api_client/src/api/nutritionist_alerts_api.dart';
 import 'package:cauce_api_client/src/api/nutritionist_recommendations_api.dart';
 import 'package:cauce_api_client/src/api/nutritionist_symptoms_api.dart';
 import 'package:cauce_api_client/src/api/nutritionists_api.dart';
@@ -164,6 +165,12 @@ class CauceApiClient {
   /// by doing that all interceptors will not be executed
   MealsApi getMealsApi() {
     return MealsApi(dio, serializers);
+  }
+
+  /// Get NutritionistAlertsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  NutritionistAlertsApi getNutritionistAlertsApi() {
+    return NutritionistAlertsApi(dio, serializers);
   }
 
   /// Get NutritionistRecommendationsApi instance, base route and serializer can be overridden by a given but be careful,

@@ -39,7 +39,8 @@ class IbsSssEvolutionCard extends StatelessWidget {
         children: <Widget>[
           Text(l10n.ibsSssEvolutionTitle, style: textTheme.titleMedium),
           const SizedBox(height: CauceSpacing.space3),
-          if (points.length < 2)
+          // El grafico pequeño aparece desde el tercer resultado.
+          if (points.length < 3)
             Text(
               l10n.ibsSssEvolutionEmpty,
               key: const Key('ibs_sss_evolution_empty'),
@@ -111,6 +112,11 @@ class IbsSssEvolutionCard extends StatelessWidget {
       // para leer solo.
       if (latest.isClinicallySignificantImprovement) ...<Widget>[
         const SizedBox(height: CauceSpacing.space1),
+        Text(
+          l10n.ibsSssEvolutionSignificant,
+          key: const Key('ibs_sss_evolution_significant'),
+          style: textTheme.titleSmall,
+        ),
         Text(
           l10n.ibsSssEvolutionImprovement,
           key: const Key('ibs_sss_evolution_improvement'),

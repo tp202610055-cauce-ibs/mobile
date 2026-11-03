@@ -5,6 +5,7 @@
 // ignore_for_file: unused_element
 import 'package:cauce_api_client/src/model/recommendation_source.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:cauce_api_client/src/model/recommendation_action.dart';
 import 'package:cauce_api_client/src/model/recommendation_status.dart';
 import 'package:cauce_api_client/src/model/recommendation_supporting_data_dto.dart';
 import 'package:cauce_api_client/src/model/recommendation_feedback_dto.dart';
@@ -45,6 +46,7 @@ part 'recommendation_detail_dto.g.dart';
 /// * [archivedAt] 
 /// * [archiveReason] 
 /// * [validUntil] 
+/// * [allowedActions] 
 @BuiltValue()
 abstract class RecommendationDetailDto implements Built<RecommendationDetailDto, RecommendationDetailDtoBuilder> {
   @BuiltValueField(wireName: r'recommendationId')
@@ -128,6 +130,9 @@ abstract class RecommendationDetailDto implements Built<RecommendationDetailDto,
 
   @BuiltValueField(wireName: r'validUntil')
   DateTime? get validUntil;
+
+  @BuiltValueField(wireName: r'allowedActions')
+  BuiltList<RecommendationAction>? get allowedActions;
 
   RecommendationDetailDto._();
 
@@ -332,6 +337,13 @@ class _$RecommendationDetailDtoSerializer implements PrimitiveSerializer<Recomme
       yield serializers.serialize(
         object.validUntil,
         specifiedType: const FullType.nullable(DateTime),
+      );
+    }
+    if (object.allowedActions != null) {
+      yield r'allowedActions';
+      yield serializers.serialize(
+        object.allowedActions,
+        specifiedType: const FullType.nullable(BuiltList, [FullType(RecommendationAction)]),
       );
     }
   }
@@ -552,6 +564,14 @@ class _$RecommendationDetailDtoSerializer implements PrimitiveSerializer<Recomme
           ) as DateTime?;
           if (valueDes == null) continue;
           result.validUntil = valueDes;
+          break;
+        case r'allowedActions':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(BuiltList, [FullType(RecommendationAction)]),
+          ) as BuiltList<RecommendationAction>?;
+          if (valueDes == null) continue;
+          result.allowedActions.replace(valueDes);
           break;
         default:
           unhandled.add(key);

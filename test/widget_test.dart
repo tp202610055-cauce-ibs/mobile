@@ -133,7 +133,7 @@ void main() {
       expect(find.text('Hola, Paciente Demo'), findsOneWidget);
     });
 
-    testWidgets('con correo sin verificar queda en el aviso', (tester) async {
+    testWidgets('con correo sin verificar entra a la home', (tester) async {
       await _pumpApp(
         tester,
         storage: FakeTokenStorage(
@@ -143,7 +143,8 @@ void main() {
         ),
       );
 
-      expect(find.byType(VerifyEmailPendingScreen), findsOneWidget);
+      expect(find.byType(VerifyEmailPendingScreen), findsNothing);
+      expect(find.byType(HomeScreen), findsOneWidget);
     });
   });
 

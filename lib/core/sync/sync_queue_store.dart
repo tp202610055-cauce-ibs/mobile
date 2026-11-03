@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../database/app_database.dart';
 import '../database/app_database_provider.dart';
 import '../database/local_sync_status.dart';
+import 'local_record_owner.dart';
 
 part 'sync_queue_store.g.dart';
 
@@ -24,9 +25,12 @@ class PendingMeal {
 /// Las features escriben sus propios registros; esta clase solo los mueve
 /// entre estados.
 class SyncQueueStore {
-  const SyncQueueStore(this._db);
+  const SyncQueueStore(this._db, this._owner);
 
   final AppDatabase _db;
+
+  /// Solo se leen y se mueven filas de esta cuenta. Sin sesion, ninguna.
+  final String? Function() _owner;
 
   /// Comidas pendientes, con sus items, de la mas vieja a la mas nueva.
   ///
@@ -34,8 +38,16 @@ class SyncQueueStore {
   /// dentro de la ventana de 4 horas, y mandar las comidas desordenadas podria
   /// dejar esa ventana resuelta contra la comida equivocada.
   Future<List<PendingMeal>> pendingMeals() async {
+    final owner = _owner();
+    if (owner == null) {
+      return const <PendingMeal>[];
+    }
     final meals = await (_db.select(_db.mealsLocal)
-          ..where((row) => row.syncStatus.equalsValue(LocalSyncStatus.pending))
+          ..where(
+            (row) =>
+                row.syncStatus.equalsValue(LocalSyncStatus.pending) &
+                row.userId.equals(owner),
+          )
           ..orderBy(<OrderClauseGenerator<$MealsLocalTable>>[
             (row) => OrderingTerm.asc(row.clientCreatedAt),
           ]))
@@ -68,9 +80,17 @@ class SyncQueueStore {
   }
 
   /// Sintomas pendientes, de la mas vieja a la mas nueva.
-  Future<List<SymptomLocal>> pendingSymptoms() {
+  Future<List<SymptomLocal>> pendingSymptoms() async {
+    final owner = _owner();
+    if (owner == null) {
+      return const <SymptomLocal>[];
+    }
     return (_db.select(_db.symptomsLocal)
-          ..where((row) => row.syncStatus.equalsValue(LocalSyncStatus.pending))
+          ..where(
+            (row) =>
+                row.syncStatus.equalsValue(LocalSyncStatus.pending) &
+                row.userId.equals(owner),
+          )
           ..orderBy(<OrderClauseGenerator<$SymptomsLocalTable>>[
             (row) => OrderingTerm.asc(row.clientCreatedAt),
           ]))
@@ -151,15 +171,31 @@ class SyncQueueStore {
   }
 
   /// Filas que quedaron en estado terminal y esperan una decision del paciente.
-  Future<List<MealLocal>> failedMeals() {
+  Future<List<MealLocal>> failedMeals() async {
+    final owner = _owner();
+    if (owner == null) {
+      return const <MealLocal>[];
+    }
     return (_db.select(_db.mealsLocal)
-          ..where((row) => row.syncStatus.equalsValue(LocalSyncStatus.failed)))
+          ..where(
+            (row) =>
+                row.syncStatus.equalsValue(LocalSyncStatus.failed) &
+                row.userId.equals(owner),
+          ))
         .get();
   }
 
-  Future<List<SymptomLocal>> failedSymptoms() {
+  Future<List<SymptomLocal>> failedSymptoms() async {
+    final owner = _owner();
+    if (owner == null) {
+      return const <SymptomLocal>[];
+    }
     return (_db.select(_db.symptomsLocal)
-          ..where((row) => row.syncStatus.equalsValue(LocalSyncStatus.failed)))
+          ..where(
+            (row) =>
+                row.syncStatus.equalsValue(LocalSyncStatus.failed) &
+                row.userId.equals(owner),
+          ))
         .get();
   }
 
@@ -172,10 +208,15 @@ class SyncQueueStore {
   /// Solo borra lo que **no** llego al servidor. Una fila `completed` ya es un
   /// registro clinico del paciente y se elimina desde el backend, no de aca.
   Future<int> discard(String clientGuid) async {
+    final owner = _owner();
+    if (owner == null) {
+      return 0;
+    }
     final meals = await (_db.delete(_db.mealsLocal)
           ..where(
             (row) =>
                 row.clientGuid.equals(clientGuid) &
+                row.userId.equals(owner) &
                 row.syncStatus.equalsValue(LocalSyncStatus.completed).not(),
           ))
         .go();
@@ -184,6 +225,7 @@ class SyncQueueStore {
           ..where(
             (row) =>
                 row.clientGuid.equals(clientGuid) &
+                row.userId.equals(owner) &
                 row.syncStatus.equalsValue(LocalSyncStatus.completed).not(),
           ))
         .go();
@@ -194,5 +236,8 @@ class SyncQueueStore {
 
 @Riverpod(keepAlive: true)
 SyncQueueStore syncQueueStore(Ref ref) {
-  return SyncQueueStore(ref.watch(appDatabaseProvider));
+  return SyncQueueStore(
+    ref.watch(appDatabaseProvider),
+    ref.watch(localRecordOwnerProvider),
+  );
 }

@@ -11,10 +11,10 @@ part 'reject_recommendation_request.g.dart';
 /// Cuerpo de la petición para rechazar una recomendación.
 ///
 /// Properties:
-/// * [reason] - Motivo del rechazo (entre 10 y 2000 caracteres).
+/// * [reason] - Motivo del rechazo (entre 10 y 2000 caracteres sin contar los espacios de los extremos).
 @BuiltValue()
 abstract class RejectRecommendationRequest implements Built<RejectRecommendationRequest, RejectRecommendationRequestBuilder> {
-  /// Motivo del rechazo (entre 10 y 2000 caracteres).
+  /// Motivo del rechazo (entre 10 y 2000 caracteres sin contar los espacios de los extremos).
   @BuiltValueField(wireName: r'reason')
   String? get reason;
 

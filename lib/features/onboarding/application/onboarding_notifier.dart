@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/onboarding/onboarding_draft_store.dart';
 import '../../auth/application/session_notifier.dart';
 import '../../auth/domain/session_state.dart';
 import '../../patients/data/patients_repository.dart';
@@ -31,11 +32,13 @@ sealed class OnboardingState with _$OnboardingState {
   /// El paciente eligio aplazar (CA05). Sigue faltando [step], pero puede usar
   /// el resto de la app y el recordatorio se muestra en el tablero.
   ///
-  /// **Dura lo que dura la sesion de la app.** No se persiste, de modo que el
-  /// proximo arranque en frio vuelve a ofrecer el wizard. Es deliberado: la
-  /// linea base es el punto de comparacion de todo el piloto.
-  const factory OnboardingState.deferred(OnboardingStep step) =
-      OnboardingDeferred;
+  /// El perfil aplazado sobrevive al arranque en frio por su borrador; la
+  /// linea base aplazada no, y el proximo arranque vuelve a ofrecerla.
+  const factory OnboardingState.deferred(
+    OnboardingStep step, {
+    /// Pasos del asistente ya hechos, de [totalSteps].
+    @Default(0) int completedSteps,
+  }) = OnboardingDeferred;
 
   /// Perfil creado y linea base registrada.
   const factory OnboardingState.completed() = OnboardingCompleted;
@@ -49,6 +52,9 @@ sealed class OnboardingState with _$OnboardingState {
   const factory OnboardingState.unavailable() = OnboardingUnavailable;
 
   const OnboardingState._();
+
+  /// Datos fisicos, antecedentes clinicos y cuestionario inicial.
+  static const int totalSteps = 3;
 
   /// Paso pendiente, si lo hay.
   OnboardingStep? get step => switch (this) {
@@ -65,20 +71,19 @@ sealed class OnboardingState with _$OnboardingState {
 
   /// `true` si el paciente ya puede registrar comidas y sintomas.
   ///
-  /// HU0003 CA01 dice que guardar el perfil clinico "habilita el acceso al
-  /// diario". **La compuerta es del cliente**: verificado contra el backend,
-  /// ni `CreateMealCommandHandler` ni `CreateSymptomCommandHandler` exigen un
-  /// perfil, de modo que el servidor aceptaria el registro igual (acta M38).
+  /// Aplazar abre el diario (CA05, CP055 paso 7). La compuerta es del cliente:
+  /// el backend no exige perfil para registrar (acta M38).
   ///
   /// [OnboardingUnavailable] **no** restringe. La consulta no resolvio,
   /// tipicamente por falta de red, y cerrar el diario sobre un dato que no se
   /// tiene contradice el diseno offline-first, con el mismo criterio que ya
   /// usa el guard de sesion.
   bool get allowsJournal => switch (this) {
-        OnboardingPending(:final step) ||
-        OnboardingDeferred(:final step) =>
-          step == OnboardingStep.ibsSssBaseline,
-        OnboardingCompleted() || OnboardingUnavailable() => true,
+        OnboardingPending(:final step) => step == OnboardingStep.ibsSssBaseline,
+        OnboardingDeferred() ||
+        OnboardingCompleted() ||
+        OnboardingUnavailable() =>
+          true,
       };
 
   /// `true` si el paciente ya puede ver sus consejos.
@@ -121,12 +126,18 @@ class OnboardingNotifier extends _$OnboardingNotifier {
   /// No avisa al backend: no existe endpoint para "aplazado" y no haria falta,
   /// porque el servidor ya sabe que el onboarding esta incompleto. Lo que
   /// cambia es solo si esta app insiste ahora o espera.
-  void defer() {
+  void defer({int completedSteps = 0}) {
     final current = state.valueOrNull;
     if (current is! OnboardingPending) {
       return;
     }
-    state = AsyncData(OnboardingState.deferred(current.step));
+    state = AsyncData(
+      OnboardingState.deferred(
+        current.step,
+        completedSteps:
+            current.step == OnboardingStep.ibsSssBaseline ? 2 : completedSteps,
+      ),
+    );
   }
 
   /// Reanuda el wizard desde el recordatorio del tablero.
@@ -138,14 +149,16 @@ class OnboardingNotifier extends _$OnboardingNotifier {
     state = AsyncData(OnboardingState.pending(current.step));
   }
 
-  /// El paso 1 quedo guardado en el servidor.
+  /// El perfil quedo guardado en el servidor.
   ///
-  /// Se publica el estado directamente en vez de releer el perfil: la
-  /// respuesta del `POST` ya confirmo que existe, y una consulta extra solo
-  /// agregaria latencia entre los dos pasos del wizard.
+  /// Lleva a Inicio con el avance y el diario abiertos (HU0003 CA01, CP007
+  /// pasos 9 y 10); el cuestionario inicial queda en el recordatorio.
   void profileCreated() {
     state = const AsyncData(
-      OnboardingState.pending(OnboardingStep.ibsSssBaseline),
+      OnboardingState.deferred(
+        OnboardingStep.ibsSssBaseline,
+        completedSteps: 2,
+      ),
     );
   }
 
@@ -174,6 +187,15 @@ class OnboardingNotifier extends _$OnboardingNotifier {
     final profile = await ref.read(patientsRepositoryProvider).fetchProfile();
 
     if (profile == null) {
+      // Un «Después» de esta cuenta se respeta tras cerrar la app (CP011).
+      final draft = await ref.read(onboardingDraftStoreProvider).read();
+      final userId = ref.read(sessionNotifierProvider).user?.userId;
+      if (draft != null && draft.ownerUserId == userId) {
+        return OnboardingState.deferred(
+          OnboardingStep.clinicalProfile,
+          completedSteps: draft.page,
+        );
+      }
       return const OnboardingState.pending(OnboardingStep.clinicalProfile);
     }
     return profile.onboardingCompleted

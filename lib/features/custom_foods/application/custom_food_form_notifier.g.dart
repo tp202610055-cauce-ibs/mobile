@@ -7,7 +7,7 @@ part of 'custom_food_form_notifier.dart';
 // **************************************************************************
 
 String _$customFoodFormNotifierHash() =>
-    r'abb09584d277dcebdd8f90744f8b42cb4d8cba4b';
+    r'07495c0c3075a2279a9a74b95465ad23d429faee';
 
 /// Gobierna el armado, la validacion y el envio de un plato personalizado.
 ///

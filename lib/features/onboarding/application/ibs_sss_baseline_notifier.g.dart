@@ -7,7 +7,7 @@ part of 'ibs_sss_baseline_notifier.dart';
 // **************************************************************************
 
 String _$ibsSssBaselineNotifierHash() =>
-    r'97b65cae3c1619d590c2bd397ae3851fdbe159b2';
+    r'cca81d92cd50ec4625d0b20a32437a155966e4cc';
 
 /// Gobierna las respuestas y el envio de la linea base IBS-SSS.
 ///

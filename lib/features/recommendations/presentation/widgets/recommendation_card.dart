@@ -8,6 +8,8 @@ import '../../../../core/theme/design_tokens.dart';
 import '../../../../core/widgets/widgets.dart';
 import '../../../../l10n/generated/app_localizations.dart';
 import '../../application/recommendation_detail_providers.dart';
+import '../../application/recommendation_feedback_notifier.dart';
+import '../../application/recommendations_feed_notifier.dart';
 import '../../domain/recommendation.dart';
 import '../../domain/recommendation_headline.dart';
 import '../recommendation_texts.dart';
@@ -50,6 +52,14 @@ class RecommendationCard extends ConsumerWidget {
         : RecommendationTexts.icon(headline);
     final isNew = detail?.isNew ?? summary.status.isDeliverable;
     final date = detail?.reviewedAt ?? summary.generatedAt;
+    final local = ref
+        .watch(pendingRecommendationFeedbackProvider(summary.id))
+        .valueOrNull;
+    // Con una respuesta esperando envio no se pide otra.
+    final waitingToSend = local != null && !local.rejected;
+    final invites = !waitingToSend &&
+        (detail?.invitesFeedback(ref.watch(recommendationsClockProvider)()) ??
+            false);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: CauceSpacing.space2),
@@ -59,8 +69,12 @@ class RecommendationCard extends ConsumerWidget {
         child: InkWell(
           key: Key('recommendation_card_${summary.id}'),
           borderRadius: CauceRadii.borderMd,
-          onTap: () =>
-              context.go(AppRoutes.recommendationDetailPath(summary.id)),
+          onTap: () => context.go(
+            AppRoutes.recommendationDetailPath(
+              summary.id,
+              focusFeedback: invites,
+            ),
+          ),
           child: Container(
             padding: const EdgeInsets.all(CauceSpacing.space4),
             decoration: BoxDecoration(
@@ -122,6 +136,26 @@ class RecommendationCard extends ConsumerWidget {
                               label: l10n.recommendationNewBadge,
                               icon: TablerIcons.point_filled,
                               tone: CauceBadgeTone.brand,
+                              compact: true,
+                            ),
+                          if (waitingToSend)
+                            CauceBadge(
+                              key: Key(
+                                'recommendation_feedback_pending_${summary.id}',
+                              ),
+                              label: l10n.recommendationFeedbackPendingBadge,
+                              icon: TablerIcons.cloud_upload,
+                              tone: CauceBadgeTone.info,
+                              compact: true,
+                            ),
+                          if (invites)
+                            CauceBadge(
+                              key: Key(
+                                'recommendation_feedback_invite_${summary.id}',
+                              ),
+                              label: l10n.recommendationFeedbackInvite,
+                              icon: TablerIcons.message_circle,
+                              tone: CauceBadgeTone.info,
                               compact: true,
                             ),
                           Text(

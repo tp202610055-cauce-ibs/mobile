@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/auth/authenticated_user_snapshot.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
@@ -18,6 +19,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
@@ -74,6 +76,8 @@ Future<({_FakeLauncher launcher, FakePatientsRepository repository})> _pump(
 
   final container = ProviderContainer(
     overrides: <Override>[
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(h.repository),
       dataExportLauncherProvider.overrideWithValue(h.launcher),
       appPackageInfoProvider.overrideWith((ref) async => _packageInfo),

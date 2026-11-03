@@ -126,6 +126,23 @@ void main() {
     });
   });
 
+  group('ErrorMapper · reporte personal', () {
+    test('los dos 422 del reporte no se confunden entre si', () {
+      expect(
+        ErrorMapper.map(
+          _problem(status: 422, errorCode: 'email_not_verified'),
+        ),
+        isA<EmailNotVerifiedError>(),
+      );
+      expect(
+        ErrorMapper.map(
+          _problem(status: 422, errorCode: 'patient_has_no_data_in_period'),
+        ),
+        isA<PatientHasNoDataInPeriodError>(),
+      );
+    });
+  });
+
   group('ErrorMapper · nutritionist_not_available y su extension reason', () {
     NutritionistNotAvailableReason reasonOf(String? raw) {
       final error = ErrorMapper.map(

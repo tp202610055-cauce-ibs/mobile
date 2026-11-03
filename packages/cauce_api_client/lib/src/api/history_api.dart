@@ -22,11 +22,11 @@ class HistoryApi {
   const HistoryApi(this._dio, this._serializers);
 
   /// Devuelve el historial unificado del paciente autenticado en un rango de fechas,  ordenado cronológicamente de forma descendente.
-  /// 
+  /// Devuelve como máximo 500 comidas y 500 síntomas del rango; las notas clínicas no tienen tope.
   ///
   /// Parameters:
-  /// * [from] - Inicio del rango (UTC).
-  /// * [to] - Fin del rango (UTC).
+  /// * [from] - Inicio del rango, obligatorio e inclusivo, con zona horaria (`Z` u offset). Filtra comidas y síntomas por `clientCreatedAt` y notas por `createdAt`.
+  /// * [to] - Fin del rango, obligatorio e inclusivo, con zona horaria y no anterior a `from`.
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -37,8 +37,8 @@ class HistoryApi {
   /// Returns a [Future] containing a [Response] with a [BuiltList<ApiV1HistoryGet200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<ApiV1HistoryGet200ResponseInner>>> apiV1HistoryGet({ 
-    DateTime? from,
-    DateTime? to,
+    required DateTime from,
+    required DateTime to,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -66,8 +66,8 @@ class HistoryApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (from != null) r'from': encodeQueryParameter(_serializers, from, const FullType(DateTime)),
-      if (to != null) r'to': encodeQueryParameter(_serializers, to, const FullType(DateTime)),
+      r'from': encodeQueryParameter(_serializers, from, const FullType(DateTime)),
+      r'to': encodeQueryParameter(_serializers, to, const FullType(DateTime)),
     };
 
     final _response = await _dio.request<Object>(

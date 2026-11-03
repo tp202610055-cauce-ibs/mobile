@@ -5,6 +5,7 @@ import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../history/domain/history_entry.dart';
+import '../domain/clinical_note_draft.dart';
 import '../application/clinical_note_form_notifier.dart';
 
 /// Nota de contexto sobre una comida o un sintoma (US13 CA01 y CA02).
@@ -27,6 +28,9 @@ class _ClinicalNoteFormScreenState
     extends ConsumerState<ClinicalNoteFormScreen> {
   final TextEditingController _content = TextEditingController();
 
+  /// El paciente pulso guardar con la nota vacia: se le avisa en el campo.
+  bool _triedEmpty = false;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +49,17 @@ class _ClinicalNoteFormScreenState
   void dispose() {
     _content.dispose();
     super.dispose();
+  }
+
+  /// El boton queda habilitado (CP035): con la nota vacia o pasada del tope
+  /// no guarda, conserva lo escrito y deja a la vista el aviso del campo.
+  void _save() {
+    final state = ref.read(clinicalNoteFormNotifierProvider);
+    if (!state.canSubmit) {
+      setState(() => _triedEmpty = _content.text.trim().isEmpty);
+      return;
+    }
+    ref.read(clinicalNoteFormNotifierProvider.notifier).submit();
   }
 
   @override
@@ -103,12 +118,19 @@ class _ClinicalNoteFormScreenState
             // El texto **no** se recorta al tope: se deja escribir y se avisa.
             // Truncar en silencio le borraria al paciente lo que acaba de
             // escribir sin decirle por que (CA02).
-            errorText: overLimit ? l10n.clinicalNoteTooLong : null,
+            errorText: overLimit
+                ? l10n.clinicalNoteTooLong
+                : _triedEmpty && _content.text.trim().isEmpty
+                    ? l10n.clinicalNoteEmpty
+                    : null,
             onChanged: notifier.setContent,
           ),
           const SizedBox(height: CauceSpacing.space2),
           Text(
-            l10n.clinicalNoteRemaining(state.remaining),
+            l10n.clinicalNoteCounter(
+              ClinicalNoteDraft.maxLength - state.remaining,
+              ClinicalNoteDraft.maxLength,
+            ),
             key: const Key('clinical_note_counter'),
             textAlign: TextAlign.right,
             style: Theme.of(context).textTheme.labelSmall?.copyWith(
@@ -122,7 +144,7 @@ class _ClinicalNoteFormScreenState
             key: const Key('clinical_note_submit'),
             label: l10n.clinicalNoteSubmit,
             loading: state.submitting,
-            onPressed: state.canSubmit ? notifier.submit : null,
+            onPressed: state.submitting ? null : _save,
           ),
         ],
       ),

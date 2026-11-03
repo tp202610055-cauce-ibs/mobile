@@ -29,6 +29,10 @@ mixin _$CustomFoodFormState {
   List<DetectedAllergen> get pendingAllergens =>
       throw _privateConstructorUsedError;
 
+  /// Alergias declaradas con las que choca cada ingrediente, por `foodId`.
+  Map<String, List<String>> get ingredientAllergens =>
+      throw _privateConstructorUsedError;
+
   /// Identificador del plato ya creado, tras un envio exitoso.
   String? get createdId => throw _privateConstructorUsedError;
   CauceApiError? get error => throw _privateConstructorUsedError;
@@ -51,6 +55,7 @@ abstract class $CustomFoodFormStateCopyWith<$Res> {
       bool submitting,
       List<CustomFoodRecord> existing,
       List<DetectedAllergen> pendingAllergens,
+      Map<String, List<String>> ingredientAllergens,
       String? createdId,
       CauceApiError? error});
 
@@ -77,6 +82,7 @@ class _$CustomFoodFormStateCopyWithImpl<$Res, $Val extends CustomFoodFormState>
     Object? submitting = null,
     Object? existing = null,
     Object? pendingAllergens = null,
+    Object? ingredientAllergens = null,
     Object? createdId = freezed,
     Object? error = freezed,
   }) {
@@ -97,6 +103,10 @@ class _$CustomFoodFormStateCopyWithImpl<$Res, $Val extends CustomFoodFormState>
           ? _value.pendingAllergens
           : pendingAllergens // ignore: cast_nullable_to_non_nullable
               as List<DetectedAllergen>,
+      ingredientAllergens: null == ingredientAllergens
+          ? _value.ingredientAllergens
+          : ingredientAllergens // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<String>>,
       createdId: freezed == createdId
           ? _value.createdId
           : createdId // ignore: cast_nullable_to_non_nullable
@@ -146,6 +156,7 @@ abstract class _$$CustomFoodFormStateImplCopyWith<$Res>
       bool submitting,
       List<CustomFoodRecord> existing,
       List<DetectedAllergen> pendingAllergens,
+      Map<String, List<String>> ingredientAllergens,
       String? createdId,
       CauceApiError? error});
 
@@ -172,6 +183,7 @@ class __$$CustomFoodFormStateImplCopyWithImpl<$Res>
     Object? submitting = null,
     Object? existing = null,
     Object? pendingAllergens = null,
+    Object? ingredientAllergens = null,
     Object? createdId = freezed,
     Object? error = freezed,
   }) {
@@ -192,6 +204,10 @@ class __$$CustomFoodFormStateImplCopyWithImpl<$Res>
           ? _value._pendingAllergens
           : pendingAllergens // ignore: cast_nullable_to_non_nullable
               as List<DetectedAllergen>,
+      ingredientAllergens: null == ingredientAllergens
+          ? _value._ingredientAllergens
+          : ingredientAllergens // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<String>>,
       createdId: freezed == createdId
           ? _value.createdId
           : createdId // ignore: cast_nullable_to_non_nullable
@@ -208,15 +224,19 @@ class __$$CustomFoodFormStateImplCopyWithImpl<$Res>
 
 class _$CustomFoodFormStateImpl extends _CustomFoodFormState {
   const _$CustomFoodFormStateImpl(
-      {this.draft = const CustomFoodDraft(),
+      {this.draft = const CustomFoodDraft(
+          portionSizeGrams: CustomFoodFormState.basePortion),
       this.submitting = false,
       final List<CustomFoodRecord> existing = const <CustomFoodRecord>[],
       final List<DetectedAllergen> pendingAllergens =
           const <DetectedAllergen>[],
+      final Map<String, List<String>> ingredientAllergens =
+          const <String, List<String>>{},
       this.createdId,
       this.error})
       : _existing = existing,
         _pendingAllergens = pendingAllergens,
+        _ingredientAllergens = ingredientAllergens,
         super._();
 
   @override
@@ -257,6 +277,19 @@ class _$CustomFoodFormStateImpl extends _CustomFoodFormState {
     return EqualUnmodifiableListView(_pendingAllergens);
   }
 
+  /// Alergias declaradas con las que choca cada ingrediente, por `foodId`.
+  final Map<String, List<String>> _ingredientAllergens;
+
+  /// Alergias declaradas con las que choca cada ingrediente, por `foodId`.
+  @override
+  @JsonKey()
+  Map<String, List<String>> get ingredientAllergens {
+    if (_ingredientAllergens is EqualUnmodifiableMapView)
+      return _ingredientAllergens;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_ingredientAllergens);
+  }
+
   /// Identificador del plato ya creado, tras un envio exitoso.
   @override
   final String? createdId;
@@ -265,7 +298,7 @@ class _$CustomFoodFormStateImpl extends _CustomFoodFormState {
 
   @override
   String toString() {
-    return 'CustomFoodFormState(draft: $draft, submitting: $submitting, existing: $existing, pendingAllergens: $pendingAllergens, createdId: $createdId, error: $error)';
+    return 'CustomFoodFormState(draft: $draft, submitting: $submitting, existing: $existing, pendingAllergens: $pendingAllergens, ingredientAllergens: $ingredientAllergens, createdId: $createdId, error: $error)';
   }
 
   @override
@@ -279,6 +312,8 @@ class _$CustomFoodFormStateImpl extends _CustomFoodFormState {
             const DeepCollectionEquality().equals(other._existing, _existing) &&
             const DeepCollectionEquality()
                 .equals(other._pendingAllergens, _pendingAllergens) &&
+            const DeepCollectionEquality()
+                .equals(other._ingredientAllergens, _ingredientAllergens) &&
             (identical(other.createdId, createdId) ||
                 other.createdId == createdId) &&
             (identical(other.error, error) || other.error == error));
@@ -291,6 +326,7 @@ class _$CustomFoodFormStateImpl extends _CustomFoodFormState {
       submitting,
       const DeepCollectionEquality().hash(_existing),
       const DeepCollectionEquality().hash(_pendingAllergens),
+      const DeepCollectionEquality().hash(_ingredientAllergens),
       createdId,
       error);
 
@@ -310,6 +346,7 @@ abstract class _CustomFoodFormState extends CustomFoodFormState {
       final bool submitting,
       final List<CustomFoodRecord> existing,
       final List<DetectedAllergen> pendingAllergens,
+      final Map<String, List<String>> ingredientAllergens,
       final String? createdId,
       final CauceApiError? error}) = _$CustomFoodFormStateImpl;
   const _CustomFoodFormState._() : super._();
@@ -329,6 +366,10 @@ abstract class _CustomFoodFormState extends CustomFoodFormState {
   /// advertencia en vez del formulario.
   @override
   List<DetectedAllergen> get pendingAllergens;
+
+  /// Alergias declaradas con las que choca cada ingrediente, por `foodId`.
+  @override
+  Map<String, List<String>> get ingredientAllergens;
 
   /// Identificador del plato ya creado, tras un envio exitoso.
   @override

@@ -6,6 +6,7 @@ import '../../../core/errors/cauce_api_error.dart';
 import '../../../core/theme/design_tokens.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../onboarding/application/onboarding_notifier.dart';
 import '../../onboarding/presentation/widgets/onboarding_labels.dart';
 import '../application/periodic_assessment_notifier.dart';
 import '../domain/ibs_sss_evolution_series.dart';
@@ -25,7 +26,10 @@ import 'widgets/ibs_sss_evolution_chart.dart';
 /// - **CP061**, con solo la linea base: su puntaje, por que todavia no hay
 ///   grafico, y cuando toca la proxima evaluacion.
 class EvolutionScreen extends ConsumerStatefulWidget {
-  const EvolutionScreen({super.key});
+  const EvolutionScreen({this.showBackButton = true, super.key});
+
+  /// `false` en la pestaña de la barra, donde no hay a dónde volver.
+  final bool showBackButton;
 
   @override
   ConsumerState<EvolutionScreen> createState() => _EvolutionScreenState();
@@ -35,15 +39,53 @@ class _EvolutionScreenState extends ConsumerState<EvolutionScreen> {
   /// Rango elegido. Arranca en la serie completa (decision 3.2 del bloque).
   IbsSssEvolutionRange _range = IbsSssEvolutionRange.all;
 
+  /// Rango de fechas elegido a mano; reemplaza al rango fijo mientras exista.
+  DateTimeRange? _custom;
+
+  Future<void> _pickDates(IbsSssEvolutionSeries series) async {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final first = series.points.first.completedAt?.toLocal() ?? today;
+    final firstDay = DateTime(first.year - 1, first.month, first.day);
+    final picked = await showDateRangePicker(
+      context: context,
+      firstDate: firstDay,
+      lastDate: today,
+      initialDateRange: _custom,
+    );
+    if (picked != null && mounted) {
+      setState(() => _custom = picked);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    // Sin perfil clínico o línea base no hay evolución: se invita a completar.
+    if (!ref.watch(resolvedOnboardingProvider).allowsAdvice) {
+      return CauceScaffold(
+        appBar: CauceAppBar(
+          title: l10n.ibsSssEvolutionTitle,
+          showBackButton: widget.showBackButton,
+        ),
+        scrollable: true,
+        body: CauceEmptyState(
+          key: const Key('evolution_locked'),
+          icon: TablerIcons.lock,
+          title: l10n.evolutionLockedTitle,
+          message: l10n.evolutionLockedBody,
+          actionLabel: l10n.evolutionLockedAction,
+          onAction: () =>
+              ref.read(onboardingNotifierProvider.notifier).resume(),
+        ),
+      );
+    }
     final evolution = ref.watch(ibsSssEvolutionProvider);
 
     return CauceScaffold(
       appBar: CauceAppBar(
         title: l10n.ibsSssEvolutionTitle,
-        showBackButton: true,
+        showBackButton: widget.showBackButton,
       ),
       scrollable: true,
       body: evolution.when(
@@ -71,7 +113,12 @@ class _EvolutionScreenState extends ConsumerState<EvolutionScreen> {
           return _Timeline(
             series: series,
             range: _range,
-            onRangeChanged: (value) => setState(() => _range = value),
+            custom: _custom,
+            onRangeChanged: (value) => setState(() {
+              _range = value;
+              _custom = null;
+            }),
+            onPickDates: () => _pickDates(series),
           );
         },
       ),
@@ -183,17 +230,24 @@ class _Timeline extends StatelessWidget {
   const _Timeline({
     required this.series,
     required this.range,
+    required this.custom,
     required this.onRangeChanged,
+    required this.onPickDates,
   });
 
   final IbsSssEvolutionSeries series;
   final IbsSssEvolutionRange range;
+  final DateTimeRange? custom;
   final ValueChanged<IbsSssEvolutionRange> onRangeChanged;
+  final VoidCallback onPickDates;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final visible = series.within(range);
+    final chosen = custom;
+    final visible = chosen == null
+        ? series.within(range)
+        : series.between(chosen.start, chosen.end);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -220,6 +274,21 @@ class _Timeline extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: CauceSpacing.space2),
+        CauceButton.tertiary(
+          key: const Key('evolution_pick_dates'),
+          label: l10n.evolutionPickDates,
+          onPressed: onPickDates,
+        ),
+        if (chosen != null)
+          Text(
+            l10n.evolutionCustomRange(
+              OnboardingLabels.date(chosen.start),
+              OnboardingLabels.date(chosen.end),
+            ),
+            key: const Key('evolution_custom_range'),
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
         const SizedBox(height: CauceSpacing.space4),
         if (visible.isEmpty)
           Padding(

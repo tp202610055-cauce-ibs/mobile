@@ -20,6 +20,7 @@ import '../../features/onboarding/presentation/ibs_sss_baseline_screen.dart';
 import '../../features/patients/presentation/account_settings_screen.dart';
 import '../../features/patients/presentation/clinical_report_screen.dart';
 import '../../features/patients/presentation/privacy_screen.dart';
+import '../../features/patients/presentation/profile_edit_screen.dart';
 import '../../features/patients/presentation/profile_screen.dart';
 import '../../features/recommendations/presentation/recommendation_detail_screen.dart';
 import '../../features/recommendations/presentation/recommendations_screen.dart';
@@ -75,6 +76,13 @@ GoRouter appRouter(Ref ref) {
               GoRoute(
                 path: AppRoutes.home,
                 builder: (_, __) => const HomeScreen(),
+                routes: <RouteBase>[
+                  // Desde el menu de ayuda de Inicio; vuelve a Inicio.
+                  GoRoute(
+                    path: 'glossary',
+                    builder: (_, __) => const GlossaryScreen(),
+                  ),
+                ],
               ),
             ],
           ),
@@ -97,6 +105,9 @@ GoRouter appRouter(Ref ref) {
                     builder: (_, GoRouterState state) =>
                         RecommendationDetailScreen(
                       recommendationId: state.pathParameters['id']!,
+                      focusFeedback: state
+                              .uri.queryParameters[AppRoutes.focusQueryParam] ==
+                          AppRoutes.feedbackFocus,
                     ),
                   ),
                 ],
@@ -122,6 +133,12 @@ GoRouter appRouter(Ref ref) {
                     builder: (_, __) => const AccountSettingsScreen(),
                   ),
                   GoRoute(
+                    path: 'edit',
+                    // Formulario: se apila sobre el navigator raíz, sin barra.
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const ProfileEditScreen(),
+                  ),
+                  GoRoute(
                     path: 'report',
                     builder: (_, __) => const ClinicalReportScreen(),
                   ),
@@ -130,6 +147,17 @@ GoRouter appRouter(Ref ref) {
                     builder: (_, __) => const GlossaryScreen(),
                   ),
                 ],
+              ),
+            ],
+          ),
+          // Va al final para no correr los indices de las otras ramas; la
+          // barra la muestra entre Diario y Consejos.
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                path: AppRoutes.evolution,
+                builder: (_, __) =>
+                    const EvolutionScreen(showBackButton: false),
               ),
             ],
           ),

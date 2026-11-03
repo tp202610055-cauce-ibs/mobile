@@ -148,6 +148,14 @@ class FakeRecommendationsRepository implements RecommendationsRepository {
   CauceApiError? deliveryError;
   CauceApiError? feedbackError;
 
+  /// Errores de los proximos envios, en orden; vacia, manda [feedbackError].
+  final List<CauceApiError> feedbackErrorQueue = <CauceApiError>[];
+
+  /// Lo que responde el servidor a `review-status`.
+  bool inReview = false;
+  CauceApiError? reviewStatusError;
+  int reviewStatusCalls = 0;
+
   /// Retardo del pedido de generacion, para probar pedidos simultaneos.
   Duration generationDelay = Duration.zero;
 
@@ -174,6 +182,16 @@ class FakeRecommendationsRepository implements RecommendationsRepository {
         .where((detail) => detail.status.isVisibleToPatient)
         .map(summaryOf)
         .toList();
+  }
+
+  @override
+  Future<bool> hasRecommendationInReview() async {
+    reviewStatusCalls++;
+    final error = reviewStatusError;
+    if (error != null) {
+      throw error;
+    }
+    return inReview;
   }
 
   @override
@@ -230,7 +248,9 @@ class FakeRecommendationsRepository implements RecommendationsRepository {
   }) async {
     feedbackKeys.add(idempotencyKey);
     feedbackDrafts.add(draft);
-    final error = feedbackError;
+    final error = feedbackErrorQueue.isNotEmpty
+        ? feedbackErrorQueue.removeAt(0)
+        : feedbackError;
     if (error != null) {
       throw error;
     }

@@ -1,3 +1,4 @@
+import 'package:cauce_mobile/core/onboarding/onboarding_draft_store.dart';
 import 'package:cauce_mobile/core/auth/token_storage_provider.dart';
 import 'package:cauce_mobile/core/errors/cauce_api_error.dart';
 import 'package:cauce_mobile/features/auth/application/session_notifier.dart';
@@ -9,6 +10,7 @@ import 'package:cauce_mobile/features/patients/domain/allergy.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../helpers/fake_onboarding_draft_store.dart';
 import '../../../helpers/fake_auth_repository.dart';
 import '../../../helpers/fake_patients_repository.dart';
 import '../../../helpers/fake_token_storage.dart';
@@ -19,6 +21,8 @@ import '../../../helpers/fake_token_storage.dart';
   final patients = repository ?? FakePatientsRepository();
   final container = ProviderContainer(
     overrides: <Override>[
+      onboardingDraftStoreProvider
+          .overrideWithValue(FakeOnboardingDraftStore()),
       patientsRepositoryProvider.overrideWithValue(patients),
       authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       tokenStorageProvider.overrideWithValue(FakeTokenStorage()),
@@ -51,7 +55,8 @@ const List<AllergyDeclarationDraft> _twoAllergies = <AllergyDeclarationDraft>[
 
 void main() {
   group('ClinicalProfileNotifier · envio exitoso (US03 CA01)', () {
-    test('crea el perfil y avanza el onboarding al paso 2', () async {
+    test('crea el perfil y deja el cuestionario inicial como recordatorio',
+        () async {
       final h = _harness();
       await _authenticate(h.container);
 
@@ -67,7 +72,10 @@ void main() {
       expect(h.repository.createdProfiles, hasLength(1));
       expect(
         h.container.read(resolvedOnboardingProvider),
-        const OnboardingState.pending(OnboardingStep.ibsSssBaseline),
+        const OnboardingState.deferred(
+          OnboardingStep.ibsSssBaseline,
+          completedSteps: 2,
+        ),
       );
     });
 

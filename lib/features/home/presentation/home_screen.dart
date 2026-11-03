@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/router/app_routes.dart';
@@ -11,6 +12,7 @@ import '../../history/application/today_journal_notifier.dart';
 import '../../ibs_sss/application/periodic_assessment_notifier.dart';
 import '../../onboarding/application/onboarding_notifier.dart';
 import '../../recommendations/application/recommendations_feed_notifier.dart';
+import 'widgets/email_verification_card.dart';
 import 'widgets/home_cards.dart';
 
 /// Pestana de Inicio.
@@ -61,14 +63,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return CauceScaffold(
       // Sin flecha de retroceso: es una raiz de pestana, no hay a donde
       // volver.
-      appBar: CauceAppBar(title: l10n.navHome),
+      appBar: CauceAppBar(
+        title: l10n.navHome,
+        actions: <Widget>[
+          // Menu de ayuda de HU0027: el glosario queda a dos toques de Inicio.
+          PopupMenuButton<String>(
+            key: const Key('home_help_menu'),
+            icon: const Icon(TablerIcons.help_circle),
+            tooltip: l10n.helpMenuTooltip,
+            onSelected: (route) => context.push(route),
+            itemBuilder: (_) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                key: const Key('help_menu_glossary'),
+                value: AppRoutes.homeGlossary,
+                child: Text(l10n.glossaryTitle),
+              ),
+            ],
+          ),
+        ],
+      ),
       scrollable: true,
       body: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          if (onboarding.showsReminder) ...<Widget>[
-            _OnboardingReminder(step: onboarding.step!),
+          if (onboarding
+              case OnboardingDeferred(
+                :final step,
+                :final completedSteps
+              )) ...<Widget>[
+            _OnboardingReminder(step: step, completedSteps: completedSteps),
             const SizedBox(height: CauceSpacing.space6),
           ],
           // US12 CA01: el acceso al cuestionario periodico. Sin mecanismo de
@@ -78,6 +102,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           // HU0014 CA2 / CP037: la recomendacion propia en revision. Sin push
           // en este bloque, el aviso vive aca, igual que el del cuestionario.
           if (onboarding.allowsAdvice) const _RecommendationPendingReminder(),
+          const EmailVerificationCard(),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -230,9 +255,13 @@ class _RecommendationPendingReminder extends ConsumerWidget {
 /// Deliberadamente sobrio. Un aviso de advertencia en rojo por un formulario a
 /// medias seria desproporcionado para algo que el paciente eligio posponer.
 class _OnboardingReminder extends ConsumerWidget {
-  const _OnboardingReminder({required this.step});
+  const _OnboardingReminder({
+    required this.step,
+    required this.completedSteps,
+  });
 
   final OnboardingStep step;
+  final int completedSteps;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -265,6 +294,16 @@ class _OnboardingReminder extends ConsumerWidget {
                 l10n.onboardingReminderBodyBaseline,
             },
             style: textTheme.bodyMedium,
+          ),
+          // CP007 paso 9: el avance de configuracion, actualizado.
+          const SizedBox(height: CauceSpacing.space1),
+          Text(
+            l10n.onboardingReminderProgress(
+              completedSteps,
+              OnboardingState.totalSteps,
+            ),
+            key: const Key('home_onboarding_progress'),
+            style: textTheme.labelMedium,
           ),
           const SizedBox(height: CauceSpacing.space3),
           CauceButton.tertiary(

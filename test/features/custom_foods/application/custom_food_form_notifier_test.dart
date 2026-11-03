@@ -52,6 +52,8 @@ void main() {
       ],
     );
     when(repository.list).thenAnswer((_) async => const <CustomFoodRecord>[]);
+    when(() => repository.allergenConflicts(any()))
+        .thenAnswer((_) async => const <String>[]);
   });
 
   tearDown(() => container.dispose());
@@ -82,7 +84,7 @@ void main() {
     test('arranca sin poder enviar', () {
       expect(state().canSubmit, isFalse);
       expect(state().issues, contains(CustomFoodIssue.invalidName));
-      expect(state().issues, contains(CustomFoodIssue.invalidPortion));
+      expect(state().issues, isNot(contains(CustomFoodIssue.invalidPortion)));
       expect(state().issues, contains(CustomFoodIssue.noIngredients));
     });
 
@@ -336,6 +338,53 @@ void main() {
       // 200 g de ingredientes contra 300 g de porcion declarada.
       expect(state().draft.weightDelta, -100);
       expect(state().canSubmit, isTrue);
+    });
+  });
+
+  group('CustomFoodFormNotifier · porcentajes y alérgenos (CP025, CP027)', () {
+    setUp(() => container.listen(customFoodFormNotifierProvider, (_, __) {}));
+
+    test('la porción arranca en 100 g para leer cada ingrediente en %', () {
+      expect(state().draft.portionSizeGrams, 100);
+    });
+
+    test('al elegir un ingrediente con alérgeno avisa cuál, sin bloquear',
+        () async {
+      when(() => repository.allergenConflicts('f2'))
+          .thenAnswer((_) async => const <String>['Lactosa']);
+      notifier()
+        ..setName('Salsa de queso casera')
+        ..addIngredient(
+          const CustomFoodIngredientDraft(food: _leche, proportionGrams: 100),
+        );
+      await Future<void>.delayed(Duration.zero);
+
+      expect(state().detectedAllergens, <String>['Lactosa']);
+      expect(state().canSubmit, isTrue);
+    });
+
+    test('quitar el ingrediente retira su aviso', () async {
+      when(() => repository.allergenConflicts('f2'))
+          .thenAnswer((_) async => const <String>['Lactosa']);
+      notifier().addIngredient(
+        const CustomFoodIngredientDraft(food: _leche, proportionGrams: 100),
+      );
+      await Future<void>.delayed(Duration.zero);
+
+      notifier().removeIngredientAt(0);
+
+      expect(state().detectedAllergens, isEmpty);
+    });
+
+    test('un fallo del chequeo no avisa ni bloquea', () async {
+      when(() => repository.allergenConflicts('f1'))
+          .thenThrow(const CauceApiError.network());
+      notifier().addIngredient(
+        const CustomFoodIngredientDraft(food: _arroz, proportionGrams: 100),
+      );
+      await Future<void>.delayed(Duration.zero);
+
+      expect(state().detectedAllergens, isEmpty);
     });
   });
 }

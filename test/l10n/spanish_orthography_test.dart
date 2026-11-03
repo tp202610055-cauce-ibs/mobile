@@ -129,6 +129,8 @@ const List<String> _alwaysAccented = <String>[
   'minuscula',
   'digito',
   'aceptalo',
+  'habia',
+  'leido',
 ];
 
 /// Formas del voseo. La app le habla al paciente de tu (es_PE).
@@ -137,6 +139,7 @@ const List<String> _alwaysAccented = <String>[
 /// o `toca` sin tilde son otra cosa y no se listan. `Probá` se colo en
 /// Evolucion y lo encontro el recorrido en el celular (acta M49).
 const List<String> _voseo = <String>[
+  'acá',
   'probá',
   'tocá',
   'elegí',
