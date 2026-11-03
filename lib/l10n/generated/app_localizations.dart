@@ -3977,7 +3977,7 @@ abstract class AppLocalizations {
   /// No description provided for @mealsIssueQuantityOutOfRange.
   ///
   /// In es, this message translates to:
-  /// **'Indica una cantidad entre 0 y {max} {unit}'**
+  /// **'Indica una cantidad mayor que 0 y hasta {max} {unit}'**
   String mealsIssueQuantityOutOfRange(String unit, String max);
 
   /// Tarjeta del mockup 06-home-dashboard, version minima de Mobile-3.2

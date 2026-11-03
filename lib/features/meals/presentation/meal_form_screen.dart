@@ -52,11 +52,15 @@ class _MealFormScreenState extends ConsumerState<MealFormScreen> {
     setState(() => _pending = selection);
   }
 
+  /// Lo escrito como numero, sin validar; acepta coma decimal.
+  double? get _typed =>
+      double.tryParse(_quantity.text.trim().replaceAll(',', '.'));
+
   /// Cantidad valida, o `null` si lo escrito no sirve.
   ///
   /// Mayor que cero como `MealItemRequestValidator`, y bajo el tope por unidad.
   double? get _parsed {
-    final value = double.tryParse(_quantity.text.trim().replaceAll(',', '.'));
+    final value = _typed;
     final max = _unit?.maxQuantity ?? double.infinity;
     if (value == null || value <= 0 || value > max) {
       return null;
@@ -65,8 +69,7 @@ class _MealFormScreenState extends ConsumerState<MealFormScreen> {
   }
 
   /// Lo escrito no es un numero, como «cien» (CP076 variante C).
-  bool get _isNotANumber =>
-      double.tryParse(_quantity.text.trim().replaceAll(',', '.')) == null;
+  bool get _isNotANumber => _typed == null;
 
   /// Elegir una unidad nunca cambia la cantidad escrita (CP022, CP076).
   void _changeUnit(MeasurementUnitOption unit) {
@@ -153,7 +156,8 @@ class _MealFormScreenState extends ConsumerState<MealFormScreen> {
     if (_isNotANumber) {
       return l10n.mealsIssueQuantityNotANumber;
     }
-    if (unit == null) {
+    // Cero o negativo tiene su propio aviso; el rango es solo para el tope.
+    if (unit == null || _typed! <= 0) {
       return l10n.mealsIssueInvalidQuantity;
     }
     return l10n.mealsIssueQuantityOutOfRange(
