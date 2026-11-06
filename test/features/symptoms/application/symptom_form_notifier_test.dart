@@ -107,6 +107,69 @@ void main() {
     });
   });
 
+  group('SymptomFormNotifier · CP083, bordes de la intensidad', () {
+    test('0, 101, -5 y vacía no guardan ningún síntoma', () async {
+      for (final value in <String>['0', '101', '-5', '']) {
+        notifier()
+          ..selectType(SymptomTypeOption.abdominalPain)
+          ..setIntensityInput(value);
+
+        expect(await notifier().submit(), isFalse, reason: value);
+      }
+
+      expect(await database.select(database.symptomsLocal).get(), isEmpty);
+      verifyNever(
+        () => repository.create(
+          any(),
+          clientGuid: any(named: 'clientGuid'),
+          clientCreatedAt: any(named: 'clientCreatedAt'),
+        ),
+      );
+    });
+
+    test('1 y 100 del mismo tipo quedan como dos síntomas', () async {
+      stubCreate(const CreatedSymptom(symptomId: 'server-1'));
+      for (final value in <String>['1', '100']) {
+        notifier()
+          ..selectType(SymptomTypeOption.abdominalPain)
+          ..setIntensityInput(value);
+
+        expect(await notifier().submit(), isTrue, reason: value);
+        notifier().reset();
+      }
+
+      final rows = await database.select(database.symptomsLocal).get();
+      expect(rows.map((row) => row.intensity), <int>[1, 100]);
+      expect(
+        rows.map((row) => row.symptomType).toSet(),
+        <String>{SymptomTypeOption.abdominalPain.wireValue},
+      );
+    });
+  });
+
+  group('SymptomFormNotifier · cada intensidad escrita no válida', () {
+    for (final (value, issue) in <(String, SymptomDraftIssue)>[
+      ('NaN', SymptomDraftIssue.missingIntensity),
+      ('Infinity', SymptomDraftIssue.missingIntensity),
+      ('-Infinity', SymptomDraftIssue.missingIntensity),
+      ('1e999', SymptomDraftIssue.missingIntensity),
+      ('', SymptomDraftIssue.missingIntensity),
+      ('   ', SymptomDraftIssue.missingIntensity),
+      ('cuarenta', SymptomDraftIssue.missingIntensity),
+      ('-5', SymptomDraftIssue.intensityOutOfRange),
+      ('0', SymptomDraftIssue.intensityOutOfRange),
+    ]) {
+      test('«$value» no permite enviar', () {
+        notifier()
+          ..selectType(SymptomTypeOption.abdominalPain)
+          ..setIntensityInput(value);
+
+        expect(state().issues, contains(issue));
+        expect(state().canSubmit, isFalse);
+      });
+    }
+  });
+
   group('SymptomFormNotifier · registro con conexion (CA01, CP028)', () {
     test(
         'el cliente no calcula la ventana: muestra lo que confirma el servidor',

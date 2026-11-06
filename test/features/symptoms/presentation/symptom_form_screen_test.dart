@@ -1,7 +1,10 @@
 import 'package:cauce_mobile/core/theme/app_theme.dart';
 import 'package:cauce_mobile/core/widgets/widgets.dart';
+import 'package:cauce_mobile/features/symptoms/domain/symptom_draft.dart';
 import 'package:cauce_mobile/features/symptoms/presentation/symptom_form_screen.dart';
+import 'package:cauce_mobile/features/symptoms/presentation/widgets/symptom_labels.dart';
 import 'package:cauce_mobile/l10n/generated/app_localizations.dart';
+import 'package:cauce_mobile/l10n/generated/app_localizations_es.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,6 +55,25 @@ Future<void> _chooseType(WidgetTester tester) async {
 }
 
 void main() {
+  testWidgets('CP028: el formulario ofrece los nueve tipos de síntoma',
+      (tester) async {
+    await _pump(tester);
+    final l10n = AppLocalizationsEs();
+    final field = find.byKey(const Key('symptom_type_field'));
+
+    expect(SymptomTypeOption.values, hasLength(9));
+    for (final option in SymptomTypeOption.values) {
+      expect(
+        find.descendant(
+          of: field,
+          matching: find.text(SymptomLabels.symptomType(l10n, option)),
+        ),
+        findsOneWidget,
+        reason: option.name,
+      );
+    }
+  });
+
   group('SymptomFormScreen · intensidad escrita (CP083)', () {
     for (final value in <String>['0', '101', '-5', '']) {
       testWidgets('con «$value» no guarda y avisa el rango', (tester) async {
