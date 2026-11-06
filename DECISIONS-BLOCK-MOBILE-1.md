@@ -1005,3 +1005,40 @@ Alternativas consideradas.
 - (b) `register()` y el FID: descartada. El servidor envía al token de registro.
 - (c) `flutter_local_notifications` para un aviso del sistema en primer plano: descartada. Sería una dependencia más, y el aviso dentro de la app alcanza.
 - (d) Recordar el destino de un toque hecho sin sesión hasta después del login: descartada. Lo pidió así Kiwicha.
+
+Acta M54: El cuestionario inicial desde Perfil sin línea base y el arranque en frío desde un push
+
+**Estado:** Propuesta
+**Fecha:** 2026-11-06
+
+---
+
+Contexto.
+
+- El sembrador de QA del backend deja `onboardingCompleted=true` en todo perfil completo, aunque no siembre la línea base. La app resuelve ese estado como onboarding completo.
+- Sin línea base, la tarjeta «Mi evolución IBS-SSS» de Perfil ofrece «Responder el cuestionario», que llama a `OnboardingNotifier.resume()`. Ese método solo actuaba desde el estado aplazado, así que en esas cuentas el botón no hacía nada.
+- CP084: con la app cerrada, el toque sobre el recordatorio del cuestionario deja el destino pendiente y `PushInbox` lo abre apenas aparece el shell. El shell aparece con la consulta del perfil en vuelo. Al resolverse, `appRouterProvider` crea un `GoRouter` nuevo que arranca en `/splash`, la ruta apilada se pierde y el paciente queda en Inicio.
+
+Decisión.
+
+1. **`resume()` desde el onboarding completo.** También pasa de completo a pendiente de línea base, y el guard lleva a `/onboarding/ibs-sss`. En ese estado solo lo alcanza el botón de Perfil: los demás accesos que llaman a `resume()` se muestran con el onboarding incompleto. Si la línea base ya existía, el 409 `duplicate_baseline_assessment` vuelve a leer el estado, como antes.
+2. **`PushInbox` espera al onboarding.** No toma el destino mientras `onboardingNotifierProvider` carga, y lo reintenta cuando termina. Vale para cualquier arranque desde una notificación.
+3. **CP012 y CP013 al iniciar sesión.** Lo resuelve el backend: paciente.base y paciente.base2 quedan con `onboardingCompleted=false`, y el router ya las lleva al cuestionario. Las demás cuentas sembradas no cambian.
+
+Consecuencias.
+
+- Pruebas nuevas:
+  - `onboarding_notifier_test.dart`: `resume()` desde completo, y sin sesión.
+  - `baseline_from_profile_test.dart`: desde la raíz, el botón de Perfil lleva a `/onboarding/ibs-sss`, y al responder la línea base el onboarding queda completo y vuelve a Inicio.
+  - `push_navigation_test.dart`: arranque en frío con el recordatorio del cuestionario, con el perfil resuelto a los 0 y a los 300 ms.
+  - Cinco quedaron rojas sin el cambio. La de sin sesión es de regresión.
+- Cambia solo el hash de `onboarding_notifier.g.dart`, regenerado con `build_runner`.
+- `core/push` importa `features/onboarding/application`. No forma un ciclo entre librerías. Entre carpetas, se apoya en el que ya existe entre `core/push` y `features/auth` (`session_notifier` y `push_token_registrar`).
+- El punto 9 de M53 («con el onboarding resuelto») se cumple ahora también con la app cerrada.
+- **Límite conocido.** CP084 con FCM real depende de la configuración de la VM.
+
+Alternativas consideradas.
+- (a) Resembrar todas las cuentas sin línea base con `onboardingCompleted=false`: descartada. El guard las mandaría al cuestionario en cada inicio de sesión, y Consejos y Evolución quedarían bloqueados.
+- (b) Que `_resolve()` consulte el resumen para detectar la falta de línea base: descartada. Suma una petición en cada inicio de sesión y cambia el estado de todas las cuentas sembradas.
+- (c) Una tarjeta de invitación en Inicio: descartada en este bloque. La verían todas las cuentas sembradas sin evaluación y no hay tiempo para la revisión de diseño.
+- (d) Que `AppShell` le pase a `PushInbox` si el onboarding resolvió: descartada. Toca dos archivos para el mismo efecto.

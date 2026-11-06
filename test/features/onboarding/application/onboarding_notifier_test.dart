@@ -170,6 +170,35 @@ void main() {
       );
     });
 
+    test('reanudar desde completed abre el cuestionario inicial', () async {
+      final h = _harness(
+        repository: FakePatientsRepository(
+          profile: demoProfile.copyWith(onboardingCompleted: true),
+        ),
+      );
+      await _authenticate(h.container);
+      await h.container.read(onboardingNotifierProvider.future);
+
+      h.container.read(onboardingNotifierProvider.notifier).resume();
+
+      expect(
+        h.container.read(resolvedOnboardingProvider),
+        const OnboardingState.pending(OnboardingStep.ibsSssBaseline),
+      );
+    });
+
+    test('reanudar sin sesion no inventa un paso', () async {
+      final h = _harness(repository: FakePatientsRepository());
+      await h.container.read(onboardingNotifierProvider.future);
+
+      h.container.read(onboardingNotifierProvider.notifier).resume();
+
+      expect(
+        h.container.read(resolvedOnboardingProvider),
+        isA<OnboardingUnavailable>(),
+      );
+    });
+
     test('aplazar un onboarding ya completo no hace nada', () async {
       final h = _harness(
         repository: FakePatientsRepository(

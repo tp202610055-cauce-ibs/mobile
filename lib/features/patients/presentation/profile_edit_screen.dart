@@ -21,7 +21,12 @@ class ProfileEditScreen extends ConsumerWidget {
 
     return CauceScaffold(
       key: const Key('profile_edit_screen'),
-      appBar: CauceAppBar(title: l10n.profileEditTitle),
+      // El mismo camino que el atrás del sistema: respeta un PopScope.
+      appBar: CauceAppBar(
+        title: l10n.profileEditTitle,
+        showBackButton: true,
+        onBack: () => Navigator.of(context).maybePop(),
+      ),
       scrollable: true,
       body: profile.when(
         loading: () =>
@@ -156,9 +161,8 @@ class _EditFormState extends ConsumerState<_EditForm> {
       : value.toString();
 }
 
-/// Lee un número escrito con coma o punto decimal; `null` si no lo es.
-double? parseBiometric(String? value) =>
-    double.tryParse((value ?? '').trim().replaceAll(',', '.'));
+/// Lee un número escrito con coma o punto decimal; `null` si no es finito.
+double? parseBiometric(String? value) => Validators.parseDecimal(value);
 
 /// Peso editado: obligatorio, numérico, no negativo y en el rango del perfil.
 @visibleForTesting

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/utils/validators.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../application/meal_form_notifier.dart';
@@ -52,9 +53,8 @@ class _MealFormScreenState extends ConsumerState<MealFormScreen> {
     setState(() => _pending = selection);
   }
 
-  /// Lo escrito como numero, sin validar; acepta coma decimal.
-  double? get _typed =>
-      double.tryParse(_quantity.text.trim().replaceAll(',', '.'));
+  /// Lo escrito como numero finito, sin validar; acepta coma decimal.
+  double? get _typed => Validators.parseDecimal(_quantity.text);
 
   /// Cantidad valida, o `null` si lo escrito no sirve.
   ///
@@ -185,7 +185,12 @@ class _MealFormScreenState extends ConsumerState<MealFormScreen> {
     ];
 
     return CauceScaffold(
-      appBar: CauceAppBar(title: l10n.mealsTitle),
+      // El mismo camino que el atrás del sistema: respeta un PopScope.
+      appBar: CauceAppBar(
+        title: l10n.mealsTitle,
+        showBackButton: true,
+        onBack: () => Navigator.of(context).maybePop(),
+      ),
       scrollable: true,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -25,7 +25,12 @@ class SymptomFormScreen extends ConsumerWidget {
     }
 
     return CauceScaffold(
-      appBar: CauceAppBar(title: l10n.symptomsTitle),
+      // El mismo camino que el atrás del sistema: respeta un PopScope.
+      appBar: CauceAppBar(
+        title: l10n.symptomsTitle,
+        showBackButton: true,
+        onBack: () => Navigator.of(context).maybePop(),
+      ),
       scrollable: true,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

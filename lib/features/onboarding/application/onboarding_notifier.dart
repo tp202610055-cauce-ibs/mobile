@@ -140,13 +140,18 @@ class OnboardingNotifier extends _$OnboardingNotifier {
     );
   }
 
-  /// Reanuda el wizard desde el recordatorio del tablero.
+  /// Reanuda el wizard desde el recordatorio o desde un acceso sin línea base.
+  /// Si la línea base ya existía, el 409 al enviarla vuelve a leer el estado.
   void resume() {
-    final current = state.valueOrNull;
-    if (current is! OnboardingDeferred) {
-      return;
+    final next = switch (state.valueOrNull) {
+      OnboardingDeferred(:final step) => OnboardingState.pending(step),
+      OnboardingCompleted() =>
+        const OnboardingState.pending(OnboardingStep.ibsSssBaseline),
+      _ => null,
+    };
+    if (next != null) {
+      state = AsyncData(next);
     }
-    state = AsyncData(OnboardingState.pending(current.step));
   }
 
   /// El perfil quedo guardado en el servidor.

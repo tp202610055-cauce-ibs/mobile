@@ -538,4 +538,66 @@ void main() {
       },
     );
   });
+
+  group('RegisterScreen · CP088 parte B, código en el registro', () {
+    Finder field(String key) => find.descendant(
+          of: find.byKey(Key(key)),
+          matching: find.byType(EditableText),
+        );
+
+    String text(WidgetTester tester, String key) =>
+        tester.widget<EditableText>(field(key)).controller.text;
+
+    for (final reason in InvitationCodeReason.values) {
+      testWidgets(
+          'un código ${reason.name} no crea la cuenta, da el aviso único y '
+          'conserva lo escrito', (tester) async {
+        await _openRegister(
+          tester,
+          error: CauceApiError.invitationCode(reason: reason),
+        );
+        await _fillValidForm(tester);
+        await tester.enterText(field('register_invitation_code'), 'ABC123XYZ');
+        await _acceptConsent(tester);
+
+        await _tapSubmit(tester);
+
+        expect(
+          find.text(
+            'El código de invitación no es válido. Pide uno nuevo a tu '
+            'nutricionista.',
+          ),
+          findsOneWidget,
+        );
+        expect(find.byType(VerifyEmailPendingScreen), findsNothing);
+        expect(text(tester, 'register_full_name'), 'Paciente Nuevo');
+        expect(text(tester, 'register_email'), 'nuevo@cauce.local');
+        expect(text(tester, 'register_invitation_code'), 'ABC123XYZ');
+      });
+    }
+
+    testWidgets('con el código vigente crea la cuenta con los datos escritos',
+        (tester) async {
+      final h = await _openRegister(
+        tester,
+        error: const CauceApiError.invitationCode(
+          reason: InvitationCodeReason.alreadyUsed,
+        ),
+      );
+      await _fillValidForm(tester);
+      await tester.enterText(field('register_invitation_code'), 'ABC123XYZ');
+      await _acceptConsent(tester);
+      await _tapSubmit(tester);
+
+      h.repository.error = null;
+      h.repository.loginError = const CauceApiError.invalidCredentials();
+      await tester.enterText(field('register_invitation_code'), 'ABCD1234');
+      await _tapSubmit(tester);
+
+      expect(h.repository.lastInvitationCode, 'ABCD1234');
+      expect(h.repository.lastFullName, 'Paciente Nuevo');
+      expect(h.repository.lastEmail, 'nuevo@cauce.local');
+      expect(find.byType(VerifyEmailPendingScreen), findsOneWidget);
+    });
+  });
 }

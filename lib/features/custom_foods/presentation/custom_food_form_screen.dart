@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/cauce_api_error.dart';
 import '../../../core/theme/design_tokens.dart';
+import '../../../core/utils/validators.dart';
 import '../../../core/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../meals/presentation/widgets/food_picker_sheet.dart';
@@ -99,7 +100,12 @@ class _CustomFoodFormScreenState extends ConsumerState<CustomFoodFormScreen> {
     final estimate = state.estimate;
 
     return CauceScaffold(
-      appBar: CauceAppBar(title: l10n.customFoodTitle),
+      // El mismo camino que el atrás del sistema: respeta un PopScope.
+      appBar: CauceAppBar(
+        title: l10n.customFoodTitle,
+        showBackButton: true,
+        onBack: () => Navigator.of(context).maybePop(),
+      ),
       scrollable: true,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -235,7 +241,7 @@ class _ProportionSheetState extends State<_ProportionSheet> {
   }
 
   double? get _parsed {
-    final value = double.tryParse(_grams.text.replaceAll(',', '.'));
+    final value = Validators.parseDecimal(_grams.text);
     return (value == null || value <= 0 || value > 100) ? null : value;
   }
 

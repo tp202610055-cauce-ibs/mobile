@@ -94,7 +94,12 @@ class _ClinicalNoteFormScreenState
     final overLimit = state.remaining < 0;
 
     return CauceScaffold(
-      appBar: CauceAppBar(title: l10n.clinicalNoteTitle),
+      // El mismo camino que el atrás del sistema: respeta un PopScope.
+      appBar: CauceAppBar(
+        title: l10n.clinicalNoteTitle,
+        showBackButton: true,
+        onBack: () => Navigator.of(context).maybePop(),
+      ),
       scrollable: true,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

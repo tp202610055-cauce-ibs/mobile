@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/onboarding/application/onboarding_notifier.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../widgets/widgets.dart';
 import 'push_destination.dart';
@@ -46,6 +47,14 @@ class _PushInboxState extends ConsumerState<PushInbox> {
       },
       fireImmediately: true,
     );
+    ref.listenManual<AsyncValue<OnboardingState>>(
+      onboardingNotifierProvider,
+      (_, next) {
+        if (!next.isLoading) {
+          WidgetsBinding.instance.addPostFrameCallback((_) => _openPending());
+        }
+      },
+    );
     _foreground =
         ref.read(pushMessagingProvider).onMessage.listen(_showForeground);
   }
@@ -57,7 +66,9 @@ class _PushInboxState extends ConsumerState<PushInbox> {
   }
 
   void _openPending() {
-    if (!mounted) {
+    // Con el onboarding en vuelo el router aún se reconstruye y perdería la
+    // ruta abierta: el destino espera a que se resuelva.
+    if (!mounted || ref.read(onboardingNotifierProvider).isLoading) {
       return;
     }
     final destination =

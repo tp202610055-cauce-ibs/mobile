@@ -52,6 +52,15 @@ const PushMessage _approved = PushMessage(
   body: 'Tienes una recomendación nueva.',
 );
 
+/// Recordatorio del cuestionario periódico (CP084).
+const PushMessage _questionnaireReminder = PushMessage(
+  data: <String, String>{
+    'type': 'reminder',
+    'entityType': 'ibs_sss_schedule',
+    'entityId': '',
+  },
+);
+
 /// La recomendacion que anuncia [_approved], aprobada y sin abrir.
 final _newRecommendation = approvedDetail.copyWith(id: _recommendationId);
 
@@ -66,6 +75,7 @@ Future<_Harness> _pumpApp(
   bool session = true,
   PushMessage? initial,
   FakeRecommendationsRepository? recommendations,
+  Duration profileDelay = Duration.zero,
 }) async {
   final storage = session
       ? FakeTokenStorage(
@@ -91,6 +101,7 @@ Future<_Harness> _pumpApp(
         patientsRepositoryProvider.overrideWithValue(
           FakePatientsRepository(
             profile: demoProfile.copyWith(onboardingCompleted: true),
+            delay: profileDelay,
           ),
         ),
         ibsSssRepositoryProvider.overrideWithValue(FakeIbsSssRepository()),
@@ -221,6 +232,31 @@ void main() {
         findsOneWidget,
       );
     });
+
+    // CP084: el shell aparece con el onboarding en vuelo y el router se
+    // reconstruye al resolverlo, así que el destino espera a ese momento.
+    for (final delay in <Duration>[
+      Duration.zero,
+      const Duration(milliseconds: 300),
+    ]) {
+      testWidgets(
+          'el recordatorio del cuestionario abre la pregunta 1 con el perfil '
+          'resuelto en ${delay.inMilliseconds} ms', (tester) async {
+        final h = await _pumpApp(
+          tester,
+          initial: _questionnaireReminder,
+          recommendations: _emptyAdvice(),
+          profileDelay: delay,
+        );
+
+        expect(find.byType(PeriodicAssessmentScreen), findsOneWidget);
+        expect(
+          find.byKey(const Key('ibs_sss_painSeverity')),
+          findsOneWidget,
+        );
+        expect(h.container.read(pendingPushDestinationProvider), isNull);
+      });
+    }
 
     testWidgets('sin sesion va al login y no recuerda el destino',
         (tester) async {

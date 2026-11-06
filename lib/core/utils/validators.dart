@@ -212,10 +212,17 @@ abstract final class Validators {
     return exists ? date : null;
   }
 
+  /// Lee un decimal escrito con coma o punto; `null` si no es un número finito.
+  /// `double.tryParse` acepta «NaN» e «Infinity», y ningún rango los atrapa.
+  static double? parseDecimal(String? value) {
+    final parsed = double.tryParse((value ?? '').trim().replaceAll(',', '.'));
+    return parsed != null && parsed.isFinite ? parsed : null;
+  }
+
   /// Peso en kilogramos. Mayor que 0 y menor que 300, sin incluir los bordes.
   static String? weightKg(String? value, AppLocalizations l10n) {
     // Un negativo no es un peso, ni siquiera fuera de rango (CP008).
-    final parsed = double.tryParse(value?.trim().replaceAll(',', '.') ?? '');
+    final parsed = parseDecimal(value);
     if (parsed != null && parsed < 0) {
       return l10n.validationWeightInvalid;
     }
@@ -266,7 +273,7 @@ abstract final class Validators {
       return l10n.validationRequired;
     }
 
-    final parsed = double.tryParse(trimmed.replaceAll(',', '.'));
+    final parsed = parseDecimal(trimmed);
     if (parsed == null) {
       return l10n.validationNumberInvalid;
     }

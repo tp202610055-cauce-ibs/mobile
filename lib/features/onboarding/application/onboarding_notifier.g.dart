@@ -32,7 +32,7 @@ final resolvedOnboardingProvider = Provider<OnboardingState>.internal(
 // ignore: unused_element
 typedef ResolvedOnboardingRef = ProviderRef<OnboardingState>;
 String _$onboardingNotifierHash() =>
-    r'c87561bcba28d8c48674e59fcc631a9a99d89020';
+    r'1c35726d0d703aa70c3fd520c2e9efac9bcde641';
 
 /// Resuelve y gobierna el estado del onboarding clinico.
 ///
