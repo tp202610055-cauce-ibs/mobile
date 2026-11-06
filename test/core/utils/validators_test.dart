@@ -93,6 +93,37 @@ void main() {
     });
   });
 
+  group('Validators.parseDecimal', () {
+    for (final value in <String>['NaN', 'Infinity', '-Infinity', '1e999']) {
+      test('«$value» no es un número finito y devuelve null', () {
+        expect(Validators.parseDecimal(value), isNull);
+      });
+    }
+
+    for (final value in <String>['', '   ', 'cien']) {
+      test('«$value» no es un número y devuelve null', () {
+        expect(Validators.parseDecimal(value), isNull);
+      });
+    }
+
+    test('null devuelve null', () {
+      expect(Validators.parseDecimal(null), isNull);
+    });
+
+    test('un negativo y el cero se leen tal cual', () {
+      expect(Validators.parseDecimal('-68'), -68);
+      expect(Validators.parseDecimal('0'), 0);
+    });
+
+    test('acepta coma decimal y espacios alrededor', () {
+      expect(Validators.parseDecimal(' 62,5 '), 62.5);
+    });
+
+    test('la notación con exponente finita se lee como número', () {
+      expect(Validators.parseDecimal('1e3'), 1000);
+    });
+  });
+
   group('Validators.weightKg', () {
     test('un peso normal se acepta', () {
       expect(Validators.weightKg('70.5', l10n), isNull);
@@ -138,6 +169,22 @@ void main() {
     test('un negativo no es un peso valido (CP008 variante B)', () {
       expect(Validators.weightKg('-68', l10n), l10n.validationWeightInvalid);
     });
+
+    for (final (value, expected) in <(String, String)>[
+      ('NaN', l10n.validationNumberInvalid),
+      ('Infinity', l10n.validationNumberInvalid),
+      ('-Infinity', l10n.validationNumberInvalid),
+      ('1e999', l10n.validationNumberInvalid),
+      ('', l10n.validationRequired),
+      ('   ', l10n.validationRequired),
+      ('cien', l10n.validationNumberInvalid),
+      ('-68', l10n.validationWeightInvalid),
+      ('0', l10n.validationWeightOutOfRange),
+    ]) {
+      test('el peso «$value» se rechaza con su aviso', () {
+        expect(Validators.weightKg(value, l10n), expected);
+      });
+    }
   });
 
   group('Validators.heightCm', () {
@@ -158,6 +205,22 @@ void main() {
     test('vacio es obligatorio', () {
       expect(Validators.heightCm('   ', l10n), l10n.validationRequired);
     });
+
+    for (final (value, expected) in <(String, String)>[
+      ('NaN', l10n.validationNumberInvalid),
+      ('Infinity', l10n.validationNumberInvalid),
+      ('-Infinity', l10n.validationNumberInvalid),
+      ('1e999', l10n.validationNumberInvalid),
+      ('', l10n.validationRequired),
+      ('   ', l10n.validationRequired),
+      ('cien', l10n.validationNumberInvalid),
+      ('-5', l10n.validationHeightOutOfRange),
+      ('0', l10n.validationHeightOutOfRange),
+    ]) {
+      test('la estatura «$value» se rechaza con su aviso', () {
+        expect(Validators.heightCm(value, l10n), expected);
+      });
+    }
   });
 
   group('Validators.medications', () {
