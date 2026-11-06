@@ -137,4 +137,51 @@ void main() {
     expect(find.text(l10n.profileEditSaved), findsOneWidget);
     expect(find.text('origen'), findsOneWidget);
   });
+
+  group('validateEditedWeight · cada entrada no válida', () {
+    for (final (value, expected) in <(String, String)>[
+      ('NaN', l10n.validationWeightNotNumber),
+      ('Infinity', l10n.validationWeightNotNumber),
+      ('-Infinity', l10n.validationWeightNotNumber),
+      ('1e999', l10n.validationWeightNotNumber),
+      ('', l10n.validationWeightRequired),
+      ('   ', l10n.validationWeightRequired),
+      ('sesenta', l10n.validationWeightNotNumber),
+      ('-68', l10n.validationWeightNegative),
+      ('0', l10n.validationWeightOutOfRange),
+    ]) {
+      test('el peso «$value» se rechaza con su aviso', () {
+        expect(validateEditedWeight(value, l10n), expected);
+      });
+    }
+  });
+
+  group('validateEditedHeight · cada entrada no válida', () {
+    for (final (value, expected) in <(String, String)>[
+      ('NaN', l10n.validationHeightNotNumber),
+      ('Infinity', l10n.validationHeightNotNumber),
+      ('-Infinity', l10n.validationHeightNotNumber),
+      ('1e999', l10n.validationHeightNotNumber),
+      ('', l10n.validationHeightRequired),
+      ('   ', l10n.validationHeightRequired),
+      ('ciento setenta', l10n.validationHeightNotNumber),
+      ('-5', l10n.validationHeightNegative),
+      ('0', l10n.validationHeightOutOfRange),
+    ]) {
+      test('la estatura «$value» se rechaza con su aviso', () {
+        expect(validateEditedHeight(value, l10n), expected);
+      });
+    }
+  });
+
+  testWidgets('un peso «NaN» no se guarda y se señala', (tester) async {
+    final repository = await _pump(tester);
+
+    await tester.enterText(_field('profile_edit_weight'), 'NaN');
+    await _save(tester);
+
+    expect(find.text(l10n.validationWeightNotNumber), findsOneWidget);
+    expect(_text(tester, 'profile_edit_height'), '165');
+    expect(repository.updatedProfiles, isEmpty);
+  });
 }

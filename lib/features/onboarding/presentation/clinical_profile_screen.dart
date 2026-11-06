@@ -76,8 +76,7 @@ class _ClinicalProfileScreenState extends ConsumerState<ClinicalProfileScreen> {
         heightCm: _parse(_heightController.text),
       );
 
-  double? _parse(String raw) =>
-      double.tryParse(raw.trim().replaceAll(',', '.'));
+  double? _parse(String raw) => Validators.parseDecimal(raw);
 
   /// Lo escrito, como texto y nombres de enum, para el borrador.
   Map<String, Object?> _fields() => <String, Object?>{

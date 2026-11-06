@@ -203,6 +203,18 @@ void main() {
       expect(find.byKey(const Key('bmi_value')), findsNothing);
     });
 
+    for (final value in <String>['NaN', 'Infinity', '-Infinity', '1e999']) {
+      testWidgets('un peso «$value» no produce un IMC', (tester) async {
+        await _pump(tester);
+
+        await _type(tester, find.byKey(const Key('profile_weight')), value);
+        await _type(tester, find.byKey(const Key('profile_height')), '165');
+
+        expect(find.byKey(const Key('bmi_pending')), findsOneWidget);
+        expect(find.byKey(const Key('bmi_value')), findsNothing);
+      });
+    }
+
     testWidgets('con peso y estatura lo calcula y lo clasifica',
         (tester) async {
       await _pump(tester);
@@ -308,6 +320,68 @@ void main() {
       expect(h.patients.createdProfiles, isEmpty);
       expect(find.text(l10n.validationAllergiesRequired), findsOneWidget);
       expect(h.drafts.writes, 0);
+    });
+
+    for (final (variant, weight, message) in <(String, String, String)>[
+      ('B', '-68', l10n.validationWeightInvalid),
+      ('C', '400', l10n.validationWeightOutOfRange),
+    ]) {
+      testWidgets('$variant: conserva la fecha y la estatura y no guarda nada',
+          (tester) async {
+        final h = await _pump(tester);
+
+        await _fillPhysical(tester, weight: weight);
+        await _continue(tester);
+
+        expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+        expect(find.text(message), findsOneWidget);
+        expect(_text(tester, 'profile_date_of_birth'), '14/03/1991');
+        expect(_text(tester, 'profile_height'), '165');
+        expect(_text(tester, 'profile_weight'), weight);
+        expect(h.patients.createdProfiles, isEmpty);
+        expect(h.drafts.writes, 0);
+      });
+    }
+
+    testWidgets('D: conserva la estatura y no guarda nada', (tester) async {
+      final h = await _pump(tester);
+
+      await _fillPhysical(tester, dateOfBirth: '01/01/2030');
+      await _continue(tester);
+
+      expect(_text(tester, 'profile_height'), '165');
+      expect(_text(tester, 'profile_date_of_birth'), '01/01/2030');
+      expect(h.drafts.writes, 0);
+    });
+
+    testWidgets('final: tras A a E el asistente vuelve a abrir vacío',
+        (tester) async {
+      final h = await _pump(tester);
+      for (final (date, weight) in <(String, String)>[
+        ('14/03/1991', ''),
+        ('14/03/1991', '-68'),
+        ('14/03/1991', '400'),
+        ('01/01/2030', '62'),
+      ]) {
+        await _fillPhysical(tester, dateOfBirth: date, weight: weight);
+        await _continue(tester);
+        expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      }
+      await _fillPhysical(tester);
+      await _continue(tester);
+      await _tap(tester, find.text(l10n.ibsSubtypeD));
+      await _tap(tester, find.byKey(const Key('profile_submit')));
+      expect(find.text(l10n.validationAllergiesRequired), findsOneWidget);
+
+      await tester.pumpWidget(const SizedBox.shrink());
+      await _pump(tester, drafts: h.drafts);
+
+      expect(h.patients.createdProfiles, isEmpty);
+      expect(h.drafts.writes, 0);
+      expect(_stepLabel(tester), l10n.onboardingStepLabel(1, 3));
+      expect(_text(tester, 'profile_date_of_birth'), '');
+      expect(_text(tester, 'profile_weight'), '');
+      expect(_text(tester, 'profile_height'), '');
     });
   });
 

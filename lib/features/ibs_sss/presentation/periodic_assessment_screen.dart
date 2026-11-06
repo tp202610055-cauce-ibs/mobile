@@ -53,7 +53,12 @@ class _PeriodicAssessmentScreenState
     final missing = state.missing.length;
 
     return CauceScaffold(
-      appBar: CauceAppBar(title: l10n.ibsSssPeriodicTitle),
+      // El mismo camino que el atrás del sistema: respeta un PopScope.
+      appBar: CauceAppBar(
+        title: l10n.ibsSssPeriodicTitle,
+        showBackButton: true,
+        onBack: () => Navigator.of(context).maybePop(),
+      ),
       scrollable: true,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

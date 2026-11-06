@@ -380,6 +380,38 @@ void main() {
     });
   });
 
+  group('MealFormScreen · cada cantidad no válida', () {
+    for (final (value, expected) in <(String, String)>[
+      ('NaN', l10n.mealsIssueQuantityNotANumber),
+      ('Infinity', l10n.mealsIssueQuantityNotANumber),
+      ('-Infinity', l10n.mealsIssueQuantityNotANumber),
+      ('1e999', l10n.mealsIssueQuantityNotANumber),
+      ('', l10n.mealsIssueQuantityNotANumber),
+      ('   ', l10n.mealsIssueQuantityNotANumber),
+      ('cien', l10n.mealsIssueQuantityNotANumber),
+      ('-50', l10n.mealsIssueInvalidQuantity),
+      ('0', l10n.mealsIssueInvalidQuantity),
+    ]) {
+      testWidgets('«$value» no se guarda, avisa y conserva lo escrito',
+          (tester) async {
+        await openWithCausa(tester);
+        await tester.enterText(quantityField(), value);
+        await tapChoice(tester, l10n.measurementUnitGrams);
+        await tapChoice(tester, l10n.mealTimeLunch);
+
+        await save(tester);
+
+        expect(await savedMeals(), 0);
+        expect(meals.created, isEmpty);
+        expect(find.text(expected), findsOneWidget);
+        expect(
+          tester.widget<EditableText>(quantityField()).controller.text,
+          value,
+        );
+      });
+    }
+  });
+
   group('MealFormScreen · recorridos completos', () {
     testWidgets('CP022: Causa rellena, 150 g, almuerzo, con conexion',
         (tester) async {
